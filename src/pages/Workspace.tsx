@@ -58,8 +58,17 @@ import type { Problem } from '../types';
 const languageDots: Record<CodeLanguage, string> = {
   javascript: 'bg-amber-400',
   python: 'bg-sky-400',
-  java: 'bg-orange-400',
-  cpp: 'bg-violet-400',
+  java: 'bg-orange-500',
+  cpp: 'bg-blue-500',
+  c: 'bg-slate-400',
+  typescript: 'bg-blue-400',
+  csharp: 'bg-purple-500',
+  rust: 'bg-amber-700',
+  go: 'bg-cyan-500',
+  kotlin: 'bg-violet-400',
+  swift: 'bg-orange-600',
+  ruby: 'bg-red-500',
+  php: 'bg-indigo-400',
 };
 
 const languageLabels: Record<CodeLanguage, string> = {
@@ -67,6 +76,47 @@ const languageLabels: Record<CodeLanguage, string> = {
   python: 'Python 3',
   java: 'Java',
   cpp: 'C++',
+  c: 'C',
+  typescript: 'TypeScript',
+  csharp: 'C#',
+  rust: 'Rust',
+  go: 'Go',
+  kotlin: 'Kotlin',
+  swift: 'Swift',
+  ruby: 'Ruby',
+  php: 'PHP',
+};
+
+const languageExtensions: Record<CodeLanguage, string> = {
+  javascript: 'js',
+  python: 'py',
+  java: 'java',
+  cpp: 'cpp',
+  c: 'c',
+  typescript: 'ts',
+  csharp: 'cs',
+  rust: 'rs',
+  go: 'go',
+  kotlin: 'kt',
+  swift: 'swift',
+  ruby: 'rb',
+  php: 'php',
+};
+
+const monacoLanguages: Record<CodeLanguage, string> = {
+  javascript: 'javascript',
+  python: 'python',
+  java: 'java',
+  cpp: 'cpp',
+  c: 'c',
+  typescript: 'typescript',
+  csharp: 'csharp',
+  rust: 'rust',
+  go: 'go',
+  kotlin: 'kotlin',
+  swift: 'swift',
+  ruby: 'ruby',
+  php: 'php',
 };
 
 type RunnerAction = 'run' | 'submit';
@@ -830,7 +880,7 @@ function WorkspaceSession({
             )}
             <div className="workspace-window-dots"><i/><i/><i/></div>
             <span className="workspace-file-icon"><FileCode2 size={14}/></span>
-            <span className="truncate text-xs font-semibold text-primary">solution.{language === 'javascript' ? 'js' : language === 'python' ? 'py' : language === 'java' ? 'java' : 'cpp'}</span>
+            <span className="truncate text-xs font-semibold text-primary">solution.{languageExtensions[language] || 'txt'}</span>
             <span className={`workspace-save-status workspace-save-status-${saveStatus}`} title={saveStatusTitle} role="status" aria-live="polite">
               <i className="workspace-save-dot"/>
               <span>{saveStatusLabel}</span>
@@ -841,10 +891,27 @@ function WorkspaceSession({
             <label className="workspace-language-select" aria-label="Choose programming language">
               <span className={`h-2 w-2 shrink-0 rounded-full ${languageDots[language]}`}/>
               <select value={language} onChange={(event) => handleLanguageChange(event.target.value)}>
-                <option value="javascript">JavaScript</option>
-                <option value="python">Python 3</option>
-                <option value="java">Java</option>
-                <option value="cpp">C++</option>
+                <optgroup label="Popular">
+                  <option value="javascript">JavaScript</option>
+                  <option value="python">Python 3</option>
+                  <option value="java">Java</option>
+                  <option value="cpp">C++</option>
+                  <option value="typescript">TypeScript</option>
+                </optgroup>
+                <optgroup label="Systems & Compiled">
+                  <option value="c">C</option>
+                  <option value="csharp">C#</option>
+                  <option value="rust">Rust</option>
+                  <option value="go">Go</option>
+                </optgroup>
+                <optgroup label="Mobile & Modern">
+                  <option value="kotlin">Kotlin</option>
+                  <option value="swift">Swift</option>
+                </optgroup>
+                <optgroup label="Scripting">
+                  <option value="ruby">Ruby</option>
+                  <option value="php">PHP</option>
+                </optgroup>
               </select>
             </label>
             <button
@@ -890,7 +957,7 @@ function WorkspaceSession({
           <Editor
             height="100%"
             path={`${problem.id}/${language}`}
-            language={language}
+            language={monacoLanguages[language] || language}
             value={code}
             loading={<EditorLoadingSkeleton/>}
             onChange={(value) => {

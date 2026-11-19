@@ -48,7 +48,20 @@ export interface EmailVerificationToken {
 }
 
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
-export type CodeLanguage = 'javascript' | 'python' | 'java' | 'cpp';
+export type CodeLanguage =
+  | 'javascript'
+  | 'python'
+  | 'java'
+  | 'cpp'
+  | 'c'
+  | 'typescript'
+  | 'csharp'
+  | 'rust'
+  | 'go'
+  | 'kotlin'
+  | 'swift'
+  | 'ruby'
+  | 'php';
 
 export interface Problem {
   id: string;
