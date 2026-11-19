@@ -23,6 +23,10 @@ export const config = {
   },
   fromEmail: process.env.FROM_EMAIL || 'no-reply@codearena.dev',
 
+  // OnlineCompiler.io Code Execution Engine
+  onlineCompilerApiKey: process.env.ONLINECOMPILER_API_KEY || '',
+  onlineCompilerApiUrl: process.env.ONLINECOMPILER_API_URL || 'https://api.onlinecompiler.io/api/run-code-sync/',
+
   // Judge / Execution settings
   judge0ApiKey: process.env.JUDGE0_API_KEY || '',
   judge0ApiUrl: process.env.JUDGE0_API_URL || 'https://judge0-ce.p.rapidapi.com',

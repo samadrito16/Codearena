@@ -8,6 +8,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
+  Clock,
+  Cpu,
   FileCode2,
   FlaskConical,
   Keyboard,
@@ -20,11 +22,13 @@ import {
   Terminal,
   ThumbsUp,
   X,
+  XCircle,
 } from 'lucide-react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useUi } from '../context/UiContext';
 import { themePalettes } from '../data/themes';
+import { runCode, submitCode, type ExecutionResponse } from '../services/executionService';
 import CollectionPicker from '../components/CollectionPicker';
 import EditorSettingsPopover from '../components/EditorSettingsPopover';
 import ProblemNotesPanel from '../components/ProblemNotesPanel';
@@ -66,7 +70,7 @@ const languageLabels: Record<CodeLanguage, string> = {
 };
 
 type RunnerAction = 'run' | 'submit';
-type RunnerState = 'idle' | 'checking' | 'offline';
+type RunnerState = 'idle' | 'running' | 'completed' | 'error';
 type ConsoleTab = 'testcases' | 'console';
 
 export default function Workspace() {
@@ -166,6 +170,7 @@ function WorkspaceSession({
     toggleSolved,
     recordPracticeSession,
     submissions,
+    recordSubmission,
     dailyChallengeByDate,
     dailyCompletions,
     completeDailyChallenge,
@@ -227,6 +232,9 @@ function WorkspaceSession({
   const [consoleCollapsed, setConsoleCollapsed] = useState(false);
   const [runnerState, setRunnerState] = useState<RunnerState>('idle');
   const [runnerAction, setRunnerAction] = useState<RunnerAction>('run');
+  const [executionResult, setExecutionResult] = useState<ExecutionResponse | null>(null);
+  const [executionError, setExecutionError] = useState<string | null>(null);
+  const [activeResultCaseIndex, setActiveResultCaseIndex] = useState<number>(0);
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [pendingLeavePath, setPendingLeavePath] = useState<string | null>(null);
@@ -260,7 +268,7 @@ function WorkspaceSession({
     error: editorialError,
     retry: retryEditorial,
   } = useEditorial(problem.id);
-  const judgeSubmissions = submissions.filter((item) => item.problemId === problem.id && item.source === 'judge');
+  const problemSubmissions = submissions.filter((item) => item.problemId === problem.id);
 
   const registerEditorTheme = (monaco: any) => {
     // Register every palette/mode combination so theme changes update the mounted editor.
@@ -316,13 +324,68 @@ function WorkspaceSession({
     return () => registerNavigationGuard(null);
   }, [isUnsaved, registerNavigationGuard]);
 
-  const requestExecution = useCallback((action: RunnerAction) => {
+  const requestExecution = useCallback(async (action: RunnerAction) => {
     setRunnerAction(action);
     setConsoleTab('console');
     setConsoleCollapsed(false);
-    setRunnerState('checking');
-    announce(action === 'run' ? 'Checking execution service for Run' : 'Checking execution service for Submit');
-  }, [announce]);
+    setRunnerState('running');
+    setExecutionError(null);
+    setActiveResultCaseIndex(0);
+
+    if (action === 'run') {
+      announce(`Running ${languageLabels[language]} solution…`);
+      try {
+        const customInput = selectedCase && selectedCase.source === 'custom' ? selectedCase.input : undefined;
+        const res = await runCode({
+          problemId: problem.id,
+          code,
+          language,
+          customInput,
+        });
+        setExecutionResult(res);
+        setRunnerState('completed');
+        announce(`Run completed: ${res.verdict}. ${res.totalPassed} of ${res.totalTests} tests passed.`);
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setExecutionError(msg);
+        setRunnerState('error');
+        announce(`Execution error: ${msg}`);
+      }
+    } else {
+      announce(`Submitting ${languageLabels[language]} solution…`);
+      try {
+        const res = await submitCode({
+          problemId: problem.id,
+          code,
+          language,
+        });
+        setExecutionResult(res);
+        setRunnerState('completed');
+
+        const outcome = res.verdict === 'Accepted' ? 'accepted'
+          : res.verdict === 'Time Limit Exceeded' ? 'tle'
+          : res.verdict === 'Runtime Error' ? 'runtime_error'
+          : 'wrong_answer';
+
+        recordSubmission(problem.id, outcome, undefined, language, {
+          runtimeMs: res.runtimeMs,
+          memoryMb: res.memoryMb,
+          source: 'onlinecompiler',
+        });
+
+        if (outcome === 'accepted' && !solved) {
+          toggleSolved(problem.id, undefined, language);
+        }
+
+        announce(`Submission graded: ${res.verdict}. ${res.totalPassed} of ${res.totalTests} tests passed.`);
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setExecutionError(msg);
+        setRunnerState('error');
+        announce(`Submission error: ${msg}`);
+      }
+    }
+  }, [announce, code, language, problem.id, recordSubmission, selectedCase, solved, toggleSolved]);
 
   // Sensible workspace keyboard shortcuts (capture phase so Ctrl+S / Ctrl+Enter work inside Monaco).
   useEffect(() => {
@@ -406,11 +469,7 @@ function WorkspaceSession({
     toggleDescription,
   ]);
 
-  useEffect(() => {
-    if (runnerState !== 'checking') return undefined;
-    const timer = window.setTimeout(() => setRunnerState('offline'), 650);
-    return () => window.clearTimeout(timer);
-  }, [runnerState, runnerAction]);
+
 
   function handleLanguageChange(next: string) {
     if (!isCodeLanguage(next)) return;
@@ -707,15 +766,15 @@ function WorkspaceSession({
                 onClearNote={clearNote}
               />
             ) : activeTab === 'Submissions' ? (
-              judgeSubmissions.length > 0 ? (
+              problemSubmissions.length > 0 ? (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-bold text-primary">Submission history</p>
                     <span className="text-[10px] font-semibold text-muted tabular-nums">
-                      {judgeSubmissions.length} {judgeSubmissions.length === 1 ? 'record' : 'records'}
+                      {problemSubmissions.length} {problemSubmissions.length === 1 ? 'record' : 'records'}
                     </span>
                   </div>
-                  {judgeSubmissions.map((item) => (
+                  {problemSubmissions.map((item) => (
                     <SubmissionResultRow key={item.id} submission={item}/>
                   ))}
                 </div>
@@ -885,7 +944,7 @@ function WorkspaceSession({
                 >
                   <Terminal size={13}/>
                   <span>Console</span>
-                  {runnerState === 'offline' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
+                  {runnerState === 'error' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
                 </button>
               </div>
               <button
@@ -903,7 +962,7 @@ function WorkspaceSession({
               <button
                 type="button"
                 onClick={() => requestExecution('run')}
-                disabled={runnerState === 'checking'}
+                disabled={runnerState === 'running'}
                 className="btn-secondary workspace-run-button"
                 title={selectedCase ? `Run against ${selectedCase.name}` : 'Run code'}
               >
@@ -912,7 +971,7 @@ function WorkspaceSession({
               <button
                 type="button"
                 onClick={() => requestExecution('submit')}
-                disabled={runnerState === 'checking'}
+                disabled={runnerState === 'running'}
                 className="btn-primary workspace-submit-button"
               >
                 <Send size={13}/><span>Submit</span>
@@ -940,52 +999,172 @@ function WorkspaceSession({
                       <span className="workspace-console-prompt">$</span>
                       <span className="min-w-0 truncate">
                         {selectedCase
-                          ? `Selected case: ${selectedCase.name}. Click Run or Submit to check the execution service.`
-                          : 'Ready when you are. Click Run or Submit to check the execution service.'}
+                          ? `Selected case: ${selectedCase.name}. Click Run to test solution or Submit to evaluate.`
+                          : 'Ready when you are. Click Run to test solution or Submit to evaluate.'}
                       </span>
                       <span className="terminal-cursor"/>
                     </div>
                   )}
-                  {runnerState === 'checking' && (
+
+                  {runnerState === 'running' && (
                     <div className="workspace-run-state">
                       <LoaderCircle size={16} className="animate-spin themed-link"/>
                       <div>
-                        <p className="text-xs font-semibold text-primary">Checking execution service…</p>
+                        <p className="text-xs font-semibold text-primary">
+                          {runnerAction === 'run' ? 'Executing solution…' : 'Submitting solution to OnlineCompiler…'}
+                        </p>
                         <p className="mt-0.5 text-[10px] text-muted">
-                          Preparing {runnerAction === 'run' ? (selectedCase ? `run for ${selectedCase.name}` : 'run') : 'submission'} request
+                          Running with {languageLabels[language]} · OnlineCompiler.io
                         </p>
                       </div>
                     </div>
                   )}
-                  {runnerState === 'offline' && (
+
+                  {runnerState === 'error' && (
                     <div className="workspace-run-unavailable" role="status">
                       <div className="workspace-warning-icon"><AlertCircle size={16}/></div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <p className="text-xs font-bold text-primary">Execution service not connected</p>
-                          <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300">
-                            Judge offline
+                          <p className="text-xs font-bold text-primary">Execution Error</p>
+                          <span className="rounded-full bg-rose-500/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300">
+                            Failed
                           </span>
                         </div>
-                        <p className="mt-1 text-[11px] leading-5 text-muted">
-                          {runnerAction === 'run'
-                            ? 'Code cannot be compiled or executed until a backend execution service is connected. No output or pass/fail result was produced.'
-                            : 'Submissions cannot be graded until a backend judge service is connected. Your code draft and custom test cases remain saved locally.'}
+                        <p className="mt-1 text-[11px] leading-5 text-muted font-mono whitespace-pre-wrap">
+                          {executionError || 'An error occurred during code execution.'}
                         </p>
-                        {selectedCase && (
-                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-muted">
-                            <span>
-                              Selected case: <strong className="text-primary">{selectedCase.name}</strong> ({selectedCase.source === 'sample' ? 'Sample' : 'Custom'})
-                            </span>
-                            {selectedCase.input.trim() && (
-                              <span className="min-w-0 truncate">
-                                Input: <code className="workspace-inline-code">{selectedCase.input}</code>
-                              </span>
-                            )}
-                          </div>
-                        )}
                       </div>
-                      <button type="button" onClick={() => setRunnerState('idle')} className="workspace-dismiss-button" aria-label="Dismiss runner message">Dismiss</button>
+                      <button
+                        type="button"
+                        onClick={() => setRunnerState('idle')}
+                        className="workspace-dismiss-button"
+                        aria-label="Dismiss error message"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  )}
+
+                  {runnerState === 'completed' && executionResult && (
+                    <div className="flex flex-col gap-3">
+                      {/* Top Execution Summary Banner */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-2.5" style={{ borderColor: 'var(--ca-border)' }}>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {executionResult.verdict === 'Accepted' ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2.5 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
+                              <CheckCircle2 size={13}/>
+                              Accepted
+                            </span>
+                          ) : executionResult.verdict === 'Wrong Answer' ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 px-2.5 py-1 text-xs font-bold text-rose-700 dark:text-rose-300 border border-rose-500/25">
+                              <XCircle size={13}/>
+                              Wrong Answer
+                            </span>
+                          ) : executionResult.verdict === 'Time Limit Exceeded' ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-bold text-amber-700 dark:text-amber-300 border border-amber-500/25">
+                              <Clock size={13}/>
+                              Time Limit Exceeded
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/15 px-2.5 py-1 text-xs font-bold text-rose-700 dark:text-rose-300 border border-rose-500/25">
+                              <AlertCircle size={13}/>
+                              {executionResult.verdict}
+                            </span>
+                          )}
+
+                          <span className="text-xs font-medium text-muted">
+                            {executionResult.totalPassed} / {executionResult.totalTests} test cases passed
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs text-muted">
+                          <span className="inline-flex items-center gap-1 font-mono">
+                            <Clock size={12} className="themed-link"/>
+                            {executionResult.runtimeMs} ms
+                          </span>
+                          <span className="inline-flex items-center gap-1 font-mono">
+                            <Cpu size={12} className="themed-link"/>
+                            {executionResult.memoryMb} MB
+                          </span>
+                          {executionResult.rankingPercentile !== undefined && (
+                            <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                              Beats {executionResult.rankingPercentile}%
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Test Case Result Tabs */}
+                      {executionResult.cases && executionResult.cases.length > 0 && (
+                        <div className="flex flex-col gap-2.5">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            {executionResult.cases.map((c, idx) => {
+                              const isActive = idx === activeResultCaseIndex;
+                              return (
+                                <button
+                                  key={c.caseNumber}
+                                  type="button"
+                                  onClick={() => setActiveResultCaseIndex(idx)}
+                                  className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition ${
+                                    isActive
+                                      ? 'bg-primary/15 text-primary font-semibold ring-1 ring-primary/40'
+                                      : 'bg-muted/10 text-muted hover:bg-muted/20'
+                                  }`}
+                                >
+                                  <span
+                                    className={`h-1.5 w-1.5 rounded-full ${c.passed ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                                    aria-hidden="true"
+                                  />
+                                  <span>Case {c.caseNumber}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          {/* Selected Case I/O */}
+                          {(() => {
+                            const curCase = executionResult.cases[activeResultCaseIndex] ?? executionResult.cases[0];
+                            if (!curCase) return null;
+                            return (
+                              <div className="grid gap-2 sm:grid-cols-2">
+                                <div className="space-y-1">
+                                  <p className="workspace-tc-field-label">Input</p>
+                                  <pre className="workspace-tc-readonly font-mono">{curCase.input}</pre>
+                                </div>
+                                <div className="space-y-1">
+                                  <p className="workspace-tc-field-label">Expected Output</p>
+                                  <pre className="workspace-tc-readonly font-mono">{curCase.expected || '(any output)'}</pre>
+                                </div>
+                                <div className="sm:col-span-2 space-y-1">
+                                  <div className="flex items-center justify-between">
+                                    <p className="workspace-tc-field-label">Actual Output</p>
+                                    <span className={`text-[10px] font-bold ${curCase.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                                      {curCase.passed ? '✓ Output matches expected' : '✗ Output mismatch'}
+                                    </span>
+                                  </div>
+                                  <pre className={`workspace-tc-readonly font-mono ${curCase.passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                                    {curCase.actual || (curCase.passed ? '(no console output)' : '(empty output)')}
+                                  </pre>
+                                </div>
+                                {curCase.stderr && (
+                                  <div className="sm:col-span-2 space-y-1">
+                                    <p className="workspace-tc-field-label text-rose-500">Error / Stderr</p>
+                                    <pre className="workspace-tc-readonly font-mono text-rose-500 whitespace-pre-wrap">{curCase.stderr}</pre>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      )}
+
+                      {/* Top-level Stderr if any */}
+                      {executionResult.stderr && (!executionResult.cases || executionResult.cases.every(c => !c.stderr)) && (
+                        <div className="space-y-1">
+                          <p className="workspace-tc-field-label text-rose-500">Stderr</p>
+                          <pre className="workspace-tc-readonly font-mono text-rose-500 whitespace-pre-wrap">{executionResult.stderr}</pre>
+                        </div>
+                      )}
                     </div>
                   )}
                 </>

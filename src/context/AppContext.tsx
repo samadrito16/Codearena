@@ -37,7 +37,13 @@ interface AppContextValue {
   activityLog: ActivityEvent[];
   recordPracticeSession: (problemId: string, durationSeconds: number) => void;
   submissions: SubmissionRecord[];
-  recordSubmission: (problemId: string, outcome: SubmissionOutcome, durationSeconds?: number, language?: string) => void;
+  recordSubmission: (
+    problemId: string,
+    outcome: SubmissionOutcome,
+    durationSeconds?: number,
+    language?: string,
+    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge' },
+  ) => void;
   dailyChallengeByDate: Record<string, string>;
   ensureDailyChallenge: (dateKey: string, problemId: string) => void;
   dailyCompletions: Record<string, string>;
@@ -239,6 +245,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     outcome: SubmissionOutcome,
     durationSeconds?: number,
     language = 'javascript',
+    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge' },
   ) => {
     const problem = problems.find((item) => item.id === problemId);
     if (!problem) return;
@@ -256,7 +263,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       outcome,
       language,
       timestamp,
-      source: 'local',
+      source: metadata?.source ?? 'onlinecompiler',
+      runtimeMs: metadata?.runtimeMs,
+      memoryMb: metadata?.memoryMb,
       ...(validDuration !== undefined ? { durationSeconds: validDuration } : {}),
     };
     setSubmissions((current) => [submission, ...current].slice(0, 500));

@@ -1,6 +1,54 @@
 import vm from 'node:vm';
+import { spawn } from 'node:child_process';
 import { config } from '../config.js';
 import { getCompilerId } from './languageRegistry.js';
+
+function runProcessWithStdin(
+  command: string,
+  args: string[],
+  stdin: string,
+  timeoutMs: number,
+): Promise<{ stdout: string; stderr: string; exitCode: number }> {
+  return new Promise((resolve) => {
+    let stdout = '';
+    let stderr = '';
+
+    try {
+      const child = spawn(command, args, {
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+
+      const timer = setTimeout(() => {
+        child.kill('SIGKILL');
+        resolve({ stdout, stderr: 'Time Limit Exceeded (5s)', exitCode: 124 });
+      }, timeoutMs);
+
+      child.stdout.on('data', (d) => { stdout += d.toString(); });
+      child.stderr.on('data', (d) => { stderr += d.toString(); });
+
+      child.on('error', (err) => {
+        clearTimeout(timer);
+        resolve({ stdout, stderr: err.message, exitCode: 1 });
+      });
+
+      child.on('close', (code) => {
+        clearTimeout(timer);
+        resolve({ stdout, stderr, exitCode: code ?? 0 });
+      });
+
+      if (stdin) {
+        child.stdin.write(stdin);
+      }
+      child.stdin.end();
+    } catch (err: unknown) {
+      resolve({
+        stdout: '',
+        stderr: err instanceof Error ? err.message : String(err),
+        exitCode: 1,
+      });
+    }
+  });
+}
 
 export interface TestCaseInput {
   caseNumber: number;
@@ -40,74 +88,204 @@ interface OnlineCompilerResponse {
   signal?: string;
 }
 
-function normalizeOutput(str: string | undefined): string {
+export function normalizeOutput(str: string | undefined): string {
   if (!str) return '';
-  return str.replace(/\r\n/g, '\n').trim();
+  const trimmed = str.replace(/\r\n/g, '\n').trim();
+  try {
+    const parsed = JSON.parse(trimmed);
+    return JSON.stringify(parsed);
+  } catch {
+    return trimmed;
+  }
 }
 
 /**
- * Builds execution source code. If user's code is a bare function (e.g. LeetCode style),
- * we append a small test driver for Python or JavaScript to invoke it with the input and output JSON.
+ * Builds execution source code. Wraps bare functions (LeetCode style) in a harness
+ * that parses test case inputs, invokes the solution, and serializes the return value.
  */
-function buildExecutionSource(language: string, userCode: string, input: string): { code: string; stdin: string } {
+export function buildExecutionSource(
+  language: string,
+  userCode: string,
+  input: string,
+): { code: string; stdin: string } {
   const trimmed = userCode.trim();
 
-  // If user wrote Python solution
+  // Python test harness
   if (language === 'python') {
-    if (trimmed.includes('def two_sum(') && !trimmed.includes('sys.stdin')) {
-      const harness = `
-import sys, json
-
+    if (!trimmed.includes('sys.stdin') && !trimmed.includes('input(')) {
+      const pythonHarness = `
 ${trimmed}
 
-try:
+import sys, json, inspect, re
+
+def _run_harness():
     raw = sys.stdin.read().strip()
-    if raw:
-        # Check if input has nums = [...], target = ...
-        import re
-        nums_m = re.search(r'nums\\s*=\\s*(\\[[^\\]]+\\])', raw)
-        target_m = re.search(r'target\\s*=\\s*(-?\\d+)', raw)
-        if nums_m and target_m:
-            nums = json.loads(nums_m.group(1))
-            target = int(target_m.group(1))
-            res = two_sum(nums, target)
-            print(json.dumps(res))
+    if not raw:
+        return
+
+    parts = re.split(r',\\s*(?=[a-zA-Z_]\\w*\\s*=)', raw)
+    is_named = any(re.match(r'^[a-zA-Z_]\\w*\\s*=', p) for p in parts)
+
+    scope = {}
+    if is_named:
+        for p in parts:
+            try:
+                exec(p, {}, scope)
+            except Exception:
+                pass
+    else:
+        try:
+            scope = {'data': json.loads(raw)}
+        except Exception:
+            scope = {'data': raw}
+
+    fn = None
+    if 'Solution' in globals() and isinstance(globals()['Solution'], type):
+        try:
+            sol = globals()['Solution']()
+            methods = [m for m in dir(sol) if not m.startswith('_')]
+            if methods:
+                fn = getattr(sol, methods[0])
+        except Exception:
+            pass
+
+    if fn is None:
+        candidates = [
+            'two_sum', 'is_valid', 'length_of_longest_substring',
+            'max_area', 'find_median_sorted_arrays', 'solution', 'solve'
+        ]
+        for cand in candidates:
+            if cand in globals() and callable(globals()[cand]):
+                fn = globals()[cand]
+                break
+
+    if fn is None:
+        for name, val in list(globals().items()):
+            if callable(val) and not name.startswith('_') and getattr(val, '__module__', None) == '__main__':
+                fn = val
+                break
+
+    if fn is None:
+        return
+
+    try:
+        sig = inspect.signature(fn)
+        params = list(sig.parameters.keys())
+        if is_named and all(p in scope for p in params):
+            args = [scope[p] for p in params]
+            res = fn(*args)
+        elif len(params) == 1 and 'data' in scope:
+            res = fn(scope['data'])
         else:
-            print(raw)
-except Exception as e:
-    import traceback
-    traceback.print_exc()
+            res = fn(*list(scope.values()))
+    except Exception:
+        # Fallback to positional invocation
+        res = fn(*list(scope.values()))
+
+    if res is not None:
+        if isinstance(res, bool):
+            print("true" if res else "false")
+        else:
+            print(json.dumps(res, separators=(',', ':')))
+
+if __name__ == '__main__':
+    try:
+        _run_harness()
+    except Exception as e:
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
 `;
-      return { code: harness, stdin: input };
+      return { code: pythonHarness, stdin: input };
     }
   }
 
-  // If user wrote JavaScript solution
+  // JavaScript test harness
   if (language === 'javascript' || language === 'typescript') {
-    if (trimmed.includes('function twoSum(') && !trimmed.includes('process.stdin')) {
-      const harness = `
+    if (!trimmed.includes('process.stdin') && !trimmed.includes('readFileSync(0')) {
+      const jsHarness = `
 ${trimmed}
 
-const fs = require('fs');
-try {
-  const raw = fs.readFileSync(0, 'utf-8').trim();
-  if (raw) {
-    const numsMatch = raw.match(/nums\\s*=\\s*(\\[[^\\]]+\\])/);
-    const targetMatch = raw.match(/target\\s*=\\s*(-?\\d+)/);
-    if (numsMatch && targetMatch) {
-      const nums = JSON.parse(numsMatch[1]);
-      const target = Number(targetMatch[1]);
-      const res = twoSum(nums, target);
-      console.log(JSON.stringify(res));
-    } else {
-      console.log(raw);
+(function() {
+  const fs = require('fs');
+  let raw = '';
+  try {
+    raw = fs.readFileSync(0, 'utf-8').trim();
+  } catch (_) {}
+
+  if (!raw) return;
+
+  function parseArgs(inputStr) {
+    const parts = inputStr.split(/,\\s*(?=[a-zA-Z_$][\\w$]*\\s*=)/);
+    const isNamed = parts.some(p => /^[a-zA-Z_$][\\w$]*\\s*=/.test(p));
+    if (isNamed) {
+      const obj = {};
+      for (const p of parts) {
+        const idx = p.indexOf('=');
+        if (idx !== -1) {
+          const k = p.slice(0, idx).trim();
+          const v = p.slice(idx + 1).trim();
+          try { obj[k] = JSON.parse(v); } catch { obj[k] = v; }
+        }
+      }
+      return { isNamed: true, value: obj };
+    }
+    try {
+      return { isNamed: false, value: JSON.parse(inputStr) };
+    } catch {
+      return { isNamed: false, value: inputStr };
     }
   }
-} catch (err) {
-  console.error(err);
-}
+
+  const parsedInfo = parseArgs(raw);
+
+  let fn = null;
+  if (typeof Solution === 'function') {
+    try {
+      const inst = new Solution();
+      const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(inst)).filter(m => m !== 'constructor');
+      if (methods.length > 0) fn = inst[methods[0]].bind(inst);
+    } catch (_) {}
+  }
+
+  if (!fn) {
+    const candidates = [
+      'twoSum', 'isValid', 'lengthOfLongestSubstring',
+      'maxArea', 'findMedianSortedArrays', 'solution', 'solve'
+    ];
+    for (const name of candidates) {
+      try {
+        const cand = eval('typeof ' + name + ' === "function" ? ' + name + ' : null');
+        if (cand) { fn = cand; break; }
+      } catch (_) {}
+    }
+  }
+
+  if (!fn) return;
+
+  let result;
+  if (parsedInfo.isNamed && typeof parsedInfo.value === 'object') {
+    const fnStr = fn.toString();
+    const paramMatch = fnStr.match(/\\(([^)]*)\\)/);
+    if (paramMatch && paramMatch[1].trim()) {
+      const paramNames = paramMatch[1].split(',').map(s => s.trim().split(/[\\s:=]/)[0]);
+      const args = paramNames.map(p => parsedInfo.value[p]);
+      result = fn(...args);
+    } else {
+      result = fn(...Object.values(parsedInfo.value));
+    }
+  } else if (Array.isArray(parsedInfo.value)) {
+    result = fn(parsedInfo.value);
+  } else {
+    result = fn(parsedInfo.value);
+  }
+
+  if (result !== undefined) {
+    console.log(JSON.stringify(result));
+  }
+})();
 `;
-      return { code: harness, stdin: input };
+      return { code: jsHarness, stdin: input };
     }
   }
 
@@ -115,7 +293,8 @@ try {
 }
 
 /**
- * Executes code using OnlineCompiler.io API.
+ * Executes code using OnlineCompiler.io API, with an offline sandbox fallback
+ * for local development and testing.
  */
 async function executeOnlineCompiler(
   compilerId: string,
@@ -125,89 +304,108 @@ async function executeOnlineCompiler(
   const url = config.onlineCompilerApiUrl || 'https://api.onlinecompiler.io/api/run-code-sync/';
   const apiKey = config.onlineCompilerApiKey;
 
-  if (!apiKey) {
-    // Zero-config offline developer sandbox fallback for JavaScript
-    if (compilerId === 'nodejs-24' || compilerId === 'javascript') {
-      const start = Date.now();
-      let capturedOut = '';
-      let capturedErr = '';
+  // If API key is provided, execute against live OnlineCompiler.io endpoint
+  if (apiKey) {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          compiler: compilerId,
+          code,
+          input,
+          time_limit: 5,
+          memory_limit: 256,
+        }),
+      });
 
-      try {
-        const sandbox = {
-          console: {
-            log: (...args: unknown[]) => { capturedOut += args.map(String).join(' ') + '\n'; },
-            error: (...args: unknown[]) => { capturedErr += args.map(String).join(' ') + '\n'; },
-            warn: (...args: unknown[]) => { capturedOut += args.map(String).join(' ') + '\n'; },
-          },
-          require: (mod: string) => {
-            if (mod === 'fs') {
-              return {
-                readFileSync: () => input,
-              };
-            }
-            throw new Error(`Module ${mod} is not supported in offline sandbox`);
-          },
-        };
-        const ctx = vm.createContext(sandbox);
-        vm.runInContext(code, ctx, { timeout: 3000 });
+      if (response.ok) {
+        const data = (await response.json()) as OnlineCompilerResponse;
+        const runtimeMs = data.time ? Math.round(data.time * 1000) : 12;
+        const memoryMb = data.memory ? Math.round((data.memory / (1024 * 1024)) * 10) / 10 : 15.2;
+
         return {
-          stdout: capturedOut.trim(),
-          stderr: capturedErr.trim(),
-          runtimeMs: Math.max(1, Date.now() - start),
-          memoryMb: 14.5,
-          exitCode: 0,
-        };
-      } catch (err: unknown) {
-        return {
-          stdout: capturedOut.trim(),
-          stderr: err instanceof Error ? err.stack || err.message : String(err),
-          runtimeMs: Math.max(1, Date.now() - start),
-          memoryMb: 14.5,
-          exitCode: 1,
+          stdout: (data.output || '').replace(/\r\n/g, '\n').trim(),
+          stderr: (data.error || '').replace(/\r\n/g, '\n').trim(),
+          runtimeMs,
+          memoryMb,
+          exitCode: data.exit_code ?? 0,
         };
       }
+    } catch {
+      // Fall through to local fallback if remote service encounters network failure
     }
-
-    throw new Error(
-      'OnlineCompiler API key not configured. Add ONLINECOMPILER_API_KEY to backend/.env (Get free tier at https://onlinecompiler.io/)',
-    );
   }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      compiler: compilerId,
-      code,
-      input,
-      time_limit: 5,
-      memory_limit: 256,
-    }),
-  });
+  // Offline / Developer Sandbox Fallback
+  // JavaScript execution via Node.js vm sandbox
+  if (compilerId === 'nodejs-24' || compilerId === 'javascript') {
+    const start = Date.now();
+    let capturedOut = '';
+    let capturedErr = '';
 
-  if (!response.ok) {
-    const errorText = await response.text().catch(() => '');
-    throw new Error(`OnlineCompiler API error (${response.status}): ${errorText || response.statusText}`);
+    try {
+      const sandbox = {
+        console: {
+          log: (...args: unknown[]) => { capturedOut += args.map(String).join(' ') + '\n'; },
+          error: (...args: unknown[]) => { capturedErr += args.map(String).join(' ') + '\n'; },
+          warn: (...args: unknown[]) => { capturedOut += args.map(String).join(' ') + '\n'; },
+        },
+        require: (mod: string) => {
+          if (mod === 'fs') {
+            return {
+              readFileSync: () => input,
+            };
+          }
+          throw new Error(`Module ${mod} is not supported in sandbox`);
+        },
+      };
+      const ctx = vm.createContext(sandbox);
+      vm.runInContext(code, ctx, { timeout: 3000 });
+      return {
+        stdout: capturedOut.replace(/\r\n/g, '\n').trim(),
+        stderr: capturedErr.replace(/\r\n/g, '\n').trim(),
+        runtimeMs: Math.max(1, Date.now() - start),
+        memoryMb: 14.2,
+        exitCode: 0,
+      };
+    } catch (err: unknown) {
+      return {
+        stdout: capturedOut.replace(/\r\n/g, '\n').trim(),
+        stderr: err instanceof Error ? err.stack || err.message : String(err),
+        runtimeMs: Math.max(1, Date.now() - start),
+        memoryMb: 14.2,
+        exitCode: 1,
+      };
+    }
   }
 
-  const data = (await response.json()) as OnlineCompilerResponse;
-  const runtimeMs = data.time ? Math.round(data.time * 1000) : 10;
-  const memoryMb = data.memory ? Math.round((data.memory / (1024 * 1024)) * 10) / 10 : 15.2;
+  // Python execution via local Python executable (py / python)
+  if (compilerId === 'python-3.14' || compilerId === 'python') {
+    const start = Date.now();
+    const pythonCmd = process.platform === 'win32' ? 'py' : 'python3';
+    const result = await runProcessWithStdin(pythonCmd, ['-c', code], input, 5000);
 
-  return {
-    stdout: normalizeOutput(data.output),
-    stderr: normalizeOutput(data.error),
-    runtimeMs,
-    memoryMb,
-    exitCode: data.exit_code ?? 0,
-  };
+    return {
+      stdout: result.stdout.replace(/\r\n/g, '\n').trim(),
+      stderr: result.stderr.replace(/\r\n/g, '\n').trim(),
+      runtimeMs: Math.max(1, Date.now() - start),
+      memoryMb: 16.5,
+      exitCode: result.exitCode,
+    };
+  }
+
+  // For Java and C++ when API key is not yet set
+  throw new Error(
+    `OnlineCompiler API key required to execute ${compilerId}. Add ONLINECOMPILER_API_KEY to backend/.env (Get free API key at https://onlinecompiler.io/). JavaScript and Python can run via the local sandbox.`,
+  );
 }
 
 /**
- * Runs a set of testcases against the specified language and user code.
+ * Runs a set of test cases against the specified language and user code.
  */
 export async function runTestCases(
   languageId: string,
@@ -279,7 +477,7 @@ export async function runTestCases(
   let verdict: BatchExecutionResult['verdict'] = 'Accepted';
   if (hasTle) {
     verdict = 'Time Limit Exceeded';
-  } else if (hasRuntimeError) {
+  } else if (hasRuntimeError && totalPassed === 0) {
     verdict = 'Runtime Error';
   } else if (totalPassed < totalTests) {
     verdict = 'Wrong Answer';

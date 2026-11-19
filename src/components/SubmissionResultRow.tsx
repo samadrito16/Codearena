@@ -68,7 +68,7 @@ export function SubmissionResultRow({ submission }: { submission: SubmissionReco
         )}
         {submission.source && (
           <span className="rounded-full bg-slate-500/10 px-2 py-0.5 text-[9px] font-semibold text-muted">
-            {submission.source === 'judge' ? 'Judge Engine' : submission.source}
+            {submission.source === 'onlinecompiler' ? 'OnlineCompiler Engine' : submission.source === 'judge' ? 'Judge Engine' : submission.source}
           </span>
         )}
       </div>

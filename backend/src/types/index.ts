@@ -79,7 +79,7 @@ export interface SubmissionRecord {
   durationSeconds?: number;
   runtimeMs?: number;
   memoryMb?: number;
-  source: 'local' | 'judge';
+  source?: 'local' | 'onlinecompiler' | 'judge';
 }
 
 export interface ActivityEvent {
