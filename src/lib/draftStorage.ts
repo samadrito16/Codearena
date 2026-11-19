@@ -11,21 +11,7 @@ export interface DraftEntry {
 
 const DRAFTS_STORAGE_KEY = 'codearena-code-drafts';
 const LANGUAGES_STORAGE_KEY = 'codearena-problem-languages';
-const VALID_LANGUAGES: readonly CodeLanguage[] = [
-  'javascript',
-  'python',
-  'java',
-  'cpp',
-  'c',
-  'typescript',
-  'csharp',
-  'rust',
-  'go',
-  'kotlin',
-  'swift',
-  'ruby',
-  'php',
-];
+const VALID_LANGUAGES: readonly CodeLanguage[] = ['javascript', 'python', 'java', 'cpp'];
 
 export function isCodeLanguage(value: unknown): value is CodeLanguage {
   return typeof value === 'string' && (VALID_LANGUAGES as readonly string[]).includes(value);
@@ -48,24 +34,6 @@ export function getStarterCode(problem: Problem, language: CodeLanguage): string
       return `// ${titleComment}\nclass Solution {\n    public Object solution(Object input) {\n        // Write your solution here\n        return null;\n    }\n}\n`;
     case 'cpp':
       return `// ${titleComment}\n#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    void solve() {\n        // Write your solution here\n    }\n};\n`;
-    case 'c':
-      return `// ${titleComment}\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    // Write your solution here\n    return 0;\n}\n`;
-    case 'typescript':
-      return `// ${titleComment}\nfunction solution(input: any): any {\n  // Write your solution here\n  return null;\n}\n`;
-    case 'csharp':
-      return `// ${titleComment}\nusing System;\n\npublic class Solution {\n    public static void Main(string[] args) {\n        // Write your solution here\n    }\n}\n`;
-    case 'rust':
-      return `// ${titleComment}\nfn main() {\n    // Write your solution here\n}\n`;
-    case 'go':
-      return `// ${titleComment}\npackage main\n\nimport "fmt"\n\nfunc main() {\n    // Write your solution here\n}\n`;
-    case 'kotlin':
-      return `// ${titleComment}\nfun main() {\n    // Write your solution here\n}\n`;
-    case 'swift':
-      return `// ${titleComment}\nimport Foundation\n\n// Write your solution here\n`;
-    case 'ruby':
-      return `# ${titleComment}\n# Write your solution here\n`;
-    case 'php':
-      return `<?php\n// ${titleComment}\n// Write your solution here\n`;
   }
 }
 

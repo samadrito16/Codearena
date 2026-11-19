@@ -207,16 +207,10 @@ if __name__ == '__main__':
 ${trimmed}
 
 (function() {
+  const fs = require('fs');
   let raw = '';
   try {
-    if (typeof (globalThis as any).Deno !== 'undefined') {
-      const buf = new Uint8Array(65536);
-      const n = (globalThis as any).Deno.stdin.readSync(buf);
-      raw = n ? new TextDecoder().decode(buf.subarray(0, n)).trim() : '';
-    } else {
-      const fs = require('fs');
-      raw = fs.readFileSync(0, 'utf-8').trim();
-    }
+    raw = fs.readFileSync(0, 'utf-8').trim();
   } catch (_) {}
 
   if (!raw) return;

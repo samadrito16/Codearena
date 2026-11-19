@@ -1,18 +1,5 @@
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
-export type CodeLanguage =
-  | 'javascript'
-  | 'python'
-  | 'java'
-  | 'cpp'
-  | 'c'
-  | 'typescript'
-  | 'csharp'
-  | 'rust'
-  | 'go'
-  | 'kotlin'
-  | 'swift'
-  | 'ruby'
-  | 'php';
+export type CodeLanguage = 'javascript' | 'python' | 'java' | 'cpp';
 
 export interface Problem {
   id: string;
