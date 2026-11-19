@@ -1,3 +1,5 @@
+import { apiRequest } from '../lib/api';
+
 export interface TestCaseResult {
   caseNumber: number;
   input: string;
@@ -35,20 +37,10 @@ export async function runCode(options: {
   customInput?: string;
   cases?: { caseNumber?: number; input: string; expected?: string }[];
 }): Promise<ExecutionResponse> {
-  const response = await fetch('/api/submissions/run', {
+  return apiRequest<ExecutionResponse>('/submissions/run', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(options),
   });
-
-  if (!response.ok) {
-    const errBody = await response.json().catch(() => ({}));
-    throw new Error(errBody.error?.message || `Execution request failed with status ${response.status}`);
-  }
-
-  return response.json();
 }
 
 export async function submitCode(options: {
@@ -57,19 +49,8 @@ export async function submitCode(options: {
   language: string;
   durationSeconds?: number;
 }): Promise<ExecutionResponse> {
-  const response = await fetch('/api/submissions/submit', {
+  return apiRequest<ExecutionResponse>('/submissions/submit', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify(options),
   });
-
-  if (!response.ok) {
-    const errBody = await response.json().catch(() => ({}));
-    throw new Error(errBody.error?.message || `Submission request failed with status ${response.status}`);
-  }
-
-  return response.json();
 }
-
