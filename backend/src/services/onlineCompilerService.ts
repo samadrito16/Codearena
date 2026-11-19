@@ -83,8 +83,8 @@ interface OnlineCompilerResponse {
   error?: string;
   status?: string;
   exit_code?: number;
-  time?: number;
-  memory?: number;
+  time?: number | string;
+  memory?: number | string;
   signal?: string;
 }
 
@@ -324,8 +324,12 @@ async function executeOnlineCompiler(
 
       if (response.ok) {
         const data = (await response.json()) as OnlineCompilerResponse;
-        const runtimeMs = data.time ? Math.round(data.time * 1000) : 12;
-        const memoryMb = data.memory ? Math.round((data.memory / (1024 * 1024)) * 10) / 10 : 15.2;
+        const parsedTime = parseFloat(String(data.time ?? '0'));
+        const runtimeMs = parsedTime > 0 ? Math.round(parsedTime * 1000) : 12;
+
+        const parsedMem = parseFloat(String(data.memory ?? '0'));
+        // OnlineCompiler reports memory in KB (e.g. 132040 KB = ~128.9 MB)
+        const memoryMb = parsedMem > 0 ? Math.round((parsedMem / 1024) * 10) / 10 : 15.2;
 
         return {
           stdout: (data.output || '').replace(/\r\n/g, '\n').trim(),
