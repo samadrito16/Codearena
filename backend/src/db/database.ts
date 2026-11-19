@@ -67,8 +67,8 @@ export class Database {
       }
     }
 
-    // Seed default problems if empty
-    if (!this.data.problems || this.data.problems.length === 0) {
+    // Seed default problems if empty or library expanded
+    if (!this.data.problems || this.data.problems.length < initialProblems.length) {
       this.data.problems = [...initialProblems];
     }
 

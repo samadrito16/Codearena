@@ -23,7 +23,13 @@ function readLocalProblems(): Problem[] {
     if (raw === null) return initialProblems;
     const stored: unknown = JSON.parse(raw);
     if (!Array.isArray(stored)) return initialProblems;
-    return stored.filter(isProblemRecord);
+    const valid = stored.filter(isProblemRecord);
+    // If the local cache has fewer items than our current library, upgrade to the full catalog
+    if (valid.length < initialProblems.length) {
+      writeStorageSafe(PROBLEMS_STORAGE_KEY, initialProblems);
+      return initialProblems;
+    }
+    return valid;
   } catch {
     return initialProblems;
   }
@@ -46,6 +52,19 @@ export const problemsService: ProblemsRepository = {
 
   async list(signal?: AbortSignal): Promise<Problem[]> {
     throwIfAborted(signal);
+    try {
+      const response = await fetch('/api/problems', { signal });
+      if (response.ok) {
+        const fetched: unknown = await response.json();
+        if (Array.isArray(fetched) && fetched.length >= initialProblems.length) {
+          const valid = fetched.filter(isProblemRecord);
+          writeStorageSafe(PROBLEMS_STORAGE_KEY, valid);
+          return valid;
+        }
+      }
+    } catch {
+      // Fall through to local/offline cache
+    }
     return Promise.resolve(readLocalProblems());
   },
 

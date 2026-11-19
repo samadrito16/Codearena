@@ -160,8 +160,9 @@ def _run_harness():
                 break
 
     if fn is None:
+        reserved = {'sys', 'json', 'inspect', 're', '_run_harness', 'Solution'}
         for name, val in list(globals().items()):
-            if callable(val) and not name.startswith('_') and getattr(val, '__module__', None) == '__main__':
+            if callable(val) and not name.startswith('_') and name not in reserved:
                 fn = val
                 break
 
@@ -258,6 +259,20 @@ ${trimmed}
         const cand = eval('typeof ' + name + ' === "function" ? ' + name + ' : null');
         if (cand) { fn = cand; break; }
       } catch (_) {}
+    }
+  }
+
+  if (!fn) {
+    const fnRegex = /(?:function\\s+([a-zA-Z_$][\\w$]*)|(?:const|let|var)\\s+([a-zA-Z_$][\\w$]*)\\s*=\\s*(?:function|\\([^)]*\\)\\s*=>|[a-zA-Z_$][\\w$]*\\s*=>))/g;
+    let match;
+    while ((match = fnRegex.exec(${JSON.stringify(trimmed)})) !== null) {
+      const declaredName = match[1] || match[2];
+      if (declaredName && declaredName !== 'require') {
+        try {
+          const cand = eval('typeof ' + declaredName + ' === "function" ? ' + declaredName + ' : null');
+          if (cand) { fn = cand; break; }
+        } catch (_) {}
+      }
     }
   }
 
