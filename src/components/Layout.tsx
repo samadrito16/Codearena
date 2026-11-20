@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import Sidebar from './Sidebar';
 import AccountMenu from './AccountMenu';
 import CommandPalette from './CommandPalette';
+import Footer from './Footer';
 
 const baseMobileItems = [
   ['/dashboard', 'Overview'],
@@ -54,6 +55,11 @@ export default function Layout() {
           <nav aria-label="Primary navigation" className="space-y-1.5">{mobileItems.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setMenuOpen(false)} className={() => `block rounded-xl px-4 py-3 text-sm font-semibold ${location.pathname === to ? 'nav-link-active' : 'text-muted hover:bg-black/5 dark:hover:bg-white/5'}`}>{label}</NavLink>)}</nav>
         </div>
         <div className="border-t p-4" style={{ borderColor: 'var(--ca-border)' }}>
+          <div className="mb-3 flex items-center justify-between text-[11px] text-muted px-1">
+            <NavLink to="/terms" onClick={() => setMenuOpen(false)} className="hover:text-primary transition">Terms of Service</NavLink>
+            <span>&middot;</span>
+            <NavLink to="/privacy" onClick={() => setMenuOpen(false)} className="hover:text-primary transition">Privacy Policy</NavLink>
+          </div>
           <AccountMenu onAction={() => setMenuOpen(false)} />
         </div>
       </div>
@@ -81,6 +87,7 @@ export default function Layout() {
       <main id="main-content" tabIndex={-1} className={isWorkspace ? 'workspace-route-main' : 'mx-auto max-w-[1480px] px-4 pb-10 pt-6 sm:px-6 lg:px-9 lg:pt-9'}>
         {isWorkspace ? <Outlet/> : <div key={location.pathname} className="page-enter"><Outlet/></div>}
       </main>
+      {!isWorkspace && <Footer />}
     </div>
     <CommandPalette/>
     <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">

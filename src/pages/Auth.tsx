@@ -495,7 +495,22 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
                 </>
               )}
             </button>
+
+            <p className="mt-4 text-center text-[11px] leading-relaxed text-muted">
+              By {mode === 'register' ? 'creating an account' : 'signing in'}, you agree to CodeArena&rsquo;s{' '}
+              <Link to="/terms" className="themed-link underline font-medium">Terms of Service</Link>
+              {' '}and{' '}
+              <Link to="/privacy" className="themed-link underline font-medium">Privacy Policy</Link>.
+            </p>
           </form>
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-4 text-xs text-muted">
+          <Link to="/terms" className="hover:text-primary transition">Terms of Service</Link>
+          <span>&middot;</span>
+          <Link to="/privacy" className="hover:text-primary transition">Privacy Policy</Link>
+          <span>&middot;</span>
+          <Link to="/problems" className="hover:text-primary transition">Problem Library</Link>
         </div>
       </div>
     </div>

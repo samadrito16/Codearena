@@ -185,7 +185,8 @@ export default function Settings() {
           <div>
             <h3 className="section-title text-base">Privacy & Visibility</h3>
             <p className="mt-1 text-xs text-muted">
-              Control what other people can see when searching for or viewing your profile.
+              Control what other people can see when searching for or viewing your profile. Review our full{' '}
+              <Link to="/privacy" className="themed-link underline font-medium">Privacy Policy</Link>.
             </p>
           </div>
         </div>

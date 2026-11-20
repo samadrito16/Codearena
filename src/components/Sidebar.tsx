@@ -56,6 +56,13 @@ export default function Sidebar() {
           <NavLink to="/admin" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}><ShieldCheck size={18}/><span>Admin dashboard</span></NavLink>
         )}
       </div>
+      <div className="mb-2 flex items-center justify-between px-2 text-[10px] text-muted">
+        <NavLink to="/terms" className="hover:text-primary transition">Terms</NavLink>
+        <span>&middot;</span>
+        <NavLink to="/privacy" className="hover:text-primary transition">Privacy</NavLink>
+        <span>&middot;</span>
+        <span className="font-mono text-[9px]">v1.2</span>
+      </div>
       <div className="pt-2 border-t" style={{ borderColor: 'var(--ca-border)' }}>
         <AccountMenu />
       </div>

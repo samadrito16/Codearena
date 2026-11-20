@@ -19,6 +19,8 @@ import DailyChallenges from './pages/DailyChallenges';
 import Progress from './pages/Progress';
 import LearningPaths from './pages/LearningPaths';
 import Profile from './pages/Profile';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 export default function App() {
   return (
@@ -56,6 +58,10 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+
+        {/* Public Legal Pages (Accessible without authentication) */}
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
 
         {/* Protected Routes (Requires active session) */}
         <Route element={<RequireAuth />}>
