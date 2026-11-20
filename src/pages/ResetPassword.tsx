@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Code2, KeyRound, LoaderCircle, CheckCircle2 } fr
 import { Link, useSearchParams } from 'react-router-dom';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { authService } from '../services/authService';
+import { ApiError } from '../lib/api';
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -54,8 +55,18 @@ export default function ResetPassword() {
       await authService.resetPassword({ token, password });
       setSuccess(true);
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Unable to reset password.';
-      setSubmitError(msg);
+      if (err instanceof ApiError) {
+        if (err.code === 'INVALID_RESET_TOKEN' || err.status === 400) {
+          setSubmitError('This password reset link is invalid or has expired. Please request a new link.');
+        } else if (err.code === 'NETWORK_ERROR' || err.status === 0) {
+          setSubmitError('Cannot connect to CodeArena server. Please check your network connection.');
+        } else {
+          setSubmitError(err.message || 'Unable to reset password.');
+        }
+      } else {
+        const msg = err instanceof Error ? err.message : 'Unable to reset password.';
+        setSubmitError(msg);
+      }
     } finally {
       setIsSubmitting(false);
     }

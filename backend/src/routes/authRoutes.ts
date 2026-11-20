@@ -1,6 +1,7 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import { z } from 'zod';
 import { authService } from '../services/authService.js';
+import { emailService } from '../services/emailService.js';
 import { config } from '../config.js';
 import { authLimiter } from '../middleware/rateLimiter.js';
 
@@ -134,18 +135,65 @@ router.post(['/reset-password', '/auth/reset-password'], authLimiter, async (req
   }
 });
 
-// POST /api/auth/verify-email (also supports /verify-email and /auth/verify-email)
-router.post(['/verify-email', '/auth/verify-email'], async (req: Request, res: Response) => {
-  res.status(200).json({
-    message: 'Email verified successfully.',
-  });
+// POST & GET /api/auth/verify-email
+router.all(['/verify-email', '/auth/verify-email'], async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const rawToken = req.body?.token || req.query?.token;
+    if (!rawToken || typeof rawToken !== 'string') {
+      res.status(400).json({
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Verification token is required.',
+        },
+      });
+      return;
+    }
+
+    const user = await authService.verifyEmail(rawToken);
+    res.status(200).json({
+      message: 'Email verified successfully.',
+      user,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
-// POST /api/auth/resend-verification (also supports /resend-verification and /auth/resend-verification)
-router.post(['/resend-verification', '/auth/resend-verification'], authLimiter, async (req: Request, res: Response) => {
-  res.status(202).json({
-    message: 'If your email is unverified, a verification link has been sent.',
-  });
+// POST /api/auth/resend-verification
+router.post(['/resend-verification', '/auth/resend-verification'], authLimiter, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const email = req.body?.email || req.user?.email;
+    if (!email || typeof email !== 'string') {
+      res.status(400).json({
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'An email address is required to resend verification.',
+        },
+      });
+      return;
+    }
+
+    await authService.requestEmailVerification(email);
+    res.status(202).json({
+      message: 'If your email is unverified, a verification link has been sent.',
+    });
+  } catch (err) {
+    next(err);
+  }
 });
+
+// Development-only token inspection for automated testing and local debugging
+if (!config.isProduction) {
+  router.get('/dev/tokens', (req: Request, res: Response) => {
+    const email = String(req.query.email || '').trim().toLowerCase();
+    const sent = emailService.getRecentEmails().find((e) => e.to.toLowerCase() === email);
+    res.json({
+      email,
+      token: sent?.token || null,
+      subject: sent?.subject || null,
+      url: sent?.resetUrl || null,
+    });
+  });
+}
 
 export default router;

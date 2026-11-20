@@ -66,4 +66,22 @@ export const authService = {
       body: JSON.stringify(input),
     });
   },
+
+  async verifyEmail(token: string): Promise<{ message: string; user?: User }> {
+    const res = await apiRequest<{ message: string; user?: UserResponse }>('/auth/verify-email', {
+      method: 'POST',
+      body: JSON.stringify({ token }),
+    });
+    return {
+      message: res.message,
+      user: res.user ? extractUser(res.user) : undefined,
+    };
+  },
+
+  async resendVerification(email?: string): Promise<{ message: string }> {
+    return await apiRequest<{ message: string }>('/auth/resend-verification', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+  },
 };

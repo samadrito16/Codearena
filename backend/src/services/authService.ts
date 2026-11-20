@@ -46,13 +46,33 @@ export class AuthService {
       email: normalizedEmail,
       passwordHash,
       role: 'user', // Always user for public registration
-      emailVerified: true, // Set to true for immediate friction-free access
+      emailVerified: false, // Requires email confirmation
       isActive: true,
       createdAt: timestamp,
       updatedAt: timestamp,
     };
 
     await db.createUser(newUser);
+
+    // Generate email verification token and dispatch verification email
+    try {
+      const rawToken = crypto.randomBytes(32).toString('hex');
+      const tokenHash = this.hashToken(rawToken);
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+      await db.createEmailVerificationToken({
+        id: `evt_${crypto.randomUUID()}`,
+        userId,
+        tokenHash,
+        expiresAt,
+        used: false,
+        createdAt: timestamp,
+      });
+
+      await emailService.sendEmailVerificationEmail(normalizedEmail, rawToken);
+    } catch (emailErr) {
+      console.warn('[AuthService] Could not send initial verification email:', emailErr);
+    }
 
     const session = await this.createSession(userId);
     return {
@@ -165,6 +185,55 @@ export class AuthService {
 
     // Invalidate all existing sessions for security
     await db.deleteSessionsByUserId(user.id);
+  }
+
+  public async requestEmailVerification(email: string): Promise<void> {
+    const normalizedEmail = email.trim().toLowerCase();
+    const user = db.findUserByEmail(normalizedEmail);
+
+    if (user && user.isActive) {
+      if (user.emailVerified) {
+        return; // Already verified, silently return
+      }
+
+      const rawToken = crypto.randomBytes(32).toString('hex');
+      const tokenHash = this.hashToken(rawToken);
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+      await db.createEmailVerificationToken({
+        id: `evt_${crypto.randomUUID()}`,
+        userId: user.id,
+        tokenHash,
+        expiresAt,
+        used: false,
+        createdAt: new Date().toISOString(),
+      });
+
+      await emailService.sendEmailVerificationEmail(user.email, rawToken);
+    }
+  }
+
+  public async verifyEmail(token: string): Promise<PublicUser> {
+    if (!token || typeof token !== 'string') {
+      throw new AppError('A valid email verification token is required.', 400, 'VALIDATION_ERROR');
+    }
+
+    const tokenHash = this.hashToken(token.trim());
+    const record = db.findEmailVerificationToken(tokenHash);
+
+    if (!record) {
+      throw new AppError('The verification link is invalid or has expired. Please request a new one.', 400, 'INVALID_VERIFICATION_TOKEN');
+    }
+
+    const user = db.findUserById(record.userId);
+    if (!user) {
+      throw new AppError('Account associated with this verification link could not be found.', 404, 'NOT_FOUND');
+    }
+
+    await db.updateUser(user.id, { emailVerified: true });
+    await db.markEmailVerificationTokenUsed(record.id);
+
+    return db.toPublicUser({ ...user, emailVerified: true });
   }
 }
 

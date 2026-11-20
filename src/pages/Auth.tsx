@@ -6,6 +6,7 @@ import ErrorAlert from '../components/ui/ErrorAlert';
 import { useAuth } from '../context/AuthContext';
 import { useUi } from '../context/UiContext';
 import { authService } from '../services/authService';
+import { ApiError } from '../lib/api';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -218,8 +219,22 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
         navigate(destination, { replace: true });
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Authentication failed. Please verify your credentials.';
-      setSubmitError(msg);
+      if (err instanceof ApiError) {
+        if (err.status === 401 || err.code === 'INVALID_CREDENTIALS') {
+          setSubmitError('Invalid email or password. Please verify your credentials and try again.');
+        } else if (err.status === 409 || err.code === 'EMAIL_ALREADY_REGISTERED') {
+          setSubmitError('An account with this email address already exists. Please sign in or reset your password.');
+        } else if (err.status === 429 || err.code === 'RATE_LIMITED') {
+          setSubmitError('Too many attempts. For your security, please wait a few minutes before trying again.');
+        } else if (err.code === 'NETWORK_ERROR' || err.status === 0) {
+          setSubmitError('Cannot connect to CodeArena server. Please check your network and verify the backend is running.');
+        } else {
+          setSubmitError(err.message || 'Authentication failed. Please verify your credentials.');
+        }
+      } else {
+        const msg = err instanceof Error ? err.message : 'Authentication failed. Please verify your credentials.';
+        setSubmitError(msg);
+      }
     } finally {
       setIsSubmitting(false);
     }

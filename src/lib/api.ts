@@ -46,11 +46,21 @@ export async function apiRequest<T>(
       credentials: 'include',
     });
   } catch {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('codearena:network-error', {
+        detail: { path, timestamp: Date.now() },
+      }));
+    }
     throw new ApiError(
       'Cannot connect to CodeArena server. Check your connection and ensure the backend is running.',
       0,
       'NETWORK_ERROR',
     );
+  }
+
+  // Clear network error indicator when server responds
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('codearena:network-recovered'));
   }
 
   if (response.status === 204) {
@@ -66,6 +76,19 @@ export async function apiRequest<T>(
     const body = payload as {
       error?: { message?: string; code?: string };
     } | null;
+
+    // Trigger session expired event on 401 (excluding active login/register credential attempts)
+    if (response.status === 401 && !path.includes('/login') && !path.includes('/register')) {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('codearena:session-expired', {
+          detail: {
+            path,
+            code: body?.error?.code || 'SESSION_EXPIRED',
+            message: body?.error?.message || 'Your session has expired. Please sign in again to continue.',
+          },
+        }));
+      }
+    }
 
     throw new ApiError(
       body?.error?.message ?? 'Something went wrong. Please try again.',

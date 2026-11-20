@@ -160,6 +160,21 @@ export class Database {
   }
 
   // --- Users ---
+  public listUsers(): PublicUser[] {
+    return this.data.users.map((u) => this.toPublicUser(u));
+  }
+
+  public getAdminStats() {
+    return {
+      totalUsers: this.data.users.length,
+      activeUsers: this.data.users.filter((u) => u.isActive).length,
+      verifiedUsers: this.data.users.filter((u) => u.emailVerified).length,
+      totalProblems: this.data.problems.length,
+      totalSubmissions: this.data.submissions.length,
+      activeSessions: this.data.sessions.filter((s) => new Date(s.expiresAt).getTime() > Date.now()).length,
+    };
+  }
+
   public findUserById(id: string): User | undefined {
     return this.data.users.find((u) => u.id === id);
   }

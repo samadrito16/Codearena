@@ -19,10 +19,14 @@ export interface AuthContextValue {
   status: AuthStatus;
   authError: string | null;
   isClerk: boolean;
+  sessionExpired: boolean;
+  dismissSessionExpired: () => void;
   signIn?: (input: { email: string; password: string }) => Promise<void>;
   register?: (input: { name: string; email: string; password: string }) => Promise<void>;
   signOut: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  verifyEmail: (token: string) => Promise<{ message: string; user?: User }>;
+  resendVerification: (email?: string) => Promise<{ message: string }>;
   getToken?: () => Promise<string | null>;
 }
 
@@ -39,6 +43,21 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
   const [localUser, setLocalUser] = useState<User | null>(null);
   const [localChecking, setLocalChecking] = useState<boolean>(true);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [sessionExpired, setSessionExpired] = useState<boolean>(false);
+
+  // Listen for global session expiration events triggered by API responses
+  useEffect(() => {
+    const handleExpired = () => {
+      setLocalUser(null);
+      setSessionExpired(true);
+    };
+    window.addEventListener('codearena:session-expired', handleExpired);
+    return () => window.removeEventListener('codearena:session-expired', handleExpired);
+  }, []);
+
+  const dismissSessionExpired = useCallback(() => {
+    setSessionExpired(false);
+  }, []);
 
   // Attach token getter for backend api requests when Clerk is signed in
   useEffect(() => {
@@ -209,19 +228,35 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
     }
   }, [isSignedIn, clerkUser]);
 
+  const verifyEmail = useCallback(async (token: string) => {
+    const res = await authService.verifyEmail(token);
+    if (res.user) {
+      setLocalUser(res.user);
+    }
+    return res;
+  }, []);
+
+  const resendVerification = useCallback(async (email?: string) => {
+    return await authService.resendVerification(email || user?.email);
+  }, [user]);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
       status,
       authError,
       isClerk: true,
+      sessionExpired,
+      dismissSessionExpired,
       signIn,
       register,
       signOut,
       refreshUser,
+      verifyEmail,
+      resendVerification,
       getToken,
     }),
-    [user, status, authError, signIn, register, signOut, refreshUser, getToken]
+    [user, status, authError, sessionExpired, dismissSessionExpired, signIn, register, signOut, refreshUser, verifyEmail, resendVerification, getToken]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -232,6 +267,22 @@ function LocalAuthProviderImpl({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [status, setStatus] = useState<AuthStatus>('loading');
   const [authError, setAuthError] = useState<string | null>(null);
+  const [sessionExpired, setSessionExpired] = useState<boolean>(false);
+
+  // Listen for global session expiration events
+  useEffect(() => {
+    const handleExpired = () => {
+      setUser(null);
+      setStatus('unauthenticated');
+      setSessionExpired(true);
+    };
+    window.addEventListener('codearena:session-expired', handleExpired);
+    return () => window.removeEventListener('codearena:session-expired', handleExpired);
+  }, []);
+
+  const dismissSessionExpired = useCallback(() => {
+    setSessionExpired(false);
+  }, []);
 
   const initAuth = useCallback(async () => {
     setStatus('loading');
@@ -299,18 +350,34 @@ function LocalAuthProviderImpl({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const verifyEmail = useCallback(async (token: string) => {
+    const res = await authService.verifyEmail(token);
+    if (res.user) {
+      setUser(res.user);
+    }
+    return res;
+  }, []);
+
+  const resendVerification = useCallback(async (email?: string) => {
+    return await authService.resendVerification(email || user?.email);
+  }, [user]);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
       status,
       authError,
       isClerk: false,
+      sessionExpired,
+      dismissSessionExpired,
       signIn,
       register,
       signOut,
       refreshUser,
+      verifyEmail,
+      resendVerification,
     }),
-    [user, status, authError, signIn, register, signOut, refreshUser]
+    [user, status, authError, sessionExpired, dismissSessionExpired, signIn, register, signOut, refreshUser, verifyEmail, resendVerification]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

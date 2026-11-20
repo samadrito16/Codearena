@@ -9,6 +9,18 @@ const router = Router();
 // Require admin role for all admin routes
 router.use(requireRole('admin'));
 
+// GET /api/admin/stats
+router.get('/stats', (req: Request, res: Response) => {
+  const stats = db.getAdminStats();
+  res.json(stats);
+});
+
+// GET /api/admin/users
+router.get('/users', (req: Request, res: Response) => {
+  const users = db.listUsers();
+  res.json(users);
+});
+
 const problemSchema = z.object({
   id: z.string().min(1, 'Problem ID is required'),
   title: z.string().min(1, 'Title is required'),

@@ -17,9 +17,14 @@ import {
   Shield,
   Sun,
   UserCheck,
+  User,
+  KeyRound,
+  LogOut,
   type LucideIcon,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 import { themePalettes } from '../data/themes';
 
 function PrivacyToggle({
@@ -67,6 +72,7 @@ function PrivacyToggle({
 }
 
 export default function Settings() {
+  const { user, signOut } = useAuth();
   const {
     theme,
     setTheme,
@@ -289,6 +295,73 @@ export default function Settings() {
                 onChange={(checked) => updatePrivacySettings({ showAchievements: checked })}
                 icon={Award}
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Account & Security Section */}
+      <section className="panel-card overflow-hidden">
+        <div className="flex items-start gap-3 border-b p-5 sm:p-6" style={{ borderColor: 'var(--ca-border)' }}>
+          <span className="settings-icon"><User size={18} /></span>
+          <div>
+            <h3 className="section-title text-base">Account & Authentication</h3>
+            <p className="mt-1 text-xs text-muted">
+              Manage your signed-in developer identity, email verification status, and credentials.
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4 p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+            <div>
+              <p className="text-xs font-bold text-primary flex items-center gap-2">
+                <span>{user?.name || 'Developer'}</span>
+                {user?.role === 'admin' && (
+                  <span className="rounded-full bg-indigo-500/15 px-2 py-0.5 text-[9px] font-bold text-indigo-600 dark:text-indigo-400">
+                    Administrator
+                  </span>
+                )}
+              </p>
+              <p className="mt-1 text-[11px] text-muted flex items-center gap-2">
+                <Mail size={13} />
+                <span>{user?.email}</span>
+                {user?.email_verified ? (
+                  <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    <CheckCircle2 size={11} /> Verified
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                    <Clock size={11} /> Unverified
+                  </span>
+                )}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {!user?.email_verified && (
+                <Link
+                  to="/verify-email"
+                  className="btn-secondary py-1.5 px-3 text-xs font-medium"
+                >
+                  Verify Email
+                </Link>
+              )}
+              <Link
+                to="/forgot-password"
+                className="btn-secondary py-1.5 px-3 text-xs font-medium flex items-center gap-1.5"
+              >
+                <KeyRound size={13} />
+                <span>Reset Password</span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-xl border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-medium transition"
+              >
+                <LogOut size={13} />
+                <span>Sign Out</span>
+              </button>
             </div>
           </div>
         </div>

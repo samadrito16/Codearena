@@ -387,9 +387,24 @@ export default function Profile() {
                 </span>
               )}
             </div>
-            <p className="mt-0.5 text-xs text-muted">
-              {user?.email ? `${user.email} · ${user.role === 'admin' ? 'Administrator' : 'Member'}` : 'Signed-in developer account'}
-            </p>
+            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted">
+              <span>{user?.email ? `${user.email} · ${user.role === 'admin' ? 'Administrator' : 'Member'}` : 'Signed-in developer account'}</span>
+              {user && (
+                user.email_verified ? (
+                  <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    <CheckCircle2 size={11} /> Verified
+                  </span>
+                ) : (
+                  <a
+                    href="/verify-email"
+                    className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 hover:bg-amber-500/20 transition"
+                    title="Click to verify your email"
+                  >
+                    <Clock size={11} /> Unverified (Verify)
+                  </a>
+                )
+              )}
+            </div>
             {profileBio && (
               <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-6 text-muted">
                 {profileBio}

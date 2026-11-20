@@ -11,7 +11,7 @@ export const config = {
   sessionSecret: process.env.SESSION_SECRET || 'codearena_default_session_secret_change_me',
   sessionExpiryDays: parseInt(process.env.SESSION_EXPIRY_DAYS || '7', 10),
   cookieName: 'codearena_session',
-  dbPath: path.resolve(process.cwd(), 'data', 'db.json'),
+  dbPath: process.env.DB_PATH || (process.cwd().endsWith('backend') ? path.resolve(process.cwd(), 'data', 'db.json') : path.resolve(process.cwd(), 'backend', 'data', 'db.json')),
   
   // Email settings
   resendApiKey: process.env.RESEND_API_KEY || '',
