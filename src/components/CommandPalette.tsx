@@ -81,7 +81,7 @@ export default function CommandPalette() {
         id: 'action-toggle-theme',
         group: 'Quick actions',
         title: `Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`,
-        subtitle: 'Toggle display theme across CodeArena',
+        subtitle: 'Toggle display theme across PrismCode',
         keywords: 'theme dark light mode appearance',
         icon: theme === 'dark' ? <Sun size={15}/> : <Moon size={15}/>,
         badge: theme === 'dark' ? 'Dark' : 'Light',

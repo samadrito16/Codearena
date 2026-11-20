@@ -94,7 +94,7 @@ export function getProfileInitials(displayName: string): string {
 }
 
 export function createDefaultProfile(fallbackName?: string): LocalProfile {
-  const safeName = (fallbackName ?? '').trim().slice(0, MAX_DISPLAY_NAME_LENGTH) || 'CodeArena Learner';
+  const safeName = (fallbackName ?? '').trim().slice(0, MAX_DISPLAY_NAME_LENGTH) || 'PrismCode Learner';
   return {
     displayName: safeName,
     bio: '',

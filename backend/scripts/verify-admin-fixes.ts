@@ -52,7 +52,7 @@ async function runTests() {
     const loginRes = await fetch(`${baseUrl}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'admin@codearena.com', password: 'Admin123!' }),
+      body: JSON.stringify({ email: 'admin@prismcode.com', password: 'Admin123!' }),
     });
     const setCookie = loginRes.headers.get('set-cookie');
     assert(loginRes.status === 200, 'Admin login succeeded with 200');
@@ -179,7 +179,7 @@ async function runTests() {
     assert(actions.includes('import_problems'), 'Audit logs contain import_problems event');
 
     const importLog = logsData.find((l: { action: string }) => l.action === 'import_problems');
-    assert(importLog.userEmail === 'admin@codearena.com', 'Audit log records admin user email');
+    assert(importLog.userEmail === 'admin@prismcode.com', 'Audit log records admin user email');
     assert(importLog.details?.fileName === 'test-suite-import.jsonl', 'Audit log records import file name');
     assert(Boolean(importLog.timestamp), 'Audit log has valid ISO timestamp');
 

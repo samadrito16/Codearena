@@ -1,7 +1,7 @@
 /**
  * Documented local practice-time tracking constants and pure state transitions.
  *
- * Practice time in CodeArena is an **estimate** based on active workspace engagement:
+ * Practice time in PrismCode is an **estimate** based on active workspace engagement:
  * - Timing pauses immediately when the browser tab becomes hidden (`visibilitychange`).
  * - Timing pauses automatically after `PRACTICE_IDLE_THRESHOLD_MS` (2 minutes) without
  *   user interaction (typing, pointer input, scrolling, or editor changes).

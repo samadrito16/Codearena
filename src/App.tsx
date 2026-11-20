@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthenticateWithRedirectCallback } from '@clerk/react';
 import Layout from './components/Layout';
@@ -23,6 +24,38 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 
 export default function App() {
+  useEffect(() => {
+    const cleanInjected = () => {
+      const selectors = [
+        '[id*="scroll-to-top" i]',
+        '[id*="scrollToTop" i]',
+        '[class*="scroll-to-top" i]',
+        '[class*="scrollToTop" i]',
+        '[id*="sttb" i]',
+        '[class*="sttb" i]',
+        '[id*="prsttb" i]',
+        '[class*="prsttb" i]',
+        '#scrollUp',
+        '.scrollUp',
+        '#back-to-top',
+        '.back-to-top',
+        '#top-and-bottom-scroll-buttons',
+        '.top-and-bottom-scroll-buttons',
+      ];
+      try {
+        const found = document.querySelectorAll(selectors.join(','));
+        found.forEach((el) => {
+          (el as HTMLElement).style.setProperty('display', 'none', 'important');
+        });
+      } catch (_) {}
+    };
+
+    cleanInjected();
+    const observer = new MutationObserver(cleanInjected);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <NetworkErrorBanner />

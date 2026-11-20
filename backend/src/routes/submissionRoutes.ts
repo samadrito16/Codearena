@@ -37,7 +37,7 @@ router.get('/', requireAuth, (req: Request, res: Response) => {
 router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, customInput, cases } = runSchema.parse(req.body);
-    const problem = db.findProblemById(problemId);
+    const problem = db.getProblemForExecution(problemId);
     if (!problem) {
       res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
       return;
@@ -60,7 +60,10 @@ router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
       }));
     }
 
-    const batchResult = await runTestCases(language, code, testCases);
+    const batchResult = await runTestCases(language, code, testCases, {
+      earlyExit: false,
+      orderInvariant: Boolean(problem.orderInvariant),
+    });
 
     res.json({
       success: batchResult.success,
@@ -70,6 +73,7 @@ router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
       totalPassed: batchResult.totalPassed,
       totalTests: batchResult.totalTests,
       cases: batchResult.cases,
+      stdout: batchResult.stdout,
       stderr: batchResult.stderr,
       customInput: customInput ?? null,
     });
@@ -82,26 +86,38 @@ router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
 router.post('/submit', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, durationSeconds } = submitSchema.parse(req.body);
-    const problem = db.findProblemById(problemId);
+    const problem = db.getProblemForExecution(problemId);
     if (!problem) {
       res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
       return;
     }
 
-    const testCases: TestCaseInput[] = problem.examples.map((ex, idx) => ({
-      caseNumber: idx + 1,
-      input: ex.input,
-      expected: ex.output,
-    }));
+    // Use full testCases suite (including hidden edge cases) if available, otherwise fallback to examples
+    let testCases: TestCaseInput[] = [];
+    if (problem.testCases && problem.testCases.length > 0) {
+      testCases = problem.testCases;
+    } else {
+      testCases = problem.examples.map((ex, idx) => ({
+        caseNumber: idx + 1,
+        input: ex.input,
+        expected: ex.output,
+      }));
+    }
 
-    const batchResult = await runTestCases(language, code, testCases);
+    // Sequential execution with Early Exit on first failure
+    const batchResult = await runTestCases(language, code, testCases, {
+      earlyExit: true,
+      orderInvariant: Boolean(problem.orderInvariant),
+    });
 
     let outcome: SubmissionOutcome = 'wrong_answer';
     if (batchResult.verdict === 'Accepted') {
       outcome = 'accepted';
     } else if (batchResult.verdict === 'Time Limit Exceeded') {
       outcome = 'tle';
-    } else if (batchResult.verdict === 'Runtime Error' || batchResult.verdict === 'Compilation Error') {
+    } else if (batchResult.verdict === 'Compilation Error') {
+      outcome = 'compilation_error';
+    } else if (batchResult.verdict === 'Runtime Error') {
       outcome = 'runtime_error';
     }
 
@@ -143,16 +159,22 @@ router.post('/submit', async (req: Request, res: Response, next: NextFunction) =
       }
     }
 
+    const rankingPercentile =
+      outcome === 'accepted'
+        ? db.calculatePercentile(problemId, batchResult.runtimeMs)
+        : undefined;
+
     res.status(201).json({
       success: batchResult.success,
       submission,
       verdict: batchResult.verdict,
       runtimeMs: batchResult.runtimeMs,
       memoryMb: batchResult.memoryMb,
-      rankingPercentile: outcome === 'accepted' ? 88.5 : undefined,
+      rankingPercentile,
       totalPassed: batchResult.totalPassed,
       totalTests: batchResult.totalTests,
       cases: batchResult.cases,
+      stdout: batchResult.stdout,
       stderr: batchResult.stderr,
     });
   } catch (err) {

@@ -1,4 +1,5 @@
 import { db } from '../src/db/database.js';
+import { config } from '../src/config.js';
 
 interface ApiResponse<T = any> {
   status: number;
@@ -56,15 +57,15 @@ async function request<T = any>(
 
 function extractSessionCookie(cookies: string[]): string {
   for (const c of cookies) {
-    const match = c.match(/codearena_session=([^;]+)/);
-    if (match) return `codearena_session=${match[1]}`;
+    const match = c.match(/(?:prismcode_session|codearena_session)=([^;]+)/);
+    if (match) return `${config.cookieName}=${match[1]}`;
   }
   return '';
 }
 
 async function runTests() {
   console.log('\n======================================================');
-  console.log('       CodeArena Authentication & Security Test Suite   ');
+  console.log('       PrismCode Authentication & Security Test Suite   ');
   console.log('======================================================\n');
 
   let passed = 0;
@@ -82,7 +83,7 @@ async function runTests() {
 
   await db.init();
 
-  const testEmail = `testuser_${Date.now()}@codearena.test`;
+  const testEmail = `testuser_${Date.now()}@prismcode.test`;
   const testPassword = 'StrongPassword123!';
   let userCookie = '';
   let adminCookie = '';
@@ -108,7 +109,7 @@ async function runTests() {
     body: { name: 'Automated Tester', email: testEmail, password: testPassword },
   });
   assert('Creates user with status 201', regRes.status === 201);
-  assert('Sets HTTP-only session cookie', regRes.cookies.some((c) => c.includes('codearena_session=')));
+  assert('Sets HTTP-only session cookie', regRes.cookies.some((c) => c.includes(`${config.cookieName}=`)));
   assert('Initial emailVerified is false', regRes.data?.user?.email_verified === false);
   userCookie = extractSessionCookie(regRes.cookies);
 
@@ -136,7 +137,7 @@ async function runTests() {
     body: { email: testEmail, password: testPassword },
   });
   assert('Logs in successfully with 200 OK', loginRes.status === 200);
-  assert('Sets refreshed session cookie', loginRes.cookies.some((c) => c.includes('codearena_session=')));
+  assert('Sets refreshed session cookie', loginRes.cookies.some((c) => c.includes(`${config.cookieName}=`)));
   userCookie = extractSessionCookie(loginRes.cookies);
 
   // 6. Session Verification (/auth/me)
@@ -158,7 +159,7 @@ async function runTests() {
   console.log('\n[7] Administrator Authentication & Access:');
   const adminLoginRes = await request('/auth/login', {
     method: 'POST',
-    body: { email: 'admin@codearena.com', password: 'Admin123!' },
+    body: { email: 'admin@prismcode.com', password: 'Admin123!' },
   });
   assert('Admin signs in with 200 OK', adminLoginRes.status === 200);
   adminCookie = extractSessionCookie(adminLoginRes.cookies);
@@ -239,7 +240,7 @@ async function runTests() {
     cookie: userCookie,
   });
   assert('Logout returns 204 No Content', logoutRes.status === 204);
-  assert('Clears session cookie', logoutRes.cookies.some((c) => c.includes('codearena_session=;')));
+  assert('Clears session cookie', logoutRes.cookies.some((c) => c.includes(`${config.cookieName}=;`)));
 
   const postLogoutMe = await request('/auth/me', { cookie: userCookie });
   assert('Session immediately invalidated, /auth/me returns 401 SESSION_EXPIRED', postLogoutMe.status === 401);

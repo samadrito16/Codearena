@@ -109,8 +109,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeMode>(() => readStorage<unknown>('codearena-theme', 'dark') === 'light' ? 'light' : 'dark');
   const [palette, setPalette] = useState<PaletteId>(() => {
     const stored = readStorage<unknown>('codearena-palette', defaultPalette);
-    // Migrate the previously selected rose theme to the refreshed CodeArena palette.
-    if (stored === 'rose') return defaultPalette;
+    // Migrate legacy or retired palette selections to the refreshed atmospheric collection.
+    if (stored === 'rose' || stored === 'indigo' || stored === 'lagoon' || stored === 'coastal' || stored === 'lavender' || stored === 'amethyst' || stored === 'emerald' || stored === 'volt' || stored === 'fuchsia') return defaultPalette;
+    if (stored === 'sage' || stored === 'aurora' || stored === 'oceanic') return 'frost';
+    if (stored === 'vivid' || stored === 'cosmic' || stored === 'eclipse') return 'copper';
     return themePalettes.some((item) => item.id === stored) ? stored as PaletteId : defaultPalette;
   });
   const [profile, setProfile] = useState<LocalProfile>(() => loadLocalProfile());

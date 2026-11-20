@@ -1,6 +1,13 @@
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 export type CodeLanguage = 'javascript' | 'python' | 'java' | 'cpp';
 
+export interface TestCaseInput {
+  caseNumber: number;
+  input: string;
+  expected: string;
+  isHidden?: boolean;
+}
+
 export interface Problem {
   id: string;
   title: string;
@@ -12,9 +19,11 @@ export interface Problem {
   examples: { input: string; output: string; explanation?: string }[];
   constraints: string[];
   starterCode?: Partial<Record<CodeLanguage, string>>;
+  testCases?: TestCaseInput[];
+  orderInvariant?: boolean;
 }
 
-export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error';
+export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error' | 'compilation_error';
 
 export interface SubmissionRecord {
   id: string;
@@ -104,7 +113,7 @@ export interface PrivacySettings {
 
 export type ThemeMode = 'dark' | 'light';
 
-export type PaletteId = 'indigo' | 'lagoon' | 'sage' | 'vivid' | 'coastal' | 'lavender' | 'carbon';
+export type PaletteId = 'carbon' | 'copper' | 'frost' | 'crimson' | 'onyx' | 'cobalt' | 'dune';
 
 export type AuditAction =
   | 'create_problem'

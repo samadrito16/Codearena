@@ -108,7 +108,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
     if (isSignedIn && clerkUser) {
       const email = clerkUser.primaryEmailAddress?.emailAddress || '';
       const metadataRole = clerkUser.publicMetadata?.role as UserRole | undefined;
-      const role: UserRole = metadataRole === 'admin' || email === 'admin@codearena.com' ? 'admin' : 'user';
+      const role: UserRole = metadataRole === 'admin' || email === 'admin@prismcode.com' || email === 'admin@codearena.com' ? 'admin' : 'user';
 
       return {
         id: clerkUser.id,
@@ -143,6 +143,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
         if (res.status === 'complete' && res.createdSessionId) {
           await clerk.setActive({ session: res.createdSessionId });
           setLocalUser(null);
+          setLocalChecking(false);
           clerkSuccess = true;
           return;
         }
@@ -155,6 +156,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
     if (!clerkSuccess) {
       const verifiedUser = await authService.signIn(input);
       setLocalUser(verifiedUser);
+      setLocalChecking(false);
       setAuthError(null);
     }
   }, [clerk]);
@@ -176,6 +178,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
         if (res.status === 'complete' && res.createdSessionId) {
           await clerk.setActive({ session: res.createdSessionId });
           clerkSuccess = true;
+          setLocalChecking(false);
           // Optionally register in backend as well
           try {
             await authService.register(input);
@@ -194,6 +197,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
     if (!clerkSuccess) {
       const newUser = await authService.register(input);
       setLocalUser(newUser);
+      setLocalChecking(false);
       setAuthError(null);
     }
   }, [clerk]);

@@ -55,7 +55,8 @@ app.use('/api', apiLimiter);
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'CodeArena Backend API',
+    service: 'PrismCode Backend API',
+    company: 'Refract Labs',
     uptimeSeconds: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
   });
@@ -99,10 +100,10 @@ async function bootstrap() {
   try {
     await db.init();
     app.listen(config.port, () => {
-      console.log(`[CodeArena Backend] Server listening on http://localhost:${config.port}`);
-      console.log(`[CodeArena Backend] CORS origin allowed: ${config.frontendUrl}`);
-      console.log(`[CodeArena Backend] Default Admin Account: admin@codearena.com / Admin123!`);
-      console.log(`[CodeArena Backend] Default User Account:  alex@example.com / Alex123!`);
+      console.log(`[PrismCode Backend] Server listening on http://localhost:${config.port}`);
+      console.log(`[PrismCode Backend] CORS origin allowed: ${config.frontendUrl}`);
+      console.log(`[PrismCode Backend] Default Admin Account: admin@prismcode.com / Admin123!`);
+      console.log(`[PrismCode Backend] Default User Account:  alex@example.com / Alex123!`);
     });
   } catch (err) {
     console.error('Failed to start server:', err);

@@ -134,6 +134,7 @@ export const OUTCOME_META: Record<SubmissionOutcome, { label: string; shortLabel
   wrong_answer: { label: 'Wrong Answer', shortLabel: 'WA' },
   tle: { label: 'Time Limit', shortLabel: 'TLE' },
   runtime_error: { label: 'Runtime Error', shortLabel: 'RE' },
+  compilation_error: { label: 'Compilation Error', shortLabel: 'CE' },
 };
 
 export function formatSolveTime(totalSeconds: number): string {
@@ -191,6 +192,43 @@ function getTimedSolves(activityLog: ActivityEvent[], submissions: SubmissionRec
   return entries;
 }
 
+const CANONICAL_TOPIC_ALIASES: Record<string, string> = {
+  'hashing': 'Hash Table',
+  'hash map': 'Hash Table',
+  'frequency maps': 'Hash Table',
+  'hash-based lookup': 'Hash Table',
+  'frequency counting': 'Hash Table',
+  'arrays & matrices': 'Array',
+  'arrays': 'Array',
+  'array traversal': 'Array',
+  'matrices': 'Matrix',
+  'matrix traversal': 'Matrix',
+  'strings': 'String',
+  'string traversal': 'String',
+  'prefix sums': 'Prefix Sum',
+  'monotonic stack': 'Stack',
+  'monotonic deque': 'Stack',
+  'breadth-first search': 'Graph',
+  'depth-first search': 'Graph',
+  'binary tree': 'Tree',
+  'dynamic': 'Dynamic Programming',
+  'dp': 'Dynamic Programming',
+};
+
+const DISCARDED_TOPIC_FRAGMENTS = new Set([
+  'count', 'first', 'unique', 'most', 'frequency', 'repeated', 'pair', 'duplicate',
+  'distinct', 'longest', 'missing', 'mode', 'shared', 'tie breaking', 'case normalization',
+  'stable partition', 'in-place array updates', 'adjacent comparison', 'conditionals',
+  'filtering', 'selection', 'scanning', 'equal', 'common', 'near', 'nearby'
+]);
+
+export function normalizeTopic(topic: string): string | null {
+  const clean = topic.trim();
+  const lower = clean.toLowerCase();
+  if (DISCARDED_TOPIC_FRAGMENTS.has(lower)) return null;
+  return CANONICAL_TOPIC_ALIASES[lower] ?? clean;
+}
+
 export function buildTopicMastery(
   problems: Problem[],
   solvedIds: string[],
@@ -201,10 +239,15 @@ export function buildTopicMastery(
   const topicMap = new Map<string, Problem[]>();
 
   for (const problem of problems) {
-    for (const topic of problem.topics) {
+    for (const rawTopic of problem.topics) {
+      const topic = normalizeTopic(rawTopic);
+      if (!topic) continue;
       const list = topicMap.get(topic);
-      if (list) list.push(problem);
-      else topicMap.set(topic, [problem]);
+      if (list) {
+        if (!list.includes(problem)) list.push(problem);
+      } else {
+        topicMap.set(topic, [problem]);
+      }
     }
   }
 

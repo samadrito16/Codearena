@@ -59,7 +59,7 @@ export default function ResetPassword() {
         if (err.code === 'INVALID_RESET_TOKEN' || err.status === 400) {
           setSubmitError('This password reset link is invalid or has expired. Please request a new link.');
         } else if (err.code === 'NETWORK_ERROR' || err.status === 0) {
-          setSubmitError('Cannot connect to CodeArena server. Please check your network connection.');
+          setSubmitError('Cannot connect to PrismCode server. Please check your network connection.');
         } else {
           setSubmitError(err.message || 'Unable to reset password.');
         }

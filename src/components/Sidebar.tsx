@@ -19,14 +19,14 @@ export default function Sidebar() {
   return <aside className="sidebar-shell hidden lg:flex" aria-label="Sidebar navigation">
     <div className="flex items-center gap-3 px-6 py-6">
       <div className="brand-mark brand-mark-pulse"><Code2 size={21} strokeWidth={2.6}/></div>
-      <div><div className="font-display text-[19px] font-bold tracking-tight text-primary">CodeArena<span className="themed-link">.</span></div><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Level up your logic</div></div>
+      <div><div className="font-display text-[19px] font-bold tracking-tight text-primary">Prismcode<span className="themed-link">.</span></div><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Level up your logic</div></div>
     </div>
     <div className="px-4 pb-3">
       <button
         type="button"
         onClick={openCommandPalette}
         aria-label="Open quick search and command palette (Ctrl+K)"
-        className="flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-xs text-muted transition hover:text-primary"
+        className="sidebar-quick-search flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-xs text-muted transition"
         style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
       >
         <Search size={14} className="shrink-0" aria-hidden="true"/>

@@ -175,7 +175,7 @@ function WorkspaceSession({
     dailyCompletions,
     completeDailyChallenge,
   } = useApp();
-  const editorThemeName = `codearena-${palette}-${theme}`;
+  const editorThemeName = `prismcode-${palette}-${theme}`;
   const prevProblem = currentIndex > 0 ? problemList[currentIndex - 1] : null;
   const nextProblem = currentIndex < problemList.length - 1 ? problemList[currentIndex + 1] : null;
   const {
@@ -276,7 +276,7 @@ function WorkspaceSession({
       (['light', 'dark'] as const).forEach((mode) => {
         const isDark = mode === 'dark';
         const activeAccent = isDark && colors.darkPrimary ? colors.darkPrimary : colors.primary;
-        monaco.editor.defineTheme(`codearena-${colors.id}-${mode}`, {
+        monaco.editor.defineTheme(`prismcode-${colors.id}-${mode}`, {
           base: isDark ? 'vs-dark' : 'vs',
           inherit: true,
           rules: [

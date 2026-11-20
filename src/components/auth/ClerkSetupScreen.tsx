@@ -49,7 +49,7 @@ export default function ClerkSetupScreen() {
             Clerk Authentication Ready
           </h1>
           <p className="mt-2 text-xs text-muted">
-            The CodeArena frontend & Express backend are wired for Clerk.
+            The PrismCode frontend & Express backend are wired for Clerk.
           </p>
         </div>
 

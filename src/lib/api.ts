@@ -52,7 +52,7 @@ export async function apiRequest<T>(
       }));
     }
     throw new ApiError(
-      'Cannot connect to CodeArena server. Check your connection and ensure the backend is running.',
+      'Cannot connect to PrismCode server. Check your connection and ensure the backend is running.',
       0,
       'NETWORK_ERROR',
     );

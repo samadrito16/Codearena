@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="brand-mark brand-mark-pulse">
                 <Code2 size={18} strokeWidth={2.5} />
               </span>
-              <span>CodeArena<span className="themed-link">.</span></span>
+              <span>Prismcode<span className="themed-link">.</span></span>
             </Link>
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted">
               The modern competitive programming and algorithmic skill-building platform.
@@ -133,7 +133,7 @@ export default function Footer() {
           style={{ borderColor: 'var(--ca-border)' }}
         >
           <div className="flex flex-wrap items-center gap-2">
-            <span>&copy; {currentYear} CodeArena. All rights reserved.</span>
+            <span>&copy; {currentYear} Refract Labs. All rights reserved.</span>
             <span className="hidden sm:inline">&middot;</span>
             <span className="text-[11px] text-muted">Empowering software engineers worldwide.</span>
           </div>

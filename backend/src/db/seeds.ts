@@ -33,7 +33,46 @@ export const initialProblems: Problem[] = [
       "python": "def two_sum(nums: list[int], target: int) -> list[int]:\n    # Write your solution here\n    return []\n",
       "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "orderInvariant": true,
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2, 7, 11, 15], target = 9",
+        "expected": "[0, 1]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3, 2, 4], target = 6",
+        "expected": "[1, 2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [3, 3], target = 6",
+        "expected": "[0, 1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-1, -2, -3, -4, -5], target = -8",
+        "expected": "[2, 4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [0, 4, 3, 0], target = 0",
+        "expected": "[0, 3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1000000000, 500000000, -1000000000], target = 0",
+        "expected": "[0, 2]",
+        "isHidden": true
+      }
+    ]
   },
   {
     "id": "valid-parentheses",
@@ -65,7 +104,51 @@ export const initialProblems: Problem[] = [
       "python": "def is_valid(s: str) -> bool:\n    # Write your solution here\n    return False\n",
       "java": "class Solution {\n    public boolean isValid(String s) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValid(string s) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "s = \"()[]{}\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "s = \"(]\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"{[]}\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"([)]\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"[\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"]\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"\"",
+        "expected": "true",
+        "isHidden": true
+      }
+    ]
   },
   {
     "id": "longest-substring",
@@ -99,7 +182,45 @@ export const initialProblems: Problem[] = [
       "python": "def length_of_longest_substring(s: str) -> int:\n    # Write your solution here\n    return 0\n",
       "java": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "s = \"abcabcbb\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "s = \"bbbbb\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"pwwkew\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \" \"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "s = \"au\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ]
   },
   {
     "id": "container-water",
@@ -133,7 +254,39 @@ export const initialProblems: Problem[] = [
       "python": "def max_area(height: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
       "java": "class Solution {\n    public int maxArea(int[] height) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "height = [1,8,6,2,5,4,8,3,7]",
+        "expected": "49",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "height = [1,1]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "height = [1, 1]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "height = [4, 3, 2, 1, 4]",
+        "expected": "16",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "height = [1, 2, 1]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ]
   },
   {
     "id": "median-arrays",
@@ -167,7 +320,39 @@ export const initialProblems: Problem[] = [
       "python": "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    # Write your solution here\n    return 0.0\n",
       "java": "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        // Write your solution here\n        return 0.0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        // Write your solution here\n        return 0.0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums1 = [1,3], nums2 = [2]",
+        "expected": "2.0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums1 = [1,2], nums2 = [3,4]",
+        "expected": "2.5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums1 = [0, 0], nums2 = [0, 0]",
+        "expected": "0.00000",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums1 = [], nums2 = [1]",
+        "expected": "1.00000",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums1 = [2], nums2 = []",
+        "expected": "2.00000",
+        "isHidden": true
+      }
+    ]
   },
   {
     "id": "binary-tree-level-order",
@@ -175,8 +360,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Tree",
-      "Breadth-First Search",
-      "Binary Tree"
+      "Graph"
     ],
     "acceptance": "65.8%",
     "submissions": "680K",
@@ -200,17 +384,28 @@ export const initialProblems: Problem[] = [
       "python": "def level_order(root) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
       "java": "import java.util.*;\n\nclass Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> levelOrder(TreeNode* root) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "root = [3,9,20,null,null,15,7]",
+        "expected": "[[3],[9,20],[15,7]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "root = [1]",
+        "expected": "[[1]]",
+        "isHidden": false
+      }
+    ]
   },
   {
     "id": "hash-001",
     "title": "Count Distinct Labels",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "68.4%",
     "submissions": "49.0K",
@@ -232,17 +427,23 @@ export const initialProblems: Problem[] = [
       "python": "def count_distinct_labels(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countDistinctLabels(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countDistinctLabels(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-002",
     "title": "First Repeated Value",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "First",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "73.0%",
     "submissions": "30.8K",
@@ -264,17 +465,23 @@ export const initialProblems: Problem[] = [
       "python": "def first_repeated_value(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object firstRepeatedValue(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto firstRepeatedValue(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-003",
     "title": "Unique Occurrence Count",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Unique",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "65.7%",
     "submissions": "42.4K",
@@ -296,17 +503,23 @@ export const initialProblems: Problem[] = [
       "python": "def unique_occurrence_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object uniqueOccurrenceCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto uniqueOccurrenceCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-004",
     "title": "Most Frequent Label",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Most",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "70.6%",
     "submissions": "46.0K",
@@ -328,17 +541,23 @@ export const initialProblems: Problem[] = [
       "python": "def most_frequent_label(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object mostFrequentLabel(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto mostFrequentLabel(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-005",
     "title": "Frequency of Target",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Frequency",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "65.2%",
     "submissions": "47.1K",
@@ -360,17 +579,23 @@ export const initialProblems: Problem[] = [
       "python": "def frequency_of_target(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object frequencyOfTarget(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto frequencyOfTarget(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-006",
     "title": "Shared Values of Two Lists",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Shared",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "69.8%",
     "submissions": "28.0K",
@@ -392,17 +617,23 @@ export const initialProblems: Problem[] = [
       "python": "def shared_values_of_two_lists(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object sharedValuesOfTwoLists(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto sharedValuesOfTwoLists(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-007",
     "title": "Missing Labels in Range",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Missing",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "63.7%",
     "submissions": "32.0K",
@@ -424,17 +655,24 @@ export const initialProblems: Problem[] = [
       "python": "def missing_labels_in_range(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object missingLabelsInRange(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto missingLabelsInRange(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-008",
     "title": "Pair Sum Exists",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Pair",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Two Pointers"
     ],
     "acceptance": "71.4%",
     "submissions": "49.7K",
@@ -456,17 +694,24 @@ export const initialProblems: Problem[] = [
       "python": "def pair_sum_exists(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object pairSumExists(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto pairSumExists(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-009",
     "title": "Duplicate Within Distance",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Duplicate",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Sliding Window"
     ],
     "acceptance": "74.3%",
     "submissions": "43.3K",
@@ -488,17 +733,23 @@ export const initialProblems: Problem[] = [
       "python": "def duplicate_within_distance(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object duplicateWithinDistance(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto duplicateWithinDistance(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-010",
     "title": "Frequency Difference",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Frequency",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "66.9%",
     "submissions": "39.2K",
@@ -520,17 +771,24 @@ export const initialProblems: Problem[] = [
       "python": "def frequency_difference(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object frequencyDifference(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto frequencyDifference(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-011",
     "title": "Most Common Word Code",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Most",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Graph"
     ],
     "acceptance": "72.2%",
     "submissions": "37.5K",
@@ -552,17 +810,23 @@ export const initialProblems: Problem[] = [
       "python": "def most_common_word_code(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object mostCommonWordCode(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto mostCommonWordCode(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-012",
     "title": "Unique Pair Sums",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Unique",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "70.1%",
     "submissions": "46.3K",
@@ -584,17 +848,23 @@ export const initialProblems: Problem[] = [
       "python": "def unique_pair_sums(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object uniquePairSums(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto uniquePairSums(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-013",
     "title": "Set Equality Ignoring Order",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Set",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "76.2%",
     "submissions": "37.0K",
@@ -616,17 +886,23 @@ export const initialProblems: Problem[] = [
       "python": "def set_equality_ignoring_order(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object setEqualityIgnoringOrder(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto setEqualityIgnoringOrder(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-014",
     "title": "Common Multiplicity",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Common",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "68.4%",
     "submissions": "39.0K",
@@ -648,17 +924,23 @@ export const initialProblems: Problem[] = [
       "python": "def common_multiplicity(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object commonMultiplicity(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto commonMultiplicity(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-015",
     "title": "First Unique Index",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "First",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "67.6%",
     "submissions": "21.2K",
@@ -680,17 +962,23 @@ export const initialProblems: Problem[] = [
       "python": "def first_unique_index(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object firstUniqueIndex(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto firstUniqueIndex(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-016",
     "title": "Mode Count",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Mode",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "69.2%",
     "submissions": "17.3K",
@@ -712,17 +1000,23 @@ export const initialProblems: Problem[] = [
       "python": "def mode_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object modeCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto modeCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-017",
     "title": "Nearby Duplicate Distance",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Nearby",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "66.4%",
     "submissions": "29.1K",
@@ -744,17 +1038,23 @@ export const initialProblems: Problem[] = [
       "python": "def nearby_duplicate_distance(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object nearbyDuplicateDistance(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto nearbyDuplicateDistance(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-018",
     "title": "Frequency Bucket Summary",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Frequency",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "67.2%",
     "submissions": "37.2K",
@@ -776,17 +1076,24 @@ export const initialProblems: Problem[] = [
       "python": "def frequency_bucket_summary(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object frequencyBucketSummary(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto frequencyBucketSummary(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-019",
     "title": "Distinct Window Values",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Distinct",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Sliding Window"
     ],
     "acceptance": "72.3%",
     "submissions": "18.0K",
@@ -808,17 +1115,23 @@ export const initialProblems: Problem[] = [
       "python": "def distinct_window_values(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object distinctWindowValues(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto distinctWindowValues(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-020",
     "title": "Repeated Pair Tracker",
     "difficulty": "Easy",
     "topics": [
-      "Hashing",
-      "Repeated",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "72.5%",
     "submissions": "15.4K",
@@ -840,17 +1153,23 @@ export const initialProblems: Problem[] = [
       "python": "def repeated_pair_tracker(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object repeatedPairTracker(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto repeatedPairTracker(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-021",
     "title": "Longest Balanced Binary Segment",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "48.2%",
     "submissions": "18.2K",
@@ -872,17 +1191,25 @@ export const initialProblems: Problem[] = [
       "python": "def longest_balanced_binary_segment(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestBalancedBinarySegment(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestBalancedBinarySegment(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-022",
     "title": "Subarray Sum Target Count",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "49.5%",
     "submissions": "25.1K",
@@ -904,17 +1231,25 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_sum_target_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarraySumTargetCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarraySumTargetCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-023",
     "title": "Longest Target-Sum Segment",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "55.0%",
     "submissions": "14.8K",
@@ -936,17 +1271,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_target_sum_segment(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestTargetSumSegment(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestTargetSumSegment(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-024",
     "title": "Zero-Sum Subarray Witness",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Zero-Sum",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "51.1%",
     "submissions": "11.4K",
@@ -968,17 +1310,23 @@ export const initialProblems: Problem[] = [
       "python": "def zero_sum_subarray_witness(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object zeroSumSubarrayWitness(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto zeroSumSubarrayWitness(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-025",
     "title": "Pair Count with Difference",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Pair",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "49.2%",
     "submissions": "12.4K",
@@ -1000,17 +1348,23 @@ export const initialProblems: Problem[] = [
       "python": "def pair_count_with_difference(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object pairCountWithDifference(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto pairCountWithDifference(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-026",
     "title": "Triplet Sum Frequency",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Triplet",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "47.6%",
     "submissions": "22.7K",
@@ -1032,17 +1386,23 @@ export const initialProblems: Problem[] = [
       "python": "def triplet_sum_frequency(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object tripletSumFrequency(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto tripletSumFrequency(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-027",
     "title": "Anagram Signature Groups",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Anagram",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "47.9%",
     "submissions": "27.2K",
@@ -1064,17 +1424,24 @@ export const initialProblems: Problem[] = [
       "python": "def anagram_signature_groups(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object anagramSignatureGroups(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto anagramSignatureGroups(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-028",
     "title": "Canonical Rotation Groups",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Canonical",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "56.9%",
     "submissions": "9.7K",
@@ -1096,17 +1463,23 @@ export const initialProblems: Problem[] = [
       "python": "def canonical_rotation_groups(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object canonicalRotationGroups(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto canonicalRotationGroups(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-029",
     "title": "Longest Consecutive Value Run",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "44.8%",
     "submissions": "22.2K",
@@ -1128,17 +1501,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_consecutive_value_run(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestConsecutiveValueRun(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestConsecutiveValueRun(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-030",
     "title": "Subarrays with K Distinct Values",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Subarrays",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "49.1%",
     "submissions": "11.4K",
@@ -1160,17 +1540,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarrays_with_k_distinct_values(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarraysWithKDistinctValues(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarraysWithKDistinctValues(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-031",
     "title": "Subarrays with At Most K Distinct",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Subarrays",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "54.2%",
     "submissions": "12.6K",
@@ -1192,17 +1579,23 @@ export const initialProblems: Problem[] = [
       "python": "def subarrays_with_at_most_k_distinct(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarraysWithAtMostKDistinct(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarraysWithAtMostKDistinct(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-032",
     "title": "Distinct Values After Updates",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Distinct",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "46.8%",
     "submissions": "24.7K",
@@ -1224,17 +1617,23 @@ export const initialProblems: Problem[] = [
       "python": "def distinct_values_after_updates(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object distinctValuesAfterUpdates(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto distinctValuesAfterUpdates(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-033",
     "title": "First Missing Positive via Set",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "First",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "57.6%",
     "submissions": "10.1K",
@@ -1256,17 +1655,23 @@ export const initialProblems: Problem[] = [
       "python": "def first_missing_positive_via_set(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object firstMissingPositiveViaSet(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto firstMissingPositiveViaSet(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-034",
     "title": "Longest Duplicate-Free Segment",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "45.9%",
     "submissions": "19.7K",
@@ -1288,17 +1693,23 @@ export const initialProblems: Problem[] = [
       "python": "def longest_duplicate_free_segment(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestDuplicateFreeSegment(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestDuplicateFreeSegment(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-035",
     "title": "Equal Frequency Prefix",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Equal",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "46.7%",
     "submissions": "19.5K",
@@ -1320,17 +1731,24 @@ export const initialProblems: Problem[] = [
       "python": "def equal_frequency_prefix(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object equalFrequencyPrefix(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto equalFrequencyPrefix(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-036",
     "title": "Subarray Divisible by M",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "54.6%",
     "submissions": "16.1K",
@@ -1352,17 +1770,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_divisible_by_m(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarrayDivisibleByM(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarrayDivisibleByM(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-037",
     "title": "Longest Divisible Segment",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "52.3%",
     "submissions": "15.6K",
@@ -1384,17 +1809,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_divisible_segment(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestDivisibleSegment(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestDivisibleSegment(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-038",
     "title": "Count Equal 0-1-2 Segments",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "49.0%",
     "submissions": "14.3K",
@@ -1416,17 +1848,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_equal012_segments(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countEqual012Segments(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countEqual012Segments(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-039",
     "title": "Rectangle Sum Signature",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Rectangle",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "49.7%",
     "submissions": "23.1K",
@@ -1448,17 +1887,24 @@ export const initialProblems: Problem[] = [
       "python": "def rectangle_sum_signature(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object rectangleSumSignature(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto rectangleSumSignature(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-040",
     "title": "Matrix Row Equivalence",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Matrix",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "57.2%",
     "submissions": "24.3K",
@@ -1480,17 +1926,24 @@ export const initialProblems: Problem[] = [
       "python": "def matrix_row_equivalence(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object matrixRowEquivalence(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto matrixRowEquivalence(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-041",
     "title": "Column Pattern Frequency",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Column",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "55.6%",
     "submissions": "18.4K",
@@ -1512,17 +1965,24 @@ export const initialProblems: Problem[] = [
       "python": "def column_pattern_frequency(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object columnPatternFrequency(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto columnPatternFrequency(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-042",
     "title": "Repeated DNA-like Codes",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Repeated",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "54.6%",
     "submissions": "8.4K",
@@ -1544,17 +2004,23 @@ export const initialProblems: Problem[] = [
       "python": "def repeated_d_n_a_like_codes(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object repeatedDNALikeCodes(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto repeatedDNALikeCodes(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-043",
     "title": "Longest Prefix with Equal Counts",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "47.4%",
     "submissions": "20.5K",
@@ -1576,17 +2042,23 @@ export const initialProblems: Problem[] = [
       "python": "def longest_prefix_with_equal_counts(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestPrefixWithEqualCounts(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestPrefixWithEqualCounts(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-044",
     "title": "Count Pairs with Same Remainder",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "49.6%",
     "submissions": "24.1K",
@@ -1608,17 +2080,23 @@ export const initialProblems: Problem[] = [
       "python": "def count_pairs_with_same_remainder(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countPairsWithSameRemainder(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countPairsWithSameRemainder(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-045",
     "title": "Frequency-Constrained Selection",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Frequency-Constrained",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "47.7%",
     "submissions": "25.6K",
@@ -1640,17 +2118,23 @@ export const initialProblems: Problem[] = [
       "python": "def frequency_constrained_selection(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object frequencyConstrainedSelection(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto frequencyConstrainedSelection(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-046",
     "title": "Unique Intersection Across Many Lists",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Unique",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "50.6%",
     "submissions": "26.1K",
@@ -1672,17 +2156,23 @@ export const initialProblems: Problem[] = [
       "python": "def unique_intersection_across_many_lists(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object uniqueIntersectionAcrossManyLists(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto uniqueIntersectionAcrossManyLists(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-047",
     "title": "Symmetric Difference Multiplicity",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Symmetric",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "55.7%",
     "submissions": "17.7K",
@@ -1704,17 +2194,24 @@ export const initialProblems: Problem[] = [
       "python": "def symmetric_difference_multiplicity(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object symmetricDifferenceMultiplicity(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto symmetricDifferenceMultiplicity(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-048",
     "title": "Two Sum with Lexicographic Witness",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Two",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Graph"
     ],
     "acceptance": "53.3%",
     "submissions": "17.3K",
@@ -1736,17 +2233,23 @@ export const initialProblems: Problem[] = [
       "python": "def two_sum_with_lexicographic_witness(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object twoSumWithLexicographicWitness(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto twoSumWithLexicographicWitness(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-049",
     "title": "Count Pairs of Equal Products",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "49.7%",
     "submissions": "17.2K",
@@ -1768,17 +2271,25 @@ export const initialProblems: Problem[] = [
       "python": "def count_pairs_of_equal_products(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countPairsOfEqualProducts(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countPairsOfEqualProducts(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-050",
     "title": "Subarray XOR Target Count",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Bit Manipulation"
     ],
     "acceptance": "56.0%",
     "submissions": "16.3K",
@@ -1800,17 +2311,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_x_o_r_target_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarrayXORTargetCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarrayXORTargetCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-051",
     "title": "Longest XOR-Zero Segment",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Bit Manipulation"
     ],
     "acceptance": "52.8%",
     "submissions": "22.4K",
@@ -1832,17 +2350,23 @@ export const initialProblems: Problem[] = [
       "python": "def longest_x_o_r_zero_segment(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestXORZeroSegment(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestXORZeroSegment(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-052",
     "title": "Prefix State Collision Count",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Prefix",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "49.0%",
     "submissions": "14.5K",
@@ -1864,17 +2388,24 @@ export const initialProblems: Problem[] = [
       "python": "def prefix_state_collision_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object prefixStateCollisionCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto prefixStateCollisionCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-053",
     "title": "Distinct Substrings by Hash Key",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Distinct",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "45.7%",
     "submissions": "23.0K",
@@ -1896,17 +2427,23 @@ export const initialProblems: Problem[] = [
       "python": "def distinct_substrings_by_hash_key(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object distinctSubstringsByHashKey(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto distinctSubstringsByHashKey(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-054",
     "title": "Near-Identical Records",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Near-Identical",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "44.2%",
     "submissions": "18.3K",
@@ -1928,17 +2465,24 @@ export const initialProblems: Problem[] = [
       "python": "def near_identical_records(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object nearIdenticalRecords(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto nearIdenticalRecords(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-055",
     "title": "Top K Frequent with Stable Ties",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Top",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Heap"
     ],
     "acceptance": "53.5%",
     "submissions": "23.3K",
@@ -1960,17 +2504,24 @@ export const initialProblems: Problem[] = [
       "python": "def top_k_frequent_with_stable_ties(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object topKFrequentWithStableTies(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto topKFrequentWithStableTies(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-056",
     "title": "Sliding Window Anagram Match",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Sliding",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Sliding Window"
     ],
     "acceptance": "46.8%",
     "submissions": "16.3K",
@@ -1992,17 +2543,24 @@ export const initialProblems: Problem[] = [
       "python": "def sliding_window_anagram_match(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object slidingWindowAnagramMatch(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto slidingWindowAnagramMatch(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-057",
     "title": "Count Subarrays with Equal Odd-Even",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "50.8%",
     "submissions": "24.6K",
@@ -2024,17 +2582,25 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_equal_odd_even(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysWithEqualOddEven(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysWithEqualOddEven(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-058",
     "title": "Longest Same-Sum Across Two Arrays",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "44.9%",
     "submissions": "15.0K",
@@ -2056,17 +2622,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_same_sum_across_two_arrays(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSameSumAcrossTwoArrays(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSameSumAcrossTwoArrays(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-059",
     "title": "Matrix Equal Row-Column Pairs",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Matrix",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "45.6%",
     "submissions": "24.4K",
@@ -2088,17 +2661,23 @@ export const initialProblems: Problem[] = [
       "python": "def matrix_equal_row_column_pairs(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object matrixEqualRowColumnPairs(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto matrixEqualRowColumnPairs(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-060",
     "title": "Distinct Paths Signature Count",
     "difficulty": "Medium",
     "topics": [
-      "Hashing",
-      "Distinct",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "56.8%",
     "submissions": "18.7K",
@@ -2120,17 +2699,25 @@ export const initialProblems: Problem[] = [
       "python": "def distinct_paths_signature_count(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object distinctPathsSignatureCount(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto distinctPathsSignatureCount(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-061",
     "title": "Subarray Sum in Multiple Ranges",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "39.7%",
     "submissions": "12.0K",
@@ -2152,17 +2739,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_sum_in_multiple_ranges(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarraySumInMultipleRanges(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarraySumInMultipleRanges(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-062",
     "title": "Dynamic Pair Sum Queries",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Dynamic",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Dynamic Programming"
     ],
     "acceptance": "29.7%",
     "submissions": "8.8K",
@@ -2184,17 +2778,23 @@ export const initialProblems: Problem[] = [
       "python": "def dynamic_pair_sum_queries(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object dynamicPairSumQueries(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto dynamicPairSumQueries(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-063",
     "title": "Online Distinct Count with Undo",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Online",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "31.2%",
     "submissions": "11.5K",
@@ -2216,17 +2816,24 @@ export const initialProblems: Problem[] = [
       "python": "def online_distinct_count_with_undo(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object onlineDistinctCountWithUndo(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto onlineDistinctCountWithUndo(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-064",
     "title": "Longest Subarray with Frequency Cap",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "35.8%",
     "submissions": "9.6K",
@@ -2248,17 +2855,23 @@ export const initialProblems: Problem[] = [
       "python": "def longest_subarray_with_frequency_cap(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSubarrayWithFrequencyCap(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSubarrayWithFrequencyCap(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-065",
     "title": "Minimum Window Covering Multiset",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Minimum",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "37.6%",
     "submissions": "3.0K",
@@ -2280,17 +2893,24 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_window_covering_multiset(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minimumWindowCoveringMultiset(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minimumWindowCoveringMultiset(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-066",
     "title": "Count Subarrays with Exactly Two Odd Frequencies",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "37.5%",
     "submissions": "14.5K",
@@ -2312,17 +2932,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_exactly_two_odd_frequencies(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysWithExactlyTwoOddFrequencies(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysWithExactlyTwoOddFrequencies(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-067",
     "title": "Three Prefix States Collision",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Three",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "37.4%",
     "submissions": "13.7K",
@@ -2344,17 +2971,24 @@ export const initialProblems: Problem[] = [
       "python": "def three_prefix_states_collision(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object threePrefixStatesCollision(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto threePrefixStatesCollision(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-068",
     "title": "Largest Submatrix with Target Sum",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Largest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "32.0%",
     "submissions": "7.1K",
@@ -2376,17 +3010,24 @@ export const initialProblems: Problem[] = [
       "python": "def largest_submatrix_with_target_sum(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object largestSubmatrixWithTargetSum(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto largestSubmatrixWithTargetSum(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-069",
     "title": "Submatrix Sum Frequency Map",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Submatrix",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Matrix"
     ],
     "acceptance": "32.8%",
     "submissions": "3.6K",
@@ -2408,17 +3049,25 @@ export const initialProblems: Problem[] = [
       "python": "def submatrix_sum_frequency_map(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object submatrixSumFrequencyMap(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto submatrixSumFrequencyMap(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-070",
     "title": "Dynamic Matrix Pattern Queries",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Dynamic",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Dynamic Programming",
+      "Matrix"
     ],
     "acceptance": "37.4%",
     "submissions": "13.4K",
@@ -2440,17 +3089,23 @@ export const initialProblems: Problem[] = [
       "python": "def dynamic_matrix_pattern_queries(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object dynamicMatrixPatternQueries(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto dynamicMatrixPatternQueries(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-071",
     "title": "Longest Arithmetic Segment after Reordering",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "36.5%",
     "submissions": "4.7K",
@@ -2472,17 +3127,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_arithmetic_segment_after_reordering(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestArithmeticSegmentAfterReordering(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestArithmeticSegmentAfterReordering(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-072",
     "title": "Count Distinct Subarrays under Value Bound",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "39.0%",
     "submissions": "5.8K",
@@ -2504,17 +3166,25 @@ export const initialProblems: Problem[] = [
       "python": "def count_distinct_subarrays_under_value_bound(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countDistinctSubarraysUnderValueBound(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countDistinctSubarraysUnderValueBound(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-073",
     "title": "Subarray Sum Closest to Target",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "32.0%",
     "submissions": "7.4K",
@@ -2536,17 +3206,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_sum_closest_to_target(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarraySumClosestToTarget(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarraySumClosestToTarget(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-074",
     "title": "Maximum Subarray Frequency Score",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Maximum",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "29.3%",
     "submissions": "4.1K",
@@ -2568,17 +3245,24 @@ export const initialProblems: Problem[] = [
       "python": "def maximum_subarray_frequency_score(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maximumSubarrayFrequencyScore(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maximumSubarrayFrequencyScore(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-075",
     "title": "Count Pairs of Subarrays with Equal Sum",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "37.1%",
     "submissions": "10.7K",
@@ -2600,17 +3284,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_pairs_of_subarrays_with_equal_sum(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countPairsOfSubarraysWithEqualSum(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countPairsOfSubarraysWithEqualSum(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-076",
     "title": "Hash-Based Range Merge",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Hash-Based",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Greedy"
     ],
     "acceptance": "28.7%",
     "submissions": "10.7K",
@@ -2632,17 +3323,23 @@ export const initialProblems: Problem[] = [
       "python": "def hash_based_range_merge(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object hashBasedRangeMerge(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto hashBasedRangeMerge(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-077",
     "title": "Streaming Heavy Hitters",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Streaming",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "30.7%",
     "submissions": "6.3K",
@@ -2664,17 +3361,24 @@ export const initialProblems: Problem[] = [
       "python": "def streaming_heavy_hitters(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object streamingHeavyHitters(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto streamingHeavyHitters(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-078",
     "title": "Sliding Window Median by Frequency Map",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Sliding",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Sliding Window"
     ],
     "acceptance": "28.9%",
     "submissions": "12.3K",
@@ -2696,17 +3400,23 @@ export const initialProblems: Problem[] = [
       "python": "def sliding_window_median_by_frequency_map(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object slidingWindowMedianByFrequencyMap(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto slidingWindowMedianByFrequencyMap(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-079",
     "title": "Longest Segment with K Frequency Classes",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "35.9%",
     "submissions": "10.1K",
@@ -2728,17 +3438,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_segment_with_k_frequency_classes(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSegmentWithKFrequencyClasses(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSegmentWithKFrequencyClasses(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-080",
     "title": "Count Subarrays with Frequency Signature",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "39.0%",
     "submissions": "5.5K",
@@ -2760,17 +3477,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_frequency_signature(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysWithFrequencySignature(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysWithFrequencySignature(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-081",
     "title": "Distinct Palindrome Substrings by Hash",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Distinct",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "39.8%",
     "submissions": "13.1K",
@@ -2792,17 +3516,23 @@ export const initialProblems: Problem[] = [
       "python": "def distinct_palindrome_substrings_by_hash(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object distinctPalindromeSubstringsByHash(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto distinctPalindromeSubstringsByHash(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-082",
     "title": "Pattern Match with Wildcard Hash Blocks",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Pattern",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "37.0%",
     "submissions": "9.0K",
@@ -2824,17 +3554,23 @@ export const initialProblems: Problem[] = [
       "python": "def pattern_match_with_wildcard_hash_blocks(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object patternMatchWithWildcardHashBlocks(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto patternMatchWithWildcardHashBlocks(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-083",
     "title": "Duplicate Documents under Normalization",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Duplicate",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "31.6%",
     "submissions": "3.0K",
@@ -2856,17 +3592,23 @@ export const initialProblems: Problem[] = [
       "python": "def duplicate_documents_under_normalization(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object duplicateDocumentsUnderNormalization(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto duplicateDocumentsUnderNormalization(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-084",
     "title": "Near Duplicate Numeric Vectors",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Near",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "39.5%",
     "submissions": "10.4K",
@@ -2888,17 +3630,23 @@ export const initialProblems: Problem[] = [
       "python": "def near_duplicate_numeric_vectors(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object nearDuplicateNumericVectors(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto nearDuplicateNumericVectors(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-085",
     "title": "Hash Join Three Streams",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Hash",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "34.5%",
     "submissions": "8.8K",
@@ -2920,17 +3668,24 @@ export const initialProblems: Problem[] = [
       "python": "def hash_join_three_streams(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object hashJoinThreeStreams(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto hashJoinThreeStreams(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-086",
     "title": "Dynamic Multiset Rank Queries",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Dynamic",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Dynamic Programming"
     ],
     "acceptance": "34.3%",
     "submissions": "6.0K",
@@ -2952,17 +3707,24 @@ export const initialProblems: Problem[] = [
       "python": "def dynamic_multiset_rank_queries(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object dynamicMultisetRankQueries(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto dynamicMultisetRankQueries(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-087",
     "title": "Count Quadruples with Equal Sum",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "37.6%",
     "submissions": "3.6K",
@@ -2984,17 +3746,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_quadruples_with_equal_sum(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countQuadruplesWithEqualSum(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countQuadruplesWithEqualSum(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-088",
     "title": "Count Quadruples with Equal XOR",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Bit Manipulation"
     ],
     "acceptance": "39.9%",
     "submissions": "14.5K",
@@ -3016,17 +3785,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_quadruples_with_equal_x_o_r(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countQuadruplesWithEqualXOR(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countQuadruplesWithEqualXOR(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-089",
     "title": "Longest Subarray with Repeated Prefix Signature",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "36.3%",
     "submissions": "14.8K",
@@ -3048,17 +3824,24 @@ export const initialProblems: Problem[] = [
       "python": "def longest_subarray_with_repeated_prefix_signature(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSubarrayWithRepeatedPrefixSignature(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSubarrayWithRepeatedPrefixSignature(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-090",
     "title": "Subarray Remainder Vector Queries",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Subarray",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "35.5%",
     "submissions": "6.0K",
@@ -3080,17 +3863,24 @@ export const initialProblems: Problem[] = [
       "python": "def subarray_remainder_vector_queries(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object subarrayRemainderVectorQueries(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto subarrayRemainderVectorQueries(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-091",
     "title": "Dynamic Distinct Values in Subranges",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Dynamic",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Dynamic Programming"
     ],
     "acceptance": "35.1%",
     "submissions": "14.8K",
@@ -3112,17 +3902,23 @@ export const initialProblems: Problem[] = [
       "python": "def dynamic_distinct_values_in_subranges(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object dynamicDistinctValuesInSubranges(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto dynamicDistinctValuesInSubranges(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-092",
     "title": "Offline Range Frequency Queries",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Offline",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "32.0%",
     "submissions": "7.1K",
@@ -3144,17 +3940,24 @@ export const initialProblems: Problem[] = [
       "python": "def offline_range_frequency_queries(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object offlineRangeFrequencyQueries(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto offlineRangeFrequencyQueries(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-093",
     "title": "Count Substrings with At Most D Distinct",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Count",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "34.4%",
     "submissions": "7.7K",
@@ -3176,17 +3979,24 @@ export const initialProblems: Problem[] = [
       "python": "def count_substrings_with_at_most_d_distinct(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubstringsWithAtMostDDistinct(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubstringsWithAtMostDDistinct(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-094",
     "title": "Longest Substring with Frequency Constraints",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Longest",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "String"
     ],
     "acceptance": "38.3%",
     "submissions": "10.1K",
@@ -3208,17 +4018,23 @@ export const initialProblems: Problem[] = [
       "python": "def longest_substring_with_frequency_constraints(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSubstringWithFrequencyConstraints(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSubstringWithFrequencyConstraints(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-095",
     "title": "Multi-Pattern Anagram Search",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Multi-Pattern",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "32.2%",
     "submissions": "9.0K",
@@ -3240,17 +4056,23 @@ export const initialProblems: Problem[] = [
       "python": "def multi_pattern_anagram_search(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object multiPatternAnagramSearch(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto multiPatternAnagramSearch(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-096",
     "title": "Hash Collision Audit",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Hash",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "39.3%",
     "submissions": "8.2K",
@@ -3272,17 +4094,24 @@ export const initialProblems: Problem[] = [
       "python": "def hash_collision_audit(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object hashCollisionAudit(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto hashCollisionAudit(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-097",
     "title": "Canonical Graph Neighborhoods",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Canonical",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Graph"
     ],
     "acceptance": "29.6%",
     "submissions": "7.7K",
@@ -3304,17 +4133,24 @@ export const initialProblems: Problem[] = [
       "python": "def canonical_graph_neighborhoods(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object canonicalGraphNeighborhoods(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto canonicalGraphNeighborhoods(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-098",
     "title": "Repeated Subtree Signature Counter",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Repeated",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table",
+      "Tree"
     ],
     "acceptance": "30.0%",
     "submissions": "11.8K",
@@ -3336,17 +4172,23 @@ export const initialProblems: Problem[] = [
       "python": "def repeated_subtree_signature_counter(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object repeatedSubtreeSignatureCounter(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto repeatedSubtreeSignatureCounter(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-099",
     "title": "Versioned Key Frequency Store",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Versioned",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "39.4%",
     "submissions": "9.0K",
@@ -3368,17 +4210,23 @@ export const initialProblems: Problem[] = [
       "python": "def versioned_key_frequency_store(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object versionedKeyFrequencyStore(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto versionedKeyFrequencyStore(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "hash-100",
     "title": "Bounded Cache with Frequency Eviction",
     "difficulty": "Hard",
     "topics": [
-      "Hashing",
-      "Bounded",
-      "Frequency Maps",
-      "Hash-Based Lookup"
+      "Hash Table"
     ],
     "acceptance": "38.6%",
     "submissions": "13.7K",
@@ -3400,16 +4248,23 @@ export const initialProblems: Problem[] = [
       "python": "def bounded_cache_with_frequency_eviction(data: Any, parameters: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object boundedCacheWithFrequencyEviction(Object data, Object parameters) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto boundedCacheWithFrequencyEviction(auto data, auto parameters) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "data = [1, 2, 2, 3, 1, 4]",
+        "expected": "4",
+        "isHidden": false
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-001",
     "title": "Count Vowels in a Selected Range",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "String Traversal",
-      "Case Normalization"
+      "String"
     ],
     "acceptance": "71.0%",
     "submissions": "45.5K",
@@ -3435,16 +4290,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_vowels_in_range(text: str, start: int, end: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countVowelsInRange(String text, int start, int end) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countVowelsInRange(string text, int start, int end) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"Notebook\", start = 1, end = 6",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"AEIOUxyz\", start = 0, end = 5",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", start = 0, end = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"education\", start = 3, end = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"rhythm\", start = 0, end = 6",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"bOoK\", start = 0, end = 4",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"area\", start = 0, end = 3",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-002",
     "title": "Describe the Longest Character Run",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Run Length Analysis",
-      "Tie Breaking"
+      "String"
     ],
     "acceptance": "70.0%",
     "submissions": "20.4K",
@@ -3470,16 +4368,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_run(text: str) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestRun(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestRun(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"baaaaccdd\"",
+        "expected": "{\"character\":\"a\",\"length\":4,\"start_index\":1}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aabbcc\"",
+        "expected": "{\"character\":\"a\",\"length\":2,\"start_index\":0}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"z\"",
+        "expected": "{\"character\":\"z\",\"length\":1,\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"wxyz\"",
+        "expected": "{\"character\":\"w\",\"length\":1,\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"mmmm\"",
+        "expected": "{\"character\":\"m\",\"length\":4,\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abccc\"",
+        "expected": "{\"character\":\"c\",\"length\":3,\"start_index\":2}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-003",
     "title": "Count Character Categories",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Classification",
-      "String Traversal"
+      "String"
     ],
     "acceptance": "64.7%",
     "submissions": "17.7K",
@@ -3505,16 +4446,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_character_categories(text: str) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countCharacterCategories(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countCharacterCategories(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"Hi 7!\"",
+        "expected": "{\"uppercase\":1,\"lowercase\":1,\"digits\":1,\"whitespace\":1,\"other\":1}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"ABC09\"",
+        "expected": "{\"uppercase\":3,\"lowercase\":0,\"digits\":2,\"whitespace\":0,\"other\":0}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "{\"uppercase\":0,\"lowercase\":0,\"digits\":0,\"whitespace\":0,\"other\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \" \\t\\n\"",
+        "expected": "{\"uppercase\":0,\"lowercase\":0,\"digits\":0,\"whitespace\":3,\"other\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"!?-_\"",
+        "expected": "{\"uppercase\":0,\"lowercase\":0,\"digits\":0,\"whitespace\":0,\"other\":4}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"Az0\"",
+        "expected": "{\"uppercase\":1,\"lowercase\":1,\"digits\":1,\"whitespace\":0,\"other\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"$$$\"",
+        "expected": "{\"uppercase\":0,\"lowercase\":0,\"digits\":0,\"whitespace\":0,\"other\":3}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-004",
     "title": "Collapse a Chosen Separator",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "String Construction",
-      "Character Scanning"
+      "String"
     ],
     "acceptance": "69.9%",
     "submissions": "39.7K",
@@ -3540,16 +4524,60 @@ export const initialProblems: Problem[] = [
       "python": "def collapse_separator(text: str, separator: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String collapseSeparator(String text, String separator) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string collapseSeparator(string text, string separator) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"red---blue----green\", separator = \"-\"",
+        "expected": "red-blue-green",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"a,,b,c,,\", separator = \",\"",
+        "expected": "a,b,c,",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", separator = \",\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"hello\", separator = \"-\"",
+        "expected": "hello",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"/////\", separator = \"/\"",
+        "expected": "/",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a/b/c\", separator = \"/\"",
+        "expected": "a/b/c",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"--x---\", separator = \"-\"",
+        "expected": "-x-",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-005",
     "title": "Find the First Character with a Target Frequency",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Frequency Counting",
-      "Hashing"
+      "String",
+      "Hash Table"
     ],
     "acceptance": "68.6%",
     "submissions": "41.1K",
@@ -3575,16 +4603,59 @@ export const initialProblems: Problem[] = [
       "python": "def first_character_with_frequency(text: str, k: int) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String firstCharacterWithFrequency(String text, int k) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string firstCharacterWithFrequency(string text, int k) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"swiss\", k = 1",
+        "expected": "w",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aabbccc\", k = 2",
+        "expected": "a",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 1",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 4",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"zzzz\", k = 4",
+        "expected": "z",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aabb\", k = 3",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"AaA\", k = 1",
+        "expected": "a",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-006",
     "title": "Count Maximal Digit Groups",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "String Scanning",
-      "Token Detection"
+      "String"
     ],
     "acceptance": "65.1%",
     "submissions": "46.1K",
@@ -3610,16 +4681,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_digit_groups(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countDigitGroups(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countDigitGroups(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"A12B003C9\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"2026\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abcXYZ\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"00700\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a1b2c3\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"42abc8\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-007",
     "title": "Count Case-Change Boundaries",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Properties",
-      "Adjacent Comparison"
+      "String"
     ],
     "acceptance": "65.9%",
     "submissions": "34.3K",
@@ -3644,16 +4758,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_case_change_boundaries(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countCaseChangeBoundaries(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countCaseChangeBoundaries(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aBcD\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"Ab-BA\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"A\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcDEF\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a1B\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aAaA\"",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-008",
     "title": "Check Alphabetical Order Ignoring Separators",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Normalization",
-      "String Validation"
+      "String"
     ],
     "acceptance": "77.3%",
     "submissions": "38.0K",
@@ -3679,16 +4836,59 @@ export const initialProblems: Problem[] = [
       "python": "def letters_are_ordered(text: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean lettersAreOrdered(String text) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool lettersAreOrdered(string text) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"A-b c!\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"b-A-c\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"Q\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"123-!? \"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"azY\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aAaB\"",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-009",
     "title": "Flip the Case of ASCII Letters",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Transformation",
-      "String Construction"
+      "String"
     ],
     "acceptance": "71.6%",
     "submissions": "26.0K",
@@ -3713,16 +4913,60 @@ export const initialProblems: Problem[] = [
       "python": "def flip_ascii_case(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String flipAsciiCase(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string flipAsciiCase(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"Hello, World 42!\"",
+        "expected": "hELLO, wORLD 42!",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aZ09\"",
+        "expected": "Az09",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"ABC\"",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"xyz\"",
+        "expected": "XYZ",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"123!? \"",
+        "expected": "123!? ",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"Aa-Bb_Cc\"",
+        "expected": "aA-bB_cC",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-010",
     "title": "Rotate Letters While Preserving Layout",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Transformation",
-      "Modular Arithmetic"
+      "String",
+      "Math"
     ],
     "acceptance": "63.3%",
     "submissions": "43.4K",
@@ -3748,16 +4992,59 @@ export const initialProblems: Problem[] = [
       "python": "def rotate_letters(text: str, shift: int) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String rotateLetters(String text, int shift) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string rotateLetters(string text, int shift) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"Ab-z!\", shift = 2",
+        "expected": "Cd-b!",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"Zoo 9\", shift = -1",
+        "expected": "Ynn 9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", shift = 5",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"Mix-42\", shift = 0",
+        "expected": "Mix-42",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"Az\", shift = 26",
+        "expected": "Az",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a\", shift = -27",
+        "expected": "z",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"!? 123\", shift = 99",
+        "expected": "!? 123",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-011",
     "title": "Measure the Longest Whitespace-Delimited Token",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Tokenization",
-      "String Scanning"
+      "String"
     ],
     "acceptance": "71.3%",
     "submissions": "48.7K",
@@ -3782,16 +5069,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_token_length(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestTokenLength(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestTokenLength(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"  code   builds tools \"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"one two three\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \" \\t\\n \"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"algorithm\"",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"cat dog pig\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"  hi  \"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-012",
     "title": "Count Words Starting with a Letter",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Tokenization",
-      "Case-Insensitive Matching"
+      "String"
     ],
     "acceptance": "77.6%",
     "submissions": "26.1K",
@@ -3817,16 +5147,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_words_starting_with(text: str, letter: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countWordsStartingWith(String text, String letter) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countWordsStartingWith(string text, string letter) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"River road, red roof\", letter = \"r\"",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"Apple apricot 8pear _avocado\", letter = \"a\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", letter = \"a\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"blue green violet\", letter = \"r\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"Sun sea SKY\", letter = \"s\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"!sun ?sea sun\", letter = \"s\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"A an ant\", letter = \"a\"",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-013",
     "title": "Mask the Middle of an Identifier",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "String Construction",
-      "Indexing"
+      "String"
     ],
     "acceptance": "66.9%",
     "submissions": "29.6K",
@@ -3851,16 +5224,59 @@ export const initialProblems: Problem[] = [
       "python": "def mask_identifier(identifier: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String maskIdentifier(String identifier) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string maskIdentifier(string identifier) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "identifier = \"account42\"",
+        "expected": "a*******2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "identifier = \"xy\"",
+        "expected": "xy",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "identifier = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "identifier = \"Q\"",
+        "expected": "Q",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "identifier = \"ab\"",
+        "expected": "ab",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "identifier = \"cat\"",
+        "expected": "c*t",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "identifier = \"aaaaa\"",
+        "expected": "a***a",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-014",
     "title": "Sum Individual Digit Values",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Scanning",
-      "Numeric Parsing"
+      "String"
     ],
     "acceptance": "76.4%",
     "submissions": "39.0K",
@@ -3886,16 +5302,59 @@ export const initialProblems: Problem[] = [
       "python": "def sum_digit_characters(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int sumDigitCharacters(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sumDigitCharacters(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"a12b4\"",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"Room 305\"",
+        "expected": "8",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"letters\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"0000\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"999\"",
+        "expected": "27",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"1-a-2\"",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-015",
     "title": "Count Non-Overlapping Pattern Matches",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Substring Search",
-      "Greedy Scanning"
+      "String"
     ],
     "acceptance": "66.5%",
     "submissions": "30.2K",
@@ -3920,16 +5379,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_non_overlapping(text: str, pattern: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countNonOverlapping(String text, String pattern) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countNonOverlapping(string text, string pattern) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aaaaa\", pattern = \"aa\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"one fish two fish\", pattern = \"fish\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", pattern = \"a\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", pattern = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"ab\", pattern = \"abcd\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"match\", pattern = \"match\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\", pattern = \"aaa\"",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-016",
     "title": "Remove a Supplied Set of Characters",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Filtering",
-      "String Construction"
+      "String"
     ],
     "acceptance": "72.7%",
     "submissions": "22.8K",
@@ -3954,16 +5456,59 @@ export const initialProblems: Problem[] = [
       "python": "def remove_listed_characters(text: str, remove_chars: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String removeListedCharacters(String text, String remove_chars) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeListedCharacters(string text, string remove_chars) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"balloon\", remove_chars = \"lo\"",
+        "expected": "ban",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"AaBbAa\", remove_chars = \"A\"",
+        "expected": "aBba",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", remove_chars = \"x\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"keep me\", remove_chars = \"\"",
+        "expected": "keep me",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\", remove_chars = \"a\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"AaAa\", remove_chars = \"a\"",
+        "expected": "AA",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"banana\", remove_chars = \"nnn\"",
+        "expected": "baaa",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-017",
     "title": "Count Letter–Digit Category Switches",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Character Classification",
-      "Adjacent Comparison"
+      "String"
     ],
     "acceptance": "63.7%",
     "submissions": "17.0K",
@@ -3988,16 +5533,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_letter_digit_switches(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countLetterDigitSwitches(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countLetterDigitSwitches(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"ab12-c3\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"A9B8\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"7\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"1234\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"a-1\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-018",
     "title": "Count Words Within a Length Interval",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Tokenization",
-      "Filtering"
+      "String",
+      "Greedy"
     ],
     "acceptance": "67.0%",
     "submissions": "45.1K",
@@ -4023,16 +5612,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_words_in_length_range(text: str, min_len: int, max_len: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countWordsInLengthRange(String text, int min_len, int max_len) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countWordsInLengthRange(string text, int min_len, int max_len) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"a to the moon\", min_len = 2, max_len = 3",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"red blue gold\", min_len = 3, max_len = 4",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", min_len = 1, max_len = 5",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"   \", min_len = 0, max_len = 10",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"a bb ccc\", min_len = 2, max_len = 3",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"four five six\", min_len = 3, max_len = 4",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"longer words\", min_len = 1, max_len = 2",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-019",
     "title": "Validate a Parenthesis-Only Sequence",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Stack",
-      "Balance Checking"
+      "String",
+      "Stack"
     ],
     "acceptance": "66.9%",
     "submissions": "39.7K",
@@ -4057,16 +5690,60 @@ export const initialProblems: Problem[] = [
       "python": "def is_parenthesis_sequence_balanced(text: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isParenthesisSequenceBalanced(String text) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isParenthesisSequenceBalanced(string text) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"(()())\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"())(\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"(((\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \")))\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"((()))\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"(()))\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-020",
     "title": "Find the Common Prefix of a Word List",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
-      "Prefix Comparison",
-      "Array of Strings"
+      "String",
+      "Array"
     ],
     "acceptance": "73.9%",
     "submissions": "19.7K",
@@ -4092,16 +5769,61 @@ export const initialProblems: Problem[] = [
       "python": "def common_prefix(words: list[str]) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String commonPrefix(String[] words) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string commonPrefix(vector<string>& words) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"interview\",\"internet\",\"internal\"]",
+        "expected": "inter",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"same\",\"same\"]",
+        "expected": "same",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = []",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"\"]",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"solo\"]",
+        "expected": "solo",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"cat\",\"dog\"]",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"car\",\"careful\",\"care\"]",
+        "expected": "car",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-021",
     "title": "Count Substrings with Exactly K Distinct Symbols",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Frequency Counting"
+      "Hash Table"
     ],
     "acceptance": "44.8%",
     "submissions": "8.1K",
@@ -4128,16 +5850,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_substrings_exactly_k_distinct(text: str, k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubstringsExactlyKDistinct(String text, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubstringsExactlyKDistinct(string text, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abac\", k = 2",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\", k = 1",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aab\", k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"zzzz\", k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abcd\", k = 1",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-022",
     "title": "Longest Window with a Distinct-Symbol Limit",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Hashing"
+      "Hash Table"
     ],
     "acceptance": "50.1%",
     "submissions": "13.3K",
@@ -4163,16 +5930,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_window_at_most_k_distinct(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestWindowAtMostKDistinct(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestWindowAtMostKDistinct(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"eceba\", k = 2",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaabbb\", k = 1",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", k = 10",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\", k = 1",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"ababab\", k = 2",
+        "expected": "6",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-023",
     "title": "Locate Permutation Windows",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Anagram Matching"
+      "Array"
     ],
     "acceptance": "56.8%",
     "submissions": "8.3K",
@@ -4198,16 +6010,61 @@ export const initialProblems: Problem[] = [
       "python": "def permutation_window_starts(text: str, pattern: str) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] permutationWindowStarts(String text, String pattern) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> permutationWindowStarts(string text, string pattern) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"cbaebabacd\", pattern = \"abc\"",
+        "expected": "[0,6]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abab\", pattern = \"ab\"",
+        "expected": "[0,1,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", pattern = \"a\"",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", pattern = \"\"",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"ab\", pattern = \"abc\"",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"bca\", pattern = \"abc\"",
+        "expected": "[0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aababa\", pattern = \"aab\"",
+        "expected": "[0,1,3]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-024",
     "title": "Group Words by Character Inventory",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Frequency Signatures"
+      "String",
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "48.6%",
     "submissions": "10.8K",
@@ -4234,16 +6091,62 @@ export const initialProblems: Problem[] = [
       "python": "def group_by_character_inventory(words: list[str]) -> list[str]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String[] groupByCharacterInventory(String[] words) {\n        // Write your solution here\n        return new String[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> groupByCharacterInventory(vector<string>& words) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"arc\",\"car\",\"elbow\",\"below\",\"state\",\"taste\"]",
+        "expected": "[[\"arc\",\"car\"],[\"elbow\",\"below\"],[\"state\",\"taste\"]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"ab\",\"ba\",\"abc\"]",
+        "expected": "[[\"ab\",\"ba\"],[\"abc\"]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = [\"solo\"]",
+        "expected": "[[\"solo\"]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"a\",\"a\",\"a\"]",
+        "expected": "[[\"a\",\"a\",\"a\"]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"\",\"a\",\"\"]",
+        "expected": "[[\"\",\"\"],[\"a\"]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"ab\",\"ac\",\"ad\"]",
+        "expected": "[[\"ab\"],[\"ac\"],[\"ad\"]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"aab\",\"aba\",\"abb\"]",
+        "expected": "[[\"aab\",\"aba\"],[\"abb\"]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-025",
     "title": "Find the Shortest Unique Prefix for Each Word",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Trie",
-      "Prefix Counting"
+      "Prefix Sum",
+      "Array"
     ],
     "acceptance": "56.4%",
     "submissions": "16.7K",
@@ -4269,16 +6172,60 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_unique_prefixes(words: list[str]) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String shortestUniquePrefixes(String[] words) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string shortestUniquePrefixes(vector<string>& words) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"dog\",\"dove\",\"duck\",\"zebra\"]",
+        "expected": "[\"dog\",\"dov\",\"du\",\"z\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"app\",\"apple\",\"ape\"]",
+        "expected": "[null,\"appl\",\"ape\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = [\"solo\"]",
+        "expected": "[\"s\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"cat\",\"cat\"]",
+        "expected": "[null,null]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"a\",\"ab\"]",
+        "expected": "[null,\"ab\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"ant\",\"bee\",\"cat\"]",
+        "expected": "[\"a\",\"b\",\"c\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"prefixOne\",\"prefixTwo\"]",
+        "expected": "[\"prefixO\",\"prefixT\"]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-026",
     "title": "Reduce Runs of Exactly K Characters",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Stack",
-      "Run Reduction"
+      "String",
+      "Stack"
     ],
     "acceptance": "57.8%",
     "submissions": "20.8K",
@@ -4304,16 +6251,60 @@ export const initialProblems: Problem[] = [
       "python": "def reduce_exact_runs(text: str, k: int) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String reduceExactRuns(String text, int k) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string reduceExactRuns(string text, int k) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"deeedbbcccbdaa\", k = 3",
+        "expected": "aa",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"pbbcggttciiippooaais\", k = 2",
+        "expected": "ps",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 2",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"aabb\", k = 5",
+        "expected": "aabb",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\", k = 2",
+        "expected": "abcd",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"xxxx\", k = 4",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abcccbbaa\", k = 3",
+        "expected": "",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-027",
     "title": "Minimum Deletions to Make Two Texts Equal",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Longest Common Subsequence"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "56.3%",
     "submissions": "13.3K",
@@ -4338,16 +6329,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_deletions_to_equal(a: str, b: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumDeletionsToEqual(String a, String b) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumDeletionsToEqual(string a, string b) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"sea\", b = \"eat\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"abc\", b = \"abc\"",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"abc\", b = \"\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"ab\", b = \"CD\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"abc\", b = \"xby\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"aaaa\", b = \"aa\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-028",
     "title": "Longest Shared Contiguous Fragment",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Substring Matching"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "50.7%",
     "submissions": "11.4K",
@@ -4372,16 +6407,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_shared_fragment_length(a: str, b: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestSharedFragmentLength(String a, String b) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestSharedFragmentLength(string a, string b) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"xabcdz\", b = \"yabcq\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"12345\", b = \"34567\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"abc\", b = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"abc\", b = \"XYZ\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"xxhello\", b = \"hello\"",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"abc\", b = \"ac\"",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-029",
     "title": "Count Ways a Target Appears as a Subsequence",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Subsequence Counting"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "45.0%",
     "submissions": "8.7K",
@@ -4407,16 +6486,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_target_subsequences(source: str, target: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countTargetSubsequences(String source, String target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countTargetSubsequences(string source, string target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"babgbag\", target = \"bag\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"aaaa\", target = \"aa\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", target = \"\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", target = \"\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"ab\", target = \"abc\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"abc\", target = \"z\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"aaaaa\", target = \"aaa\"",
+        "expected": "10",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-030",
     "title": "Check a One-to-One Character Mapping",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Bijection"
+      "String",
+      "Hash Table"
     ],
     "acceptance": "48.2%",
     "submissions": "20.4K",
@@ -4442,16 +6565,62 @@ export const initialProblems: Problem[] = [
       "python": "def has_bijective_character_mapping(a: str, b: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean hasBijectiveCharacterMapping(String a, String b) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool hasBijectiveCharacterMapping(string a, string b) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"paper\", b = \"title\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"ab\", b = \"cc\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"ab\", b = \"a\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"level\", b = \"level\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"foo\", b = \"bar\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"ab\", b = \"aa\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-031",
     "title": "Find All Substring Matches for a Set of Words",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Trie",
-      "Multi-Pattern Search"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "55.6%",
     "submissions": "22.0K",
@@ -4478,16 +6647,61 @@ export const initialProblems: Problem[] = [
       "python": "def find_all_pattern_positions(text: str, patterns: list[str]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object findAllPatternPositions(String text, String[] patterns) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto findAllPatternPositions(string text, vector<string>& patterns) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"bananaban\", patterns = [\"ana\",\"ban\",\"x\"]",
+        "expected": "{\"ana\":[1,3],\"ban\":[0,6],\"x\":[]}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\", patterns = [\"a\",\"aa\",\"aaa\"]",
+        "expected": "{\"a\":[0,1,2,3],\"aa\":[0,1,2],\"aaa\":[0,1]}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", patterns = [\"a\"]",
+        "expected": "{\"a\":[]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"ab\", patterns = [\"abcd\"]",
+        "expected": "{\"abcd\":[]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"cat\", patterns = [\"cat\"]",
+        "expected": "{\"cat\":[0]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaaa\", patterns = [\"aaa\"]",
+        "expected": "{\"aaa\":[0,1,2]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"hello\", patterns = [\"xyz\",\"world\"]",
+        "expected": "{\"xyz\":[],\"world\":[]}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-032",
     "title": "Find the Shortest Window Covering Required Characters",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Frequency Counting"
+      "Hash Table"
     ],
     "acceptance": "45.3%",
     "submissions": "15.0K",
@@ -4512,16 +6726,61 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_covering_window(source: str, required: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String minimumCoveringWindow(String source, String required) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minimumCoveringWindow(string source, string required) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"ADOBECODEBANC\", required = \"ABC\"",
+        "expected": "BANC",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"aaabcbc\", required = \"aabc\"",
+        "expected": "aabc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", required = \"a\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", required = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"ab\", required = \"aabc\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"aabb\", required = \"aabb\"",
+        "expected": "aabb",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"abaca\", required = \"aa\"",
+        "expected": "aba",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-033",
     "title": "Longest Uniformizable Window",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Frequency Counting"
+      "Hash Table"
     ],
     "acceptance": "55.7%",
     "submissions": "9.3K",
@@ -4548,16 +6807,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_uniformizable_window(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestUniformizableWindow(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestUniformizableWindow(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"AABABBA\", k = 1",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"ABBB\", k = 0",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"AABCC\", k = 0",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"ABCD\", k = 4",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"ZZZZ\", k = 0",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"Q\", k = 0",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-034",
     "title": "Compare Dotted Numeric Labels",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Parsing",
-      "String Comparison"
+      "String"
     ],
     "acceptance": "44.4%",
     "submissions": "26.3K",
@@ -4584,15 +6886,59 @@ export const initialProblems: Problem[] = [
       "python": "def compare_numeric_labels(a: str, b: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int compareNumericLabels(String a, String b) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int compareNumericLabels(string a, string b) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"2.09.0\", b = \"2.9\"",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"1.12\", b = \"1.3.8\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"1.0\", b = \"1\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"10\", b = \"2\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"99999999999999999999\", b = \"100000000000000000000\"",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"0004.02\", b = \"4.2\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"3.4.0.0\", b = \"3.4\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-035",
     "title": "Validate a Numeric Word Abbreviation",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Parsing",
+      "String",
       "Two Pointers"
     ],
     "acceptance": "51.4%",
@@ -4619,16 +6965,60 @@ export const initialProblems: Problem[] = [
       "python": "def is_numeric_word_abbreviation_valid(word: str, abbreviation: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isNumericWordAbbreviationValid(String word, String abbreviation) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isNumericWordAbbreviationValid(string word, string abbreviation) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "word = \"international\", abbreviation = \"i11l\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "word = \"substitution\", abbreviation = \"s10n\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "word = \"\", abbreviation = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "word = \"cat\", abbreviation = \"\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "word = \"abc\", abbreviation = \"a02\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "word = \"cat\", abbreviation = \"4\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "word = \"cat\", abbreviation = \"b2\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-036",
     "title": "Parse Escaped Delimited Records",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Parsing",
-      "Finite-State Scanning"
+      "String",
+      "Array"
     ],
     "acceptance": "49.4%",
     "submissions": "18.8K",
@@ -4653,16 +7043,62 @@ export const initialProblems: Problem[] = [
       "python": "def parse_escaped_pipe_fields(line: str) -> list[str]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String[] parseEscapedPipeFields(String line) {\n        // Write your solution here\n        return new String[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> parseEscapedPipeFields(string line) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "line = \"red|blue\\\\|green||gold\"",
+        "expected": "[\"red\",\"blue|green\",\"\",\"gold\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "line = \"a\\\\\\\\b|c\"",
+        "expected": "[\"a\\\\b\",\"c\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "line = \"\"",
+        "expected": "[\"\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "line = \"|\"",
+        "expected": "[\"\",\"\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "line = \"a|\"",
+        "expected": "[\"a\",\"\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "line = \"\\\\|\"",
+        "expected": "[\"|\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "line = \"abc\\\\\"",
+        "expected": "[\"abc\\\\\"]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-037",
     "title": "Reorder Tokens by a Custom Alphabet",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sorting",
-      "Custom Comparator"
+      "Array",
+      "Graph"
     ],
     "acceptance": "56.9%",
     "submissions": "23.1K",
@@ -4689,16 +7125,61 @@ export const initialProblems: Problem[] = [
       "python": "def sort_by_custom_alphabet(words: list[str], alphabet: str) -> list[str]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String[] sortByCustomAlphabet(String[] words, String alphabet) {\n        // Write your solution here\n        return new String[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> sortByCustomAlphabet(vector<string>& words, string alphabet) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"ba\",\"ab\",\"aa\",\"b\"], alphabet = \"ba\"",
+        "expected": "[\"b\",\"ba\",\"aa\",\"ab\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"car\",\"cat\",\"ca\"], alphabet = \"abcdefghijklmnopqrstuvwxyz\"",
+        "expected": "[\"ca\",\"car\",\"cat\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = [], alphabet = \"abc\"",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"cab\"], alphabet = \"abc\"",
+        "expected": "[\"cab\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"ab\",\"ab\"], alphabet = \"ab\"",
+        "expected": "[\"ab\",\"ab\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"abc\",\"ab\"], alphabet = \"abc\"",
+        "expected": "[\"ab\",\"abc\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"a\",\"b\",\"c\"], alphabet = \"cba\"",
+        "expected": "[\"c\",\"b\",\"a\"]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-038",
     "title": "Compare Two Texts with Erase Markers",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Stack",
-      "Backward Scanning"
+      "Hash Table"
     ],
     "acceptance": "52.9%",
     "submissions": "17.1K",
@@ -4724,16 +7205,59 @@ export const initialProblems: Problem[] = [
       "python": "def texts_equal_after_erasing(a: str, b: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean textsEqualAfterErasing(String a, String b) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool textsEqualAfterErasing(string a, string b) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"ab#c\", b = \"ad#c\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"a##\", b = \"\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"#a\", b = \"a\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"abc###\", b = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"hello\", b = \"hello\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"ab#d\", b = \"ac#d\"",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-039",
     "title": "Find the Longest Prefix That Is Also a Suffix",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Prefix Function",
-      "String Matching"
+      "String"
     ],
     "acceptance": "57.6%",
     "submissions": "26.0K",
@@ -4758,16 +7282,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_proper_border_length(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestProperBorderLength(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestProperBorderLength(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abacababa\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"zzzzz\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abcabc\"",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-040",
     "title": "Find the First Repeated Character",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Left-to-Right Scan"
+      "String",
+      "Hash Table"
     ],
     "acceptance": "46.9%",
     "submissions": "23.1K",
@@ -4792,16 +7360,61 @@ export const initialProblems: Problem[] = [
       "python": "def first_repeated_character(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String firstRepeatedCharacter(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string firstRepeatedCharacter(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abca\"",
+        "expected": "a",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"mississippi\"",
+        "expected": "s",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"a\"",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aa\"",
+        "expected": "a",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aA\"",
+        "expected": "null",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-041",
     "title": "Count Substrings with No Symbol Used More Than Twice",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Sliding Window",
-      "Frequency Counting"
+      "Hash Table"
     ],
     "acceptance": "51.6%",
     "submissions": "10.1K",
@@ -4826,16 +7439,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_windows_with_max_frequency_two(text: str) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countWindowsWithMaxFrequencyTwo(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countWindowsWithMaxFrequencyTwo(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abca\"",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaa\"",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aabb\"",
+        "expected": "10",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-042",
     "title": "Append the Shortest Suffix to Make a Palindrome",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Prefix Function",
-      "Palindrome Construction"
+      "String"
     ],
     "acceptance": "49.9%",
     "submissions": "21.2K",
@@ -4860,16 +7516,60 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_suffix_for_palindrome(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String shortestSuffixForPalindrome(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string shortestSuffixForPalindrome(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"race\"",
+        "expected": "car",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abca\"",
+        "expected": "cba",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"level\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\"",
+        "expected": "cba",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abba\"",
+        "expected": "",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-043",
     "title": "Find the Longest Substring Containing Every Vowel",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Character Coverage"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "55.0%",
     "submissions": "8.3K",
@@ -4895,16 +7595,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_substring_with_all_vowels(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestSubstringWithAllVowels(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestSubstringWithAllVowels(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abecidofu\"",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"xxaeioubb\"",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"aeiobcdf\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aeiou\"",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a-x-e-y-i-z-o-w-u\"",
+        "expected": "17",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaeeiioouu\"",
+        "expected": "10",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-044",
     "title": "Find the Minimum Insertions for Balanced Brackets",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Greedy",
-      "Bracket Counting"
+      "Stack"
     ],
     "acceptance": "56.4%",
     "submissions": "12.1K",
@@ -4929,16 +7674,62 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_parenthesis_insertions(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumParenthesisInsertions(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumParenthesisInsertions(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"()))((\"",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"(()\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"((((\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \")))\"",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"()()\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"(())\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-045",
     "title": "Determine Whether a Dictionary Can Segment Text",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Word Break"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "49.2%",
     "submissions": "10.4K",
@@ -4965,16 +7756,62 @@ export const initialProblems: Problem[] = [
       "python": "def can_segment_text(text: str, dictionary: list[str]) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean canSegmentText(String text, String[] dictionary) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canSegmentText(string text, vector<string>& dictionary) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"blueberrypie\", dictionary = [\"blue\",\"berry\",\"pie\"]",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"blueberrpie\", dictionary = [\"blue\",\"berry\",\"pie\"]",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", dictionary = [\"a\"]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", dictionary = []",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"cat\", dictionary = [\"cat\"]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"catsandog\", dictionary = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaaaa\", dictionary = [\"aa\"]",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-046",
     "title": "Count All Dictionary Segmentations",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Counting"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "48.3%",
     "submissions": "21.0K",
@@ -5000,16 +7837,62 @@ export const initialProblems: Problem[] = [
       "python": "def count_text_segmentations(text: str, dictionary: list[str]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countTextSegmentations(String text, String[] dictionary) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countTextSegmentations(string text, vector<string>& dictionary) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aaaa\", dictionary = [\"a\",\"aa\"]",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"catsand\", dictionary = [\"cat\",\"cats\",\"and\",\"sand\"]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", dictionary = [\"a\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", dictionary = [\"x\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"home\", dictionary = [\"home\",\"ho\",\"me\"]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\", dictionary = [\"a\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaa\", dictionary = [\"a\",\"aa\"]",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-047",
     "title": "Count Pairs with a Prefix Relationship",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Trie",
-      "Prefix Counting"
+      "Prefix Sum",
+      "Array"
     ],
     "acceptance": "53.6%",
     "submissions": "10.1K",
@@ -5035,16 +7918,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_strict_prefix_pairs(words: list[str]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countStrictPrefixPairs(String[] words) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countStrictPrefixPairs(vector<string>& words) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"app\",\"apple\",\"ape\",\"bat\",\"batch\"]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"a\",\"ab\",\"abc\"]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"abc\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"go\",\"go\",\"go\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"\",\"a\",\"ab\"]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"apple\",\"app\"]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-048",
     "title": "Find Repeated Fixed-Length Fragments",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Substring Enumeration"
+      "String",
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "57.3%",
     "submissions": "19.1K",
@@ -5070,16 +7998,60 @@ export const initialProblems: Problem[] = [
       "python": "def repeated_fragments(text: str, k: int) -> list[str]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String[] repeatedFragments(String text, int k) {\n        // Write your solution here\n        return new String[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> repeatedFragments(string text, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abcabcab\", k = 3",
+        "expected": "[\"abc\",\"bca\",\"cab\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaaa\", k = 2",
+        "expected": "[\"aa\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 2",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 4",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcdef\", k = 2",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"zzzz\", k = 1",
+        "expected": "[\"z\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abc\", k = 3",
+        "expected": "[]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-049",
     "title": "Find the Longest Substring with At Most One Adjacent Repeat Block",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Local Pattern Constraint"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "54.0%",
     "submissions": "14.5K",
@@ -5104,16 +8076,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_window_with_one_repeated_run(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestWindowWithOneRepeatedRun(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestWindowWithOneRepeatedRun(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abccdefggg\"",
+        "expected": "8",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aabbcc\"",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abcdef\"",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaabcdef\"",
+        "expected": "8",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aabbcc\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaaa\"",
+        "expected": "5",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-050",
     "title": "Find the Longest Alternating Letter-Digit Substring",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Two Pointers",
-      "Character Classification"
+      "String",
+      "Two Pointers"
     ],
     "acceptance": "56.7%",
     "submissions": "13.0K",
@@ -5138,16 +8154,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_alternating_letter_digit(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestAlternatingLetterDigit(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestAlternatingLetterDigit(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"a1B2cX33d\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"12ab34\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"1234\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a1b2c3\"",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"a1-b2\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-051",
     "title": "Normalize Runs of Spaces Without Touching Other Whitespace",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "String Normalization",
-      "Scanning"
+      "String"
     ],
     "acceptance": "57.7%",
     "submissions": "11.4K",
@@ -5172,16 +8231,61 @@ export const initialProblems: Problem[] = [
       "python": "def collapse_ordinary_spaces(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String collapseOrdinarySpaces(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string collapseOrdinarySpaces(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"  alpha   beta  \"",
+        "expected": " alpha beta ",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"a\\t  b\\n c\"",
+        "expected": "a\t b\n c",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\"",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"     \"",
+        "expected": " ",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a b c\"",
+        "expected": "a b c",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"\\t\\t\"",
+        "expected": "\t\t",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-052",
     "title": "Find the Shortest Prefix Window Matching a Pattern",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Two Pointers",
-      "Subsequence Matching"
+      "Dynamic Programming"
     ],
     "acceptance": "54.1%",
     "submissions": "25.6K",
@@ -5207,16 +8311,60 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_window_containing_subsequence(source: str, pattern: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String shortestWindowContainingSubsequence(String source, String pattern) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string shortestWindowContainingSubsequence(string source, string pattern) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"abcdebdde\", pattern = \"bde\"",
+        "expected": "bcde",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"axbycz\", pattern = \"abc\"",
+        "expected": "axbyc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", pattern = \"a\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", pattern = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"ab\", pattern = \"abc\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"abc\", pattern = \"abc\"",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"aaabca\", pattern = \"ac\"",
+        "expected": "abc",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-053",
     "title": "Count Substrings with Exactly K Digits",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Character Counting"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "46.2%",
     "submissions": "12.2K",
@@ -5242,16 +8390,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_substrings_with_exactly_k_digits(text: str, k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubstringsWithExactlyKDigits(String text, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubstringsWithExactlyKDigits(string text, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"a1b2\", k = 1",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"123\", k = 2",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", k = 0",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"1234\", k = 2",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"a1\", k = 3",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-054",
     "title": "Reconstruct a Word from Run-Length Tokens",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Parsing",
-      "Run-Length Decoding"
+      "String"
     ],
     "acceptance": "47.6%",
     "submissions": "28.1K",
@@ -5278,16 +8469,59 @@ export const initialProblems: Problem[] = [
       "python": "def decode_letter_counts(encoded: str, max_output: int) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String decodeLetterCounts(String encoded, int max_output) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string decodeLetterCounts(string encoded, int max_output) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "encoded = \"a3b2c1\", max_output = 10",
+        "expected": "aaabbc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "encoded = \"x1y4\", max_output = 5",
+        "expected": "xyyyy",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "encoded = \"\", max_output = 0",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "encoded = \"a0\", max_output = 10",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "encoded = \"a03\", max_output = 10",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "encoded = \"a100\", max_output = 99",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "encoded = \"ab2\", max_output = 10",
+        "expected": "null",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-055",
     "title": "Multiply Two Nonnegative Integer Texts",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Arithmetic on Strings",
-      "Digit Arrays"
+      "String"
     ],
     "acceptance": "55.4%",
     "submissions": "18.7K",
@@ -5313,16 +8547,59 @@ export const initialProblems: Problem[] = [
       "python": "def multiply_integer_strings(a: str, b: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String multiplyIntegerStrings(String a, String b) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string multiplyIntegerStrings(string a, string b) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"123\", b = \"45\"",
+        "expected": "5535",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"0007\", b = \"08\"",
+        "expected": "56",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"0\", b = \"987\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"123\", b = \"0\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"9\", b = \"9\"",
+        "expected": "81",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"00012\", b = \"0003\"",
+        "expected": "36",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"99\", b = \"99\"",
+        "expected": "9801",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-056",
     "title": "Add Signed Integer Texts",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Arithmetic on Strings",
-      "Sign Handling"
+      "String"
     ],
     "acceptance": "48.8%",
     "submissions": "8.0K",
@@ -5348,16 +8625,60 @@ export const initialProblems: Problem[] = [
       "python": "def add_signed_integer_strings(a: str, b: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String addSignedIntegerStrings(String a, String b) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string addSignedIntegerStrings(string a, string b) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"-120\", b = \"45\"",
+        "expected": "-75",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"00099\", b = \"1\"",
+        "expected": "100",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"0\", b = \"-0\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"-999\", b = \"999\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"-12\", b = \"-8\"",
+        "expected": "-20",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"999\", b = \"1\"",
+        "expected": "1000",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"+7\", b = \"-3\"",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-057",
     "title": "Return the Longest Prefix Repeated at Least R Times",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "String Matching",
-      "Prefix Counting"
+      "String",
+      "Prefix Sum"
     ],
     "acceptance": "56.7%",
     "submissions": "29.2K",
@@ -5383,14 +8704,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_prefix_repeated(text: str, r: int) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String longestPrefixRepeated(String text, int r) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string longestPrefixRepeated(string text, int r) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abcababc\", r = 2",
+        "expected": "abc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaaa\", r = 3",
+        "expected": "aaa",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", r = 1",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", r = 1",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", r = 5",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\", r = 2",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\", r = 2",
+        "expected": "aaa",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-058",
     "title": "Minimum Adjacent Swaps to Group a Chosen Character",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Greedy",
       "Sliding Window"
     ],
@@ -5418,16 +8784,61 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_adjacent_swaps_to_group(text: str, ch: str) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minimumAdjacentSwapsToGroup(String text, String ch) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minimumAdjacentSwapsToGroup(string text, string ch) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aXaaYa\", ch = \"a\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"xxxyxxx\", ch = \"x\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", ch = \"a\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", ch = \"x\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abca\", ch = \"b\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"xxabxx\", ch = \"x\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\", ch = \"a\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-059",
     "title": "Find the Longest Chain of Word Extensions",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Sorting by Length"
+      "Array"
     ],
     "acceptance": "45.2%",
     "submissions": "28.8K",
@@ -5453,16 +8864,59 @@ export const initialProblems: Problem[] = [
       "python": "def longest_word_extension_chain(words: list[str]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestWordExtensionChain(String[] words) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestWordExtensionChain(vector<string>& words) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"a\",\"ba\",\"bca\",\"bda\",\"bdca\"]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"at\",\"cat\",\"coat\",\"coast\"]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = [\"solo\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"cat\",\"dog\",\"sun\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"abcd\",\"a\",\"abc\",\"ab\"]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"a\",\"a\",\"ab\"]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"a\",\"b\",\"c\"]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-060",
     "title": "Find the Minimum Characters to Add at the End for a Target Prefix",
     "difficulty": "Medium",
     "topics": [
-      "Strings",
-      "Prefix Function",
-      "String Matching"
+      "String"
     ],
     "acceptance": "44.2%",
     "submissions": "14.4K",
@@ -5487,16 +8941,61 @@ export const initialProblems: Problem[] = [
       "python": "def append_to_end_for_target_suffix(text: str, target: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String appendToEndForTargetSuffix(String text, String target) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string appendToEndForTargetSuffix(string text, string target) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abracad\", target = \"cadabra\"",
+        "expected": "abra",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"hello\", target = \"world\"",
+        "expected": "world",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", target = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", target = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"\", target = \"abc\"",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcXYZ\", target = \"XYZ\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"ababa\", target = \"aba\"",
+        "expected": "",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-061",
     "title": "Find the First Non-Repeating Character After Updates",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Online Queries"
+      "String",
+      "Hash Table",
+      "Array"
     ],
     "acceptance": "31.1%",
     "submissions": "10.7K",
@@ -5522,16 +9021,61 @@ export const initialProblems: Problem[] = [
       "python": "def first_unique_after_each_update(operations: dict) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String firstUniqueAfterEachUpdate(Object operations) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string firstUniqueAfterEachUpdate(auto operations) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"append\",\"value\":\"b\"},{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"pop\"}]",
+        "expected": "[\"a\",\"a\",\"b\",\"a\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"x\"},{\"type\":\"append\",\"value\":\"x\"}]",
+        "expected": "[\"x\",null]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"q\"}]",
+        "expected": "[\"q\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"q\"},{\"type\":\"append\",\"value\":\"q\"}]",
+        "expected": "[\"q\",null]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"pop\"}]",
+        "expected": "[\"a\",null]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"append\",\"value\":\"b\"},{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"pop\"}]",
+        "expected": "[\"a\",\"a\",\"b\",\"a\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "operations = [{\"type\":\"append\",\"value\":\"a\"},{\"type\":\"append\",\"value\":\"b\"},{\"type\":\"append\",\"value\":\"c\"}]",
+        "expected": "[\"a\",\"a\",\"a\"]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-062",
     "title": "Find the Longest Substring with Equal Letter and Digit Counts",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Prefix Sums",
-      "Hashing"
+      "String",
+      "Prefix Sum",
+      "Hash Table"
     ],
     "acceptance": "36.1%",
     "submissions": "12.3K",
@@ -5556,16 +9100,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_equal_letter_digit_substring(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestEqualLetterDigitSubstring(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestEqualLetterDigitSubstring(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"a1b2cX34\"",
+        "expected": "8",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"123abc\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"123\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a1\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"a-1\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-063",
     "title": "Count Substrings That Begin and End with the Same Symbol",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Combinatorics",
-      "Frequency Counting"
+      "String",
+      "Math",
+      "Hash Table"
     ],
     "acceptance": "34.7%",
     "submissions": "10.4K",
@@ -5590,16 +9179,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_same_endpoint_substrings(text: str) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSameEndpointSubstrings(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSameEndpointSubstrings(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abca\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\"",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aba\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aA\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-064",
     "title": "Sort Characters by Frequency with Stable Ties",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Hashing",
-      "Stable Ordering"
+      "String",
+      "Hash Table"
     ],
     "acceptance": "32.3%",
     "submissions": "10.4K",
@@ -5624,16 +9257,60 @@ export const initialProblems: Problem[] = [
       "python": "def sort_characters_by_stable_frequency(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String sortCharactersByStableFrequency(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string sortCharactersByStableFrequency(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"treehouse\"",
+        "expected": "eeetrhous",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"bbAa\"",
+        "expected": "bbAa",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"z\"",
+        "expected": "z",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\"",
+        "expected": "aaaa",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\"",
+        "expected": "abcd",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"!!aa??\"",
+        "expected": "!!aa??",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-065",
     "title": "Find the Longest Substring with No Palindrome of Length Three",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Local Constraint"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "35.7%",
     "submissions": "8.8K",
@@ -5658,16 +9335,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_without_length_three_palindrome(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestWithoutLengthThreePalindrome(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestWithoutLengthThreePalindrome(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abacdef\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abcdef\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"ab\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcde\"",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abcdc\"",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-066",
     "title": "Generate a Canonical Token Signature",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Normalization",
-      "Sorting"
+      "String",
+      "Sorting",
+      "Array"
     ],
     "acceptance": "28.9%",
     "submissions": "12.3K",
@@ -5693,16 +9415,61 @@ export const initialProblems: Problem[] = [
       "python": "def canonical_letter_signatures(words: list[str]) -> list[str]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String[] canonicalLetterSignatures(String[] words) {\n        // Write your solution here\n        return new String[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> canonicalLetterSignatures(vector<string>& words) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "words = [\"Dormitory!\",\"Dirty room\",\"Listen\",\"Silent\"]",
+        "expected": "[\"dimoorrty\",\"dimoorrty\",\"eilnst\",\"eilnst\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "words = [\"123\",\"---\",\"A-b\"]",
+        "expected": "[\"\",\"\",\"ab\"]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "words = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "words = [\"\"]",
+        "expected": "[\"\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "words = [\"!? 42\"]",
+        "expected": "[\"\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "words = [\"AaBb\"]",
+        "expected": "[\"aabb\"]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "words = [\"banana\"]",
+        "expected": "[\"aaabnn\"]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-067",
     "title": "Find the Maximum Score from Non-Overlapping Word Matches",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Dictionary Matching"
+      "Array"
     ],
     "acceptance": "33.1%",
     "submissions": "6.6K",
@@ -5730,16 +9497,60 @@ export const initialProblems: Problem[] = [
       "python": "def maximum_non_overlapping_word_score(text: str, entries: dict) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maximumNonOverlappingWordScore(String text, Object entries) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximumNonOverlappingWordScore(string text, auto entries) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"ababa\", entries = [{\"word\":\"aba\",\"score\":5},{\"word\":\"ba\",\"score\":3},{\"word\":\"a\",\"score\":1}]",
+        "expected": "8",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"catdog\", entries = [{\"word\":\"cat\",\"score\":4},{\"word\":\"dog\",\"score\":7}]",
+        "expected": "11",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", entries = [{\"word\":\"a\",\"score\":1}]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"xyz\", entries = [{\"word\":\"cat\",\"score\":9}]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"cat\", entries = [{\"word\":\"cat\",\"score\":5}]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\", entries = [{\"word\":\"aaa\",\"score\":5},{\"word\":\"aa\",\"score\":4}]",
+        "expected": "8",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"hi\", entries = [{\"word\":\"hi\",\"score\":2},{\"word\":\"hi\",\"score\":5}]",
+        "expected": "5",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-068",
     "title": "Check Whether Two Strings Interleave",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Two-Source Merge"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "28.2%",
     "submissions": "5.2K",
@@ -5765,16 +9576,61 @@ export const initialProblems: Problem[] = [
       "python": "def is_interleaving(a: str, b: str, target: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isInterleaving(String a, String b, String target) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isInterleaving(string a, string b, string target) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"abc\", b = \"XYZ\", target = \"aXbYcZ\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"abc\", b = \"XYZ\", target = \"aXbZcY\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\", target = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"a\", b = \"b\", target = \"a\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"abc\", b = \"\", target = \"abc\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"aa\", b = \"a\", target = \"aaa\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"ab\", b = \"cd\", target = \"abce\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-069",
     "title": "Count Distinct Subsequences Modulo a Prime",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Distinct Subsequence Counting"
+      "Hash Table"
     ],
     "acceptance": "35.2%",
     "submissions": "3.3K",
@@ -5800,16 +9656,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_distinct_nonempty_subsequences(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countDistinctNonemptySubsequences(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countDistinctNonemptySubsequences(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aba\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaa\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\"",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abab\"",
+        "expected": "11",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-070",
     "title": "Find the Longest Substring with At Least K Copies of Every Used Character",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Divide and Conquer",
-      "Frequency Counting"
+      "Hash Table"
     ],
     "acceptance": "38.8%",
     "submissions": "3.6K",
@@ -5835,16 +9736,62 @@ export const initialProblems: Problem[] = [
       "python": "def longest_substring_every_used_character_at_least_k(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestSubstringEveryUsedCharacterAtLeastK(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestSubstringEveryUsedCharacterAtLeastK(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aaabbcc\", k = 3",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"ababbc\", k = 2",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 1",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", k = 4",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"zzzz\", k = 2",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaabcc\", k = 3",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-071",
     "title": "Find the Minimum Number of Words in a Segmentation",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Optimization"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "37.7%",
     "submissions": "4.4K",
@@ -5870,17 +9817,61 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_words_to_segment(text: str, dictionary: list[str]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumWordsToSegment(String text, String[] dictionary) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumWordsToSegment(string text, vector<string>& dictionary) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"pineapplepenapple\", dictionary = [\"pine\",\"pineapple\",\"pen\",\"apple\",\"applepen\"]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\", dictionary = [\"a\",\"aa\",\"aaa\"]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", dictionary = [\"a\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"catsandog\", dictionary = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"home\", dictionary = [\"home\",\"h\",\"ome\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abc\", dictionary = [\"a\",\"b\",\"c\"]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaaaa\", dictionary = [\"aa\",\"aaa\"]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-072",
     "title": "Minimum Adjacent Swaps to Transform One Anagram into Another",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Greedy",
-      "Occurrence Matching",
-      "Inversion Counting"
+      "Tree"
     ],
     "acceptance": "37.8%",
     "submissions": "5.8K",
@@ -5905,16 +9896,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_adjacent_swaps_between_anagrams(source: str, target: str) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minimumAdjacentSwapsBetweenAnagrams(String source, String target) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minimumAdjacentSwapsBetweenAnagrams(string source, string target) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"aabb\", target = \"bbaa\"",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"aabc\", target = \"abac\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", target = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", target = \"ab\"",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"aab\", target = \"abb\"",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"listen\", target = \"listen\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"aabb\", target = \"abab\"",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-073",
     "title": "Find All Maximal Runs Meeting a Threshold",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Run Length Encoding",
-      "Index Tracking"
+      "String",
+      "Array"
     ],
     "acceptance": "36.6%",
     "submissions": "5.2K",
@@ -5940,16 +9975,60 @@ export const initialProblems: Problem[] = [
       "python": "def maximal_runs_at_least_k(text: str, k: int) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maximalRunsAtLeastK(String text, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maximalRunsAtLeastK(string text, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aaabbccccd\", k = 3",
+        "expected": "[{\"character\":\"a\",\"start_index\":0,\"length\":3},{\"character\":\"c\",\"start_index\":4,\"length\":4}]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"xxxyyyz\", k = 3",
+        "expected": "[{\"character\":\"x\",\"start_index\":0,\"length\":3},{\"character\":\"y\",\"start_index\":3,\"length\":3}]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 1",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"aaaa\", k = 5",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"bbbbb\", k = 5",
+        "expected": "[{\"character\":\"b\",\"start_index\":0,\"length\":5}]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\", k = 2",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abccc\", k = 3",
+        "expected": "[{\"character\":\"c\",\"start_index\":2,\"length\":3}]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-074",
     "title": "Find the Longest Substring with No Repeated Adjacent Pair",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Local Pattern Constraint"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "38.5%",
     "submissions": "12.3K",
@@ -5974,17 +10053,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_without_equal_neighbors(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestWithoutEqualNeighbors(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestWithoutEqualNeighbors(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aabccde\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"ababa\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"ababab\"",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abca\"",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-075",
     "title": "Reconstruct a String from Unordered Overlapping Fragments",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Graph Theory",
-      "Eulerian Path",
-      "String Assembly"
+      "String",
+      "Graph",
+      "Array"
     ],
     "acceptance": "34.8%",
     "submissions": "11.5K",
@@ -6011,14 +10134,59 @@ export const initialProblems: Problem[] = [
       "python": "def reconstruct_from_overlapping_fragments(fragments: list[str]) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String reconstructFromOverlappingFragments(String[] fragments) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string reconstructFromOverlappingFragments(vector<string>& fragments) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "fragments = [\"abc\",\"bcd\",\"cde\"]",
+        "expected": "abcde",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "fragments = [\"ab\",\"ba\"]",
+        "expected": "aba",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "fragments = []",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "fragments = [\"code\"]",
+        "expected": "code",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "fragments = [\"ab\",\"cd\"]",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "fragments = [\"aa\",\"aa\"]",
+        "expected": "aaa",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "fragments = [\"ab\",\"ac\",\"ca\"]",
+        "expected": "acab",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-076",
     "title": "Find the Maximum Score by Deleting Adjacent Pairs",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Greedy",
       "Stack"
     ],
@@ -6047,16 +10215,59 @@ export const initialProblems: Problem[] = [
       "python": "def maximum_score_deleting_equal_pairs(text: str, scores: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maximumScoreDeletingEqualPairs(String text, Object scores) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maximumScoreDeletingEqualPairs(string text, auto scores) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abbaac\", scores = {\"a\":2,\"b\":5,\"c\":1}",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aabb\", scores = {\"a\":3,\"b\":4}",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", scores = {}",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", scores = {\"a\":1,\"b\":1,\"c\":1}",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"xx\", scores = {\"x\":9}",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abccba\", scores = {\"a\":1,\"b\":2,\"c\":3}",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aabb\", scores = {\"a\":0,\"b\":0}",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-077",
     "title": "Check Whether a String Is a Rotation by Block Shift",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "String Rotation",
-      "Modular Indexing"
+      "String"
     ],
     "acceptance": "30.0%",
     "submissions": "11.5K",
@@ -6081,16 +10292,61 @@ export const initialProblems: Problem[] = [
       "python": "def is_block_rotation(text: str, candidate: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isBlockRotation(String text, String candidate) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isBlockRotation(string text, string candidate) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"rotation\", candidate = \"tionrota\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abc\", candidate = \"acb\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", candidate = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", candidate = \"ab\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", candidate = \"abc\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\", candidate = \"aaaa\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"x\", candidate = \"x\"",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-078",
     "title": "Count Distinct Character Pairs with a Fixed Distance",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Combinatorics",
-      "Frequency Counting"
+      "String",
+      "Math",
+      "Hash Table"
     ],
     "acceptance": "39.4%",
     "submissions": "9.6K",
@@ -6116,16 +10372,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_first_position_pairs(text: str, d: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countFirstPositionPairs(String text, int d) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countFirstPositionPairs(string text, int d) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abacbd\", d = 2",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abcde\", d = 1",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", d = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", d = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\", d = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abc\", d = 10",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aabbcc\", d = 2",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-079",
     "title": "Find the Minimum Number of Character Replacements for Alternating Parity",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Greedy",
-      "Character Classification"
+      "String",
+      "Greedy"
     ],
     "acceptance": "32.1%",
     "submissions": "8.8K",
@@ -6150,16 +10450,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_replacements_for_alternating_parity(digits: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumReplacementsForAlternatingParity(String digits) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumReplacementsForAlternatingParity(string digits) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "digits = \"11234\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "digits = \"2468\"",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "digits = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "digits = \"7\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "digits = \"1234\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "digits = \"0000\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "digits = \"999\"",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-080",
     "title": "Find the Longest Substring with a Bounded Number of Vowels",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Sliding Window",
-      "Character Counting"
+      "String",
+      "Sliding Window"
     ],
     "acceptance": "30.1%",
     "submissions": "12.6K",
@@ -6185,16 +10529,62 @@ export const initialProblems: Problem[] = [
       "python": "def longest_substring_at_most_k_vowels(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestSubstringAtMostKVowels(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestSubstringAtMostKVowels(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"beautifulday\", k = 3",
+        "expected": "8",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"rhythm\", k = 0",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"aei\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"hello\", k = 10",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aeiou\", k = 2",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"AbCdE\", k = 1",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-081",
     "title": "Weighted Edit Distance with Position-Dependent Costs",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Edit Distance"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "36.2%",
     "submissions": "13.7K",
@@ -6220,16 +10610,61 @@ export const initialProblems: Problem[] = [
       "python": "def weighted_edit_distance(source: Any, target: Any, costs: Any) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object weightedEditDistance(Object source, Object target, Object costs) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto weightedEditDistance(auto source, auto target, auto costs) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"ab\", target = \"ac\", insert_cost = [1,1,1], delete_cost = [1,1], substitute_cost = [[2,3],[3,1]]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"a\", target = \"ba\", insert_cost = [2,2,2], delete_cost = [3], substitute_cost = [[5,5]]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", target = \"\", insert_cost = [1], delete_cost = [], substitute_cost = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", target = \"\", insert_cost = [1], delete_cost = [2,2,2], substitute_cost = [[],[],[]]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"\", target = \"xyz\", insert_cost = [1,2,3], delete_cost = [], substitute_cost = []",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"abc\", target = \"abc\", insert_cost = [9,9,9,9], delete_cost = [9,9,9], substitute_cost = [[9,9,9],[9,9,9],[9,9,9]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"a\", target = \"b\", insert_cost = [5,5], delete_cost = [5], substitute_cost = [[0]]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-082",
     "title": "Build the Lexicographically Smallest Shortest Common Supersequence",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Sequence Reconstruction"
+      "Graph"
     ],
     "acceptance": "32.9%",
     "submissions": "4.1K",
@@ -6254,16 +10689,61 @@ export const initialProblems: Problem[] = [
       "python": "def smallest_shortest_common_supersequence(a: str, b: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String smallestShortestCommonSupersequence(String a, String b) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string smallestShortestCommonSupersequence(string a, string b) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"abac\", b = \"cab\"",
+        "expected": "cabac",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"ab\", b = \"ac\"",
+        "expected": "abc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"abc\", b = \"\"",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"same\", b = \"same\"",
+        "expected": "same",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"ab\", b = \"CD\"",
+        "expected": "CDab",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"abc\", b = \"ac\"",
+        "expected": "abc",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-083",
     "title": "Count Distinct Palindromic Subsequences",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Palindrome Counting"
+      "Hash Table"
     ],
     "acceptance": "37.6%",
     "submissions": "3.3K",
@@ -6289,16 +10769,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_distinct_palindromic_subsequences(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countDistinctPalindromicSubsequences(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countDistinctPalindromicSubsequences(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"bccb\"",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaa\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"x\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"ab\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abc\"",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-084",
     "title": "Find the Minimum Palindrome Partition Count",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Palindrome Partitioning"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "29.0%",
     "submissions": "13.4K",
@@ -6323,16 +10847,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_palindrome_pieces(text: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumPalindromePieces(String text) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumPalindromePieces(string text) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aabcc\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"racecar\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"z\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\"",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abccbaX\"",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-085",
     "title": "Partition into Exactly K Palindromes with Minimum Replacements",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Palindrome Editing"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "31.5%",
     "submissions": "14.5K",
@@ -6358,16 +10926,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_changes_for_k_palindrome_pieces(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumChangesForKPalindromePieces(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumChangesForKPalindromePieces(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abc\", k = 2",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abc\", k = 1",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"\", k = 1",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\", k = 4",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"racecar\", k = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abc\", k = 4",
+        "expected": "-1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-086",
     "title": "Match a Pattern with Literals, Dot, and Repetition Operators",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Pattern Matching"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "28.8%",
     "submissions": "11.5K",
@@ -6393,16 +11005,60 @@ export const initialProblems: Problem[] = [
       "python": "def matches_simple_regular_expression(text: str, pattern: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean matchesSimpleRegularExpression(String text, String pattern) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool matchesSimpleRegularExpression(string text, string pattern) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aab\", pattern = \"c*a*b\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"miss\", pattern = \"mis.\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", pattern = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"\", pattern = \"a*\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", pattern = \"ab\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"x\", pattern = \".\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\", pattern = \"a*\"",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-087",
     "title": "Match a Glob Pattern with Character Classes and Escapes",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Parsing",
-      "Wildcard Matching"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "32.1%",
     "submissions": "8.2K",
@@ -6428,17 +11084,62 @@ export const initialProblems: Problem[] = [
       "python": "def matches_advanced_glob(text: str, pattern: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean matchesAdvancedGlob(String text, String pattern) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool matchesAdvancedGlob(string text, string pattern) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"file7.txt\", pattern = \"file[0-9].*\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"report?.csv\", pattern = \"report\\\\?.csv\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", pattern = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"\", pattern = \"*\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"\", pattern = \"?\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"a\", pattern = \"[abc\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"a\", pattern = \"a\\\\\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-088",
     "title": "Find the Longest Repeated Substring Without Overlap",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Suffix Structures",
+      "String",
       "Binary Search",
-      "Rolling Hash"
+      "Hash Table",
+      "Graph"
     ],
     "acceptance": "34.2%",
     "submissions": "5.8K",
@@ -6463,16 +11164,63 @@ export const initialProblems: Problem[] = [
       "python": "def longest_non_overlapping_repeated_substring(text: str) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String longestNonOverlappingRepeatedSubstring(String text) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string longestNonOverlappingRepeatedSubstring(string text) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"banana\"",
+        "expected": "an",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abcabcx\"",
+        "expected": "abc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"a\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"xyzxyz\"",
+        "expected": "xyz",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\"",
+        "expected": "aa",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "str-089",
     "title": "Return the K-th Lexicographic Distinct Substring",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Suffix Array",
-      "Combinatorics"
+      "String",
+      "Math",
+      "Array",
+      "Hash Table",
+      "Graph"
     ],
     "acceptance": "37.9%",
     "submissions": "6.3K",
@@ -6498,16 +11246,61 @@ export const initialProblems: Problem[] = [
       "python": "def kth_distinct_substring(text: str, k: Any) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String kthDistinctSubstring(String text, Object k) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string kthDistinctSubstring(string text, auto k) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aba\", k = 3",
+        "expected": "aba",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"banana\", k = 5",
+        "expected": "anana",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 1",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 0",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", k = 99",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"x\", k = 1",
+        "expected": "x",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaa\", k = 3",
+        "expected": "aaa",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-090",
     "title": "Build a Suffix Array and Adjacent LCP Values",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Suffix Array",
-      "String Indexing"
+      "String",
+      "Array",
+      "Graph"
     ],
     "acceptance": "32.4%",
     "submissions": "11.8K",
@@ -6533,16 +11326,60 @@ export const initialProblems: Problem[] = [
       "python": "def build_suffix_array_and_l_c_p(text: str) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object buildSuffixArrayAndLCP(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto buildSuffixArrayAndLCP(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"banana\"",
+        "expected": "{\"suffix_array\":[5,3,1,0,4,2],\"lcp\":[0,1,3,0,0,2]}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aba\"",
+        "expected": "{\"suffix_array\":[2,0,1],\"lcp\":[0,1,0]}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "{\"suffix_array\":[],\"lcp\":[]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"z\"",
+        "expected": "{\"suffix_array\":[0],\"lcp\":[0]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaa\"",
+        "expected": "{\"suffix_array\":[2,1,0],\"lcp\":[0,1,2]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abc\"",
+        "expected": "{\"suffix_array\":[0,1,2],\"lcp\":[0,0,0]}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abab\"",
+        "expected": "{\"suffix_array\":[2,0,3,1],\"lcp\":[0,2,0,1]}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-091",
     "title": "Find the Lexicographically Smallest Rotation and Its Start Index",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "String Algorithms",
-      "Minimal Rotation"
+      "String",
+      "Graph"
     ],
     "acceptance": "36.6%",
     "submissions": "5.2K",
@@ -6567,16 +11404,61 @@ export const initialProblems: Problem[] = [
       "python": "def minimal_rotation_with_index(text: str) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minimalRotationWithIndex(String text) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minimalRotationWithIndex(string text) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"baca\"",
+        "expected": "{\"rotation\":\"abac\",\"start_index\":3}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\"",
+        "expected": "{\"rotation\":\"aaaa\",\"start_index\":0}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\"",
+        "expected": "{\"rotation\":\"\",\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"q\"",
+        "expected": "{\"rotation\":\"q\",\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abcd\"",
+        "expected": "{\"rotation\":\"abcd\",\"start_index\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"caba\"",
+        "expected": "{\"rotation\":\"abac\",\"start_index\":1}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abab\"",
+        "expected": "{\"rotation\":\"abab\",\"start_index\":0}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-092",
     "title": "Find the Minimum Window Containing Multiple Subsequences",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Multi-Target Window"
+      "Array"
     ],
     "acceptance": "38.9%",
     "submissions": "4.7K",
@@ -6603,16 +11485,62 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_window_for_all_subsequences(source: str, patterns: list[str]) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String minimumWindowForAllSubsequences(String source, String[] patterns) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minimumWindowForAllSubsequences(string source, vector<string>& patterns) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "source = \"abacbdc\", patterns = [\"abc\",\"bd\"]",
+        "expected": "acbdc",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "source = \"axbycz\", patterns = [\"abc\",\"xyz\"]",
+        "expected": "axbycz",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "source = \"\", patterns = [\"a\"]",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "source = \"abc\", patterns = []",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "source = \"abc\", patterns = [\"z\",\"ab\"]",
+        "expected": "",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "source = \"abc\", patterns = [\"abc\"]",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "source = \"abc\", patterns = [\"ac\",\"bc\"]",
+        "expected": "abc",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-093",
     "title": "Count All Shortest Transformation Sequences",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Graph Search",
-      "Word Transformation"
+      "String",
+      "Graph",
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "30.1%",
     "submissions": "12.6K",
@@ -6638,16 +11566,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_shortest_word_transformations(begin_word: Any, end_word: Any, dictionary: Any) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countShortestWordTransformations(Object begin_word, Object end_word, Object dictionary) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countShortestWordTransformations(auto begin_word, auto end_word, auto dictionary) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "begin_word = \"cold\", end_word = \"warm\", dictionary = [\"cord\",\"card\",\"ward\",\"warm\",\"word\",\"worm\"]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "begin_word = \"a\", end_word = \"c\", dictionary = [\"b\",\"c\"]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "begin_word = \"same\", end_word = \"same\", dictionary = [\"same\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "begin_word = \"hit\", end_word = \"cog\", dictionary = [\"hot\",\"dot\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "begin_word = \"aaa\", end_word = \"bbb\", dictionary = [\"aab\",\"xxx\"]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "begin_word = \"cat\", end_word = \"dog\", dictionary = [\"cot\",\"cog\",\"dog\"]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "begin_word = \"hit\", end_word = \"cog\", dictionary = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-094",
     "title": "Determine Whether Two Strings Are Scramble Equivalent",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Recursion with Memoization",
-      "Interval DP"
+      "String",
+      "Greedy"
     ],
     "acceptance": "34.4%",
     "submissions": "7.4K",
@@ -6673,16 +11645,61 @@ export const initialProblems: Problem[] = [
       "python": "def are_scramble_equivalent(a: str, b: str) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean areScrambleEquivalent(String a, String b) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool areScrambleEquivalent(string a, string b) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"great\", b = \"rgeat\"",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"abcde\", b = \"caebd\"",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"abc\", b = \"ab\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"x\", b = \"x\"",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"x\", b = \"y\"",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"aabb\", b = \"abbb\"",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-095",
     "title": "Count the Number of Interleavings of Two Sources",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
-      "Path Counting"
+      "Hash Table"
     ],
     "acceptance": "29.4%",
     "submissions": "5.5K",
@@ -6708,16 +11725,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_interleavings(a: str, b: str, target: str) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countInterleavings(String a, String b, String target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countInterleavings(string a, string b, string target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = \"aa\", b = \"a\", target = \"aaa\"",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = \"ab\", b = \"cd\", target = \"acbd\"",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = \"\", b = \"\", target = \"\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = \"a\", b = \"b\", target = \"a\"",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = \"abc\", b = \"\", target = \"abc\"",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = \"aa\", b = \"aa\", target = \"aaaa\"",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = \"ab\", b = \"cd\", target = \"acbe\"",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-096",
     "title": "Compress a String with Optimal Deletions",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Dynamic Programming",
-      "Run-Length Encoding"
+      "String",
+      "Dynamic Programming"
     ],
     "acceptance": "33.6%",
     "submissions": "11.2K",
@@ -6743,17 +11804,62 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_encoded_length_after_deletions(text: str, k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimumEncodedLengthAfterDeletions(String text, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumEncodedLengthAfterDeletions(string text, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"aaabcccd\", k = 2",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abcdef\", k = 2",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"aaaa\"",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"abcd\", k = 0",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"aaaaaaaaaa\", k = 1",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-097",
     "title": "Find the Shortest String Containing Every Required Pattern",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Aho-Corasick",
-      "Bitmask DP",
-      "Substring Coverage"
+      "String",
+      "Trie",
+      "Array",
+      "Graph"
     ],
     "acceptance": "32.1%",
     "submissions": "8.5K",
@@ -6780,17 +11886,61 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_string_containing_patterns(patterns: list[str]) -> str:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public String shortestStringContainingPatterns(String[] patterns) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string shortestStringContainingPatterns(vector<string>& patterns) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "patterns = [\"abc\",\"bcd\",\"cde\"]",
+        "expected": "abcde",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "patterns = [\"ab\",\"ba\"]",
+        "expected": "aba",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "patterns = [\"hello\"]",
+        "expected": "hello",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "patterns = [\"abc\",\"abc\"]",
+        "expected": "abc",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "patterns = [\"bc\",\"abcd\"]",
+        "expected": "abcd",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "patterns = [\"z\",\"a\"]",
+        "expected": "az",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "patterns = [\"aaaa\",\"aaab\",\"baaa\"]",
+        "expected": "baaaab",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-098",
     "title": "Find the Longest Substring Avoiding a Forbidden Pattern Set",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Automata",
+      "String",
       "Sliding Window",
-      "Multi-Pattern Matching"
+      "Array"
     ],
     "acceptance": "28.1%",
     "submissions": "4.7K",
@@ -6817,17 +11967,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_substring_avoiding_patterns(text: str, forbidden: list[str]) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object longestSubstringAvoidingPatterns(String text, String[] forbidden) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto longestSubstringAvoidingPatterns(string text, vector<string>& forbidden) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"abccxyzab\", forbidden = [\"cc\",\"xyz\"]",
+        "expected": "{\"substring\":\"zab\",\"start_index\":6,\"length\":3}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"abcdef\", forbidden = [\"xy\",\"zz\"]",
+        "expected": "{\"substring\":\"abcdef\",\"start_index\":0,\"length\":6}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", forbidden = [\"a\"]",
+        "expected": "{\"substring\":\"\",\"start_index\":0,\"length\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", forbidden = []",
+        "expected": "{\"substring\":\"abc\",\"start_index\":0,\"length\":3}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"abc\", forbidden = [\"abc\"]",
+        "expected": "{\"substring\":\"ab\",\"start_index\":0,\"length\":2}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"banana\", forbidden = [\"a\"]",
+        "expected": "{\"substring\":\"b\",\"start_index\":0,\"length\":1}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"abXXcd\", forbidden = [\"XX\"]",
+        "expected": "{\"substring\":\"ab\",\"start_index\":0,\"length\":2}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-099",
     "title": "Evaluate Expressions with Unary Signs and Exponentiation",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
-      "Parsing",
-      "Expression Evaluation",
-      "Operator Precedence"
+      "String",
+      "Stack"
     ],
     "acceptance": "28.7%",
     "submissions": "10.4K",
@@ -6855,17 +12048,63 @@ export const initialProblems: Problem[] = [
       "python": "def evaluate_advanced_expression(expression: str) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object evaluateAdvancedExpression(String expression) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto evaluateAdvancedExpression(string expression) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "expression = \"-2^2 + 3*(4-1)\"",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "expression = \"2^3^2\"",
+        "expected": "512",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "expression = \"42\"",
+        "expected": "42",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "expression = \"((2+3)*4)\"",
+        "expected": "20",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "expression = \"7*-2\"",
+        "expected": "-14",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "expression = \"-7/3\"",
+        "expected": "-2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "expression = \"2^2^3\"",
+        "expected": "256",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "str-100",
     "title": "Find the Minimum-Cost Segmentation with Word-Specific Penalties",
     "difficulty": "Hard",
     "topics": [
-      "Strings",
+      "String",
       "Dynamic Programming",
       "Trie",
-      "Optimization"
+      "Array",
+      "Graph"
     ],
     "acceptance": "28.5%",
     "submissions": "8.8K",
@@ -6893,16 +12132,59 @@ export const initialProblems: Problem[] = [
       "python": "def minimum_cost_lexicographic_segmentation(text: str, entries: dict) -> dict:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minimumCostLexicographicSegmentation(String text, Object entries) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minimumCostLexicographicSegmentation(string text, auto entries) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "text = \"pineapplepenapple\", entries = [{\"word\":\"pine\",\"cost\":2},{\"word\":\"apple\",\"cost\":3},{\"word\":\"pineapple\",\"cost\":4},{\"word\":\"pen\",\"cost\":1}]",
+        "expected": "{\"words\":[\"pineapple\",\"pen\",\"apple\"],\"total_cost\":8}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "text = \"aaaa\", entries = [{\"word\":\"a\",\"cost\":2},{\"word\":\"aa\",\"cost\":3},{\"word\":\"aaa\",\"cost\":8}]",
+        "expected": "{\"words\":[\"aa\",\"aa\"],\"total_cost\":6}",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "text = \"\", entries = [{\"word\":\"a\",\"cost\":1}]",
+        "expected": "{\"words\":[],\"total_cost\":0}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "text = \"abc\", entries = [{\"word\":\"ab\",\"cost\":1}]",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "text = \"home\", entries = [{\"word\":\"home\",\"cost\":5},{\"word\":\"ho\",\"cost\":2},{\"word\":\"me\",\"cost\":4}]",
+        "expected": "{\"words\":[\"home\"],\"total_cost\":5}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "text = \"aaaa\", entries = [{\"word\":\"a\",\"cost\":1},{\"word\":\"aa\",\"cost\":2}]",
+        "expected": "{\"words\":[\"aa\",\"aa\"],\"total_cost\":4}",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "text = \"ab\", entries = [{\"word\":\"a\",\"cost\":1},{\"word\":\"ab\",\"cost\":2},{\"word\":\"b\",\"cost\":1}]",
+        "expected": "{\"words\":[\"ab\"],\"total_cost\":2}",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-001",
     "title": "Count Positive Elements",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Traversal",
-      "Conditionals"
+      "Array"
     ],
     "acceptance": "70.6%",
     "submissions": "31.0K",
@@ -6928,16 +12210,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_positive(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countPositive(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countPositive(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [-2,0,4,7,-1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,5,8]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-9,-1,-4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-3,0,2]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1000000000,1000000000]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-002",
     "title": "Second Largest Distinct Value",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Traversal",
-      "Distinct Values"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "65.9%",
     "submissions": "34.1K",
@@ -6963,16 +12289,60 @@ export const initialProblems: Problem[] = [
       "python": "def second_largest_distinct(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int secondLargestDistinct(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int secondLargestDistinct(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [8,3,8,5,2]",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-7,-2,-9]",
+        "expected": "-7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4]",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [6,6,6]",
+        "expected": "null",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,9,9]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-10,-3,-8]",
+        "expected": "-8",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-003",
     "title": "Rotate Array Left",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Manipulation",
-      "Modulo Arithmetic"
+      "Array",
+      "Math"
     ],
     "acceptance": "70.2%",
     "submissions": "22.4K",
@@ -6999,16 +12369,59 @@ export const initialProblems: Problem[] = [
       "python": "def rotate_left(nums: list[int], k: int) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] rotateLeft(int[] nums, int k) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> rotateLeft(vector<int>& nums, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,4,5], k = 2",
+        "expected": "[3,4,5,1,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [10,-1,7], k = 1",
+        "expected": "[-1,7,10]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 8",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3], k = 0",
+        "expected": "[1,2,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,5,6], k = 3",
+        "expected": "[4,5,6]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,2,3,4], k = 10",
+        "expected": "[3,4,1,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-5], k = 999",
+        "expected": "[-5]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-004",
     "title": "Move Zeroes to the End",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Stable Partition",
-      "In-place Array Updates"
+      "Array"
     ],
     "acceptance": "77.2%",
     "submissions": "27.3K",
@@ -7034,16 +12447,60 @@ export const initialProblems: Problem[] = [
       "python": "def move_zeroes(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] moveZeroes(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> moveZeroes(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [0,1,0,3,12]",
+        "expected": "[1,3,12,0,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [2,0,-1,0,4]",
+        "expected": "[2,-1,4,0,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [3,-1,5]",
+        "expected": "[3,-1,5]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0]",
+        "expected": "[0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,2,0,3,0]",
+        "expected": "[2,3,0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [0]",
+        "expected": "[0]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-005",
     "title": "Longest Run of Ones",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Traversal",
-      "Run Length Counting"
+      "Array",
+      "String"
     ],
     "acceptance": "62.4%",
     "submissions": "39.2K",
@@ -7069,16 +12526,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_ones(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestOnes(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestOnes(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,1,0,1,1,1]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,1,1,1]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,0,1,0,1]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [0,0,1,1,1]",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-006",
     "title": "Transpose a Rectangular Matrix",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Matrix Construction"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "76.3%",
     "submissions": "38.7K",
@@ -7105,16 +12606,60 @@ export const initialProblems: Problem[] = [
       "python": "def transpose(matrix: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] transpose(int[][] matrix) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> transpose(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6]]",
+        "expected": "[[1,4],[2,5],[3,6]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[7,-2]]",
+        "expected": "[[7],[-2]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[5,8,9]]",
+        "expected": "[[5],[8],[9]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[2],[4],[6]]",
+        "expected": "[[2,4,6]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[-3]]",
+        "expected": "[[-3]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[0,-1],[2,-3]]",
+        "expected": "[[0,2],[-1,-3]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-007",
     "title": "Sum of Both Matrix Diagonals",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Diagonal Traversal"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "66.5%",
     "submissions": "20.4K",
@@ -7140,16 +12685,60 @@ export const initialProblems: Problem[] = [
       "python": "def diagonal_sum(matrix: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int diagonalSum(int[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int diagonalSum(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "25",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[-6]]",
+        "expected": "-6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[0,0],[0,0]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1,0,2],[0,-5,0],[3,0,4]]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1000000,0],[0,-1000000]]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-008",
     "title": "Merge Two Sorted Arrays",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Two Pointers",
-      "Merging"
+      "Array",
+      "Two Pointers"
     ],
     "acceptance": "64.3%",
     "submissions": "23.6K",
@@ -7175,16 +12764,60 @@ export const initialProblems: Problem[] = [
       "python": "def merge_sorted_arrays(a: list[int], b: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] mergeSortedArrays(int[] a, int[] b) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> mergeSortedArrays(vector<int>& a, vector<int>& b) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = [1,3,5], b = [2,4,6]",
+        "expected": "[1,2,3,4,5,6]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = [1,2,2], b = [2,3]",
+        "expected": "[1,2,2,2,3]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = [], b = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = [], b = [-2,0,4]",
+        "expected": "[-2,0,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = [2,2], b = [2,2,2]",
+        "expected": "[2,2,2,2,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = [-5,-3], b = [7,9]",
+        "expected": "[-5,-3,7,9]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = [-4,0], b = [-3,-1]",
+        "expected": "[-4,-3,-1,0]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-009",
     "title": "Find the Missing Number",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Arithmetic",
-      "Permutation Properties"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "76.2%",
     "submissions": "47.5K",
@@ -7211,16 +12844,60 @@ export const initialProblems: Problem[] = [
       "python": "def missing_number(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int missingNumber(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [3,0,1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,1,2,4]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,1,2]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,2]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [4,1,0,3]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-010",
     "title": "First Index at Least Target",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Binary Search",
-      "Sorted Arrays"
+      "Array",
+      "Binary Search"
     ],
     "acceptance": "69.4%",
     "submissions": "39.1K",
@@ -7246,16 +12923,59 @@ export const initialProblems: Problem[] = [
       "python": "def lower_bound(nums: list[int], target: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int lowerBound(int[] nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lowerBound(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,2,2,5], target = 2",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,3,5], target = 4",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], target = 10",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [2,4,6], target = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,4,6], target = 9",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,3,3,3,8], target = 3",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-8,-4,-1], target = -5",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-011",
     "title": "Product of Array Except Self",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Products",
-      "Suffix Products"
+      "Array"
     ],
     "acceptance": "48.2%",
     "submissions": "8.1K",
@@ -7282,16 +13002,61 @@ export const initialProblems: Problem[] = [
       "python": "def product_except_self(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> productExceptSelf(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,4]",
+        "expected": "[24,12,8,6]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-1,1,0,-3,3]",
+        "expected": "[0,0,9,0,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [2,0,4]",
+        "expected": "[0,8,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,3,0]",
+        "expected": "[0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-2,3,-4]",
+        "expected": "[-12,8,-6]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,1]",
+        "expected": "[1,1,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000,1000,1000]",
+        "expected": "[1000000,1000000,1000000]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-012",
     "title": "Maximum Subarray Sum",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Kadane's Algorithm",
-      "Dynamic Programming"
+      "Array",
+      "Dynamic Programming",
+      "Prefix Sum"
     ],
     "acceptance": "56.1%",
     "submissions": "9.4K",
@@ -7318,16 +13083,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_subarray_sum(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxSubarraySum(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxSubarraySum(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [5,4,-1,7,8]",
+        "expected": "23",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-8,-2,-5]",
+        "expected": "-2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-7]",
+        "expected": "-7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-4,-1,6,-8]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000000,1000000000,-1]",
+        "expected": "1999999999",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-013",
     "title": "Count Subarrays With Sum K",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Hash Map"
+      "Array",
+      "Prefix Sum",
+      "Hash Table"
     ],
     "acceptance": "48.1%",
     "submissions": "25.4K",
@@ -7354,16 +13164,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_sum_k(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countSubarraysWithSumK(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSubarraysWithSumK(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,1,1], k = 2",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,-1,0], k = 0",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5], k = 5",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0], k = 0",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-2,3,-1], k = 0",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2,4,6], k = 5",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-014",
     "title": "Sort an Array of Three Colors",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Dutch National Flag",
-      "In-place Sorting"
+      "Array",
+      "Two Pointers"
     ],
     "acceptance": "49.0%",
     "submissions": "10.7K",
@@ -7389,16 +13243,60 @@ export const initialProblems: Problem[] = [
       "python": "def sort_colors(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] sortColors(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> sortColors(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,0,2,1,1,0]",
+        "expected": "[0,0,1,1,2,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,0]",
+        "expected": "[0,1,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,1,1]",
+        "expected": "[1,1,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,2,1,1,0,0]",
+        "expected": "[0,0,1,1,2,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [2,0,2,0]",
+        "expected": "[0,0,2,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2]",
+        "expected": "[2]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-015",
     "title": "Spiral Matrix Traversal",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Boundary Simulation"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "44.0%",
     "submissions": "10.4K",
@@ -7425,16 +13323,60 @@ export const initialProblems: Problem[] = [
       "python": "def spiral_order(matrix: list[list[int]]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] spiralOrder(int[][] matrix) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "[1,2,3,6,9,8,7,4,5]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2,3,4]]",
+        "expected": "[1,2,3,4]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1],[2],[3]]",
+        "expected": "[1,2,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[-5]]",
+        "expected": "[-5]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2,3],[4,5,6]]",
+        "expected": "[1,2,3,6,5,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2],[3,4],[5,6],[7,8]]",
+        "expected": "[1,2,4,6,8,7,5,3]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-016",
     "title": "Set Matrix Rows and Columns to Zero",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "In-place Marking"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "47.2%",
     "submissions": "16.8K",
@@ -7460,16 +13402,60 @@ export const initialProblems: Problem[] = [
       "python": "def set_zeroes(matrix: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] setZeroes(int[][] matrix) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> setZeroes(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]",
+        "expected": "[[1,0,1],[0,0,0],[1,0,1]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[0,1,2],[3,4,5]]",
+        "expected": "[[0,0,0],[0,4,5]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[0,2],[3,4]]",
+        "expected": "[[0,0],[0,4]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "[[1,2],[3,4]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[0,0],[0,0]]",
+        "expected": "[[0,0],[0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,0,3]]",
+        "expected": "[[0,0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1],[0],[3]]",
+        "expected": "[[0],[0],[0]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-017",
     "title": "Longest Consecutive Integer Run",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Hash Set",
-      "Sequence Expansion"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "53.3%",
     "submissions": "25.2K",
@@ -7495,16 +13481,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_consecutive(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [100,4,200,1,3,2]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,0,-1,1]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [9]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [5,5,5]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-3,-1,-2,-5]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1000000000,-999999999,1000000000]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-018",
     "title": "Count Subarrays With Sum Divisible by K",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Remainder Frequencies"
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "52.0%",
     "submissions": "8.0K",
@@ -7532,16 +13562,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_divisible_by_k(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countSubarraysDivisibleByK(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSubarraysDivisibleByK(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [4,5,0,-2,-3,1], k = 5",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [5], k = 5",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-2,3,4], k = 1",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-1,2,-1], k = 2",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0], k = 7",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3], k = 100",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-019",
     "title": "Rotate Square Matrix Clockwise",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "In-place Transformation"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "49.3%",
     "submissions": "13.1K",
@@ -7567,14 +13641,59 @@ export const initialProblems: Problem[] = [
       "python": "def rotate_clockwise(matrix: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] rotateClockwise(int[][] matrix) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> rotateClockwise(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "[[7,4,1],[8,5,2],[9,6,3]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "[[3,1],[4,2]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[7]]",
+        "expected": "[[7]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "[[3,1],[4,2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[5,5],[5,5]]",
+        "expected": "[[5,5],[5,5]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[-1,-2],[-3,-4]]",
+        "expected": "[[-3,-1],[-4,-2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "[[7,4,1],[8,5,2],[9,6,3]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-020",
     "title": "Three Sum Unique Triplets",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sorting",
       "Two Pointers"
     ],
@@ -7602,14 +13721,59 @@ export const initialProblems: Problem[] = [
       "python": "def three_sum(nums: list[int]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] threeSum(int[] nums) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [-1,0,1,2,-1,-4]",
+        "expected": "[[-1,-1,2],[-1,0,1]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,0,0,0]",
+        "expected": "[[0,0,0]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,2,4]",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-1,0,1]",
+        "expected": "[[-1,0,1]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-2,-2,0,0,2,2]",
+        "expected": "[[-2,0,2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0,0,0]",
+        "expected": "[[0,0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-100000,-1,100001,0]",
+        "expected": "[[-100000,-1,100001]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-021",
     "title": "Maximum Water Container Area",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Two Pointers",
       "Greedy"
     ],
@@ -7637,16 +13801,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_container_area(height: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxContainerArea(int[] height) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxContainerArea(vector<int>& height) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "height = [1,8,6,2,5,4,8,3,7]",
+        "expected": "49",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "height = [1,1]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "height = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "height = [5,9]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "height = [1,2,3,4]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "height = [100,1,1,100]",
+        "expected": "300",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "height = [1000000000,1000000000]",
+        "expected": "1000000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-022",
     "title": "Next Lexicographical Permutation",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Array Rearrangement",
-      "Two Pointers"
+      "Array",
+      "Two Pointers",
+      "Graph"
     ],
     "acceptance": "55.6%",
     "submissions": "26.4K",
@@ -7672,15 +13881,60 @@ export const initialProblems: Problem[] = [
       "python": "def next_permutation(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] nextPermutation(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextPermutation(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3]",
+        "expected": "[1,3,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,2,1]",
+        "expected": "[1,2,3]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [4]",
+        "expected": "[4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2]",
+        "expected": "[2,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,1]",
+        "expected": "[1,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,5]",
+        "expected": "[1,5,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,5,4,3,2]",
+        "expected": "[2,1,3,4,5]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-023",
     "title": "Merge Overlapping Intervals",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Intervals",
+      "Array",
+      "Greedy",
       "Sorting"
     ],
     "acceptance": "46.0%",
@@ -7707,16 +13961,60 @@ export const initialProblems: Problem[] = [
       "python": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] mergeIntervals(int[][] intervals) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> mergeIntervals(vector<vector<int>>& intervals) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+        "expected": "[[1,6],[8,10],[15,18]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "intervals = [[1,4],[4,5]]",
+        "expected": "[[1,5]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "intervals = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "intervals = [[-2,3]]",
+        "expected": "[[-2,3]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "intervals = [[1,2],[4,5],[7,8]]",
+        "expected": "[[1,2],[4,5],[7,8]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "intervals = [[1,10],[2,3],[4,8]]",
+        "expected": "[[1,10]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "intervals = [[-8,-3],[-5,0],[2,4]]",
+        "expected": "[[-8,0],[2,4]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-024",
     "title": "Find the Repeated Number",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Cycle Detection",
-      "Array Index Mapping"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "47.9%",
     "submissions": "11.7K",
@@ -7743,16 +14041,60 @@ export const initialProblems: Problem[] = [
       "python": "def find_duplicate(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int findDuplicate(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findDuplicate(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,4,2,2]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,1,3,4,2]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,1]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [2,2,2,1,3]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3,4,4]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [4,1,3,2,3]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,1,2,3,4]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-025",
     "title": "Kth Largest Element",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Selection",
-      "Heap or Quickselect"
+      "Array",
+      "Heap"
     ],
     "acceptance": "45.4%",
     "submissions": "24.3K",
@@ -7779,16 +14121,60 @@ export const initialProblems: Problem[] = [
       "python": "def kth_largest(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int kthLargest(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int kthLargest(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [3,2,1,5,6,4], k = 2",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,2,3,1,2,4,5,5,6], k = 4",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-4,7,2], k = 1",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-4,7,2], k = 3",
+        "expected": "-4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [5,5,5,5], k = 3",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-8,-2,-5], k = 2",
+        "expected": "-5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [9,9,1,2], k = 2",
+        "expected": "9",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-026",
     "title": "Search a Row-and-Column Sorted Matrix",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Staircase Search"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "44.8%",
     "submissions": "24.0K",
@@ -7814,16 +14200,61 @@ export const initialProblems: Problem[] = [
       "python": "def search_sorted_matrix(matrix: list[list[int]], target: int) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean searchSortedMatrix(int[][] matrix, int target) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool searchSortedMatrix(vector<vector<int>>& matrix, int target) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,4,7],[2,5,8],[3,6,9]], target = 6",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,3,5],[2,4,6]], target = 7",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[5]], target = 5",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[-2]], target = 0",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[2,4],[3,5]], target = 1",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[2,4],[3,5]], target = 8",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,2],[2,3,4]], target = 2",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-027",
     "title": "Count Subarrays With XOR K",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix XOR",
-      "Hash Map"
+      "Array",
+      "Hash Table",
+      "Bit Manipulation"
     ],
     "acceptance": "47.4%",
     "submissions": "10.8K",
@@ -7850,16 +14281,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_xor_k(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countSubarraysWithXorK(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSubarraysWithXorK(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [4,2,2,6,4], k = 6",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,1,1], k = 0",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [7], k = 7",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0], k = 0",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,2,4], k = 8",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2147483647,2147483647], k = 0",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-028",
     "title": "Maximum Product Subarray",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Dynamic Programming",
-      "Running Minimum and Maximum"
+      "Array",
+      "Dynamic Programming"
     ],
     "acceptance": "47.4%",
     "submissions": "22.3K",
@@ -7886,16 +14361,59 @@ export const initialProblems: Problem[] = [
       "python": "def max_product_subarray(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxProductSubarray(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxProductSubarray(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,3,-2,4]",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-2,0,-1]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-5]",
+        "expected": "-5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-2,-3]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-2,0,-3,-4]",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1,2,-3,4]",
+        "expected": "24",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-029",
     "title": "Find All Right-Side Leaders",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Suffix Maximum",
-      "Array Traversal"
+      "Array"
     ],
     "acceptance": "57.1%",
     "submissions": "19.7K",
@@ -7921,16 +14439,60 @@ export const initialProblems: Problem[] = [
       "python": "def right_leaders(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] rightLeaders(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> rightLeaders(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [16,17,4,3,5,2]",
+        "expected": "[17,5,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [5,4,3]",
+        "expected": "[5,4,3]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-1]",
+        "expected": "[-1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3,4]",
+        "expected": "[4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [5,5,4]",
+        "expected": "[5,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [2,2,2]",
+        "expected": "[2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-5,-2,-8]",
+        "expected": "[-2,-8]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-030",
     "title": "Maximum Sum of a Fixed-Length Subarray",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Sliding Window",
-      "Fixed Window"
+      "Array",
+      "Sliding Window"
     ],
     "acceptance": "47.8%",
     "submissions": "26.5K",
@@ -7957,16 +14519,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_fixed_window_sum(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxFixedWindowSum(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxFixedWindowSum(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,1,5,1,3,2], k = 3",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-5,-2,-3,-1], k = 2",
+        "expected": "-4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,-2,4], k = 3",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-4,7,2], k = 1",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-8,-2,-5], k = 2",
+        "expected": "-7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,1,1], k = 2",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000000,1000000000,-1000000000], k = 2",
+        "expected": "2000000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-031",
     "title": "Median of Two Sorted Arrays",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Binary Search on Partition",
-      "Two Sorted Arrays"
+      "Array",
+      "Binary Search"
     ],
     "acceptance": "39.0%",
     "submissions": "5.8K",
@@ -7993,16 +14599,60 @@ export const initialProblems: Problem[] = [
       "python": "def median_of_two_sorted_arrays(a: list[int], b: list[int]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object medianOfTwoSortedArrays(int[] a, int[] b) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto medianOfTwoSortedArrays(vector<int>& a, vector<int>& b) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "a = [1,3], b = [2]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "a = [1,2], b = [3,4]",
+        "expected": "2.5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "a = [], b = [-3,7]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "a = [1,2,3], b = []",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "a = [], b = [-8]",
+        "expected": "-8",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "a = [1000000000], b = [1,2,3,4,5,6,7]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "a = [2,2,2], b = [2,2,2,2]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-032",
     "title": "Trapping Rain Water",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Two Pointers",
-      "Prefix and Suffix Bounds"
+      "Array",
+      "Two Pointers"
     ],
     "acceptance": "28.5%",
     "submissions": "8.5K",
@@ -8029,16 +14679,60 @@ export const initialProblems: Problem[] = [
       "python": "def trap_rain_water(height: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int trapRainWater(int[] height) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int trapRainWater(vector<int>& height) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "height = [0,1,0,2,1,0,1,3,2,1,2,1]",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "height = [4,2,0,3,2,5]",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "height = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "height = [3,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "height = [1,2,3,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "height = [4,3,2,1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "height = [5,0,0,5]",
+        "expected": "10",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-033",
     "title": "Largest Rectangle in a Histogram",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Monotonic Stack",
-      "Area Optimization"
+      "Array",
+      "Stack"
     ],
     "acceptance": "38.5%",
     "submissions": "12.3K",
@@ -8065,17 +14759,61 @@ export const initialProblems: Problem[] = [
       "python": "def largest_rectangle_area(heights: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "heights = [2,1,5,6,2,3]",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "heights = [2,4]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "heights = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "heights = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "heights = [7]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "heights = [1,2,3,4]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "heights = [3,3,3,3]",
+        "expected": "12",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-034",
     "title": "Maximal Rectangle of Ones",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Histogram Reduction",
-      "Monotonic Stack"
+      "Array",
+      "Matrix",
+      "Stack"
     ],
     "acceptance": "32.3%",
     "submissions": "10.4K",
@@ -8102,16 +14840,59 @@ export const initialProblems: Problem[] = [
       "python": "def maximal_rectangle(matrix: Any) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maximalRectangle(Object matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximalRectangle(auto matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[\"1\",\"1\"],[\"1\",\"1\"]]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[\"0\"]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[\"1\"]]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[\"0\",\"0\"],[\"0\",\"0\"]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[\"1\",\"1\",\"1\",\"1\"]]",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-035",
     "title": "First Missing Positive Integer",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "In-place Index Placement",
-      "Array Partitioning"
+      "Array"
     ],
     "acceptance": "31.7%",
     "submissions": "4.4K",
@@ -8137,16 +14918,61 @@ export const initialProblems: Problem[] = [
       "python": "def first_missing_positive(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int firstMissingPositive(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,0]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,4,-1,1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,-1,-5]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3,4]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,2,2]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000,2,1]",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-036",
     "title": "Shortest Subarray With Sum At Least K",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Monotonic Deque"
+      "Array",
+      "Prefix Sum",
+      "Stack"
     ],
     "acceptance": "34.4%",
     "submissions": "7.4K",
@@ -8173,17 +14999,61 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_subarray_at_least_k(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int shortestSubarrayAtLeastK(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int shortestSubarrayAtLeastK(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,-1,2], k = 3",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [84,-37,32,40,95], k = 167",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 1",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5], k = 5",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-2], k = 1",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [3,-2,5], k = 6",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-5,-2], k = -2",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-037",
     "title": "Count Range-Sum Subarrays",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Divide and Conquer",
-      "Merge Sort"
+      "Array",
+      "Prefix Sum",
+      "Divide and Conquer"
     ],
     "acceptance": "39.0%",
     "submissions": "5.8K",
@@ -8211,15 +15081,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_range_sum(nums: list[int], lower: int, upper: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countRangeSum(int[] nums, int lower, int upper) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countRangeSum(vector<int>& nums, int lower, int upper) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [-2,5,-1], lower = -2, upper = 2",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,0], lower = 0, upper = 0",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], lower = -1, upper = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4,-1,2], lower = 4, upper = 4",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0], lower = 0, upper = 0",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-3,-2,-1], lower = -5, upper = -2",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3], lower = 10, upper = 20",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-038",
     "title": "Count Important Reverse Pairs",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Merge Sort",
+      "Array",
       "Divide and Conquer"
     ],
     "acceptance": "36.3%",
@@ -8247,16 +15161,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_important_reverse_pairs(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countImportantReversePairs(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countImportantReversePairs(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,2,3,1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [2,4,3,5,1]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-5,-3]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2147483647,-2147483648]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-039",
     "title": "Split Array to Minimize Largest Segment Sum",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Binary Search on Answer",
-      "Greedy Feasibility"
+      "Array"
     ],
     "acceptance": "35.2%",
     "submissions": "3.0K",
@@ -8284,17 +15241,61 @@ export const initialProblems: Problem[] = [
       "python": "def split_array_min_largest_sum(nums: list[int], m: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int splitArrayMinLargestSum(int[] nums, int m) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int splitArrayMinLargestSum(vector<int>& nums, int m) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [7,2,5,10,8], m = 2",
+        "expected": "18",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,3,4,5], m = 2",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,2,3], m = 1",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3], m = 3",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0,0], m = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1000000000,1], m = 2",
+        "expected": "1000000000",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [0,0], m = 2",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-040",
     "title": "Maximum Sum Rectangle No Larger Than K",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Prefix Sums",
-      "Ordered Set"
+      "Array",
+      "Matrix",
+      "Prefix Sum"
     ],
     "acceptance": "38.2%",
     "submissions": "9.3K",
@@ -8320,16 +15321,59 @@ export const initialProblems: Problem[] = [
       "python": "def max_rectangle_sum_no_greater_than_k(matrix: list[list[int]], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxRectangleSumNoGreaterThanK(int[][] matrix, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxRectangleSumNoGreaterThanK(vector<vector<int>>& matrix, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,0,1],[0,-2,3]], k = 2",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[2,2,-1]], k = 3",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[-4]], k = -3",
+        "expected": "-4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[-5,-2],[-3,-4]], k = -4",
+        "expected": "-4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1,2],[3,4]], k = 5",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[3,-2,5,-1]], k = 4",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[3],[-2],[5],[-1]], k = 4",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-041",
     "title": "Count Smaller Values After Each Element",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Merge Sort",
-      "Order Statistics"
+      "Array"
     ],
     "acceptance": "32.5%",
     "submissions": "12.6K",
@@ -8355,15 +15399,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_smaller_to_right(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] countSmallerToRight(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> countSmallerToRight(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [5,2,6,1]",
+        "expected": "[2,1,1,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-1,-1]",
+        "expected": "[0,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4]",
+        "expected": "[0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3,4]",
+        "expected": "[0,0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [4,3,2,1]",
+        "expected": "[3,2,1,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [7,7,7,7]",
+        "expected": "[0,0,0,0]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-042",
     "title": "Sliding Window Maximum",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Monotonic Deque",
+      "Array",
+      "Stack",
       "Sliding Window"
     ],
     "acceptance": "34.2%",
@@ -8391,17 +15480,62 @@ export const initialProblems: Problem[] = [
       "python": "def sliding_window_maximum(nums: list[int], k: int) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] slidingWindowMaximum(int[] nums, int k) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> slidingWindowMaximum(vector<int>& nums, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+        "expected": "[3,3,5,5,6,7]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,-1], k = 1",
+        "expected": "[1,-1]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [2,1,5], k = 3",
+        "expected": "[5]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-2,0,3], k = 1",
+        "expected": "[-2,0,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,4,4,4], k = 2",
+        "expected": "[4,4,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [9,7,5,3,1], k = 3",
+        "expected": "[9,7,5]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-8,-3,-6,-2], k = 2",
+        "expected": "[-3,-3,-2]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-043",
     "title": "Maximum Sum of Three Non-Overlapping Windows",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sliding Window",
       "Dynamic Programming",
-      "Greedy Tie-Breaking"
+      "Graph"
     ],
     "acceptance": "35.3%",
     "submissions": "4.4K",
@@ -8428,16 +15562,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_sum_of_three_windows(nums: list[int], k: int) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] maxSumOfThreeWindows(int[] nums, int k) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> maxSumOfThreeWindows(vector<int>& nums, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,1,2,6,7,5,1], k = 2",
+        "expected": "[0,3,5]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,1,1,1,1,1,1,1,1], k = 2",
+        "expected": "[0,2,4]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [5,1,4], k = 1",
+        "expected": "[0,1,2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5,-1,-4,-2,-3,-6], k = 1",
+        "expected": "[1,3,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0,0,0,0,0,0,0], k = 2",
+        "expected": "[0,2,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,100,1,1,100,1,1,100,1], k = 2",
+        "expected": "[0,3,6]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000,1000000,1000000,1000000,1000000,1000000], k = 1",
+        "expected": "[0,1,2]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-044",
     "title": "Sum of Subarray Minimums",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Monotonic Stack",
-      "Contribution Counting"
+      "Array",
+      "Stack"
     ],
     "acceptance": "33.0%",
     "submissions": "5.2K",
@@ -8463,17 +15641,61 @@ export const initialProblems: Problem[] = [
       "python": "def sum_subarray_minimums(arr: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int sumSubarrayMinimums(int[] arr) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sumSubarrayMinimums(vector<int>& arr) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "arr = [3,1,2,4]",
+        "expected": "17",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "arr = [11,81,94,43,3]",
+        "expected": "444",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "arr = [7]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "arr = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "arr = [2,2,2]",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "arr = [1,2,3]",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "arr = [1000000000,1000000000]",
+        "expected": "999999986",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-045",
     "title": "Count Submatrices With Target Sum",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "2D Prefix Sums",
-      "Hash Map"
+      "Array",
+      "Matrix",
+      "Hash Table"
     ],
     "acceptance": "28.4%",
     "submissions": "7.1K",
@@ -8500,16 +15722,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_submatrices_with_target(matrix: list[list[int]], target: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countSubmatricesWithTarget(int[][] matrix, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSubmatricesWithTarget(vector<vector<int>>& matrix, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[0,1,0],[1,1,1],[0,1,0]], target = 0",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,-1],[-1,1]], target = 0",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[5]], target = 5",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[5]], target = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[0,0],[0,0]], target = 0",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[-1,-2],[-3,-4]], target = -3",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,-1]], target = 2",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-046",
     "title": "Kth Smallest Pair Distance",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Binary Search on Answer",
-      "Two Pointers"
+      "Array",
+      "Two Pointers",
+      "Heap"
     ],
     "acceptance": "39.1%",
     "submissions": "6.6K",
@@ -8536,16 +15803,61 @@ export const initialProblems: Problem[] = [
       "python": "def kth_smallest_pair_distance(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int kthSmallestPairDistance(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int kthSmallestPairDistance(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,1], k = 1",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,6,1], k = 3",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [4,4,4], k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5,7], k = 1",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,1,4,7], k = 2",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-10,0,5], k = 2",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1000000000,1000000000], k = 1",
+        "expected": "2000000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-047",
     "title": "Kth Smallest Element in a Row-and-Column Sorted Matrix",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Matrices",
-      "Binary Search on Value"
+      "Array",
+      "Matrix",
+      "Heap"
     ],
     "acceptance": "31.4%",
     "submissions": "13.7K",
@@ -8572,16 +15884,59 @@ export const initialProblems: Problem[] = [
       "python": "def kth_smallest_sorted_matrix(matrix: list[list[int]], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int kthSmallestSortedMatrix(int[][] matrix, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int kthSmallestSortedMatrix(vector<vector<int>>& matrix, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8",
+        "expected": "13",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[-5]], k = 1",
+        "expected": "-5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[7]], k = 1",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2],[3,4]], k = 4",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[2,2],[2,2]], k = 3",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[-9,-4],[-6,-1]], k = 2",
+        "expected": "-6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,2],[2,2,3],[2,3,4]], k = 6",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-048",
     "title": "Maximum Difference Between Successive Sorted Elements",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Bucket Sort",
-      "Pigeonhole Principle"
+      "Array"
     ],
     "acceptance": "38.8%",
     "submissions": "3.0K",
@@ -8607,16 +15962,59 @@ export const initialProblems: Problem[] = [
       "python": "def maximum_adjacent_gap(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maximumAdjacentGap(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximumAdjacentGap(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [3,6,9,1]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [10]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5,7]",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,4,4,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,100,100]",
+        "expected": "99",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1000000000,1000000000]",
+        "expected": "2000000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-049",
     "title": "Create Sorted Array With Minimum Insertion Cost",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Fenwick Tree",
-      "Order Statistics"
+      "Array"
     ],
     "acceptance": "35.5%",
     "submissions": "6.6K",
@@ -8642,17 +16040,61 @@ export const initialProblems: Problem[] = [
       "python": "def create_sorted_array_cost(instructions: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int createSortedArrayCost(int[] instructions) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int createSortedArrayCost(vector<int>& instructions) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "instructions = [1,5,6,2]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "instructions = [1,2,3,4,5]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "instructions = [9]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "instructions = [4,4,4,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "instructions = [5,4,3,2,1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "instructions = [1,100000,50000,75000]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "instructions = [2,1,2,1,2]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-050",
     "title": "Maximum Sum of Two Non-Overlapping Subarrays",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Dynamic Programming",
-      "Sliding Windows"
+      "Array",
+      "Prefix Sum",
+      "Dynamic Programming"
     ],
     "acceptance": "29.6%",
     "submissions": "7.1K",
@@ -8680,16 +16122,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_two_non_overlapping_subarray_sum(nums: list[int], firstLen: int, secondLen: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxTwoNonOverlappingSubarraySum(int[] nums, int firstLen, int secondLen) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxTwoNonOverlappingSubarraySum(vector<int>& nums, int firstLen, int secondLen) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [0,6,5,2,2,5,1,9,4], firstLen = 1, secondLen = 2",
+        "expected": "20",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,8,1,3,2,1,8,9,0], firstLen = 2, secondLen = 3",
+        "expected": "29",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,2,3], firstLen = 1, secondLen = 2",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5,4,3,-1], firstLen = 1, secondLen = 1",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-8,-2,-5,-1], firstLen = 1, secondLen = 1",
+        "expected": "-3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [5,1,1,10], firstLen = 2, secondLen = 1",
+        "expected": "16",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [5,5,5,5,5], firstLen = 2, secondLen = 2",
+        "expected": "20",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-051",
     "title": "Add Two Matrices Elementwise",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Traversal",
-      "Elementwise Operations"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "76.9%",
     "submissions": "29.3K",
@@ -8717,16 +16203,59 @@ export const initialProblems: Problem[] = [
       "python": "def add_matrices(A: list[list[int]], B: list[list[int]]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object addMatrices(int[][] A, int[][] B) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto addMatrices(vector<vector<int>>& A, vector<vector<int>>& B) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "A = [[1,2],[3,4]], B = [[5,6],[7,8]]",
+        "expected": "[[6,8],[10,12]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "A = [[1,-2,0]], B = [[-1,2,4]]",
+        "expected": "[[0,0,4]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "A = [[3]], B = [[-5]]",
+        "expected": "[[-2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "A = [[0,0],[0,0]], B = [[0,0],[0,0]]",
+        "expected": "[[0,0],[0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "A = [[-3,-7]], B = [[-2,10]]",
+        "expected": "[[-5,3]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "A = [[1,2,3],[4,5,6]], B = [[6,5,4],[3,2,1]]",
+        "expected": "[[7,7,7],[7,7,7]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "A = [[1000000000]], B = [[1000000000]]",
+        "expected": "[[2000000000]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-052",
     "title": "Check Non-Decreasing Order",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Validation",
-      "Adjacent Comparisons"
+      "Array"
     ],
     "acceptance": "62.0%",
     "submissions": "30.5K",
@@ -8752,16 +16281,60 @@ export const initialProblems: Problem[] = [
       "python": "def is_non_decreasing(nums: list[int]) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isNonDecreasing(int[] nums) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isNonDecreasing(vector<int>& nums) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,2,4]",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,1,2]",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [9]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,4,4,4]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [5,4,3,2]",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-3,-3,-2]",
+        "expected": "true",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-053",
     "title": "Build Running Prefix Totals",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Array Construction"
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "77.0%",
     "submissions": "25.4K",
@@ -8788,16 +16361,59 @@ export const initialProblems: Problem[] = [
       "python": "def prefix_totals(nums: list[int]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object prefixTotals(int[] nums) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto prefixTotals(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,4]",
+        "expected": "[1,3,6,10]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [-2,5,-1]",
+        "expected": "[-2,3,2]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0]",
+        "expected": "[0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0]",
+        "expected": "[0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-1,-2,-3]",
+        "expected": "[-1,-3,-6]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000000,1000000000,-1000000000]",
+        "expected": "[1000000000,2000000000,1000000000]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-054",
     "title": "Reverse an Array",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "In-Place Transformation",
-      "Two Ends"
+      "Array"
     ],
     "acceptance": "74.3%",
     "submissions": "33.1K",
@@ -8823,16 +16439,60 @@ export const initialProblems: Problem[] = [
       "python": "def reverse_array(nums: list[int]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] reverseArray(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> reverseArray(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,4]",
+        "expected": "[4,3,2,1]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [7,-2,7]",
+        "expected": "[7,-2,7]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5]",
+        "expected": "[5]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,9]",
+        "expected": "[9,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [3,3,1,3]",
+        "expected": "[3,1,3,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1,0,2]",
+        "expected": "[2,0,-1]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-055",
     "title": "Find the Row With Maximum Sum",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Traversal",
-      "Row Aggregation"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "76.9%",
     "submissions": "49.4K",
@@ -8860,16 +16520,60 @@ export const initialProblems: Problem[] = [
       "python": "def row_with_maximum_sum(matrix: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int rowWithMaximumSum(int[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rowWithMaximumSum(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[5,-5],[4,-4],[3,-3]]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[8]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[-5,-2,-9]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1,1],[0,3],[2,0]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[-8,-2],[-5,-6],[-20,1]]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[0,0,0],[0,1,0],[0,0,0]]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-056",
     "title": "Count Values Occurring Exactly Once",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Frequency Counting",
-      "Hash Map"
+      "Array",
+      "Hash Table"
     ],
     "acceptance": "64.9%",
     "submissions": "34.0K",
@@ -8895,16 +16599,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_unique_occurrences(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countUniqueOccurrences(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countUniqueOccurrences(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,2,3,4,4]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [7,7,8,9]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,2,3,3]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-1,0,1]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [5,1,2,5]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-057",
     "title": "Reshape a Matrix",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Reshaping",
-      "Row-Major Order"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "66.2%",
     "submissions": "37.3K",
@@ -8932,16 +16680,60 @@ export const initialProblems: Problem[] = [
       "python": "def reshape_matrix(matrix: list[list[int]], r: int, c: int) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] reshapeMatrix(int[][] matrix, int r, int c) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> reshapeMatrix(vector<vector<int>>& matrix, int r, int c) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2],[3,4]], r = 1, c = 4",
+        "expected": "[[1,2,3,4]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2],[3,4]], r = 4, c = 1",
+        "expected": "[[1],[2],[3],[4]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[1,2],[3,4]], r = 2, c = 2",
+        "expected": "[[1,2],[3,4]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[8,9,10]], r = 1, c = 3",
+        "expected": "[[8,9,10]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[8,9,10]], r = 3, c = 1",
+        "expected": "[[8],[9],[10]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2],[3,4]], r = 3, c = 2",
+        "expected": "[[1,2],[3,4]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[6]], r = 1, c = 1",
+        "expected": "[[6]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-058",
     "title": "Check Whether a Matrix Is Toeplitz",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Diagonals",
-      "Neighbor Comparison"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "65.9%",
     "submissions": "24.6K",
@@ -8968,16 +16760,60 @@ export const initialProblems: Problem[] = [
       "python": "def is_toeplitz_matrix(matrix: list[list[int]]) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean isToeplitzMatrix(int[][] matrix) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isToeplitzMatrix(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,1,2],[5,4,1]]",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2],[2,2]]",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[7]]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2,3,4]]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1],[2],[3]]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[0,0],[0,0],[0,0]]",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,3],[4,1,2],[5,4,9]]",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-059",
     "title": "Sum the Boundary of a Matrix",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Traversal",
-      "Boundary Conditions"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "65.5%",
     "submissions": "40.2K",
@@ -9004,16 +16840,59 @@ export const initialProblems: Problem[] = [
       "python": "def boundary_sum(matrix: list[list[int]]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object boundarySum(int[][] matrix) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto boundarySum(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "40",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2,3,4],[5,6,7,8]]",
+        "expected": "36",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[9]]",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2,3,4]]",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1],[2],[3]]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[-1,-2],[-3,-4]]",
+        "expected": "-10",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-060",
     "title": "Count Adjacent Equal Pairs",
     "difficulty": "Easy",
     "topics": [
-      "Arrays & Matrices",
-      "Array Traversal",
-      "Adjacent Comparisons"
+      "Array"
     ],
     "acceptance": "68.0%",
     "submissions": "15.0K",
@@ -9039,16 +16918,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_adjacent_equal_pairs(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countAdjacentEqualPairs(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countAdjacentEqualPairs(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,1,2,2,2,3]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [4,4,4]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0,0]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1,-1,0,0,-1]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-061",
     "title": "Find a Peak Element Index",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Binary Search",
-      "Local Extrema"
+      "Hash Table"
     ],
     "acceptance": "45.4%",
     "submissions": "14.6K",
@@ -9075,16 +16999,60 @@ export const initialProblems: Problem[] = [
       "python": "def find_peak_index(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int findPeakIndex(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findPeakIndex(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,1,3,5,6,4]",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,2,3,4]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [4,3,2,1]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-062",
     "title": "Longest Turbulent Subarray",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Sliding Window",
-      "Alternating Comparisons"
+      "Array",
+      "Sliding Window"
     ],
     "acceptance": "48.2%",
     "submissions": "8.8K",
@@ -9110,16 +17078,60 @@ export const initialProblems: Problem[] = [
       "python": "def longest_turbulent_subarray(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestTurbulentSubarray(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestTurbulentSubarray(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [9,4,2,10,7,8,8,1,9]",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [4,8,12,16]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,3]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [5,5,5]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,3,2,4,3]",
+        "expected": "5",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-063",
     "title": "Minimum Swaps to Group Values at Most K",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Sliding Window",
-      "In-Place Grouping"
+      "Array",
+      "Sliding Window"
     ],
     "acceptance": "45.4%",
     "submissions": "18.8K",
@@ -9145,16 +17157,59 @@ export const initialProblems: Problem[] = [
       "python": "def min_swaps_to_group_at_most_k(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minSwapsToGroupAtMostK(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minSwapsToGroupAtMostK(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,1,5,6,3], k = 3",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [2,7,9,5,8,7,4], k = 5",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [5,6,7], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [8,2,9], k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [4,3,4,5], k = 4",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,9,8,2], k = 2",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-064",
     "title": "Shortest Unsorted Continuous Subarray",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Array Ordering",
-      "Prefix and Suffix Extremes"
+      "Array"
     ],
     "acceptance": "48.2%",
     "submissions": "26.6K",
@@ -9180,16 +17235,61 @@ export const initialProblems: Problem[] = [
       "python": "def shortest_unsorted_subarray(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int shortestUnsortedSubarray(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int shortestUnsortedSubarray(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,6,4,8,10,9,15]",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,3,4]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [5,4,3]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,3,2,2,2]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3,0]",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-065",
     "title": "Minimum Increments to Make Values Unique",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sorting",
-      "Greedy Allocation"
+      "Hash Table"
     ],
     "acceptance": "54.9%",
     "submissions": "9.5K",
@@ -9215,16 +17315,61 @@ export const initialProblems: Problem[] = [
       "python": "def min_increments_for_unique(nums: list[int]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object minIncrementsForUnique(int[] nums) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto minIncrementsForUnique(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,2]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,2,1,2,1,7]",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [-1,-1]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [2,2,2]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [3,-1,8,0]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-066",
     "title": "Find a Pair With a Given Difference",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Two Pointers",
-      "Sorted Arrays"
+      "Hash Table"
     ],
     "acceptance": "57.1%",
     "submissions": "15.0K",
@@ -9251,16 +17396,60 @@ export const initialProblems: Problem[] = [
       "python": "def has_pair_with_difference(nums: list[int], d: int) -> bool:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public boolean hasPairWithDifference(int[] nums, int d) {\n        // Write your solution here\n        return false;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool hasPairWithDifference(vector<int>& nums, int d) {\n        // Write your solution here\n        return false;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,5,7], d = 2",
+        "expected": "true",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,4], d = 0",
+        "expected": "false",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], d = 0",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4], d = 0",
+        "expected": "false",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,2,5], d = 0",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [-5,-1,3], d = 4",
+        "expected": "true",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-2,0,3], d = 10",
+        "expected": "false",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-067",
     "title": "Diagonal Zigzag Matrix Traversal",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Traversal",
-      "Diagonal Ordering"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "44.3%",
     "submissions": "23.0K",
@@ -9286,16 +17475,60 @@ export const initialProblems: Problem[] = [
       "python": "def diagonal_zigzag(matrix: list[list[int]]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] diagonalZigzag(int[][] matrix) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> diagonalZigzag(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "expected": "[1,2,4,7,5,3,6,8,9]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2,3],[4,5,6]]",
+        "expected": "[1,2,4,5,3,6]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[8]]",
+        "expected": "[8]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,2,3,4]]",
+        "expected": "[1,2,3,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1],[2],[3]]",
+        "expected": "[1,2,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "[1,2,3,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[-1,-2],[-3,-4]]",
+        "expected": "[-1,-2,-3,-4]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-068",
     "title": "Multiply Two Rectangular Matrices",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Multiplication",
-      "Linear Algebra"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "57.2%",
     "submissions": "8.5K",
@@ -9322,16 +17555,62 @@ export const initialProblems: Problem[] = [
       "python": "def multiply_matrices(A: list[list[int]], B: list[list[int]]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object multiplyMatrices(int[][] A, int[][] B) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto multiplyMatrices(vector<vector<int>>& A, vector<vector<int>>& B) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "A = [[1,2,3],[4,5,6]], B = [[7,8],[9,10],[11,12]]",
+        "expected": "[[58,64],[139,154]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "A = [[2,-1]], B = [[3],[4]]",
+        "expected": "[[2]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "A = [[7]], B = [[6]]",
+        "expected": "[[42]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "A = [[0,0],[0,0]], B = [[1,2],[3,4]]",
+        "expected": "[[0,0],[0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "A = [[1,0],[0,1]], B = [[5,6],[7,8]]",
+        "expected": "[[5,6],[7,8]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "A = [[-2,3]], B = [[4],[-1]]",
+        "expected": "[[-11]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "A = [[1,2]], B = [[3,4,5],[6,7,8]]",
+        "expected": "[[15,18,21]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-069",
     "title": "Flood Fill a Connected Region",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix DFS or BFS",
-      "Four-Direction Connectivity"
+      "Array",
+      "Graph",
+      "Matrix",
+      "Stack"
     ],
     "acceptance": "57.6%",
     "submissions": "10.2K",
@@ -9358,16 +17637,60 @@ export const initialProblems: Problem[] = [
       "python": "def flood_fill(image: list[list[int]], sr: int, sc: int, newColor: int) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2",
+        "expected": "[[2,2,2],[2,2,0],[2,0,1]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "image = [[0,0],[0,0]], sr = 0, sc = 0, newColor = 3",
+        "expected": "[[3,3],[3,3]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "image = [[1]], sr = 0, sc = 0, newColor = 2",
+        "expected": "[[2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "image = [[1,1],[1,0]], sr = 0, sc = 0, newColor = 1",
+        "expected": "[[1,1],[1,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "image = [[1,2],[2,2]], sr = 0, sc = 0, newColor = 9",
+        "expected": "[[9,2],[2,2]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "image = [[1,1,0],[1,0,0],[1,1,1]], sr = 0, sc = 0, newColor = 4",
+        "expected": "[[4,4,0],[4,0,0],[4,4,4]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "image = [[5,6,5]], sr = 0, sc = 1, newColor = 8",
+        "expected": "[[5,8,5]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-070",
     "title": "Apply One Step of Conway’s Game of Life",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Simulation",
-      "Neighbor Counting"
+      "Array",
+      "Matrix"
     ],
     "acceptance": "46.0%",
     "submissions": "20.1K",
@@ -9393,16 +17716,61 @@ export const initialProblems: Problem[] = [
       "python": "def game_of_life_step(board: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[][] gameOfLifeStep(int[][] board) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> gameOfLifeStep(vector<vector<int>>& board) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]",
+        "expected": "[[0,0,0],[1,0,1],[0,1,1],[0,1,0]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "board = [[1,1],[1,1]]",
+        "expected": "[[1,1],[1,1]]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "board = [[1]]",
+        "expected": "[[0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "board = [[0]]",
+        "expected": "[[0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "board = [[1,1]]",
+        "expected": "[[0,0]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "board = [[1,1],[1,1]]",
+        "expected": "[[1,1],[1,1]]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "board = [[0,1,0],[0,1,0],[0,1,0]]",
+        "expected": "[[0,0,0],[1,1,1],[0,0,0]]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-071",
     "title": "Find Lucky Numbers in a Matrix",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Row and Column Extrema",
-      "Selection"
+      "Array",
+      "Matrix",
+      "Hash Table"
     ],
     "acceptance": "45.4%",
     "submissions": "24.7K",
@@ -9430,15 +17798,60 @@ export const initialProblems: Problem[] = [
       "python": "def lucky_numbers(matrix: list[list[int]]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] luckyNumbers(int[][] matrix) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> luckyNumbers(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[3,7,8],[9,11,13],[15,16,17]]",
+        "expected": "[15]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[7,8],[1,2]]",
+        "expected": "[7]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[4]]",
+        "expected": "[4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[3,1,2]]",
+        "expected": "[1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[3],[1],[2]]",
+        "expected": "[3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1,2],[3,4]]",
+        "expected": "[]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[-5,-2],[-7,-3]]",
+        "expected": "[-5]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-072",
     "title": "Find the Row With the Most Ones",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Binary Matrix",
+      "Array",
+      "Matrix",
       "Binary Search"
     ],
     "acceptance": "47.2%",
@@ -9467,16 +17880,61 @@ export const initialProblems: Problem[] = [
       "python": "def row_with_most_ones(matrix: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int rowWithMostOnes(int[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rowWithMostOnes(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[0,0,1],[0,1,1],[1,1,1]]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[0,0],[0,1],[0,1]]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = [[0,0],[0,0]]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,1],[1,1]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[1]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[0]]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[0,0,0,1,1]]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-073",
     "title": "Count Subarrays With Bounded Maximum",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sliding Window",
-      "Subarray Counting"
+      "Binary Search"
     ],
     "acceptance": "51.2%",
     "submissions": "12.6K",
@@ -9503,16 +17961,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_bounded_maximum(nums: list[int], left: int, right: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysWithBoundedMaximum(int[] nums, int left, int right) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysWithBoundedMaximum(vector<int>& nums, int left, int right) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,1,4,3], left = 2, right = 3",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,3,4], left = 2, right = 3",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], left = 1, right = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,1,0], left = 2, right = 4",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,3,2], left = 2, right = 3",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [5,6,7], left = 1, right = 4",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-4,-2,-3], left = -3, right = -2",
+        "expected": "5",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-074",
     "title": "Maximum Circular Subarray Sum",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Kadane Algorithm",
-      "Circular Arrays"
+      "Array",
+      "Dynamic Programming",
+      "Prefix Sum"
     ],
     "acceptance": "47.4%",
     "submissions": "10.8K",
@@ -9538,16 +18041,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_circular_subarray_sum(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxCircularSubarraySum(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxCircularSubarraySum(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [5,-3,5]",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,-2,3,-2]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-4]",
+        "expected": "-4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-3,-1,-2]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [8,-10,8]",
+        "expected": "16",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-075",
     "title": "Longest Subarray With At Most Two Distinct Values",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sliding Window",
-      "Frequency Map"
+      "Hash Table"
     ],
     "acceptance": "53.3%",
     "submissions": "25.4K",
@@ -9573,16 +18121,61 @@ export const initialProblems: Problem[] = [
       "python": "def longest_subarray_at_most_two_distinct(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int longestSubarrayAtMostTwoDistinct(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestSubarrayAtMostTwoDistinct(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,1,2,3]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,1,2,2]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [9]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,4,4,4]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,2,1,2]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3,1,2,3]",
+        "expected": "2",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-076",
     "title": "Find the Largest Array Nesting Cycle",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Permutation Cycles",
-      "Visited Tracking"
+      "Array",
+      "Graph",
+      "Hash Table"
     ],
     "acceptance": "54.4%",
     "submissions": "12.8K",
@@ -9608,16 +18201,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_array_nesting(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxArrayNesting(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxArrayNesting(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [5,4,0,3,1,6,2]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [0,1,2]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [0]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,1,2,3]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,0]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,0,3,2]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2,0,1,4,3]",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-077",
     "title": "Apply Range Addition Updates",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Difference Array",
-      "Range Updates"
+      "Array",
+      "Prefix Sum"
     ],
     "acceptance": "49.7%",
     "submissions": "21.7K",
@@ -9646,15 +18283,60 @@ export const initialProblems: Problem[] = [
       "python": "def range_addition(n: int, updates: list[list[int]]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object rangeAddition(int n, int[][] updates) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto rangeAddition(int n, vector<vector<int>>& updates) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "n = 5, updates = [[1,3,2],[2,4,3],[0,2,-2]]",
+        "expected": "[-2,0,3,5,3]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "n = 3, updates = [[0,1,5]]",
+        "expected": "[5,5,0]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "n = 3, updates = []",
+        "expected": "[0,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "n = 1, updates = [[0,0,7]]",
+        "expected": "[7]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "n = 4, updates = [[0,3,-2]]",
+        "expected": "[-2,-2,-2,-2]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "n = 3, updates = [[0,2,5],[1,2,-5]]",
+        "expected": "[5,0,0]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "n = 2, updates = [[0,1,0]]",
+        "expected": "[0,0]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-078",
     "title": "Shortest Removal to Make an Array Non-Decreasing",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix and Suffix Scans",
+      "Array",
+      "Prefix Sum",
       "Two Pointers"
     ],
     "acceptance": "48.1%",
@@ -9681,16 +18363,61 @@ export const initialProblems: Problem[] = [
       "python": "def min_removal_for_non_decreasing(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minRemovalForNonDecreasing(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minRemovalForNonDecreasing(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,10,4,2,3,5]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [5,4,3,2,1]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,2,2,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [7]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,3,2,1]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,2,3,0]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [5,1,2,3]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-079",
     "title": "Count Distinct Duplicate Rows",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Row Encoding",
-      "Hash Set"
+      "Array",
+      "Matrix",
+      "Hash Table"
     ],
     "acceptance": "57.7%",
     "submissions": "19.2K",
@@ -9718,16 +18445,60 @@ export const initialProblems: Problem[] = [
       "python": "def count_distinct_duplicate_rows(matrix: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countDistinctDuplicateRows(int[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countDistinctDuplicateRows(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "matrix = [[1,0],[0,1],[1,0],[1,1],[0,1]]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "matrix = [[1,2],[2,1],[3,4]]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "matrix = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "matrix = [[1,1]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "matrix = [[2,2],[2,2],[2,2]]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "matrix = [[1],[2],[1],[2]]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "matrix = [[1,2,3],[1,2,4],[1,2,3]]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-080",
     "title": "Maximum Distance Across Two Sorted Arrays",
     "difficulty": "Medium",
     "topics": [
-      "Arrays & Matrices",
-      "Greedy",
-      "Sorted Arrays"
+      "Array",
+      "Greedy"
     ],
     "acceptance": "55.5%",
     "submissions": "9.3K",
@@ -9755,16 +18526,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_distance_across_arrays(arrays: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxDistanceAcrossArrays(int[][] arrays) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxDistanceAcrossArrays(vector<vector<int>>& arrays) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "arrays = [[1,2,3],[4,5],[1,2,3]]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "arrays = [[-10,-5],[0,10],[2,3]]",
+        "expected": "20",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "arrays = [[-5],[7]]",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "arrays = [[3,3],[3],[3,3,3]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "arrays = [[-9,-6],[-5,-2]]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "arrays = [[-100,100],[0]]",
+        "expected": "100",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "arrays = [[1,2],[2,3],[3,4]]",
+        "expected": "3",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-081",
     "title": "Maximum Stock Profit With At Most K Transactions",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Dynamic Programming",
-      "State Optimization"
+      "Array",
+      "Dynamic Programming"
     ],
     "acceptance": "29.3%",
     "submissions": "4.7K",
@@ -9791,16 +18606,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_profit_at_most_k(prices: list[int], k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maxProfitAtMostK(int[] prices, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maxProfitAtMostK(vector<int>& prices, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "prices = [2,4,1], k = 2",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "prices = [3,2,6,5,0,3], k = 2",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "prices = [1,5,2], k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "prices = [], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "prices = [8], k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "prices = [9,7,4,1], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "prices = [1,3,2,5], k = 10",
+        "expected": "5",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-082",
     "title": "Sum of Total Strength of Wizards",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Monotonic Stack",
-      "Prefix Sums of Prefix Sums"
+      "Array",
+      "Stack",
+      "Prefix Sum"
     ],
     "acceptance": "35.4%",
     "submissions": "5.5K",
@@ -9826,16 +18686,60 @@ export const initialProblems: Problem[] = [
       "python": "def sum_of_total_strength(strength: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int sumOfTotalStrength(int[] strength) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sumOfTotalStrength(vector<int>& strength) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "strength = [1,3,1,2]",
+        "expected": "44",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "strength = [5,4,6]",
+        "expected": "213",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "strength = [7]",
+        "expected": "49",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "strength = [1,1]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "strength = [2,2,2]",
+        "expected": "40",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "strength = [1,2,3]",
+        "expected": "33",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "strength = [1000000000,1000000000]",
+        "expected": "196",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-083",
     "title": "Count Subarrays Where the Global Maximum Appears at Least K Times",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Sliding Window",
-      "Frequency of Global Maximum"
+      "Array",
+      "Sliding Window"
     ],
     "acceptance": "28.0%",
     "submissions": "3.6K",
@@ -9862,17 +18766,61 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_with_global_max_at_least_k(nums: list[int], k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysWithGlobalMaxAtLeastK(int[] nums, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysWithGlobalMaxAtLeastK(vector<int>& nums, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,3,2,3,3], k = 2",
+        "expected": "6",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,4,2,1,4], k = 1",
+        "expected": "11",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [5], k = 1",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,3,2,3], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,2,2], k = 2",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,5,2,3], k = 1",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [5,1,1,5], k = 2",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-084",
     "title": "Two Robots Collect Maximum Grid Reward",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Matrix Dynamic Programming",
-      "Two-Agent State",
-      "Rolling DP"
+      "Array",
+      "Matrix",
+      "Dynamic Programming"
     ],
     "acceptance": "35.4%",
     "submissions": "5.5K",
@@ -9898,16 +18846,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_two_robot_grid_reward(grid: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxTwoRobotGridReward(int[][] grid) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxTwoRobotGridReward(vector<vector<int>>& grid) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]",
+        "expected": "24",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "grid = [[1,2],[3,4]]",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "grid = [[7]]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "grid = [[1],[2],[3]]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "grid = [[4,1,3,2]]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "grid = [[0,0],[0,0],[0,0]]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "grid = [[1,1,1],[1,9,1],[1,1,1]]",
+        "expected": "14",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-085",
     "title": "Minimum Cost to Merge K Consecutive Piles",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Interval Dynamic Programming",
-      "Prefix Sums"
+      "Array",
+      "Prefix Sum",
+      "Greedy"
     ],
     "acceptance": "32.5%",
     "submissions": "12.0K",
@@ -9934,16 +18927,61 @@ export const initialProblems: Problem[] = [
       "python": "def min_cost_to_merge_piles(stones: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minCostToMergePiles(int[] stones, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minCostToMergePiles(vector<int>& stones, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "stones = [3,2,4,1], k = 2",
+        "expected": "20",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "stones = [3,2,4,1], k = 3",
+        "expected": "-1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "stones = [9], k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "stones = [1,2], k = 3",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "stones = [1,2,3], k = 3",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "stones = [4,5], k = 2",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "stones = [1,1,1,1,1], k = 2",
+        "expected": "12",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-086",
     "title": "Smallest Range Covering Elements From K Sorted Lists",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Heap",
-      "K-Way Merge"
+      "Greedy"
     ],
     "acceptance": "36.3%",
     "submissions": "14.5K",
@@ -9970,16 +19008,60 @@ export const initialProblems: Problem[] = [
       "python": "def smallest_covering_range(lists: list[list[int]]) -> list[int]:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int[] smallestCoveringRange(int[][] lists) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> smallestCoveringRange(vector<vector<int>>& lists) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "lists = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]",
+        "expected": "[20,24]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "lists = [[1,2,3],[1,2,3],[1,2,3]]",
+        "expected": "[1,1]",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "lists = [[3,7,9]]",
+        "expected": "[3,3]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "lists = [[-5],[0],[4]]",
+        "expected": "[-5,4]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "lists = [[1,1,5],[1,2,6],[1,3,7]]",
+        "expected": "[1,1]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "lists = [[-10,-2],[-8,0],[-9,3]]",
+        "expected": "[-10,-8]",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "lists = [[1,5],[2,6]]",
+        "expected": "[1,2]",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-087",
     "title": "Minimum Swaps to Make Two Sequences Strictly Increasing",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Dynamic Programming",
-      "Paired Arrays"
+      "Array",
+      "Dynamic Programming"
     ],
     "acceptance": "36.1%",
     "submissions": "12.3K",
@@ -10005,16 +19087,59 @@ export const initialProblems: Problem[] = [
       "python": "def min_swaps_to_make_increasing(A: list[int], B: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minSwapsToMakeIncreasing(int[] A, int[] B) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minSwapsToMakeIncreasing(vector<int>& A, vector<int>& B) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "A = [1,3,5,4], B = [1,2,3,7]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "A = [0,3,5,8,9], B = [2,1,4,6,9]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "A = [2], B = [1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "A = [1,2,3], B = [4,5,6]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "A = [1,4,3], B = [2,3,5]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "A = [1,1], B = [2,2]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "A = [-3,-1,2], B = [-2,0,3]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-088",
     "title": "Burst Balloons for Maximum Coins",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Interval Dynamic Programming",
-      "Subarray Optimization"
+      "Array"
     ],
     "acceptance": "39.9%",
     "submissions": "14.5K",
@@ -10040,15 +19165,60 @@ export const initialProblems: Problem[] = [
       "python": "def max_coins_burst_balloons(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxCoinsBurstBalloons(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxCoinsBurstBalloons(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [3,1,5,8]",
+        "expected": "167",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,5]",
+        "expected": "10",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [5]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,1,1]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [2,3]",
+        "expected": "9",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-089",
     "title": "Maximum Value of an Equation From Points",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Monotonic Deque",
+      "Array",
+      "Stack",
       "Sliding Window"
     ],
     "acceptance": "39.9%",
@@ -10077,16 +19247,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_value_of_equation(points: list[list[int]], k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maxValueOfEquation(int[][] points, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maxValueOfEquation(vector<vector<int>>& points, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "points = [[1,3],[2,0],[5,10],[6,-10]], k = 1",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "points = [[0,0],[2,3],[3,1]], k = 3",
+        "expected": "5",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "points = [[-2,4],[0,5]], k = 2",
+        "expected": "11",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "points = [[0,-5],[1,-2],[2,-4]], k = 2",
+        "expected": "-5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "points = [[0,1],[3,2]], k = 3",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "points = [[0,0],[1,5],[10,10]], k = 1",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "points = [[-100000000,100000000],[100000000,-100000000]], k = 200000000",
+        "expected": "200000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-090",
     "title": "Minimum Refueling Stops",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Greedy",
-      "Max Heap"
+      "Binary Search"
     ],
     "acceptance": "37.7%",
     "submissions": "4.1K",
@@ -10115,16 +19330,61 @@ export const initialProblems: Problem[] = [
       "python": "def min_refuel_stops(target: int, startFuel: int, stations: list[list[int]]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minRefuelStops(int target, int startFuel, int[][] stations) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "target = 100, startFuel = 10, stations = [[10,60],[20,30],[30,30],[60,40]]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "target = 100, startFuel = 1, stations = [[10,100]]",
+        "expected": "-1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "target = 50, startFuel = 50, stations = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "target = 20, startFuel = 10, stations = []",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "target = 30, startFuel = 10, stations = [[10,20]]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "target = 100, startFuel = 5, stations = [[6,100]]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "target = 100, startFuel = 50, stations = [[25,100],[60,10]]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-091",
     "title": "Maximum Score After Pairing Numbers",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Bitmask Dynamic Programming",
-      "Greatest Common Divisor"
+      "Array",
+      "Dynamic Programming",
+      "Math"
     ],
     "acceptance": "29.4%",
     "submissions": "5.5K",
@@ -10151,16 +19411,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_pairing_score(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxPairingScore(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxPairingScore(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [3,4,6,8]",
+        "expected": "11",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [5,5]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [2,3,5,7]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,4,4,4]",
+        "expected": "12",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [2,4,6,8]",
+        "expected": "10",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]",
+        "expected": "138",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-092",
     "title": "Count Subarrays With Exactly K Distinct Values",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Sliding Window",
-      "At-Most Counting"
+      "Hash Table"
     ],
     "acceptance": "29.3%",
     "submissions": "4.7K",
@@ -10187,14 +19492,59 @@ export const initialProblems: Problem[] = [
       "python": "def count_subarrays_exactly_k_distinct(nums: list[int], k: int) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object countSubarraysExactlyKDistinct(int[] nums, int k) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto countSubarraysExactlyKDistinct(vector<int>& nums, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,1,2,3], k = 2",
+        "expected": "7",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,1,3,4], k = 3",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [], k = 1",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2], k = 0",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,1,2], k = 3",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [4,4,4], k = 1",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,3,4], k = 1",
+        "expected": "4",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-093",
     "title": "Make an Array Strictly Increasing With Replacements",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Dynamic Programming",
       "Binary Search"
     ],
@@ -10223,15 +19573,59 @@ export const initialProblems: Problem[] = [
       "python": "def min_replacements_for_increasing(arr1: list[int], arr2: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minReplacementsForIncreasing(int[] arr1, int[] arr2) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minReplacementsForIncreasing(vector<int>& arr1, vector<int>& arr2) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "arr1 = [1,5,3,6,7], arr2 = [1,3,2,4]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "arr1 = [1,5,3,6,7], arr2 = [4,3,1]",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "arr1 = [1,2,3], arr2 = []",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "arr1 = [5], arr2 = [1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "arr1 = [3,2], arr2 = []",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "arr1 = [1,1], arr2 = [2,2,3]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "arr1 = [-5,-2,-2,4], arr2 = [-3,0]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-094",
     "title": "Minimum Removals to Form a Mountain Subsequence",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Longest Increasing Subsequence",
+      "Array",
       "Dynamic Programming"
     ],
     "acceptance": "34.2%",
@@ -10258,16 +19652,61 @@ export const initialProblems: Problem[] = [
       "python": "def min_removals_for_mountain(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minRemovalsForMountain(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minRemovalsForMountain(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [2,1,1,5,6,2,3,1]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,3,1]",
+        "expected": "0",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,2]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [1,2,3,4]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [4,3,2,1]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [2,2,2,2]",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,2,2,1]",
+        "expected": "1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-095",
     "title": "Maximum Points With Cost in a Grid",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Dynamic Programming",
-      "Optimized Row Transitions"
+      "Matrix"
     ],
     "acceptance": "35.2%",
     "submissions": "3.6K",
@@ -10294,16 +19733,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_points_with_cost(points: list[list[int]]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maxPointsWithCost(int[][] points) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maxPointsWithCost(vector<vector<int>>& points) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "points = [[1,2,3],[1,5,1],[3,1,1]]",
+        "expected": "9",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "points = [[1,5],[2,3],[4,2]]",
+        "expected": "11",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "points = [[7]]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "points = [[1,9,3]]",
+        "expected": "9",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "points = [[1],[5],[-2]]",
+        "expected": "4",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "points = [[2,2],[3,3]]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "points = [[10,0,0],[0,0,10]]",
+        "expected": "18",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-096",
     "title": "Minimum Number of K-Consecutive Bit Flips",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Greedy",
-      "Difference Tracking"
+      "Bit Manipulation"
     ],
     "acceptance": "28.0%",
     "submissions": "3.0K",
@@ -10330,16 +19814,60 @@ export const initialProblems: Problem[] = [
       "python": "def min_k_bit_flips(nums: list[int], k: int) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minKBitFlips(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minKBitFlips(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [0,1,0], k = 1",
+        "expected": "2",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,1,0,0,1], k = 3",
+        "expected": "-1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [1,1,1], k = 2",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [0,1,0,1], k = 1",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,1,1], k = 2",
+        "expected": "-1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [0,0,0], k = 3",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [0,1,1], k = 2",
+        "expected": "-1",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-097",
     "title": "Minimize Deviation in an Array",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Greedy",
-      "Max Heap"
+      "Array",
+      "Greedy"
     ],
     "acceptance": "29.6%",
     "submissions": "7.4K",
@@ -10365,16 +19893,60 @@ export const initialProblems: Problem[] = [
       "python": "def minimize_deviation(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int minimizeDeviation(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimizeDeviation(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,2,3,4]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [4,1,5,20,3]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [9]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [4,4,4]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [2,4,8]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1,3,5]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1000000000,1]",
+        "expected": "1953123",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-098",
     "title": "Maximum Balanced Subsequence Sum",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Fenwick Tree",
-      "Coordinate Compression",
+      "Array",
+      "Sorting",
       "Dynamic Programming"
     ],
     "acceptance": "39.7%",
@@ -10401,16 +19973,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_balanced_subsequence_sum(nums: list[int]) -> Any:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public Object maxBalancedSubsequenceSum(int[] nums) {\n        // Write your solution here\n        return null;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    auto maxBalancedSubsequenceSum(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [3,3,5,6]",
+        "expected": "14",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [5,-1,-3,8]",
+        "expected": "13",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [-7]",
+        "expected": "-7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [-5,-2,-8]",
+        "expected": "-2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [1,2,3]",
+        "expected": "6",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [4,5,6]",
+        "expected": "15",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [-1000000000,1000000000]",
+        "expected": "1000000000",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   },
   {
     "id": "arrmat-099",
     "title": "Maximum Total Reward With Increasing Choices",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
+      "Array",
       "Dynamic Programming",
-      "Bitset Optimization"
+      "Bit Manipulation"
     ],
     "acceptance": "32.8%",
     "submissions": "3.0K",
@@ -10436,17 +20053,61 @@ export const initialProblems: Problem[] = [
       "python": "def max_total_reward(rewardValues: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int maxTotalReward(int[] rewardValues) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "rewardValues = [1,1,3,3]",
+        "expected": "4",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "rewardValues = [1,6,4,3,2]",
+        "expected": "11",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "rewardValues = [5]",
+        "expected": "5",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "rewardValues = [2,2]",
+        "expected": "2",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "rewardValues = [1,2,4]",
+        "expected": "7",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "rewardValues = [3,3,3]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "rewardValues = [7,8]",
+        "expected": "15",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": true
   },
   {
     "id": "arrmat-100",
     "title": "Count Ways to Split an Array Into Three Ordered Parts",
     "difficulty": "Hard",
     "topics": [
-      "Arrays & Matrices",
-      "Prefix Sums",
-      "Binary Search",
-      "Counting"
+      "Array",
+      "Prefix Sum",
+      "Binary Search"
     ],
     "acceptance": "33.8%",
     "submissions": "13.4K",
@@ -10472,6 +20133,51 @@ export const initialProblems: Problem[] = [
       "python": "def count_three_way_nondecreasing_splits(nums: list[int]) -> int:\n    # Write your solution here\n    pass\n",
       "java": "class Solution {\n    public int countThreeWayNondecreasingSplits(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
       "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countThreeWayNondecreasingSplits(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
-    }
+    },
+    "testCases": [
+      {
+        "caseNumber": 1,
+        "input": "nums = [1,1,1]",
+        "expected": "1",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 2,
+        "input": "nums = [1,2,2,2,5,0]",
+        "expected": "3",
+        "isHidden": false
+      },
+      {
+        "caseNumber": 3,
+        "input": "nums = [0,0,0]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 4,
+        "input": "nums = [10,1,1]",
+        "expected": "0",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 5,
+        "input": "nums = [0,0,0,0]",
+        "expected": "3",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 6,
+        "input": "nums = [1000000000,1000000000,1000000000]",
+        "expected": "1",
+        "isHidden": true
+      },
+      {
+        "caseNumber": 7,
+        "input": "nums = [1,1,0,0,0]",
+        "expected": "0",
+        "isHidden": true
+      }
+    ],
+    "orderInvariant": false
   }
 ];

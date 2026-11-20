@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Activity, ArrowRight, ArrowUpRight, Award, CheckCircle2, Code2, Flame, Sparkles } from 'lucide-react';
+import { Activity, ArrowRight, ArrowUpRight, Award, CheckCircle2, Code2, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { SkeletonLine } from '../components/ui/LoadingSkeleton';
@@ -47,10 +47,10 @@ export default function Dashboard() {
         <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-[38px]">Ready to sharpen<br className="hidden sm:block" /> your <span className="text-indigo-100">problem-solving</span> edge?</h2>
         <p className="mt-3 max-w-lg text-sm leading-6 text-white/90">Every problem is a new opportunity to think deeper, write cleaner code, and become a better engineer.</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link to="/problems" className="btn-primary hero-primary-button">Explore problems <ArrowRight size={16} /></Link>
+          <Link to="/problems" className="btn-primary">Explore problems <ArrowRight size={16} /></Link>
           <Link to="/daily-challenges" className="btn-ghost hero-ghost-button">Daily challenges <ArrowUpRight size={15}/></Link>
         </div>
-        <div className="hero-quickfacts" aria-label="CodeArena practice library overview">
+        <div className="hero-quickfacts" aria-label="Prismcode practice library overview">
           <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums">{problems.length}</span><span className="hero-quickfact-label">problems in the library</span></div>
           <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.08s' }}>{learningPaths.length}</span><span className="hero-quickfact-label">guided learning paths</span></div>
           <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.16s' }}>04</span><span className="hero-quickfact-label">supported languages</span></div>
@@ -91,18 +91,6 @@ export default function Dashboard() {
       </div>
     </section>
 
-    <section className="grid gap-5 md:grid-cols-2">
-      <Link to="/daily-challenges" className="panel-card group flex items-center gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-lg sm:p-6">
-        <span className="themed-icon themed-icon-warm h-12 w-12 shrink-0 rounded-2xl"><Flame size={22}/></span>
-        <span className="min-w-0 flex-1"><span className="block font-display text-lg font-bold text-primary">Daily Challenges</span><span className="mt-1 block text-xs text-muted">Take on a fresh problem and keep your streak alive.</span></span>
-        <ArrowUpRight size={18} className="shrink-0 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 themed-link"/>
-      </Link>
-      <Link to="/progress" className="panel-card group flex items-center gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-lg sm:p-6">
-        <span className="themed-icon themed-icon-primary h-12 w-12 shrink-0 rounded-2xl"><Activity size={22}/></span>
-        <span className="min-w-0 flex-1"><span className="block font-display text-lg font-bold text-primary">Your Progress</span><span className="mt-1 block text-xs text-muted">Review milestones, estimated practice time, streaks, and solved problems.</span></span>
-        <ArrowUpRight size={18} className="shrink-0 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 themed-link"/>
-      </Link>
-    </section>
 
     <section className="grid items-start gap-5 xl:grid-cols-[1.3fr_1fr]">
       <div className="panel-card p-5 sm:p-6">

@@ -8,9 +8,9 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   isProduction: process.env.NODE_ENV === 'production',
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
-  sessionSecret: process.env.SESSION_SECRET || 'codearena_default_session_secret_change_me',
+  sessionSecret: process.env.SESSION_SECRET || 'prismcode_default_session_secret_change_me',
   sessionExpiryDays: parseInt(process.env.SESSION_EXPIRY_DAYS || '7', 10),
-  cookieName: 'codearena_session',
+  cookieName: 'prismcode_session',
   dbPath: process.env.DB_PATH || (process.cwd().endsWith('backend') ? path.resolve(process.cwd(), 'data', 'db.json') : path.resolve(process.cwd(), 'backend', 'data', 'db.json')),
   
   // Email settings
@@ -21,7 +21,7 @@ export const config = {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
   },
-  fromEmail: process.env.FROM_EMAIL || 'no-reply@codearena.dev',
+  fromEmail: process.env.FROM_EMAIL || 'no-reply@prismcode.dev',
 
   // OnlineCompiler.io Code Execution Engine
   onlineCompilerApiKey: process.env.ONLINECOMPILER_API_KEY || '',

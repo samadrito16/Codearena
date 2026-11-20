@@ -51,7 +51,7 @@ export default function Layout() {
       <div className="mobile-drawer relative flex h-full w-[285px] flex-col justify-between shadow-2xl">
         <div className="overflow-y-auto px-5 py-7">
           <button type="button" className="absolute right-3 top-4 z-10 rounded-lg p-2 text-muted hover:bg-black/5 dark:hover:bg-white/5" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={18}/></button>
-          <div className="mb-8 flex items-center gap-3 font-display text-xl font-bold text-primary"><span className="brand-mark brand-mark-pulse"><Code2 size={18}/></span>CodeArena<span className="themed-link">.</span></div>
+          <div className="mb-8 flex items-center gap-3 font-display text-xl font-bold text-primary"><span className="brand-mark brand-mark-pulse"><Code2 size={18}/></span>Prismcode<span className="themed-link">.</span></div>
           <nav aria-label="Primary navigation" className="space-y-1.5">{mobileItems.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setMenuOpen(false)} className={() => `block rounded-xl px-4 py-3 text-sm font-semibold ${location.pathname === to ? 'nav-link-active' : 'text-muted hover:bg-black/5 dark:hover:bg-white/5'}`}>{label}</NavLink>)}</nav>
         </div>
         <div className="border-t p-4" style={{ borderColor: 'var(--ca-border)' }}>
@@ -68,7 +68,7 @@ export default function Layout() {
       <header className="flex h-14 items-center justify-between border-b px-4 lg:hidden" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
         <div className="flex items-center gap-2.5">
           <div className="brand-mark brand-mark-pulse h-8 w-8"><Code2 size={16}/></div>
-          <span className="font-display text-base font-bold text-primary">CodeArena<span className="themed-link">.</span></span>
+          <span className="font-display text-base font-bold text-primary">Prismcode<span className="themed-link">.</span></span>
         </div>
         <div className="flex items-center gap-2">
           <button

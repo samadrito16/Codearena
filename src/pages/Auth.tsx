@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { ArrowRight, Code2, KeyRound, LoaderCircle, Mail, UserRound } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useClerk } from '@clerk/react';
@@ -66,7 +66,7 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { isClerk, signIn, register } = useAuth();
+  const { user, status, isClerk, signIn, register } = useAuth();
   const { announce } = useUi();
   const navigate = useNavigate();
   const location = useLocation();
@@ -83,6 +83,13 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
 
   const fromLocation = (location.state as { from?: { pathname: string; search?: string } } | null)?.from;
   const destination = fromLocation ? `${fromLocation.pathname}${fromLocation.search || ''}` : '/dashboard';
+
+  // Automatically redirect away from auth pages if user is already authenticated
+  useEffect(() => {
+    if (status === 'authenticated' && user) {
+      navigate(destination, { replace: true });
+    }
+  }, [status, user, navigate, destination]);
 
   async function handleOAuth(strategy: 'oauth_google' | 'oauth_github') {
     if (isSubmitting || isOAuthSubmitting !== null) return;
@@ -227,7 +234,7 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
         } else if (err.status === 429 || err.code === 'RATE_LIMITED') {
           setSubmitError('Too many attempts. For your security, please wait a few minutes before trying again.');
         } else if (err.code === 'NETWORK_ERROR' || err.status === 0) {
-          setSubmitError('Cannot connect to CodeArena server. Please check your network and verify the backend is running.');
+          setSubmitError('Cannot connect to PrismCode server. Please check your network and verify the backend is running.');
         } else {
           setSubmitError(err.message || 'Authentication failed. Please verify your credentials.');
         }
@@ -244,7 +251,7 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
     <div className="min-h-[85vh] flex items-center justify-center py-6 px-4">
       <div className="mx-auto grid w-full max-w-4xl overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-950 dark:shadow-black/20 md:grid-cols-[0.95fr_1.05fr]">
         {/* Left Branding / Atmosphere Banner */}
-        <div className="relative hidden overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-700 to-violet-800 p-8 text-white md:flex md:flex-col md:justify-between">
+        <div className="relative hidden overflow-hidden bg-gradient-to-br from-[#102b38] via-[#0d6970] to-[#286c5b] p-8 text-white md:flex md:flex-col md:justify-between">
           <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full border-[50px] border-white/5" />
           <div className="absolute -bottom-28 -left-24 h-72 w-72 rounded-full border-[50px] border-white/5" />
           <div className="relative">
@@ -252,11 +259,11 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
                 <Code2 size={20} />
               </div>
-              <span className="font-display text-lg font-bold">CodeArena</span>
+              <span className="font-display text-lg font-bold">Prismcode</span>
             </div>
             <div className="mt-24">
               <h2 className="font-display text-4xl font-bold leading-tight">
-                Make every<br />line of code<br /><span className="text-indigo-200">count.</span>
+                Make every<br />line of code<br /><span className="text-teal-200">count.</span>
               </h2>
             </div>
           </div>
@@ -266,7 +273,7 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
         <div className="p-6 sm:p-9">
           <div className="mb-7 flex items-center gap-2 md:hidden">
             <div className="brand-mark"><Code2 size={19} /></div>
-            <span className="font-display text-lg font-bold text-slate-900 dark:text-white">CodeArena</span>
+            <span className="font-display text-lg font-bold text-slate-900 dark:text-white">Prismcode</span>
           </div>
           <p className="section-kicker">AUTHENTICATION</p>
           <h2 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white">
@@ -490,27 +497,19 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
                 </>
               ) : (
                 <>
-                  <span>{mode === 'register' ? 'Register Account' : 'Sign in to CodeArena'}</span>
+                  <span>{mode === 'register' ? 'Register Account' : 'Sign in to PrismCode'}</span>
                   <ArrowRight size={15} />
                 </>
               )}
             </button>
 
             <p className="mt-4 text-center text-[11px] leading-relaxed text-muted">
-              By {mode === 'register' ? 'creating an account' : 'signing in'}, you agree to CodeArena&rsquo;s{' '}
+              By {mode === 'register' ? 'creating an account' : 'signing in'}, you agree to PrismCode&rsquo;s{' '}
               <Link to="/terms" className="themed-link underline font-medium">Terms of Service</Link>
               {' '}and{' '}
               <Link to="/privacy" className="themed-link underline font-medium">Privacy Policy</Link>.
             </p>
           </form>
-        </div>
-
-        <div className="mt-8 flex items-center justify-center gap-4 text-xs text-muted">
-          <Link to="/terms" className="hover:text-primary transition">Terms of Service</Link>
-          <span>&middot;</span>
-          <Link to="/privacy" className="hover:text-primary transition">Privacy Policy</Link>
-          <span>&middot;</span>
-          <Link to="/problems" className="hover:text-primary transition">Problem Library</Link>
         </div>
       </div>
     </div>

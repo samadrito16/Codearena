@@ -534,7 +534,7 @@ export default function Problems() {
                 </button>
                 <Link
                   to={`/workspace/${problem.id}`}
-                  className="hidden h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-300 md:flex"
+                  className="study-action-btn hidden h-8 w-8 items-center justify-center rounded-lg md:flex"
                   aria-label={`Open ${problem.title}`}
                 >
                   <ArrowUpRight size={16}/>

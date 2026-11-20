@@ -17,7 +17,7 @@ class EmailService {
 
     this.recentEmails.unshift({
       to,
-      subject: 'Reset your CodeArena password',
+      subject: 'Reset your PrismCode password',
       resetUrl,
       token,
       timestamp,
@@ -36,11 +36,11 @@ class EmailService {
           body: JSON.stringify({
             from: config.fromEmail,
             to,
-            subject: 'Reset your CodeArena password',
+            subject: 'Reset your PrismCode password',
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
-                <h2 style="color: #6366f1;">CodeArena Password Reset</h2>
-                <p>You requested a password reset for your CodeArena account. Click the button below to reset your password:</p>
+                <h2 style="color: #6366f1;">PrismCode Password Reset</h2>
+                <p>You requested a password reset for your PrismCode account on Refract Labs. Click the button below to reset your password:</p>
                 <div style="margin: 24px 0;">
                   <a href="${resetUrl}" style="background-color: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                     Reset Password
@@ -62,7 +62,7 @@ class EmailService {
     // Always log in development so user / developer has immediate access
     console.log('\n================== [EMAIL DISPATCHED] ==================');
     console.log(`To: ${to}`);
-    console.log(`Subject: Reset your CodeArena password`);
+    console.log(`Subject: Reset your PrismCode password`);
     console.log(`Reset URL: ${resetUrl}`);
     console.log(`Token: ${token}`);
     console.log('========================================================\n');
@@ -74,7 +74,7 @@ class EmailService {
 
     this.recentEmails.unshift({
       to,
-      subject: 'Verify your CodeArena email address',
+      subject: 'Verify your PrismCode email address',
       resetUrl: verificationUrl,
       token,
       timestamp,
@@ -92,17 +92,17 @@ class EmailService {
           body: JSON.stringify({
             from: config.fromEmail,
             to,
-            subject: 'Verify your CodeArena email address',
+            subject: 'Verify your PrismCode email address',
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
-                <h2 style="color: #6366f1;">Welcome to CodeArena!</h2>
+                <h2 style="color: #6366f1;">Welcome to PrismCode by Refract Labs!</h2>
                 <p>Please confirm your email address by clicking the button below:</p>
                 <div style="margin: 24px 0;">
                   <a href="${verificationUrl}" style="background-color: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                     Verify Email Address
                   </a>
                 </div>
-                <p style="color: #64748b; font-size: 13px;">This link will expire in 24 hours. If you did not create a CodeArena account, you can safely ignore this email.</p>
+                <p style="color: #64748b; font-size: 13px;">This link will expire in 24 hours. If you did not create a PrismCode account on Refract Labs, you can safely ignore this email.</p>
               </div>
             `,
           }),
@@ -117,7 +117,7 @@ class EmailService {
 
     console.log('\n================== [VERIFICATION EMAIL DISPATCHED] ==================');
     console.log(`To: ${to}`);
-    console.log(`Subject: Verify your CodeArena email address`);
+    console.log(`Subject: Verify your PrismCode email address`);
     console.log(`Verification URL: ${verificationUrl}`);
     console.log(`Token: ${token}`);
     console.log('=====================================================================\n');

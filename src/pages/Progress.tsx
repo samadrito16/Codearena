@@ -6,6 +6,8 @@ import {
   Award,
   CalendarDays,
   CheckCircle2,
+  ChevronDown,
+  ChevronUp,
   Clock3,
   Code2,
   Compass,
@@ -67,6 +69,7 @@ export default function Progress() {
   const [hoveredDay, setHoveredDay] = useState<HeatmapDay | null>(null);
   const [summaryPeriod, setSummaryPeriod] = useState<ActivityPeriod>('week');
   const [topicFilter, setTopicFilter] = useState<TopicFilter>('all');
+  const [isTopicExpanded, setIsTopicExpanded] = useState(false);
   const [logOpen, setLogOpen] = useState(false);
   const [logProblemId, setLogProblemId] = useState(() => problems[0]?.id ?? '');
   const [logOutcome, setLogOutcome] = useState<SubmissionOutcome>('wrong_answer');
@@ -137,6 +140,7 @@ export default function Progress() {
     : topicFilter === 'strong'
       ? strongTopics
       : topicMastery.filter((item) => item.solved < item.total);
+  const displayedTopics = isTopicExpanded ? visibleTopics : visibleTopics.slice(0, 4);
 
   function handleLogSubmit(event: FormEvent) {
     event.preventDefault();
@@ -559,7 +563,9 @@ export default function Progress() {
         </div>
 
         <div className="mt-5 space-y-3">
-          {visibleTopics.length ? visibleTopics.map((item) => {
+          {visibleTopics.length ? (
+            <>
+              {displayedTopics.map((item) => {
             const barClass = item.status === 'strong'
               ? 'bg-emerald-500'
               : item.status === 'building'
@@ -599,7 +605,30 @@ export default function Progress() {
                 </div>
               </div>
             );
-          }) : (
+          })}
+
+          {visibleTopics.length > 4 && (
+            <button
+              type="button"
+              onClick={() => setIsTopicExpanded((prev) => !prev)}
+              className="btn-secondary mt-1 flex w-full items-center justify-center gap-1.5 py-1.5 text-xs font-semibold"
+              aria-expanded={isTopicExpanded}
+            >
+              {isTopicExpanded ? (
+                <>
+                  <span>Show fewer topics</span>
+                  <ChevronUp size={14} />
+                </>
+              ) : (
+                <>
+                  <span>View all {visibleTopics.length} topics ({visibleTopics.length - 4} more)</span>
+                  <ChevronDown size={14} />
+                </>
+              )}
+            </button>
+          )}
+        </>
+      ) : (
             <div className="rounded-xl px-4 py-8 text-center" style={{ background: 'var(--ca-surface-muted)' }}>
               <p className="text-xs font-semibold text-primary">No topics in this filter yet</p>
               <p className="mt-1 text-[11px] text-muted">Solve problems in the library to build mastery across DSA topics.</p>
@@ -697,7 +726,7 @@ export default function Progress() {
             </div>
           ) : (
             <p className="rounded-xl px-3.5 py-4 text-[11px] leading-5 text-muted" style={{ background: 'var(--ca-surface-muted)' }}>
-              Open a problem in the code workspace and click <strong>Mark as solved</strong> when finished — CodeArena tracks estimated active practice time here (pausing when the tab is hidden or idle).
+              Open a problem in the code workspace and click <strong>Mark as solved</strong> when finished — PrismCode tracks estimated active practice time here (pausing when the tab is hidden or idle).
             </p>
           )}
         </div>

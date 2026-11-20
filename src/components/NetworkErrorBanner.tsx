@@ -71,7 +71,7 @@ export default function NetworkErrorBanner() {
       <div className="flex items-center gap-2.5 min-w-0">
         <WifiOff size={15} className="text-rose-500 shrink-0 animate-pulse" />
         <span className="truncate">
-          <strong className="font-semibold text-rose-600 dark:text-rose-400">Connection Interrupted:</strong> Unable to reach the CodeArena server. Real-time submissions and cloud saves are paused.
+          <strong className="font-semibold text-rose-600 dark:text-rose-400">Connection Interrupted:</strong> Unable to reach the PrismCode server. Real-time submissions and cloud saves are paused.
         </span>
       </div>
 

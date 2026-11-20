@@ -134,18 +134,16 @@ export default function Settings() {
           </div>
 
           <div>
-            <div className="mb-4">
+            <div className="mb-3">
               <p className="text-xs font-bold text-primary">Color palette</p>
-              <p className="mt-1 text-[11px] text-muted">Each palette changes the page canvas, panel surfaces, borders, gradients, and accent colors.</p>
+              <p className="mt-0.5 text-[11px] text-muted">Select an interface theme to style surfaces, borders, and accent highlights.</p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl">
               {themePalettes.map((item) => {
                 const selected = palette === item.id;
                 const isDark = theme === 'dark';
-                const canvasBg = isDark ? (item.darkCanvas ?? item.editorDark) : item.colors[4];
                 const panelBg = isDark ? (item.darkSurface ?? item.colors[0]) : item.colors[0];
                 const accentBg = isDark ? (item.darkPrimary ?? item.primary) : item.primary;
-                const highlightBg = isDark ? (item.darkSecondary ?? item.secondary) : item.secondary;
                 const swatchColors = isDark && item.darkColors ? item.darkColors : item.colors;
 
                 return (
@@ -154,22 +152,38 @@ export default function Settings() {
                     type="button"
                     onClick={() => setPalette(item.id)}
                     aria-pressed={selected}
-                    className={`palette-option ${selected ? 'palette-option-active' : ''}`}
+                    title={`${item.name} — ${item.description}`}
+                    className={`palette-option-compact group ${selected ? 'palette-option-compact-active' : ''}`}
                   >
-                    <span className="palette-preview" aria-hidden="true">
-                      <span className="palette-preview-canvas" style={{ background: canvasBg }}/>
-                      <span className="palette-preview-panel" style={{ background: panelBg }}/>
-                      <span className="palette-preview-accent" style={{ background: accentBg }}/>
-                      <span className="palette-preview-highlight" style={{ background: highlightBg }}/>
-                    </span>
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-bold text-primary">{item.name}</span>
-                      {selected && <span className="selected-pill"><Check size={11}/> Selected</span>}
-                    </span>
-                    <span className="mt-1 block text-left text-[10px] leading-4 text-muted">{item.description}</span>
-                    <span className="mt-3 flex h-2.5 overflow-hidden rounded-full">
-                      {swatchColors.map((color) => <span key={color} className="flex-1" style={{ background: color }}/>)}
-                    </span>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        {/* Two-tone split preview disc */}
+                        <span
+                          className="relative flex h-4 w-4 shrink-0 overflow-hidden rounded-full border border-black/15 shadow-sm dark:border-white/20"
+                          style={{ background: panelBg }}
+                          aria-hidden="true"
+                        >
+                          <span
+                            className="absolute inset-y-0 right-0 w-1/2"
+                            style={{ background: accentBg }}
+                          />
+                        </span>
+                        <span className="truncate text-xs font-bold text-primary">
+                          {item.name}
+                        </span>
+                      </div>
+                      {selected && (
+                        <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                          <Check size={10} strokeWidth={3} />
+                        </span>
+                      )}
+                    </div>
+                    {/* Compact 5-color swatch spectrum */}
+                    <div className="mt-2 flex h-1.5 overflow-hidden rounded-full opacity-90 transition group-hover:opacity-100">
+                      {swatchColors.map((color) => (
+                        <span key={color} className="flex-1" style={{ background: color }} />
+                      ))}
+                    </div>
                   </button>
                 );
               })}
@@ -237,67 +251,82 @@ export default function Settings() {
             </div>
           </div>
 
-          {/* Granular Visibility Settings */}
-          <div>
-            <div className="mb-3">
-              <p className="text-xs font-bold text-primary">Search & Profile visibility controls</p>
-              <p className="mt-1 text-[11px] text-muted">
-                Fine-tune each individual section visible to other people when viewing your profile:
-              </p>
-            </div>
+          {/* Granular Visibility Settings (hidden when private profile mode is selected) */}
+          {privacySettings.profileVisibility === 'public' ? (
+            <div>
+              <div className="mb-3">
+                <p className="text-xs font-bold text-primary">Search & Profile visibility controls</p>
+                <p className="mt-1 text-[11px] text-muted">
+                  Fine-tune each individual section visible to other people when viewing your profile:
+                </p>
+              </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <PrivacyToggle
-                label="Email address"
-                description="Show your public contact email on your profile."
-                checked={privacySettings.showEmail}
-                onChange={(checked) => updatePrivacySettings({ showEmail: checked })}
-                icon={Mail}
-              />
-              <PrivacyToggle
-                label="Affiliation (Company / University)"
-                description="Show your company, organization, or university / college."
-                checked={privacySettings.showAffiliation}
-                onChange={(checked) => updatePrivacySettings({ showAffiliation: checked })}
-                icon={Building}
-              />
-              <PrivacyToggle
-                label="Location & local time"
-                description="Display your city/country and current local time indicator."
-                checked={privacySettings.showLocation}
-                onChange={(checked) => updatePrivacySettings({ showLocation: checked })}
-                icon={MapPin}
-              />
-              <PrivacyToggle
-                label="Websites & social profiles"
-                description="Display your portfolio website and linked social profile URLs."
-                checked={privacySettings.showSocials}
-                onChange={(checked) => updatePrivacySettings({ showSocials: checked })}
-                icon={Share2}
-              />
-              <PrivacyToggle
-                label="1-Year activity heatmap & streaks"
-                description="Show your 52-week contribution heatmap and active streak badges."
-                checked={privacySettings.showHeatmap}
-                onChange={(checked) => updatePrivacySettings({ showHeatmap: checked })}
-                icon={Activity}
-              />
-              <PrivacyToggle
-                label="Solved problems & analytics"
-                description="Show count of solved problems, difficulty breakdown, and recent sessions."
-                checked={privacySettings.showSolvedProblems}
-                onChange={(checked) => updatePrivacySettings({ showSolvedProblems: checked })}
-                icon={UserCheck}
-              />
-              <PrivacyToggle
-                label="Milestone badges & achievements"
-                description="Display unlocked milestone trophies and achievements."
-                checked={privacySettings.showAchievements}
-                onChange={(checked) => updatePrivacySettings({ showAchievements: checked })}
-                icon={Award}
-              />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <PrivacyToggle
+                  label="Email address"
+                  description="Show your public contact email on your profile."
+                  checked={privacySettings.showEmail}
+                  onChange={(checked) => updatePrivacySettings({ showEmail: checked })}
+                  icon={Mail}
+                />
+                <PrivacyToggle
+                  label="Affiliation (Company / University)"
+                  description="Show your company, organization, or university / college."
+                  checked={privacySettings.showAffiliation}
+                  onChange={(checked) => updatePrivacySettings({ showAffiliation: checked })}
+                  icon={Building}
+                />
+                <PrivacyToggle
+                  label="Location & local time"
+                  description="Display your city/country and current local time indicator."
+                  checked={privacySettings.showLocation}
+                  onChange={(checked) => updatePrivacySettings({ showLocation: checked })}
+                  icon={MapPin}
+                />
+                <PrivacyToggle
+                  label="Websites & social profiles"
+                  description="Display your portfolio website and linked social profile URLs."
+                  checked={privacySettings.showSocials}
+                  onChange={(checked) => updatePrivacySettings({ showSocials: checked })}
+                  icon={Share2}
+                />
+                <PrivacyToggle
+                  label="1-Year activity heatmap & streaks"
+                  description="Show your 52-week contribution heatmap and active streak badges."
+                  checked={privacySettings.showHeatmap}
+                  onChange={(checked) => updatePrivacySettings({ showHeatmap: checked })}
+                  icon={Activity}
+                />
+                <PrivacyToggle
+                  label="Solved problems & analytics"
+                  description="Show count of solved problems, difficulty breakdown, and recent sessions."
+                  checked={privacySettings.showSolvedProblems}
+                  onChange={(checked) => updatePrivacySettings({ showSolvedProblems: checked })}
+                  icon={UserCheck}
+                />
+                <PrivacyToggle
+                  label="Milestone badges & achievements"
+                  description="Display unlocked milestone trophies and achievements."
+                  checked={privacySettings.showAchievements}
+                  onChange={(checked) => updatePrivacySettings({ showAchievements: checked })}
+                  icon={Award}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className="flex items-start gap-3 rounded-xl border p-4 transition"
+              style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
+            >
+              <Lock size={16} className="mt-0.5 shrink-0 text-muted" />
+              <div>
+                <p className="text-xs font-bold text-primary">Profile visibility controls are hidden in Private Mode</p>
+                <p className="mt-0.5 text-[11px] text-muted">
+                  Your profile is completely hidden from search and other users. Switch to &ldquo;Public profile&rdquo; above to customize granular search and section visibility controls.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

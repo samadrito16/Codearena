@@ -44,7 +44,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
         let user = db.findUserById(clerkUserId);
         if (!user) {
           // Sync Clerk user details into local DB
-          let displayName = 'CodeArena Developer';
+          let displayName = 'PrismCode Developer';
           let email = `${clerkUserId}@clerk.user`;
           let role: UserRole = 'user';
 
@@ -54,7 +54,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
               displayName = clerkUser.fullName || clerkUser.firstName || displayName;
               const primaryEmail = clerkUser.emailAddresses.find((e) => e.id === clerkUser.primaryEmailAddressId);
               if (primaryEmail) email = primaryEmail.emailAddress;
-              if (clerkUser.publicMetadata?.role === 'admin' || email === 'admin@codearena.com') {
+              if (clerkUser.publicMetadata?.role === 'admin' || email === 'admin@prismcode.com' || email === 'admin@codearena.com') {
                 role = 'admin';
               }
             } catch (clerkErr) {
@@ -86,7 +86,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
   }
 
   // 2. Check local cookie or bearer session token
-  const sessionId = req.cookies?.[config.cookieName] || bearerToken;
+  const sessionId = req.cookies?.[config.cookieName] || req.cookies?.['codearena_session'] || bearerToken;
   if (sessionId) {
     const session = db.findSessionById(sessionId);
     if (session) {

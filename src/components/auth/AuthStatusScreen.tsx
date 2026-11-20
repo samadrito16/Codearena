@@ -29,7 +29,7 @@ export default function AuthStatusScreen({
         {type === 'loading' ? (
           <>
             <h2 className="text-xl font-bold font-display text-primary mb-2">
-              Connecting to CodeArena
+              Connecting to PrismCode
             </h2>
             <p className="text-sm text-muted mb-6">
               Restoring your authenticated developer session…
@@ -47,7 +47,7 @@ export default function AuthStatusScreen({
               Connection Notice
             </h2>
             <p className="text-sm text-muted mb-6">
-              {message || 'Unable to connect to the CodeArena server. Please ensure the backend is running.'}
+              {message || 'Unable to connect to the PrismCode server. Please ensure the backend is running.'}
             </p>
             {onRetry && (
               <button

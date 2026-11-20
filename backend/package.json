@@ -1,7 +1,7 @@
 {
-  "name": "codearena-backend",
+  "name": "prismcode-backend",
   "version": "1.0.0",
-  "description": "CodeArena TypeScript / Node.js Backend API",
+  "description": "PrismCode TypeScript / Node.js Backend API by Refract Labs",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {

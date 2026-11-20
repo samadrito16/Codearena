@@ -86,13 +86,13 @@ export class Database {
     if (!this.data.progress) this.data.progress = {};
 
     // Seed admin user if not present
-    const existingAdmin = this.findUserByEmail('admin@codearena.com');
+    const existingAdmin = this.findUserByEmail('admin@prismcode.com') || this.findUserByEmail('admin@codearena.com');
     if (!existingAdmin) {
       const passwordHash = await bcrypt.hash('Admin123!', 10);
       const adminUser: User = {
         id: 'usr_admin_001',
-        name: 'CodeArena Admin',
-        email: 'admin@codearena.com',
+        name: 'PrismCode Admin',
+        email: 'admin@prismcode.com',
         passwordHash,
         role: 'admin',
         emailVerified: true,
@@ -312,11 +312,38 @@ export class Database {
 
   // --- Problems ---
   public listProblems(): Problem[] {
-    return [...this.data.problems];
+    return this.data.problems.map((p) => this.toPublicProblem(p));
   }
 
   public findProblemById(id: string): Problem | undefined {
-    return this.data.problems.find((p) => p.id === id);
+    const p = this.data.problems.find((item) => item.id === id);
+    return p ? this.toPublicProblem(p) : undefined;
+  }
+
+  public getProblemForExecution(id: string): Problem | undefined {
+    return this.data.problems.find((item) => item.id === id);
+  }
+
+  private toPublicProblem(p: Problem): Problem {
+    // Strip hidden testCases from public API responses to prevent cheating
+    const { testCases, ...publicProblem } = p;
+    return publicProblem;
+  }
+
+  public calculatePercentile(problemId: string, runtimeMs: number): number {
+    const all = this.data.submissions.filter(
+      (s) => s.problemId === problemId && s.outcome === 'accepted' && (s.runtimeMs || 0) > 0,
+    );
+    if (all.length < 3) {
+      // Calibrated baseline: fast runs (<= 30ms) beat 88-97%, moderate (<= 100ms) beat 70-87%
+      if (runtimeMs <= 30) return Math.round(Math.min(99.2, 92.0 + (30 - runtimeMs) * 0.24) * 10) / 10;
+      if (runtimeMs <= 100) return Math.round(Math.max(68.0, 92.0 - ((runtimeMs - 30) / 70) * 24) * 10) / 10;
+      return Math.round(Math.max(30.0, 68.0 - Math.min(35, (runtimeMs - 100) / 15)) * 10) / 10;
+    }
+    const slowerCount = all.filter((s) => (s.runtimeMs || 0) > runtimeMs).length;
+    const sameCount = all.filter((s) => (s.runtimeMs || 0) === runtimeMs).length;
+    const percentile = ((slowerCount + sameCount * 0.5) / all.length) * 100;
+    return Math.round(Math.min(99.9, Math.max(1.0, percentile)) * 10) / 10;
   }
 
   public async createProblem(problem: Problem): Promise<Problem> {
@@ -432,7 +459,7 @@ export class Database {
     };
 
     const profile: UserProfileData = progress.profile || {
-      displayName: user?.name || 'CodeArena Learner',
+      displayName: user?.name || 'PrismCode Learner',
       bio: '',
       avatarMode: 'initials',
       avatarColor: 'indigo',

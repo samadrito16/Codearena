@@ -25,7 +25,7 @@ export default function TermsOfService() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Terms of Service | CodeArena';
+    document.title = 'Terms of Service | Prismcode';
   }, []);
 
   const sections = [
@@ -57,7 +57,7 @@ export default function TermsOfService() {
               <span className="brand-mark brand-mark-pulse h-8 w-8">
                 <Code2 size={18} strokeWidth={2.5} />
               </span>
-              <span>CodeArena<span className="themed-link">.</span></span>
+              <span>Prismcode<span className="themed-link">.</span></span>
             </Link>
             <div className="hidden items-center gap-1.5 sm:flex">
               <span className="text-muted">/</span>
@@ -106,7 +106,7 @@ export default function TermsOfService() {
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-muted">
           <Link to={user ? '/dashboard' : '/'} className="hover:text-primary transition">
-            CodeArena
+            Prismcode
           </Link>
           <ChevronRight size={13} />
           <span className="text-primary font-medium">Terms of Service</span>
@@ -124,7 +124,7 @@ export default function TermsOfService() {
                 <span>Developer Agreement & Acceptable Use</span>
               </div>
               <h1 className="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl">
-                CodeArena Terms of Service
+                Prismcode Terms of Service
               </h1>
               <p className="mt-2 text-xs sm:text-sm text-muted">
                 Effective Date: November 20, 2026 &middot; Version 1.2
@@ -186,9 +186,9 @@ export default function TermsOfService() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Questions About Our Terms?</p>
                 <p className="mt-1">Contact our legal team at:</p>
-                <a href="mailto:legal@codearena.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:legal@refractlabs.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  legal@codearena.dev
+                  legal@refractlabs.com
                 </a>
               </div>
             </div>
@@ -209,13 +209,13 @@ export default function TermsOfService() {
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
                   These Terms of Service (&ldquo;Terms&rdquo;) represent a legally binding agreement between you (&ldquo;User&rdquo;,
-                  &ldquo;you&rdquo;) and <strong>CodeArena</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;the Platform&rdquo;).
-                  By accessing CodeArena, registering an account, writing code in the workspace, or submitting solutions to our compiler,
+                  &ldquo;you&rdquo;) and <strong>Refract Labs</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;the Company&rdquo;), operator of <strong>Prismcode</strong> (&ldquo;the Platform&rdquo;).
+                  By accessing Prismcode, registering an account, writing code in the workspace, or submitting solutions to our compiler,
                   you explicitly accept and agree to comply with these Terms.
                 </p>
                 <p>
                   <strong>Eligibility:</strong> You must be at least 13 years of age (or the minimum legal age for digital consent in your jurisdiction)
-                  to use CodeArena. If you are accessing the platform on behalf of a company, educational institution, or organization,
+                  to use Prismcode. If you are accessing the platform on behalf of a company, educational institution, or organization,
                   you warrant that you have authority to bind that entity to these Terms.
                 </p>
               </div>
@@ -239,7 +239,7 @@ export default function TermsOfService() {
                 <ul className="list-disc pl-5 space-y-1.5">
                   <li><strong>Account Accuracy:</strong> You agree to provide accurate, current, and complete registration information and keep your email address updated.</li>
                   <li><strong>Credential Safeguarding:</strong> You are solely responsible for maintaining the confidentiality of your password and active session tokens. You agree not to share your account credentials with third parties.</li>
-                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify CodeArena immediately at <a href="mailto:security@codearena.dev" className="themed-link">security@codearena.dev</a>.</li>
+                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify Refract Labs immediately at <a href="mailto:security@refractlabs.com" className="themed-link">security@refractlabs.com</a>.</li>
                 </ul>
               </div>
             </section>
@@ -258,7 +258,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-4 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena provides remote and local code execution capabilities powered by OnlineCompiler.io and isolated sandbox containers.
+                  Prismcode provides remote and local code execution capabilities powered by OnlineCompiler.io and isolated sandbox containers.
                   The execution environment is engineered exclusively for compiling, evaluating, and benchmarking algorithmic solutions to coding challenges.
                 </p>
 
@@ -307,14 +307,14 @@ export default function TermsOfService() {
                   </h3>
                   <p className="mt-1 leading-relaxed">
                     You retain 100% intellectual property, copyright, and full ownership of all original source code, algorithms,
-                    and solutions you create and write in CodeArena.
+                    and solutions you create and write in Prismcode.
                   </p>
                 </div>
 
                 <div className="space-y-3">
                   <p>
-                    <strong>Limited Operational License to CodeArena:</strong> By submitting code to the platform (via &ldquo;Run&rdquo; or &ldquo;Submit&rdquo;),
-                    you grant CodeArena a worldwide, non-exclusive, royalty-free, perpetual license solely to:
+                    <strong>Limited Operational License to Prismcode:</strong> By submitting code to the platform (via &ldquo;Run&rdquo; or &ldquo;Submit&rdquo;),
+                    you grant Prismcode and Refract Labs a worldwide, non-exclusive, royalty-free, perpetual license solely to:
                   </p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>Transmit, compile, run, and evaluate your code in our execution sandboxes against automated test cases.</li>
@@ -323,8 +323,8 @@ export default function TermsOfService() {
                   </ul>
 
                   <p className="mt-4">
-                    <strong>CodeArena Proprietary Assets:</strong> All CodeArena brand assets, logos, user interfaces, problem descriptions,
-                    test case suites, editorial solutions, curriculum roadmaps, and software infrastructure are the intellectual property of CodeArena
+                    <strong>Prismcode Proprietary Assets:</strong> All Prismcode brand assets, logos, user interfaces, problem descriptions,
+                    test case suites, editorial solutions, curriculum roadmaps, and software infrastructure are the intellectual property of Refract Labs
                     and protected by international copyright and trademark laws.
                   </p>
                 </div>
@@ -343,7 +343,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena maintains competitive leaderboards to foster legitimate learning and skill benchmarking.
+                  Prismcode maintains competitive leaderboards to foster legitimate learning and skill benchmarking.
                   Users agree to adhere to our Fair Play standards:
                 </p>
                 <ul className="list-disc pl-5 space-y-1.5">
@@ -366,7 +366,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena provides remote code execution via third-party providers (OnlineCompiler.io) and offline execution sandboxes.
+                  Prismcode provides remote code execution via third-party providers (OnlineCompiler.io) and offline execution sandboxes.
                   While we strive for sub-second grading latency and high availability:
                 </p>
                 <ul className="list-disc pl-5 space-y-1">
@@ -392,7 +392,7 @@ export default function TermsOfService() {
                   THE PLATFORM IS PROVIDED ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; BASIS.
                 </p>
                 <p>
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, CODEARENA EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS,
+                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, REFRACT LABS AND PRISMCODE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS,
                   IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
                   TITLE, AND NON-INFRINGEMENT. WE MAKE NO WARRANTY THAT THE SERVICES OR COMPILER RESULTS WILL BE ACCURATE, UNINTERRUPTED, OR FREE OF ERRORS.
                 </p>
@@ -411,13 +411,13 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  UNDER NO CIRCUMSTANCES SHALL CODEARENA, ITS DIRECTORS, EMPLOYEES, AFFILIATES, OR COMPILER PROVIDERS BE LIABLE FOR ANY
+                  UNDER NO CIRCUMSTANCES SHALL REFRACT LABS, PRISMCODE, ITS DIRECTORS, EMPLOYEES, AFFILIATES, OR COMPILER PROVIDERS BE LIABLE FOR ANY
                   INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES (INCLUDING LOSS OF DATA, REVENUE, PROFIT, OR BUSINESS INTERRUPTION)
                   ARISING OUT OF OR RELATING TO YOUR USE OR INABILITY TO USE THE PLATFORM OR COMPILER SERVICES.
                 </p>
                 <p>
                   OUR TOTAL AGGREGATE LIABILITY ARISING FROM ALL CLAIMS RELATING TO THE SERVICE SHALL NOT EXCEED THE GREATER OF ONE HUNDRED US DOLLARS ($100 USD)
-                  OR THE TOTAL FEES PAID BY YOU TO CODEARENA IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+                  OR THE TOTAL FEES PAID BY YOU TO REFRACT LABS IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
                 </p>
               </div>
             </section>
@@ -434,7 +434,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  You agree to defend, indemnify, and hold harmless CodeArena and its affiliates from and against any claims, liabilities,
+                  You agree to defend, indemnify, and hold harmless Refract Labs, Prismcode, and their affiliates from and against any claims, liabilities,
                   damages, judgments, awards, losses, costs, or expenses (including reasonable attorneys’ fees) arising out of or relating to
                   your violation of these Terms, your submitted source code, or your breach of the Sandbox Acceptable Use Policy.
                 </p>
@@ -475,7 +475,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which CodeArena operates,
+                  These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which Refract Labs operates,
                   without regard to conflict of law principles. Any legal suit, action, or proceeding arising out of or related to these Terms
                   shall be instituted exclusively in competent courts located within our primary jurisdiction.
                 </p>
@@ -494,7 +494,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena reserves the right to modify these Terms at any time. When modifications occur, we will revise the &ldquo;Effective Date&rdquo;
+                  Refract Labs reserves the right to modify these Terms at any time. When modifications occur, we will revise the &ldquo;Effective Date&rdquo;
                   at the top of this page. Your continued use of the platform after the effective date of revised Terms constitutes your acceptance of the changes.
                 </p>
               </div>
@@ -515,9 +515,9 @@ export default function TermsOfService() {
                   If you have questions, feedback, or legal notices concerning these Terms of Service, please contact:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">CodeArena Legal Affairs</p>
-                  <p>Email: <a href="mailto:legal@codearena.dev" className="themed-link">legal@codearena.dev</a></p>
-                  <p>Security & DMCA: <a href="mailto:security@codearena.dev" className="themed-link">security@codearena.dev</a></p>
+                  <p className="font-bold text-primary">Refract Labs Legal Affairs</p>
+                  <p>Email: <a href="mailto:legal@refractlabs.com" className="themed-link">legal@refractlabs.com</a></p>
+                  <p>Security & DMCA: <a href="mailto:security@refractlabs.com" className="themed-link">security@refractlabs.com</a></p>
                 </div>
               </div>
             </section>

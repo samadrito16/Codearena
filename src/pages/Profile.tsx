@@ -191,7 +191,7 @@ export default function Profile() {
   );
 
   const profilePreset = getAvatarColorPreset(profile.avatarColor);
-  const profileDisplayName = profile.displayName.trim() || 'CodeArena Learner';
+  const profileDisplayName = profile.displayName.trim() || 'PrismCode Learner';
   const profileBio = profile.bio.trim();
 
   const imageUrlTrimmed = draft.avatarImage.trim();
@@ -676,7 +676,7 @@ export default function Profile() {
 
                 <div className="flex flex-col gap-4 rounded-2xl border p-4 sm:flex-row sm:items-center" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
                   <ProfileAvatar
-                    displayName={draft.displayName.trim() || 'CodeArena Learner'}
+                    displayName={draft.displayName.trim() || 'PrismCode Learner'}
                     avatarMode={draft.avatarMode}
                     avatarColor={draft.avatarColor}
                     avatarImage={draft.avatarImage}

@@ -96,7 +96,7 @@ export default function VerifyEmail() {
               Email Verified!
             </h2>
             <p className="text-sm text-muted mb-6 leading-relaxed">
-              Your CodeArena account has been verified successfully. You have full access to problem tracking, real submissions, and discussion features.
+              Your PrismCode account has been verified successfully. You have full access to problem tracking, real submissions, and discussion features.
             </p>
             <button
               type="button"

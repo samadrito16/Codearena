@@ -1,11 +1,11 @@
-# CodeArena — Premium developer workspace
+# PrismCode — Premium developer workspace by Refract Labs
 
 This package includes the dedicated Daily Challenges and Your Progress pages, a refreshed dashboard, a searchable problem library, an immersive Monaco workspace, leaderboard, and appearance settings.
 
 ## Run on Windows
 
 1. Extract the ZIP.
-2. Open the `codearena-frontend` folder in VS Code (the folder containing `package.json`).
+2. Open the `prismcode-frontend` folder in VS Code (the folder containing `package.json`).
 3. In the VS Code terminal, run:
 
    ```powershell
@@ -33,7 +33,7 @@ Sign-in, question records, progress history, daily challenge completion, editor 
 
 ## Code Execution Engine & Supported Languages
 
-CodeArena features a full execution engine powered by the **OnlineCompiler.io API** (Free Tier supporting up to 100,000 runs/month) and supports **46 programming languages** (Python, JavaScript, TypeScript, C++, Java, C#, Go, Rust, Swift, Kotlin, Dart, PHP, Ruby, and 33 more).
+PrismCode features a full execution engine powered by the **OnlineCompiler.io API** (Free Tier supporting up to 100,000 runs/month) and supports **46 programming languages** (Python, JavaScript, TypeScript, C++, Java, C#, Go, Rust, Swift, Kotlin, Dart, PHP, Ruby, and 33 more).
 
 - **API Configuration**: Set `ONLINECOMPILER_API_KEY` in `backend/.env`. If the key is not set, a local safe execution fallback handles basic runs.
 - **Run & Submit Modes**: Supports both unit-test execution against problem cases and direct `stdin`/`stdout` execution.

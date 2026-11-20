@@ -98,7 +98,7 @@ export default function DailyChallenges() {
             </div>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-indigo-100/85">{daily.description}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link to={`/workspace/${daily.id}?daily=${todayKey}`} className="btn-primary bg-white text-indigo-700 hover:bg-indigo-50">{dailyDone ? 'Review challenge' : 'Start today’s challenge'} <ArrowUpRight size={16}/></Link>
+              <Link to={`/workspace/${daily.id}?daily=${todayKey}`} className="btn-primary">{dailyDone ? 'Review challenge' : 'Start today’s challenge'} <ArrowUpRight size={16}/></Link>
               {dailyPath && (
                 <Link to={`/learning-paths/${dailyPath.path.id}`} className="btn-ghost hero-ghost-button text-xs">
                   Path: {dailyPath.path.title} <ArrowUpRight size={14}/>
@@ -110,7 +110,7 @@ export default function DailyChallenges() {
           </> : <>
             <h3 className="font-display text-2xl font-bold text-white">Your next challenge is waiting</h3>
             <p className="mt-2 max-w-lg text-sm leading-6 text-indigo-100/80">Add a problem to your library to start a daily challenge.</p>
-            <Link to="/problems" className="btn-primary mt-5 bg-white text-indigo-700 hover:bg-indigo-50">Explore problems <ArrowRight size={15}/></Link>
+            <Link to="/problems" className="btn-primary mt-5">Explore problems <ArrowRight size={15}/></Link>
           </>}
         </div>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">

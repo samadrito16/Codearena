@@ -50,6 +50,13 @@ export interface EmailVerificationToken {
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 export type CodeLanguage = 'javascript' | 'python' | 'java' | 'cpp';
 
+export interface TestCaseInput {
+  caseNumber: number;
+  input: string;
+  expected: string;
+  isHidden?: boolean;
+}
+
 export interface Problem {
   id: string;
   title: string;
@@ -61,9 +68,11 @@ export interface Problem {
   examples: { input: string; output: string; explanation?: string }[];
   constraints: string[];
   starterCode?: Partial<Record<CodeLanguage, string>>;
+  testCases?: TestCaseInput[];
+  orderInvariant?: boolean;
 }
 
-export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error';
+export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error' | 'compilation_error';
 
 export interface SubmissionRecord {
   id: string;

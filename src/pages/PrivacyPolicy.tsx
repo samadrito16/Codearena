@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Privacy Policy | CodeArena';
+    document.title = 'Privacy Policy | Prismcode';
   }, []);
 
   const sections = [
@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
               <span className="brand-mark brand-mark-pulse h-8 w-8">
                 <Code2 size={18} strokeWidth={2.5} />
               </span>
-              <span>CodeArena<span className="themed-link">.</span></span>
+              <span>Prismcode<span className="themed-link">.</span></span>
             </Link>
             <div className="hidden items-center gap-1.5 sm:flex">
               <span className="text-muted">/</span>
@@ -106,7 +106,7 @@ export default function PrivacyPolicy() {
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-muted">
           <Link to={user ? '/dashboard' : '/'} className="hover:text-primary transition">
-            CodeArena
+            Prismcode
           </Link>
           <ChevronRight size={13} />
           <span className="text-primary font-medium">Privacy Policy</span>
@@ -124,7 +124,7 @@ export default function PrivacyPolicy() {
                 <span>Transparent & Developer-First</span>
               </div>
               <h1 className="font-display text-2xl font-bold tracking-tight text-primary sm:text-3xl">
-                CodeArena Privacy Policy
+                Prismcode Privacy Policy
               </h1>
               <p className="mt-2 text-xs sm:text-sm text-muted">
                 Effective Date: November 20, 2026 &middot; Version 1.2
@@ -186,9 +186,9 @@ export default function PrivacyPolicy() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Need Privacy Assistance?</p>
                 <p className="mt-1">Contact our Data Protection team at:</p>
-                <a href="mailto:privacy@codearena.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:privacy@refractlabs.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  privacy@codearena.dev
+                  privacy@refractlabs.com
                 </a>
               </div>
             </div>
@@ -208,16 +208,16 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  Welcome to <strong>CodeArena</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;the Platform&rdquo;).
-                  CodeArena provides a modern, high-performance competitive programming ecosystem, real-time code execution,
+                  Welcome to <strong>Prismcode</strong> by <strong>Refract Labs</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;the Platform&rdquo;).
+                  Prismcode provides a modern, high-performance competitive programming ecosystem, real-time code execution,
                   curated algorithmic challenge tracks, and developer progress analytics.
                 </p>
                 <p>
-                  This Privacy Policy describes how CodeArena collects, uses, secures, and handles your information when you visit
+                  This Privacy Policy describes how Refract Labs collects, uses, secures, and handles your information when you visit Prismcode
                   our web application, register an account, submit code solutions, or interact with our APIs.
                 </p>
                 <p>
-                  By registering an account or continuing to use CodeArena, you acknowledge that you have read and understood
+                  By registering an account or continuing to use Prismcode, you acknowledge that you have read and understood
                   the terms of this Privacy Policy. If you do not agree with our practices, please discontinue use of the platform.
                 </p>
               </div>
@@ -303,7 +303,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  To provide secure code compilation and reliable account management, CodeArena partners with vetted third-party infrastructure providers:
+                  To provide secure code compilation and reliable account management, Prismcode partners with vetted third-party infrastructure providers:
                 </p>
 
                 <div className="space-y-3 mt-4">
@@ -354,7 +354,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena uses essential cookies and browser LocalStorage items to preserve your active session and preferences:
+                  Prismcode uses essential cookies and browser LocalStorage items to preserve your active session and preferences:
                 </p>
 
                 <div className="overflow-x-auto">
@@ -368,27 +368,27 @@ export default function PrivacyPolicy() {
                     </thead>
                     <tbody className="divide-y" style={{ borderColor: 'var(--ca-border)' }}>
                       <tr>
-                        <td className="py-2 font-mono text-[11px] text-primary">codearena_session</td>
+                        <td className="py-2 font-mono text-[11px] text-primary">prismcode_session</td>
                         <td className="py-2">HTTP-only Cookie</td>
                         <td className="py-2 text-muted">Essential session authorization token. Expires in 7 days or upon explicit sign-out.</td>
                       </tr>
                       <tr>
-                        <td className="py-2 font-mono text-[11px] text-primary">codearena-theme</td>
+                        <td className="py-2 font-mono text-[11px] text-primary">prismcode-theme</td>
                         <td className="py-2">LocalStorage</td>
                         <td className="py-2 text-muted">Stores active UI mode (<code className="font-mono">light</code> or <code className="font-mono">dark</code>). Persistent.</td>
                       </tr>
                       <tr>
-                        <td className="py-2 font-mono text-[11px] text-primary">codearena-palette</td>
+                        <td className="py-2 font-mono text-[11px] text-primary">prismcode-palette</td>
                         <td className="py-2">LocalStorage</td>
                         <td className="py-2 text-muted">Stores active color accent palette (Ocean, Classic, Emerald, etc.). Persistent.</td>
                       </tr>
                       <tr>
-                        <td className="py-2 font-mono text-[11px] text-primary">codearena-privacy</td>
+                        <td className="py-2 font-mono text-[11px] text-primary">prismcode-privacy</td>
                         <td className="py-2">LocalStorage</td>
                         <td className="py-2 text-muted">Stores granular profile data visibility preferences.</td>
                       </tr>
                       <tr>
-                        <td className="py-2 font-mono text-[11px] text-primary">codearena-draft-*</td>
+                        <td className="py-2 font-mono text-[11px] text-primary">prismcode-draft-*</td>
                         <td className="py-2">LocalStorage</td>
                         <td className="py-2 text-muted">Autosaves in-progress code drafts per problem so your code is not lost during navigation.</td>
                       </tr>
@@ -410,7 +410,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-4 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  You hold complete control over how your developer profile and activity are shared across CodeArena. In your{' '}
+                  You hold complete control over how your developer profile and activity are shared across Prismcode. In your{' '}
                   <Link to="/settings" className="themed-link underline font-medium">Settings &gt; Privacy Preferences</Link>, you can configure:
                 </p>
 
@@ -448,7 +448,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena applies industry-standard technical and operational safeguards:
+                  Refract Labs applies industry-standard technical and operational safeguards:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Cryptographic Password Hashing:</strong> Passwords are salt-hashed using <strong>bcrypt</strong> (10 salt rounds). Plain-text passwords never touch logs, storage, or external networks.</li>
@@ -474,7 +474,7 @@ export default function PrivacyPolicy() {
                   We retain user account data for as long as your account remains active. Code submission history is preserved to populate your skill mastery diagrams and progress logs.
                 </p>
                 <p>
-                  If you close your account or request data deletion via <a href="mailto:privacy@codearena.dev" className="themed-link">privacy@codearena.dev</a>,
+                  If you close your account or request data deletion via <a href="mailto:privacy@refractlabs.com" className="themed-link">privacy@refractlabs.com</a>,
                   we permanently scrub your personal identifiers, email, password hashes, and user records within 30 business days.
                 </p>
               </div>
@@ -512,7 +512,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  CodeArena is intended for developers, students, and professionals aged 13 and older (or 16 in specific European jurisdictions). We do not knowingly collect personal information from children under 13.
+                  Prismcode is intended for developers, students, and professionals aged 13 and older (or 16 in specific European jurisdictions). We do not knowingly collect personal information from children under 13.
                   If you believe a minor has registered without parental authorization, please contact us for immediate account removal.
                 </p>
               </div>
@@ -551,9 +551,9 @@ export default function PrivacyPolicy() {
                   For any privacy inquiries, data deletion requests, or security disclosures, please reach out to our team:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">CodeArena Security & Privacy Operations</p>
-                  <p>Email: <a href="mailto:privacy@codearena.dev" className="themed-link">privacy@codearena.dev</a></p>
-                  <p>Support: <a href="mailto:support@codearena.dev" className="themed-link">support@codearena.dev</a></p>
+                  <p className="font-bold text-primary">Refract Labs Security & Privacy Operations</p>
+                  <p>Email: <a href="mailto:privacy@refractlabs.com" className="themed-link">privacy@refractlabs.com</a></p>
+                  <p>Support: <a href="mailto:support@refractlabs.com" className="themed-link">support@refractlabs.com</a></p>
                 </div>
               </div>
             </section>

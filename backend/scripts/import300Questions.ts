@@ -53,6 +53,8 @@ interface Problem {
     java: string;
     cpp: string;
   };
+  testCases?: { caseNumber: number; input: string; expected: string; isHidden?: boolean }[];
+  orderInvariant?: boolean;
 }
 
 function toCamelCase(str: string): string {
@@ -293,14 +295,30 @@ function convertQuestion(q: RawQuestion): Problem {
   const title = q.title.trim();
   const difficulty = q.difficulty;
 
-  // Subtopics and topics
+  // Canonical topics mapping
   const topicsSet = new Set<string>();
-  topicsSet.add(q.topic.trim());
+  const rawTopic = q.topic.toLowerCase().trim();
+  if (rawTopic.includes('hash')) topicsSet.add('Hash Table');
+  else if (rawTopic.includes('string')) topicsSet.add('String');
+  else if (rawTopic.includes('array')) topicsSet.add('Array');
+  else topicsSet.add(q.topic.trim());
+
   if (Array.isArray(q.subtopics)) {
     for (const sub of q.subtopics) {
-      if (sub && typeof sub === 'string') topicsSet.add(sub.trim());
+      const s = (sub || '').toLowerCase().trim();
+      if (s.includes('dynamic') || s.includes('dp')) topicsSet.add('Dynamic Programming');
+      else if (s.includes('matrix')) topicsSet.add('Matrix');
+      else if (s.includes('sliding window')) topicsSet.add('Sliding Window');
+      else if (s.includes('two pointer')) topicsSet.add('Two Pointers');
+      else if (s.includes('binary search')) topicsSet.add('Binary Search');
+      else if (s.includes('stack')) topicsSet.add('Stack');
+      else if (s.includes('greedy')) topicsSet.add('Greedy');
+      else if (s.includes('prefix sum')) topicsSet.add('Prefix Sum');
+      else if (s.includes('heap')) topicsSet.add('Heap');
+      else if (s.includes('trie')) topicsSet.add('Trie');
     }
   }
+  if (topicsSet.size === 0) topicsSet.add('Array');
   const topics = Array.from(topicsSet);
 
   // Calibrated acceptance and submissions
@@ -365,6 +383,38 @@ function convertQuestion(q: RawQuestion): Problem {
   const description = buildMarkdownDescription(q);
   const starterCode = generateStarterCode(q);
 
+  // Build full testCases suite from examples + edge_cases
+  const testCases: { caseNumber: number; input: string; expected: string; isHidden?: boolean }[] = [];
+  examples.forEach((ex, idx) => {
+    testCases.push({
+      caseNumber: idx + 1,
+      input: ex.input,
+      expected: ex.output,
+      isHidden: false,
+    });
+  });
+
+  if (Array.isArray(q.edge_cases)) {
+    q.edge_cases.forEach((ec) => {
+      if (ec.input !== undefined && ec.expected_output !== undefined) {
+        testCases.push({
+          caseNumber: testCases.length + 1,
+          input: formatInput(ec.input),
+          expected: formatOutput(ec.expected_output),
+          isHidden: true,
+        });
+      }
+    });
+  }
+
+  // Determine order-invariance
+  const isOrderInvariant = topics.some(t =>
+    t.toLowerCase().includes('hash') ||
+    t.toLowerCase().includes('set') ||
+    t.toLowerCase().includes('combination') ||
+    t.toLowerCase().includes('permutation')
+  );
+
   return {
     id,
     title,
@@ -376,7 +426,66 @@ function convertQuestion(q: RawQuestion): Problem {
     examples,
     constraints,
     starterCode,
+    testCases,
+    orderInvariant: isOrderInvariant,
   };
+}
+
+function enrichBaselineProblems(baseline: Problem[]): Problem[] {
+  return baseline.map((p) => {
+    const copy = { ...p };
+    const cases: { caseNumber: number; input: string; expected: string; isHidden?: boolean }[] = [];
+
+    // Public samples
+    p.examples.forEach((ex, idx) => {
+      cases.push({
+        caseNumber: idx + 1,
+        input: ex.input,
+        expected: ex.output,
+        isHidden: false,
+      });
+    });
+
+    if (p.id === 'two-sum') {
+      copy.orderInvariant = true;
+      cases.push(
+        { caseNumber: cases.length + 1, input: 'nums = [3, 3], target = 6', expected: '[0, 1]', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'nums = [-1, -2, -3, -4, -5], target = -8', expected: '[2, 4]', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'nums = [0, 4, 3, 0], target = 0', expected: '[0, 3]', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'nums = [1000000000, 500000000, -1000000000], target = 0', expected: '[0, 2]', isHidden: true }
+      );
+    } else if (p.id === 'valid-parentheses') {
+      cases.push(
+        { caseNumber: cases.length + 1, input: 's = "{[]}"', expected: 'true', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = "([)]"', expected: 'false', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = "["', expected: 'false', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = "]"', expected: 'false', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = ""', expected: 'true', isHidden: true }
+      );
+    } else if (p.id === 'longest-substring') {
+      cases.push(
+        { caseNumber: cases.length + 1, input: 's = "pwwkew"', expected: '3', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = ""', expected: '0', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = " "', expected: '1', isHidden: true },
+        { caseNumber: cases.length + 1, input: 's = "au"', expected: '2', isHidden: true }
+      );
+    } else if (p.id === 'container-water') {
+      cases.push(
+        { caseNumber: cases.length + 1, input: 'height = [1, 1]', expected: '1', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'height = [4, 3, 2, 1, 4]', expected: '16', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'height = [1, 2, 1]', expected: '2', isHidden: true }
+      );
+    } else if (p.id === 'median-arrays') {
+      cases.push(
+        { caseNumber: cases.length + 1, input: 'nums1 = [0, 0], nums2 = [0, 0]', expected: '0.00000', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'nums1 = [], nums2 = [1]', expected: '1.00000', isHidden: true },
+        { caseNumber: cases.length + 1, input: 'nums1 = [2], nums2 = []', expected: '2.00000', isHidden: true }
+      );
+    }
+
+    copy.testCases = cases;
+    return copy;
+  });
 }
 
 async function run() {
@@ -408,9 +517,10 @@ async function run() {
     !p.id.startsWith('hash-') && !p.id.startsWith('str-') && !p.id.startsWith('arrmat-')
   );
 
-  console.log(`[Importer] Preserving ${existingBaseline.length} baseline problems.`);
+  console.log(`[Importer] Preserving and enriching ${existingBaseline.length} baseline problems.`);
+  const enrichedBaseline = enrichBaselineProblems(existingBaseline);
 
-  const finalProblemList: Problem[] = [...existingBaseline, ...convertedNewProblems];
+  const finalProblemList: Problem[] = [...enrichedBaseline, ...convertedNewProblems];
   console.log(`[Importer] Total problems in catalog: ${finalProblemList.length}`);
 
   // 1. Update backend/data/db.json
