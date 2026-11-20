@@ -105,3 +105,44 @@ export interface PrivacySettings {
 export type ThemeMode = 'dark' | 'light';
 
 export type PaletteId = 'indigo' | 'lagoon' | 'sage' | 'vivid' | 'coastal' | 'lavender' | 'carbon';
+
+export type AuditAction =
+  | 'create_problem'
+  | 'update_problem'
+  | 'delete_problem'
+  | 'import_problems'
+  | 'update_user_role';
+
+export interface AuditLog {
+  id: string;
+  userId: string;
+  userEmail: string;
+  action: AuditAction;
+  targetId?: string;
+  details?: Record<string, unknown>;
+  ipAddress?: string;
+  timestamp: string;
+}
+
+export interface AdminStats {
+  totalUsers: number;
+  activeUsers: number;
+  verifiedUsers: number;
+  totalProblems: number;
+  totalSubmissions: number;
+  totalAuditLogs: number;
+  activeSessions: number;
+}
+
+export interface AdminImportResponse {
+  success: boolean;
+  fileName: string;
+  totalSubmitted: number;
+  acceptedCount: number;
+  importedCount: number;
+  updatedCount: number;
+  rejectedCount: number;
+  accepted: Problem[];
+  rejected: { row: number; label: string; reasons: string[] }[];
+}
+

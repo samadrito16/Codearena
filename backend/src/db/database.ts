@@ -5,6 +5,7 @@ import { config } from '../config.js';
 import { initialProblems } from './seeds.js';
 import type {
   ActivityEvent,
+  AuditLog,
   EmailVerificationToken,
   LeaderboardEntry,
   PasswordResetToken,
@@ -25,6 +26,7 @@ interface DatabaseSchema {
   problems: Problem[];
   submissions: SubmissionRecord[];
   activity: ActivityEvent[];
+  auditLogs: AuditLog[];
   progress: Record<string, {
     solvedIds: string[];
     dailyCompletions: Record<string, string>;
@@ -41,6 +43,7 @@ export class Database {
     problems: [],
     submissions: [],
     activity: [],
+    auditLogs: [],
     progress: {},
   };
 
@@ -79,6 +82,7 @@ export class Database {
     if (!this.data.emailVerificationTokens) this.data.emailVerificationTokens = [];
     if (!this.data.submissions) this.data.submissions = [];
     if (!this.data.activity) this.data.activity = [];
+    if (!this.data.auditLogs) this.data.auditLogs = [];
     if (!this.data.progress) this.data.progress = {};
 
     // Seed admin user if not present
@@ -171,6 +175,7 @@ export class Database {
       verifiedUsers: this.data.users.filter((u) => u.emailVerified).length,
       totalProblems: this.data.problems.length,
       totalSubmissions: this.data.submissions.length,
+      totalAuditLogs: this.data.auditLogs ? this.data.auditLogs.length : 0,
       activeSessions: this.data.sessions.filter((s) => new Date(s.expiresAt).getTime() > Date.now()).length,
     };
   }
@@ -339,6 +344,50 @@ export class Database {
       return true;
     }
     return false;
+  }
+
+  public async importProblems(problems: Problem[]): Promise<{ importedCount: number; updatedCount: number }> {
+    let importedCount = 0;
+    let updatedCount = 0;
+    const existingMap = new Map(this.data.problems.map((p, idx) => [p.id, idx]));
+
+    for (const prob of problems) {
+      if (existingMap.has(prob.id)) {
+        const idx = existingMap.get(prob.id)!;
+        this.data.problems[idx] = prob;
+        updatedCount++;
+      } else {
+        this.data.problems.unshift(prob);
+        existingMap.set(prob.id, 0);
+        importedCount++;
+      }
+    }
+
+    await this.save();
+    return { importedCount, updatedCount };
+  }
+
+  // --- Audit Logs ---
+  public async createAuditLog(entry: Omit<AuditLog, 'id' | 'timestamp'>): Promise<AuditLog> {
+    const log: AuditLog = {
+      id: `audit_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+      timestamp: new Date().toISOString(),
+      ...entry,
+    };
+    if (!this.data.auditLogs) {
+      this.data.auditLogs = [];
+    }
+    this.data.auditLogs.unshift(log);
+    // Keep up to 1000 audit log entries
+    if (this.data.auditLogs.length > 1000) {
+      this.data.auditLogs = this.data.auditLogs.slice(0, 1000);
+    }
+    await this.save();
+    return log;
+  }
+
+  public listAuditLogs(limit = 100): AuditLog[] {
+    return (this.data.auditLogs || []).slice(0, limit);
   }
 
   // --- Submissions ---

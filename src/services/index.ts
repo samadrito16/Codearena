@@ -1,4 +1,5 @@
 export { authService } from './authService';
+export { adminService } from './adminService';
 export { problemsService, PROBLEMS_STORAGE_KEY, isProblemRecord } from './problemsService';
 export { leaderboardService, type LeaderboardEntry } from './leaderboardService';
 export { learningPathsService, type LearningModule, type LearningPath } from './learningPathsService';

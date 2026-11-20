@@ -126,3 +126,22 @@ export interface LeaderboardEntry {
   points: number;
   streak: number;
 }
+
+export type AuditAction =
+  | 'create_problem'
+  | 'update_problem'
+  | 'delete_problem'
+  | 'import_problems'
+  | 'update_user_role';
+
+export interface AuditLog {
+  id: string;
+  userId: string;
+  userEmail: string;
+  action: AuditAction;
+  targetId?: string;
+  details?: Record<string, unknown>;
+  ipAddress?: string;
+  timestamp: string;
+}
+

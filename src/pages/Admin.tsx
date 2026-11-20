@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import {
   Activity,
@@ -11,9 +11,12 @@ import {
   FileJson,
   FilePlus2,
   HardDrive,
+  History,
   Pencil,
   Plus,
+  RefreshCw,
   Search,
+  Server,
   ShieldCheck,
   Trash2,
   UploadCloud,
@@ -35,7 +38,8 @@ import {
   type ImportReport,
   type ProblemFormDraft,
 } from '../lib/adminProblems';
-import type { Difficulty, Problem } from '../types';
+import { adminService } from '../services';
+import type { AdminStats, AuditLog, Difficulty, Problem } from '../types';
 
 type EditorViewMode = 'split' | 'form' | 'preview';
 
@@ -50,11 +54,38 @@ export default function Admin() {
   const [editorView, setEditorView] = useState<EditorViewMode>('split');
   const [showValidationErrors, setShowValidationErrors] = useState(false);
 
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+
+  const [serverStats, setServerStats] = useState<AdminStats | null>(null);
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [showAuditModal, setShowAuditModal] = useState(false);
+  const [serverConnected, setServerConnected] = useState<boolean | null>(null);
+
   const [banner, setBanner] = useState<{ tone: 'success' | 'error'; text: string; retryAction?: 'import' | 'export' } | null>(null);
   const [importReport, setImportReport] = useState<ImportReport | null>(null);
   const [inventoryQuery, setInventoryQuery] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<Problem | null>(null);
   const [previewModalProblem, setPreviewModalProblem] = useState<Problem | null>(null);
+
+  const fetchServerData = useCallback(async () => {
+    try {
+      const [stats, logs] = await Promise.all([
+        adminService.getStats(),
+        adminService.getAuditLogs(50),
+      ]);
+      setServerStats(stats);
+      setAuditLogs(logs);
+      setServerConnected(true);
+    } catch {
+      setServerConnected(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchServerData();
+  }, [fetchServerData]);
 
   const validation = useMemo(
     () => validateProblemDraft(draft, problems, editingId),
@@ -84,18 +115,19 @@ export default function Admin() {
     ));
   }, [problems, inventoryQuery]);
 
-  // Close delete or preview modals on Escape.
+  // Close delete, preview, or audit modals on Escape.
   useEffect(() => {
-    if (!deleteTarget && !previewModalProblem) return undefined;
+    if (!deleteTarget && !previewModalProblem && !showAuditModal) return undefined;
     function handleKey(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setDeleteTarget(null);
         setPreviewModalProblem(null);
+        setShowAuditModal(false);
       }
     }
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
-  }, [deleteTarget, previewModalProblem]);
+  }, [deleteTarget, previewModalProblem, showAuditModal]);
 
   function handleTitleChange(nextTitle: string) {
     setDraft((current) => ({
@@ -168,7 +200,7 @@ export default function Admin() {
     editorSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function handleSaveQuestion(event: FormEvent<HTMLFormElement>) {
+  async function handleSaveQuestion(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (validation.errors.length > 0) {
       setShowValidationErrors(true);
@@ -179,68 +211,117 @@ export default function Admin() {
       return;
     }
 
-    if (editingId) {
-      updateProblem(editingId, validation.normalized);
+    setIsSaving(true);
+    setBanner(null);
+
+    try {
+      if (editingId) {
+        const updated = await adminService.updateProblem(editingId, validation.normalized);
+        updateProblem(editingId, updated);
+        setBanner({
+          tone: 'success',
+          text: `Successfully updated “${updated.title}” (${updated.id}) in server database.`,
+        });
+        startNewQuestion();
+      } else {
+        const created = await adminService.createProblem(validation.normalized);
+        addProblem(created);
+        setBanner({
+          tone: 'success',
+          text: `Successfully created “${created.title}” (${created.id}) and saved to server database.`,
+        });
+        startNewQuestion();
+      }
+      void fetchServerData();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to save question to server.';
       setBanner({
-        tone: 'success',
-        text: `Updated “${validation.normalized.title}” (${validation.normalized.id}) in this browser’s local demo library.`,
+        tone: 'error',
+        text: `Server error: ${message}`,
       });
-      startNewQuestion();
-    } else {
-      addProblem(validation.normalized);
-      setBanner({
-        tone: 'success',
-        text: `Created “${validation.normalized.title}” (${validation.normalized.id}) in this browser’s local demo library.`,
-      });
-      startNewQuestion();
+    } finally {
+      setIsSaving(false);
     }
   }
 
-  function confirmDeleteQuestion() {
+  async function confirmDeleteQuestion() {
     if (!deleteTarget) return;
     const removed = deleteTarget;
-    deleteProblem(removed.id);
-    if (editingId === removed.id) {
-      startNewQuestion();
+    setIsDeleting(true);
+    try {
+      await adminService.deleteProblem(removed.id);
+      deleteProblem(removed.id);
+      if (editingId === removed.id) {
+        startNewQuestion();
+      }
+      setDeleteTarget(null);
+      setBanner({
+        tone: 'success',
+        text: `Deleted “${removed.title}” from server database.`,
+      });
+      void fetchServerData();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to delete question from server.';
+      setBanner({
+        tone: 'error',
+        text: `Server delete error: ${message}`,
+      });
+    } finally {
+      setIsDeleting(false);
     }
-    setDeleteTarget(null);
-    setBanner({
-      tone: 'success',
-      text: `Deleted “${removed.title}” from this browser’s local demo library.`,
-    });
   }
 
   async function importFile(file?: File) {
     if (!file) return;
+    setIsImporting(true);
+    setBanner(null);
     try {
       const text = await file.text();
-      const report = parseAndValidateImport(text, file.name, problems);
-      report.accepted.forEach((entry) => addProblem(entry.problem));
-      setImportReport(report);
+      const localReport = parseAndValidateImport(text, file.name, problems);
 
-      if (report.accepted.length > 0 && report.rejected.length === 0) {
-        setBanner({
-          tone: 'success',
-          text: `Imported ${report.accepted.length} question${report.accepted.length === 1 ? '' : 's'} from ${file.name} into this browser’s local demo library.`,
-        });
-      } else if (report.accepted.length > 0) {
-        setBanner({
-          tone: 'success',
-          text: `Imported ${report.accepted.length} question${report.accepted.length === 1 ? '' : 's'} from ${file.name}; ${report.rejected.length} row${report.rejected.length === 1 ? ' was' : 's were'} rejected. Review the import report below.`,
-        });
-      } else {
+      if (localReport.accepted.length === 0) {
+        setImportReport(localReport);
         setBanner({
           tone: 'error',
-          text: `No questions were imported from ${file.name} (${report.rejected.length} rejected). Review the import report below.`,
+          text: `No questions could be imported from ${file.name} (${localReport.rejected.length} rejected). Review the import report below.`,
         });
+        return;
       }
+
+      const payloadProblems = localReport.accepted.map((entry) => entry.problem);
+      const serverRes = await adminService.importProblems(payloadProblems, file.name);
+
+      // Sync into client state
+      serverRes.accepted.forEach((prob) => addProblem(prob));
+
+      const combinedReport: ImportReport = {
+        fileName: file.name,
+        totalRows: localReport.totalRows,
+        accepted: localReport.accepted,
+        rejected: [
+          ...localReport.rejected,
+          ...serverRes.rejected.map((r) => ({
+            row: r.row,
+            label: r.label,
+            reasons: r.reasons,
+          })),
+        ],
+      };
+      setImportReport(combinedReport);
+
+      setBanner({
+        tone: 'success',
+        text: `Server batch import complete: ${serverRes.acceptedCount} imported/updated (${serverRes.rejectedCount + localReport.rejected.length} rejected) from ${file.name}.`,
+      });
+      void fetchServerData();
     } catch (error) {
       setBanner({
         tone: 'error',
-        text: `Import failed: ${error instanceof Error ? error.message : 'Unable to read file.'}`,
+        text: `Import failed: ${error instanceof Error ? error.message : 'Unable to read file or sync with server.'}`,
         retryAction: 'import',
       });
     } finally {
+      setIsImporting(false);
       if (fileRef.current) fileRef.current.value = '';
     }
   }
@@ -266,43 +347,54 @@ export default function Admin() {
     <section className="page-heading-row">
       <div>
         <h2 className="page-title mt-0">Admin question editor</h2>
-        <p className="page-subtitle">Create, preview, edit, delete, validate, import, and export questions in your local demo bank.</p>
+        <p className="page-subtitle">Create, preview, edit, delete, validate, import, and export questions with backend validation and persistence.</p>
       </div>
       <div className="flex flex-wrap items-center gap-2.5">
         <button
           type="button"
+          onClick={() => setShowAuditModal(true)}
+          className="btn-secondary text-xs"
+          title="View recent administrative audit events"
+        >
+          <History size={14}/> Audit trail ({serverStats?.totalAuditLogs ?? auditLogs.length})
+        </button>
+        <button
+          type="button"
           onClick={handleExportJson}
           disabled={problems.length === 0}
-          className="btn-secondary disabled:opacity-45"
+          className="btn-secondary disabled:opacity-45 text-xs"
         >
           <Download size={14}/> Export JSON ({problems.length})
         </button>
         <div className="flex items-center gap-2 rounded-xl border px-3.5 py-2" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
           <ShieldCheck size={17} className="themed-link"/>
           <div>
-            <p className="text-[9px] font-bold uppercase tracking-wider text-muted">Mode</p>
-            <p className="text-[11px] font-bold text-primary">Local demo admin</p>
+            <p className="text-[9px] font-bold uppercase tracking-wider text-muted">Backend API</p>
+            <p className="text-[11px] font-bold text-primary flex items-center gap-1.5">
+              <span className={`inline-block h-2 w-2 rounded-full ${serverConnected ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+              {serverConnected === true ? 'Connected' : (serverConnected === false ? 'Offline cache' : 'Checking...')}
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    {/* Explicit Local-Only Notice */}
+    {/* Backend Persistence & Role Notice */}
     <section className="workspace-static-banner" role="note">
-      <HardDrive size={15} className="mt-0.5 shrink-0 themed-link"/>
+      <Server size={15} className="mt-0.5 shrink-0 themed-link"/>
       <div className="min-w-0">
-        <p className="text-xs font-bold text-primary">Local demo library only</p>
+        <p className="text-xs font-bold text-primary">Authorized Administrator Console</p>
         <p className="mt-0.5 text-[11px] leading-5 text-muted">
-          All changes made here (create, edit, delete, and file imports) are stored exclusively in this browser’s <code className="workspace-inline-code">localStorage</code> demo question bank. No shared backend database or production users are affected.
+          All problem creations, updates, deletions, and batch imports are verified through authorized server APIs and persisted to the backend database with administrative audit logging.
         </p>
       </div>
     </section>
 
     {/* Quick Stats */}
     <section className="grid gap-4 sm:grid-cols-3">
-      <AdminStat icon={<BookOpen size={18}/>} label="Local question bank" value={`${problems.length} ${problems.length === 1 ? 'problem' : 'problems'}`}/>
-      <AdminStat icon={<Users size={18}/>} label="Scope" value="This browser only"/>
-      <AdminStat icon={<Activity size={18}/>} label="Persistence" value="localStorage (demo)"/>
+      <AdminStat icon={<BookOpen size={18}/>} label="Question Library" value={`${problems.length} ${problems.length === 1 ? 'problem' : 'problems'}`}/>
+      <AdminStat icon={<Server size={18}/>} label="Server Database" value={serverConnected === true ? 'db.json (Active)' : (serverConnected === false ? 'Offline / Local cache' : 'Checking...')} />
+      <AdminStat icon={<History size={18}/>} label="Audit Events" value={`${serverStats?.totalAuditLogs ?? auditLogs.length} actions logged`}/>
     </section>
 
     {/* Feedback Banner */}
@@ -571,11 +663,17 @@ export default function Admin() {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-              <button type="button" onClick={startNewQuestion} className="btn-secondary">
+              <button type="button" onClick={startNewQuestion} disabled={isSaving} className="btn-secondary disabled:opacity-50">
                 {editingId ? 'Cancel edit' : 'Clear form'}
               </button>
-              <button type="submit" className="btn-primary">
-                {editingId ? <><CheckCircle2 size={15}/> Save changes</> : <><FilePlus2 size={15}/> Add to local library</>}
+              <button type="submit" disabled={isSaving} className="btn-primary disabled:opacity-50">
+                {isSaving ? (
+                  <><RefreshCw size={15} className="animate-spin"/> Saving to server...</>
+                ) : editingId ? (
+                  <><CheckCircle2 size={15}/> Save changes</>
+                ) : (
+                  <><FilePlus2 size={15}/> Save to server</>
+                )}
               </button>
             </div>
           </form>
@@ -790,22 +888,22 @@ export default function Admin() {
     </section>
 
     <p className="text-center text-[10px] text-muted">
-      All admin actions modify only this browser’s local demo library (localStorage). Connect a backend with authentication, role checks, and database persistence before production.
+      Administrative actions are secured with role authorization, server-side Zod validation, JSON database persistence, and audit logging.
     </p>
 
     {/* Delete Confirmation Dialog */}
     <ConfirmDialog
       open={Boolean(deleteTarget)}
       tone="danger"
-      title="Delete local question?"
+      title="Delete question from server?"
       description={
         deleteTarget ? (
           <>
-            This will remove <strong className="text-primary">“{deleteTarget.title}”</strong> (<code className="font-mono">{deleteTarget.id}</code>) from this browser’s local demo question bank.
+            This will permanently remove <strong className="text-primary">“{deleteTarget.title}”</strong> (<code className="font-mono">{deleteTarget.id}</code>) from the server database.
           </>
         ) : ''
       }
-      confirmLabel="Delete question"
+      confirmLabel={isDeleting ? 'Deleting...' : 'Delete question'}
       cancelLabel="Cancel"
       onConfirm={confirmDeleteQuestion}
       onCancel={() => setDeleteTarget(null)}
@@ -852,6 +950,100 @@ export default function Admin() {
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto p-4">
             <AdminWorkspacePreview problem={previewModalProblem}/>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Administrative Audit Trail Modal */}
+    {showAuditModal && (
+      <div
+        className="problem-preview-backdrop"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Administrative Audit Trail"
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) setShowAuditModal(false);
+        }}
+      >
+        <div className="problem-preview-drawer max-w-3xl">
+          <div className="flex items-center justify-between border-b px-5 py-3.5" style={{ borderColor: 'var(--ca-border)' }}>
+            <div className="flex items-center gap-2">
+              <div className="themed-icon themed-icon-primary h-8 w-8 rounded-lg">
+                <History size={16} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-primary">Administrative Audit Trail</p>
+                <p className="text-[10px] text-muted">Immutable log of server actions, timestamps, and authorized administrators</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAuditModal(false)}
+              className="workspace-icon-button"
+              aria-label="Close audit log"
+            >
+              <X size={15}/>
+            </button>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto p-5">
+            {auditLogs.length === 0 ? (
+              <div className="py-12 text-center text-muted">
+                <History size={28} className="mx-auto mb-2 opacity-40" />
+                <p className="text-xs font-semibold">No audit logs recorded yet</p>
+                <p className="text-[11px] mt-0.5">Admin operations (creates, updates, deletes, imports) will appear here in real-time.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {auditLogs.map((log) => {
+                  const actionLabels: Record<string, { label: string; tone: string }> = {
+                    create_problem: { label: 'CREATE', tone: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' },
+                    update_problem: { label: 'UPDATE', tone: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20' },
+                    delete_problem: { label: 'DELETE', tone: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20' },
+                    import_problems: { label: 'IMPORT', tone: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
+                  };
+                  const cfg = actionLabels[log.action] || { label: log.action.toUpperCase(), tone: 'bg-slate-500/10 text-slate-600' };
+
+                  return (
+                    <div
+                      key={log.id}
+                      className="rounded-xl border p-3.5 text-xs transition"
+                      style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className={`rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold ${cfg.tone}`}>
+                            {cfg.label}
+                          </span>
+                          <span className="font-mono text-xs font-semibold text-primary">
+                            {log.targetId || 'bulk'}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-muted">
+                          {new Date(log.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+
+                      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+                        <span>Admin: <strong className="text-primary">{log.userEmail}</strong></span>
+                        {log.ipAddress && <span>IP: <code className="font-mono text-[10px]">{log.ipAddress}</code></span>}
+                      </div>
+
+                      {log.details && Object.keys(log.details).length > 0 && (
+                        <div className="mt-2 rounded-lg p-2 font-mono text-[10px]" style={{ background: 'var(--ca-surface-muted)' }}>
+                          {Object.entries(log.details).map(([k, v]) => (
+                            <div key={k} className="truncate">
+                              <span className="text-muted">{k}:</span> <span className="text-primary">{typeof v === 'object' ? JSON.stringify(v) : String(v)}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
