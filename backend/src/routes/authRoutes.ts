@@ -10,7 +10,11 @@ const router = Router();
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(50),
   email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Za-z]/, 'Password must contain at least one letter')
+    .regex(/[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, 'Password must contain at least one number or special character'),
 });
 
 const loginSchema = z.object({
@@ -24,7 +28,11 @@ const forgotPasswordSchema = z.object({
 
 const resetPasswordSchema = z.object({
   token: z.string().min(1, 'Reset token is required'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Za-z]/, 'Password must contain at least one letter')
+    .regex(/[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, 'Password must contain at least one number or special character'),
 });
 
 function setSessionCookie(res: Response, sessionId: string) {
@@ -182,8 +190,8 @@ router.post(['/resend-verification', '/auth/resend-verification'], authLimiter, 
   }
 });
 
-// Development-only token inspection for automated testing and local debugging
-if (!config.isProduction) {
+// Development-only token inspection for automated testing and local debugging (strictly disabled by default)
+if (!config.isProduction && config.enableDevTokens) {
   router.get('/dev/tokens', (req: Request, res: Response) => {
     const email = String(req.query.email || '').trim().toLowerCase();
     const sent = emailService.getRecentEmails().find((e) => e.to.toLowerCase() === email);

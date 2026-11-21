@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   Bookmark,
   Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Eye,
@@ -73,6 +74,7 @@ export default function Problems() {
   } = useProblemStudyData();
 
   const [filters, setFilters] = useState<LibraryFilterPrefs>(loadLibraryFilters);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
   const [previewProblemId, setPreviewProblemId] = useState<string | null>(null);
   const [creatingCollection, setCreatingCollection] = useState(false);
@@ -322,6 +324,25 @@ export default function Problems() {
               <span>{label}</span>
             </button>
           ))}
+
+          {/* Minimal Collections Folder Toggle */}
+          <button
+            type="button"
+            onClick={() => setCollectionsOpen((prev) => !prev)}
+            aria-expanded={collectionsOpen}
+            className={`collection-tab flex items-center gap-1.5 ${
+              filters.collectionId !== 'all' || collectionsOpen ? 'collection-tab-active font-semibold' : ''
+            }`}
+          >
+            <Folder size={12} className={filters.collectionId !== 'all' ? 'text-indigo-500' : 'themed-link'} />
+            <span>Collections</span>
+            {activeCollection && (
+              <span className="text-[10px] text-indigo-500 font-bold max-w-[120px] truncate">
+                ({activeCollection.name})
+              </span>
+            )}
+            <ChevronDown size={11} className={`transition-transform duration-150 ${collectionsOpen ? 'rotate-180' : ''}`} />
+          </button>
         </div>
 
         <div className="flex items-center gap-3 text-[11px] text-muted">
@@ -341,77 +362,76 @@ export default function Problems() {
         </div>
       </div>
 
-      {/* Local Collections strip */}
-      <div className="flex flex-wrap items-center gap-2 border-t pt-3.5" style={{ borderColor: 'var(--ca-border)' }}>
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted">
-          <Folder size={12} className="themed-link"/> Collections
-        </span>
-        <button
-          type="button"
-          onClick={() => updateFilter('collectionId', 'all')}
-          aria-pressed={filters.collectionId === 'all'}
-          className={`collection-tab ${filters.collectionId === 'all' ? 'collection-tab-active' : ''}`}
-        >
-          All problems
-        </button>
-        {collections.map((collection) => {
-          const active = filters.collectionId === collection.id;
-          return (
-            <div key={collection.id} className={`collection-tab pr-1.5 ${active ? 'collection-tab-active' : ''}`}>
-              <button
-                type="button"
-                onClick={() => updateFilter('collectionId', active ? 'all' : collection.id)}
-                aria-pressed={active}
-                className="inline-flex items-center gap-1.5"
-              >
-                <span>{collection.name}</span>
-                <span className="collection-tab-count tabular-nums">{collection.problemIds.length}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => deleteCollection(collection.id)}
-                className="workspace-tc-pill-remove ml-0.5"
-                aria-label={`Delete collection ${collection.name}`}
-                title={`Delete "${collection.name}"`}
-              >
-                <X size={11}/>
-              </button>
-            </div>
-          );
-        })}
-
-        {creatingCollection ? (
-          <form onSubmit={handleCreateCollection} className="flex items-center gap-1.5">
-            <input
-              type="text"
-              autoFocus
-              value={newCollectionName}
-              onChange={(event) => setNewCollectionName(event.target.value)}
-              placeholder="Collection name..."
-              aria-label="New collection name"
-              className="collection-create-input h-7 w-40"
-            />
-            <button type="submit" disabled={!newCollectionName.trim()} className="btn-primary px-2.5 py-1 text-[10px] disabled:opacity-45">
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={() => { setCreatingCollection(false); setNewCollectionName(''); }}
-              className="btn-secondary px-2 py-1 text-[10px]"
-            >
-              Cancel
-            </button>
-          </form>
-        ) : (
+      {/* Expandable Collections Drawer - Hidden by default */}
+      {collectionsOpen && (
+        <div className="flex flex-wrap items-center gap-2 border-t pt-3.5 animate-in fade-in" style={{ borderColor: 'var(--ca-border)' }}>
           <button
             type="button"
-            onClick={() => setCreatingCollection(true)}
-            className="workspace-tc-add-button h-7"
+            onClick={() => updateFilter('collectionId', 'all')}
+            aria-pressed={filters.collectionId === 'all'}
+            className={`collection-tab ${filters.collectionId === 'all' ? 'collection-tab-active' : ''}`}
           >
-            <Plus size={12}/> New collection
+            All problems
           </button>
-        )}
-      </div>
+          {collections.map((collection) => {
+            const active = filters.collectionId === collection.id;
+            return (
+              <div key={collection.id} className={`collection-tab pr-1.5 ${active ? 'collection-tab-active' : ''}`}>
+                <button
+                  type="button"
+                  onClick={() => updateFilter('collectionId', active ? 'all' : collection.id)}
+                  aria-pressed={active}
+                  className="inline-flex items-center gap-1.5"
+                >
+                  <span>{collection.name}</span>
+                  <span className="collection-tab-count tabular-nums">{collection.problemIds.length}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => deleteCollection(collection.id)}
+                  className="workspace-tc-pill-remove ml-0.5"
+                  aria-label={`Delete collection ${collection.name}`}
+                  title={`Delete "${collection.name}"`}
+                >
+                  <X size={11}/>
+                </button>
+              </div>
+            );
+          })}
+
+          {creatingCollection ? (
+            <form onSubmit={handleCreateCollection} className="flex items-center gap-1.5">
+              <input
+                type="text"
+                autoFocus
+                value={newCollectionName}
+                onChange={(event) => setNewCollectionName(event.target.value)}
+                placeholder="Collection name..."
+                aria-label="New collection name"
+                className="collection-create-input h-7 w-40"
+              />
+              <button type="submit" disabled={!newCollectionName.trim()} className="btn-primary px-2.5 py-1 text-[10px] disabled:opacity-45">
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={() => { setCreatingCollection(false); setNewCollectionName(''); }}
+                className="btn-secondary px-2 py-1 text-[10px]"
+              >
+                Cancel
+              </button>
+            </form>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setCreatingCollection(true)}
+              className="workspace-tc-add-button h-7"
+            >
+              <Plus size={12}/> New collection
+            </button>
+          )}
+        </div>
+      )}
     </section>
 
     {/* Problem List */}

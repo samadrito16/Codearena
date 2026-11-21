@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { config } from './config.js';
 import { db } from './db/database.js';
@@ -16,8 +17,18 @@ import leaderboardRoutes from './routes/leaderboardRoutes.js';
 
 const app = express();
 
-// Trust proxy for rate limiting behind reverse proxies
-app.set('trust proxy', 1);
+// Secure HTTP response headers
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
+
+// Trust proxy for rate limiting only when behind a reverse proxy
+if (config.behindProxy || config.isProduction) {
+  app.set('trust proxy', 1);
+}
 
 // Configure CORS for exact frontend origin with credentials
 const allowedOrigins = [
@@ -29,11 +40,18 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or same-origin)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
+        // In development, allow requests without Origin header (e.g. CLI tools / curl)
+        // In production, reject requests without valid Origin header to prevent CSRF / abuse
+        if (!config.isProduction) {
+          callback(null, true);
+        } else {
+          callback(new Error('Origin header required for API requests.'));
+        }
+      } else if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(null, false);
+        callback(new Error(`Origin '${origin}' not allowed by CORS.`));
       }
     },
     credentials: true,
@@ -43,7 +61,7 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '1mb' }));
 
 // Attach authenticated session user to request
 app.use(attachUser);
@@ -62,25 +80,13 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Mount modular API routers with common path prefixes
+// Mount modular API routers with clean /api path prefixes
 app.use('/api/auth', authRoutes);
-app.use('/api', authRoutes);
-app.use('/auth', authRoutes);
-
 app.use('/api/problems', problemRoutes);
-app.use('/problems', problemRoutes);
-
 app.use('/api/admin', adminRoutes);
-app.use('/admin', adminRoutes);
-
 app.use('/api/user', userRoutes);
-app.use('/user', userRoutes);
-
 app.use('/api/submissions', submissionRoutes);
-app.use('/submissions', submissionRoutes);
-
 app.use('/api/leaderboard', leaderboardRoutes);
-app.use('/leaderboard', leaderboardRoutes);
 
 // 404 handler for unknown routes
 app.use((req, res) => {
@@ -102,8 +108,7 @@ async function bootstrap() {
     app.listen(config.port, () => {
       console.log(`[PrismCode Backend] Server listening on http://localhost:${config.port}`);
       console.log(`[PrismCode Backend] CORS origin allowed: ${config.frontendUrl}`);
-      console.log(`[PrismCode Backend] Default Admin Account: admin@prismcode.com / Admin123!`);
-      console.log(`[PrismCode Backend] Default User Account:  alex@example.com / Alex123!`);
+      console.log(`[PrismCode Backend] Execution sandbox: OnlineCompiler.io isolated container`);
     });
   } catch (err) {
     console.error('Failed to start server:', err);

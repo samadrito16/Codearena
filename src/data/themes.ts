@@ -20,40 +20,25 @@ export interface ThemePalette {
 
 /**
  * PrismCode palettes.
- * Carbon Pulse is preserved as the signature default with its distinct dot-grid texture.
+ * Obsidian Onyx serves as the signature default monochrome stealth theme.
  * The remaining palettes feature rich, distinct chromatic dark-mode identities so each
  * theme possesses an unmistakable ambiance and high visual contrast.
  */
 export const themePalettes: ThemePalette[] = [
   {
-    id: 'carbon',
-    name: 'Carbon Pulse',
-    description: 'Clean graphite surfaces with an electric teal accent and signature dot grid',
-    colors: ['#101A22', '#142A35', '#20B8AE', '#A7E7DA', '#F0F6F7'],
-    primary: '#20B8AE',
-    secondary: '#E5B35B',
-    editorDark: '#0B141B',
-    editorLight: '#F8FCFC',
-    darkCanvas: '#0A131A',
-    darkSurface: '#111E27',
-    darkPrimary: '#42CFC2',
-    darkSecondary: '#E5B35B',
-    darkColors: ['#0A131A', '#111E27', '#1A2A35', '#20B8AE', '#42CFC2'],
-  },
-  {
-    id: 'copper',
-    name: 'Molten Bronze',
-    description: 'Warm espresso canvas with glowing molten copper and silk bronze light rays',
-    colors: ['#FDF8F5', '#F5EAE1', '#E8D5C4', '#C2410C', '#B45309'],
-    primary: '#C2410C',
-    secondary: '#B45309',
-    editorDark: '#181310',
-    editorLight: '#FCFAF7',
-    darkCanvas: '#0E0B08',
-    darkSurface: '#1A1410',
-    darkPrimary: '#F97316',
-    darkSecondary: '#F59E0B',
-    darkColors: ['#0E0B08', '#1A1410', '#3D2817', '#F97316', '#F59E0B'],
+    id: 'onyx',
+    name: 'Obsidian Onyx',
+    description: 'Monochrome obsidian stealth with gleaming platinum silver and diamond accents',
+    colors: ['#F8FAFC', '#F1F5F9', '#E2E8F0', '#334155', '#0F172A'],
+    primary: '#334155',
+    secondary: '#64748B',
+    editorDark: '#101217',
+    editorLight: '#F8FAFC',
+    darkCanvas: '#0A0B0E',
+    darkSurface: '#12141A',
+    darkPrimary: '#F1F5F9',
+    darkSecondary: '#94A3B8',
+    darkColors: ['#0A0B0E', '#12141A', '#222733', '#F1F5F9', '#94A3B8'],
   },
   {
     id: 'frost',
@@ -71,6 +56,21 @@ export const themePalettes: ThemePalette[] = [
     darkColors: ['#0A0F18', '#111A28', '#23334A', '#38BDF8', '#94A3B8'],
   },
   {
+    id: 'copper',
+    name: 'Molten Bronze',
+    description: 'Warm espresso canvas with glowing molten copper and silk bronze light rays',
+    colors: ['#FDF8F5', '#F5EAE1', '#E8D5C4', '#C2410C', '#B45309'],
+    primary: '#C2410C',
+    secondary: '#B45309',
+    editorDark: '#181310',
+    editorLight: '#FCFAF7',
+    darkCanvas: '#0E0B08',
+    darkSurface: '#1A1410',
+    darkPrimary: '#F97316',
+    darkSecondary: '#F59E0B',
+    darkColors: ['#0E0B08', '#1A1410', '#3D2817', '#F97316', '#F59E0B'],
+  },
+  {
     id: 'crimson',
     name: 'Crimson Ember',
     description: 'Deep velvet obsidian canvas with radiant scarlet ruby and rose quartz glow',
@@ -84,36 +84,6 @@ export const themePalettes: ThemePalette[] = [
     darkPrimary: '#F43F5E',
     darkSecondary: '#FDA4AF',
     darkColors: ['#0F080E', '#180E16', '#331726', '#F43F5E', '#FDA4AF'],
-  },
-  {
-    id: 'onyx',
-    name: 'Obsidian Onyx',
-    description: 'Monochrome obsidian stealth with gleaming platinum silver and diamond accents',
-    colors: ['#F8FAFC', '#F1F5F9', '#E2E8F0', '#334155', '#0F172A'],
-    primary: '#334155',
-    secondary: '#64748B',
-    editorDark: '#101217',
-    editorLight: '#F8FAFC',
-    darkCanvas: '#0A0B0E',
-    darkSurface: '#12141A',
-    darkPrimary: '#F1F5F9',
-    darkSecondary: '#94A3B8',
-    darkColors: ['#0A0B0E', '#12141A', '#222733', '#F1F5F9', '#94A3B8'],
-  },
-  {
-    id: 'cobalt',
-    name: 'Royal Cobalt',
-    description: 'Deep abyssal space navy with radiant electric cobalt and lapis lazuli glow',
-    colors: ['#EFF6FF', '#DBEAFE', '#BFDBFE', '#1D4ED8', '#1E40AF'],
-    primary: '#1D4ED8',
-    secondary: '#2563EB',
-    editorDark: '#080D1F',
-    editorLight: '#F8FAFF',
-    darkCanvas: '#050814',
-    darkSurface: '#0B1124',
-    darkPrimary: '#3B82F6',
-    darkSecondary: '#60A5FA',
-    darkColors: ['#050814', '#0B1124', '#152248', '#3B82F6', '#60A5FA'],
   },
   {
     id: 'dune',
@@ -132,7 +102,7 @@ export const themePalettes: ThemePalette[] = [
   },
 ];
 
-export const defaultPalette: PaletteId = 'carbon';
+export const defaultPalette: PaletteId = 'onyx';
 
 export function getPalette(id: PaletteId): ThemePalette {
   return themePalettes.find((palette) => palette.id === id) ?? themePalettes[0];

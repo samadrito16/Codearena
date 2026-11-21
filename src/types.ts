@@ -112,8 +112,9 @@ export interface PrivacySettings {
 }
 
 export type ThemeMode = 'dark' | 'light';
+export type FontSize = 'compact' | 'standard' | 'large';
 
-export type PaletteId = 'carbon' | 'copper' | 'frost' | 'crimson' | 'onyx' | 'cobalt' | 'dune';
+export type PaletteId = 'copper' | 'frost' | 'crimson' | 'onyx' | 'dune';
 
 export type AuditAction =
   | 'create_problem'

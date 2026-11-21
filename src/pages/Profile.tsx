@@ -308,17 +308,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Page Heading Row */}
-      <section className="page-heading-row">
-        <div>
-          <h2 className="page-title mt-0">Your Profile</h2>
-          <p className="page-subtitle">
-            Manage your developer identity, view performance statistics, and track your coding milestones.
-          </p>
-        </div>
-      </section>
-
+    <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-12 animate-in fade-in">
       {/* Success Notification Alert */}
       {savedNotice && (
         <div className="flex items-center justify-between gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-xs font-semibold text-emerald-700 dark:text-emerald-300" role="status">
@@ -336,58 +326,36 @@ export default function Profile() {
         </div>
       )}
 
-      {/* Main Profile View Card */}
-      <section className="panel-card overflow-hidden">
-        {/* Top Control Bar */}
-        <div className="flex items-center justify-between gap-3 border-b px-5 py-3.5 sm:px-6" style={{ borderColor: 'var(--ca-border)' }}>
-          <div className="flex items-center gap-2">
-            <Sparkles size={16} className="themed-link" />
-            <span className="text-xs font-bold text-primary">Developer Profile</span>
-          </div>
-          {privacySettings.profileVisibility === 'private' && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-700 dark:text-amber-300">
-              <Lock size={12} /> Profile is private
-            </span>
-          )}
-        </div>
+      {/* Profile Header & Identity */}
+      <section className="flex flex-col md:flex-row md:items-start justify-between gap-6 pb-8 border-b" style={{ borderColor: 'var(--ca-border)' }}>
+        <div className="flex flex-col sm:flex-row items-start gap-5">
+          <ProfileAvatar
+            displayName={profileDisplayName}
+            avatarMode={profile.avatarMode}
+            avatarColor={profile.avatarColor}
+            avatarImage={profile.avatarImage}
+            size="xl"
+            className="h-20 w-20 sm:h-24 sm:w-24 ring-2 ring-indigo-500/20 shrink-0"
+          />
 
-        {/* Banner with user's selected gradient */}
-        <div className="h-32 sm:h-44 w-full transition-all" style={{ background: profilePreset.banner }} />
-
-        {/* Profile Content */}
-        <div className="px-5 pb-6 sm:px-8">
-          <div className="-mt-12 sm:-mt-14 flex flex-wrap items-end justify-between gap-4">
-            <ProfileAvatar
-              displayName={profileDisplayName}
-              avatarMode={profile.avatarMode}
-              avatarColor={profile.avatarColor}
-              avatarImage={profile.avatarImage}
-              size="xl"
-              className="h-24 w-24 sm:h-28 sm:w-28 ring-4 ring-[var(--ca-surface)] shadow-lg"
-            />
-            <div className="flex flex-wrap items-center gap-2.5">
-              <button
-                type="button"
-                onClick={openEditModal}
-                className="btn-secondary py-1.5 px-3.5 text-xs font-semibold"
-              >
-                <Pencil size={13} /> Edit profile
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-display text-2xl font-bold tracking-tight text-primary">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary">
                 {profileDisplayName}
-              </h3>
+              </h1>
               {profile.pronouns && (
                 <span className="rounded-md border px-2 py-0.5 text-[11px] font-semibold text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                   {profile.pronouns}
                 </span>
               )}
+              {privacySettings.profileVisibility === 'private' && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                  <Lock size={11} /> Private Mode
+                </span>
+              )}
             </div>
-            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted">
+
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
               <span>{user?.email ? `${user.email} · ${user.role === 'admin' ? 'Administrator' : 'Member'}` : 'Signed-in developer account'}</span>
               {user && (
                 user.email_verified ? (
@@ -395,24 +363,25 @@ export default function Profile() {
                     <CheckCircle2 size={11} /> Verified
                   </span>
                 ) : (
-                  <a
-                    href="/verify-email"
+                  <Link
+                    to="/verify-email"
                     className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20 hover:bg-amber-500/20 transition"
                     title="Click to verify your email"
                   >
                     <Clock size={11} /> Unverified (Verify)
-                  </a>
+                  </Link>
                 )
               )}
             </div>
+
             {profileBio && (
-              <p className="mt-3 max-w-2xl text-xs sm:text-sm leading-6 text-muted">
+              <p className="max-w-2xl text-xs sm:text-sm leading-relaxed text-muted pt-1">
                 {profileBio}
               </p>
             )}
 
-            {/* GitHub-style Metadata Row */}
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted">
+            {/* Metadata Tags */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-xs text-muted">
               {profile.company && (
                 <span className="inline-flex items-center gap-1.5">
                   <Building size={14} className="text-muted shrink-0" />
@@ -462,7 +431,7 @@ export default function Profile() {
 
             {/* Social accounts */}
             {profile.socialLinks && profile.socialLinks.length > 0 && (
-              <div className="mt-3.5 flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 pt-1">
                 {profile.socialLinks.map((link, idx) => {
                   const cleanUrl = link.startsWith('http') ? link : `https://${link}`;
                   const label = link.replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '');
@@ -484,136 +453,187 @@ export default function Profile() {
               </div>
             )}
           </div>
-
-          {privacySettings.profileVisibility === 'private' && (
-            <div className="mt-5 flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2.5 text-xs text-amber-700 dark:text-amber-300">
-              <Lock size={14} className="shrink-0" />
-              <span>Your profile is currently set to <strong>Private</strong>. Only you can view these stats; other people cannot search or view your profile.</span>
-            </div>
-          )}
-
-          {/* Local Stats Grid */}
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="rounded-xl p-3.5" style={{ background: 'var(--ca-surface-muted)' }}>
-                  <p className="text-[11px] font-semibold text-muted">Marked solved</p>
-                  <p className="mt-1 font-display text-xl font-bold text-primary tabular-nums">
-                    {difficultyStats.totalSolved}
-                    <span className="text-xs font-semibold text-muted">/{difficultyStats.totalProblems}</span>
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-muted">Local library</p>
-                </div>
-                <div className="rounded-xl p-3.5" style={{ background: 'var(--ca-surface-muted)' }}>
-                  <p className="text-[11px] font-semibold text-muted">Streak</p>
-                  <p className="mt-1 flex items-center gap-1 font-display text-xl font-bold text-orange-600 tabular-nums dark:text-orange-300">
-                    <Flame size={17} /> {currentStreak}d
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-muted">Best: {bestStreak}d</p>
-                </div>
-                <div className="rounded-xl p-3.5" style={{ background: 'var(--ca-surface-muted)' }}>
-                  <p className="text-[11px] font-semibold text-muted">Practice time</p>
-                  <p className="mt-1 flex items-center gap-1 font-display text-xl font-bold text-primary tabular-nums">
-                    <Clock3 size={16} className="text-muted" /> {formatDuration(practiceSeconds)}
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-muted">{completedDailyCount} {completedDailyCount === 1 ? 'daily' : 'dailies'} done</p>
-                </div>
-                <div className="rounded-xl p-3.5" style={{ background: 'var(--ca-surface-muted)' }}>
-                  <p className="text-[11px] font-semibold text-muted">Achievements</p>
-                  <p className="mt-1 flex items-center gap-1 font-display text-xl font-bold text-primary tabular-nums">
-                    <Trophy size={16} className="text-amber-500" /> {unlockedAchievements}/{achievements.length}
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-muted">Badges earned</p>
-                </div>
-              </div>
-
-              {/* Difficulty Breakdown Bar */}
-              <div className="mt-5 rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)' }}>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-primary">Difficulty breakdown</span>
-                  <span className="text-xs text-muted tabular-nums">{difficultyStats.overallPct}% complete</span>
-                </div>
-                <div className="mt-3 grid grid-cols-3 gap-3 text-center">
-                  {difficultyStats.items.map((tier) => (
-                    <div key={tier.difficulty} className="rounded-lg p-2.5" style={{ background: 'var(--ca-surface-muted)' }}>
-                      <p className={`text-xs font-bold ${tier.difficulty === 'Easy' ? 'text-emerald-600 dark:text-emerald-400' : tier.difficulty === 'Medium' ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                        {tier.difficulty}
-                      </p>
-                      <p className="mt-0.5 font-display text-base font-bold text-primary tabular-nums">
-                        {tier.solved}/{tier.total}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Activity Summary (Weekly + Monthly) */}
-              <div className="mt-5 rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)' }}>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-primary">Activity summary</span>
-                  <Link to="/progress" className="text-xs font-bold themed-link">
-                    Open analytics <ArrowRight size={12} className="inline" />
-                  </Link>
-                </div>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-lg p-3" style={{ background: 'var(--ca-surface-muted)' }}>
-                    <p className="text-[11px] font-semibold text-muted">Last 7 days</p>
-                    <p className="mt-1 text-xs font-bold text-primary tabular-nums">
-                      {weeklySummary.solvedInPeriod} marked solved · {weeklySummary.activeDays}/7 active days
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-muted">{formatDuration(weeklySummary.practiceSeconds)} est. practice</p>
-                  </div>
-                  <div className="rounded-lg p-3" style={{ background: 'var(--ca-surface-muted)' }}>
-                    <p className="text-[11px] font-semibold text-muted">Last 30 days</p>
-                    <p className="mt-1 text-xs font-bold text-primary tabular-nums">
-                      {monthlySummary.solvedInPeriod} marked solved · {monthlySummary.activeDays}/30 active days
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-muted">{formatDuration(monthlySummary.practiceSeconds)} est. practice</p>
-                  </div>
-                </div>
-
-                {topTopics.length > 0 && (
-                  <div className="mt-3.5 flex flex-wrap gap-2">
-                    {topTopics.map((item) => (
-                      <span key={item.topic} className="tag-pill text-xs">
-                        {item.topic} · {item.solved}/{item.total}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {activityLog.length > 0 ? (
-                  <div className="mt-4 space-y-2.5 border-t pt-3.5" style={{ borderColor: 'var(--ca-border)' }}>
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-muted">Recent local sessions</p>
-                    {activityLog.slice(0, 4).map((event) => {
-                      const solved = event.type === 'solved';
-                      return (
-                        <div key={event.id} className="flex items-center gap-3 text-xs">
-                          <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${solved ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300' : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300'}`}>
-                            {solved ? <CheckCircle2 size={14} /> : <Code2 size={14} />}
-                          </span>
-                          <span className="min-w-0 flex-1 truncate font-medium text-primary">
-                            {solved ? 'Marked solved' : 'Practiced'} {event.title}
-                          </span>
-                          <span className="shrink-0 text-xs text-muted tabular-nums">
-                            {event.durationSeconds ? `${formatSolveTime(event.durationSeconds)} · ` : ''}
-                            {formatActivityTime(event.timestamp)}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="mt-4 flex items-center gap-2 rounded-lg p-3 text-xs text-muted" style={{ background: 'var(--ca-surface-muted)' }}>
-                    <Activity size={15} /> No workspace activity recorded in this browser yet.
-                  </div>
-                )}
-              </div>
-
-          <p className="mt-5 text-[11px] leading-4 text-muted">
-            Profile saved locally in this browser.
-            {profile.updatedAt ? ` Last saved ${formatActivityTime(profile.updatedAt)}.` : ' Using default profile.'}
-          </p>
         </div>
+
+        <button
+          type="button"
+          onClick={openEditModal}
+          className="btn-secondary py-2 px-4 text-xs font-semibold shrink-0 gap-1.5 self-start"
+        >
+          <Pencil size={13} /> Edit profile
+        </button>
       </section>
+
+      {/* Tracks Section */}
+      <div className="space-y-12 sm:space-y-14">
+        {/* Track 01: Overview & Metrics */}
+        <section aria-labelledby="profile-stats-title" className="group/track space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-3 px-1">
+            <div className="flex items-start sm:items-baseline gap-3">
+              <span className="text-xs font-semibold text-muted/60 select-none tracking-wider tabular-nums">
+                01
+              </span>
+              <div>
+                <h2 id="profile-stats-title" className="text-lg font-bold text-primary tracking-tight">
+                  Overview & Milestones
+                </h2>
+                <p className="text-xs text-muted mt-0.5 leading-relaxed">
+                  Key practice achievements, solving streak, and cumulative time.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 pl-1 sm:pl-7">
+            <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
+              <p className="text-xs font-semibold text-muted">Marked solved</p>
+              <p className="mt-2 text-2xl font-extrabold text-primary tabular-nums">
+                {difficultyStats.totalSolved}
+                <span className="text-xs font-medium text-muted">/{difficultyStats.totalProblems}</span>
+              </p>
+              <p className="mt-1 text-[11px] text-muted">Local library problems</p>
+            </div>
+
+            <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
+              <p className="text-xs font-semibold text-muted">Active streak</p>
+              <p className="mt-2 flex items-center gap-1.5 text-2xl font-extrabold text-orange-500 tabular-nums">
+                <Flame size={20} /> {currentStreak}d
+              </p>
+              <p className="mt-1 text-[11px] text-muted">Personal best: {bestStreak}d</p>
+            </div>
+
+            <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
+              <p className="text-xs font-semibold text-muted">Practice time</p>
+              <p className="mt-2 flex items-center gap-1.5 text-2xl font-extrabold text-primary tabular-nums">
+                <Clock3 size={18} className="text-muted" /> {formatDuration(practiceSeconds)}
+              </p>
+              <p className="mt-1 text-[11px] text-muted">{completedDailyCount} daily {completedDailyCount === 1 ? 'challenge' : 'challenges'}</p>
+            </div>
+
+            <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
+              <p className="text-xs font-semibold text-muted">Achievements</p>
+              <p className="mt-2 flex items-center gap-1.5 text-2xl font-extrabold text-primary tabular-nums">
+                <Trophy size={18} className="text-amber-500" /> {unlockedAchievements}/{achievements.length}
+              </p>
+              <p className="mt-1 text-[11px] text-muted">Badges unlocked</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Track 02: Difficulty Breakdown */}
+        <section aria-labelledby="profile-difficulty-title" className="group/track space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-3 px-1">
+            <div className="flex items-start sm:items-baseline gap-3">
+              <span className="text-xs font-semibold text-muted/60 select-none tracking-wider tabular-nums">
+                02
+              </span>
+              <div>
+                <h2 id="profile-difficulty-title" className="text-lg font-bold text-primary tracking-tight">
+                  Difficulty Distribution
+                </h2>
+                <p className="text-xs text-muted mt-0.5 leading-relaxed">
+                  Progress tracking across algorithmic difficulty tiers.
+                </p>
+              </div>
+            </div>
+            <span className="text-xs font-semibold text-primary tabular-nums pl-7 sm:pl-0">
+              {difficultyStats.overallPct}% complete
+            </span>
+          </div>
+
+          <div className="pl-1 sm:pl-7">
+            <div className="grid grid-cols-3 gap-3">
+              {difficultyStats.items.map((tier) => {
+                const colors = {
+                  Easy: 'text-emerald-600 dark:text-emerald-400',
+                  Medium: 'text-amber-600 dark:text-amber-400',
+                  Hard: 'text-rose-600 dark:text-rose-400',
+                }[tier.difficulty];
+
+                return (
+                  <div key={tier.difficulty} className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
+                    <p className={`text-xs font-bold ${colors}`}>
+                      {tier.difficulty}
+                    </p>
+                    <p className="mt-1.5 text-xl font-extrabold text-primary tabular-nums">
+                      {tier.solved} <span className="text-xs font-medium text-muted">/ {tier.total}</span>
+                    </p>
+                    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 mt-2.5 overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                          width: `${tier.total ? Math.round((tier.solved / tier.total) * 100) : 0}%`,
+                          background: 'var(--ca-accent-solid, #6366f1)',
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Track 03: Recent Sessions */}
+        <section aria-labelledby="profile-activity-title" className="group/track space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 pb-3 px-1">
+            <div className="flex items-start sm:items-baseline gap-3">
+              <span className="text-xs font-semibold text-muted/60 select-none tracking-wider tabular-nums">
+                03
+              </span>
+              <div>
+                <h2 id="profile-activity-title" className="text-lg font-bold text-primary tracking-tight">
+                  Recent Practice Activity
+                </h2>
+                <p className="text-xs text-muted mt-0.5 leading-relaxed">
+                  Latest coding sessions and problem completion history.
+                </p>
+              </div>
+            </div>
+
+            <Link to="/progress" className="text-xs font-semibold themed-link hover:underline pl-7 sm:pl-0 inline-flex items-center gap-1">
+              <span>View full analytics</span> <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          <div className="pl-1 sm:pl-7 space-y-1">
+            {activityLog.length > 0 ? (
+              activityLog.slice(0, 5).map((event) => {
+                const solved = event.type === 'solved';
+                return (
+                  <div
+                    key={event.id}
+                    className="group flex items-center justify-between gap-4 px-4 py-3 rounded-xl transition-all duration-150 hover:bg-slate-500/[0.05] dark:hover:bg-white/[0.04]"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${
+                        solved ? 'bg-emerald-500/10 text-emerald-500' : 'bg-indigo-500/10 text-indigo-400'
+                      }`}>
+                        {solved ? <CheckCircle2 size={14} /> : <Code2 size={14} />}
+                      </span>
+                      <span className="truncate font-semibold text-sm text-primary">
+                        {event.title}
+                      </span>
+                      <span className="text-[11px] text-muted hidden sm:inline">
+                        ({solved ? 'Solved' : 'Practiced'})
+                      </span>
+                    </div>
+
+                    <span className="shrink-0 text-xs text-muted tabular-nums">
+                      {event.durationSeconds ? `${formatSolveTime(event.durationSeconds)} · ` : ''}
+                      {formatActivityTime(event.timestamp)}
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="p-4 rounded-xl border text-center text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
+                No practice sessions recorded in this browser yet.
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
 
       {/* Profile Customization Window (Modal Dialog) */}
       {isEditModalOpen && (

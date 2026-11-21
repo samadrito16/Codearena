@@ -3,16 +3,30 @@ import path from 'path';
 
 dotenv.config();
 
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProduction = nodeEnv === 'production';
+const sessionSecret = process.env.SESSION_SECRET || 'prismcode_default_session_secret_change_me';
+
+if (isProduction && (sessionSecret.includes('change_me') || sessionSecret.length < 32)) {
+  throw new Error('[Security Exception] A high-entropy SESSION_SECRET of at least 32 characters must be set in production.');
+}
+
 export const config = {
   port: parseInt(process.env.PORT || '8000', 10),
-  nodeEnv: process.env.NODE_ENV || 'development',
-  isProduction: process.env.NODE_ENV === 'production',
+  nodeEnv,
+  isProduction,
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
-  sessionSecret: process.env.SESSION_SECRET || 'prismcode_default_session_secret_change_me',
+  sessionSecret,
   sessionExpiryDays: parseInt(process.env.SESSION_EXPIRY_DAYS || '7', 10),
   cookieName: 'prismcode_session',
   dbPath: process.env.DB_PATH || (process.cwd().endsWith('backend') ? path.resolve(process.cwd(), 'data', 'db.json') : path.resolve(process.cwd(), 'backend', 'data', 'db.json')),
   
+  // Security sandbox switches
+  allowUnsafeLocalExecution: process.env.ALLOW_UNSAFE_LOCAL_EXECUTION === 'true',
+  enableDevTokens: process.env.ENABLE_DEV_TOKENS === 'true',
+  behindProxy: process.env.BEHIND_PROXY === 'true',
+  adminSeedPassword: process.env.ADMIN_SEED_PASSWORD || '',
+
   // Email settings
   resendApiKey: process.env.RESEND_API_KEY || '',
   smtp: {

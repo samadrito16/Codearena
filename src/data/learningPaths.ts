@@ -22,17 +22,47 @@ export interface LearningPath {
 
 export const learningPaths: LearningPath[] = [
   {
-    id: 'arrays-and-hashing',
+    id: 'arrays',
     order: 1,
-    title: 'Arrays and Hashing',
-    subtitle: 'Foundational lookups & frequency maps',
-    description: 'Master constant-time lookups, complement indexing, frequency counting, and linear array scans.',
-    topics: ['Array', 'Hash Table'],
+    title: 'Arrays',
+    subtitle: 'Linear indexing & array manipulations',
+    description: 'Master linear scans, in-place element manipulation, prefix calculations, and boundary constraints.',
+    topics: ['Array', 'Prefix Sum'],
     estimatedHours: '2–3 hrs',
     accent: 'a',
     modules: [
       {
-        id: 'ah-hash-lookups',
+        id: 'arr-linear-traversal',
+        order: 1,
+        title: 'Linear Traversal & In-Place Operations',
+        summary: 'Iterate and manipulate arrays in-place to achieve O(n) runtime with minimal extra memory.',
+        concepts: ['Array scan', 'In-place write', 'Two-pointer write head'],
+        problemIds: ['container-water'],
+        topicTags: ['Array'],
+      },
+      {
+        id: 'arr-prefix-sums',
+        order: 2,
+        title: 'Prefix Sums & Range Queries',
+        summary: 'Precompute cumulative running totals to answer arbitrary subsegment queries in O(1) time.',
+        concepts: ['Prefix sum', 'Running balance', 'Subarray sum'],
+        problemIds: [],
+        topicTags: ['Array', 'Prefix Sum'],
+      },
+    ],
+  },
+  {
+    id: 'hashing',
+    order: 2,
+    title: 'Hashing',
+    subtitle: 'Foundational lookups & frequency maps',
+    description: 'Master constant-time lookups, complement indexing, frequency counting, and hash grouping.',
+    topics: ['Hash Table', 'Counting'],
+    estimatedHours: '2–3 hrs',
+    accent: 'a',
+    modules: [
+      {
+        id: 'hash-lookups',
         order: 1,
         title: 'Hash Map Complements & Indexing',
         summary: 'Trade linear memory for O(n) scans by indexing values as you iterate.',
@@ -41,25 +71,25 @@ export const learningPaths: LearningPath[] = [
         topicTags: ['Hash Table'],
       },
       {
-        id: 'ah-frequency-patterns',
+        id: 'hash-frequency-patterns',
         order: 2,
         title: 'Frequency Counting & Grouping',
         summary: 'Bucket items by canonical signatures and track character/element counts efficiently.',
-        concepts: ['Frequency map', 'Grouping keys', 'Prefix sums'],
+        concepts: ['Frequency map', 'Grouping keys', 'Bucket signatures'],
         problemIds: [],
-        topicTags: ['Array', 'Hash Table'],
+        topicTags: ['Hash Table'],
       },
     ],
   },
   {
     id: 'two-pointers-and-sliding-window',
-    order: 2,
+    order: 3,
     title: 'Two Pointers and Sliding Window',
     subtitle: 'Linear range & boundary techniques',
     description: 'Shrink nested loops into linear passes by advancing left and right pointers with invariants.',
     topics: ['Two Pointers', 'Sliding Window', 'String'],
     estimatedHours: '3–4 hrs',
-    accent: 'b',
+    accent: 'a',
     modules: [
       {
         id: 'tp-opposite-ends',
@@ -83,13 +113,13 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'stack-and-queues',
-    order: 3,
+    order: 4,
     title: 'Stack and Queues',
     subtitle: 'LIFO nesting & FIFO ordering',
     description: 'Model balanced structures, expression parsing, monotonic sequences, and level-based queues.',
     topics: ['Stack', 'Queue', 'String'],
     estimatedHours: '2–3 hrs',
-    accent: 'c',
+    accent: 'a',
     modules: [
       {
         id: 'sq-bracket-matching',
@@ -113,7 +143,7 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'binary-search',
-    order: 4,
+    order: 5,
     title: 'Binary Search',
     subtitle: 'Logarithmic halving & partitioning',
     description: 'Exploit sorted order and monotonic predicates to cut the search space in half each step.',
@@ -143,13 +173,13 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'linked-lists',
-    order: 5,
+    order: 6,
     title: 'Linked Lists',
     subtitle: 'Pointer rewiring & cycle detection',
     description: 'Practice in-place node reversal, sentinel heads, merging sorted lists, and fast/slow pointers.',
     topics: ['Linked List', 'Two Pointers'],
     estimatedHours: '2–3 hrs',
-    accent: 'b',
+    accent: 'a',
     modules: [
       {
         id: 'll-reversal-dummy',
@@ -173,13 +203,13 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'trees-and-graphs',
-    order: 6,
+    order: 7,
     title: 'Trees and Graphs',
     subtitle: 'BFS, DFS & hierarchical traversals',
     description: 'Traverse trees level by level, reason recursively over subtrees, and navigate connected graphs.',
     topics: ['Tree', 'Binary Tree', 'Breadth-First Search', 'Graph'],
     estimatedHours: '4–5 hrs',
-    accent: 'c',
+    accent: 'a',
     modules: [
       {
         id: 'tg-level-order-bfs',
@@ -203,7 +233,7 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'greedy-algorithms',
-    order: 7,
+    order: 8,
     title: 'Greedy Algorithms',
     subtitle: 'Locally optimal choices & proofs',
     description: 'Identify when greedy exchange arguments guarantee global optimality without full search.',
@@ -233,13 +263,13 @@ export const learningPaths: LearningPath[] = [
   },
   {
     id: 'dynamic-programming',
-    order: 8,
+    order: 9,
     title: 'Dynamic Programming',
     subtitle: 'Overlapping subproblems & state transitions',
     description: 'Break complex optimization and counting problems into clean states, recurrences, and base cases.',
     topics: ['Dynamic Programming', 'Memoization'],
     estimatedHours: '5–6 hrs',
-    accent: 'b',
+    accent: 'a',
     modules: [
       {
         id: 'dp-1d-states',

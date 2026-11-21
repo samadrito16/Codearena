@@ -16,9 +16,9 @@ export default {
         violet: paletteScale('violet'),
       },
       fontFamily: {
-        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans: ['var(--ca-font-sans)', 'Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--ca-font-display)', 'var(--ca-font-sans)', 'Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['var(--ca-font-mono)', 'Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       keyframes: {
         shimmer: {

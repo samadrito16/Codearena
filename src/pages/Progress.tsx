@@ -74,6 +74,8 @@ export default function Progress() {
   const [logProblemId, setLogProblemId] = useState(() => problems[0]?.id ?? '');
   const [logOutcome, setLogOutcome] = useState<SubmissionOutcome>('wrong_answer');
   const [logMinutes, setLogMinutes] = useState('');
+  const [showMilestonesModal, setShowMilestonesModal] = useState(false);
+  const [milestoneTab, setMilestoneTab] = useState<'all' | 'unlocked' | 'in_progress'>('all');
 
   const currentStreak = useMemo(() => getCurrentStreak(activityLog), [activityLog]);
   const bestStreak = useMemo(() => getBestStreak(activityLog), [activityLog]);
@@ -133,6 +135,12 @@ export default function Progress() {
   );
 
   const unlockedCount = achievements.filter((item) => item.unlocked).length;
+  const previewMilestones = useMemo(() => achievements.slice(0, 5), [achievements]);
+  const filteredMilestones = useMemo(() => {
+    if (milestoneTab === 'unlocked') return achievements.filter((a) => a.unlocked);
+    if (milestoneTab === 'in_progress') return achievements.filter((a) => !a.unlocked);
+    return achievements;
+  }, [achievements, milestoneTab]);
   const strongTopics = topicMastery.filter((item) => item.status === 'strong');
   const weakTopics = topicMastery.filter((item) => item.status === 'needs_focus' || item.solved < item.total);
   const visibleTopics = topicFilter === 'all'
@@ -698,38 +706,6 @@ export default function Progress() {
             })()}
           </div>
         </div>
-
-        <div className="mt-6 border-t pt-4" style={{ borderColor: 'var(--ca-border)' }}>
-          <p className="mb-2.5 text-[11px] font-semibold text-primary">Recent solve durations</p>
-          {solvingTimeStats.recentTimed.length ? (
-            <div className="grid grid-cols-8 items-end gap-2">
-              {(() => {
-                const maxDur = Math.max(1, ...solvingTimeStats.recentTimed.map((item) => item.durationSeconds));
-                return solvingTimeStats.recentTimed.map((entry) => {
-                  const pctHeight = Math.max(18, Math.round((entry.durationSeconds / maxDur) * 100));
-                  const barTone = entry.difficulty === 'Easy'
-                    ? 'bg-emerald-500'
-                    : entry.difficulty === 'Medium'
-                      ? 'bg-amber-500'
-                      : 'bg-rose-500';
-                  return (
-                    <div key={entry.id} className="flex flex-col items-center gap-1" title={`${entry.title} (${entry.difficulty}) — ${formatSolveTime(entry.durationSeconds)}`}>
-                      <span className="font-mono text-[9px] text-muted tabular-nums">{formatSolveTime(entry.durationSeconds)}</span>
-                      <div className="flex h-16 w-full items-end rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
-                        <div className={`w-full rounded ${barTone}`} style={{ height: `${pctHeight}%` }}/>
-                      </div>
-                      <span className="truncate text-[9px] text-muted">{entry.dateLabel}</span>
-                    </div>
-                  );
-                });
-              })()}
-            </div>
-          ) : (
-            <p className="rounded-xl px-3.5 py-4 text-[11px] leading-5 text-muted" style={{ background: 'var(--ca-surface-muted)' }}>
-              Open a problem in the code workspace and click <strong>Mark as solved</strong> when finished — PrismCode tracks estimated active practice time here (pausing when the tab is hidden or idle).
-            </p>
-          )}
-        </div>
       </div>
     </section>
 
@@ -748,14 +724,106 @@ export default function Progress() {
           <div className="h-2 w-24 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
             <div className="progress-fill" style={{ width: `${Math.round((unlockedCount / achievements.length) * 100)}%` }}/>
           </div>
+          <button
+            type="button"
+            onClick={() => setShowMilestonesModal(true)}
+            className="btn-secondary py-1 px-3 text-xs font-semibold inline-flex items-center gap-1.5"
+          >
+            <span>View all ({achievements.length})</span>
+            <ArrowUpRight size={13} />
+          </button>
         </div>
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        {achievements.map((badge) => (
+        {previewMilestones.map((badge) => (
           <AchievementCard key={badge.id} badge={badge}/>
         ))}
       </div>
+
+      <div className="mt-4 pt-3 border-t flex items-center justify-between gap-2" style={{ borderColor: 'var(--ca-border)' }}>
+        <p className="text-xs text-muted">Showing 5 of {achievements.length} milestone challenges.</p>
+        <button
+          type="button"
+          onClick={() => setShowMilestonesModal(true)}
+          className="text-xs font-semibold themed-link hover:underline inline-flex items-center gap-1"
+        >
+          <span>Open all {achievements.length} milestones & badges</span>
+          <ArrowRight size={13} />
+        </button>
+      </div>
+
+      {/* Expandable Milestone Window / Modal */}
+      {showMilestonesModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4 sm:p-6 backdrop-blur-sm ca-modal-backdrop"
+          onClick={() => setShowMilestonesModal(false)}
+        >
+          <div
+            className="panel-card w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl animate-in fade-in zoom-in-95"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b p-5 sm:p-6" style={{ borderColor: 'var(--ca-border)' }}>
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl themed-icon-primary">
+                  <Trophy size={20} />
+                </span>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-primary">All Milestone Achievements</h3>
+                  <p className="text-xs text-muted mt-0.5">
+                    {unlockedCount} of {achievements.length} badges unlocked across speed, streak, difficulty, and breadth.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowMilestonesModal(false)}
+                className="rounded-lg p-2 text-muted hover:text-primary hover:bg-slate-500/10 transition"
+                aria-label="Close dialog"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex items-center gap-2 border-b px-5 py-3 text-xs overflow-x-auto" style={{ borderColor: 'var(--ca-border)' }}>
+              <button
+                type="button"
+                onClick={() => setMilestoneTab('all')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition ${milestoneTab === 'all' ? 'bg-indigo-600 text-white' : 'text-muted hover:text-primary hover:bg-slate-500/10'}`}
+              >
+                All ({achievements.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setMilestoneTab('unlocked')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition ${milestoneTab === 'unlocked' ? 'bg-indigo-600 text-white' : 'text-muted hover:text-primary hover:bg-slate-500/10'}`}
+              >
+                Unlocked ({unlockedCount})
+              </button>
+              <button
+                type="button"
+                onClick={() => setMilestoneTab('in_progress')}
+                className={`px-3 py-1.5 rounded-lg font-semibold transition ${milestoneTab === 'in_progress' ? 'bg-indigo-600 text-white' : 'text-muted hover:text-primary hover:bg-slate-500/10'}`}
+              >
+                Locked / In Progress ({achievements.length - unlockedCount})
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredMilestones.map((badge) => (
+                  <AchievementCard key={badge.id} badge={badge} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
 
     {/* Learning Paths Roadmap Summary */}

@@ -114,7 +114,8 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
   next();
 }
 
-export function requireRole(requiredRole: UserRole) {
+export function requireRole(requiredRole: UserRole | UserRole[]) {
+  const allowed = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
   return (req: Request, res: Response, next: NextFunction): void => {
     if (!req.user) {
       res.status(401).json({
@@ -126,7 +127,9 @@ export function requireRole(requiredRole: UserRole) {
       return;
     }
 
-    if (req.user.role !== requiredRole) {
+    const hasRole = req.user.role === 'admin' || allowed.includes(req.user.role);
+
+    if (!hasRole) {
       res.status(403).json({
         error: {
           code: 'FORBIDDEN',

@@ -8,6 +8,9 @@ interface UiContextValue {
   openCommandPalette: () => void;
   closeCommandPalette: () => void;
   toggleCommandPalette: () => void;
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
+  toggleSidebar: () => void;
   announce: (message: string) => void;
   announcement: string;
   registerNavigationGuard: (guard: NavigationGuard | null) => void;
@@ -35,6 +38,30 @@ export function UiProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [announcement, setAnnouncement] = useState('');
+  const [sidebarCollapsed, setSidebarCollapsedState] = useState(() => {
+    try {
+      return localStorage.getItem('prism_sidebar_collapsed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const setSidebarCollapsed = useCallback((action: boolean | ((prev: boolean) => boolean)) => {
+    setSidebarCollapsedState((prev) => {
+      const next = typeof action === 'function' ? action(prev) : action;
+      try {
+        localStorage.setItem('prism_sidebar_collapsed', String(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  }, []);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarCollapsed((prev) => !prev);
+  }, [setSidebarCollapsed]);
+
   const guardRef = useRef<NavigationGuard | null>(null);
   const announceTimerRef = useRef<number | null>(null);
   const prevPathRef = useRef(location.pathname);
@@ -67,18 +94,22 @@ export function UiProvider({ children }: { children: ReactNode }) {
     }
   }, [announce, location.pathname]);
 
-  // Global Ctrl+K / Cmd+K command palette trigger (capture phase so it works inside Monaco).
+  // Global Ctrl+K (command palette) and Ctrl+B (sidebar toggle) triggers.
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         event.stopPropagation();
         setCommandPaletteOpen((open) => !open);
+      } else if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === 'b') {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleSidebar();
       }
     };
     window.addEventListener('keydown', handleGlobalKeyDown, true);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown, true);
-  }, []);
+  }, [toggleSidebar]);
 
   const registerNavigationGuard = useCallback((guard: NavigationGuard | null) => {
     guardRef.current = guard;
@@ -141,6 +172,9 @@ export function UiProvider({ children }: { children: ReactNode }) {
     openCommandPalette,
     closeCommandPalette,
     toggleCommandPalette,
+    sidebarCollapsed,
+    setSidebarCollapsed,
+    toggleSidebar,
     announce,
     announcement,
     registerNavigationGuard,
@@ -150,6 +184,9 @@ export function UiProvider({ children }: { children: ReactNode }) {
     openCommandPalette,
     closeCommandPalette,
     toggleCommandPalette,
+    sidebarCollapsed,
+    setSidebarCollapsed,
+    toggleSidebar,
     announce,
     announcement,
     registerNavigationGuard,

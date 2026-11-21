@@ -23,6 +23,7 @@ export interface PublicUser {
 export interface Session {
   id: string;
   userId: string;
+  tokenHash?: string;
   expiresAt: string;
   createdAt: string;
   userAgent?: string;
@@ -126,7 +127,6 @@ export interface LeaderboardEntry {
   rank: number;
   userId: string;
   displayName: string;
-  email: string;
   avatarColor: string;
   solvedCount: number;
   easySolved: number;
@@ -153,4 +153,3 @@ export interface AuditLog {
   ipAddress?: string;
   timestamp: string;
 }
-

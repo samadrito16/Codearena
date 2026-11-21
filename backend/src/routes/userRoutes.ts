@@ -10,8 +10,16 @@ const profilePatchSchema = z.object({
   displayName: z.string().min(1).max(50).optional(),
   bio: z.string().max(300).optional(),
   avatarMode: z.enum(['initials', 'image']).optional(),
-  avatarColor: z.string().optional(),
-  avatarImage: z.string().optional(),
+  avatarColor: z.string().max(30).optional(),
+  avatarImage: z
+    .string()
+    .max(2048, 'Avatar image URL must not exceed 2048 characters')
+    .refine(
+      (val) => !val || val.startsWith('https://') || val.startsWith('http://'),
+      'Avatar image must be a valid HTTP or HTTPS URL'
+    )
+    .optional()
+    .or(z.literal('')),
   visibility: z.enum(['public', 'private']).optional(),
 });
 

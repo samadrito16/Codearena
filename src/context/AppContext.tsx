@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { defaultFontId, fontOptions } from '../data/fonts';
 import { defaultPalette, themePalettes } from '../data/themes';
 import { MIN_PRACTICE_SESSION_SECONDS } from '../lib/practiceTimer';
 import {
@@ -13,13 +14,17 @@ import {
 import { getLocalDateKey, selectDailyChallenge } from '../lib/progress';
 import { readStorage, writeStorage } from '../lib/storage';
 import { problemsService, type ResourceStatus } from '../services';
-import type { ActivityEvent, LocalProfile, PaletteId, PrivacySettings, Problem, SubmissionOutcome, SubmissionRecord, ThemeMode } from '../types';
+import type { ActivityEvent, FontSize, LocalProfile, PaletteId, PrivacySettings, Problem, SubmissionOutcome, SubmissionRecord, ThemeMode } from '../types';
 
 interface AppContextValue {
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
   palette: PaletteId;
   setPalette: (palette: PaletteId) => void;
+  fontFamily: string;
+  setFontFamily: (fontId: string) => void;
+  fontSize: FontSize;
+  setFontSize: (size: FontSize) => void;
   profile: LocalProfile;
   updateProfile: (patch: Partial<Omit<LocalProfile, 'updatedAt'>>) => void;
   resetProfile: () => void;
@@ -110,10 +115,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [palette, setPalette] = useState<PaletteId>(() => {
     const stored = readStorage<unknown>('codearena-palette', defaultPalette);
     // Migrate legacy or retired palette selections to the refreshed atmospheric collection.
-    if (stored === 'rose' || stored === 'indigo' || stored === 'lagoon' || stored === 'coastal' || stored === 'lavender' || stored === 'amethyst' || stored === 'emerald' || stored === 'volt' || stored === 'fuchsia') return defaultPalette;
+    if (stored === 'carbon' || stored === 'cobalt' || stored === 'rose' || stored === 'indigo' || stored === 'lagoon' || stored === 'coastal' || stored === 'lavender' || stored === 'amethyst' || stored === 'emerald' || stored === 'volt' || stored === 'fuchsia') return defaultPalette;
     if (stored === 'sage' || stored === 'aurora' || stored === 'oceanic') return 'frost';
     if (stored === 'vivid' || stored === 'cosmic' || stored === 'eclipse') return 'copper';
     return themePalettes.some((item) => item.id === stored) ? stored as PaletteId : defaultPalette;
+  });
+  const [fontFamily, setFontFamily] = useState<string>(() => {
+    const stored = readStorage<unknown>('codearena-font', defaultFontId);
+    return typeof stored === 'string' && fontOptions.some((f) => f.id === stored)
+      ? stored
+      : defaultFontId;
+  });
+  const [fontSize, setFontSize] = useState<FontSize>(() => {
+    const stored = readStorage<unknown>('codearena-font-size', 'standard');
+    return stored === 'compact' || stored === 'large' ? stored : 'standard';
   });
   const [profile, setProfile] = useState<LocalProfile>(() => loadLocalProfile());
   const [privacySettings, setPrivacySettings] = useState<PrivacySettings>(() => loadPrivacySettings());
@@ -158,6 +173,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.palette = palette;
     writeStorage('codearena-palette', palette);
   }, [palette]);
+  useEffect(() => {
+    const selected = fontOptions.find((item) => item.id === fontFamily) ?? fontOptions[0];
+    document.documentElement.style.setProperty('--ca-font-sans', selected.fontFamily);
+    document.documentElement.style.setProperty('--ca-font-display', selected.fontFamily);
+    document.documentElement.dataset.font = selected.id;
+    writeStorage('codearena-font', selected.id);
+  }, [fontFamily]);
+  useEffect(() => {
+    document.documentElement.dataset.fontSize = fontSize;
+    writeStorage('codearena-font-size', fontSize);
+  }, [fontSize]);
   useEffect(() => {
     if (profile.updatedAt === null) {
       clearLocalProfile();
@@ -403,6 +429,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setTheme,
     palette,
     setPalette,
+    fontFamily,
+    setFontFamily,
+    fontSize,
+    setFontSize,
     profile,
     updateProfile,
     resetProfile,
@@ -425,7 +455,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     ensureDailyChallenge,
     dailyCompletions,
     completeDailyChallenge,
-  }), [theme, palette, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge]);
+  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

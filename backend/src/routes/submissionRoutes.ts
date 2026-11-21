@@ -1,29 +1,36 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
+import crypto from 'node:crypto';
 import { z } from 'zod';
 import { db } from '../db/database.js';
 import { requireAuth } from '../middleware/auth.js';
+import { executionLimiter } from '../middleware/rateLimiter.js';
 import type { SubmissionOutcome, SubmissionRecord } from '../types/index.js';
 import { runTestCases, type TestCaseInput } from '../services/onlineCompilerService.js';
 
 const router = Router();
 
 const runSchema = z.object({
-  problemId: z.string(),
-  code: z.string(),
-  language: z.string().default('javascript'),
-  customInput: z.string().optional(),
-  cases: z.array(z.object({
-    caseNumber: z.number().optional(),
-    input: z.string(),
-    expected: z.string().optional(),
-  })).optional(),
+  problemId: z.string().min(1).max(100),
+  code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
+  language: z.string().min(1).max(50).default('javascript'),
+  customInput: z.string().max(10240, 'Custom input exceeds maximum allowed size (10KB)').optional(),
+  cases: z
+    .array(
+      z.object({
+        caseNumber: z.number().optional(),
+        input: z.string().max(10240),
+        expected: z.string().max(10240).optional(),
+      })
+    )
+    .max(25, 'Maximum of 25 custom test cases allowed')
+    .optional(),
 });
 
 const submitSchema = z.object({
-  problemId: z.string(),
-  code: z.string(),
-  language: z.string().default('javascript'),
-  durationSeconds: z.number().optional(),
+  problemId: z.string().min(1).max(100),
+  code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
+  language: z.string().min(1).max(50).default('javascript'),
+  durationSeconds: z.number().min(0).max(86400).optional(),
 });
 
 // GET /api/submissions (requires auth)
@@ -33,8 +40,8 @@ router.get('/', requireAuth, (req: Request, res: Response) => {
   res.json(submissions);
 });
 
-// POST /api/submissions/run (public / guest supported)
-router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
+// POST /api/submissions/run (public / guest supported, strictly rate-limited)
+router.post('/run', executionLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, customInput, cases } = runSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
@@ -82,8 +89,8 @@ router.post('/run', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// POST /api/submissions/submit (supports both authenticated and guest submissions)
-router.post('/submit', async (req: Request, res: Response, next: NextFunction) => {
+// POST /api/submissions/submit (supports both authenticated and guest submissions, strictly rate-limited)
+router.post('/submit', executionLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, durationSeconds } = submitSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
@@ -125,7 +132,7 @@ router.post('/submit', async (req: Request, res: Response, next: NextFunction) =
     const userId = req.user ? req.user.id : 'guest';
 
     const submission: SubmissionRecord = {
-      id: `sub_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      id: `sub_${crypto.randomUUID()}`,
       userId,
       problemId,
       title: problem.title,
@@ -146,7 +153,7 @@ router.post('/submit', async (req: Request, res: Response, next: NextFunction) =
       if (outcome === 'accepted') {
         await db.recordProblemSolved(userId, problemId);
         await db.createActivity({
-          id: `act_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          id: `act_${crypto.randomUUID()}`,
           userId,
           problemId,
           title: problem.title,

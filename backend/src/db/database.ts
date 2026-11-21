@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { config } from '../config.js';
 import { initialProblems } from './seeds.js';
@@ -88,7 +89,8 @@ export class Database {
     // Seed admin user if not present
     const existingAdmin = this.findUserByEmail('admin@prismcode.com') || this.findUserByEmail('admin@codearena.com');
     if (!existingAdmin) {
-      const passwordHash = await bcrypt.hash('Admin123!', 10);
+      const adminPassword = config.adminSeedPassword || 'Admin123!';
+      const passwordHash = await bcrypt.hash(adminPassword, 10);
       const adminUser: User = {
         id: 'usr_admin_001',
         name: 'PrismCode Admin',
@@ -136,6 +138,10 @@ export class Database {
     }
 
     await this.save();
+    await this.cleanupStaleRecords();
+    setInterval(() => {
+      this.cleanupStaleRecords().catch(() => {});
+    }, 60 * 60 * 1000).unref();
     console.log(`[Database] Initialized with ${this.data.users.length} users and ${this.data.problems.length} problems at ${this.filePath}`);
   }
 
@@ -234,15 +240,47 @@ export class Database {
     };
   }
 
+  // --- Stale Record Pruning ---
+  public async cleanupStaleRecords(): Promise<void> {
+    const now = Date.now();
+    const sessionsBefore = this.data.sessions.length;
+    this.data.sessions = this.data.sessions.filter((s) => new Date(s.expiresAt).getTime() > now);
+
+    this.data.passwordResetTokens = this.data.passwordResetTokens.filter(
+      (t) => !t.used && new Date(t.expiresAt).getTime() > now
+    );
+
+    this.data.emailVerificationTokens = this.data.emailVerificationTokens.filter(
+      (t) => !t.used && new Date(t.expiresAt).getTime() > now
+    );
+
+    if (this.data.sessions.length !== sessionsBefore) {
+      await this.save();
+    }
+  }
+
   // --- Sessions ---
+  private hashSessionToken(token: string): string {
+    return crypto.createHash('sha256').update(token).digest('hex');
+  }
+
   public async createSession(session: Session): Promise<Session> {
+    if (!session.tokenHash) {
+      const rawToken = session.id;
+      session.tokenHash = this.hashSessionToken(rawToken);
+      session.id = `ses_${crypto.randomUUID()}`;
+    }
     this.data.sessions.push(session);
     await this.save();
     return session;
   }
 
-  public findSessionById(id: string): Session | undefined {
-    const session = this.data.sessions.find((s) => s.id === id);
+  public findSessionById(idOrRawToken: string): Session | undefined {
+    if (!idOrRawToken) return undefined;
+    const tokenHash = this.hashSessionToken(idOrRawToken);
+    const session = this.data.sessions.find(
+      (s) => (s.tokenHash === tokenHash || s.id === idOrRawToken || s.id === tokenHash)
+    );
     if (!session) return undefined;
     if (new Date(session.expiresAt).getTime() <= Date.now()) {
       return undefined;
@@ -250,8 +288,12 @@ export class Database {
     return session;
   }
 
-  public async deleteSession(id: string): Promise<void> {
-    this.data.sessions = this.data.sessions.filter((s) => s.id !== id);
+  public async deleteSession(idOrRawToken: string): Promise<void> {
+    if (!idOrRawToken) return;
+    const tokenHash = this.hashSessionToken(idOrRawToken);
+    this.data.sessions = this.data.sessions.filter(
+      (s) => s.id !== idOrRawToken && s.tokenHash !== tokenHash && s.tokenHash !== idOrRawToken && s.id !== tokenHash
+    );
     await this.save();
   }
 
@@ -397,7 +439,7 @@ export class Database {
   // --- Audit Logs ---
   public async createAuditLog(entry: Omit<AuditLog, 'id' | 'timestamp'>): Promise<AuditLog> {
     const log: AuditLog = {
-      id: `audit_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+      id: `audit_${crypto.randomUUID()}`,
       timestamp: new Date().toISOString(),
       ...entry,
     };
@@ -529,7 +571,6 @@ export class Database {
         rank: 0,
         userId: user.id,
         displayName: progress.profile?.displayName || user.name,
-        email: user.email,
         avatarColor: progress.profile?.avatarColor || 'indigo',
         solvedCount: solvedIds.length,
         easySolved,

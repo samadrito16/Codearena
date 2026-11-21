@@ -125,6 +125,7 @@ export default function CommandPalette() {
 
     const navItems: CommandItem[] = [
       { path: '/dashboard', title: 'Overview', subtitle: 'Dashboard, recommendations, and recent sessions', keywords: 'home dashboard overview', icon: <LayoutDashboard size={15}/> },
+      { path: '/mastery', title: 'Pattern Mastery', subtitle: 'Master the 5 core patterns through active blueprint recall', keywords: 'pattern mastery blueprints triggers subgoals recall two pointers sliding window', icon: <Sparkles size={15}/>, badge: 'Core 25' },
       { path: '/problems', title: 'Problems', subtitle: 'Search, filter, bookmark, and organize problems', keywords: 'library questions dsa list', icon: <Code2 size={15}/> },
       { path: `/workspace/${problems[0]?.id ?? 'two-sum'}`, title: 'Code editor', subtitle: 'Open the interactive coding workspace', keywords: 'workspace monaco ide code editor', icon: <Compass size={15}/> },
       { path: '/daily-challenges', title: 'Daily challenges', subtitle: 'Today’s daily pick and recent history', keywords: 'daily streak challenge', icon: <Flame size={15}/> },

@@ -14,6 +14,7 @@ interface OnlineCompilerResponse {
 
 /**
  * Spawns an external command with standard input and a strict timeout.
+ * Strictly gated by config.allowUnsafeLocalExecution and strictly forbidden in production.
  */
 function runProcessWithStdin(
   command: string,
@@ -21,6 +22,12 @@ function runProcessWithStdin(
   stdin: string,
   timeoutMs = 4000,
 ): Promise<EngineRunResult> {
+  if (config.isProduction || !config.allowUnsafeLocalExecution) {
+    return Promise.reject(
+      new Error('Arbitrary local host process execution is disabled for security. Use isolated container execution.')
+    );
+  }
+
   return new Promise((resolve) => {
     let stdout = '';
     let stderr = '';
@@ -87,7 +94,7 @@ function runProcessWithStdin(
 }
 
 /**
- * Executes code using OnlineCompiler.io API endpoint.
+ * Executes code using OnlineCompiler.io isolated container endpoint.
  */
 async function executeWithOnlineCompiler(
   compilerId: string,
@@ -98,49 +105,77 @@ async function executeWithOnlineCompiler(
   const apiKey = config.onlineCompilerApiKey;
 
   if (!apiKey) {
-    throw new Error('ONLINECOMPILER_API_KEY is not configured');
+    throw new Error('ONLINECOMPILER_API_KEY is not configured in backend/.env');
   }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      compiler: compilerId,
-      code,
-      input,
-      time_limit: 5,
-      memory_limit: 256,
-    }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000); // 12-second HTTP timeout
 
-  if (!response.ok) {
-    throw new Error(`OnlineCompiler API returned HTTP ${response.status}: ${response.statusText}`);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        compiler: compilerId,
+        code,
+        input,
+        time_limit: 5,
+        memory_limit: 256,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeout);
+
+    if (!response.ok) {
+      const errText = await response.text().catch(() => '');
+      throw new Error(`OnlineCompiler isolated container HTTP ${response.status}: ${errText || response.statusText}`);
+    }
+
+    const data = (await response.json()) as OnlineCompilerResponse;
+    const parsedTime = parseFloat(String(data.time ?? '0'));
+    const runtimeMs = parsedTime > 0 ? Math.round(parsedTime * 1000) : 12;
+
+    const parsedMem = parseFloat(String(data.memory ?? '0'));
+    // OnlineCompiler reports memory in KB (e.g. 132040 KB = ~128.9 MB)
+    const memoryMb = parsedMem > 0 ? Math.round((parsedMem / 1024) * 10) / 10 : 15.2;
+
+    let exitCode = data.exit_code ?? 0;
+    if (data.status === 'time_limit_exceeded' || data.signal === 'SIGKILL' || data.signal === 'SIGXCPU') {
+      exitCode = 124; // Standard TLE exit code
+    } else if (data.status === 'error' && exitCode === 0) {
+      exitCode = 1;
+    }
+
+    return {
+      stdout: (data.output || '').replace(/\r\n/g, '\n'),
+      stderr: (data.error || '').replace(/\r\n/g, '\n'),
+      runtimeMs,
+      memoryMb,
+      exitCode,
+    };
+  } catch (err: unknown) {
+    clearTimeout(timeout);
+    if (err instanceof Error && err.name === 'AbortError') {
+      return {
+        stdout: '',
+        stderr: 'Time Limit Exceeded: Execution container request timed out.',
+        runtimeMs: 10000,
+        memoryMb: 25.0,
+        exitCode: 124,
+      };
+    }
+    throw err;
   }
-
-  const data = (await response.json()) as OnlineCompilerResponse;
-  const parsedTime = parseFloat(String(data.time ?? '0'));
-  const runtimeMs = parsedTime > 0 ? Math.round(parsedTime * 1000) : 12;
-
-  const parsedMem = parseFloat(String(data.memory ?? '0'));
-  // OnlineCompiler reports memory in KB (e.g. 132040 KB = ~128.9 MB)
-  const memoryMb = parsedMem > 0 ? Math.round((parsedMem / 1024) * 10) / 10 : 15.2;
-
-  return {
-    stdout: (data.output || '').replace(/\r\n/g, '\n'),
-    stderr: (data.error || '').replace(/\r\n/g, '\n'),
-    runtimeMs,
-    memoryMb,
-    exitCode: data.exit_code ?? 0,
-  };
 }
 
 /**
  * Unified execution engine dispatch:
- * 1. Checks OnlineCompiler API key
- * 2. Falls back to local sandbox for Python & Node.js
+ * - Executes in isolated remote container via OnlineCompiler.io
+ * - Strict security: arbitrary local execution on the host machine is completely blocked by default.
  */
 export async function executeCode(
   languageId: string,
@@ -148,30 +183,40 @@ export async function executeCode(
   code: string,
   input: string,
 ): Promise<EngineRunResult> {
-  // If API key is present, attempt cloud execution first
+  // If OnlineCompiler API key is present, execute inside secure cloud container
   if (config.onlineCompilerApiKey) {
     try {
       return await executeWithOnlineCompiler(compilerId, code, input);
     } catch (err: unknown) {
-      console.warn('[ExecutionEngine] Cloud execution failed, attempting local fallback:', err);
+      console.warn('[ExecutionEngine] OnlineCompiler execution error:', err);
+      // For security, do NOT fall back to local unsandboxed host process execution
+      if (!config.allowUnsafeLocalExecution || config.isProduction) {
+        throw new Error(
+          err instanceof Error ? err.message : 'Execution failed in the isolated container. Please try again.'
+        );
+      }
     }
+  }
+
+  // Local fallback is strictly blocked by default to prevent RCE
+  if (!config.allowUnsafeLocalExecution || config.isProduction) {
+    throw new Error(
+      'Isolated container execution is required. Please ensure ONLINECOMPILER_API_KEY is configured in backend/.env. Arbitrary host process execution is disabled for security.'
+    );
   }
 
   const lang = languageId.toLowerCase().trim();
 
-  // Local fallback for JavaScript / TypeScript
+  // Local fallback for JavaScript / TypeScript (ONLY if ALLOW_UNSAFE_LOCAL_EXECUTION=true and NOT production)
   if (lang === 'javascript' || lang === 'typescript' || compilerId.startsWith('node')) {
     return runProcessWithStdin('node', ['-e', code], input, 4000);
   }
 
-  // Local fallback for Python
+  // Local fallback for Python (ONLY if ALLOW_UNSAFE_LOCAL_EXECUTION=true and NOT production)
   if (lang === 'python' || compilerId.startsWith('python')) {
     const pythonCmd = process.platform === 'win32' ? 'py' : 'python3';
     return runProcessWithStdin(pythonCmd, ['-c', code], input, 4000);
   }
 
-  // For Java and C++ when API key is not present
-  throw new Error(
-    `OnlineCompiler API key required to execute ${languageId}. Add ONLINECOMPILER_API_KEY to backend/.env (Get free API key at https://onlinecompiler.io/). Python and JavaScript can execute offline using your local system runtimes.`,
-  );
+  throw new Error(`Execution unsupported for ${languageId}. Isolated container execution required.`);
 }

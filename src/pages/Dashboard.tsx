@@ -194,7 +194,6 @@ export default function Dashboard() {
         )}
       </div>
     </section>
-    <p className="text-center text-[10px] text-muted">Welcome back{user ? `, ${user.name}` : ''}. Keep showing up. The results will follow.</p>
   </div>;
 }
 

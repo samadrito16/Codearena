@@ -5,7 +5,13 @@ import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 import ProfileAvatar from './ProfileAvatar';
 
-export default function AccountMenu({ onAction }: { onAction?: () => void }) {
+export default function AccountMenu({
+  onAction,
+  collapsed = false,
+}: {
+  onAction?: () => void;
+  collapsed?: boolean;
+}) {
   const { profile } = useApp();
   const { user, signOut } = useAuth();
   const [open, setOpen] = useState(false);
@@ -54,7 +60,9 @@ export default function AccountMenu({ onAction }: { onAction?: () => void }) {
   return (
     <div className="relative" ref={ref}>
       <div
-        className={`account-popover absolute bottom-full left-0 right-0 z-50 mb-2 rounded-xl border p-1.5 shadow-xl ${open ? 'account-popover-open' : ''}`}
+        className={`account-popover absolute bottom-full left-0 z-50 mb-2 rounded-xl border p-1.5 shadow-xl ${
+          collapsed ? 'w-56' : 'right-0'
+        } ${open ? 'account-popover-open' : ''}`}
         aria-hidden={!open}
         style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
       >
@@ -112,28 +120,51 @@ export default function AccountMenu({ onAction }: { onAction?: () => void }) {
         )}
       </div>
 
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        className={`account-trigger flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition ${open ? 'account-trigger-active' : ''}`}
-      >
-        <ProfileAvatar
-          displayName={displayName}
-          avatarMode={profile.avatarMode}
-          avatarColor={profile.avatarColor}
-          avatarImage={profile.avatarImage}
-          size="sm"
-        />
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-xs font-bold text-primary">{displayName}</p>
-          <p className="truncate text-[10px] text-muted">
-            {user ? (user.role === 'admin' ? 'Administrator' : 'Member') : 'Guest'}
-          </p>
-        </div>
-        <ChevronsUpDown size={14} className="shrink-0 text-muted" />
-      </button>
+      {collapsed ? (
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          title={displayName}
+          className={`account-trigger flex h-10 w-10 items-center justify-center rounded-xl border mx-auto transition ${
+            open ? 'account-trigger-active ring-1 ring-indigo-500/30' : ''
+          }`}
+        >
+          <ProfileAvatar
+            displayName={displayName}
+            avatarMode={profile.avatarMode}
+            avatarColor={profile.avatarColor}
+            avatarImage={profile.avatarImage}
+            size="sm"
+          />
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          className={`account-trigger flex w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition ${
+            open ? 'account-trigger-active' : ''
+          }`}
+        >
+          <ProfileAvatar
+            displayName={displayName}
+            avatarMode={profile.avatarMode}
+            avatarColor={profile.avatarColor}
+            avatarImage={profile.avatarImage}
+            size="sm"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-bold text-primary">{displayName}</p>
+            <p className="truncate text-[10px] text-muted">
+              {user ? (user.role === 'admin' ? 'Administrator' : 'Member') : 'Guest'}
+            </p>
+          </div>
+          <ChevronsUpDown size={14} className="shrink-0 text-muted" />
+        </button>
+      )}
     </div>
   );
 }

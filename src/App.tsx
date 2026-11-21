@@ -22,6 +22,8 @@ import LearningPaths from './pages/LearningPaths';
 import Profile from './pages/Profile';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import MasteryHub from './pages/MasteryHub';
+import MasteryStudio from './pages/MasteryStudio';
 
 export default function App() {
   useEffect(() => {
@@ -101,6 +103,8 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/mastery" element={<MasteryHub />} />
+            <Route path="/mastery/:slug" element={<MasteryStudio />} />
             <Route path="/daily-challenges" element={<DailyChallenges />} />
             <Route path="/learning-paths" element={<LearningPaths />} />
             <Route path="/learning-paths/:pathId" element={<LearningPaths />} />

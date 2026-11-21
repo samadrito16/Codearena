@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Code2, Menu, Search, X } from 'lucide-react';
+import gsap from 'gsap';
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from './Sidebar';
@@ -8,13 +9,14 @@ import AccountMenu from './AccountMenu';
 import CommandPalette from './CommandPalette';
 import Footer from './Footer';
 import { PrismMark } from './PrismLogo';
+import SmoothScrollProvider from './SmoothScrollProvider';
 
 const baseMobileItems = [
   ['/dashboard', 'Overview'],
+  ['/mastery', 'Pattern Mastery'],
   ['/daily-challenges', 'Daily challenges'],
   ['/learning-paths', 'Learning paths'],
   ['/progress', 'Your progress'],
-  ['/profile', 'Profile'],
   ['/problems', 'Problems'],
   ['/workspace/two-sum', 'Code editor'],
   ['/leaderboard', 'Leaderboard'],
@@ -24,7 +26,7 @@ const baseMobileItems = [
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const { openCommandPalette, announcement } = useUi();
+  const { openCommandPalette, announcement, sidebarCollapsed } = useUi();
   const { user } = useAuth();
   const isWorkspace = location.pathname.startsWith('/workspace');
 
@@ -44,7 +46,19 @@ export default function Layout() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [menuOpen]);
 
-  return <div className={`app-shell ${isWorkspace ? 'app-shell-workspace' : ''}`}>
+  useEffect(() => {
+    if (!isWorkspace) {
+      gsap.fromTo(
+        '.page-enter',
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', clearProps: 'all' }
+      );
+    }
+  }, [location.pathname, isWorkspace]);
+
+  return (
+    <SmoothScrollProvider>
+      <div className={`app-shell ${isWorkspace ? 'app-shell-workspace' : ''}`}>
     <a href="#main-content" className="skip-link">Skip to main content</a>
     <Sidebar/>
     {menuOpen && <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
@@ -52,7 +66,7 @@ export default function Layout() {
       <div className="mobile-drawer relative flex h-full w-[285px] flex-col justify-between shadow-2xl">
         <div className="overflow-y-auto px-5 py-7">
           <button type="button" className="absolute right-3 top-4 z-10 rounded-lg p-2 text-muted hover:bg-black/5 dark:hover:bg-white/5" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={18}/></button>
-          <div className="mb-8 flex items-center gap-3 font-display text-xl font-bold text-primary"><PrismMark size={32} className="brand-mark-pulse" />Prism Code<span className="themed-link">.</span></div>
+          <div className="mb-8 flex items-center gap-3 font-display text-xl font-bold text-primary"><PrismMark size={32} className="brand-mark-pulse" />PrismCode</div>
           <nav aria-label="Primary navigation" className="space-y-1.5">{mobileItems.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setMenuOpen(false)} className={() => `block rounded-xl px-4 py-3 text-sm font-semibold ${location.pathname === to ? 'nav-link-active' : 'text-muted hover:bg-black/5 dark:hover:bg-white/5'}`}>{label}</NavLink>)}</nav>
         </div>
         <div className="border-t p-4" style={{ borderColor: 'var(--ca-border)' }}>
@@ -65,11 +79,11 @@ export default function Layout() {
         </div>
       </div>
     </div>}
-    <div className={`min-h-screen lg:pl-[260px] ${isWorkspace ? 'workspace-app-main' : ''}`}>
+    <div className={`min-h-screen transition-[padding] duration-300 ease-in-out ${sidebarCollapsed ? 'lg:pl-[70px]' : 'lg:pl-[260px]'} ${isWorkspace ? 'workspace-app-main' : ''}`}>
       <header className="flex h-14 items-center justify-between border-b px-4 lg:hidden" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
         <div className="flex items-center gap-2.5">
           <PrismMark size={28} className="brand-mark-pulse" />
-          <span className="font-display text-base font-bold text-primary">Prism Code<span className="themed-link">.</span></span>
+          <span className="font-display text-base font-bold text-primary">PrismCode</span>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -91,8 +105,10 @@ export default function Layout() {
       {!isWorkspace && <Footer />}
     </div>
     <CommandPalette/>
-    <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-      {announcement}
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {announcement}
+      </div>
     </div>
-  </div>;
+  </SmoothScrollProvider>
+  );
 }

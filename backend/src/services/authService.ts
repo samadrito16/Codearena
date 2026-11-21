@@ -31,6 +31,10 @@ export class AuthService {
       throw new AppError('Password must be at least 8 characters long.', 400, 'VALIDATION_ERROR');
     }
 
+    if (!/[A-Za-z]/.test(input.password) || !/[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(input.password)) {
+      throw new AppError('Password must contain at least one letter and at least one number or special character.', 400, 'VALIDATION_ERROR');
+    }
+
     const existingUser = db.findUserByEmail(normalizedEmail);
     if (existingUser) {
       throw new AppError('An account with this email address is already registered.', 409, 'EMAIL_ALREADY_REGISTERED');
@@ -121,19 +125,29 @@ export class AuthService {
   }
 
   public async createSession(userId: string): Promise<Session> {
-    const sessionId = crypto.randomBytes(32).toString('hex');
+    const rawToken = crypto.randomBytes(32).toString('hex');
+    const tokenHash = this.hashToken(rawToken);
     const expiresAt = new Date(Date.now() + config.sessionExpiryDays * 24 * 60 * 60 * 1000).toISOString();
     const createdAt = new Date().toISOString();
+    const sessionId = `ses_${crypto.randomUUID()}`;
 
-    const session: Session = {
+    const sessionRecord: Session = {
       id: sessionId,
       userId,
+      tokenHash,
       expiresAt,
       createdAt,
     };
 
-    await db.createSession(session);
-    return session;
+    await db.createSession(sessionRecord);
+    // Return session object with rawToken as id for the client cookie / bearer token
+    return {
+      id: rawToken,
+      userId,
+      tokenHash,
+      expiresAt,
+      createdAt,
+    };
   }
 
   public async forgotPassword(email: string): Promise<void> {
@@ -165,6 +179,10 @@ export class AuthService {
 
     if (!newPassword || newPassword.length < 8) {
       throw new AppError('New password must be at least 8 characters long.', 400, 'VALIDATION_ERROR');
+    }
+
+    if (!/[A-Za-z]/.test(newPassword) || !/[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(newPassword)) {
+      throw new AppError('New password must contain at least one letter and at least one number or special character.', 400, 'VALIDATION_ERROR');
     }
 
     const tokenHash = this.hashToken(token.trim());

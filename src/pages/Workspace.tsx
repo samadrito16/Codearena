@@ -229,7 +229,7 @@ function WorkspaceSession({
   } = useProblemStudyData();
   const [activeTab, setActiveTab] = useState('Description');
   const [consoleTab, setConsoleTab] = useState<ConsoleTab>('testcases');
-  const [consoleCollapsed, setConsoleCollapsed] = useState(false);
+  const [consoleCollapsed, setConsoleCollapsed] = useState(true);
   const [runnerState, setRunnerState] = useState<RunnerState>('idle');
   const [runnerAction, setRunnerAction] = useState<RunnerAction>('run');
   const [executionResult, setExecutionResult] = useState<ExecutionResponse | null>(null);
@@ -921,63 +921,108 @@ function WorkspaceSession({
           />
         </div>
         <section className={`workspace-console ${consoleCollapsed ? 'workspace-console-collapsed' : ''}`}>
-          <div className="workspace-console-header">
-            <div className="flex min-w-0 items-center gap-1.5">
-              <div className="workspace-console-tabs" role="tablist" aria-label="Test cases and console">
+          {consoleCollapsed ? (
+            <div
+              className="flex items-center justify-between px-4 py-2 text-xs text-muted transition"
+              style={{ background: 'var(--ca-surface)' }}
+            >
+              <button
+                type="button"
+                onClick={() => setConsoleCollapsed(false)}
+                className="inline-flex items-center gap-2 text-xs font-semibold text-muted hover:text-primary transition py-0.5 group"
+                aria-expanded={false}
+                aria-label="Expand test cases and console drawer"
+                title="Expand test cases & console (Alt+J)"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-muted group-hover:text-primary group-hover:border-indigo-500/40 transition">
+                  <ChevronUp size={12} />
+                </span>
+                <span>Test Cases & Console</span>
+                <span className="rounded-full px-1.5 py-0.5 text-[10px] font-bold bg-slate-500/10 text-muted tabular-nums">
+                  {allCases.length}
+                </span>
+              </button>
+
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={consoleTab === 'testcases'}
-                  onClick={() => { setConsoleTab('testcases'); setConsoleCollapsed(false); }}
-                  className={`workspace-console-tab ${consoleTab === 'testcases' && !consoleCollapsed ? 'workspace-console-tab-active' : ''}`}
+                  onClick={() => requestExecution('run')}
+                  disabled={runnerState === 'running'}
+                  className="btn-secondary h-7 px-3 text-[11px] font-semibold gap-1"
+                  title={selectedCase ? `Run against ${selectedCase.name} (Ctrl+Enter)` : 'Run code (Ctrl+Enter)'}
                 >
-                  <FlaskConical size={13}/>
-                  <span>Testcases</span>
-                  <span className="workspace-console-count tabular-nums">{allCases.length}</span>
+                  <Play size={11} /><span>Run</span>
                 </button>
                 <button
                   type="button"
-                  role="tab"
-                  aria-selected={consoleTab === 'console'}
-                  onClick={() => { setConsoleTab('console'); setConsoleCollapsed(false); }}
-                  className={`workspace-console-tab ${consoleTab === 'console' && !consoleCollapsed ? 'workspace-console-tab-active' : ''}`}
+                  onClick={() => requestExecution('submit')}
+                  disabled={runnerState === 'running'}
+                  className="btn-primary h-7 px-3 text-[11px] font-semibold gap-1"
+                  title="Submit solution (Ctrl+Shift+Enter)"
                 >
-                  <Terminal size={13}/>
-                  <span>Console</span>
-                  {runnerState === 'error' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
+                  <Send size={11} /><span>Submit</span>
                 </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setConsoleCollapsed((prev) => !prev)}
-                className="workspace-icon-button h-7 w-7"
-                aria-expanded={!consoleCollapsed}
-                aria-label={consoleCollapsed ? 'Expand test cases and console' : 'Collapse test cases and console'}
-                title={consoleCollapsed ? 'Expand drawer' : 'Collapse drawer'}
-              >
-                {consoleCollapsed ? <ChevronUp size={13}/> : <ChevronDown size={13}/>}
-              </button>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => requestExecution('run')}
-                disabled={runnerState === 'running'}
-                className="btn-secondary workspace-run-button"
-                title={selectedCase ? `Run against ${selectedCase.name}` : 'Run code'}
-              >
-                <Play size={13}/><span>Run</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => requestExecution('submit')}
-                disabled={runnerState === 'running'}
-                className="btn-primary workspace-submit-button"
-              >
-                <Send size={13}/><span>Submit</span>
-              </button>
+          ) : (
+            <div className="workspace-console-header">
+              <div className="flex min-w-0 items-center gap-1.5">
+                <div className="workspace-console-tabs" role="tablist" aria-label="Test cases and console">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={consoleTab === 'testcases'}
+                    onClick={() => { setConsoleTab('testcases'); setConsoleCollapsed(false); }}
+                    className={`workspace-console-tab ${consoleTab === 'testcases' ? 'workspace-console-tab-active' : ''}`}
+                  >
+                    <FlaskConical size={13}/>
+                    <span>Testcases</span>
+                    <span className="workspace-console-count tabular-nums">{allCases.length}</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={consoleTab === 'console'}
+                    onClick={() => { setConsoleTab('console'); setConsoleCollapsed(false); }}
+                    className={`workspace-console-tab ${consoleTab === 'console' ? 'workspace-console-tab-active' : ''}`}
+                  >
+                    <Terminal size={13}/>
+                    <span>Console</span>
+                    {runnerState === 'error' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setConsoleCollapsed(true)}
+                  className="workspace-icon-button h-7 w-7"
+                  aria-expanded={true}
+                  aria-label="Collapse test cases and console"
+                  title="Collapse drawer (Alt+J)"
+                >
+                  <ChevronDown size={13}/>
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => requestExecution('run')}
+                  disabled={runnerState === 'running'}
+                  className="btn-secondary workspace-run-button"
+                  title={selectedCase ? `Run against ${selectedCase.name}` : 'Run code'}
+                >
+                  <Play size={13}/><span>Run</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => requestExecution('submit')}
+                  disabled={runnerState === 'running'}
+                  className="btn-primary workspace-submit-button"
+                >
+                  <Send size={13}/><span>Submit</span>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {!consoleCollapsed && (
             <div className="workspace-console-body" aria-live="polite">
