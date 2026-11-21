@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Code2, Shield, FileText, ExternalLink, Terminal, Sparkles, Heart } from 'lucide-react';
+import { PrismMark } from './PrismLogo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,10 +19,8 @@ export default function Footer() {
           {/* Brand & Mission Column */}
           <div className="lg:col-span-2">
             <Link to="/dashboard" className="inline-flex items-center gap-2.5 font-display text-lg font-bold text-primary">
-              <span className="brand-mark brand-mark-pulse">
-                <Code2 size={18} strokeWidth={2.5} />
-              </span>
-              <span>Prismcode<span className="themed-link">.</span></span>
+              <PrismMark size={30} className="brand-mark-pulse" />
+              <span>Prism Code<span className="themed-link">.</span></span>
             </Link>
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted">
               The modern competitive programming and algorithmic skill-building platform.

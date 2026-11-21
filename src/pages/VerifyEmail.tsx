@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { CheckCircle2, AlertTriangle, Loader2, Mail, ArrowRight, Code2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { PrismMark } from '../components/PrismLogo';
 
 export default function VerifyEmail() {
   const [searchParams] = useSearchParams();
@@ -68,9 +69,7 @@ export default function VerifyEmail() {
         }}
       >
         <div className="flex justify-center mb-6">
-          <div className="brand-mark brand-mark-pulse h-14 w-14 flex items-center justify-center rounded-2xl shadow-lg">
-            <Code2 size={28} className="text-primary" />
-          </div>
+          <PrismMark size={56} className="brand-mark-pulse" />
         </div>
 
         {state === 'verifying' && (

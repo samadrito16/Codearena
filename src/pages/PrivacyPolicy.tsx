@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { PrismMark } from '../components/PrismLogo';
 import {
   Code2,
   Shield,
@@ -54,10 +55,8 @@ export default function PrivacyPolicy() {
         <div className="mx-auto flex max-w-[1480px] items-center justify-between">
           <div className="flex items-center gap-4">
             <Link to={user ? '/dashboard' : '/problems'} className="flex items-center gap-2.5 font-display text-lg font-bold text-primary">
-              <span className="brand-mark brand-mark-pulse h-8 w-8">
-                <Code2 size={18} strokeWidth={2.5} />
-              </span>
-              <span>Prismcode<span className="themed-link">.</span></span>
+              <PrismMark size={30} className="brand-mark-pulse" />
+              <span>Prism Code<span className="themed-link">.</span></span>
             </Link>
             <div className="hidden items-center gap-1.5 sm:flex">
               <span className="text-muted">/</span>

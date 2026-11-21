@@ -1,4 +1,5 @@
 import { Code2, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
+import { PrismMark } from '../PrismLogo';
 
 interface AuthStatusScreenProps {
   type: 'loading' | 'error';
@@ -21,9 +22,7 @@ export default function AuthStatusScreen({
         }}
       >
         <div className="flex justify-center mb-6">
-          <div className="brand-mark brand-mark-pulse h-14 w-14 flex items-center justify-center rounded-2xl shadow-lg">
-            <Code2 size={28} className="text-primary" />
-          </div>
+          <PrismMark size={56} className="brand-mark-pulse" />
         </div>
 
         {type === 'loading' ? (

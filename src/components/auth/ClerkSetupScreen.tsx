@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { Code2, Key, ExternalLink, ShieldCheck, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { PrismMark } from '../PrismLogo';
 
 export default function ClerkSetupScreen() {
   const [publishableKey, setPublishableKey] = useState('');
@@ -42,8 +43,8 @@ export default function ClerkSetupScreen() {
         }}
       >
         <div className="text-center mb-6">
-          <div className="brand-mark brand-mark-pulse mx-auto mb-4 h-14 w-14 flex items-center justify-center rounded-2xl shadow-lg">
-            <Code2 size={28} className="text-primary" />
+          <div className="flex justify-center mb-4">
+            <PrismMark size={56} className="brand-mark-pulse" />
           </div>
           <h1 className="font-display text-2xl font-bold tracking-tight text-primary">
             Clerk Authentication Ready

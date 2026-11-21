@@ -3,6 +3,7 @@ import { BarChart3, Code2, Compass, Flame, LayoutDashboard, Map, Search, Setting
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
 import AccountMenu from './AccountMenu';
+import { PrismMark } from './PrismLogo';
 
 const mainItems = [
   { to: '/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -18,8 +19,8 @@ export default function Sidebar() {
 
   return <aside className="sidebar-shell hidden lg:flex" aria-label="Sidebar navigation">
     <div className="flex items-center gap-3 px-6 py-6">
-      <div className="brand-mark brand-mark-pulse"><Code2 size={21} strokeWidth={2.6}/></div>
-      <div><div className="font-display text-[19px] font-bold tracking-tight text-primary">Prismcode<span className="themed-link">.</span></div><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Level up your logic</div></div>
+      <PrismMark size={36} className="brand-mark-pulse shrink-0" />
+      <div><div className="font-display text-[19px] font-bold tracking-tight text-primary flex items-center">Prism Code<span className="themed-link">.</span></div><div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Level up your logic</div></div>
     </div>
     <div className="px-4 pb-3">
       <button

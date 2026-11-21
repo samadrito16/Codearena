@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import { useUi } from '../context/UiContext';
 import { authService } from '../services/authService';
 import { ApiError } from '../lib/api';
+import { PrismMark } from '../components/PrismLogo';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -255,11 +256,9 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
           <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full border-[50px] border-white/5" />
           <div className="absolute -bottom-28 -left-24 h-72 w-72 rounded-full border-[50px] border-white/5" />
           <div className="relative">
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
-                <Code2 size={20} />
-              </div>
-              <span className="font-display text-lg font-bold">Prismcode</span>
+            <div className="flex items-center gap-3">
+              <PrismMark size={38} className="drop-shadow-md" />
+              <span className="font-display text-xl font-bold tracking-tight">Prism Code</span>
             </div>
             <div className="mt-24">
               <h2 className="font-display text-4xl font-bold leading-tight">
@@ -271,9 +270,9 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
 
         {/* Right Form Container */}
         <div className="p-6 sm:p-9">
-          <div className="mb-7 flex items-center gap-2 md:hidden">
-            <div className="brand-mark"><Code2 size={19} /></div>
-            <span className="font-display text-lg font-bold text-slate-900 dark:text-white">Prismcode</span>
+          <div className="mb-7 flex items-center gap-2.5 md:hidden">
+            <PrismMark size={32} className="brand-mark-pulse" />
+            <span className="font-display text-lg font-bold text-slate-900 dark:text-white">Prism Code</span>
           </div>
           <p className="section-kicker">AUTHENTICATION</p>
           <h2 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white">

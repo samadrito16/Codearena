@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { authService } from '../services/authService';
 import { ApiError } from '../lib/api';
+import { PrismMark } from '../components/PrismLogo';
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -82,8 +83,8 @@ export default function ResetPassword() {
         }}
       >
         <div className="text-center mb-8">
-          <div className="brand-mark brand-mark-pulse mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-xl">
-            <Code2 size={24} className="text-primary" />
+          <div className="flex justify-center mb-4">
+            <PrismMark size={52} className="brand-mark-pulse" />
           </div>
           <h1 className="font-display text-2xl font-bold tracking-tight text-primary">
             Create New Password

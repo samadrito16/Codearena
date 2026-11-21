@@ -932,8 +932,8 @@ code, pre, .font-mono, .workspace-inline-code { font-family: var(--ca-font-mono)
 .brand-mark { box-shadow: 0 8px 24px color-mix(in srgb, var(--ca-accent-solid) 23%, transparent); }
 .brand-mark-pulse { animation: ca-brand-pulse 3.6s ease-in-out infinite; }
 @keyframes ca-brand-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 var(--ca-brand-ring), 0 8px 24px color-mix(in srgb, var(--ca-accent-solid) 22%, transparent); }
-  50% { box-shadow: 0 0 0 7px transparent, 0 8px 24px color-mix(in srgb, var(--ca-accent-solid) 30%, transparent); }
+  0%, 100% { filter: drop-shadow(0 2px 8px color-mix(in srgb, var(--ca-accent-solid) 25%, transparent)); }
+  50% { filter: drop-shadow(0 4px 18px color-mix(in srgb, var(--ca-accent-solid) 50%, transparent)); }
 }
 .topbar {
   background: color-mix(in srgb, var(--ca-surface) 76%, transparent) !important;
