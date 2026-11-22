@@ -278,6 +278,16 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
               )}
             </div>
 
+            {/* Year Planner */}
+            <NavLink
+              to="/year"
+              className={({ isActive }) =>
+                `top-nav-box ${isActive ? 'top-nav-box-active' : ''}`
+              }
+            >
+              Year
+            </NavLink>
+
             {/* Leaderboard */}
             <NavLink
               to="/leaderboard"

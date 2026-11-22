@@ -16,6 +16,7 @@ const baseMobileItems = [
   ['/mastery', 'Pattern Mastery'],
   ['/daily-challenges', 'Daily challenges'],
   ['/learning-paths', 'Learning paths'],
+  ['/year', 'Year Planner'],
   ['/progress', 'Your progress'],
   ['/problems', 'Problems'],
   ['/workspace/two-sum', 'Code editor'],
