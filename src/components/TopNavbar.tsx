@@ -101,9 +101,15 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/daily-challenges') ||
     location.pathname.startsWith('/workspace');
 
+  const isYearPlanner = location.pathname.startsWith('/year');
+
   return (
     <header className={`top-navbar-root ${isScrolled ? 'is-scrolled' : ''}`}>
-      <div className="mx-auto flex h-[52px] w-full max-w-[1560px] items-center justify-between px-3 sm:px-5 lg:px-7">
+      <div
+        className={`mx-auto flex h-[52px] w-full ${
+          isYearPlanner ? 'max-w-none px-3 sm:px-5 lg:px-7' : 'max-w-[1560px] px-3 sm:px-5 lg:px-7'
+        } items-center justify-between`}
+      >
         {/* Left Side: Brand & Navigation */}
         <div className="flex items-center gap-2 sm:gap-6">
           {/* Website Name & Logo */}

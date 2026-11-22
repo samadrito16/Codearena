@@ -30,6 +30,7 @@ export default function Layout() {
   const { announcement } = useUi();
   const { user } = useAuth();
   const isWorkspace = location.pathname.startsWith('/workspace');
+  const isYearPlanner = location.pathname.startsWith('/year');
 
   const mobileItems = useMemo(() => {
     if (user?.role === 'admin') {
@@ -146,6 +147,8 @@ export default function Layout() {
             className={
               isWorkspace
                 ? 'workspace-route-main'
+                : isYearPlanner
+                ? 'w-full flex-1 px-3 sm:px-5 lg:px-7 pb-12 pt-3'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
             }
           >
