@@ -16,6 +16,12 @@ import { Link } from 'react-router-dom';
 import { platformRoadmapCards, type RoadmapCardData } from '../data/platformRoadmap';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
 import SlidingTopicsTicker from '../components/SlidingTopicsTicker';
+import {
+  QuickStatsRow,
+  DailyChallengeCard,
+  RecentActivityFeed,
+  ContinueWhereYouLeftOff,
+} from '../components/OverviewSections';
 
 export default function Dashboard() {
   const { data: problems } = useProblems();
@@ -88,7 +94,17 @@ export default function Dashboard() {
       <SlidingTopicsTicker />
 
       {/* ─────────────────────────────────────────────────────────────
-          3. PLATFORM MASTERY ROADMAP (CURVED ALTERNATING ZIGZAG)
+          3. OVERVIEW PULSE: QUICK STATS, DAILY CHALLENGE & ACTIVITY
+      ────────────────────────────────────────────────────────────── */}
+      <div className="space-y-10 sm:space-y-12">
+        <QuickStatsRow />
+        <DailyChallengeCard />
+        <ContinueWhereYouLeftOff />
+        <RecentActivityFeed />
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          4. PLATFORM MASTERY ROADMAP (CURVED ALTERNATING ZIGZAG)
       ────────────────────────────────────────────────────────────── */}
       <section className="relative px-2 sm:px-4 pt-6">
         {/* Ambient Top Glow */}
