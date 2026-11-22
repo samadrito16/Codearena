@@ -17,12 +17,17 @@ export function setApiAuthTokenGetter(getter: (() => Promise<string | null>) | n
   tokenGetter = getter;
 }
 
+export interface ApiRequestOptions extends RequestInit {
+  silent?: boolean;
+}
+
 export async function apiRequest<T>(
   path: string,
-  options: RequestInit = {},
+  options: ApiRequestOptions = {},
 ): Promise<T> {
-  const headers = new Headers(options.headers);
-  if (options.body && !headers.has('Content-Type')) {
+  const { silent, ...fetchOptions } = options;
+  const headers = new Headers(fetchOptions.headers);
+  if (fetchOptions.body && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
   }
 
@@ -41,12 +46,14 @@ export async function apiRequest<T>(
   let response: Response;
   try {
     response = await fetch(`${API_BASE_URL}${path}`, {
-      ...options,
+      ...fetchOptions,
       headers,
       credentials: 'include',
     });
   } catch {
-    if (typeof window !== 'undefined') {
+    // Only dispatch network error banner event for non-silent, active user requests
+    // Routine background checks (e.g. /auth/me opportunistic probing) will not trigger the global alarm
+    if (typeof window !== 'undefined' && !silent && path !== '/auth/me') {
       window.dispatchEvent(new CustomEvent('codearena:network-error', {
         detail: { path, timestamp: Date.now() },
       }));

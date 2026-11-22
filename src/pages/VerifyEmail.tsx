@@ -1,10 +1,15 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { CheckCircle2, AlertTriangle, Loader2, Mail, ArrowRight, Code2 } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Loader2, Mail, ArrowRight, Code2, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { PrismMark } from '../components/PrismLogo';
 
-export default function VerifyEmail() {
+interface VerifyEmailProps {
+  isModal?: boolean;
+  onClose?: () => void;
+}
+
+export default function VerifyEmail({ isModal = false, onClose }: VerifyEmailProps) {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const navigate = useNavigate();
@@ -60,16 +65,21 @@ export default function VerifyEmail() {
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center p-4">
-      <div
-        className="w-full max-w-md rounded-3xl border p-8 text-center shadow-xl backdrop-blur-xl animate-in fade-in"
-        style={{
-          background: 'var(--ca-surface)',
-          borderColor: 'var(--ca-border)',
-        }}
-      >
-        <div className="flex justify-center mb-6">
-          <PrismMark size={56} className="brand-mark-pulse" />
+    <div className={isModal ? 'relative w-full' : 'min-h-[85vh] flex items-center justify-center py-6 px-4'}>
+      <div className="glass-auth-card relative z-10 mx-auto w-full max-w-[440px] overflow-hidden rounded-[32px] p-6 sm:p-8 text-center animate-in fade-in zoom-in-95 duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 text-slate-500 hover:text-slate-800 dark:bg-white/10 dark:hover:bg-white/20 dark:text-slate-300 dark:hover:text-white transition backdrop-blur-md"
+            aria-label="Close"
+          >
+            <X size={16} />
+          </button>
+        )}
+        {/* Top Centered Glowing Brand Icon Badge */}
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/25 dark:bg-white/10 border border-white/40 dark:border-white/15 backdrop-blur-md shadow-lg shadow-black/5 mb-4">
+          <PrismMark size={32} className="brand-mark-pulse" />
         </div>
 
         {state === 'verifying' && (
@@ -134,11 +144,7 @@ export default function VerifyEmail() {
                     value={resendEmail}
                     onChange={(e) => setResendEmail(e.target.value)}
                     placeholder="alex@example.com"
-                    className="w-full rounded-xl border pl-10 pr-3.5 py-2 text-xs text-primary transition focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    style={{
-                      background: 'var(--ca-surface-muted)',
-                      borderColor: 'var(--ca-border)',
-                    }}
+                    className="glass-auth-input w-full rounded-full pl-10 pr-4 py-2 text-xs sm:text-sm transition focus:outline-none"
                   />
                 </div>
               </div>
@@ -152,7 +158,7 @@ export default function VerifyEmail() {
               <button
                 type="submit"
                 disabled={isResending || !resendEmail.trim()}
-                className="btn-primary w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold disabled:opacity-50"
+                className="glass-auth-submit-btn w-full py-2.5 rounded-full flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold disabled:opacity-50 active:scale-[0.99] transition"
               >
                 {isResending ? (
                   <>

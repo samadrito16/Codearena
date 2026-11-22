@@ -34,6 +34,14 @@ export default function Layout() {
   const isYearPlanner = location.pathname.startsWith('/year');
   const isEditor = location.pathname.startsWith('/editor');
 
+  const isAuthRoute = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].some(
+    (p) => location.pathname === p || location.pathname.startsWith(p + '/')
+  );
+
+  const currentRouteKey = isAuthRoute
+    ? (location.state as { backgroundLocation?: { pathname: string } })?.backgroundLocation?.pathname || '/dashboard'
+    : location.pathname;
+
   const mobileItems = useMemo(() => {
     if (user?.role === 'admin') {
       return [...baseMobileItems, ['/admin', 'Admin dashboard']];
@@ -51,14 +59,14 @@ export default function Layout() {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (!isWorkspace && !isEditor) {
+    if (!isWorkspace && !isEditor && !isAuthRoute) {
       gsap.fromTo(
         '.page-enter',
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', clearProps: 'all' }
       );
     }
-  }, [location.pathname, isWorkspace, isEditor]);
+  }, [location.pathname, isWorkspace, isEditor, isAuthRoute]);
 
   return (
     <SmoothScrollProvider>
@@ -157,7 +165,7 @@ export default function Layout() {
             {isWorkspace || isEditor ? (
               <Outlet />
             ) : (
-              <div key={location.pathname} className="page-enter">
+              <div key={currentRouteKey} className="page-enter">
                 <Outlet />
               </div>
             )}

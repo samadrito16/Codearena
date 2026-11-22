@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronsUpDown, LoaderCircle, LogOut, Settings, ShieldCheck, UserRound } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +22,7 @@ export default function AccountMenu({
   const [logoutError, setLogoutError] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!open) return;
@@ -89,7 +90,7 @@ export default function AccountMenu({
 
         {open && (
           <div
-            className="glass-dropdown-menu absolute right-0 top-full mt-2 w-56 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50 text-left"
+            className="glass-dropdown-menu absolute right-0 top-full mt-2 w-56 rounded-2xl p-1.5 shadow-2xl z-50 text-left"
             role="menu"
           >
             {/* Header / User Info */}
@@ -174,6 +175,7 @@ export default function AccountMenu({
             ) : (
               <Link
                 to="/login"
+                state={{ backgroundLocation: location }}
                 onClick={() => {
                   setOpen(false);
                   onAction?.();
@@ -253,6 +255,7 @@ export default function AccountMenu({
         ) : (
           <Link
             to="/login"
+            state={{ backgroundLocation: location }}
             onClick={() => { setOpen(false); onAction?.(); }}
             className="dropdown-item themed-link"
           >

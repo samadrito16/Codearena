@@ -40,9 +40,10 @@ export const authService = {
     return extractUser(response);
   },
 
-  async getCurrentUser(): Promise<User> {
+  async getCurrentUser(options?: { silent?: boolean }): Promise<User> {
     const response = await apiRequest<UserResponse>('/auth/me', {
       method: 'GET',
+      silent: options?.silent ?? true,
     });
     return extractUser(response);
   },

@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import { WifiOff, RefreshCw, X } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function NetworkErrorBanner() {
+  const { user } = useAuth();
   const [hasError, setHasError] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
@@ -56,7 +58,9 @@ export default function NetworkErrorBanner() {
     };
   }, [checkConnection]);
 
-  if (!hasError || isDismissed) return null;
+  // Only display the banner to authenticated users who actively have ongoing sync / cloud save sessions,
+  // preventing false-alarm network warnings for unauthenticated visitors browsing public pages.
+  if (!user || !hasError || isDismissed) return null;
 
   return (
     <div

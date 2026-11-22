@@ -5,12 +5,14 @@ import EmptyState from '../components/ui/EmptyState';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { CardSkeleton, SkeletonLine } from '../components/ui/LoadingSkeleton';
 import { useLeaderboard } from '../hooks/useDataServices';
+import { useAuth } from '../context/AuthContext';
 import type { LeaderboardEntry } from '../services';
 
 type TimeRange = 'all' | 'month' | 'week';
 
 export default function Leaderboard() {
   const { data: entries, status, error, retry } = useLeaderboard();
+  const { user } = useAuth();
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -64,6 +66,11 @@ export default function Leaderboard() {
           </h1>
           <p className="text-xs sm:text-sm text-muted mt-1.5 leading-relaxed">
             Celebrate consistency, problem-solving velocity, and pattern mastery.
+            {!user && (
+              <span className="block mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                Login to earn points.
+              </span>
+            )}
           </p>
         </div>
 
@@ -80,6 +87,40 @@ export default function Leaderboard() {
           </button>
         </div>
       </div>
+
+      {/* Login to earn points prompt banner for guest visitors */}
+      {!user && (
+        <div
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border"
+          style={{
+            borderColor: 'color-mix(in srgb, var(--ca-accent-solid) 32%, var(--ca-border))',
+            background: 'color-mix(in srgb, var(--ca-accent-solid) 8%, var(--ca-surface))',
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-bold"
+              style={{
+                background: 'color-mix(in srgb, var(--ca-accent-solid) 16%, var(--ca-surface))',
+                color: 'var(--ca-accent-solid)',
+              }}
+            >
+              <Trophy size={18} />
+            </span>
+            <div>
+              <p className="text-sm font-bold text-primary">Login to earn points.</p>
+              <p className="text-xs text-muted mt-0.5">Solve daily challenges and algorithm problems to climb the global rankings.</p>
+            </div>
+          </div>
+          <Link
+            to="/login"
+            state={{ from: { pathname: '/leaderboard' }, backgroundLocation: { pathname: '/leaderboard' } }}
+            className="btn-primary py-2 px-4 text-xs font-semibold shrink-0 sm:self-center"
+          >
+            Sign in
+          </Link>
+        </div>
+      )}
 
       {/* Filter and Search Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">

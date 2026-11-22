@@ -21,8 +21,8 @@ export default function RequireAuth() {
   }
 
   if (status === 'unauthenticated' || !user) {
-    // Preserve requested location so user can be redirected back after login
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Preserve requested location and provide backgroundLocation for modal overlay
+    return <Navigate to="/login" state={{ from: location, backgroundLocation: { pathname: '/dashboard' } }} replace />;
   }
 
   return <Outlet />;

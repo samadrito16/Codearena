@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { ArrowRight, Code2, KeyRound, LoaderCircle, Mail, UserRound } from 'lucide-react';
+import { ArrowRight, KeyRound, LoaderCircle, Mail, Sparkles, UserRound, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useClerk } from '@clerk/react';
 import ErrorAlert from '../components/ui/ErrorAlert';
@@ -55,9 +55,11 @@ interface AuthFieldErrors {
 
 interface AuthProps {
   mode?: 'login' | 'register';
+  isModal?: boolean;
+  onClose?: () => void;
 }
 
-export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
+export default function Auth({ mode: initialMode = 'login', isModal = false, onClose }: AuthProps) {
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -143,7 +145,7 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
 
     if (mode === 'register') {
       if (!trimmedName) {
-        errors.name = 'Enter your display name or handle.';
+        errors.name = 'Enter your display name.';
       } else if (trimmedName.length < 2) {
         errors.name = 'Name should be at least 2 characters.';
       } else if (trimmedName.length > 50) {
@@ -154,19 +156,19 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
     if (!trimmedEmail) {
       errors.email = 'Enter an email address.';
     } else if (!EMAIL_PATTERN.test(trimmedEmail)) {
-      errors.email = 'Enter a valid email address (for example, you@example.com).';
+      errors.email = 'Enter a valid email address.';
     }
 
     if (!password) {
-      errors.password = 'Enter your password.';
+      errors.password = 'Enter a password.';
     } else if (password.length < 8) {
-      errors.password = 'Password must be at least 8 characters long.';
+      errors.password = 'Password must be at least 8 characters.';
     }
 
     if (mode === 'register') {
       if (!confirmPassword) {
         errors.confirmPassword = 'Confirm your password.';
-      } else if (password !== confirmPassword) {
+      } else if (confirmPassword !== password) {
         errors.confirmPassword = 'Passwords do not match.';
       }
     }
@@ -174,17 +176,17 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
     return errors;
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
     if (isSubmitting) return;
 
     const errors = validateForm();
-    setFieldErrors(errors);
     if (Object.keys(errors).length > 0) {
-      setSubmitError('Please fix the highlighted fields before continuing.');
+      setFieldErrors(errors);
       return;
     }
 
+    setFieldErrors({});
     setSubmitError(null);
     setIsSubmitting(true);
 
@@ -193,28 +195,85 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
 
     try {
       if (mode === 'login') {
-        if (signIn) {
-          await signIn({
-            email: trimmedEmail,
-            password,
-          });
+        if (isClerk && clerk?.client) {
+          try {
+            const result = await clerk.client.signIn.create({
+              identifier: trimmedEmail,
+              password,
+            });
+
+            if (result.status === 'complete') {
+              await clerk.setActive({ session: result.createdSessionId });
+            } else if (result.status === 'needs_first_factor') {
+              const emailFactor = result.supportedFirstFactors?.find(
+                (f) => f.strategy === 'email_code'
+              );
+              if (emailFactor && 'emailAddressId' in emailFactor) {
+                await result.prepareFirstFactor({
+                  strategy: 'email_code',
+                  emailAddressId: emailFactor.emailAddressId,
+                });
+                navigate('/verify-email', {
+                  state: { email: trimmedEmail, signInId: result.id, from: fromLocation },
+                });
+                return;
+              }
+            }
+          } catch (clerkErr: unknown) {
+            const errObj = clerkErr as { errors?: Array<{ message: string; code?: string }> };
+            const firstErr = errObj?.errors?.[0];
+            if (firstErr?.code === 'form_identifier_not_found') {
+              throw new ApiError('No account found with this email. Please check the email or create an account.', 401, 'INVALID_CREDENTIALS');
+            } else if (firstErr?.code === 'form_password_incorrect') {
+              throw new ApiError('Incorrect password. Please verify and try again.', 401, 'INVALID_CREDENTIALS');
+            }
+            throw new Error(firstErr?.message || 'Clerk sign-in failed.');
+          }
         } else {
-          await authService.signIn({
-            email: trimmedEmail,
-            password,
-          });
+          if (signIn) {
+            await signIn({ email: trimmedEmail, password });
+          } else {
+            await authService.signIn({ email: trimmedEmail, password });
+          }
         }
 
-        announce(`Signed in successfully as ${trimmedEmail}`);
+        announce('Signed in successfully');
         navigate(destination, { replace: true });
       } else {
-        // Register mode
-        if (register) {
-          await register({
-            name: trimmedName,
-            email: trimmedEmail,
-            password,
-          });
+        if (isClerk && clerk?.client) {
+          try {
+            const nameParts = trimmedName.split(' ');
+            const firstName = nameParts[0] || trimmedName;
+            const lastName = nameParts.slice(1).join(' ') || undefined;
+
+            const signUpAttempt = await clerk.client.signUp.create({
+              emailAddress: trimmedEmail,
+              password,
+              firstName,
+              lastName,
+            });
+
+            if (signUpAttempt.status === 'missing_requirements') {
+              await signUpAttempt.prepareEmailAddressVerification({
+                strategy: 'email_code',
+              });
+              navigate('/verify-email', {
+                state: { email: trimmedEmail, signUpId: signUpAttempt.id, from: fromLocation },
+              });
+              return;
+            } else if (signUpAttempt.status === 'complete') {
+              await clerk.setActive({ session: signUpAttempt.createdSessionId });
+            }
+          } catch (clerkErr: unknown) {
+            const errObj = clerkErr as { errors?: Array<{ message: string; code?: string }> };
+            const firstErr = errObj?.errors?.[0];
+            if (firstErr?.code === 'form_identifier_exists') {
+              throw new ApiError('An account with this email address already exists. Please sign in instead.', 409, 'EMAIL_ALREADY_REGISTERED');
+            } else if (firstErr?.code === 'form_password_pwned') {
+              throw new ApiError('This password has been flagged in security breaches. Please choose a stronger, unique password.', 400, 'WEAK_PASSWORD');
+            }
+            throw new Error(firstErr?.message || 'Clerk registration failed.');
+          }
         } else {
           await authService.register({
             name: trimmedName,
@@ -249,267 +308,272 @@ export default function Auth({ mode: initialMode = 'login' }: AuthProps) {
   }
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-6 px-4">
-      <div className="mx-auto grid w-full max-w-4xl overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-950 dark:shadow-black/20 md:grid-cols-[0.95fr_1.05fr]">
-        {/* Left Branding / Atmosphere Banner */}
-        <div className="relative hidden overflow-hidden bg-gradient-to-br from-[#102b38] via-[#0d6970] to-[#286c5b] p-8 text-white md:flex md:flex-col md:justify-between">
-          <div className="absolute -right-24 -top-20 h-72 w-72 rounded-full border-[50px] border-white/5" />
-          <div className="absolute -bottom-28 -left-24 h-72 w-72 rounded-full border-[50px] border-white/5" />
-          <div className="relative">
-            <div className="flex items-center gap-3">
-              <PrismMark size={38} className="drop-shadow-md" />
-              <span className="font-display text-xl font-bold tracking-tight">Prism Code</span>
-            </div>
-            <div className="mt-24">
-              <h2 className="font-display text-4xl font-bold leading-tight">
-                Make every<br />line of code<br /><span className="text-teal-200">count.</span>
-              </h2>
-            </div>
+    <div className={isModal ? 'relative w-full' : 'min-h-[85vh] flex items-center justify-center py-6 px-4'}>
+      {/* Authentic Single-Card Frosted Glassmorphism Modal */}
+      <div className="glass-auth-card relative z-10 mx-auto w-full max-w-[440px] overflow-hidden rounded-[32px] p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 text-slate-500 hover:text-slate-800 dark:bg-white/10 dark:hover:bg-white/20 dark:text-slate-300 dark:hover:text-white transition backdrop-blur-md"
+            aria-label="Close"
+          >
+            <X size={16} />
+          </button>
+        )}
+
+        {/* Top Centered Glowing Brand Icon Badge */}
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/25 dark:bg-white/10 border border-white/40 dark:border-white/15 backdrop-blur-md shadow-lg shadow-black/5">
+          <PrismMark size={32} className="brand-mark-pulse" />
+        </div>
+
+        {/* Title & Subtitle */}
+        <div className="mt-4 text-center">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {mode === 'register' ? 'Create your account' : 'Welcome back'}
+          </h2>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            {mode === 'register'
+              ? 'Join PrismCode and start practicing'
+              : 'Sign in to access your personal workspace'}
+          </p>
+        </div>
+
+        {fromLocation && (
+          <div className="mt-3.5 flex items-center justify-center gap-2 rounded-xl border border-indigo-500/25 bg-indigo-500/10 px-3.5 py-2 text-xs text-indigo-700 dark:text-indigo-300 animate-in fade-in">
+            <Sparkles size={14} className="shrink-0 text-indigo-500 dark:text-indigo-400" />
+            <span>Sign in to access this feature</span>
+          </div>
+        )}
+
+        {/* Segmented Pill Tabs */}
+        <div className="glass-auth-tabs mt-5 grid grid-cols-2 rounded-full p-1" role="tablist" aria-label="Authentication mode">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'login'}
+            disabled={isSubmitting}
+            onClick={() => switchMode('login')}
+            className={`rounded-full py-1.5 text-xs font-semibold transition-all ${
+              mode === 'login'
+                ? 'glass-auth-tab-active shadow-sm'
+                : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+            }`}
+          >
+            Sign in
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'register'}
+            disabled={isSubmitting || isOAuthSubmitting !== null}
+            onClick={() => switchMode('register')}
+            className={`rounded-full py-1.5 text-xs font-semibold transition-all ${
+              mode === 'register'
+                ? 'glass-auth-tab-active shadow-sm'
+                : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+            }`}
+          >
+            Create account
+          </button>
+        </div>
+
+        {/* Social Sign-In (Google & GitHub Pill Buttons) */}
+        <div className="mt-4 grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
+            disabled={isSubmitting || isOAuthSubmitting !== null}
+            onClick={() => handleOAuth('oauth_google')}
+            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
+            aria-label={mode === 'register' ? 'Sign up with Google' : 'Sign in with Google'}
+          >
+            {isOAuthSubmitting === 'oauth_google' ? (
+              <LoaderCircle size={15} className="animate-spin text-slate-500" />
+            ) : (
+              <GoogleIcon className="h-4 w-4 shrink-0" />
+            )}
+            <span>Google</span>
+          </button>
+
+          <button
+            type="button"
+            disabled={isSubmitting || isOAuthSubmitting !== null}
+            onClick={() => handleOAuth('oauth_github')}
+            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
+            aria-label={mode === 'register' ? 'Sign up with GitHub' : 'Sign in with GitHub'}
+          >
+            {isOAuthSubmitting === 'oauth_github' ? (
+              <LoaderCircle size={15} className="animate-spin text-slate-500" />
+            ) : (
+              <GithubIcon className="h-4 w-4 shrink-0" />
+            )}
+            <span>GitHub</span>
+          </button>
+        </div>
+
+        {/* Subtle Frosted Divider */}
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-slate-300/60 dark:border-white/10" />
+          </div>
+          <div className="relative flex justify-center text-[10px] uppercase tracking-wider">
+            <span className="rounded-full bg-white/70 dark:bg-slate-900/70 px-2.5 py-0.5 font-medium text-slate-500 dark:text-slate-400 backdrop-blur-md border border-slate-200/50 dark:border-white/10">
+              or continue with email
+            </span>
           </div>
         </div>
 
-        {/* Right Form Container */}
-        <div className="p-6 sm:p-9">
-          <div className="mb-7 flex items-center gap-2.5 md:hidden">
-            <PrismMark size={32} className="brand-mark-pulse" />
-            <span className="font-display text-lg font-bold text-slate-900 dark:text-white">Prism Code</span>
+        {submitError && (
+          <div className="mt-3 mb-2" role="alert" aria-live="polite">
+            <ErrorAlert
+              title={mode === 'register' ? 'Registration Issue' : 'Sign-in Issue'}
+              message={submitError}
+              onDismiss={() => setSubmitError(null)}
+            />
           </div>
-          <p className="section-kicker">AUTHENTICATION</p>
-          <h2 className="mt-2 font-display text-2xl font-bold text-slate-900 dark:text-white">
-            {mode === 'register' ? 'Create your account' : 'Welcome back'}
-          </h2>
+        )}
 
-          <div className="mt-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1 dark:bg-slate-800" role="tablist" aria-label="Authentication mode">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={mode === 'login'}
-              disabled={isSubmitting}
-              onClick={() => switchMode('login')}
-              className={`rounded-lg py-2 text-xs font-bold transition ${
-                mode === 'login'
-                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              Sign in
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={mode === 'register'}
-              disabled={isSubmitting || isOAuthSubmitting !== null}
-              onClick={() => switchMode('register')}
-              className={`rounded-lg py-2 text-xs font-bold transition ${
-                mode === 'register'
-                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white'
-                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              Create account
-            </button>
-          </div>
-
-          {/* Social Sign-In (Google & GitHub) */}
-          <div className="mt-5 grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              disabled={isSubmitting || isOAuthSubmitting !== null}
-              onClick={() => handleOAuth('oauth_google')}
-              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-2.5 px-3 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800/80"
-              aria-label={mode === 'register' ? 'Sign up with Google' : 'Sign in with Google'}
-            >
-              {isOAuthSubmitting === 'oauth_google' ? (
-                <LoaderCircle size={15} className="animate-spin text-slate-500" />
-              ) : (
-                <GoogleIcon className="h-4 w-4 shrink-0" />
+        <form onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} className="mt-3 space-y-3">
+          {mode === 'register' && (
+            <div>
+              <div className="relative">
+                <UserRound size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400" aria-hidden="true" />
+                <input
+                  type="text"
+                  value={name}
+                  autoComplete="name"
+                  disabled={isSubmitting}
+                  aria-invalid={Boolean(fieldErrors.name)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    if (fieldErrors.name) setFieldErrors((prev) => ({ ...prev, name: undefined }));
+                    if (submitError) setSubmitError(null);
+                  }}
+                  className={`glass-auth-input form-input w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm ${fieldErrors.name ? 'border-rose-500 focus:border-rose-500' : ''}`}
+                  placeholder="Your display name"
+                />
+              </div>
+              {fieldErrors.name && (
+                <span className="mt-1 ml-3 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                  {fieldErrors.name}
+                </span>
               )}
-              <span>Google</span>
-            </button>
-
-            <button
-              type="button"
-              disabled={isSubmitting || isOAuthSubmitting !== null}
-              onClick={() => handleOAuth('oauth_github')}
-              className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-2.5 px-3 text-xs font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800/80"
-              aria-label={mode === 'register' ? 'Sign up with GitHub' : 'Sign in with GitHub'}
-            >
-              {isOAuthSubmitting === 'oauth_github' ? (
-                <LoaderCircle size={15} className="animate-spin text-slate-500" />
-              ) : (
-                <GithubIcon className="h-4 w-4 shrink-0" />
-              )}
-              <span>GitHub</span>
-            </button>
-          </div>
-
-          {/* Clean Divider */}
-          <div className="relative my-5">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
-            </div>
-            <div className="relative flex justify-center text-[10px] uppercase tracking-wider">
-              <span className="bg-white px-2.5 font-semibold text-slate-400 dark:bg-slate-950 dark:text-slate-500">
-                or continue with email
-              </span>
-            </div>
-          </div>
-
-          {submitError && (
-            <div className="mt-4" role="alert" aria-live="polite">
-              <ErrorAlert
-                title={mode === 'register' ? 'Registration Issue' : 'Sign-in Issue'}
-                message={submitError}
-                onDismiss={() => setSubmitError(null)}
-              />
             </div>
           )}
 
-          <form onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} className="mt-5 space-y-4">
-            {mode === 'register' && (
-              <label className="form-label block">
-                Your display name
-                <div className="relative mt-1">
-                  <UserRound size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-                  <input
-                    type="text"
-                    value={name}
-                    autoComplete="name"
-                    disabled={isSubmitting}
-                    aria-invalid={Boolean(fieldErrors.name)}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                      if (fieldErrors.name) setFieldErrors((prev) => ({ ...prev, name: undefined }));
-                      if (submitError) setSubmitError(null);
-                    }}
-                    className={`form-input pl-10 ${fieldErrors.name ? 'border-rose-500 focus:border-rose-500' : ''}`}
-                    placeholder="Alex Morgan"
-                  />
-                </div>
-                {fieldErrors.name && (
-                  <span className="mt-1 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
-                    {fieldErrors.name}
-                  </span>
-                )}
-              </label>
+          <div>
+            <div className="relative">
+              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400" aria-hidden="true" />
+              <input
+                type="email"
+                value={email}
+                autoComplete="email"
+                disabled={isSubmitting}
+                aria-invalid={Boolean(fieldErrors.email)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
+                  if (submitError) setSubmitError(null);
+                }}
+                className={`glass-auth-input form-input w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm ${fieldErrors.email ? 'border-rose-500 focus:border-rose-500' : ''}`}
+                placeholder="Email address"
+              />
+            </div>
+            {fieldErrors.email && (
+              <span className="mt-1 ml-3 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                {fieldErrors.email}
+              </span>
             )}
+          </div>
 
-            <label className="form-label block">
-              Email address
-              <div className="relative mt-1">
-                <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-                <input
-                  type="email"
-                  value={email}
-                  autoComplete="email"
-                  disabled={isSubmitting}
-                  aria-invalid={Boolean(fieldErrors.email)}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
-                    if (submitError) setSubmitError(null);
-                  }}
-                  className={`form-input pl-10 ${fieldErrors.email ? 'border-rose-500 focus:border-rose-500' : ''}`}
-                  placeholder="you@example.com"
-                />
+          <div>
+            <div className="relative">
+              <KeyRound size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400" aria-hidden="true" />
+              <input
+                type="password"
+                value={password}
+                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
+                disabled={isSubmitting}
+                aria-invalid={Boolean(fieldErrors.password)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
+                  if (submitError) setSubmitError(null);
+                }}
+                className={`glass-auth-input form-input w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm ${fieldErrors.password ? 'border-rose-500 focus:border-rose-500' : ''}`}
+                placeholder="Password (min 8 chars)"
+              />
+            </div>
+            {fieldErrors.password && (
+              <span className="mt-1 ml-3 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                {fieldErrors.password}
+              </span>
+            )}
+            {mode === 'login' && (
+              <div className="flex justify-end pr-2 pt-1">
+                <Link
+                  to="/forgot-password"
+                  state={location.state}
+                  className="text-[11px] font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition"
+                >
+                  Forgot password?
+                </Link>
               </div>
-              {fieldErrors.email && (
-                <span className="mt-1 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
-                  {fieldErrors.email}
-                </span>
-              )}
-            </label>
+            )}
+          </div>
 
-            <label className="form-label block">
-              <div className="flex items-center justify-between">
-                <span>Password</span>
-                {mode === 'login' && (
-                  <Link
-                    to="/forgot-password"
-                    className="text-[11px] font-medium text-indigo-600 hover:underline dark:text-indigo-400"
-                  >
-                    Forgot password?
-                  </Link>
-                )}
-              </div>
-              <div className="relative mt-1">
-                <KeyRound size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          {mode === 'register' && (
+            <div>
+              <div className="relative">
+                <KeyRound size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400" aria-hidden="true" />
                 <input
                   type="password"
-                  value={password}
-                  autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
+                  value={confirmPassword}
+                  autoComplete="new-password"
                   disabled={isSubmitting}
-                  aria-invalid={Boolean(fieldErrors.password)}
+                  aria-invalid={Boolean(fieldErrors.confirmPassword)}
                   onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
+                    setConfirmPassword(e.target.value);
+                    if (fieldErrors.confirmPassword) setFieldErrors((prev) => ({ ...prev, confirmPassword: undefined }));
                     if (submitError) setSubmitError(null);
                   }}
-                  className={`form-input pl-10 ${fieldErrors.password ? 'border-rose-500 focus:border-rose-500' : ''}`}
-                  placeholder="••••••••"
+                  className={`glass-auth-input form-input w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm ${fieldErrors.confirmPassword ? 'border-rose-500 focus:border-rose-500' : ''}`}
+                  placeholder="Confirm password"
                 />
               </div>
-              {fieldErrors.password && (
-                <span className="mt-1 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
-                  {fieldErrors.password}
+              {fieldErrors.confirmPassword && (
+                <span className="mt-1 ml-3 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                  {fieldErrors.confirmPassword}
                 </span>
               )}
-            </label>
+            </div>
+          )}
 
-            {mode === 'register' && (
-              <label className="form-label block">
-                Confirm password
-                <div className="relative mt-1">
-                  <KeyRound size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-                  <input
-                    type="password"
-                    value={confirmPassword}
-                    autoComplete="new-password"
-                    disabled={isSubmitting}
-                    aria-invalid={Boolean(fieldErrors.confirmPassword)}
-                    onChange={(e) => {
-                      setConfirmPassword(e.target.value);
-                      if (fieldErrors.confirmPassword) setFieldErrors((prev) => ({ ...prev, confirmPassword: undefined }));
-                      if (submitError) setSubmitError(null);
-                    }}
-                    className={`form-input pl-10 ${fieldErrors.confirmPassword ? 'border-rose-500 focus:border-rose-500' : ''}`}
-                    placeholder="••••••••"
-                  />
-                </div>
-                {fieldErrors.confirmPassword && (
-                  <span className="mt-1 block text-[11px] font-medium text-rose-600 dark:text-rose-400">
-                    {fieldErrors.confirmPassword}
-                  </span>
-                )}
-              </label>
+          <button
+            type="submit"
+            disabled={isSubmitting || isOAuthSubmitting !== null}
+            className="glass-auth-submit-btn w-full mt-3 py-2.5 px-4 font-semibold text-xs sm:text-sm active:scale-[0.99] disabled:opacity-60 flex items-center justify-center gap-2"
+          >
+            {isSubmitting ? (
+              <>
+                <LoaderCircle size={15} className="animate-spin" />
+                <span>{mode === 'register' ? 'Creating account…' : 'Signing in…'}</span>
+              </>
+            ) : (
+              <>
+                <span>{mode === 'register' ? 'Create Account' : 'Sign in to PrismCode'}</span>
+                <ArrowRight size={15} />
+              </>
             )}
+          </button>
 
-            <button
-              type="submit"
-              disabled={isSubmitting || isOAuthSubmitting !== null}
-              className="btn-primary mt-2 w-full disabled:opacity-65"
-            >
-              {isSubmitting ? (
-                <>
-                  <LoaderCircle size={15} className="animate-spin" />
-                  <span>{mode === 'register' ? 'Creating account…' : 'Authenticating…'}</span>
-                </>
-              ) : (
-                <>
-                  <span>{mode === 'register' ? 'Register Account' : 'Sign in to PrismCode'}</span>
-                  <ArrowRight size={15} />
-                </>
-              )}
-            </button>
-
-            <p className="mt-4 text-center text-[11px] leading-relaxed text-muted">
-              By {mode === 'register' ? 'creating an account' : 'signing in'}, you agree to PrismCode&rsquo;s{' '}
-              <Link to="/terms" className="themed-link underline font-medium">Terms of Service</Link>
-              {' '}and{' '}
-              <Link to="/privacy" className="themed-link underline font-medium">Privacy Policy</Link>.
-            </p>
-          </form>
-        </div>
+          <p className="mt-3 text-center text-[10px] sm:text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">
+            By continuing, you agree to PrismCode&rsquo;s{' '}
+            <Link to="/terms" className="themed-link underline font-medium">Terms</Link>
+            {' '}and{' '}
+            <Link to="/privacy" className="themed-link underline font-medium">Privacy Policy</Link>.
+          </p>
+        </form>
       </div>
     </div>
   );

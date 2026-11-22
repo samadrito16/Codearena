@@ -457,88 +457,122 @@ export default function Settings() {
           </h2>
 
           <div>
-            <div
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 rounded-2xl border transition-all"
-              style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
-            >
-              <div className="flex items-center gap-4 min-w-0">
-                <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl font-bold text-sm select-none"
-                  style={{
-                    background: 'color-mix(in srgb, var(--ca-accent-solid) 14%, var(--ca-surface-muted))',
-                    color: 'var(--ca-accent-solid)',
-                    border: '1px solid color-mix(in srgb, var(--ca-accent-solid) 24%, transparent)',
-                  }}
-                >
-                  {user?.name ? (
-                    user.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .slice(0, 2)
-                      .join('')
-                      .toUpperCase()
-                  ) : (
-                    <UserRound size={18} />
-                  )}
-                </div>
-
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-sm font-bold text-primary truncate">
-                      {user?.name || 'Developer'}
-                    </h3>
-                    {user?.role === 'admin' && (
-                      <span className="rounded-full bg-indigo-500/15 px-2 py-0.5 text-[9px] font-bold text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
-                        Administrator
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
-                    <span className="truncate">{user?.email || 'No email connected'}</span>
-                    {user?.email && (
-                      user.email_verified ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                          <CheckCircle2 size={10} /> Verified
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
-                          <Clock size={10} /> Unverified
-                        </span>
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-
+            {user ? (
               <div
-                className="flex items-center gap-2.5 flex-wrap sm:shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0"
-                style={{ borderColor: 'var(--ca-border)' }}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 rounded-2xl border transition-all"
+                style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
               >
-                {!user?.email_verified && (
-                  <Link
-                    to="/verify-email"
-                    className="btn-secondary py-2 px-3 text-xs font-semibold"
+                <div className="flex items-center gap-4 min-w-0">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl font-bold text-sm select-none"
+                    style={{
+                      background: 'color-mix(in srgb, var(--ca-accent-solid) 14%, var(--ca-surface-muted))',
+                      color: 'var(--ca-accent-solid)',
+                      border: '1px solid color-mix(in srgb, var(--ca-accent-solid) 24%, transparent)',
+                    }}
                   >
-                    Verify email
+                    {user?.name ? (
+                      user.name
+                        .split(' ')
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join('')
+                        .toUpperCase()
+                    ) : (
+                      <UserRound size={18} />
+                    )}
+                  </div>
+
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-sm font-bold text-primary truncate">
+                        {user.name || 'Developer'}
+                      </h3>
+                      {user?.role === 'admin' && (
+                        <span className="rounded-full bg-indigo-500/15 px-2 py-0.5 text-[9px] font-bold text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                          Administrator
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+                      <span className="truncate">{user.email || 'No email connected'}</span>
+                      {user?.email && (
+                        user.email_verified ? (
+                          <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                            <CheckCircle2 size={10} /> Verified
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                            <Clock size={10} /> Unverified
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="flex items-center gap-2.5 flex-wrap sm:shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0"
+                  style={{ borderColor: 'var(--ca-border)' }}
+                >
+                  {!user?.email_verified && (
+                    <Link
+                      to="/verify-email"
+                      className="btn-secondary py-2 px-3 text-xs font-semibold"
+                    >
+                      Verify email
+                    </Link>
+                  )}
+                  <Link
+                    to="/forgot-password"
+                    className="btn-secondary py-2 px-3.5 text-xs font-semibold flex items-center gap-1.5"
+                  >
+                    <KeyRound size={13} />
+                    <span>Reset password</span>
                   </Link>
-                )}
-                <Link
-                  to="/forgot-password"
-                  className="btn-secondary py-2 px-3.5 text-xs font-semibold flex items-center gap-1.5"
-                >
-                  <KeyRound size={13} />
-                  <span>Reset password</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => void signOut()}
-                  className="btn-secondary py-2 px-3.5 text-xs font-semibold flex items-center gap-1.5 hover:border-rose-500/30 hover:bg-rose-500/10 hover:text-rose-500 transition"
-                >
-                  <LogOut size={13} />
-                  <span>Logout</span>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => void signOut()}
+                    className="btn-secondary py-2 px-3.5 text-xs font-semibold flex items-center gap-1.5 hover:border-rose-500/30 hover:bg-rose-500/10 hover:text-rose-500 transition"
+                  >
+                    <LogOut size={13} />
+                    <span>Logout</span>
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5 rounded-2xl border transition-all"
+                style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl font-bold text-sm select-none"
+                    style={{
+                      background: 'color-mix(in srgb, var(--ca-accent-solid) 14%, var(--ca-surface-muted))',
+                      color: 'var(--ca-accent-solid)',
+                      border: '1px solid color-mix(in srgb, var(--ca-accent-solid) 24%, transparent)',
+                    }}
+                  >
+                    <UserRound size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-primary">Guest Account</h3>
+                    <p className="mt-0.5 text-xs text-muted">
+                      You are exploring PrismCode as a guest. Sign in to save settings, sync editor preferences, and track progress.
+                    </p>
+                  </div>
+                </div>
+
+                <Link
+                  to="/login"
+                  state={{ from: { pathname: '/settings' }, backgroundLocation: { pathname: '/settings' } }}
+                  className="btn-primary py-2 px-4 text-xs font-semibold shrink-0"
+                >
+                  Sign in to your account
+                </Link>
+              </div>
+            )}
           </div>
         </section>
       </div>

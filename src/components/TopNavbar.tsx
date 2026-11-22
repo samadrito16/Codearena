@@ -169,7 +169,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
               {learnOpen && (
                 <div
-                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50"
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl z-50"
                   role="menu"
                 >
                   <NavLink
@@ -230,7 +230,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
               {practiceOpen && (
                 <div
-                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50"
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl z-50"
                   role="menu"
                 >
                   <NavLink
@@ -390,8 +390,18 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
             <Settings size={14} />
           </NavLink>
 
-          {/* Account Pill Menu */}
-          <AccountMenu variant="topbar" />
+          {/* Account Pill Menu (when logged in) or Sign In button (when guest) */}
+          {user ? (
+            <AccountMenu variant="topbar" />
+          ) : (
+            <NavLink
+              to="/login"
+              state={{ backgroundLocation: location }}
+              className="btn-primary h-7 px-3 text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm"
+            >
+              <span>Sign in</span>
+            </NavLink>
+          )}
 
           {/* Mobile Menu Hamburger */}
           <button
