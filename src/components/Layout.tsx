@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Code2, Menu, Search, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
-import Sidebar from './Sidebar';
+import TopNavbar from './TopNavbar';
 import AccountMenu from './AccountMenu';
 import CommandPalette from './CommandPalette';
 import Footer from './Footer';
@@ -26,7 +26,7 @@ const baseMobileItems = [
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const { openCommandPalette, announcement, sidebarCollapsed } = useUi();
+  const { announcement } = useUi();
   const { user } = useAuth();
   const isWorkspace = location.pathname.startsWith('/workspace');
 
@@ -58,57 +58,112 @@ export default function Layout() {
 
   return (
     <SmoothScrollProvider>
-      <div className={`app-shell ${isWorkspace ? 'app-shell-workspace' : ''}`}>
-    <a href="#main-content" className="skip-link">Skip to main content</a>
-    <Sidebar/>
-    {menuOpen && <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-      <button type="button" className="absolute inset-0 bg-black/55 backdrop-blur-sm" onClick={() => setMenuOpen(false)} aria-label="Close navigation overlay"/>
-      <div className="mobile-drawer relative flex h-full w-[285px] flex-col justify-between shadow-2xl">
-        <div className="overflow-y-auto px-5 py-7">
-          <button type="button" className="absolute right-3 top-4 z-10 rounded-lg p-2 text-muted hover:bg-black/5 dark:hover:bg-white/5" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X size={18}/></button>
-          <div className="mb-8 flex items-center gap-3 font-display text-xl font-bold text-primary"><PrismMark size={32} className="brand-mark-pulse" />PrismCode</div>
-          <nav aria-label="Primary navigation" className="space-y-1.5">{mobileItems.map(([to, label]) => <NavLink key={to} to={to} onClick={() => setMenuOpen(false)} className={() => `block rounded-xl px-4 py-3 text-sm font-semibold ${location.pathname === to ? 'nav-link-active' : 'text-muted hover:bg-black/5 dark:hover:bg-white/5'}`}>{label}</NavLink>)}</nav>
-        </div>
-        <div className="border-t p-4" style={{ borderColor: 'var(--ca-border)' }}>
-          <div className="mb-3 flex items-center justify-between text-[11px] text-muted px-1">
-            <NavLink to="/terms" onClick={() => setMenuOpen(false)} className="hover:text-primary transition">Terms of Service</NavLink>
-            <span>&middot;</span>
-            <NavLink to="/privacy" onClick={() => setMenuOpen(false)} className="hover:text-primary transition">Privacy Policy</NavLink>
-          </div>
-          <AccountMenu onAction={() => setMenuOpen(false)} />
-        </div>
-      </div>
-    </div>}
-    <div className={`min-h-screen transition-[padding] duration-300 ease-in-out ${sidebarCollapsed ? 'lg:pl-[70px]' : 'lg:pl-[260px]'} ${isWorkspace ? 'workspace-app-main' : ''}`}>
-      <header className="flex h-14 items-center justify-between border-b px-4 lg:hidden" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>
-        <div className="flex items-center gap-2.5">
-          <PrismMark size={28} className="brand-mark-pulse" />
-          <span className="font-display text-base font-bold text-primary">PrismCode</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="icon-button h-9 px-2.5 gap-1.5 text-xs font-semibold"
-            onClick={openCommandPalette}
-            aria-label="Open command palette (Ctrl+K)"
-            title="Quick search (Ctrl+K / Cmd+K)"
+      <div className={`app-shell ${isWorkspace ? 'app-shell-workspace' : ''} flex min-h-screen flex-col`}>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+
+        {/* Minimal Top Navigation Bar */}
+        <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />
+
+        {/* Mobile Navigation Drawer */}
+        {menuOpen && (
+          <div
+            className="fixed inset-0 z-50 md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
           >
-            <Search size={15}/>
-            <span className="hidden sm:inline">Search</span>
-          </button>
-          <button type="button" className="icon-button h-9 w-9" onClick={() => setMenuOpen(true)} aria-label="Open navigation"><Menu size={18}/></button>
+            <button
+              type="button"
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close navigation overlay"
+            />
+            <div className="mobile-drawer relative flex h-full w-[290px] flex-col justify-between shadow-2xl">
+              <div className="overflow-y-auto px-5 py-6">
+                <button
+                  type="button"
+                  className="absolute right-3 top-4 z-10 rounded-lg p-2 text-muted hover:bg-white/5"
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <X size={18} />
+                </button>
+                <div className="mb-7 flex items-center gap-2.5 font-display text-lg font-bold text-primary">
+                  <PrismMark size={28} />
+                  <span>PrismCode</span>
+                </div>
+                <nav aria-label="Mobile primary navigation" className="space-y-1">
+                  {mobileItems.map(([to, label]) => (
+                    <NavLink
+                      key={to}
+                      to={to}
+                      onClick={() => setMenuOpen(false)}
+                      className={() =>
+                        `block rounded-xl px-3.5 py-2.5 text-xs font-semibold transition ${
+                          location.pathname === to
+                            ? 'nav-link-active'
+                            : 'text-muted hover:bg-white/5 hover:text-white'
+                        }`
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  ))}
+                </nav>
+              </div>
+              <div className="border-t p-4" style={{ borderColor: 'var(--ca-border)' }}>
+                <div className="mb-3 flex items-center justify-between text-[11px] text-muted px-1">
+                  <NavLink
+                    to="/terms"
+                    onClick={() => setMenuOpen(false)}
+                    className="hover:text-primary transition"
+                  >
+                    Terms
+                  </NavLink>
+                  <span>&middot;</span>
+                  <NavLink
+                    to="/privacy"
+                    onClick={() => setMenuOpen(false)}
+                    className="hover:text-primary transition"
+                  >
+                    Privacy
+                  </NavLink>
+                </div>
+                <AccountMenu variant="mobile" onAction={() => setMenuOpen(false)} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Main Content Area */}
+        <div className={`flex flex-1 flex-col ${isWorkspace ? 'workspace-app-main' : ''}`}>
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className={
+              isWorkspace
+                ? 'workspace-route-main'
+                : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
+            }
+          >
+            {isWorkspace ? (
+              <Outlet />
+            ) : (
+              <div key={location.pathname} className="page-enter">
+                <Outlet />
+              </div>
+            )}
+          </main>
+          {!isWorkspace && <Footer />}
         </div>
-      </header>
-      <main id="main-content" tabIndex={-1} className={isWorkspace ? 'workspace-route-main' : 'mx-auto max-w-[1480px] px-4 pb-10 pt-6 sm:px-6 lg:px-9 lg:pt-9'}>
-        {isWorkspace ? <Outlet/> : <div key={location.pathname} className="page-enter"><Outlet/></div>}
-      </main>
-      {!isWorkspace && <Footer />}
-    </div>
-    <CommandPalette/>
-      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-        {announcement}
+
+        <CommandPalette />
+        <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+          {announcement}
+        </div>
       </div>
-    </div>
-  </SmoothScrollProvider>
+    </SmoothScrollProvider>
   );
 }

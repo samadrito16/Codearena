@@ -94,22 +94,18 @@ export function UiProvider({ children }: { children: ReactNode }) {
     }
   }, [announce, location.pathname]);
 
-  // Global Ctrl+K (command palette) and Ctrl+B (sidebar toggle) triggers.
+  // Global Ctrl+K (command palette) trigger.
   useEffect(() => {
     const handleGlobalKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         event.stopPropagation();
         setCommandPaletteOpen((open) => !open);
-      } else if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === 'b') {
-        event.preventDefault();
-        event.stopPropagation();
-        toggleSidebar();
       }
     };
     window.addEventListener('keydown', handleGlobalKeyDown, true);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown, true);
-  }, [toggleSidebar]);
+  }, []);
 
   const registerNavigationGuard = useCallback((guard: NavigationGuard | null) => {
     guardRef.current = guard;

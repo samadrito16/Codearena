@@ -234,11 +234,7 @@ function AnimatedRoadmapCard({
         </div>
 
         {/* Card Bottom CTA Link */}
-        <div
-          className="mt-6 pt-4 border-t flex items-center justify-between"
-          style={{ borderColor: 'var(--ca-border)' }}
-        >
-          <span className="text-[11px] font-medium text-muted">PrismCode Platform Pillar</span>
+        <div className="mt-5 flex items-center justify-end">
           <Link
             to={card.link}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline group-hover:translate-x-1 transition-transform"
