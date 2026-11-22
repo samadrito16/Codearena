@@ -6,6 +6,7 @@ import {
   Compass,
   Contrast,
   Flame,
+  FolderGit2,
   Map,
   Menu,
   Search,
@@ -99,7 +100,9 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   const isPracticeActive =
     location.pathname.startsWith('/problems') ||
     location.pathname.startsWith('/daily-challenges') ||
-    location.pathname.startsWith('/workspace');
+    location.pathname.startsWith('/workspace') ||
+    location.pathname.startsWith('/projects') ||
+    location.pathname.startsWith('/editor');
 
   const isYearPlanner = location.pathname.startsWith('/year');
 
@@ -155,7 +158,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                 }}
                 aria-expanded={learnOpen}
                 aria-haspopup="menu"
-                className={`top-nav-box ${isLearnActive ? 'top-nav-box-active' : ''}`}
+                className={`top-nav-box ${isLearnActive || learnOpen ? 'top-nav-box-active' : ''}`}
               >
                 <span>Learn</span>
                 <ChevronDown
@@ -166,7 +169,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
               {learnOpen && (
                 <div
-                  className="top-nav-dropdown absolute left-0 top-full mt-1.5 w-60 rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10 dark:border-neutral-800 dark:bg-[#10131c] dark:shadow-2xl dark:shadow-black/70 animate-in fade-in zoom-in-95 duration-100 z-50"
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50"
                   role="menu"
                 >
                   <NavLink
@@ -177,7 +180,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 dark:text-amber-400">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 shadow-sm">
                       <Sparkles size={14} />
                     </div>
                     <div>
@@ -194,7 +197,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-sm">
                       <Map size={14} />
                     </div>
                     <div>
@@ -216,7 +219,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                 }}
                 aria-expanded={practiceOpen}
                 aria-haspopup="menu"
-                className={`top-nav-box ${isPracticeActive ? 'top-nav-box-active' : ''}`}
+                className={`top-nav-box ${isPracticeActive || practiceOpen ? 'top-nav-box-active' : ''}`}
               >
                 <span>Practice</span>
                 <ChevronDown
@@ -227,7 +230,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
               {practiceOpen && (
                 <div
-                  className="top-nav-dropdown absolute left-0 top-full mt-1.5 w-64 rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10 dark:border-neutral-800 dark:bg-[#10131c] dark:shadow-2xl dark:shadow-black/70 animate-in fade-in zoom-in-95 duration-100 z-50"
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50"
                   role="menu"
                 >
                   <NavLink
@@ -238,7 +241,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
                       <Code2 size={14} />
                     </div>
                     <div>
@@ -255,7 +258,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-500/10 text-rose-500 dark:text-rose-400">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-500/10 text-rose-500 dark:text-rose-400 border border-rose-500/20 shadow-sm">
                       <Flame size={14} />
                     </div>
                     <div>
@@ -265,19 +268,41 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                   </NavLink>
 
                   <NavLink
-                    to="/workspace/two-sum"
+                    to="/editor"
                     onClick={() => setPracticeOpen(false)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
                       <Compass size={14} />
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Editor</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Interactive workspace</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Personal coding workspace</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
+                    to="/projects"
+                    onClick={() => setPracticeOpen(false)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-sm">
+                      <FolderGit2 size={14} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-xs text-slate-900 dark:text-white">Projects</span>
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                          Soon
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Guided real-world builds</div>
                     </div>
                   </NavLink>
                 </div>

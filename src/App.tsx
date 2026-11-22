@@ -25,6 +25,8 @@ import TermsOfService from './pages/TermsOfService';
 import MasteryHub from './pages/MasteryHub';
 import MasteryStudio from './pages/MasteryStudio';
 import YearPlanner from './pages/YearPlanner';
+import Projects from './pages/Projects';
+import StandaloneEditor from './pages/StandaloneEditor';
 
 export default function App() {
   useEffect(() => {
@@ -112,6 +114,8 @@ export default function App() {
             <Route path="/progress" element={<Progress />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/problems" element={<Problems />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/editor" element={<StandaloneEditor />} />
             <Route path="/year" element={<YearPlanner />} />
             <Route path="/workspace/:problemId" element={<Workspace />} />
             <Route path="/leaderboard" element={<Leaderboard />} />

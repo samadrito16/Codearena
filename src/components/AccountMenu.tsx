@@ -89,15 +89,15 @@ export default function AccountMenu({
 
         {open && (
           <div
-            className="absolute right-0 top-full mt-1.5 w-56 rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-900/10 dark:border-neutral-800 dark:bg-[#10131c] dark:shadow-2xl dark:shadow-black/80 animate-in fade-in zoom-in-95 duration-100 z-50 text-left"
+            className="glass-dropdown-menu absolute right-0 top-full mt-2 w-56 rounded-2xl p-1.5 shadow-2xl animate-in fade-in zoom-in-[0.97] slide-in-from-top-1 duration-150 z-50 text-left"
             role="menu"
           >
             {/* Header / User Info */}
-            <div className="mb-1 border-b border-slate-100 dark:border-neutral-800/80 px-2.5 py-2">
+            <div className="mb-1 border-b border-slate-200/60 dark:border-white/10 px-2.5 py-2">
               <div className="flex items-center justify-between gap-1">
                 <p className="truncate text-xs font-bold text-slate-900 dark:text-white">{displayName}</p>
                 {user?.role === 'admin' && (
-                  <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                  <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                     <ShieldCheck size={10} /> Admin
                   </span>
                 )}
@@ -116,7 +116,7 @@ export default function AccountMenu({
                 setOpen(false);
                 onAction?.();
               }}
-              className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition-all"
               role="menuitem"
             >
               <UserRound size={14} className="text-slate-500 dark:text-neutral-400" />
@@ -129,7 +129,7 @@ export default function AccountMenu({
                 setOpen(false);
                 onAction?.();
               }}
-              className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition-all"
               role="menuitem"
             >
               <Settings size={14} className="text-slate-500 dark:text-neutral-400" />
@@ -143,7 +143,7 @@ export default function AccountMenu({
                   setOpen(false);
                   onAction?.();
                 }}
-                className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-500/10 transition-colors"
+                className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-500/10 transition-all"
                 role="menuitem"
               >
                 <ShieldCheck size={14} className="text-amber-500 dark:text-amber-400" />
@@ -151,14 +151,14 @@ export default function AccountMenu({
               </Link>
             )}
 
-            <div className="my-1 border-t border-slate-100 dark:border-neutral-800/80" />
+            <div className="my-1 border-t border-slate-200/60 dark:border-white/10" />
 
             {user ? (
               <button
                 type="button"
                 disabled={isLoggingOut}
                 onClick={handleSignOut}
-                className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10 transition-colors disabled:opacity-60"
+                className="flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-xs font-medium text-rose-600 hover:bg-rose-500/10 hover:text-rose-500 dark:text-rose-400 dark:hover:bg-rose-500/15 dark:hover:text-rose-300 transition-all disabled:opacity-60"
                 role="menuitem"
               >
                 {isLoggingOut ? (
@@ -178,7 +178,7 @@ export default function AccountMenu({
                   setOpen(false);
                   onAction?.();
                 }}
-                className="flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-500/10 transition-colors"
+                className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-indigo-600 hover:bg-indigo-500/10 dark:text-indigo-400 dark:hover:bg-indigo-500/15 transition-all"
                 role="menuitem"
               >
                 <UserRound size={14} /> Sign in / register
@@ -194,13 +194,12 @@ export default function AccountMenu({
   return (
     <div className="relative" ref={ref}>
       <div
-        className={`account-popover absolute bottom-full left-0 z-50 mb-2 rounded-xl border p-1.5 shadow-xl ${
+        className={`glass-dropdown-menu account-popover absolute bottom-full left-0 z-50 mb-2 rounded-2xl p-1.5 shadow-2xl ${
           collapsed ? 'w-56' : 'right-0'
         } ${open ? 'account-popover-open' : ''}`}
         aria-hidden={!open}
-        style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
       >
-        <div className="mb-1.5 border-b px-2.5 py-2" style={{ borderColor: 'var(--ca-border)' }}>
+        <div className="mb-1.5 border-b border-slate-200/60 dark:border-white/10 px-2.5 py-2">
           <div className="flex items-center justify-between gap-1">
             <p className="truncate text-xs font-bold text-primary">{displayName}</p>
             {user?.role === 'admin' && (

@@ -19,7 +19,8 @@ const baseMobileItems = [
   ['/year', 'Year Planner'],
   ['/progress', 'Your progress'],
   ['/problems', 'Problems'],
-  ['/workspace/two-sum', 'Code editor'],
+  ['/projects', 'Projects (Coming Soon)'],
+  ['/editor', 'Code editor'],
   ['/leaderboard', 'Leaderboard'],
   ['/settings', 'Settings'],
 ];
@@ -31,6 +32,7 @@ export default function Layout() {
   const { user } = useAuth();
   const isWorkspace = location.pathname.startsWith('/workspace');
   const isYearPlanner = location.pathname.startsWith('/year');
+  const isEditor = location.pathname.startsWith('/editor');
 
   const mobileItems = useMemo(() => {
     if (user?.role === 'admin') {
@@ -49,18 +51,18 @@ export default function Layout() {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (!isWorkspace) {
+    if (!isWorkspace && !isEditor) {
       gsap.fromTo(
         '.page-enter',
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out', clearProps: 'all' }
       );
     }
-  }, [location.pathname, isWorkspace]);
+  }, [location.pathname, isWorkspace, isEditor]);
 
   return (
     <SmoothScrollProvider>
-      <div className={`app-shell ${isWorkspace ? 'app-shell-workspace' : ''} flex min-h-screen flex-col`}>
+      <div className={`app-shell ${isWorkspace || isEditor ? 'app-shell-workspace' : ''} flex min-h-screen flex-col`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -140,19 +142,19 @@ export default function Layout() {
         )}
 
         {/* Main Content Area */}
-        <div className={`flex flex-1 flex-col ${isWorkspace ? 'workspace-app-main' : ''}`}>
+        <div className={`flex flex-1 flex-col ${isWorkspace || isEditor ? 'workspace-app-main' : ''}`}>
           <main
             id="main-content"
             tabIndex={-1}
             className={
-              isWorkspace
-                ? 'workspace-route-main'
+              isWorkspace || isEditor
+                ? 'workspace-route-main h-[calc(100vh-52px)] w-full overflow-hidden'
                 : isYearPlanner
                 ? 'w-full flex-1 px-3 sm:px-5 lg:px-7 pb-12 pt-3'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
             }
           >
-            {isWorkspace ? (
+            {isWorkspace || isEditor ? (
               <Outlet />
             ) : (
               <div key={location.pathname} className="page-enter">
@@ -160,7 +162,7 @@ export default function Layout() {
               </div>
             )}
           </main>
-          {!isWorkspace && <Footer />}
+          {!isWorkspace && !isEditor && <Footer />}
         </div>
 
         <CommandPalette />
