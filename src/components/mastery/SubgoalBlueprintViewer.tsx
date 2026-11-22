@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import {
   AlertTriangle,
+  Check,
   CheckCircle2,
-  ChevronRight,
   Code2,
   Eye,
   EyeOff,
   Flame,
+  HelpCircle,
   Info,
   Layers,
+  RotateCcw,
   Sparkles,
   Target,
   XCircle,
   Zap,
 } from 'lucide-react';
-import { MasteryProblem, OptimalSolution, RecallResult } from '../../types/mastery';
+import { CodeLine, MasteryProblem, RecallResult } from '../../types/mastery';
 
 type ViewerMode = 'blueprint' | 'hardest_25' | 'recall';
 
@@ -22,27 +24,212 @@ interface SubgoalBlueprintViewerProps {
   problem: MasteryProblem;
   recallResults: Record<number, RecallResult>;
   onRecordRecall: (lineNumber: number, result: RecallResult) => void;
+  typedDrafts?: Record<number, string>;
+  onSaveTypedDraft?: (lineNumber: number, draft: string) => void;
+}
+
+function normalizeCode(str: string): string {
+  let s = str.trim().replace(/['"]/g, '"').toLowerCase();
+  // Forgiving check for while (cond): vs while cond:
+  s = s.replace(/([a-z]+)\s*\((.*)\)\s*:/g, '$1 $2:');
+  return s.replace(/\s*([=+\-*/%<>&|^!]=?|:=|==|!=|<=|>=|,|:|\(|\)|\[|\]|\{|\})\s*/g, '$1');
+}
+
+interface TypedRecallItemProps {
+  line: CodeLine;
+  recallStatus?: RecallResult;
+  initialDraft?: string;
+  onRecordRecall: (lineNumber: number, result: RecallResult) => void;
+  onSaveDraft?: (lineNumber: number, draft: string) => void;
+  onSelectLine: (lineNumber: number) => void;
+}
+
+function TypedRecallItem({
+  line,
+  recallStatus,
+  initialDraft = '',
+  onRecordRecall,
+  onSaveDraft,
+  onSelectLine,
+}: TypedRecallItemProps) {
+  const [typedValue, setTypedValue] = useState(initialDraft);
+  const [isRevealed, setIsRevealed] = useState(Boolean(recallStatus));
+  const [attemptFeedback, setAttemptFeedback] = useState<'idle' | 'correct' | 'incorrect'>('idle');
+
+  const cleanExpected = line.code.trim();
+
+  function handleCheck() {
+    if (!typedValue.trim()) return;
+
+    const normUser = normalizeCode(typedValue);
+    const normExpected = normalizeCode(line.code);
+
+    if (normUser === normExpected) {
+      setAttemptFeedback('correct');
+      setIsRevealed(true);
+      onRecordRecall(line.line_number, 'got_it');
+    } else {
+      setAttemptFeedback('incorrect');
+    }
+  }
+
+  function handleReveal() {
+    setIsRevealed(true);
+    setAttemptFeedback('idle');
+    if (!recallStatus) {
+      onRecordRecall(line.line_number, 'missed');
+    }
+  }
+
+  function handleReset() {
+    setIsRevealed(false);
+    setAttemptFeedback('idle');
+    setTypedValue('');
+    if (onSaveDraft) onSaveDraft(line.line_number, '');
+  }
+
+  // Calculate indentation of actual line for visual alignment
+  const leadingSpaces = line.code.length - line.code.trimStart().length;
+  const indentPadding = Math.min(leadingSpaces * 8, 48);
+
+  return (
+    <div
+      onClick={() => onSelectLine(line.line_number)}
+      className="p-3.5 my-1.5 rounded-xl border border-indigo-500/25 bg-indigo-500/[0.04] space-y-2.5 transition-all"
+    >
+      {/* Header Prompt & Clue */}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="flex items-center gap-2">
+          <span className="font-mono font-bold text-amber-500 flex items-center gap-1 text-[11px] bg-amber-500/15 px-2 py-0.5 rounded">
+            <AlertTriangle size={11} /> Critical Line #{line.line_number}
+          </span>
+          <span className="text-muted text-[11px] font-sans">
+            <strong>Clue:</strong> {line.why_this_line}
+          </span>
+        </div>
+
+        {recallStatus && (
+          <span
+            className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded ${
+              recallStatus === 'got_it'
+                ? 'bg-emerald-500/20 text-emerald-500'
+                : 'bg-rose-500/20 text-rose-500'
+            }`}
+          >
+            {recallStatus === 'got_it' ? '✓ Recalled' : '✗ Missed'}
+          </span>
+        )}
+      </div>
+
+      {/* Main Interactive Stage */}
+      {isRevealed ? (
+        <div className="space-y-2">
+          <div
+            className={`p-3 rounded-lg font-mono text-xs overflow-x-auto border flex items-center justify-between gap-4 ${
+              recallStatus === 'got_it'
+                ? 'bg-emerald-950/20 border-emerald-500/30 text-emerald-400'
+                : 'bg-slate-900 border-indigo-500/30 text-slate-100'
+            }`}
+          >
+            <code className="whitespace-pre">{line.code}</code>
+            <div className="flex items-center gap-2 shrink-0 font-sans" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="text-[11px] text-muted hover:text-primary transition flex items-center gap-1"
+                title="Practice typing again"
+              >
+                <RotateCcw size={12} /> Re-drill
+              </button>
+            </div>
+          </div>
+
+          {line.risk_note && (
+            <p className="text-[11px] text-amber-700 dark:text-amber-300 font-sans leading-relaxed">
+              <strong>Boundary Rule:</strong> {line.risk_note}
+            </p>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-2" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1" style={{ paddingLeft: `${indentPadding}px` }}>
+              <input
+                type="text"
+                value={typedValue}
+                onChange={(e) => {
+                  setTypedValue(e.target.value);
+                  setAttemptFeedback('idle');
+                  if (onSaveDraft) onSaveDraft(line.line_number, e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleCheck();
+                  }
+                }}
+                placeholder={`Type the boundary logic (e.g. ${cleanExpected.slice(0, 14)}…)`}
+                className={`w-full font-mono text-xs px-3 py-2 rounded-lg border bg-slate-950/80 text-primary placeholder:text-muted/40 focus:outline-none focus:ring-2 transition ${
+                  attemptFeedback === 'incorrect'
+                    ? 'border-rose-500 focus:ring-rose-500/30'
+                    : attemptFeedback === 'correct'
+                    ? 'border-emerald-500 focus:ring-emerald-500/30'
+                    : 'border-indigo-500/40 focus:ring-indigo-500/30'
+                }`}
+                autoCapitalize="off"
+                autoComplete="off"
+                spellCheck="false"
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleCheck}
+              disabled={!typedValue.trim()}
+              className="btn-primary py-2 px-3 text-xs font-semibold gap-1 shrink-0 disabled:opacity-40"
+            >
+              <Check size={13} /> Check
+            </button>
+            <button
+              type="button"
+              onClick={handleReveal}
+              className="btn-secondary py-2 px-2.5 text-xs text-muted hover:text-primary shrink-0"
+              title="Peek at the exact line"
+            >
+              <Eye size={13} /> Peek
+            </button>
+          </div>
+
+          {attemptFeedback === 'incorrect' && (
+            <div className="flex items-center justify-between text-[11px] text-rose-500 font-sans">
+              <span>Not quite matching the exact boundary logic. Check variable names or bounds.</span>
+              <button
+                type="button"
+                onClick={handleReveal}
+                className="underline hover:text-rose-400 font-bold ml-2"
+              >
+                Reveal solution
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function SubgoalBlueprintViewer({
   problem,
   recallResults,
   onRecordRecall,
+  typedDrafts = {},
+  onSaveTypedDraft,
 }: SubgoalBlueprintViewerProps) {
   const [mode, setMode] = useState<ViewerMode>('blueprint');
   const [selectedLineNumber, setSelectedLineNumber] = useState<number>(1);
-  const [revealedRecallLines, setRevealedRecallLines] = useState<Record<number, boolean>>({});
 
   const optimal = problem.optimal_solution;
   const selectedLine = optimal.code_lines.find((l) => l.line_number === selectedLineNumber) || optimal.code_lines[0];
   const highRiskLines = optimal.code_lines.filter((l) => l.is_high_risk);
-
-  function toggleReveal(lineNum: number) {
-    setRevealedRecallLines((prev) => ({
-      ...prev,
-      [lineNum]: !prev[lineNum],
-    }));
-  }
 
   return (
     <div
@@ -104,7 +291,8 @@ export default function SubgoalBlueprintViewer({
                 : 'text-muted hover:text-primary'
             }`}
           >
-            Recall Check
+            <Sparkles size={13} />
+            Typed Recall
           </button>
         </div>
       </div>
@@ -130,11 +318,11 @@ export default function SubgoalBlueprintViewer({
           <div className="flex items-center gap-2">
             <Target size={15} />
             <span>
-              <strong>Quick Recall Active:</strong> High-risk lines are masked. Test yourself: mentally recall the logic before clicking to reveal.
+              <strong>Active Typed Recall Drill:</strong> Test your algorithmic memory! Type each critical boundary line from memory and press Check.
             </span>
           </div>
-          <span className="font-mono text-[11px] font-bold">
-            {Object.keys(recallResults).length} / {highRiskLines.length} Lines Evaluated
+          <span className="font-mono text-[11px] font-bold bg-indigo-500/20 px-2 py-0.5 rounded">
+            {Object.values(recallResults).filter((r) => r === 'got_it').length} / {highRiskLines.length} Lines Mastered
           </span>
         </div>
       )}
@@ -152,31 +340,25 @@ export default function SubgoalBlueprintViewer({
             return (
               <div
                 key={sIdx}
-                className="rounded-2xl border overflow-hidden transition-all shadow-sm"
-                style={{
-                  borderColor: 'var(--ca-border)',
-                  background: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
-                }}
+                className="rounded-xl border overflow-hidden"
+                style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
               >
                 {/* Subgoal Header Bar */}
                 <div
-                  className="px-4 py-2.5 border-b flex flex-wrap items-center justify-between gap-2 bg-black/[0.04] dark:bg-white/[0.04]"
-                  style={{ borderColor: 'var(--ca-border)' }}
+                  className="px-4 py-3 border-b flex flex-wrap items-center justify-between gap-2"
+                  style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400 font-mono text-[10px] font-bold">
+                    <span className="w-5 h-5 rounded-md bg-indigo-500/15 text-indigo-500 font-mono text-[11px] font-bold flex items-center justify-center">
                       {sIdx + 1}
                     </span>
-                    <span className="font-semibold text-xs text-primary">{subgoal.title}</span>
+                    <h4 className="text-xs font-bold text-primary">
+                      {subgoal.title}
+                    </h4>
                   </div>
-                  <span className="font-mono text-[10px] text-muted">
-                    Lines {startLine}–{endLine}
+                  <span className="text-[11px] text-muted font-sans italic">
+                    {subgoal.explanation}
                   </span>
-                </div>
-
-                {/* Subgoal Explanation */}
-                <div className="px-4 py-2 text-[11px] text-muted italic bg-black/[0.01] dark:bg-white/[0.01] border-b" style={{ borderColor: 'var(--ca-border)' }}>
-                  {subgoal.explanation}
                 </div>
 
                 {/* Code Lines in Subgoal */}
@@ -184,8 +366,21 @@ export default function SubgoalBlueprintViewer({
                   {subgoalLines.map((line) => {
                     const isSelected = selectedLineNumber === line.line_number;
                     const isHighRisk = line.is_high_risk;
-                    const recallStatus = recallResults[line.line_number];
-                    const isMaskedInRecall = mode === 'recall' && isHighRisk && !revealedRecallLines[line.line_number];
+
+                    // If in recall mode and high-risk, render the interactive typed drill
+                    if (mode === 'recall' && isHighRisk) {
+                      return (
+                        <TypedRecallItem
+                          key={line.line_number}
+                          line={line}
+                          recallStatus={recallResults[line.line_number]}
+                          initialDraft={typedDrafts[line.line_number]}
+                          onRecordRecall={onRecordRecall}
+                          onSaveDraft={onSaveTypedDraft}
+                          onSelectLine={setSelectedLineNumber}
+                        />
+                      );
+                    }
 
                     // Row styling based on active mode
                     let rowBg = 'hover:bg-indigo-500/[0.06]';
@@ -218,57 +413,15 @@ export default function SubgoalBlueprintViewer({
 
                           {/* Code line content */}
                           <div className="min-w-0 flex-1 pr-3">
-                            {isMaskedInRecall ? (
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleReveal(line.line_number);
-                                }}
-                                className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-indigo-500/40 bg-indigo-500/20 text-indigo-400 hover:bg-indigo-500/30 transition text-xs font-sans font-bold"
-                              >
-                                <EyeOff size={13} />
-                                <span>Click to reveal critical line #{line.line_number}</span>
-                              </button>
-                            ) : (
-                              <span className={`${textStyle} whitespace-pre`}>{line.code}</span>
-                            )}
+                            <span className={`${textStyle} whitespace-pre`}>{line.code}</span>
                           </div>
 
                           {/* High risk badge indicator */}
-                          {isHighRisk && mode !== 'recall' && (
+                          {isHighRisk && (
                             <span className="shrink-0 flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                               <AlertTriangle size={10} />
                               Critical
                             </span>
-                          )}
-
-                          {/* Mode 3 Recall Evaluation Buttons */}
-                          {mode === 'recall' && isHighRisk && revealedRecallLines[line.line_number] && (
-                            <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
-                              <button
-                                type="button"
-                                onClick={() => onRecordRecall(line.line_number, 'got_it')}
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold transition ${
-                                  recallStatus === 'got_it'
-                                    ? 'bg-emerald-500 text-white'
-                                    : 'bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20'
-                                }`}
-                              >
-                                Got it
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => onRecordRecall(line.line_number, 'missed')}
-                                className={`px-2 py-0.5 rounded text-[10px] font-bold transition ${
-                                  recallStatus === 'missed'
-                                    ? 'bg-rose-500 text-white'
-                                    : 'bg-rose-500/10 text-rose-500 hover:bg-rose-500/20'
-                                }`}
-                              >
-                                Missed
-                              </button>
-                            </div>
                           )}
                         </div>
 

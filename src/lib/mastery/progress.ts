@@ -109,6 +109,54 @@ export function useMasteryProgress() {
     []
   );
 
+  const saveTypedRecallDraft = useCallback(
+    (problemId: string, lineNumber: number, draft: string) => {
+      const current = readStore();
+      const problem = current.problems[problemId] || { ...DEFAULT_PROBLEM_PROGRESS };
+      current.problems[problemId] = {
+        ...problem,
+        typedRecallDrafts: {
+          ...(problem.typedRecallDrafts || {}),
+          [lineNumber]: draft,
+        },
+        lastStudiedAt: new Date().toISOString(),
+      };
+      writeStore(current);
+    },
+    []
+  );
+
+  const recordCodeAccepted = useCallback(
+    (problemId: string, accepted = true) => {
+      const current = readStore();
+      const problem = current.problems[problemId] || { ...DEFAULT_PROBLEM_PROGRESS };
+      current.problems[problemId] = {
+        ...problem,
+        codeAccepted: accepted,
+        lastStudiedAt: new Date().toISOString(),
+      };
+      writeStore(current);
+    },
+    []
+  );
+
+  const saveCodeDraft = useCallback(
+    (problemId: string, language: string, code: string) => {
+      const current = readStore();
+      const problem = current.problems[problemId] || { ...DEFAULT_PROBLEM_PROGRESS };
+      current.problems[problemId] = {
+        ...problem,
+        codeDrafts: {
+          ...(problem.codeDrafts || {}),
+          [language]: code,
+        },
+        lastStudiedAt: new Date().toISOString(),
+      };
+      writeStore(current);
+    },
+    []
+  );
+
   const saveMistakeNote = useCallback(
     (problemId: string, note: string) => {
       const current = readStore();
@@ -142,16 +190,17 @@ export function useMasteryProgress() {
   const getOverallStats = useCallback((): OverallMasteryStats => {
     const problems = masteryCatalog.problems;
     let completedCount = 0;
+    let verifiedCount = 0;
     let totalHighRisk = 0;
     let testedHighRisk = 0;
     let masteredHighRisk = 0;
 
-    const patternMap: Record<PatternId, { total: number; completed: number }> = {
-      two_pointers: { total: 0, completed: 0 },
-      sliding_window: { total: 0, completed: 0 },
-      hash_maps: { total: 0, completed: 0 },
-      dynamic_programming: { total: 0, completed: 0 },
-      breadth_first_search: { total: 0, completed: 0 },
+    const patternMap: Record<PatternId, { total: number; completed: number; verified: number }> = {
+      two_pointers: { total: 0, completed: 0, verified: 0 },
+      sliding_window: { total: 0, completed: 0, verified: 0 },
+      hash_maps: { total: 0, completed: 0, verified: 0 },
+      dynamic_programming: { total: 0, completed: 0, verified: 0 },
+      breadth_first_search: { total: 0, completed: 0, verified: 0 },
     };
 
     for (const p of problems) {
@@ -160,6 +209,10 @@ export function useMasteryProgress() {
       if (prog?.completed) {
         completedCount += 1;
         patternMap[p.pattern].completed += 1;
+      }
+      if (prog?.codeAccepted) {
+        verifiedCount += 1;
+        patternMap[p.pattern].verified += 1;
       }
 
       const highRiskLines = p.optimal_solution.code_lines.filter((l) => l.is_high_risk);
@@ -181,6 +234,7 @@ export function useMasteryProgress() {
     return {
       totalBlueprints: problems.length,
       completedBlueprints: completedCount,
+      verifiedCodes: verifiedCount,
       totalHighRiskLines: totalHighRisk,
       testedHighRiskLines: testedHighRisk,
       masteredHighRiskLines: masteredHighRisk,
@@ -194,6 +248,9 @@ export function useMasteryProgress() {
     recordDiagnosis,
     unlockNextHint,
     recordRecall,
+    saveTypedRecallDraft,
+    recordCodeAccepted,
+    saveCodeDraft,
     saveMistakeNote,
     toggleCompleted,
     getOverallStats,

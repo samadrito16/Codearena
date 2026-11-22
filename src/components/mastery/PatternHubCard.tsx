@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check, ChevronRight, Code2 } from 'lucide-react';
 import { MasteryProblem, PatternId, ProblemProgress } from '../../types/mastery';
 import { PATTERN_CONFIG } from '../../lib/mastery/catalog';
 
@@ -113,9 +113,18 @@ export default function PatternHubCard({
                 </span>
 
                 {/* Status Column */}
-                <div className="w-24 text-right">
+                <div className="w-36 text-right flex items-center justify-end gap-2 shrink-0">
+                  {prog?.codeAccepted && (
+                    <span
+                      className="inline-flex items-center gap-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 text-[10px] font-semibold border border-emerald-500/20"
+                      title="Code Runner: Verified against container test fixtures"
+                    >
+                      <Code2 size={11} strokeWidth={2.5} />
+                      Verified
+                    </span>
+                  )}
                   {isDone ? (
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-500">
                       <Check size={12} strokeWidth={2.5} />
                       Done
                     </span>

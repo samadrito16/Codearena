@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { Activity, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, Clock3, Flame, Sparkles, Target, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import StreakVisualizer from '../components/StreakVisualizer';
 import { useApp } from '../context/AppContext';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
 import {
@@ -126,6 +127,11 @@ export default function DailyChallenges() {
           </div>
         </div>
       </div>
+    </section>
+
+    {/* ── 14-DAY STREAK VISUALIZER ── */}
+    <section>
+      <StreakVisualizer problems={problems} />
     </section>
 
     <section className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">

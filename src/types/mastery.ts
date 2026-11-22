@@ -99,8 +99,11 @@ export interface ProblemProgress {
   selectedPattern: string | null;
   hintsUnlocked: number;
   recallResults: Record<number, RecallResult>;
+  typedRecallDrafts?: Record<number, string>;
   mistakeNote: string;
   completed: boolean;
+  codeAccepted?: boolean;
+  codeDrafts?: Record<string, string>;
   lastStudiedAt: string | null;
 }
 
@@ -112,8 +115,9 @@ export interface MasteryProgressStore {
 export interface OverallMasteryStats {
   totalBlueprints: number;
   completedBlueprints: number;
+  verifiedCodes: number;
   totalHighRiskLines: number;
   testedHighRiskLines: number;
   masteredHighRiskLines: number;
-  patternCompletion: Record<PatternId, { total: number; completed: number }>;
+  patternCompletion: Record<PatternId, { total: number; completed: number; verified: number }>;
 }

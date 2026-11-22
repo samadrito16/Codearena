@@ -13,6 +13,7 @@ import {
   Lock,
   RotateCcw,
   Sparkles,
+  Terminal,
   Zap,
 } from 'lucide-react';
 import { getMasteryProblemBySlug, getNextAndPrevProblem, PATTERN_CONFIG } from '../lib/mastery/catalog';
@@ -22,10 +23,14 @@ import BruteForceCompare from '../components/mastery/BruteForceCompare';
 import LockedHintLadder from '../components/mastery/LockedHintLadder';
 import SubgoalBlueprintViewer from '../components/mastery/SubgoalBlueprintViewer';
 import MistakeNoteBox from '../components/mastery/MistakeNoteBox';
+import MasteryCodeRunner from '../components/mastery/MasteryCodeRunner';
+
+type StudioViewTab = 'study' | 'code';
 
 export default function MasteryStudio() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const [studioTab, setStudioTab] = useState<StudioViewTab>('study');
 
   const problem = useMemo(() => {
     return slug ? getMasteryProblemBySlug(slug) : undefined;
@@ -40,6 +45,9 @@ export default function MasteryStudio() {
     recordDiagnosis,
     unlockNextHint,
     recordRecall,
+    saveTypedRecallDraft,
+    recordCodeAccepted,
+    saveCodeDraft,
     saveMistakeNote,
     toggleCompleted,
   } = useMasteryProgress();
@@ -47,6 +55,7 @@ export default function MasteryStudio() {
   const progress = problem ? getProblemProgress(problem.id) : null;
   const isDiagnosed = Boolean(progress?.diagnosed);
   const isCompleted = Boolean(progress?.completed);
+  const isCodeAccepted = Boolean(progress?.codeAccepted);
 
   // Scroll to top on slug change
   useEffect(() => {
@@ -91,10 +100,50 @@ export default function MasteryStudio() {
           <span className="font-mono text-xs font-bold text-indigo-500 uppercase">
             {problem.id}
           </span>
+
+          {/* Mode Switcher Tabs */}
+          <div
+            className="ml-2 flex items-center p-1 rounded-xl border bg-black/[0.04] dark:bg-white/[0.04]"
+            style={{ borderColor: 'var(--ca-border)' }}
+          >
+            <button
+              type="button"
+              onClick={() => setStudioTab('study')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                studioTab === 'study'
+                  ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                  : 'text-muted hover:text-primary'
+              }`}
+            >
+              <Layers size={13} />
+              <span>Blueprint Study</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setStudioTab('code')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                studioTab === 'code'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm'
+                  : 'text-muted hover:text-primary'
+              }`}
+            >
+              <Code2 size={13} />
+              <span>Live Code Runner</span>
+              {isCodeAccepted && (
+                <span className="w-2 h-2 rounded-full bg-emerald-500" title="Code verified accepted" />
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mark as Completed / Previous & Next */}
+        {/* Verification Status & Pagination */}
         <div className="flex items-center gap-3">
+          {isCodeAccepted && (
+            <span className="hidden sm:inline-flex items-center gap-1 font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+              <CheckCircle2 size={13} /> Code Verified
+            </span>
+          )}
+
           <button
             type="button"
             onClick={() => toggleCompleted(problem.id)}
@@ -201,8 +250,9 @@ export default function MasteryStudio() {
                     <span className="text-emerald-500 font-bold">{ex.output}</span>
                   </div>
                   {ex.explanation && (
-                    <div className="pt-1 text-[11px] font-sans text-muted leading-relaxed">
-                      <strong>Explanation:</strong> {ex.explanation}
+                    <div className="pt-1 text-muted text-[11px] font-sans italic border-t border-black/5 dark:border-white/5">
+                      <span>Explanation: </span>
+                      <span>{ex.explanation}</span>
                     </div>
                   )}
                 </div>
@@ -213,114 +263,128 @@ export default function MasteryStudio() {
 
         {/* Constraints */}
         {problem.statement.constraints.length > 0 && (
-          <div className="pt-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-muted mb-2">Constraints</h3>
-            <ul className="list-disc pl-5 space-y-1 text-xs text-muted font-mono">
+          <div className="space-y-2">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted">Constraints</h3>
+            <ul className="list-disc list-inside space-y-1 text-xs text-muted font-mono">
               {problem.statement.constraints.map((c, idx) => (
-                <li key={idx}>
-                  <code>{c}</code>
-                </li>
+                <li key={idx}>{c}</li>
               ))}
             </ul>
           </div>
         )}
       </section>
 
-      {/* Module 2: Pattern Trigger Diagnosis (Active Gate) */}
-      <PatternClueQuiz
-        problem={problem}
-        isDiagnosed={isDiagnosed}
-        selectedPattern={progress.selectedPattern}
-        onDiagnose={(pat) => recordDiagnosis(problem.id, pat)}
-        onReveal={() => recordDiagnosis(problem.id, problem.pattern)}
-      />
-
-      {/* Modules 3, 4, 5 (Gated behind Module 2 diagnosis) */}
-      {isDiagnosed ? (
-        <div className="space-y-8 animate-in fade-in">
-          {/* Module 3: Brute Force Bottleneck Analysis */}
-          <BruteForceCompare
-            bruteForce={problem.brute_force}
-            optimalSolution={problem.optimal_solution}
-          />
-
-          {/* Module 3 Part 2: Progressive Locked Hint Ladder */}
-          <LockedHintLadder
-            hints={problem.hints}
-            hintsUnlocked={progress.hintsUnlocked}
-            onUnlockHint={() => unlockNextHint(problem.id, problem.hints.length)}
-          />
-
-          {/* Module 4: The Signature Subgoal Blueprint Viewer */}
-          <SubgoalBlueprintViewer
+      {/* Conditionally Render: LIVE CODE RUNNER TAB vs BLUEPRINT STUDY TAB */}
+      {studioTab === 'code' ? (
+        <section aria-label="Mastery live code runner">
+          <MasteryCodeRunner
             problem={problem}
-            recallResults={progress.recallResults}
-            onRecordRecall={(lineNum, res) => recordRecall(problem.id, lineNum, res)}
+            isAccepted={isCodeAccepted}
+            onCodeAccepted={() => recordCodeAccepted(problem.id, true)}
+            onSaveDraft={(lang, code) => saveCodeDraft(problem.id, lang, code)}
+          />
+        </section>
+      ) : (
+        <>
+          {/* Module 2: Interactive Pattern Clue Diagnosis Gate */}
+          <PatternClueQuiz
+            problem={problem}
+            isDiagnosed={isDiagnosed}
+            selectedPattern={progress.selectedPattern}
+            onDiagnose={(patId) => recordDiagnosis(problem.id, patId)}
+            onReveal={() => recordDiagnosis(problem.id, problem.pattern)}
           />
 
-          {/* Module 5: Personal Mistake Log & Spaced Recall Note */}
-          <MistakeNoteBox
-            initialNote={progress.mistakeNote}
-            onSaveNote={(note) => saveMistakeNote(problem.id, note)}
-          />
+          {/* Conditional Modules 3, 4, 5 (Unlocked upon Diagnosis or Skip) */}
+          {isDiagnosed ? (
+            <div className="space-y-8 animate-in fade-in">
+              {/* Module 3: Brute Force Bottleneck Analysis */}
+              <BruteForceCompare
+                bruteForce={problem.brute_force}
+                optimalSolution={problem.optimal_solution}
+              />
 
-          {/* Bottom Track Navigation Bar */}
-          <div
-            className="panel-card p-6 border flex flex-wrap items-center justify-between gap-4"
-            style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
-          >
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted block mb-1">
-                Curriculum Progression
-              </span>
-              <p className="text-xs text-primary font-semibold">
-                {isCompleted ? '✓ Blueprint Mastered' : 'Complete this blueprint to advance your track'}
+              {/* Module 3 Part 2: Progressive Locked Hint Ladder */}
+              <LockedHintLadder
+                hints={problem.hints}
+                hintsUnlocked={progress.hintsUnlocked}
+                onUnlockHint={() => unlockNextHint(problem.id, problem.hints.length)}
+              />
+
+              {/* Module 4: The Signature Subgoal Blueprint Viewer with Typed Recall Drills */}
+              <SubgoalBlueprintViewer
+                problem={problem}
+                recallResults={progress.recallResults}
+                typedDrafts={progress.typedRecallDrafts}
+                onRecordRecall={(lineNum, res) => recordRecall(problem.id, lineNum, res)}
+                onSaveTypedDraft={(lineNum, draft) => saveTypedRecallDraft(problem.id, lineNum, draft)}
+              />
+
+              {/* Module 5: Personal Mistake Log & Spaced Recall Note */}
+              <MistakeNoteBox
+                initialNote={progress.mistakeNote}
+                onSaveNote={(note) => saveMistakeNote(problem.id, note)}
+              />
+
+              {/* Bottom Track Navigation Bar */}
+              <div
+                className="panel-card p-6 border flex flex-wrap items-center justify-between gap-4"
+                style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+              >
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted block mb-1">
+                    Curriculum Progression
+                  </span>
+                  <p className="text-xs text-primary font-semibold">
+                    {isCompleted ? '✓ Blueprint Mastered' : 'Complete this blueprint to advance your track'}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  {navNeighbors.prev && (
+                    <Link
+                      to={`/mastery/${navNeighbors.prev.slug}`}
+                      className="btn-secondary h-9 px-3.5 text-xs font-semibold gap-1.5"
+                    >
+                      <ArrowLeft size={14} />
+                      <span>Previous ({navNeighbors.prev.title})</span>
+                    </Link>
+                  )}
+
+                  {navNeighbors.next ? (
+                    <Link
+                      to={`/mastery/${navNeighbors.next.slug}`}
+                      className="btn-primary h-9 px-4 text-xs font-semibold gap-1.5"
+                    >
+                      <span>Next Blueprint ({navNeighbors.next.title})</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/mastery"
+                      className="btn-primary h-9 px-4 text-xs font-semibold gap-1.5"
+                    >
+                      <span>Track Finished &middot; Back to Hub</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className="p-8 rounded-2xl border border-dashed text-center space-y-2"
+              style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
+            >
+              <h4 className="text-sm font-semibold text-primary">
+                Solution Analysis Gated
+              </h4>
+              <p className="text-xs text-muted max-w-md mx-auto leading-relaxed">
+                Select the algorithmic pattern above to unlock the complexity analysis and solution blueprint.
               </p>
             </div>
-
-            <div className="flex items-center gap-3">
-              {navNeighbors.prev && (
-                <Link
-                  to={`/mastery/${navNeighbors.prev.slug}`}
-                  className="btn-secondary h-9 px-3.5 text-xs font-semibold gap-1.5"
-                >
-                  <ArrowLeft size={14} />
-                  <span>Previous ({navNeighbors.prev.title})</span>
-                </Link>
-              )}
-
-              {navNeighbors.next ? (
-                <Link
-                  to={`/mastery/${navNeighbors.next.slug}`}
-                  className="btn-primary h-9 px-4 text-xs font-semibold gap-1.5"
-                >
-                  <span>Next Blueprint ({navNeighbors.next.title})</span>
-                  <ArrowRight size={14} />
-                </Link>
-              ) : (
-                <Link
-                  to="/mastery"
-                  className="btn-primary h-9 px-4 text-xs font-semibold gap-1.5"
-                >
-                  <span>Track Finished &middot; Back to Hub</span>
-                  <ArrowRight size={14} />
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div
-          className="p-8 rounded-2xl border border-dashed text-center space-y-2"
-          style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
-        >
-          <h4 className="text-sm font-semibold text-primary">
-            Solution Analysis Gated
-          </h4>
-          <p className="text-xs text-muted max-w-md mx-auto leading-relaxed">
-            Select the algorithmic pattern above to unlock the complexity analysis and solution blueprint.
-          </p>
-        </div>
+          )}
+        </>
       )}
     </div>
   );

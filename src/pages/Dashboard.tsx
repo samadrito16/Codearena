@@ -1,228 +1,354 @@
-import { useMemo } from 'react';
-import { Activity, ArrowRight, ArrowUpRight, Award, CheckCircle2, Code2, Sparkles } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BarChart2,
+  Calendar,
+  Code2,
+  Compass,
+  Flame,
+  Layers,
+  Sparkles,
+  Terminal,
+  Trophy,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import ErrorAlert from '../components/ui/ErrorAlert';
-import { SkeletonLine } from '../components/ui/LoadingSkeleton';
-import { useApp } from '../context/AppContext';
-import { useAuth } from '../context/AuthContext';
-import { useLeaderboard, useLearningPaths, useProblems } from '../hooks/useDataServices';
-import { evaluateAllLearningPaths, findContinueLearningTarget, formatActivityTime, formatDuration } from '../lib/progress';
-import type { ActivityEvent } from '../types';
+import { platformRoadmapCards, type RoadmapCardData } from '../data/platformRoadmap';
+import { useLearningPaths, useProblems } from '../hooks/useDataServices';
 
 export default function Dashboard() {
-  const { solvedIds, activityLog } = useApp();
-  const { user } = useAuth();
   const { data: problems } = useProblems();
-  const { data: learningPaths, status: pathsStatus, error: pathsError, retry: retryPaths } = useLearningPaths();
-  const { data: leaderboard, status: leaderboardStatus, error: leaderboardError, retry: retryLeaderboard } = useLeaderboard();
+  const { data: learningPaths } = useLearningPaths();
 
-  const unsolvedProblems = problems.filter((problem) => !solvedIds.includes(problem.id));
-  const latestTopic = activityLog[0]?.topic;
-  const recommendedProblem = (latestTopic
-    ? unsolvedProblems.find((problem) => problem.topics.includes(latestTopic))
-    : undefined) ?? unsolvedProblems[0] ?? problems[0];
-  const recommendationReason = recommendedProblem
-    ? recommendedProblem.topics.find((topic) => activityLog.slice(0, 5).some((event) => event.topic === topic))
-      ? `Build on your recent work in ${recommendedProblem.topics.find((topic) => activityLog.slice(0, 5).some((event) => event.topic === topic))}.`
-      : `A practical next step to strengthen ${recommendedProblem.topics.slice(0, 2).join(' and ')}.`
-    : 'Add problems to your library to get a tailored recommendation.';
-
-  const evaluatedPaths = useMemo(
-    () => evaluateAllLearningPaths(learningPaths, problems, solvedIds),
-    [learningPaths, problems, solvedIds],
-  );
-  const continueTarget = useMemo(
-    () => findContinueLearningTarget(evaluatedPaths),
-    [evaluatedPaths],
-  );
-  const featuredPaths = useMemo(
-    () => evaluatedPaths.filter((item) => item.totalProblems > 0).slice(0, 4),
-    [evaluatedPaths],
-  );
-
-  return <div className="space-y-7 dashboard-page">
-    <section className="hero-panel relative overflow-hidden rounded-[28px] px-6 py-7 sm:px-8 sm:py-9">
-      <div className="hero-orb hero-orb-one" /><div className="hero-orb hero-orb-two" />
-      <div className="relative z-10 max-w-2xl">
-        <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-[38px]">Ready to sharpen<br className="hidden sm:block" /> your <span className="text-indigo-100">problem-solving</span> edge?</h2>
-        <p className="mt-3 max-w-lg text-sm leading-6 text-white/90">Every problem is a new opportunity to think deeper, write cleaner code, and become a better engineer.</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link to="/problems" className="btn-primary">Explore problems <ArrowRight size={16} /></Link>
-          <Link to="/daily-challenges" className="btn-ghost hero-ghost-button">Daily challenges <ArrowUpRight size={15}/></Link>
-        </div>
-        <div className="hero-quickfacts" aria-label="Prismcode practice library overview">
-          <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums">{problems.length}</span><span className="hero-quickfact-label">problems in the library</span></div>
-          <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.08s' }}>{learningPaths.length}</span><span className="hero-quickfact-label">guided learning paths</span></div>
-          <div className="hero-quickfact"><span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.16s' }}>04</span><span className="hero-quickfact-label">supported languages</span></div>
-        </div>
-      </div>
-      <div className="hero-code-card hidden xl:block">
-        <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3"><i className="h-2 w-2 rounded-full bg-rose-400"/><i className="h-2 w-2 rounded-full bg-amber-300"/><i className="h-2 w-2 rounded-full bg-emerald-400"/><span className="ml-2 text-[10px] text-indigo-100/50">solution.ts</span></div>
-        <pre className="px-5 py-4 text-xs leading-6 text-indigo-100"><span className="text-fuchsia-300">function</span> <span className="text-emerald-200">levelUp</span>() {'{'}{`\n`}  <span className="text-fuchsia-300">while</span> (curious) {'{'}{`\n`}    practice();{`\n`}    learn();{`\n`}    <span className="text-fuchsia-300">return</span> growth;{`\n`}  {'}'}{`\n`}{'}'}</pre>
-        <div className="mx-5 mb-4 rounded-lg border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 text-[10px] text-emerald-200">✓ Small steps add up · Keep going!</div>
-      </div>
-    </section>
-
-    <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
-      <div className="panel-card next-problem-panel overflow-hidden p-5 sm:p-6">
-        <div className="flex items-center justify-between gap-3">
-          {recommendedProblem ? <p className="text-[11px] font-semibold text-muted">{unsolvedProblems.length ? `${unsolvedProblems.length} problem${unsolvedProblems.length === 1 ? '' : 's'} left in your library` : 'You have completed every problem in this library'}</p> : <span/>}
-          <span className="rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider" style={{ background: 'color-mix(in srgb, var(--ca-accent-solid) 12%, var(--ca-surface))', color: 'var(--ca-accent-solid)' }}>Recommended</span>
-        </div>
-        {recommendedProblem ? <>
-          <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-primary sm:text-[28px]">{recommendedProblem.title}</h3>
-          <p className="mt-2 max-w-2xl text-xs leading-5 text-muted">{recommendedProblem.description}</p>
-          <p className="mt-3 flex items-center gap-2 text-[11px] font-medium text-muted"><Sparkles size={13} className="themed-link"/>{recommendationReason}</p>
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            <DifficultyBadge difficulty={recommendedProblem.difficulty}/>
-            {recommendedProblem.topics.slice(0, 3).map((topic) => <span key={topic} className="tag-pill">{topic}</span>)}
-            <span className="ml-auto text-[10px] text-muted">{recommendedProblem.acceptance} acceptance</span>
+  return (
+    <div className="space-y-12 dashboard-page pb-20 animate-in fade-in">
+      {/* ─────────────────────────────────────────────────────────────
+          1. HERO PANEL (TOPMOST TILE PRESERVED AS REQUESTED)
+      ────────────────────────────────────────────────────────────── */}
+      <section className="hero-panel relative overflow-hidden rounded-[28px] px-6 py-7 sm:px-8 sm:py-9">
+        <div className="hero-orb hero-orb-one" />
+        <div className="hero-orb hero-orb-two" />
+        <div className="relative z-10 max-w-2xl">
+          <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-[38px]">
+            Ready to sharpen<br className="hidden sm:block" /> your{' '}
+            <span className="text-indigo-100">problem-solving</span> edge?
+          </h2>
+          <p className="mt-3 max-w-lg text-sm leading-6 text-white/90">
+            Every problem is a new opportunity to think deeper, write cleaner code, and become a better engineer.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/problems" className="btn-primary">
+              Explore problems <ArrowRight size={16} />
+            </Link>
+            <Link to="/daily-challenges" className="btn-ghost hero-ghost-button">
+              Daily challenges <ArrowUpRight size={15} />
+            </Link>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Link to={`/workspace/${recommendedProblem.id}`} className="btn-primary">{unsolvedProblems.length ? 'Start this problem' : 'Practice again'} <ArrowRight size={15}/></Link>
-            <Link to="/problems" className="btn-secondary">Browse library</Link>
+          <div className="hero-quickfacts" aria-label="Prismcode practice library overview">
+            <div className="hero-quickfact">
+              <span className="hero-quickfact-value animate-count-in tabular-nums">
+                {problems.length || '100+'}
+              </span>
+              <span className="hero-quickfact-label">problems in the library</span>
+            </div>
+            <div className="hero-quickfact">
+              <span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.08s' }}>
+                {learningPaths.length || '7'}
+              </span>
+              <span className="hero-quickfact-label">guided learning paths</span>
+            </div>
+            <div className="hero-quickfact">
+              <span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.16s' }}>
+                05
+              </span>
+              <span className="hero-quickfact-label">supported languages</span>
+            </div>
           </div>
-        </> : <div className="mt-6 rounded-xl p-5 text-center" style={{ background: 'var(--ca-surface-muted)' }}><p className="text-sm font-semibold text-primary">Your next challenge is waiting</p><p className="mt-1 text-xs text-muted">Browse the problem library or ask an admin to add more practice problems.</p><Link to="/problems" className="btn-primary mt-4">Open problem library <ArrowRight size={14}/></Link></div>}
-      </div>
-
-      <div className="panel-card p-5 sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3"><h3 className="section-title">Your latest sessions</h3><div className="flex items-center gap-4"><div className="activity-sparkline-wrap"><span className="text-[9px] font-semibold uppercase tracking-[.12em] text-muted">7 day signal</span><ActivitySparkline events={activityLog}/></div><Link to="/problems" className="whitespace-nowrap text-xs font-bold themed-link">View problems <ArrowUpRight size={12} className="inline"/></Link></div></div>
-        {activityLog.length ? <div className="space-y-4">{activityLog.slice(0, 4).map((event) => <ActivityRow key={event.id} event={event}/>)}</div> : <div className="rounded-xl px-4 py-6 text-center" style={{ background: 'var(--ca-surface-muted)' }}><div className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: 'var(--ca-surface)', color: 'var(--ca-accent-solid)' }}><Activity size={17}/></div><p className="mt-3 text-xs font-semibold text-primary">Your activity will show up here</p><p className="mt-1 text-[10px] text-muted">Solve a problem or spend time in the workspace to begin building your history.</p></div>}
-      </div>
-    </section>
-
-
-    <section className="grid items-start gap-5 xl:grid-cols-[1.3fr_1fr]">
-      <div className="panel-card p-5 sm:p-6">
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <div>
-            <h3 className="section-title">Choose a skill to sharpen</h3>
-            <p className="mt-1 text-[11px] leading-5 text-muted">Static DSA learning paths tracked against your local solved problems.</p>
+        </div>
+        <div className="hero-code-card hidden xl:block">
+          <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
+            <i className="h-2 w-2 rounded-full bg-rose-400" />
+            <i className="h-2 w-2 rounded-full bg-amber-300" />
+            <i className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="ml-2 text-[10px] text-indigo-100/50">solution.ts</span>
           </div>
-          <Link to="/learning-paths" className="shrink-0 whitespace-nowrap text-xs font-bold themed-link">
-            All {learningPaths.length} paths <ArrowUpRight size={12} className="inline"/>
+          <pre className="px-5 py-4 text-xs leading-6 text-indigo-100">
+            <span className="text-fuchsia-300">function</span> <span className="text-emerald-200">levelUp</span>() {'{'}{`\n`}  <span className="text-fuchsia-300">while</span> (curious) {'{'}{`\n`}    practice();{`\n`}    learn();{`\n`}    <span className="text-fuchsia-300">return</span> growth;{`\n`}  {'}'}{`\n`}{'}'}
+          </pre>
+          <div className="mx-5 mb-4 rounded-lg border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 text-[10px] text-emerald-200">
+            ✓ Small steps add up · Keep going!
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          2. PLATFORM MASTERY ROADMAP (CURVED ALTERNATING ZIGZAG)
+      ────────────────────────────────────────────────────────────── */}
+      <section className="relative px-2 sm:px-4 pt-6">
+        {/* Ambient Top Glow */}
+        <div
+          className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-96 w-full max-w-4xl opacity-35 blur-3xl -z-10"
+          style={{
+            background:
+              'radial-gradient(ellipse 65% 55% at 50% 30%, rgba(245, 158, 11, 0.22), transparent 75%)',
+          }}
+        />
+
+        {/* Ambient Floating Hexagons on Large Screens */}
+        <div className="pointer-events-none absolute left-0 top-1/4 -z-10 opacity-30 select-none hidden 2xl:block">
+          <HexagonCluster />
+        </div>
+        <div className="pointer-events-none absolute right-0 top-2/3 -z-10 opacity-30 select-none hidden 2xl:block">
+          <HexagonCluster />
+        </div>
+
+        {/* Centered Heading */}
+        <div className="text-center mb-14 sm:mb-20">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
+            What you'll{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-400 to-amber-300">
+              Master on PrismCode
+            </span>
+          </h2>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-muted max-w-2xl mx-auto leading-relaxed">
+            A <span className="font-semibold text-primary">Structured</span>, hands-on
+            ecosystem engineered to take you from{' '}
+            <span className="font-semibold text-primary">Foundational Mechanics</span> to
+            interview-ready algorithmic mastery.
+          </p>
+        </div>
+
+        {/* Alternating Cards List with Looping Doodle Arrows */}
+        <div className="mx-auto flex flex-col gap-12 sm:gap-16 max-w-6xl">
+          {platformRoadmapCards.map((card, index) => (
+            <AnimatedRoadmapCard
+              key={card.id}
+              card={card}
+              index={index}
+              hasNext={index < platformRoadmapCards.length - 1}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/**
+ * Animated Card component with scroll-driven reveal (scale + translateY + opacity).
+ */
+function AnimatedRoadmapCard({
+  card,
+  index,
+  hasNext,
+}: {
+  card: RoadmapCardData;
+  index: number;
+  hasNext: boolean;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const isLeft = index % 2 === 0;
+
+  return (
+    <div
+      ref={cardRef}
+      className={`flex w-full transition-all duration-700 ease-out ${
+        isLeft ? 'sm:justify-start' : 'sm:justify-end'
+      } ${
+        isVisible
+          ? 'opacity-100 translate-y-0 scale-100'
+          : 'opacity-0 translate-y-8 scale-[0.95]'
+      }`}
+    >
+      <div
+        className="group relative w-full max-w-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:shadow-2xl border"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--ca-surface) 93%, black 7%)',
+          borderColor: 'var(--ca-border)',
+        }}
+      >
+        {/* Top Card Badge & Icon Row */}
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-600 dark:text-amber-400 border border-amber-500/20">
+            {getCardIcon(card.id)}
+            <span>{card.badge}</span>
+          </span>
+
+          <span className="font-mono text-[11px] font-semibold text-muted/60">
+            0{index + 1}
+          </span>
+        </div>
+
+        {/* Card Title & Description */}
+        <div>
+          <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-primary group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
+            {card.title}
+          </h3>
+          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted">
+            {card.description}
+          </p>
+        </div>
+
+        {/* Subsections with Bullet Points */}
+        <div className="mt-6 space-y-5">
+          {card.sections.map((section) => (
+            <div key={section.title} className="space-y-2.5">
+              <h4 className="font-display text-sm sm:text-base font-semibold text-primary/95 flex items-center gap-2">
+                {section.title}
+              </h4>
+              <div className="space-y-2 pl-1 sm:pl-2">
+                {section.bullets.map((bullet, bIdx) => (
+                  <div key={bIdx} className="flex items-start gap-2.5">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 rounded-[1px] bg-amber-500 dark:bg-orange-300" />
+                    <span className="text-xs sm:text-sm text-muted leading-relaxed">
+                      {bullet}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Card Bottom CTA Link */}
+        <div
+          className="mt-6 pt-4 border-t flex items-center justify-between"
+          style={{ borderColor: 'var(--ca-border)' }}
+        >
+          <span className="text-[11px] font-medium text-muted">PrismCode Platform Pillar</span>
+          <Link
+            to={card.link}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline group-hover:translate-x-1 transition-transform"
+          >
+            {card.linkText} <ArrowRight size={13} />
           </Link>
         </div>
-        <div className="space-y-2.5">
-          {pathsStatus === 'error' && pathsError ? (
-            <ErrorAlert title="Could not load learning paths" message={pathsError} onRetry={retryPaths}/>
-          ) : pathsStatus === 'loading' ? (
-            <div className="space-y-3 py-2" role="status" aria-label="Loading learning paths">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index} className="rounded-xl border p-3" style={{ borderColor: 'var(--ca-border)' }}>
-                  <SkeletonLine width="46%" height="12px"/>
-                  <SkeletonLine width="100%" height="6px" className="mt-2.5 rounded-full"/>
-                </div>
-              ))}
-              <span className="sr-only">Loading learning paths…</span>
-            </div>
-          ) : featuredPaths.map((item) => {
-            const accentClass = item.path.accent === 'a' ? 'track-accent-a' : item.path.accent === 'b' ? 'track-accent-b' : 'track-accent-c';
-            return (
-              <Link
-                key={item.path.id}
-                to={`/learning-paths/${item.path.id}`}
-                className="practice-track group flex items-center gap-3 rounded-xl border p-3 transition hover:-translate-y-0.5"
-              >
-                <span className={`track-icon ${accentClass} font-mono text-[11px] font-extrabold`}>
-                  {String(item.path.order).padStart(2, '0')}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="block truncate text-xs font-bold text-primary">{item.path.title}</span>
-                    <span className="text-[10px] font-bold text-muted tabular-nums">{item.solvedCount}/{item.totalProblems} solved</span>
-                  </span>
-                  <span className="mt-1.5 block h-1.5 overflow-hidden rounded-full bg-slate-200/75 dark:bg-slate-800">
-                    <span className="block h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${item.progressPct}%` }}/>
-                  </span>
-                  <span className="mt-1 block truncate text-[10px] leading-4 text-muted">
-                    {item.status === 'completed'
-                      ? 'Path complete · click to review modules'
-                      : item.nextProblem
-                        ? `Next: ${item.nextProblem.title}`
-                        : `${item.modules.length} guided modules`}
-                  </span>
-                </span>
-                <ArrowUpRight size={16} className="shrink-0 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 themed-link"/>
-              </Link>
-            );
-          })}
-          {continueTarget && (
-            <div className="pt-1">
-              <Link to={`/workspace/${continueTarget.problem.id}`} className="btn-secondary w-full justify-between px-3.5 py-2.5 text-xs">
-                <span className="inline-flex items-center gap-2 truncate">
-                  <Award size={14} className="shrink-0 themed-link"/>
-                  <span className="truncate">Continue learning: <strong>{continueTarget.problem.title}</strong></span>
-                </span>
-                <ArrowRight size={14} className="shrink-0"/>
-              </Link>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="panel-card p-5 sm:p-6">
-        <div className="mb-4 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <h3 className="section-title">Top performers</h3>
-            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[9px] font-bold text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">Sample</span>
-          </div>
-          <Link to="/leaderboard" className="text-xs font-bold themed-link">Leaderboard <ArrowUpRight size={12} className="inline"/></Link>
-        </div>
-        {leaderboardStatus === 'error' && leaderboardError ? (
-          <ErrorAlert title="Could not load leaderboard" message={leaderboardError} onRetry={retryLeaderboard}/>
-        ) : leaderboardStatus === 'loading' ? (
-          <div className="space-y-3.5" role="status" aria-label="Loading top performers">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <SkeletonLine width="18px" height="12px"/>
-                <SkeletonLine width="32px" height="32px" className="rounded-xl"/>
-                <div className="flex-1 space-y-1.5">
-                  <SkeletonLine width="55%" height="11px"/>
-                  <SkeletonLine width="32%" height="9px"/>
-                </div>
-                <SkeletonLine width="48px" height="11px"/>
-              </div>
-            ))}
-            <span className="sr-only">Loading leaderboard…</span>
-          </div>
-        ) : leaderboard.length ? (
-          <div className="space-y-3.5">{leaderboard.slice(0, 5).map((person, index) => <div key={person.handle} className="flex items-center gap-3"><span className="w-4 text-xs font-bold text-muted tabular-nums">0{index + 1}</span><div className={`avatar bg-gradient-to-br ${person.color}`}>{person.initials}</div><div className="min-w-0 flex-1"><p className="truncate text-xs font-bold text-primary">{person.name}</p><p className="text-[10px] text-muted">{person.solved} solved</p></div><span className="text-xs font-bold text-primary tabular-nums">{person.score.toLocaleString()} <span className="text-[10px] font-medium text-muted">pts</span></span></div>)}</div>
-        ) : (
-          <p className="rounded-xl px-4 py-6 text-center text-xs text-muted" style={{ background: 'var(--ca-surface-muted)' }}>
-            No sample leaderboard entries available.
-          </p>
+
+        {/* Looping Hand-drawn Doodle Arrow connecting to the next card */}
+        {hasNext && (
+          <DoodleArrow direction={isLeft ? 'right' : 'left'} />
         )}
       </div>
-    </section>
-  </div>;
+    </div>
+  );
 }
 
-function ActivitySparkline({ events }: { events: ActivityEvent[] }) {
-  const days = Array.from({ length: 7 }, (_, index) => {
-    const day = new Date();
-    day.setHours(0, 0, 0, 0);
-    day.setDate(day.getDate() - (6 - index));
-    const count = events.filter((event) => new Date(event.timestamp).toDateString() === day.toDateString()).length;
-    return { count, label: day.toLocaleDateString(undefined, { weekday: 'short' }) };
-  });
-  const maxCount = Math.max(1, ...days.map((day) => day.count));
-  const points = days.map((day, index) => `${7 + index * 19},${30 - (day.count / maxCount) * 22}`).join(' ');
-
-  return <svg className="activity-sparkline" viewBox="0 0 130 36" role="img" aria-label={`Seven-day activity: ${days.map((day) => `${day.label} ${day.count}`).join(', ')}`}>
-    <defs><linearGradient id="activitySparkFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="var(--ca-accent-solid)" stopOpacity=".24"/><stop offset="100%" stopColor="var(--ca-accent-solid)" stopOpacity="0"/></linearGradient></defs>
-    <polygon points={`0,36 ${points} 121,36`} fill="url(#activitySparkFill)"/>
-    {days.map((day, index) => <rect key={day.label} x={2 + index * 19} y={34 - (day.count / maxCount) * 25} width="10" height={Math.max(2, (day.count / maxCount) * 25)} rx="3" fill="var(--ca-accent-solid)" opacity={day.count ? '.18' : '.06'}/>) }
-    <polyline points={points} fill="none" stroke="var(--ca-accent-solid)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    {days.map((day, index) => <circle key={`${day.label}-dot`} cx={7 + index * 19} cy={30 - (day.count / maxCount) * 22} r="2" fill="var(--ca-accent-solid)"/>)}
-  </svg>;
+function getCardIcon(id: string) {
+  switch (id) {
+    case 'problem-arena':
+      return <Code2 size={14} />;
+    case 'pattern-mastery':
+      return <Sparkles size={14} />;
+    case 'learning-paths':
+      return <Compass size={14} />;
+    case 'cloud-ide':
+      return <Terminal size={14} />;
+    case 'daily-challenges':
+      return <Flame size={14} />;
+    case 'competitive-benchmarks':
+      return <Trophy size={14} />;
+    case 'progress-analytics':
+      return <BarChart2 size={14} />;
+    default:
+      return <Layers size={14} />;
+  }
 }
 
-function ActivityRow({ event }: { event: ActivityEvent }) {
-  const solved = event.type === 'solved';
-  return <div className="flex items-center gap-3"><span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${solved ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300' : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300'}`}>{solved ? <CheckCircle2 size={15}/> : <Code2 size={15}/>}</span><div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold text-primary">{solved ? 'Solved' : 'Practiced'} {event.title}</p><p className="mt-0.5 text-[11px] text-muted">{event.topic} · {event.difficulty}{event.durationSeconds ? ` · ${formatDuration(event.durationSeconds)} est.` : ''}</p></div><span className="shrink-0 text-[10px] text-muted">{formatActivityTime(event.timestamp)}</span></div>;
+/**
+ * Hand-drawn curved doodle arrow SVG mirroring the ChaiCode curriculum layout.
+ */
+function DoodleArrow({ direction }: { direction: 'right' | 'left' }) {
+  if (direction === 'right') {
+    return (
+      <svg
+        width="127"
+        height="101"
+        viewBox="0 0 127 101"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        className="absolute -z-10 scale-125 hidden sm:block -right-28 sm:-right-36 -bottom-10 pointer-events-none select-none text-amber-500/70 dark:text-orange-200/75 stroke-current"
+      >
+        <path
+          d="M1 4.656C25.464-.157 44.325-3.219 63.045 15.501c8.935 8.935 11.105 21.004 4.8 32.355C56.369 68.512 34.619 37.4 50.6 27.412c29.297-18.312 55.395 18.13 59.556 43.555 1.212 7.41.453 7.604.844 15.032.339 6.444 3.187-2.652 4-5 1.215-5-1.872 7.752-.4 3.5 2.092-6.044 4.244-8.435 3.4-4.5-1.6 6.996-3.5 12.796-13.5 3.296-2.037-1.93 10.5-4.8 12.5-5.3 5.775-.68-12.502 7.3-7.1 6.981 7.4-4.5-1.882 7.246-.004-2.741-3.218 1.609-.286-.923-3.5.505-5.296 2.354 5.49.25 6.104-.24 1.785-1.428 5.724 3.4 1 5.5-1.216.54-8.578-5.172-6.964-5.172 5.097 0 13.201-10.578 8.4.822-1.5 3.563.754 5.354-2.436 5.167-1.085-.064-13.844-8.374-2.344-4.917"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width="127"
+      height="101"
+      viewBox="0 0 127 101"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="absolute -z-10 scale-125 hidden sm:block -left-28 sm:-left-36 -bottom-10 -scale-x-125 pointer-events-none select-none text-amber-500/70 dark:text-orange-200/75 stroke-current"
+    >
+      <path
+        d="M1 4.656C25.464-.157 44.325-3.219 63.045 15.501c8.935 8.935 11.105 21.004 4.8 32.355C56.369 68.512 34.619 37.4 50.6 27.412c29.297-18.312 55.395 18.13 59.556 43.555 1.212 7.41.453 7.604.844 15.032.339 6.444 3.187-2.652 4-5 1.215-5-1.872 7.752-.4 3.5 2.092-6.044 4.244-8.435 3.4-4.5-1.6 6.996-3.5 12.796-13.5 3.296-2.037-1.93 10.5-4.8 12.5-5.3 5.775-.68-12.502 7.3-7.1 6.981 7.4-4.5-1.882 7.246-.004-2.741-3.218 1.609-.286-.923-3.5.505-5.296 2.354 5.49.25 6.104-.24 1.785-1.428 5.724 3.4 1 5.5-1.216.54-8.578-5.172-6.964-5.172 5.097 0 13.201-10.578 8.4.822-1.5 3.563.754 5.354-2.436 5.167-1.085-.064-13.844-8.374-2.344-4.917"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Decorative hexagon cluster SVG matching the ambient side art in ChaiCode.
+ */
+function HexagonCluster() {
+  return (
+    <svg
+      width="160"
+      height="260"
+      viewBox="0 0 160 260"
+      fill="currentColor"
+      className="text-amber-500/[0.05] dark:text-orange-400/[0.05]"
+      aria-hidden="true"
+    >
+      <polygon points="45,15 75,32 75,67 45,84 15,67 15,32" />
+      <polygon points="105,47 135,64 135,99 105,116 75,99 75,64" />
+      <polygon points="45,79 75,96 75,131 45,148 15,131 15,96" />
+      <polygon points="105,111 135,128 135,163 105,180 75,163 75,128" />
+      <polygon points="45,143 75,160 75,195 45,212 15,195 15,160" />
+      <polygon points="105,175 135,192 135,227 105,244 75,227 75,192" />
+    </svg>
+  );
 }
 
 export function DifficultyBadge({ difficulty }: { difficulty: string }) {
-  const cls = difficulty === 'Easy' ? 'difficulty-easy' : difficulty === 'Medium' ? 'difficulty-medium' : 'difficulty-hard';
+  const cls =
+    difficulty === 'Easy'
+      ? 'difficulty-easy'
+      : difficulty === 'Medium'
+      ? 'difficulty-medium'
+      : 'difficulty-hard';
   return <span className={`difficulty-badge ${cls}`}>{difficulty}</span>;
 }

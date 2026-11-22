@@ -20,6 +20,7 @@ const runSchema = z.object({
         caseNumber: z.number().optional(),
         input: z.string().max(10240),
         expected: z.string().max(10240).optional(),
+        expectedOutput: z.string().max(10240).optional(),
       })
     )
     .max(25, 'Maximum of 25 custom test cases allowed')
@@ -31,6 +32,19 @@ const submitSchema = z.object({
   code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
   language: z.string().min(1).max(50).default('javascript'),
   durationSeconds: z.number().min(0).max(86400).optional(),
+  cases: z
+    .array(
+      z.object({
+        caseNumber: z.number().optional(),
+        input: z.string().max(10240),
+        expected: z.string().max(10240).optional(),
+        expectedOutput: z.string().max(10240).optional(),
+      })
+    )
+    .max(50)
+    .optional(),
+  title: z.string().max(150).optional(),
+  difficulty: z.enum(['Easy', 'Medium', 'Hard']).optional(),
 });
 
 // GET /api/submissions (requires auth)
@@ -45,7 +59,7 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
   try {
     const { problemId, code, language, customInput, cases } = runSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
-    if (!problem) {
+    if (!problem && (!cases || cases.length === 0)) {
       res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
       return;
     }
@@ -57,9 +71,9 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
       testCases = cases.map((c, i) => ({
         caseNumber: c.caseNumber ?? (i + 1),
         input: c.input,
-        expected: c.expected ?? '',
+        expected: c.expected ?? c.expectedOutput ?? '',
       }));
-    } else {
+    } else if (problem) {
       testCases = problem.examples.map((ex, idx) => ({
         caseNumber: idx + 1,
         input: ex.input,
@@ -69,7 +83,7 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
 
     const batchResult = await runTestCases(language, code, testCases, {
       earlyExit: false,
-      orderInvariant: Boolean(problem.orderInvariant),
+      orderInvariant: Boolean(problem?.orderInvariant),
     });
 
     res.json({
@@ -92,18 +106,24 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
 // POST /api/submissions/submit (supports both authenticated and guest submissions, strictly rate-limited)
 router.post('/submit', executionLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { problemId, code, language, durationSeconds } = submitSchema.parse(req.body);
+    const { problemId, code, language, durationSeconds, cases, title, difficulty } = submitSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
-    if (!problem) {
+    if (!problem && (!cases || cases.length === 0)) {
       res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
       return;
     }
 
-    // Use full testCases suite (including hidden edge cases) if available, otherwise fallback to examples
+    // Use full testCases suite if available, otherwise explicit cases or examples
     let testCases: TestCaseInput[] = [];
-    if (problem.testCases && problem.testCases.length > 0) {
+    if (cases && cases.length > 0) {
+      testCases = cases.map((c, i) => ({
+        caseNumber: c.caseNumber ?? (i + 1),
+        input: c.input,
+        expected: c.expected ?? c.expectedOutput ?? '',
+      }));
+    } else if (problem?.testCases && problem.testCases.length > 0) {
       testCases = problem.testCases;
-    } else {
+    } else if (problem) {
       testCases = problem.examples.map((ex, idx) => ({
         caseNumber: idx + 1,
         input: ex.input,
@@ -114,7 +134,7 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
     // Sequential execution with Early Exit on first failure
     const batchResult = await runTestCases(language, code, testCases, {
       earlyExit: true,
-      orderInvariant: Boolean(problem.orderInvariant),
+      orderInvariant: Boolean(problem?.orderInvariant),
     });
 
     let outcome: SubmissionOutcome = 'wrong_answer';
@@ -130,14 +150,17 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
 
     const timestamp = new Date().toISOString();
     const userId = req.user ? req.user.id : 'guest';
+    const problemTitle = problem?.title || title || problemId;
+    const problemDifficulty = problem?.difficulty || difficulty || 'Medium';
+    const problemTopics = problem?.topics || ['Pattern Mastery'];
 
     const submission: SubmissionRecord = {
       id: `sub_${crypto.randomUUID()}`,
       userId,
       problemId,
-      title: problem.title,
-      difficulty: problem.difficulty,
-      topics: problem.topics,
+      title: problemTitle,
+      difficulty: problemDifficulty,
+      topics: problemTopics,
       outcome,
       language,
       code,
@@ -156,9 +179,9 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
           id: `act_${crypto.randomUUID()}`,
           userId,
           problemId,
-          title: problem.title,
-          difficulty: problem.difficulty,
-          topic: problem.topics[0] || 'Problem Solving',
+          title: problemTitle,
+          difficulty: problemDifficulty,
+          topic: problemTopics[0] || 'Problem Solving',
           type: 'solved',
           timestamp,
           durationSeconds: durationSeconds ? Math.round(durationSeconds) : undefined,

@@ -29,8 +29,13 @@ export default function MasteryHub() {
         </div>
 
         {/* Minimal Progress Bar */}
-        <div className="flex items-center gap-3 text-xs text-muted font-medium shrink-0 tabular-nums">
-          <span>{stats.completedBlueprints} of {stats.totalBlueprints} completed</span>
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-3.5 text-xs text-muted font-medium shrink-0 tabular-nums">
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span>{stats.verifiedCodes} Verified</span>
+          </div>
+          <span className="text-muted/30 hidden sm:inline">&bull;</span>
+          <span>{stats.completedBlueprints} of {stats.totalBlueprints} studied</span>
           <div className="w-24 h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-300"
