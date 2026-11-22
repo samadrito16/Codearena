@@ -993,6 +993,39 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .workspace-route-main { height: calc(100vh - 52px); min-height: 600px; overflow: hidden; padding: 0; }
 
 /* Minimal Top Navigation Bar Styles - Light & Dark adaptive */
+.top-navbar-root {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background-color: transparent;
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              -webkit-backdrop-filter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.top-navbar-root.is-scrolled {
+  background-color: color-mix(in srgb, var(--ca-canvas) 78%, transparent) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.top-navbar-root:not(.is-scrolled) {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
 .top-nav-box {
   display: inline-flex;
   align-items: center;
@@ -1136,8 +1169,28 @@ html.dark .top-dropdown-item-active {
 }
 
 .marquee-fade-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 3%,
+    rgba(0, 0, 0, 0.85) 6%,
+    black 10%,
+    black 90%,
+    rgba(0, 0, 0, 0.85) 94%,
+    rgba(0, 0, 0, 0.35) 97%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 3%,
+    rgba(0, 0, 0, 0.85) 6%,
+    black 10%,
+    black 90%,
+    rgba(0, 0, 0, 0.85) 94%,
+    rgba(0, 0, 0, 0.35) 97%,
+    transparent 100%
+  );
 }
 .workspace-screen { display: flex; height: 100%; min-height: 0; flex-direction: column; overflow: hidden; color: var(--ca-text); }
 .problem-title { color: var(--ca-text); font-family: var(--ca-font-display); letter-spacing: -.025em; }

@@ -96,10 +96,6 @@ export default function SlidingTopicsTicker() {
       aria-label="Popular topics and algorithmic patterns"
       className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen max-w-[100vw] overflow-hidden py-3 space-y-3"
     >
-      {/* Left and Right Smooth Edge Fade Overlays */}
-      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 sm:w-36 z-10 bg-gradient-to-r from-[var(--ca-canvas)] to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 sm:w-36 z-10 bg-gradient-to-l from-[var(--ca-canvas)] to-transparent" />
-
       {/* Edge Fade Mask Container */}
       <div className="marquee-fade-mask w-full overflow-hidden">
         {/* Row 1: Sliding LEFT */}

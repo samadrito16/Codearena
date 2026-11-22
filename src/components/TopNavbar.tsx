@@ -16,6 +16,7 @@ import {
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
+import { getLenis } from '../lib/smoothScroll';
 import AccountMenu from './AccountMenu';
 import { PrismMark } from './PrismLogo';
 
@@ -39,11 +40,23 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 8);
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      setIsScrolled(scrollY > 2);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (lenis) {
+        lenis.off('scroll', handleScroll);
+      }
+    };
   }, []);
 
   // Close dropdowns on route changes, and reset overview active state if leaving dashboard
@@ -89,13 +102,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/workspace');
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 select-none ${
-        isScrolled
-          ? 'bg-[var(--ca-canvas)]/80 backdrop-blur-md shadow-sm dark:shadow-none'
-          : 'bg-transparent'
-      }`}
-    >
+    <header className={`top-navbar-root ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="mx-auto flex h-[52px] w-full max-w-[1560px] items-center justify-between px-3 sm:px-5 lg:px-7">
         {/* Left Side: Brand & Navigation */}
         <div className="flex items-center gap-2 sm:gap-6">
