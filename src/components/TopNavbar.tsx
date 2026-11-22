@@ -32,6 +32,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   const [learnOpen, setLearnOpen] = useState(false);
   const [practiceOpen, setPracticeOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [overviewActive, setOverviewActive] = useState(false);
 
   const learnRef = useRef<HTMLDivElement>(null);
   const practiceRef = useRef<HTMLDivElement>(null);
@@ -45,10 +46,13 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdowns on route changes
+  // Close dropdowns on route changes, and reset overview active state if leaving dashboard
   useEffect(() => {
     setLearnOpen(false);
     setPracticeOpen(false);
+    if (location.pathname !== '/dashboard' && location.pathname !== '/') {
+      setOverviewActive(false);
+    }
   }, [location.pathname]);
 
   // Handle outside clicks and escape key
@@ -98,6 +102,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
           {/* Website Name & Logo */}
           <NavLink
             to="/dashboard"
+            onClick={() => setOverviewActive(true)}
             className="flex items-center gap-2.5 transition-opacity hover:opacity-90 shrink-0"
             aria-label="PrismCode home"
           >
@@ -115,8 +120,13 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
             {/* Overview */}
             <NavLink
               to="/dashboard"
-              className={({ isActive }) =>
-                `top-nav-box ${isActive ? 'top-nav-box-active' : ''}`
+              onClick={() => setOverviewActive(true)}
+              className={() =>
+                `top-nav-box ${
+                  overviewActive && (location.pathname === '/dashboard' || location.pathname === '/')
+                    ? 'top-nav-box-active'
+                    : ''
+                }`
               }
             >
               Overview

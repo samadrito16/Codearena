@@ -17,9 +17,7 @@ import { platformRoadmapCards, type RoadmapCardData } from '../data/platformRoad
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
 import SlidingTopicsTicker from '../components/SlidingTopicsTicker';
 import {
-  QuickStatsRow,
   DailyChallengeCard,
-  RecentActivityFeed,
   ContinueWhereYouLeftOff,
 } from '../components/OverviewSections';
 
@@ -94,13 +92,11 @@ export default function Dashboard() {
       <SlidingTopicsTicker />
 
       {/* ─────────────────────────────────────────────────────────────
-          3. OVERVIEW PULSE: QUICK STATS, DAILY CHALLENGE & ACTIVITY
+          3. OVERVIEW: DAILY CHALLENGE & RESUME
       ────────────────────────────────────────────────────────────── */}
       <div className="space-y-10 sm:space-y-12">
-        <QuickStatsRow />
         <DailyChallengeCard />
         <ContinueWhereYouLeftOff />
-        <RecentActivityFeed />
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
