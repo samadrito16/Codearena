@@ -436,8 +436,8 @@ html.dark[data-palette='dune'] {
   --ca-violet-900: 71 45 22; --ca-violet-950: 43 25 12;
 }
 
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--ca-canvas); color: var(--ca-text); transition: background-color .25s ease, color .25s ease; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; min-width: 320px; overflow-x: hidden; max-width: 100%; background: var(--ca-canvas); color: var(--ca-text); transition: background-color .25s ease, color .25s ease; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 
@@ -613,7 +613,7 @@ html.dark .border-slate-800, html.dark .border-slate-700, html.dark .border-slat
 
 /* The canvas is layered: tonal color wash + palette-specific repeat pattern. */
 body { background:var(--ca-canvas); }
-.app-shell { position:relative; isolation:isolate; background:transparent !important; }
+.app-shell { position:relative; isolation:isolate; overflow-x:clip; background:transparent !important; }
 .app-shell::before {
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background-color:var(--ca-canvas);
@@ -1105,6 +1105,39 @@ html.dark .top-dropdown-item:hover {
 html.dark .top-dropdown-item-active {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+}
+
+/* Dual Sliding Marquee Ticker */
+@keyframes marquee-slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-slide-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide-left 42s linear infinite;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide-right 42s linear infinite;
+}
+
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+.marquee-fade-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 .workspace-screen { display: flex; height: 100%; min-height: 0; flex-direction: column; overflow: hidden; color: var(--ca-text); }
 .problem-title { color: var(--ca-text); font-family: var(--ca-font-display); letter-spacing: -.025em; }

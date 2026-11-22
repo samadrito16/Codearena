@@ -15,6 +15,7 @@ import {
 import { Link } from 'react-router-dom';
 import { platformRoadmapCards, type RoadmapCardData } from '../data/platformRoadmap';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
+import SlidingTopicsTicker from '../components/SlidingTopicsTicker';
 
 export default function Dashboard() {
   const { data: problems } = useProblems();
@@ -82,7 +83,12 @@ export default function Dashboard() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. PLATFORM MASTERY ROADMAP (CURVED ALTERNATING ZIGZAG)
+          2. DUAL SLIDING TOPIC LINES (TICKER)
+      ────────────────────────────────────────────────────────────── */}
+      <SlidingTopicsTicker />
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. PLATFORM MASTERY ROADMAP (CURVED ALTERNATING ZIGZAG)
       ────────────────────────────────────────────────────────────── */}
       <section className="relative px-2 sm:px-4 pt-6">
         {/* Ambient Top Glow */}
