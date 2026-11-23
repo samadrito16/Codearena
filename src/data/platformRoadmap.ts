@@ -16,7 +16,7 @@ export interface RoadmapCardData {
 export const platformRoadmapCards: RoadmapCardData[] = [
   {
     id: 'problem-arena',
-    badge: '100+ Challenges',
+    badge: 'Practice Arena',
     title: 'Curated Problem Arena',
     description:
       'Solve handcrafted coding challenges spanning Easy, Medium, and Hard tiers. Build algorithmic intuition with automated test suites, edge-case diffing, and multi-language execution telemetry.',

@@ -187,7 +187,7 @@ export const learningPaths: LearningPath[] = [
         title: 'Sentinel Nodes & In-Place Reversal',
         summary: 'Avoid head edge cases with dummy nodes and rewire next pointers safely.',
         concepts: ['Dummy head', 'Iterative reversal', 'Pointer tracking'],
-        problemIds: [],
+        problemIds: ['reverse-linked-list'],
         topicTags: ['Linked List'],
       },
       {
@@ -277,7 +277,7 @@ export const learningPaths: LearningPath[] = [
         title: '1D State Transitions & Memoization',
         summary: 'Formulate recurrence relations, cache overlapping calls, and optimize rolling space.',
         concepts: ['Top-down memo', 'Bottom-up table', 'Rolling variables'],
-        problemIds: [],
+        problemIds: ['climbing-stairs'],
         topicTags: ['Dynamic Programming', 'Memoization'],
       },
       {

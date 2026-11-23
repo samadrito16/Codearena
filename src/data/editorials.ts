@@ -171,6 +171,168 @@ export const staticEditorials: Record<string, ProblemEditorial> = {
 }`,
     },
   },
+  'median-arrays': {
+    problemId: 'median-arrays',
+    isStaticDemo: true,
+    summary: 'Binary search the partition of the smaller array so that left and right halves have equal size and valid cross-boundary ordering.',
+    hints: [
+      'To achieve O(log(m+n)), binary search over the partition index of the smaller array rather than merging.',
+      'Partitioning nums1 at i implies nums2 must be partitioned at j = (m + n + 1) / 2 - i.',
+      'Valid partition requires maxLeft1 <= minRight2 and maxLeft2 <= minRight1.',
+    ],
+    approachTitle: 'Binary Search Partitioning',
+    approachSteps: [
+      'Ensure nums1 is the shorter array (swap if nums1.length > nums2.length).',
+      'Binary search i in [0, m] with j = Math.floor((m + n + 1) / 2) - i.',
+      'Identify maxLeft1, minRight1, maxLeft2, minRight2 using infinity guards at boundaries.',
+      'If valid, return max(maxLeft1, maxLeft2) for odd total, or average of boundary medians for even total.',
+    ],
+    timeComplexity: 'O(log(min(m, n)))',
+    spaceComplexity: 'O(1)',
+    pitfalls: [
+      'Index out of bounds when partition lands at index 0 or length m; use -Infinity and +Infinity.',
+      'Always binary search on the smaller array to guarantee j is non-negative.',
+    ],
+    referenceCode: {
+      language: 'Python',
+      code: `def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
+    m, n = len(nums1), len(nums2)
+    low, high = 0, m
+    while low <= high:
+        i = (low + high) // 2
+        j = (m + n + 1) // 2 - i
+        max_left1 = float('-inf') if i == 0 else nums1[i - 1]
+        min_right1 = float('inf') if i == m else nums1[i]
+        max_left2 = float('-inf') if j == 0 else nums2[j - 1]
+        min_right2 = float('inf') if j == n else nums2[j]
+        if max_left1 <= min_right2 and max_left2 <= min_right1:
+            if (m + n) % 2 == 1:
+                return float(max(max_left1, max_left2))
+            return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2.0
+        elif max_left1 > min_right2:
+            high = i - 1
+        else:
+            low = i + 1
+    return 0.0`,
+    },
+  },
+  'binary-tree-level-order': {
+    problemId: 'binary-tree-level-order',
+    isStaticDemo: true,
+    summary: 'Traverse the binary tree level by level using a queue, snapshotting queue length at the start of each level.',
+    hints: [
+      'A queue enforces FIFO order, naturally visiting parents before children.',
+      'Record the queue size at the beginning of each iteration to batch nodes on the exact same depth.',
+    ],
+    approachTitle: 'Breadth-First Level Traversal',
+    approachSteps: [
+      'If root is null, return [].',
+      'Initialize queue = [root] and result = [].',
+      'While queue is not empty, snapshot levelSize = queue.length and create level = [].',
+      'Pop levelSize nodes, pushing values to level and non-null children to queue.',
+      'Append level to result.',
+    ],
+    timeComplexity: 'O(n)',
+    spaceComplexity: 'O(n)',
+    pitfalls: [
+      'Do not use queue.length dynamically inside the loop without snapshotting level size first.',
+      'Check for null root before queue initialization.',
+    ],
+    referenceCode: {
+      language: 'JavaScript',
+      code: `function levelOrder(root) {
+  if (!root) return [];
+  const result = [];
+  const queue = [root];
+  while (queue.length > 0) {
+    const levelSize = queue.length;
+    const currentLevel = [];
+    for (let i = 0; i < levelSize; i += 1) {
+      const node = queue.shift();
+      currentLevel.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    result.push(currentLevel);
+  }
+  return result;
+}`,
+    },
+  },
+  'reverse-linked-list': {
+    problemId: 'reverse-linked-list',
+    isStaticDemo: true,
+    summary: 'Iterate through the linked list, redirecting each node\'s next pointer to its predecessor.',
+    hints: [
+      'Maintain prev = null and curr = head.',
+      'Before rewiring curr.next = prev, temporarily store curr.next in a nextNode variable so you don\'t lose the rest of the list.',
+    ],
+    approachTitle: 'Iterative Three-Pointer Rewiring',
+    approachSteps: [
+      'Set prev = null and curr = head.',
+      'While curr is not null: save nextNode = curr.next, rewire curr.next = prev, advance prev = curr, advance curr = nextNode.',
+      'Return prev as the new head.',
+    ],
+    timeComplexity: 'O(n)',
+    spaceComplexity: 'O(1)',
+    pitfalls: [
+      'Losing reference to the remaining list before mutating curr.next.',
+      'Returning curr instead of prev after loop exits (curr will be null).',
+    ],
+    referenceCode: {
+      language: 'JavaScript',
+      code: `function reverseList(head) {
+  let prev = null;
+  let curr = head;
+  while (curr !== null) {
+    const nextNode = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = nextNode;
+  }
+  return prev;
+}`,
+    },
+  },
+  'climbing-stairs': {
+    problemId: 'climbing-stairs',
+    isStaticDemo: true,
+    summary: 'The number of ways to reach step n is the sum of ways to reach step n-1 and step n-2 (Fibonacci sequence).',
+    hints: [
+      'To reach step n, you can either take 1 step from n-1 or 2 steps from n-2.',
+      'Therefore ways(n) = ways(n-1) + ways(n-2).',
+      'Optimize space from an array to two rolling variables.',
+    ],
+    approachTitle: 'Dynamic Programming with Rolling Variables',
+    approachSteps: [
+      'Handle base cases: if n <= 2, return n.',
+      'Initialize prev2 = 1, prev1 = 2.',
+      'Iterate step from 3 to n: current = prev1 + prev2, prev2 = prev1, prev1 = current.',
+      'Return prev1.',
+    ],
+    timeComplexity: 'O(n)',
+    spaceComplexity: 'O(1)',
+    pitfalls: [
+      'Using naive recursion without memoization leads to O(2ⁿ) Time Limit Exceeded.',
+      'Ensure 1-based indexing for steps.',
+    ],
+    referenceCode: {
+      language: 'JavaScript',
+      code: `function climbStairs(n) {
+  if (n <= 2) return n;
+  let prev2 = 1;
+  let prev1 = 2;
+  for (let i = 3; i <= n; i += 1) {
+    const current = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = current;
+  }
+  return prev1;
+}`,
+    },
+  },
 };
 
 export function getProblemEditorial(problemId: string): ProblemEditorial | null {

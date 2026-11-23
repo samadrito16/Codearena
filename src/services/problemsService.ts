@@ -3,7 +3,7 @@ import { writeStorageSafe, type StorageWriteResult } from '../lib/storage';
 import type { Problem } from '../types';
 import type { ProblemsRepository } from './types';
 
-export const PROBLEMS_STORAGE_KEY = 'prismcode-problems';
+export const PROBLEMS_STORAGE_KEY = 'prismcode-problems-v3';
 
 export function isProblemRecord(value: unknown): value is Problem {
   if (!value || typeof value !== 'object') return false;
@@ -19,14 +19,15 @@ export function isProblemRecord(value: unknown): value is Problem {
 
 function readLocalProblems(): Problem[] {
   try {
-    const raw = localStorage.getItem(PROBLEMS_STORAGE_KEY) ?? localStorage.getItem('codearena-problems');
-    if (raw === null) return initialProblems;
+    const raw = localStorage.getItem(PROBLEMS_STORAGE_KEY);
+    if (raw === null) {
+      writeStorageSafe(PROBLEMS_STORAGE_KEY, initialProblems);
+      return initialProblems;
+    }
     const stored: unknown = JSON.parse(raw);
     if (!Array.isArray(stored)) return initialProblems;
     const valid = stored.filter(isProblemRecord);
-    // If the local cache has fewer items or legacy non-canonical topics, upgrade to the refreshed catalog
-    const hasOutdatedTopics = valid.some((p) => p.topics.some((t) => t === 'Hashing' || t === 'Arrays & Matrices' || t === 'Strings' || t === 'Frequency Maps'));
-    if (valid.length < initialProblems.length || hasOutdatedTopics) {
+    if (valid.length === 0) {
       writeStorageSafe(PROBLEMS_STORAGE_KEY, initialProblems);
       return initialProblems;
     }
@@ -57,7 +58,7 @@ export const problemsService: ProblemsRepository = {
       const response = await fetch('/api/problems', { signal });
       if (response.ok) {
         const fetched: unknown = await response.json();
-        if (Array.isArray(fetched) && fetched.length >= initialProblems.length) {
+        if (Array.isArray(fetched) && fetched.length > 0) {
           const valid = fetched.filter(isProblemRecord);
           writeStorageSafe(PROBLEMS_STORAGE_KEY, valid);
           return valid;

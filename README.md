@@ -145,7 +145,7 @@ Codearena/
 │   ├── data/
 │   │   ├── mastery/             # 25 Core Algorithmic Blueprints catalog
 │   │   ├── review/              # AI-era review scenario definitions
-│   │   ├── problems.ts          # 306+ practice challenge library
+│   │   ├── problems.ts          # Practice challenge library (canonical seed fixtures)
 │   │   ├── editorials.ts        # Static editorial walkthroughs & hints
 │   │   └── platformRoadmap.ts   # Platform roadmap feature cards
 │   ├── lib/
