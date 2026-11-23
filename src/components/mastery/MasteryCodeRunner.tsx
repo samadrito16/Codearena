@@ -35,6 +35,8 @@ interface MasteryCodeRunnerProps {
   onCodeAccepted?: () => void;
   savedDraft?: string;
   onSaveDraft?: (language: string, code: string) => void;
+  isSplitView?: boolean;
+  onToggleSplitView?: () => void;
 }
 
 type SupportedLanguage = 'python' | 'javascript' | 'typescript' | 'cpp' | 'java';
@@ -81,6 +83,8 @@ export default function MasteryCodeRunner({
   onCodeAccepted,
   savedDraft,
   onSaveDraft,
+  isSplitView = false,
+  onToggleSplitView,
 }: MasteryCodeRunnerProps) {
   const { theme } = useApp();
   const [language, setLanguage] = useState<SupportedLanguage>('python');
@@ -98,6 +102,7 @@ export default function MasteryCodeRunner({
   const [execError, setExecError] = useState<string | null>(null);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [dockedReferenceTab, setDockedReferenceTab] = useState<'none' | 'subgoals' | 'hints' | 'clues' | 'solution'>('none');
   const [revealedHintsCount, setRevealedHintsCount] = useState<number>(1);
 
   // Sync draft when language changes
@@ -176,6 +181,9 @@ export default function MasteryCodeRunner({
         problemId: problem.id,
         code,
         language,
+        cases: casesPayload,
+        title: problem.title,
+        difficulty: problem.difficulty,
       });
 
       setExecResult(res);
@@ -244,10 +252,64 @@ export default function MasteryCodeRunner({
             <span className="text-[11px] text-muted hidden sm:inline font-mono">
               OnlineCompiler Sandbox Active
             </span>
+
+            {/* In-Studio Docked Reference Pills */}
+            <div className="hidden md:flex items-center gap-1 border-l pl-2.5 ml-1 border-black/10 dark:border-white/10">
+              <button
+                type="button"
+                onClick={() => setDockedReferenceTab((prev) => (prev === 'subgoals' ? 'none' : 'subgoals'))}
+                className={`h-7 px-2.5 text-[11px] rounded-lg font-medium transition ${
+                  dockedReferenceTab === 'subgoals'
+                    ? 'bg-indigo-500/20 text-indigo-500 font-bold'
+                    : 'text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                }`}
+                title="Toggle inline subgoals guide"
+              >
+                Subgoals
+              </button>
+              <button
+                type="button"
+                onClick={() => setDockedReferenceTab((prev) => (prev === 'hints' ? 'none' : 'hints'))}
+                className={`h-7 px-2.5 text-[11px] rounded-lg font-medium transition ${
+                  dockedReferenceTab === 'hints'
+                    ? 'bg-amber-500/20 text-amber-500 font-bold'
+                    : 'text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                }`}
+                title="Toggle inline hint ladder"
+              >
+                Hints
+              </button>
+              <button
+                type="button"
+                onClick={() => setDockedReferenceTab((prev) => (prev === 'solution' ? 'none' : 'solution'))}
+                className={`h-7 px-2.5 text-[11px] rounded-lg font-medium transition ${
+                  dockedReferenceTab === 'solution'
+                    ? 'bg-emerald-500/20 text-emerald-500 font-bold'
+                    : 'text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                }`}
+                title="Toggle reference solution"
+              >
+                Solution
+              </button>
+            </div>
           </div>
 
-          {/* Right: Peek Drawer, Reset & Run Buttons */}
-          <div className="flex items-center gap-2.5">
+          {/* Right: Split view, Peek Drawer, Reset & Run Buttons */}
+          <div className="flex items-center gap-2">
+            {onToggleSplitView && (
+              <button
+                type="button"
+                onClick={onToggleSplitView}
+                className={`btn-secondary h-8 px-2.5 text-xs font-medium gap-1.5 ${
+                  isSplitView ? 'bg-indigo-500/15 text-indigo-500 border-indigo-500/30' : 'text-muted hover:text-primary'
+                }`}
+                title={isSplitView ? 'Expand to Full View' : 'Split Screen with Problem Statement'}
+              >
+                {isSplitView ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
+                <span className="hidden sm:inline">{isSplitView ? 'Full' : 'Split'}</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => setIsDrawerOpen(true)}
@@ -255,7 +317,7 @@ export default function MasteryCodeRunner({
               title="Peek at blueprint subgoals and hints while coding"
             >
               <BookOpen size={14} />
-              <span className="hidden sm:inline">Blueprint Hints</span>
+              <span className="hidden lg:inline">Blueprint Hints</span>
             </button>
 
             <button
@@ -290,7 +352,7 @@ export default function MasteryCodeRunner({
         </div>
 
         {/* Monaco Editor Canvas */}
-        <div className="h-[440px] sm:h-[480px] w-full border-b" style={{ borderColor: 'var(--ca-border)' }}>
+        <div className={`${isSplitView ? 'h-[380px] sm:h-[450px]' : 'h-[440px] sm:h-[500px]'} w-full border-b`} style={{ borderColor: 'var(--ca-border)' }}>
           <Editor
             language={LANGUAGE_LABELS[language].monacoLang}
             value={code}
@@ -309,6 +371,83 @@ export default function MasteryCodeRunner({
             }}
           />
         </div>
+
+        {/* Docked Inline Blueprint Reference Tray */}
+        {dockedReferenceTab !== 'none' && (
+          <div
+            className="p-4 border-b space-y-3 bg-black/[0.03] dark:bg-black/30 animate-in slide-in-from-top-2 duration-150"
+            style={{ borderColor: 'var(--ca-border)' }}
+          >
+            <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: 'var(--ca-border)' }}>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-primary flex items-center gap-1.5">
+                  <BookOpen size={14} className="text-indigo-500" />
+                  {dockedReferenceTab === 'subgoals' && 'Subgoals Architecture Guide'}
+                  {dockedReferenceTab === 'hints' && 'Progressive Hint Ladder'}
+                  {dockedReferenceTab === 'clues' && 'Pattern Diagnosis Clues'}
+                  {dockedReferenceTab === 'solution' && 'Optimal Solution Blueprint'}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDockedReferenceTab('none')}
+                className="text-xs text-muted hover:text-primary transition flex items-center gap-1"
+              >
+                <span>Close</span>
+                <X size={13} />
+              </button>
+            </div>
+
+            {dockedReferenceTab === 'subgoals' && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto">
+                {problem.optimal_solution.subgoals.map((sg, idx) => (
+                  <div
+                    key={idx}
+                    className="p-2.5 rounded-lg border text-xs space-y-1"
+                    style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+                  >
+                    <div className="font-bold text-primary flex items-center justify-between">
+                      <span>{idx + 1}. {sg.title}</span>
+                      <span className="font-mono text-[10px] text-muted">Lines {sg.line_range[0]}–{sg.line_range[1]}</span>
+                    </div>
+                    <p className="text-[11px] text-muted leading-relaxed">{sg.explanation}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {dockedReferenceTab === 'hints' && (
+              <div className="space-y-2 max-h-56 overflow-y-auto">
+                {problem.hints.slice(0, revealedHintsCount).map((hint, hIdx) => (
+                  <div
+                    key={hIdx}
+                    className="p-2.5 rounded-lg border border-amber-500/20 bg-amber-500/5 text-xs text-primary leading-relaxed"
+                  >
+                    <strong className="text-amber-500">Hint {hIdx + 1}: </strong>
+                    {hint}
+                  </div>
+                ))}
+                {revealedHintsCount < problem.hints.length && (
+                  <button
+                    type="button"
+                    onClick={() => setRevealedHintsCount((prev) => prev + 1)}
+                    className="btn-secondary w-full py-1.5 text-xs font-semibold gap-1 text-amber-500"
+                  >
+                    <Lightbulb size={12} /> Unlock Hint {revealedHintsCount + 1}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {dockedReferenceTab === 'solution' && (
+              <div className="max-h-56 overflow-y-auto">
+                <pre className="p-3 rounded-xl bg-slate-950 text-slate-100 font-mono text-xs overflow-x-auto border border-black/10 dark:border-white/10">
+                  <code>{problem.optimal_solution.code}</code>
+                </pre>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Bottom Panel: Test Fixtures & Console Tabs */}
         <div className="p-4 sm:p-5 space-y-4">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   AlertTriangle,
+  ArrowRight,
   Check,
   CheckCircle2,
   Code2,
@@ -26,6 +27,7 @@ interface SubgoalBlueprintViewerProps {
   onRecordRecall: (lineNumber: number, result: RecallResult) => void;
   typedDrafts?: Record<number, string>;
   onSaveTypedDraft?: (lineNumber: number, draft: string) => void;
+  onSwitchToDrill?: () => void;
 }
 
 function normalizeCode(str: string): string {
@@ -223,6 +225,7 @@ export default function SubgoalBlueprintViewer({
   onRecordRecall,
   typedDrafts = {},
   onSaveTypedDraft,
+  onSwitchToDrill,
 }: SubgoalBlueprintViewerProps) {
   const [mode, setMode] = useState<ViewerMode>('blueprint');
   const [selectedLineNumber, setSelectedLineNumber] = useState<number>(1);
@@ -331,6 +334,29 @@ export default function SubgoalBlueprintViewer({
       <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x" style={{ borderColor: 'var(--ca-border)' }}>
         {/* Code Canvas (8 columns) */}
         <div className="lg:col-span-7 xl:col-span-8 p-4 sm:p-6 overflow-x-auto space-y-6">
+          {mode === 'recall' && onSwitchToDrill && (
+            <div className="p-3.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 flex flex-wrap items-center justify-between gap-3 animate-in fade-in">
+              <div className="flex items-center gap-2.5">
+                <Zap size={16} className="text-indigo-400 shrink-0" />
+                <div>
+                  <span className="text-xs font-bold text-primary block">
+                    Timed Speed Drill Mode Available
+                  </span>
+                  <span className="text-[11px] text-muted">
+                    Take the 3-minute timed recall test with in-context blanks and streak counters.
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={onSwitchToDrill}
+                className="btn-primary h-8 px-3 text-xs font-semibold shrink-0 gap-1"
+              >
+                <span>Launch 3-Min Drill</span>
+                <ArrowRight size={13} />
+              </button>
+            </div>
+          )}
           {optimal.subgoals.map((subgoal, sIdx) => {
             const [startLine, endLine] = subgoal.line_range;
             const subgoalLines = optimal.code_lines.filter(

@@ -104,6 +104,7 @@ export interface ProblemProgress {
   completed: boolean;
   codeAccepted?: boolean;
   codeDrafts?: Record<string, string>;
+  bestDrillScore?: { recalled: number; total: number; timeSeconds: number };
   lastStudiedAt: string | null;
 }
 

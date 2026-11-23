@@ -48,6 +48,9 @@ export async function submitCode(options: {
   code: string;
   language: string;
   durationSeconds?: number;
+  cases?: { caseNumber?: number; input: string; expected?: string }[];
+  title?: string;
+  difficulty?: string;
 }): Promise<ExecutionResponse> {
   return apiRequest<ExecutionResponse>('/submissions/submit', {
     method: 'POST',

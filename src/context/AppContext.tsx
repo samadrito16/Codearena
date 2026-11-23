@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { defaultFontId, fontOptions } from '../data/fonts';
 import { defaultPalette, themePalettes } from '../data/themes';
 import { MIN_PRACTICE_SESSION_SECONDS } from '../lib/practiceTimer';
@@ -165,22 +165,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
     problemsReloadRef.current?.abort();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     writeStorage('codearena-theme', theme);
   }, [theme]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.palette = palette;
     writeStorage('codearena-palette', palette);
   }, [palette]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const selected = fontOptions.find((item) => item.id === fontFamily) ?? fontOptions[0];
     document.documentElement.style.setProperty('--ca-font-sans', selected.fontFamily);
     document.documentElement.style.setProperty('--ca-font-display', selected.fontFamily);
     document.documentElement.dataset.font = selected.id;
     writeStorage('codearena-font', selected.id);
   }, [fontFamily]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.fontSize = fontSize;
     writeStorage('codearena-font-size', fontSize);
   }, [fontSize]);

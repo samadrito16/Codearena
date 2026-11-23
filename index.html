@@ -1,13 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark" data-palette="onyx">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta name="theme-color" content="#0a131a" />
+    <meta name="theme-color" content="#0a0b0e" />
     <meta name="description" content="PrismCode by Refract Labs — practice, compete, and grow as a developer." />
     <title>PrismCode — Coding Practice by Refract Labs</title>
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('codearena-theme');
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+
+          var palette = localStorage.getItem('codearena-palette');
+          var validPalettes = ['onyx', 'frost', 'copper', 'crimson', 'dune'];
+          if (palette && validPalettes.indexOf(palette) !== -1) {
+            document.documentElement.setAttribute('data-palette', palette);
+          } else {
+            document.documentElement.setAttribute('data-palette', 'onyx');
+          }
+
+          var font = localStorage.getItem('codearena-font');
+          if (font) {
+            document.documentElement.setAttribute('data-font', font);
+          }
+
+          var fontSize = localStorage.getItem('codearena-font-size');
+          if (fontSize) {
+            document.documentElement.setAttribute('data-font-size', fontSize);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="shortcut icon" href="/favicon.ico" />

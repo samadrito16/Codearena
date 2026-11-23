@@ -8,53 +8,78 @@
   font-family: var(--ca-font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --ca-canvas: #f6f7fb;
+  --ca-canvas: #f8f9fa;
   --ca-surface: #ffffff;
-  --ca-surface-muted: #f1f3f9;
-  --ca-border: #e4e7f0;
-  --ca-text: #171b2d;
-  --ca-glow-shadow: rgba(79, 70, 229, .18);
-  --ca-hero-start: #26245f;
-  --ca-hero-mid: #4338ca;
-  --ca-hero-end: #6d28d9;
-  --ca-hero-glow: rgba(139, 92, 246, .50);
-  --ca-indigo-50: 238 242 255;
-  --ca-indigo-100: 224 231 255;
-  --ca-indigo-200: 199 210 254;
-  --ca-indigo-300: 165 180 252;
-  --ca-indigo-400: 129 140 248;
-  --ca-indigo-500: 99 102 241;
-  --ca-indigo-600: 79 70 229;
-  --ca-indigo-700: 67 56 202;
-  --ca-indigo-800: 55 48 163;
-  --ca-indigo-900: 49 46 129;
-  --ca-indigo-950: 30 27 75;
-  --ca-violet-50: 245 243 255;
-  --ca-violet-100: 237 233 254;
-  --ca-violet-200: 221 214 254;
-  --ca-violet-300: 196 181 253;
-  --ca-violet-400: 167 139 250;
-  --ca-violet-500: 139 92 246;
-  --ca-violet-600: 124 58 237;
-  --ca-violet-700: 109 40 217;
-  --ca-violet-800: 91 33 182;
-  --ca-violet-900: 76 29 149;
-  --ca-violet-950: 46 16 101;
+  --ca-surface-muted: #f0f2f5;
+  --ca-border: #e1e4ea;
+  --ca-text: #0f141c;
+  --ca-accent-solid: #334155;
+  --ca-editor-bg: #f8fafc;
+  --ca-glow-shadow: rgb(51 65 85 / .18);
+  --ca-hero-start: #0f172a;
+  --ca-hero-mid: #334155;
+  --ca-hero-end: #475569;
+  --ca-hero-glow: rgb(100 116 139 / .40);
+  --ca-bg-glow-1: rgb(71 85 105 / .14);
+  --ca-bg-glow-2: rgb(148 163 184 / .10);
+  --ca-pattern-ink: rgb(15 23 42 / .08);
+  --ca-pattern-image: radial-gradient(circle, var(--ca-pattern-ink) .95px, transparent 1.7px);
+  --ca-pattern-size: 32px 32px;
+  --ca-mesh-gradient:
+    radial-gradient(ellipse 950px 680px at 88% 10%, rgb(100 116 139 / .18), transparent 70%),
+    radial-gradient(ellipse 850px 600px at 10% 85%, rgb(148 163 184 / .14), transparent 72%),
+    radial-gradient(ellipse 720px 520px at 50% 35%, rgb(71 85 105 / .12), transparent 68%),
+    linear-gradient(145deg, color-mix(in srgb, var(--ca-surface) 22%, transparent), transparent 48%);
+  --ca-mesh-size: auto, auto, auto, auto;
+  --ca-mesh-pos: center, center, center, center;
+  --ca-hero-pattern: radial-gradient(circle at 1px 1px, rgb(255 255 255 / .20) 1px, transparent 1.8px);
+  --ca-indigo-50: 248 250 252; --ca-indigo-100: 241 245 249; --ca-indigo-200: 226 232 240;
+  --ca-indigo-300: 203 213 225; --ca-indigo-400: 148 163 184; --ca-indigo-500: 100 116 139;
+  --ca-indigo-600: 71 85 105; --ca-indigo-700: 51 65 85; --ca-indigo-800: 30 41 59;
+  --ca-indigo-900: 15 23 42; --ca-indigo-950: 2 6 23;
+  --ca-violet-50: 248 250 252; --ca-violet-100: 241 245 249; --ca-violet-200: 226 232 240;
+  --ca-violet-300: 203 213 225; --ca-violet-400: 148 163 184; --ca-violet-500: 100 116 139;
+  --ca-violet-600: 71 85 105; --ca-violet-700: 51 65 85; --ca-violet-800: 30 41 59;
+  --ca-violet-900: 15 23 42; --ca-violet-950: 2 6 23;
 }
 
 html.dark {
   color-scheme: dark;
-  --ca-accent-text: #ffffff;
-  --ca-canvas: #0b1020;
-  --ca-surface: #111827;
-  --ca-surface-muted: #182235;
-  --ca-border: #28344a;
+  --ca-canvas: #0a0b0e;
+  --ca-accent-text: #090b10;
+  --ca-surface: #12141a;
+  --ca-surface-muted: #1a1c24;
+  --ca-border: #262933;
   --ca-text: #f8fafc;
-  --ca-glow-shadow: rgba(79, 70, 229, .12);
-  --ca-hero-start: #17183e;
-  --ca-hero-mid: #302e81;
-  --ca-hero-end: #4c1d95;
-  --ca-hero-glow: rgba(139, 92, 246, .40);
+  --ca-accent-solid: #f1f5f9;
+  --ca-editor-bg: #101217;
+  --ca-glow-shadow: rgb(241 245 249 / .25);
+  --ca-hero-start: #08090b;
+  --ca-hero-mid: #1e222b;
+  --ca-hero-end: #333948;
+  --ca-hero-glow: rgb(203 213 225 / .40);
+  --ca-bg-glow-1: rgb(148 163 184 / .35);
+  --ca-bg-glow-2: rgb(71 85 105 / .30);
+  --ca-pattern-ink: rgb(226 232 240 / .12);
+  --ca-pattern-image: radial-gradient(circle, var(--ca-pattern-ink) .95px, transparent 1.7px);
+  --ca-pattern-size: 32px 32px;
+  --ca-mesh-gradient:
+    radial-gradient(ellipse 950px 650px at 88% 10%, rgb(148 163 184 / .40) 0%, rgb(100 116 139 / .20) 40%, transparent 72%),
+    radial-gradient(circle 460px at 84% 15%, rgb(241 245 249 / .24) 0%, rgb(148 163 184 / .10) 55%, transparent 70%),
+    radial-gradient(ellipse 850px 620px at 12% 85%, rgb(71 85 105 / .38) 0%, rgb(30 41 59 / .20) 45%, transparent 70%),
+    radial-gradient(ellipse 700px 500px at 50% 35%, rgb(100 116 139 / .25) 0%, transparent 68%),
+    linear-gradient(135deg, #0a0b0e 0%, #151821 40%, #1e2330 72%, #0a0b0e 100%);
+  --ca-mesh-size: auto, auto, auto, auto, auto;
+  --ca-mesh-pos: center, center, center, center, center;
+  --ca-hero-pattern: radial-gradient(circle at 1px 1px, rgb(255 255 255 / .18) 1px, transparent 1.8px);
+  --ca-indigo-50: 248 250 252; --ca-indigo-100: 241 245 249; --ca-indigo-200: 226 232 240;
+  --ca-indigo-300: 203 213 225; --ca-indigo-400: 148 163 184; --ca-indigo-500: 100 116 139;
+  --ca-indigo-600: 71 85 105; --ca-indigo-700: 51 65 85; --ca-indigo-800: 30 41 59;
+  --ca-indigo-900: 15 23 42; --ca-indigo-950: 2 6 23;
+  --ca-violet-50: 248 250 252; --ca-violet-100: 241 245 249; --ca-violet-200: 226 232 240;
+  --ca-violet-300: 203 213 225; --ca-violet-400: 148 163 184; --ca-violet-500: 100 116 139;
+  --ca-violet-600: 71 85 105; --ca-violet-700: 51 65 85; --ca-violet-800: 30 41 59;
+  --ca-violet-900: 15 23 42; --ca-violet-950: 2 6 23;
 }
 
 /* Crimson Ember — Velvet Obsidian & Radiant Scarlet Ruby */

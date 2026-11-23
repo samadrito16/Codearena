@@ -126,6 +126,20 @@ export function useMasteryProgress() {
     []
   );
 
+  const recordDrillScore = useCallback(
+    (problemId: string, score: { recalled: number; total: number; timeSeconds: number }) => {
+      const current = readStore();
+      const problem = current.problems[problemId] || { ...DEFAULT_PROBLEM_PROGRESS };
+      current.problems[problemId] = {
+        ...problem,
+        bestDrillScore: score,
+        lastStudiedAt: new Date().toISOString(),
+      };
+      writeStore(current);
+    },
+    []
+  );
+
   const recordCodeAccepted = useCallback(
     (problemId: string, accepted = true) => {
       const current = readStore();
@@ -249,6 +263,7 @@ export function useMasteryProgress() {
     unlockNextHint,
     recordRecall,
     saveTypedRecallDraft,
+    recordDrillScore,
     recordCodeAccepted,
     saveCodeDraft,
     saveMistakeNote,
