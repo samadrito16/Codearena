@@ -1,132 +1,181 @@
 # PrismCode
 
 <p align="center">
-  <strong>Next-Generation Algorithmic Arena & Developer Workspace</strong><br>
-  <em>Designed and engineered by Refract Labs</em>
+  <strong>Next-Generation Algorithmic Arena, Subgoal Mastery Studio & AI Code Review Platform</strong><br>
+  <em>Engineered for software engineers, competitive coders, and senior technical interviewees.</em>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black" alt="React 18" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white" alt="TypeScript 5.7" />
-  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white" alt="Vite 5" />
-  <img src="https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Monaco_Editor-0.46-1E1E1E?logo=visual-studio-code&logoColor=white" alt="Monaco Editor" />
-  <img src="https://img.shields.io/badge/Node.js-Express_4-339933?logo=node.js&logoColor=white" alt="Node.js Express" />
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" />
+  <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18" />
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
+  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 5" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Monaco_Editor-0.46-1E1E1E?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Monaco Editor" />
+  <img src="https://img.shields.io/badge/Node.js-Express_4-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js Express" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License" />
 </p>
 
 ---
 
-## ✦ Overview
+## ✦ Platform Overview
 
-**PrismCode** is a high-performance algorithmic engineering playground and competitive programming platform. Built for software engineers, students, and competitive coders, PrismCode blends an immersive, full-bleed code editor workspace with structured data structures and algorithms (DSA) progression, real-time code compilation, personalized performance telemetry, and customizable aesthetic atmospheres.
+**PrismCode** is a high-performance algorithmic engineering ecosystem built to bridge the gap between abstract algorithmic practice and real-world senior software engineering. 
 
-Developed by **Refract Labs**, PrismCode is architected as a modern, decoupled full-stack TypeScript application with real-time compilation engines, dual-mode authentication, granular privacy controls, and audit logging.
+While traditional platforms focus on isolated, single-function LeetCode-style snippets, PrismCode provides a multi-dimensional engineering suite:
+- **Cloud Monaco Workspace**: Full-bleed coding environment with multi-language execution, custom test suites, and sub-100ms telemetry.
+- **Subgoal Pattern Mastery Studio**: Deconstructs algorithmic thinking into cognitive blueprints, brute-force bottleneck comparisons, active fill-in recall drills, and in-studio live execution.
+- **AI-Era Code Review Arena**: Audits multi-file broken repositories, concurrency race conditions, and flawed AI-generated PR code for senior engineering interviews.
+- **52-Week Year Planner**: GitHub-style activity heatmaps, weekly roadmap drawers, and momentum streak tracking.
+- **Pure Glassmorphism UX**: Authentic frosted glass modal layers with non-refreshing route persistence, custom typographic scales, and 7 atmospheric themes.
 
 ---
 
-## ⚡ Highlights & Key Features
+## ⚡ Core Feature Systems
 
-### 🖥️ Full-Bleed Monaco Coding Workspace
-- **Multi-Language Support**: Real-time execution across **46 programming languages** (Python, TypeScript, JavaScript, C++, Java, Rust, Go, C#, Kotlin, and more) powered by the **OnlineCompiler.io Engine** with local fallback isolation.
-- **Custom Monaco Theming**: Synchronized syntax palettes that seamlessly blend with your application theme.
-- **Custom Test Runner**: Build, edit, run, and benchmark custom edge-case test suites side-by-side with official test fixtures.
-- **Deep Execution Telemetry**: Granular execution statistics including runtime duration (ms), memory usage (MB), exit codes, test case verdicts, and stdout/stderr outputs.
-- **Active Engagement Timer**: Precise practice tracking that automatically detects tab visibility and user idle states to log real problem-solving focus time.
+### 1. 🖥️ Full-Bleed Cloud Workspace (`/workspace/:id`)
+- **Monaco Engine**: Powered by the VS Code editor with full syntax highlighting, IntelliSense, auto-indentation, and customizable font hierarchies (JetBrains Mono, Fira Code, Geist, Berkeley Mono).
+- **Multi-Language Runtime Support**: Live code evaluation across **Python 3, JavaScript (Node.js), TypeScript, C++ (G++), and Java (OpenJDK)** with container sandbox integration and local fallback adapters.
+- **Custom Test Case Manager**: Build, edit, and benchmark custom input/output fixtures alongside official test suites with order-invariant diffing.
+- **Sub-100ms Telemetry**: Real-time feedback reporting runtime duration (ms), memory consumption (MB), test case verdicts, and stdout/stderr streams.
+- **Active Practice Timer**: Tracks true engagement duration by filtering out tab inactivity and idle time.
 
-### 📚 Curated Problem Bank & Topic Mastery
-- **306+ Normalized DSA Problems**: Standardized into 19 canonical algorithmic topics (Arrays, Strings, Dynamic Programming, Graphs, Binary Search, Trees, Heaps, Sliding Window, Matrix, Backtracking, and more).
-- **Topic Mastery Breakdown**: Visual progress bars showing strengths and focus areas with one-click practice launchers.
-- **Targeted Difficulty Tiers**: Easy, Medium, and Hard challenges with acceptance rates and estimated solving benchmarks.
+---
 
-### 🔥 Daily Challenges & Momentum Signals
-- **Daily Algorithmic Drops**: Dynamic calendar schedule providing curated daily challenges.
-- **7-Day Velocity Signal**: Sparklines and activity logs measuring week-over-week consistency and streak retention.
+### 2. 🧠 Subgoal Pattern Mastery Studio (`/mastery`)
+Stop memorizing solutions line-by-line. The **Pattern Mastery Studio** teaches structural algorithmic mental models across 5 foundational paradigms:
 
-### 🎨 Atmospheric Theme Engine
-- **7 Bespoke Color Palettes**:
-  - `Carbon Pulse` *(Default)* — Graphite, vibrant cyan, and warm brass
-  - `Molten Bronze` — Deep obsidian with burnished amber glow
-  - `Glacial Mist` — High-clarity Arctic blue with cool slate
+```mermaid
+flowchart LR
+    A["Stage 1: Diagnosis & Blueprint\n(Clue Quiz · Bottlenecks · Subgoals)"] --> B["Stage 2: Active Speed Drill\n(3-Min Timed Fill-in of Hardest 25%)"]
+    B --> C["Stage 3: In-Studio Runner\n(Monaco, Live Fixtures, Docked Tray)"]
+    C --> D["Mastery Verified\n(Local Progress & Telemetry)"]
+```
+
+- **5 Core Algorithmic Paradigms**:
+  - `Two Pointers` — Converging and fast/slow traversal over ordered sequences.
+  - `Sliding Window` — Dynamic range expansion, contraction, and contiguous state tracking.
+  - `Hash Maps & Sets` — Amortized O(1) complements, frequency grouping, and prefix sums.
+  - `Dynamic Programming` — Optimal substructure recurrence and state memoization.
+  - `Breadth-First Search` — Level-order state trees and shortest path discovery.
+- **Pattern Diagnosis Gate**: Diagnose problem invariants from trigger clues before unlocking the solution blueprint.
+- **Brute Force vs Optimal Comparison**: Side-by-side complexity benchmarks dissecting why naive approaches fail.
+- **Active Fill-In Speed Drills**: 3-minute timed recall drills testing critical boundary lines (`is_high_risk: true`) with forgiving code normalization and auto-focus progression.
+- **In-Studio Code Runner**: Integrated coding environment with live test fixture injection and docked inline Blueprint Reference trays (Subgoals, Hints, Reference Solutions).
+
+---
+
+### 3. 🔍 AI-Era Code Review & Debugging Arena (`/review`)
+The interview format modern AI-native companies (OpenAI, Stripe, Scale AI, Databricks, Anthropic) test most: **auditing pull requests, reviewing AI-generated code, and catching multi-file concurrency bugs.**
+
+- **Multi-File Broken Repositories**: Navigate complex cross-module dependencies, CommonJS/ESM circular exports, and event-bus state mutations.
+- **Concurrency & Event-Loop Audits**: Identify check-then-act hazards in Node.js microtask queues and orphan task socket leaks in Python `asyncio`.
+- **AI-Generation Pitfall Audits**: Spot subtle flaws in Copilot/LLM code (cryptographic algorithm confusion, remainder item drops, silent error swallowing).
+- **Interactive Line Annotation**: Leave code review comments directly on line gutters categorized by `🐛 Bug`, `⚡ Performance`, `🔒 Security`, `🎨 Style`, or `❓ Inquiry`.
+- **Senior Rubric Grader**: Automated evaluation matching annotations against planted defects with keyword/proximity algorithms, percentage scores, and optional Staff Reference Review reveals.
+- **Progressive Hint Ladder**: 3-tier guided hints (Conceptual Scent &rarr; Scope & Boundary &rarr; Root Cause Invariant).
+
+---
+
+### 4. 📅 52-Week Year Planner & Activity Heatmap (`/year`, `/progress`)
+- **Full-Year Matrix**: Interactive 52-week calendar grid visualizing daily problem-solving volume.
+- **Interactive Week Drawer**: Inspect weekly focus topics, completed challenges, and problem logs.
+- **Momentum Streak Tracker**: Rolling consistency tracking, velocity scoring, and personal best records.
+
+---
+
+### 5. 💎 Pure Glassmorphism Theme Engine & Non-Refreshing Auth
+- **Authentic Frosted Glass UI**: Floating centered modal layers with dual-layer diffusion blur (`backdrop-filter: blur(28px) saturate(180%)`), subtle specular borders, and pill-shaped interactive inputs.
+- **Zero-Flicker Background Location**: Route changes to `/login`, `/register`, or `/forgot-password` preserve the underlying dashboard or problem view with no remounting, scroll resets, or layout shifts.
+- **7 Contrast-Certified Themes**:
+  - `Carbon Pulse` *(Default)* — Sleek graphite with vibrant indigo accents
+  - `Obsidian Onyx` — Velvet obsidian and pure titanium contrast
   - `Crimson Ember` — Nocturnal ruby with volcanic red contrasts
-  - `Obsidian Onyx` — True pitch black with titanium accents
+  - `Molten Bronze` — Deep slate with burnished amber glow
+  - `Glacial Mist` — High-clarity Arctic blue with cool slate
   - `Royal Cobalt` — Deep sapphire with vibrant electric blue highlights
   - `Sandstone Dunes` — Earthy ochre with warm desert highlights
-- **Contrast Certified**: Universal WCAG AA compliance with dedicated contrast variable bindings across both Dark and Light modes.
-
-### 🛡️ Dual-Mode Enterprise Authentication & Security
-- **Self-Hosted Session Cookies**: HTTP-only, SameSite-protected `prismcode_session` cookies powered by bcrypt password hashing and token rotation.
-- **Clerk Integration Ready**: Seamlessly plug in Clerk publishable/secret keys to enable social OAuth (GitHub, Google) and hosted authentication with zero code refactoring.
-- **Granular Privacy Modes**: Profile visibility toggle (`Public`, `Unlisted`, `Private`) that dynamically masks identity, practice activity, and search presence.
-- **Rate-Limited API**: Express API rate limiting with proxy trust headers to protect compilation and authentication endpoints.
-
-### 🛠️ Administrator Operations & Audit Logging
-- **Problem Lifecycle Management**: Add, update, archive, and delete problems directly from the dedicated `/admin` dashboard.
-- **Bulk Import**: Validate and stream-import problem libraries via JSON and JSONL with immediate schema validation.
-- **Immutable Audit Trail**: Chronological security audit logs recording administrative actions, problem imports, and security events.
-
-### ⌨️ Universal Command Palette (`Ctrl+K` / `⌘K`)
-- Fuzzy-search problems, jump straight to today's daily challenge, toggle Dark/Light appearance, or execute system-wide quick actions without leaving the keyboard.
+- **Universal WCAG AA Compliance**: Dynamic CSS variable bindings across Dark and Light modes.
 
 ---
 
-## 🏗️ Architecture & Technology Stack
+## 🏗️ Technical Architecture
 
 ```
 PrismCode Platform
 ├── Frontend (prismcode-frontend)
-│   ├── React 18.3 & TypeScript 5.6
+│   ├── React 18.3 & TypeScript 5.7
 │   ├── Vite 5.4 (High-speed HMR & Rollup bundling)
 │   ├── Tailwind CSS 3.4 (Design tokens & atmospheric CSS variables)
 │   ├── @monaco-editor/react (VS Code editor engine)
 │   ├── Lucide React (Streamlined SVG iconography)
-│   └── React Router DOM 6.28
+│   ├── GSAP (Hardware-accelerated layout transitions)
+│   └── React Router DOM 6.28 (Background location overlay routing)
 │
 └── Backend API (prismcode-backend)
     ├── Express 4.21 & TypeScript 5.7 (tsx runtime engine)
-    ├── Atomic File-Backed DB (backend/data/db.json)
-    ├── OnlineCompiler.io Execution Adapter
-    ├── BcryptJS & Cookie-Parser
-    ├── Express Rate Limit
-    └── Zod 3.24 (Type-safe request validation)
+    ├── Atomic Database Storage (backend/data/db.json)
+    ├── OnlineCompiler.io Execution Adapter & Local Fallback
+    ├── BcryptJS & Secure Session Cookies
+    ├── Express Rate Limit & Security Middleware
+    └── Zod 3.24 (Type-safe schema validation)
 ```
 
 ---
 
-## 📁 Repository Layout
+## 📁 Repository Directory Structure
 
 ```
 Codearena/
-├── index.html                   # HTML entry point with metadata & web fonts
+├── index.html                   # HTML entry point with theme bootstrap script
 ├── package.json                 # Frontend dependencies & scripts
 ├── vite.config.ts               # Vite bundler configuration
 ├── tailwind.config.js           # Design system tokens & animations
 ├── start-prismcode.bat          # One-click Windows launch script
 │
 ├── src/
-│   ├── components/              # Modular UI components (Sidebar, Footer, Workspace, Palettes)
-│   ├── context/                 # Global state (AppContext, AuthContext, UiContext)
-│   ├── data/                    # Curated problem taxonomy & theme palettes
-│   ├── hooks/                   # Custom hooks (useWorkspaceLayout, useEditorPreferences)
-│   ├── lib/                     # API client, analytics, storage adapters, timer
-│   ├── pages/                   # Route views (Dashboard, Workspace, Problems, Admin, Settings)
-│   └── services/                # Problem cache & API communication services
+│   ├── components/
+│   │   ├── auth/                # RequireAuth, RequireRole, ExpiredSessionModal
+│   │   ├── mastery/             # SubgoalBlueprintViewer, ActiveFillInDrill, MasteryCodeRunner, PatternClueQuiz
+│   │   ├── review/              # FileDiffViewer, AnnotationPanel, RubricGrader, HintLadder, ScenarioCard
+│   │   ├── ui/                  # Accessible modals, empty states, loading skeletons
+│   │   ├── Layout.tsx           # Global app shell with responsive drawer
+│   │   ├── TopNavbar.tsx        # Top navigation with Learn & Practice dropdowns
+│   │   └── SolutionsPanel.tsx   # Workspace progressive hints & editorials
+│   ├── context/                 # AppContext (theme, palette), AuthContext, UiContext
+│   ├── data/
+│   │   ├── mastery/             # 25 Core Algorithmic Blueprints catalog
+│   │   ├── review/              # AI-era review scenario definitions
+│   │   ├── problems.ts          # 306+ practice challenge library
+│   │   ├── editorials.ts        # Static editorial walkthroughs & hints
+│   │   └── platformRoadmap.ts   # Platform roadmap feature cards
+│   ├── lib/
+│   │   ├── mastery/             # Mastery catalog helpers & localStorage progress store
+│   │   ├── review/              # Review catalog helpers & localStorage progress store
+│   │   ├── api.ts               # Authenticated API fetch client
+│   │   └── storage.ts           # Safe localStorage accessors
+│   ├── pages/
+│   │   ├── Dashboard.tsx        # Public Overview with roadmap cards & stats
+│   │   ├── MasteryHub.tsx       # 5 Pattern tracks overview
+│   │   ├── MasteryStudio.tsx    # 3-Stage Mastery Studio (Study · Drill · Code)
+│   │   ├── ReviewHub.tsx        # Code Review Arena catalog & filters
+│   │   ├── ReviewStudio.tsx     # Code Review 2-pane workspace & diff viewer
+│   │   ├── Workspace.tsx        # Monaco IDE coding environment
+│   │   ├── Problems.tsx         # Filterable practice problem table
+│   │   ├── DailyChallenges.tsx  # Daily pacing challenges
+│   │   ├── YearPlanner.tsx      # 52-Week calendar matrix
+│   │   ├── Leaderboard.tsx      # Global rankings & percentiles
+│   │   ├── Settings.tsx         # Appearance, fonts & privacy settings
+│   │   └── Auth.tsx             # Pure frosted glass authentication modal
+│   └── services/                # Execution service, problem cache, editorials API
 │
 └── backend/
     ├── package.json             # Backend dependencies & scripts
     ├── .env.example             # Environment variable template
-    ├── data/
-    │   └── db.json              # Atomic local database storage
-    ├── scripts/
-    │   ├── testAuth.ts          # Automated authentication & cookie test suite
-    │   └── verify-admin-fixes.ts# Admin functionality & import test harness
+    ├── data/db.json             # Atomic local database storage
     └── src/
-        ├── config.ts            # Centralized environment configuration
-        ├── index.ts             # Express application & HTTP server bootstrap
-        ├── db/                  # Database management & seed definitions
-        ├── middleware/          # Auth context, rate limiter, error handling
-        ├── routes/              # Modular API route controllers
-        └── services/            # Execution engine, email dispatchers
+        ├── index.ts             # Express server bootstrap
+        ├── routes/              # Modular API controllers (auth, submissions, problems, admin)
+        └── services/            # Code execution engine & email dispatchers
 ```
 
 ---
@@ -134,24 +183,21 @@ Codearena/
 ## 🚀 Getting Started
 
 ### Prerequisites
-
-- **Node.js**: v18.0.0 or later (v20+ / v22+ recommended)
+- **Node.js**: v18.0.0 or later (v20+ recommended)
 - **npm**: v9.0.0 or later
 
 ### Quick Start (Windows One-Click)
-
-Simply double-click:
+Double-click:
 ```bat
 start-prismcode.bat
 ```
-This script checks dependencies, installs missing modules, and boots the development server automatically.
+*Automatically verifies environment dependencies, installs missing packages, and launches both frontend and backend.*
 
 ---
 
 ### Manual Setup
 
 #### 1. Clone & Install Dependencies
-
 ```bash
 # Clone the repository
 git clone https://github.com/samadrito16/Codearena.git
@@ -167,90 +213,63 @@ cd ..
 ```
 
 #### 2. Configure Environment Variables
-
-Create a `.env` file in the `backend/` directory:
-
 ```bash
 cd backend
 copy .env.example .env
 ```
 
-Edit `backend/.env` according to your preferences:
-
 | Variable | Description | Default |
 | :--- | :--- | :--- |
 | `PORT` | Backend server port | `8000` |
-| `FRONTEND_URL` | Allowed CORS origin for frontend | `http://localhost:5173` |
-| `SESSION_SECRET` | Secret key used for session cookie signing | `prismcode_default_session_secret` |
-| `ONLINECOMPILER_API_KEY` | *(Optional)* OnlineCompiler.io API Key for live execution | `""` *(Uses fallback engine)* |
-| `RESEND_API_KEY` | *(Optional)* Resend API key for password reset/verification emails | `""` *(Prints links to console in dev)* |
-| `CLERK_SECRET_KEY` | *(Optional)* Clerk Backend Secret Key | `""` |
-| `CLERK_PUBLISHABLE_KEY` | *(Optional)* Clerk Frontend Publishable Key | `""` |
+| `FRONTEND_URL` | Allowed CORS origin | `http://localhost:5173` |
+| `SESSION_SECRET` | Cookie signing secret | `prismcode_default_session_secret` |
+| `ONLINECOMPILER_API_KEY` | *(Optional)* Remote compiler API key | `""` *(Uses local sandbox)* |
+| `CLERK_PUBLISHABLE_KEY` | *(Optional)* Clerk publishable key | `""` |
+| `CLERK_SECRET_KEY` | *(Optional)* Clerk secret key | `""` |
 
-#### 3. Run the Development Servers
-
-In terminal 1 (Backend API):
+#### 3. Run Development Servers
+In Terminal 1 (Backend API):
 ```bash
 cd backend
 npm run dev
 ```
-*API boots at `http://localhost:8000`.*
+*API running at `http://localhost:8000`.*
 
-In terminal 2 (Frontend Client):
+In Terminal 2 (Frontend Client):
 ```bash
 npm run dev
 ```
-*Frontend boots at `http://localhost:5173`.*
+*Frontend running at `http://localhost:5173`.*
 
 ---
 
 ## 🔑 Default Accounts
 
-When the backend initializes for the first time, it automatically creates two demonstration accounts:
-
 | Role | Email | Password | Permissions |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@prismcode.com` | `Admin123!` | Full admin panel, problem CRUD, audit logs |
-| **Developer User** | `alex@example.com` | `Alex123!` | Standard user workspace, progress tracking |
-
-*(Note: Legacy login credentials for `admin@codearena.com` remain supported for backward compatibility).*
+| **Administrator** | `admin@prismcode.com` | `Admin123!` | Full admin dashboard, problem CRUD, audit logs |
+| **Developer User** | `alex@example.com` | `Alex123!` | Personal practice workspace, progress telemetry |
 
 ---
 
-## 🧪 Testing & Verification
-
-PrismCode includes automated test suites for security and administration:
+## 🧪 Verification & Build
 
 ```bash
+# Verify TypeScript types and compile frontend:
+npm run build
+
+# Verify Backend builds:
 cd backend
-
-# Run the 32-point Authentication & Security Test Suite:
-npx tsx scripts/testAuth.ts
-
-# Run the 30-point Admin API & Problem Import Verification Suite:
-npx tsx scripts/verify-admin-fixes.ts
-
-# Run Production TypeScript Typecheck & Build:
 npm run build
 cd ..
-npm run build
 ```
 
 ---
 
-## 📜 Legal & Compliance
-
-- **Terms of Service**: Available at `/terms`
-- **Privacy Policy**: Available at `/privacy`
-- **Controller**: Refract Labs
-- **Support**: `support@refractlabs.com` | `legal@refractlabs.com`
-
----
-
-## 📄 License
+## 📄 License & Ownership
 
 PrismCode is open-source software licensed under the [MIT License](LICENSE).
 
 <p align="center">
-  <sub>Built with care by <strong>Refract Labs</strong>. Empowering software engineers worldwide.</sub>
+  <sub>Designed & Engineered with care by <strong>Refract Labs</strong>.</sub>
 </p>
