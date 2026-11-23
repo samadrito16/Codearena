@@ -71,6 +71,33 @@ export const platformRoadmapCards: RoadmapCardData[] = [
     ],
   },
   {
+    id: 'ai-code-review',
+    badge: 'Senior & AI-Era',
+    title: 'Code Review & Debugging Arena',
+    description:
+      'The critical interview dimension missed by traditional platforms. Audit multi-file broken repositories, detect subtle concurrency race conditions, and catch flawed AI-generated PR code.',
+    link: '/review',
+    linkText: 'Enter Review Arena',
+    sections: [
+      {
+        title: 'Real-World Broken Scenarios',
+        bullets: [
+          'Multi-file repositories with cross-module dependency bugs',
+          'Async & concurrency flaws: race conditions, missing locks, event loop pitfalls',
+          'AI-generated code PR audits with planted regressions',
+        ],
+      },
+      {
+        title: 'Structured Review Workflow',
+        bullets: [
+          'Inline line-level annotation with category tagging (Bug, Perf, Security)',
+          'Rubric grading: benchmark how well you caught planted flaws against staff rubric',
+          'Progressive investigation hints and staff engineer reference reviews',
+        ],
+      },
+    ],
+  },
+  {
     id: 'learning-paths',
     badge: '7 Guided Tracks',
     title: 'Guided DSA Learning Paths',

@@ -1,0 +1,350 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "prism-code-ai-review-catalog-v1",
+  "platform": "PrismCode Review Arena",
+  "title": "AI-Era Code Review & Bug Audits",
+  "description": "Multi-file broken repositories, concurrency race conditions, and flawed AI-generated PR code for senior engineering interviews.",
+  "categories": [
+    "async_concurrency",
+    "ai_gen_audit",
+    "multi_file_logic"
+  ],
+  "scenarios": [
+    {
+      "id": "rev-001",
+      "slug": "node-eventloop-race",
+      "title": "Async Rate-Limiter Token Drift",
+      "category": "async_concurrency",
+      "difficulty": "Medium",
+      "company_tags": ["Stripe", "OpenAI", "Vercel"],
+      "estimated_minutes": 15,
+      "context": "A senior engineer authored a pull request to optimize an in-memory rate-limiting middleware for high-concurrency microservices. Under burst benchmarks, test requests occasionally bypass the limiter or the active request count drifts permanently negative.",
+      "ai_generation_context": "The PR was drafted using an AI coding assistant from the prompt: 'Implement an in-memory token bucket and async request counter middleware for Express with error fallback'.",
+      "learning_tags": ["node-event-loop", "microtasks", "race-conditions", "atomicity"],
+      "files": [
+        {
+          "filename": "requestTracker.js",
+          "language": "javascript",
+          "is_primary": true,
+          "content": "const store = new Map();\n\nlet activeConcurrentRequests = 0;\n\nasync function trackRequest(clientId, maxConcurrent, nextHandler) {\n  if (activeConcurrentRequests >= maxConcurrent) {\n    const err = new Error('Rate limit exceeded');\n    err.statusCode = 429;\n    throw err;\n  }\n\n  // Non-atomic read followed by asynchronous tick\n  activeConcurrentRequests++;\n  store.set(clientId, (store.get(clientId) || 0) + 1);\n\n  try {\n    const result = await nextHandler();\n    return result;\n  } finally {\n    // Critical bug: activeConcurrentRequests can decrement on unhandled synchronously rejected handlers\n    activeConcurrentRequests--;\n  }\n}\n\nfunction getActiveCount() {\n  return activeConcurrentRequests;\n}\n\nmodule.exports = { trackRequest, getActiveCount };\n"
+        },
+        {
+          "filename": "middleware.js",
+          "language": "javascript",
+          "is_primary": false,
+          "content": "const { trackRequest } = require('./requestTracker');\n\nfunction rateLimitMiddleware(req, res, next) {\n  const clientId = req.headers['x-client-id'] || 'anonymous';\n  const maxConcurrent = parseInt(req.headers['x-max-concurrent'] || '10', 10);\n\n  // Bug: next() in Express is callback-based; wrapping in trackRequest without Promise bridging leaks finally decrement\n  trackRequest(clientId, maxConcurrent, () => next())\n    .catch((err) => {\n      res.status(err.statusCode || 500).json({ error: err.message });\n    });\n}\n\nmodule.exports = rateLimitMiddleware;\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "concurrency",
+          "file": "requestTracker.js",
+          "line_range": [6, 14],
+          "title": "Check-then-act race condition across microtask boundaries",
+          "explanation": "If multiple concurrent requests hit the check `if (activeConcurrentRequests >= maxConcurrent)` during the same event loop phase before any can increment or await, multiple requests pass the threshold, violating rate limits.",
+          "severity": "critical",
+          "expected_comment": "Check-then-act race condition: activeConcurrentRequests is checked and incremented without atomic isolation or mutex before async operations resume.",
+          "hint_level_1": "What happens if 20 requests arrive in the exact same event loop tick?",
+          "hint_level_2": "Look closely at the check on line 6 and the increment on line 14. Are they atomically guarded?",
+          "hint_level_3": "Because Node processes microtasks in batches, multiple incoming callers can evaluate `activeConcurrentRequests < maxConcurrent` before any increment takes effect."
+        },
+        {
+          "bug_id": "B2",
+          "type": "error_handling",
+          "file": "middleware.js",
+          "line_range": [8, 12],
+          "title": "Express callback next() invoked inside async wrapper without Promise resolution",
+          "explanation": "Express's `next()` function does not return a Promise. Invoking `() => next()` inside `trackRequest` causes `await nextHandler()` to resolve immediately while the downstream route is still executing, decrementing activeConcurrentRequests prematurely.",
+          "severity": "critical",
+          "expected_comment": "Express next() does not return a Promise; trackRequest finishes immediately and decrements activeConcurrentRequests before downstream middleware finishes.",
+          "hint_level_1": "Does Express's next() function return a Promise?",
+          "hint_level_2": "Inspect what `await nextHandler()` actually resolves to on line 17 of requestTracker.js.",
+          "hint_level_3": "Since `next()` returns undefined, `await next()` resolves immediately, causing the `finally` block to decrement while the HTTP request is still in flight."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 50, "required": true },
+          { "bug_id": "B2", "points": 50, "required": true }
+        ]
+      },
+      "reference_review": "### Critical Issues Identified\n\n1. **Premature Decrement Due to Express Callback Lifecycle (`middleware.js:8-12`)**:\nExpress's `next()` callback returns `undefined`, not a Promise. When `await nextHandler()` executes, it immediately fulfills with `undefined` and runs the `finally { activeConcurrentRequests--; }` block while the actual route handler is still streaming response data. This renders active concurrency tracking completely inaccurate.\n\n2. **Check-Then-Act Race (`requestTracker.js:6-14`)**:\nUnder concurrent load, multiple incoming requests inspect `activeConcurrentRequests >= maxConcurrent` in the same tick before any microtasks update shared state. Use an atomic semaphore or wrap connection acquisition in an explicit queue.\n\n3. **Recommendation**:\nBridge Express with `res.on('finish', ...)` and `res.on('close', ...)` to decrement counters upon response completion, rather than awaiting `next()`."
+    },
+    {
+      "id": "rev-002",
+      "slug": "py-asyncio-gather-leak",
+      "title": "Asyncio Task Leak & Silent Exception Swallowing",
+      "category": "async_concurrency",
+      "difficulty": "Hard",
+      "company_tags": ["Scale AI", "Databricks", "Anthropic"],
+      "estimated_minutes": 20,
+      "context": "A Python backend pipeline fetches embeddings from multiple model endpoints concurrently using `asyncio.gather`. On intermittent HTTP 504 errors, worker memory spikes, and subsequent batch operations hang indefinitely.",
+      "ai_generation_context": "Generated by an LLM to replace sequential requests with 'fast async concurrency using asyncio.gather(..., return_exceptions=True)'.",
+      "learning_tags": ["python", "asyncio", "task-cancellation", "memory-leaks"],
+      "files": [
+        {
+          "filename": "embedding_pipeline.py",
+          "language": "python",
+          "is_primary": true,
+          "content": "import asyncio\nimport aiohttp\n\nasync def fetch_chunk_embedding(session: aiohttp.ClientSession, url: str, text: str) -> dict:\n    async with session.post(url, json={\"text\": text}, timeout=aiohttp.ClientTimeout(total=5)) as resp:\n        if resp.status != 200:\n            raise RuntimeError(f\"Model endpoint failed with status {resp.status}\")\n        return await resp.json()\n\nasync def process_batch_embeddings(urls: list[str], documents: list[str]) -> list[dict]:\n    # Shared session initialized without connection limit\n    async with aiohttp.ClientSession() as session:\n        tasks = [\n            asyncio.create_task(fetch_chunk_embedding(session, url, doc))\n            for url, doc in zip(urls, documents)\n        ]\n\n        # Critical flaw: return_exceptions=True swallows errors, but orphan tasks are not cancelled\n        results = await asyncio.gather(*tasks, return_exceptions=True)\n\n        clean_results = []\n        for res in results:\n            if isinstance(res, Exception):\n                # Bug: Logged but other tasks continue running and session closes prematurely\n                print(f\"Warning: chunk failure: {res}\")\n            else:\n                clean_results.append(res)\n\n        return clean_results\n"
+        },
+        {
+          "filename": "orchestrator.py",
+          "language": "python",
+          "is_primary": false,
+          "content": "import asyncio\nfrom embedding_pipeline import process_batch_embeddings\n\nasync def run_pipeline(batch_data):\n    urls = batch_data['endpoints']\n    docs = batch_data['documents']\n    \n    # Timeout wrap at orchestrator level\n    try:\n        return await asyncio.wait_for(process_batch_embeddings(urls, docs), timeout=10.0)\n    except asyncio.TimeoutError:\n        # Bug: wait_for cancels process_batch_embeddings, but subtasks created via create_task linger\n        print(\"Orchestration timed out!\")\n        return []\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "concurrency",
+          "file": "orchestrator.py",
+          "line_range": [10, 15],
+          "title": "asyncio.wait_for cancellation does not propagate to unshielded background create_task tasks",
+          "explanation": "When asyncio.wait_for times out, it cancels the outer coroutine `process_batch_embeddings`, but subtasks created via `asyncio.create_task` continue executing in the background if not explicitly cancelled in a finally block or TaskGroup.",
+          "severity": "critical",
+          "expected_comment": "asyncio.wait_for timeout cancels process_batch_embeddings, but background tasks created via create_task remain running, leaking network sockets and memory.",
+          "hint_level_1": "What happens to tasks created via asyncio.create_task when the outer coroutine is cancelled by wait_for?",
+          "hint_level_2": "Look at Python 3.11+ TaskGroup semantics vs asyncio.create_task.",
+          "hint_level_3": "In Python, `create_task` schedules a task on the event loop independently. If the parent coroutine is cancelled, child tasks keep running unless explicitly gathered and cancelled."
+        },
+        {
+          "bug_id": "B2",
+          "type": "resource_leak",
+          "file": "embedding_pipeline.py",
+          "line_range": [11, 17],
+          "title": "ClientSession closed while in-flight tasks may still hold open socket references",
+          "explanation": "If any task fails or timeout occurs, exiting the `async with aiohttp.ClientSession()` context manager closes the connector while uncompleted tasks attempt to read sockets, raising 'Session is closed' errors.",
+          "severity": "major",
+          "expected_comment": "Exiting async with aiohttp.ClientSession closes underlying connections while lingering tasks are still in-flight.",
+          "hint_level_1": "What happens to tasks when the `async with session` context exits?",
+          "hint_level_2": "If one task fails or times out, can other tasks still be running when session.__aexit__ executes?",
+          "hint_level_3": "Always cancel remaining tasks before closing the aiohttp ClientSession to prevent 'Cannot write to closing transport' runtime errors."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 60, "required": true },
+          { "bug_id": "B2", "points": 40, "required": false }
+        ]
+      },
+      "reference_review": "### Senior Review Summary\n\n1. **Uncancelled Task Leakage (`orchestrator.py:10-15`)**:\nUsing `asyncio.create_task` inside `process_batch_embeddings` detaches task lifecycle from parent cancellation. When `asyncio.wait_for` triggers a timeout, only `process_batch_embeddings` is cancelled; the HTTP child tasks continue pumping requests in the background.\n\n2. **Use Modern Python 3.11+ `asyncio.TaskGroup`**:\nRefactor to `async with asyncio.TaskGroup() as tg:` so that any exception or cancellation automatically cancels all sibling tasks cleanly before the session context manager exits."
+    },
+    {
+      "id": "rev-003",
+      "slug": "copilot-jwt-auth-bypass",
+      "title": "Flawed AI JWT Token Verification",
+      "category": "ai_gen_audit",
+      "difficulty": "Hard",
+      "company_tags": ["Cloudflare", "Palantir", "Ramp"],
+      "estimated_minutes": 20,
+      "context": "An AI assistant generated an authentication service module to verify bearer tokens and inject user claims. During a security audit, penetration testers bypassed authorization entirely by manipulating token headers.",
+      "ai_generation_context": "Generated by GitHub Copilot with the prompt: 'Node.js JWT verification function that handles both RSA public keys and fallback symmetric HMAC keys safely'.",
+      "learning_tags": ["security", "jwt", "crypto-algorithm-confusion", "ai-pitfalls"],
+      "files": [
+        {
+          "filename": "authService.js",
+          "language": "javascript",
+          "is_primary": true,
+          "content": "const jwt = require('jsonwebtoken');\nconst config = require('./config');\n\nfunction verifyUserToken(token) {\n  if (!token) {\n    throw new Error('Token missing');\n  }\n\n  // Bug: jsonwebtoken.decode without verify used to extract algorithm\n  const decodedHeader = jwt.decode(token, { complete: true });\n  if (!decodedHeader || !decodedHeader.header) {\n    throw new Error('Malformed token structure');\n  }\n\n  const alg = decodedHeader.header.alg;\n  \n  // Critical vulnerability: Algorithm confusion attack\n  // Allows attacker to sign token using HMAC with the RSA public key string as secret\n  let verificationKey = config.publicKey;\n  if (alg.startsWith('HS')) {\n    verificationKey = config.hmacSecret || config.publicKey;\n  }\n\n  // Bug: algorithms option not strictly pinned in verify call\n  return jwt.verify(token, verificationKey);\n}\n\nmodule.exports = { verifyUserToken };\n"
+        },
+        {
+          "filename": "config.js",
+          "language": "javascript",
+          "is_primary": false,
+          "content": "module.exports = {\n  publicKey: process.env.JWT_PUBLIC_KEY || '-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8...\\n-----END PUBLIC KEY-----',\n  hmacSecret: process.env.JWT_HMAC_SECRET || '',\n};\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "security",
+          "file": "authService.js",
+          "line_range": [17, 24],
+          "title": "Algorithm confusion vulnerability (RSA to HMAC substitution)",
+          "explanation": "If `config.hmacSecret` is empty, fallback evaluates to `config.publicKey`. An attacker can forge an HMAC-SHA256 signature using the known public key as the symmetric secret, completely bypassing signature authentication.",
+          "severity": "critical",
+          "expected_comment": "Algorithm confusion vulnerability: Attacker can sign with HS256 using the public key as HMAC secret when hmacSecret is unset. Explicitly pin algorithms: ['RS256'].",
+          "hint_level_1": "What happens if an attacker sends an algorithm header with 'HS256'?",
+          "hint_level_2": "Inspect what `verificationKey` becomes on line 20 if `config.hmacSecret` is empty or undefined.",
+          "hint_level_3": "Never allow the untrusted token header to dictate the cryptographic verification algorithm. Pin `algorithms: ['RS256']` in `jwt.verify` options."
+        },
+        {
+          "bug_id": "B2",
+          "type": "security",
+          "file": "authService.js",
+          "line_range": [9, 13],
+          "title": "Unverified token header inspection allows 'none' algorithm or header tampering",
+          "explanation": "Decoding the complete token without verifying signature first to branch logic based on `alg` is an anti-pattern. If an attacker passes `alg: 'none'`, downstream verification logic can be tricked.",
+          "severity": "major",
+          "expected_comment": "Decoding header before verification to choose verification keys allows header tampering. Enforce a single deterministic algorithm.",
+          "hint_level_1": "Why is inspecting `decodedHeader.header.alg` prior to verification risky?",
+          "hint_level_2": "Can an attacker control whatever header payload is decoded?",
+          "hint_level_3": "The header is attacker-controlled. Branching key selection based on untrusted header claims allows algorithm switching."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 70, "required": true },
+          { "bug_id": "B2", "points": 30, "required": false }
+        ]
+      },
+      "reference_review": "### Security Audit Findings\n\n1. **Severe Algorithm Confusion Attack (`authService.js:17-24`)**:\nThis is a classic textbook cryptographic flaw often generated by AI models when asked to support multiple key formats. If an attacker signs a payload with `alg: 'HS256'` using the server's public RSA key as the symmetric secret, `verificationKey` falls back to `config.publicKey` and `jwt.verify` validates successfully!\n\n2. **Remediation**:\nHardcode the allowed algorithm whitelist:\n```javascript\njwt.verify(token, config.publicKey, { algorithms: ['RS256'] });\n```\nNever inspect the token's header to decide whether to treat keys as symmetric or asymmetric."
+    },
+    {
+      "id": "rev-004",
+      "slug": "llm-batch-sliding-window",
+      "title": "AI Generator Truncates Trailing Batch Items",
+      "category": "ai_gen_audit",
+      "difficulty": "Easy",
+      "company_tags": ["Perplexity", "Glean", "Cohere"],
+      "estimated_minutes": 10,
+      "context": "A data ingestion utility was generated by an LLM to batch millions of customer documents into chunks of size K for parallel embedding generation. Customer records at the end of datasets are silently disappearing.",
+      "ai_generation_context": "Created with AI prompt: 'Fast Python generator to yield slices of list in fixed batches of size N'.",
+      "learning_tags": ["python", "generators", "off-by-one", "data-integrity"],
+      "files": [
+        {
+          "filename": "chunker.py",
+          "language": "python",
+          "is_primary": true,
+          "content": "from typing import Generator, List, Any\n\ndef create_fixed_chunks(items: List[Any], batch_size: int) -> Generator[List[Any], None, None]:\n    \"\"\"Yield batches of fixed size.\"\"\"\n    total = len(items)\n    # Critical bug: integer division drops trailing remainder elements\n    num_full_batches = total // batch_size\n    \n    for i in range(num_full_batches):\n        start_idx = i * batch_size\n        end_idx = start_idx + batch_size\n        yield items[start_idx:end_idx]\n\ndef process_corpus(corpus: List[str], chunk_size: int = 32):\n    chunks_processed = 0\n    for batch in create_fixed_chunks(corpus, chunk_size):\n        # Send batch to vector database\n        chunks_processed += len(batch)\n    return chunks_processed\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "logic",
+          "file": "chunker.py",
+          "line_range": [6, 12],
+          "title": "Integer division drops trailing remainder batch items",
+          "explanation": "Using `total // batch_size` only iterates through complete batches. If `len(items)` is 70 and `batch_size` is 32, `70 // 32 == 2`, and the remaining 6 items (indices 64..69) are silently dropped without being yielded.",
+          "severity": "critical",
+          "expected_comment": "Integer division total // batch_size silently discards the final remainder batch when len(items) is not a multiple of batch_size.",
+          "hint_level_1": "What happens if total is 10 and batch_size is 3?",
+          "hint_level_2": "Calculate `10 // 3`. How many items get yielded? Where did the 10th item go?",
+          "hint_level_3": "Replace integer division loop with `for i in range(0, len(items), batch_size): yield items[i:i + batch_size]`."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 100, "required": true }
+        ]
+      },
+      "reference_review": "### Code Review Feedback\n\n1. **Data Loss on Remainder Chunks (`chunker.py:6-12`)**:\nThe generator iterates only `range(total // batch_size)`. Whenever `len(items) % batch_size != 0`, the trailing items are never yielded, leading to silent data loss in production.\n\n2. **Idiomatic Python Solution**:\n```python\ndef create_fixed_chunks(items: List[Any], batch_size: int):\n    for i in range(0, len(items), batch_size):\n        yield items[i : i + batch_size]\n```\nPython slice notation automatically handles trailing bounds safely without index error."
+    },
+    {
+      "id": "rev-005",
+      "slug": "node-circular-singleton-export",
+      "title": "Circular Dependency Pool Initialization Crash",
+      "category": "multi_file_logic",
+      "difficulty": "Medium",
+      "company_tags": ["Airbnb", "Uber", "Coinbase"],
+      "estimated_minutes": 15,
+      "context": "A refactor separating database connection pooling from schema models introduced a circular require dependency in a Node.js microservice. The service crashes with `TypeError: Cannot read properties of undefined (reading 'query')` only under certain startup entrypoints.",
+      "ai_generation_context": "Refactored by an AI code assistant to 'break down monolithic db.js into clean modular repository files'.",
+      "learning_tags": ["nodejs", "commonjs", "circular-dependency", "singleton"],
+      "files": [
+        {
+          "filename": "dbPool.js",
+          "language": "javascript",
+          "is_primary": true,
+          "content": "const { registerMetrics } = require('./metrics');\n\nclass DatabasePool {\n  constructor() {\n    this.isConnected = false;\n  }\n\n  connect(connectionString) {\n    this.connectionString = connectionString;\n    this.isConnected = true;\n    registerMetrics(this);\n  }\n\n  query(sql, params) {\n    if (!this.isConnected) {\n      throw new Error('Database not connected');\n    }\n    return { rows: [] };\n  }\n}\n\n// Module exports singleton instance\nconst poolInstance = new DatabasePool();\nmodule.exports = poolInstance;\n"
+        },
+        {
+          "filename": "metrics.js",
+          "language": "javascript",
+          "is_primary": false,
+          "content": "const pool = require('./dbPool');\n\nfunction registerMetrics(poolRef) {\n  // Bug: Direct reliance on require('./dbPool') at module evaluation time when circular\n  console.log('Metrics initialized for pool connection:', pool.connectionString || 'pending');\n}\n\nfunction getHealth() {\n  return pool.query('SELECT 1');\n}\n\nmodule.exports = { registerMetrics, getHealth };\n"
+        },
+        {
+          "filename": "userModel.js",
+          "language": "javascript",
+          "is_primary": false,
+          "content": "const metrics = require('./metrics');\nconst pool = require('./dbPool');\n\nasync function findUserById(id) {\n  return pool.query('SELECT * FROM users WHERE id = $1', [id]);\n}\n\nmodule.exports = { findUserById };\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "architecture",
+          "file": "metrics.js",
+          "line_range": [1, 6],
+          "title": "Circular dependency returns partially-evaluated empty module export",
+          "explanation": "When `dbPool.js` requires `metrics.js` before setting `module.exports`, `metrics.js` immediately requires `dbPool.js`. Node returns the incomplete exports object `{}` to `metrics.js`, causing `pool.query` or `pool.connectionString` to fail.",
+          "severity": "critical",
+          "expected_comment": "Circular require dependency between dbPool.js and metrics.js causes metrics.js to receive an empty uninitialized exports object.",
+          "hint_level_1": "Trace the require chain starting from `dbPool.js`.",
+          "hint_level_2": "In CommonJS, what does `require('./dbPool')` return if `dbPool.js` is currently in the middle of executing its first line?",
+          "hint_level_3": "`dbPool.js` calls `require('./metrics')` before `module.exports = poolInstance`. Therefore `metrics.js` receives an empty object `{}` instead of the `DatabasePool` instance."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 100, "required": true }
+        ]
+      },
+      "reference_review": "### Architecture Review\n\n1. **CommonJS Circular Dependency (`dbPool.js` &harr; `metrics.js`)**:\nOn line 1 of `dbPool.js`, `require('./metrics')` is called. While executing `metrics.js`, it immediately calls `require('./dbPool')`. Because `dbPool.js` has not yet assigned `module.exports = poolInstance`, Node.js returns an empty object `{}`. When `metrics.js` attempts to read `pool.connectionString` or calls `pool.query`, it crashes.\n\n2. **Resolution**:\nInvert dependency injection. Pass the pool instance directly to `registerMetrics(pool)` or move metric registration to a dedicated application lifecycle bootstrapper."
+    },
+    {
+      "id": "rev-006",
+      "slug": "py-service-state-mutation",
+      "title": "Cross-Service Shared State In-Place Mutation",
+      "category": "multi_file_logic",
+      "difficulty": "Medium",
+      "company_tags": ["DoorDash", "Shopify", "Roblox"],
+      "estimated_minutes": 15,
+      "context": "An event-driven notification dispatch pipeline processes incoming order payloads through validation, enrichment, and SMS formatting. In production, billing audits revealed that discount vouchers are intermittently calculated against transformed prices rather than original order totals.",
+      "ai_generation_context": "Created by an AI refactoring tool to optimize throughput by 'passing order contexts by reference across listeners'.",
+      "learning_tags": ["python", "mutability", "event-driven", "side-effects"],
+      "files": [
+        {
+          "filename": "event_bus.py",
+          "language": "python",
+          "is_primary": true,
+          "content": "from typing import Callable, Dict, List, Any\n\nclass EventBus:\n    def __init__(self):\n        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}\n\n    def subscribe(self, event_name: str, handler: Callable[[Dict[str, Any]], None]):\n        self._subscribers.setdefault(event_name, []).append(handler)\n\n    def publish(self, event_name: str, payload: Dict[str, Any]):\n        for handler in self._subscribers.get(event_name, []):\n            # Bug: Raw dictionary reference passed to all listeners sequentially\n            handler(payload)\n"
+        },
+        {
+          "filename": "discount_service.py",
+          "language": "python",
+          "is_primary": false,
+          "content": "def apply_tax_and_discounts(event_payload: dict):\n    items = event_payload.get('items', [])\n    for item in items:\n        # Critical bug: In-place mutation of price and addition of tax modifies original payload for subsequent subscribers\n        item['price'] = item['price'] * 0.90\n    event_payload['discount_applied'] = True\n"
+        },
+        {
+          "filename": "audit_service.py",
+          "language": "python",
+          "is_primary": false,
+          "content": "def audit_order_total(event_payload: dict):\n    # Runs after discount_service in subscriber list\n    original_total = sum(item['price'] for item in event_payload.get('items', []))\n    if original_total > 1000:\n        print(\"Flagging high value transaction for review:\", original_total)\n"
+        }
+      ],
+      "planted_bugs": [
+        {
+          "bug_id": "B1",
+          "type": "mutation",
+          "file": "discount_service.py",
+          "line_range": [3, 7],
+          "title": "In-place mutation of shared dictionary payload corrupts downstream event handlers",
+          "explanation": "`apply_tax_and_discounts` directly mutates `item['price']` in the shared `event_payload`. Because `EventBus.publish` passes the identical dictionary reference to all subscribers, subsequent handlers like `audit_order_total` observe altered prices.",
+          "severity": "critical",
+          "expected_comment": "In-place mutation of shared event payload modifies price for all subsequent event handlers. Treat event payloads as immutable or pass deep copies.",
+          "hint_level_1": "What happens to the `payload` object when `apply_tax_and_discounts` runs?",
+          "hint_level_2": "In Python, are dictionaries passed by value or by reference?",
+          "hint_level_3": "`item['price'] = item['price'] * 0.90` alters the caller's dictionary. The `audit_service` then calculates totals on already-discounted prices."
+        }
+      ],
+      "review_rubric": {
+        "max_score": 100,
+        "items": [
+          { "bug_id": "B1", "points": 100, "required": true }
+        ]
+      },
+      "reference_review": "### Architecture & Data Integrity Finding\n\n1. **Unintentional In-Place State Mutation (`discount_service.py:3-7`)**:\nPython dictionaries are mutable references. Mutating `item['price']` directly inside an event subscriber pollutes the state observed by any listener registered after it (`audit_service.py`).\n\n2. **Best Practice**:\nEvent handlers must never mutate incoming payloads in-place. Use immutable data structures (e.g. frozen dataclasses) or perform a shallow/deep copy before dispatching in `EventBus.publish`: `handler(copy.deepcopy(payload))`."
+    }
+  ]
+}

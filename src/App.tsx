@@ -24,6 +24,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import MasteryHub from './pages/MasteryHub';
 import MasteryStudio from './pages/MasteryStudio';
+import ReviewHub from './pages/ReviewHub';
+import ReviewStudio from './pages/ReviewStudio';
 import YearPlanner from './pages/YearPlanner';
 import Projects from './pages/Projects';
 import StandaloneEditor from './pages/StandaloneEditor';
@@ -182,9 +184,11 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/review" element={<ReviewHub />} />
 
           {/* Protected Application Routes (Requires login; intercepts and redirects to login) */}
           <Route element={<RequireAuth />}>
+            <Route path="/review/:slug" element={<ReviewStudio />} />
             <Route path="/mastery" element={<MasteryHub />} />
             <Route path="/mastery/:slug" element={<MasteryStudio />} />
             <Route path="/daily-challenges" element={<DailyChallenges />} />

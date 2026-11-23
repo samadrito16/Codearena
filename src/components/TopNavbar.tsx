@@ -100,6 +100,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   const isPracticeActive =
     location.pathname.startsWith('/problems') ||
     location.pathname.startsWith('/daily-challenges') ||
+    location.pathname.startsWith('/review') ||
     location.pathname.startsWith('/workspace') ||
     location.pathname.startsWith('/projects') ||
     location.pathname.startsWith('/editor');
@@ -264,6 +265,23 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Daily Challenges</div>
                       <div className="text-[10px] text-slate-500 dark:text-neutral-400">Daily curated exercises</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
+                    to="/review"
+                    onClick={() => setPracticeOpen(false)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 dark:text-purple-400 border border-purple-500/20 shadow-sm">
+                      <Search size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Review</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Audit multi-file repos & AI PRs</div>
                     </div>
                   </NavLink>
 

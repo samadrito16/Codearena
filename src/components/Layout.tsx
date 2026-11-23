@@ -19,6 +19,7 @@ const baseMobileItems = [
   ['/year', 'Year Planner'],
   ['/progress', 'Your progress'],
   ['/problems', 'Problems'],
+  ['/review', 'Code Review'],
   ['/projects', 'Projects (Coming Soon)'],
   ['/editor', 'Code editor'],
   ['/leaderboard', 'Leaderboard'],
