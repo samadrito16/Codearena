@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, ChevronDown, ChevronRight, Code2, Info, Lightbulb, ShieldAlert } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronRight, Code2, Info, Lightbulb, Lock, ShieldAlert } from 'lucide-react';
 import type { ProblemEditorial, ResourceStatus } from '../services';
 import type { Problem } from '../types';
 import ErrorAlert from './ui/ErrorAlert';
@@ -36,6 +36,45 @@ export default function SolutionsPanel({
   }
 
   if (status === 'error' && error) {
+    const isPlanGated =
+      error.toLowerCase().includes('plan') ||
+      error.toLowerCase().includes('pro') ||
+      error.toLowerCase().includes('premium') ||
+      error.toLowerCase().includes('upgrade') ||
+      error.toLowerCase().includes('unauthorized') ||
+      error.toLowerCase().includes('exclusive');
+
+    if (isPlanGated) {
+      return (
+        <div className="workspace-tab-empty-card p-6 space-y-4 border rounded-2xl" style={{ borderColor: 'var(--ca-border)' }}>
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 mx-auto">
+            <Lock size={22} />
+          </div>
+          <div className="space-y-1 text-center">
+            <h3 className="text-sm font-bold text-primary">Pro & Premium Editorial</h3>
+            <p className="text-xs text-muted leading-relaxed max-w-sm mx-auto">
+              {error}
+            </p>
+          </div>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={onRetry}
+              className="btn-secondary py-1.5 px-4 text-xs font-semibold"
+            >
+              Check Again
+            </button>
+            <a
+              href="/settings"
+              className="btn-primary py-1.5 px-4 text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white"
+            >
+              Upgrade to Pro
+            </a>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <ErrorAlert
         title="Could not load editorial"

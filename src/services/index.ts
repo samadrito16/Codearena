@@ -4,7 +4,7 @@ export { problemsService, PROBLEMS_STORAGE_KEY, isProblemRecord } from './proble
 export { leaderboardService, type LeaderboardEntry } from './leaderboardService';
 export { learningPathsService, type LearningModule, type LearningPath } from './learningPathsService';
 export { editorialsService, type ProblemEditorial } from './editorialsService';
-export { runCode, submitCode, type ExecutionResponse, type TestCaseResult } from './executionService';
+export { runCode, submitCode, getExecutionQuota, type ExecutionResponse, type TestCaseResult, type QuotaResponse } from './executionService';
 export type {
   AsyncResource,
   EditorialsRepository,

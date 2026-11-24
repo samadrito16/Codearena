@@ -53,7 +53,7 @@ export interface InterviewScorecard {
   title: string;
   verdict: InterviewVerdict;
   overallScore: number; // 0 - 100
-  percentile: number;   // 0 - 99.9
+  percentile?: number;  // Only defined when real cohort data exists
   durationMinutes: number;
   totalTimeSpentSeconds: number;
   timeAllocation: {
@@ -73,8 +73,8 @@ export interface InterviewScorecard {
   efficiency: {
     problem1RuntimeMs?: number;
     problem2RuntimeMs?: number;
-    runtimePercentile: number;
-    memoryPercentile: number;
+    runtimePercentile?: number;
+    memoryPercentile?: number;
     efficiencyVerdict: string;
   };
   integrity: {

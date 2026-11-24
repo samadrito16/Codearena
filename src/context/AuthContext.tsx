@@ -48,12 +48,14 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
   // Listen for global session expiration events triggered by API responses
   useEffect(() => {
     const handleExpired = () => {
+      // If user is actively authenticated with Clerk, do NOT falsely expire
+      if (isSignedIn) return;
       setLocalUser(null);
       setSessionExpired(true);
     };
     window.addEventListener('codearena:session-expired', handleExpired);
     return () => window.removeEventListener('codearena:session-expired', handleExpired);
-  }, []);
+  }, [isSignedIn]);
 
   const dismissSessionExpired = useCallback(() => {
     setSessionExpired(false);
@@ -276,9 +278,13 @@ function LocalAuthProviderImpl({ children }: { children: ReactNode }) {
   // Listen for global session expiration events
   useEffect(() => {
     const handleExpired = () => {
-      setUser(null);
-      setStatus('unauthenticated');
-      setSessionExpired(true);
+      setUser((prev) => {
+        // Only expire if user was actually authenticated
+        if (!prev) return null;
+        setStatus('unauthenticated');
+        setSessionExpired(true);
+        return null;
+      });
     };
     window.addEventListener('codearena:session-expired', handleExpired);
     return () => window.removeEventListener('codearena:session-expired', handleExpired);

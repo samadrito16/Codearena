@@ -9,8 +9,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "48.2%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
     "examples": [
       {
@@ -81,8 +81,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Stack"
     ],
-    "acceptance": "40.1%",
-    "submissions": "1.8M",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
     "examples": [
       {
@@ -154,8 +154,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "34.7%",
-    "submissions": "1.5M",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given a string s, find the length of the longest substring without repeating characters.",
     "examples": [
       {
@@ -226,8 +226,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Greedy"
     ],
-    "acceptance": "55.4%",
-    "submissions": "900K",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\n\nReturn the maximum amount of water a container can store.",
     "examples": [
       {
@@ -287,8 +287,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Divide and Conquer"
     ],
-    "acceptance": "36.5%",
-    "submissions": "750K",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.\n\nThe overall run time complexity should be O(log (m+n)).",
     "examples": [
       {
@@ -352,8 +352,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "Breadth-First Search"
     ],
-    "acceptance": "65.8%",
-    "submissions": "680K",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
     "examples": [
       {
@@ -408,8 +408,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "74.2%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
     "examples": [
       {
@@ -465,8 +465,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Memoization"
     ],
-    "acceptance": "52.6%",
-    "submissions": "2.5M",
+    "acceptance": "—",
+    "submissions": "0",
     "description": "You are climbing a staircase. It takes n steps to reach the top.\n\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
     "examples": [
       {
@@ -525,8 +525,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Kadane"
     ],
-    "acceptance": "51.2%",
-    "submissions": "8.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, find the contiguous subarray with the largest sum and return its sum.",
     "examples": [
@@ -612,8 +612,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "62.1%",
-    "submissions": "5.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, move all `0`'s to the end of it while maintaining the relative order of the non-zero elements, and return the modified array.",
     "examples": [
@@ -698,8 +698,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Cyclic Sort"
     ],
-    "acceptance": "61.4%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array `nums` of `n` integers where `nums[i]` is in the range `[1, n]`, return an array of all integers in `[1, n]` that do not appear in `nums` using O(1) extra space (excluding output).",
     "examples": [
@@ -784,8 +784,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Simulation"
     ],
-    "acceptance": "51.1%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` `matrix`, return all elements of the matrix in clockwise spiral order.",
     "examples": [
@@ -871,8 +871,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Math"
     ],
-    "acceptance": "75.8%",
-    "submissions": "2.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `n x n` 2D `matrix` representing an image. Rotate the image by 90 degrees clockwise in-place and return the rotated matrix.",
     "examples": [
@@ -958,8 +958,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "57.3%",
-    "submissions": "2.8M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` integer `matrix`, if an element is `0`, set its entire row and column to `0` in-place using O(1) extra space, and return the modified matrix.",
     "examples": [
@@ -1045,8 +1045,8 @@ export const initialProblems: Problem[] = [
       "Intervals",
       "Array"
     ],
-    "acceptance": "42.3%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an array of non-overlapping `intervals` sorted by start time and a `new_interval`. Insert `new_interval` into `intervals` such that the result remains sorted and non-overlapping (merging overlapping intervals if necessary).",
     "examples": [
@@ -1132,8 +1132,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "54.1%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of `intervals`, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping (touching endpoints like `[1, 2]` and `[2, 3]` are non-overlapping).",
     "examples": [
@@ -1219,8 +1219,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Sorting"
     ],
-    "acceptance": "51.6%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of meeting time `intervals` where `intervals[i] = [start_i, end_i]`, return the minimum number of conference rooms required.",
     "examples": [
@@ -1307,8 +1307,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "48.8%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary array `nums` containing only `0`s and `1`s, return the maximum length of a contiguous subarray with an equal number of `0` and `1`.",
     "examples": [
@@ -1394,8 +1394,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "55.4%",
-    "submissions": "740K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and an integer `k`, return the number of non-empty contiguous subarrays that have a sum divisible by `k`.",
     "examples": [
@@ -1482,8 +1482,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Sorting"
     ],
-    "acceptance": "36.8%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an array `nums` of `n` integers and an integer `target`, return all unique quadruplets `[nums[a], nums[b], nums[c], nums[d]]` with distinct indices that sum to `target`.",
     "examples": [
@@ -1568,8 +1568,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "41.3%",
-    "submissions": "3.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of integers `nums`, rearrange it in-place into its lexicographically next greater permutation (or the lowest sorted order if no greater permutation exists), and return `nums`.",
     "examples": [
@@ -1654,8 +1654,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Dynamic Programming"
     ],
-    "acceptance": "75.6%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `num_rows`, return the first `num_rows` of Pascal's triangle.",
     "examples": [
@@ -1739,8 +1739,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "51.1%",
-    "submissions": "7.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given two sorted integer arrays `nums1` (length `m + n`, with trailing `0` placeholders) and `nums2` (length `n`), along with `m` and `n`. Merge `nums2` into `nums1` in-place in non-decreasing order and return `nums1`.",
     "examples": [
@@ -1826,8 +1826,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "58.4%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given two integer arrays `nums1` and `nums2`, return an array of their intersection where each element appears as many times as it shows in both arrays. You may return the result in any order.",
     "examples": [
@@ -1911,8 +1911,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "45.8%",
-    "submissions": "3.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `s` and `t` of equal length, determine if they are isomorphic: characters in `s` can be replaced with a one-to-one (bijective) mapping to get `t` while preserving order.",
     "examples": [
@@ -1996,8 +1996,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "42.5%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a `pattern` and a space-separated string `s`, return `true` if `s` follows the exact same bijection between each letter in `pattern` and each non-empty word in `s`.",
     "examples": [
@@ -2082,8 +2082,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Counting"
     ],
-    "acceptance": "62.8%",
-    "submissions": "2.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `ransom_note` and `magazine`, return `true` if `ransom_note` can be constructed by using the letters from `magazine` (each letter in `magazine` can only be used once), and `false` otherwise.",
     "examples": [
@@ -2168,8 +2168,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "51.4%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `s` and `p`, return an array of all the start indices of `p`'s anagrams in `s` in ascending order.",
     "examples": [
@@ -2255,8 +2255,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "45.6%",
-    "submissions": "2.3M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.",
     "examples": [
@@ -2340,8 +2340,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "64.2%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary array `nums` and an integer `k`, return the maximum number of consecutive `1`'s in the array if you can flip at most `k` `0`'s.",
     "examples": [
@@ -2428,8 +2428,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "44.9%",
-    "submissions": "1.0M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `fruits` where `fruits[i]` is the type of fruit the `i`-th tree produces, return the length of the longest contiguous subarray containing at most `2` distinct fruit types.",
     "examples": [
@@ -2514,8 +2514,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "51.6%",
-    "submissions": "890K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of positive integers `nums` and an integer `k`, return the number of contiguous subarrays where the product of all elements in the subarray is strictly less than `k`.",
     "examples": [
@@ -2602,8 +2602,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "59.4%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an array `people` where `people[i]` is the weight of the `i`-th person, and each boat carries at most two people with combined weight at most `limit`. Return the minimum number of boats to carry every given person.",
     "examples": [
@@ -2689,8 +2689,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Stack"
     ],
-    "acceptance": "49.4%",
-    "submissions": "1.7M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `s` and `t`, return `true` if they are equal when both are typed into empty text editors where `'#'` means a backspace character.",
     "examples": [
@@ -2775,8 +2775,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Math"
     ],
-    "acceptance": "62.9%",
-    "submissions": "6.5M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a valid Roman numeral string `s` (in range 1 to 3999), convert it to an integer.",
     "examples": [
@@ -2860,8 +2860,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Math"
     ],
-    "acceptance": "66.2%",
-    "submissions": "2.3M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `num` in the range `[1, 3999]`, convert it to a Roman numeral.",
     "examples": [
@@ -2945,8 +2945,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Simulation"
     ],
-    "acceptance": "41.1%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two non-negative integers `num1` and `num2` represented as strings, return the product of `num1` and `num2`, also represented as a string, without converting the inputs directly to big integers.",
     "examples": [
@@ -3033,8 +3033,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Math"
     ],
-    "acceptance": "54.4%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two binary strings `a` and `b`, return their sum as a binary string.",
     "examples": [
@@ -3118,8 +3118,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "55.9%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of characters `chars`, compress consecutive repeating characters in-place: a single character stays as is, while a group of length `> 1` is followed by the digits of its count. Return the compressed list of characters.",
     "examples": [
@@ -3206,8 +3206,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "String"
     ],
-    "acceptance": "33.7%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `num` representing a non-negative integer and an integer `k`, return the smallest possible integer as a string after removing `k` digits from `num` (with no leading zeros).",
     "examples": [
@@ -3294,8 +3294,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Design"
     ],
-    "acceptance": "66.5%",
-    "submissions": "720K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of daily stock `prices`, return an array where the `i`-th value is the span of the stock's price on day `i`: the maximum number of consecutive days (ending at day `i`) for which the stock price was less than or equal to `prices[i]`.",
     "examples": [
@@ -3380,8 +3380,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Dynamic Programming"
     ],
-    "acceptance": "37.1%",
-    "submissions": "840K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of integers `arr`, find the sum of `min(b)` over every contiguous subarray `b` of `arr`. Return the answer modulo `10^9 + 7`.",
     "examples": [
@@ -3469,8 +3469,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Dynamic Programming"
     ],
-    "acceptance": "51.5%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a `rows x cols` binary `matrix` filled with `'0'`s and `'1'`s, find the largest rectangle containing only `'1'`s and return its area.",
     "examples": [
@@ -3555,8 +3555,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Math"
     ],
-    "acceptance": "44.1%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s` representing a valid expression with integers, `'+'`, `'-'`, `'('`, `')'`, and spaces, evaluate it and return the result.",
     "examples": [
@@ -3642,8 +3642,8 @@ export const initialProblems: Problem[] = [
       "Queue",
       "Design"
     ],
-    "acceptance": "66.8%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Simulate a FIFO queue using only two LIFO stacks with amortized O(1) operations. Given `ops` containing `[\"push\", x]`, `[\"pop\"]`, `[\"peek\"]`, or `[\"empty\"]`, return the list of outputs from `pop`, `peek`, and `empty`.",
     "examples": [
@@ -3728,8 +3728,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "70.3%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s`, repeatedly remove pairs of adjacent equal letters until no more can be removed, and return the final string.",
     "examples": [
@@ -3813,8 +3813,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "69.5%",
-    "submissions": "1.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s` of `'('`, `')'`, and lowercase English characters, remove the minimum number of unmatched parentheses (removing unmatched `')'` immediately and rightmost unmatched `'('` at the end) so that the resulting string is valid.",
     "examples": [
@@ -3899,8 +3899,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "63.9%",
-    "submissions": "380K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a balanced parentheses string `s`, return its score where `\"()\"` has score `1`, `AB` has score `A + B`, and `(A)` has score `2 * A`.",
     "examples": [
@@ -3985,8 +3985,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "54.1%",
-    "submissions": "4.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the values of a singly linked list `values`, return `true` if the linked list is a palindrome, or `false` otherwise.",
     "examples": [
@@ -4069,8 +4069,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "79.2%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a non-empty singly linked list represented by `values`, return the sublist starting from the middle node to the end. If there are two middle nodes, start from the second middle node.",
     "examples": [
@@ -4153,8 +4153,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "53.6%",
-    "submissions": "3.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted linked list represented by `values`, delete all duplicates such that each element appears only once and return the sorted list.",
     "examples": [
@@ -4238,8 +4238,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "61.5%",
-    "submissions": "1.8M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a singly linked list represented by `values`, group all nodes at odd 1-based positions together followed by the nodes at even 1-based positions (preserving relative order within each group) and return the reordered list.",
     "examples": [
@@ -4322,8 +4322,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Recursion"
     ],
-    "acceptance": "65.4%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a linked list represented by `values`, swap every two adjacent nodes and return the modified list.",
     "examples": [
@@ -4407,8 +4407,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "38.7%",
-    "submissions": "2.7M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a linked list represented by `values`, rotate the list to the right by `k` places and return the rotated list.",
     "examples": [
@@ -4492,8 +4492,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "57.2%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a linked list represented by `values` and a pivot `x`, partition it such that all nodes less than `x` come before nodes greater than or equal to `x`, preserving the original relative order in each partition.",
     "examples": [
@@ -4577,8 +4577,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Divide and Conquer"
     ],
-    "acceptance": "59.8%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a linked list represented by `values`, sort it in ascending order in `O(n log n)` time using merge sort and return the sorted values.",
     "examples": [
@@ -4662,8 +4662,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "47.2%",
-    "submissions": "7.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted array of distinct integers `nums` and a `target` value, return the index if `target` is found. If not, return the index where it would be if it were inserted in order, in `O(log n)` time.",
     "examples": [
@@ -4747,8 +4747,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Math"
     ],
-    "acceptance": "39.4%",
-    "submissions": "5.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer without using any built-in exponent or square root operator.",
     "examples": [
@@ -4832,8 +4832,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "46.1%",
-    "submissions": "3.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A peak element is strictly greater than its neighbors (assuming out-of-bounds neighbors are `-inf`). Given an array `nums` where `nums[i] != nums[i + 1]`, find a peak element's index in `O(log n)` time.",
     "examples": [
@@ -4918,8 +4918,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Greedy"
     ],
-    "acceptance": "70.4%",
-    "submissions": "820K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Packages with weights `weights[i]` must be shipped in order on a conveyor belt within `days` days. Return the least weight capacity of the ship that will result in all packages being shipped within `days` days.",
     "examples": [
@@ -5004,8 +5004,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Dynamic Programming"
     ],
-    "acceptance": "56.5%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` of non-negative integers and an integer `k`, split `nums` into `k` non-empty contiguous subarrays such that the largest sum among these `k` subarrays is minimized. Return the minimized largest sum.",
     "examples": [
@@ -5090,8 +5090,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "59.1%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given a sorted array `nums` consisting of only integers where every element appears exactly twice, except for one element which appears exactly once. Return the single element in `O(log n)` time and `O(1)` space.",
     "examples": [
@@ -5177,8 +5177,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Two Pointers"
     ],
-    "acceptance": "53.4%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Write an efficient algorithm that searches for `target` in an `m x n` integer `matrix` where every row is sorted left-to-right and every column is sorted top-to-bottom.",
     "examples": [
@@ -5262,8 +5262,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "38.5%",
-    "submissions": "390K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of integers `citations` sorted in ascending order where `citations[i]` is the number of citations a researcher received for their `i`-th paper, return the researcher's h-index in `O(log n)` time.",
     "examples": [
@@ -5348,8 +5348,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Greedy"
     ],
-    "acceptance": "40.2%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a list of non-negative integers `nums`, arrange them such that they form the largest number and return it as a string.",
     "examples": [
@@ -5434,8 +5434,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "67.8%",
-    "submissions": "280K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, reorder it in-place such that `nums[0] <= nums[1] >= nums[2] <= nums[3] ...` by swapping adjacent out-of-order elements in one pass, and return `nums`.",
     "examples": [
@@ -5519,8 +5519,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Binary Indexed Tree"
     ],
-    "acceptance": "42.7%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, return an integer array `counts` where `counts[i]` is the number of smaller elements strictly to the right of `nums[i]`.",
     "examples": [
@@ -5605,8 +5605,8 @@ export const initialProblems: Problem[] = [
       "Divide and Conquer",
       "Sorting"
     ],
-    "acceptance": "31.1%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, return the number of reverse pairs in the array: pairs `(i, j)` where `0 <= i < j < nums.length` and `nums[i] > 2 * nums[j]`.",
     "examples": [
@@ -5691,8 +5691,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "63.4%",
-    "submissions": "3.8M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two binary trees in trimmed level-order representation `p` and `q`, return `true` if they are structurally identical and have the same node values.",
     "examples": [
@@ -5776,8 +5776,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "BFS"
     ],
-    "acceptance": "57.6%",
-    "submissions": "3.7M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, check whether it is a mirror of itself (symmetric around its center).",
     "examples": [
@@ -5860,8 +5860,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "53.2%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, determine if it is height-balanced (for every node, the depths of its left and right subtrees differ by at most `1`).",
     "examples": [
@@ -5945,8 +5945,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "51.4%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree` and an integer `target_sum`, return `true` if the tree has a root-to-leaf path such that adding up all values along the path equals `target_sum`.",
     "examples": [
@@ -6030,8 +6030,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "DFS"
     ],
-    "acceptance": "64.3%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, imagine yourself standing on the right side of it; return the values of the nodes you can see ordered from top to bottom.",
     "examples": [
@@ -6115,8 +6115,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Queue"
     ],
-    "acceptance": "60.1%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, return its zigzag level-order traversal (left-to-right at level 0, right-to-left at level 1, alternating thereafter).",
     "examples": [
@@ -6200,8 +6200,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "73.2%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, a node `X` is named good if on the path from root to `X` there are no nodes with a value strictly greater than `X`. Return the number of good nodes.",
     "examples": [
@@ -6284,8 +6284,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "64.1%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree of unique values in level-order representation `tree` and two node values `p` and `q`, return the value of their Lowest Common Ancestor (LCA).",
     "examples": [
@@ -6371,8 +6371,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Linked List"
     ],
-    "acceptance": "66.7%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order representation `tree`, flatten it in-place into a right-skewed linked list following preorder traversal (root, left, right) and return the sequence of values.",
     "examples": [
@@ -6456,8 +6456,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "66.5%",
-    "submissions": "1.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree of digits (`0`–`9`) in level-order representation `tree`, each root-to-leaf path represents a decimal number. Return the total sum of all root-to-leaf numbers.",
     "examples": [
@@ -6541,8 +6541,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "65.1%",
-    "submissions": "1.5M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` integer grid `image`, a starting pixel `(sr, sc)`, and a new `color`, perform a 4-directional flood fill starting from `(sr, sc)` replacing all connected pixels of the original color with `color`, and return the modified image.",
     "examples": [
@@ -6627,8 +6627,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Matrix"
     ],
-    "acceptance": "72.6%",
-    "submissions": "1.3M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` binary matrix `grid` where `1` represents land and `0` represents water, return the maximum area (number of 4-directionally connected `1`s) of an island in `grid`, or `0` if there is no island.",
     "examples": [
@@ -6712,8 +6712,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "40.8%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` `board` containing `'X'` and `'O'`, capture all regions of `'O'` that are 4-directionally surrounded by `'X'` (i.e. not connected to any border `'O'`) by flipping them to `'X'`, and return the board.",
     "examples": [
@@ -6798,8 +6798,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "56.1%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an `m x n` matrix `heights` where the Pacific Ocean touches the top and left edges and the Atlantic Ocean touches the bottom and right edges, water can flow to 4-directional neighbors of equal or lower height. Return all `[r, c]` coordinates from which water can flow to both oceans.",
     "examples": [
@@ -6884,8 +6884,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "48.3%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `n x n` binary matrix `grid`, return the length of the shortest clear path from `(0, 0)` to `(n - 1, n - 1)` moving 8-directionally through `0` cells (counting the number of visited cells), or `-1` if no clear path exists.",
     "examples": [
@@ -6970,8 +6970,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Backtracking"
     ],
-    "acceptance": "82.7%",
-    "submissions": "740K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a directed acyclic graph (DAG) of `n` nodes labeled `0` to `n - 1` as an adjacency list `graph`, find all possible paths from node `0` to node `n - 1`.",
     "examples": [
@@ -7055,8 +7055,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "DFS"
     ],
-    "acceptance": "73.8%",
-    "submissions": "720K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "There are `n` rooms labeled `0` to `n - 1`; only room `0` is unlocked initially. `rooms[i]` lists the keys found inside room `i`. Return `true` if you can visit all `n` rooms.",
     "examples": [
@@ -7141,8 +7141,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "BFS"
     ],
-    "acceptance": "63.9%",
-    "submissions": "540K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In a directed graph given as adjacency list `graph`, a node is terminal if it has no outgoing edges, and safe if every possible path starting from that node leads to a terminal node. Return an array of all safe nodes sorted in ascending order.",
     "examples": [
@@ -7227,8 +7227,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Matrix"
     ],
-    "acceptance": "61.8%",
-    "submissions": "380K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `n x n` integer matrix `grid` where `grid[i][j]` represents elevation. At time `t`, you can swim between 4-directionally adjacent cells if both have elevation `<= t`. Return the least time until you can reach `(n - 1, n - 1)` from `(0, 0)`.",
     "examples": [
@@ -7313,8 +7313,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "String"
     ],
-    "acceptance": "36.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a list of `words` sorted lexicographically according to an unknown alien alphabet, derive a valid character ordering (preferring standard alphabetical order on ties for determinism), or return `\"\"` if the ordering is invalid.",
     "examples": [
@@ -7399,8 +7399,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "42.7%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "All houses are arranged in a circle so the first house is adjacent to the last house. Given an integer array `nums` representing money at each house, return the maximum amount you can rob without robbing two adjacent houses.",
     "examples": [
@@ -7484,8 +7484,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "35.4%",
-    "submissions": "3.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A message of letters `'A'`–`'Z'` is encoded as `'1'`–`'26'`. Given a string `s` containing only digits, return the number of ways to decode it.",
     "examples": [
@@ -7569,8 +7569,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "64.4%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `coins` representing unique coin denominations and an integer `amount`, return the number of combinations (order does not matter) that make up `amount`.",
     "examples": [
@@ -7654,8 +7654,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "47.6%",
-    "submissions": "1.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an integer array `nums` of non-negative integers and an integer `target`. Assign either `'+'` or `'-'` before each integer in `nums` and return the number of different expressions that evaluate to `target`.",
     "examples": [
@@ -7740,8 +7740,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "64.8%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` `grid` filled with non-negative integers, find a path from top-left `(0, 0)` to bottom-right `(m - 1, n - 1)` moving only down or right that minimizes the sum of all numbers along its path.",
     "examples": [
@@ -7825,8 +7825,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "57.6%",
-    "submissions": "1.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a `triangle` array, return the minimum path sum from top to bottom where at each step you may move to index `i` or `i + 1` on the row below.",
     "examples": [
@@ -7910,8 +7910,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "63.1%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s`, find the length of the longest palindromic subsequence in `s`.",
     "examples": [
@@ -7994,8 +7994,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "48.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `s` and `t`, return the number of distinct subsequences of `s` which equal `t`.",
     "examples": [
@@ -8079,8 +8079,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "40.6%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given strings `s1`, `s2`, and `s3`, return `true` if `s3` is formed by an interleaving of `s1` and `s2` (preserving the relative order of characters from both `s1` and `s2`).",
     "examples": [
@@ -8166,8 +8166,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Recursion"
     ],
-    "acceptance": "28.5%",
-    "submissions": "3.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an input string `s` and a pattern `p`, implement regular expression matching with support for `'.'` (matches any single character) and `'*'` (matches zero or more of the preceding element). The matching must cover the entire input string.",
     "examples": [
@@ -8253,8 +8253,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "40.8%",
-    "submissions": "3.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an integer array `nums` where `nums[i]` is the maximum jump length from index `i`. Return the minimum number of jumps to reach the last index (guaranteed reachable).",
     "examples": [
@@ -8338,8 +8338,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "43.7%",
-    "submissions": "1.3M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "There are `n` children standing in a line with integer `ratings`. Each child must receive at least 1 candy, and children with a higher rating than an immediate neighbor must receive more candies than that neighbor. Return the minimum total candies needed.",
     "examples": [
@@ -8425,8 +8425,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "String"
     ],
-    "acceptance": "80.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s`, partition `s` into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.",
     "examples": [
@@ -8510,8 +8510,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Array"
     ],
-    "acceptance": "79.4%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an array `nums` of distinct integers, return all possible permutations in any order.",
     "examples": [
@@ -8595,8 +8595,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "61.8%",
-    "submissions": "3.7M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a string containing digits from `2`–`9` inclusive, return all possible letter combinations that the number could represent on a telephone keypad. Return `[]` if `digits` is empty.",
     "examples": [
@@ -8681,8 +8681,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Dynamic Programming"
     ],
-    "acceptance": "75.6%",
-    "submissions": "2.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
     "examples": [
@@ -8766,8 +8766,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "DFS"
     ],
-    "acceptance": "43.8%",
-    "submissions": "4.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid via 4-directionally adjacent cells without reusing the same cell twice.",
     "examples": [
@@ -8851,8 +8851,8 @@ export const initialProblems: Problem[] = [
       "Design",
       "Two Heaps"
     ],
-    "acceptance": "52.5%",
-    "submissions": "1.7M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Design a data structure supporting `addNum(x)` and `findMedian()`. Given `ops` containing `[\"addNum\", x]` or `[\"findMedian\"]`, return the list of float medians for every `findMedian` call.",
     "examples": [
@@ -8935,8 +8935,8 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Bit Manipulation"
     ],
-    "acceptance": "72.4%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Write a function that takes a non-negative integer `n` and returns the number of set bits (`1` bits) it has in its binary representation (Hamming weight).",
     "examples": [
@@ -9019,8 +9019,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Math"
     ],
-    "acceptance": "48.1%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `n`, return `true` if it is a power of two (there exists an integer `x` such that `n == 2^x`), otherwise return `false`.",
     "examples": [
@@ -9102,8 +9102,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Math"
     ],
-    "acceptance": "68.2%",
-    "submissions": "3.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array `nums` containing `n` distinct integers taken from the range `[0, n]`, return the single integer in `[0, n]` that is missing from `nums` in `O(n)` time and `O(1)` space.",
     "examples": [
@@ -9185,8 +9185,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "72.9%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` sorted in non-decreasing order (which may contain negatives), return an array of the squares of each number sorted in non-decreasing order in `O(n)` time.",
     "examples": [
@@ -9267,8 +9267,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "57.6%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Customers queue to buy a $5 item paying with `$5`, `$10`, or `$20` bills listed in `bills`. Starting with zero change, return `true` if you can provide exact change to every customer in order.",
     "examples": [
@@ -9349,8 +9349,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "28.9%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A flowerbed is represented as binary array `bed` (`0` = empty, `1` = planted) where no two flowers can be planted in adjacent plots. Return `true` if `n` new flowers can be planted without violating the no-adjacent rule.",
     "examples": [
@@ -9432,8 +9432,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Sorting"
     ],
-    "acceptance": "46.1%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` of length `n` and an integer `target`, find three integers in `nums` such that their sum is closest to `target` and return that sum.",
     "examples": [
@@ -9514,8 +9514,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "30.4%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and an integer `k`, return `true` if `nums` has a contiguous subarray of length at least `2` whose sum is a multiple of `k` (`0` is always a multiple of `k`).",
     "examples": [
@@ -9596,8 +9596,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "53.6%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Cards are arranged in a row with points `cards`. In each step you may take one card from either the beginning or the end of the row, for a total of `k` cards. Return the maximum score you can obtain.",
     "examples": [
@@ -9677,8 +9677,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "39.8%",
-    "submissions": "520K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array of positive integers `nums` and an integer `x`, in one operation you may remove either the leftmost or rightmost element and subtract its value from `x`. Return the minimum operations to reduce `x` to exactly `0`, or `-1` if impossible.",
     "examples": [
@@ -9760,8 +9760,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Array"
     ],
-    "acceptance": "64.8%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a circular integer array `nums` (the next element of `nums[n - 1]` is `nums[0]`), return an array `ans` where `ans[i]` is the first strictly greater number traversing circularly after `nums[i]`, or `-1` if none exists.",
     "examples": [
@@ -9842,8 +9842,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Array"
     ],
-    "acceptance": "33.9%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums`, return `true` if there exist indices `i < j < k` such that `nums[i] < nums[k] < nums[j]` (a 132 pattern), or `false` otherwise.",
     "examples": [
@@ -9924,8 +9924,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Geometry"
     ],
-    "acceptance": "66.9%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an array of 2D coordinates `points` and an integer `k`, return the `k` closest points to the origin `(0, 0)` by Euclidean distance in any order.",
     "examples": [
@@ -10006,8 +10006,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "String"
     ],
-    "acceptance": "55.1%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a lowercase string `s`, check if its letters can be rearranged so no two adjacent characters are identical. Return `true` if a valid rearrangement exists, or `false` otherwise.",
     "examples": [
@@ -10088,8 +10088,8 @@ export const initialProblems: Problem[] = [
       "Prefix Sum",
       "Monotonic Queue"
     ],
-    "acceptance": "27.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` (which may contain negative integers) and an integer `k`, return the length of the shortest non-empty contiguous subarray of `nums` with a sum of at least `k`, or `-1` if none exists.",
     "examples": [
@@ -10173,8 +10173,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Dynamic Programming"
     ],
-    "acceptance": "40.2%",
-    "submissions": "390K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A car drives `target` miles starting with `start_fuel` gallons (1 gallon per mile). Along the route are `stations[i] = [pos_i, fuel_i]` sorted by position. Return the minimum number of refueling stops needed to reach `target`, or `-1` if impossible.",
     "examples": [
@@ -10256,8 +10256,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "52.9%",
-    "submissions": "540K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Starting with initial capital `w`, you may complete at most `k` distinct projects. Project `i` requires minimum capital `capital[i]` to start and adds `profits[i]` to your capital upon completion. Return the maximum final capital.",
     "examples": [
@@ -10340,8 +10340,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "64.2%",
-    "submissions": "480K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and an integer `k`, return the number of contiguous subarrays that contain exactly `k` distinct integers.",
     "examples": [
@@ -10422,8 +10422,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "40.3%",
-    "submissions": "310K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `courses[i] = [duration_i, last_day_i]` where course `i` takes `duration_i` consecutive days and must finish on or before `last_day_i`, return the maximum number of courses you can take starting on day 0.",
     "examples": [
@@ -10504,8 +10504,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "53.2%",
-    "submissions": "280K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted positive integer array `nums` and an integer `n`, add the minimum number of patches (positive integers) to `nums` so that every integer in `[1, n]` can be formed as the sum of some subset of elements. Return the minimum number of patches.",
     "examples": [
@@ -10587,8 +10587,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Design"
     ],
-    "acceptance": "66.7%",
-    "submissions": "490K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Simulate a stack where `pop` removes and returns the most frequent element (breaking ties by most recently pushed). Given `ops` (`[\"push\", x]` or `[\"pop\"]`), return the list of popped values.",
     "examples": [
@@ -10670,8 +10670,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "63.8%",
-    "submissions": "290K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "There are `n` workers with `quality[i]` and minimum wage `wage[i]`. Hiring `k` workers requires paying each worker proportional to their quality and at least their minimum wage. Return the least total cost rounded to 5 decimal places.",
     "examples": [
@@ -10751,8 +10751,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "66.2%",
-    "submissions": "2.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `cost` where `cost[i]` is the cost of stepping on stair `i`, you may start at step `0` or step `1` and advance `1` or `2` steps at a time. Return the minimum cost to reach the top (past the last index).",
     "examples": [
@@ -10834,8 +10834,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Two Pointers"
     ],
-    "acceptance": "56.9%",
-    "submissions": "3.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Starting with any positive integer `n`, repeatedly replace the number by the sum of the squares of its decimal digits. Return `true` if the process reaches `1`, or `false` if it loops endlessly.",
     "examples": [
@@ -10915,8 +10915,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Math"
     ],
-    "acceptance": "46.4%",
-    "submissions": "5.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given a large non-negative integer represented as an array of decimal `digits` (most-significant digit first). Increment the integer by one and return the resulting array of digits.",
     "examples": [
@@ -10997,8 +10997,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "String"
     ],
-    "acceptance": "64.8%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a spreadsheet column title `col` (`\"A\" -> 1, \"B\" -> 2, ..., \"Z\" -> 26, \"AA\" -> 27, ...`), return its corresponding 1-based column number.",
     "examples": [
@@ -11080,8 +11080,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Math"
     ],
-    "acceptance": "55.1%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `n`, return the least number of perfect square numbers (`1, 4, 9, 16, ...`) that sum to `n`.",
     "examples": [
@@ -11162,8 +11162,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Greedy"
     ],
-    "acceptance": "60.8%",
-    "submissions": "640K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `n >= 2`, break it into the sum of `k >= 2` positive integers and maximize the product of those integers. Return the maximum product.",
     "examples": [
@@ -11243,8 +11243,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "54.4%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of distinct positive integers `nums` and a `target`, return the number of possible ordered sequences that add up to `target` (different orders count as distinct sequences).",
     "examples": [
@@ -11326,8 +11326,8 @@ export const initialProblems: Problem[] = [
       "Knapsack",
       "String"
     ],
-    "acceptance": "48.1%",
-    "submissions": "520K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of binary strings `strs` and two budgets `m` (max `'0'`s) and `n` (max `'1'`s), return the size of the largest subset of `strs` containing at most `m` `'0'`s and `n` `'1'`s in total.",
     "examples": [
@@ -11408,8 +11408,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "47.4%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` binary matrix filled with `'0'`s and `'1'`s, find the largest square containing only `'1'`s and return its area.",
     "examples": [
@@ -11490,8 +11490,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "String"
     ],
-    "acceptance": "61.4%",
-    "submissions": "680K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Word `a` is a predecessor of word `b` if inserting exactly one letter anywhere in `a` yields `b`. Given a list of `words`, return the length of the longest possible word chain using words from `words`.",
     "examples": [
@@ -11572,8 +11572,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Game Theory"
     ],
-    "acceptance": "55.2%",
-    "submissions": "480K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two players take turns picking either the first or last number from integer array `nums`, adding it to their score. Both play optimally. Return `true` if Player 1 can achieve a score greater than or equal to Player 2.",
     "examples": [
@@ -11653,8 +11653,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "60.4%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `n x n` integer `matrix`, return the minimum sum of any falling path starting at any element in the first row and moving down each row to column `c - 1`, `c`, or `c + 1`.",
     "examples": [
@@ -11737,8 +11737,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "Graph"
     ],
-    "acceptance": "54.4%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` integer `matrix`, return the length of the longest strictly increasing 4-directional path in `matrix`.",
     "examples": [
@@ -11818,8 +11818,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Interval DP"
     ],
-    "acceptance": "61.4%",
-    "submissions": "240K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a wooden stick of length `n` and an array `cuts` of integer cut positions, the cost of making a cut is the current length of the stick being cut. Return the minimum total cost to perform all cuts in any order.",
     "examples": [
@@ -11901,8 +11901,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Sorting"
     ],
-    "acceptance": "37.4%",
-    "submissions": "540K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `envelopes[i] = [w_i, h_i]`, one envelope fits inside another iff both its width and height are strictly smaller (no rotation). Return the maximum number of envelopes you can nest.",
     "examples": [
@@ -11983,8 +11983,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Dynamic Programming"
     ],
-    "acceptance": "28.8%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an input string `s` and a wildcard pattern `p` where `'?'` matches any single character and `'*'` matches any sequence of characters (including empty), return `true` if `p` matches the entire string `s`.",
     "examples": [
@@ -12064,8 +12064,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "38.7%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A knight moves only right or down from `(0, 0)` to `(m - 1, n - 1)` in an `m x n` grid `dungeon` (negative = damage, positive = healing). Health must stay `>= 1` at every room. Return the minimum positive initial health required.",
     "examples": [
@@ -12145,8 +12145,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "44.1%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer `k` and daily stock `prices`, return the maximum profit achievable with at most `k` buy-sell transactions (you may hold at most one share at a time).",
     "examples": [
@@ -12228,8 +12228,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Sorting"
     ],
-    "acceptance": "54.4%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `start_time`, `end_time`, and `profit` arrays for `n` jobs, return the maximum profit from any subset of non-overlapping jobs (a job ending at time `X` allows another to start at time `X`).",
     "examples": [
@@ -12309,8 +12309,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "71.4%",
-    "submissions": "380K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s`, return the minimum number of character insertions at any positions needed to turn `s` into a palindrome.",
     "examples": [
@@ -12391,8 +12391,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Counting"
     ],
-    "acceptance": "49.5%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In a town of `n` people labeled from `1` to `n`, there is a rumor that one person is secretly the town judge. If the town judge exists, then: (1) the town judge trusts nobody, and (2) everybody else (all `n - 1` other people) trusts the town judge. You are given `n` and an array `trust` where `trust[i] = [a, b]` means person `a` trusts person `b`. Return the label of the town judge if one exists and can be uniquely identified, or `-1` otherwise.",
     "examples": [
@@ -12480,8 +12480,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Union Find"
     ],
-    "acceptance": "53.2%",
-    "submissions": "890K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an undirected graph with `n` vertices labeled from `0` to `n - 1`, represented by an edge list `edges` where `edges[i] = [u, v]` denotes a bidirectional edge between `u` and `v`. Determine whether there is a valid path from `source` to `destination`.",
     "examples": [
@@ -12566,8 +12566,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Two Pointers"
     ],
-    "acceptance": "34.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of integers `arr`, return `true` if and only if it is a valid mountain array. An array is a mountain array if `arr.length >= 3` and there exists some index `i` with `0 < i < arr.length - 1` such that `arr[0] < arr[1] < ... < arr[i]` and `arr[i] > arr[i + 1] > ... > arr[arr.length - 1]`.",
     "examples": [
@@ -12652,8 +12652,8 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Arrays"
     ],
-    "acceptance": "61.4%",
-    "submissions": "710K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An array is monotonic if it is either monotone non-decreasing (`nums[i] <= nums[j]` for all `i <= j`) or monotone non-increasing (`nums[i] >= nums[j]` for all `i <= j`). Given an integer array `nums`, return `true` if the given array is monotonic, or `false` otherwise.",
     "examples": [
@@ -12738,8 +12738,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Hash Table"
     ],
-    "acceptance": "56.1%",
-    "submissions": "640K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A digital vault lock has 4 circular wheels, each displaying digits `'0'` through `'9'`. Each wheel can rotate one slot forward or backward, wrapping around between `'9'` and `'0'`. The lock starts at `'0000'`. You are given a list of `deadends`—if the lock displays any deadend code, its wheels freeze permanently—and a `target` code. Return the minimum number of turns required to reach `target`, or `-1` if it is impossible.",
     "examples": [
@@ -12828,8 +12828,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Hash Table"
     ],
-    "acceptance": "53.8%",
-    "submissions": "390K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A gene string is represented by an 8-character string consisting of `'A'`, `'C'`, `'G'`, and `'T'`. A single mutation changes exactly one character in the gene string. Given `startGene`, `endGene`, and a list of valid intermediate gene strings `bank`, return the minimum number of mutations needed to transform `startGene` into `endGene` such that every intermediate gene is in `bank`. Return `-1` if no such sequence exists.",
     "examples": [
@@ -12918,8 +12918,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "BFS"
     ],
-    "acceptance": "59.8%",
-    "submissions": "420K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A company has `n` employees with unique IDs from `0` to `n - 1`. The company head has ID `headID`. Each employee `i` has one direct manager given by `manager[i]` (with `manager[headID] == -1`). When the head announces urgent news, employee `i` needs `informTime[i]` minutes to notify all of their direct subordinates simultaneously. Return the total number of minutes needed for every employee in the company to receive the news.",
     "examples": [
@@ -13007,8 +13007,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Matrix"
     ],
-    "acceptance": "59.6%",
-    "submissions": "540K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are hiking across a 2D terrain grid `heights` of size `rows x cols`, where `heights[r][c]` is the elevation at cell `(r, c)`. Starting at `(0, 0)`, you want to reach `(rows - 1, cols - 1)` by moving up, down, left, or right. A route's effort is the maximum absolute elevation difference between any two consecutive cells along the route. Return the minimum effort required to travel from the top-left cell to the bottom-right cell.",
     "examples": [
@@ -13093,8 +13093,8 @@ export const initialProblems: Problem[] = [
       "Shortest Path",
       "Dynamic Programming"
     ],
-    "acceptance": "69.5%",
-    "submissions": "380K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "There are `n` cities numbered from `0` to `n - 1`. Given an array `edges` where `edges[i] = [u, v, w]` represents a bidirectional weighted road between cities `u` and `v` of length `w`, and an integer `distanceThreshold`, return the city with the smallest number of other cities reachable through some path whose total distance is at most `distanceThreshold`. If multiple cities tie for the smallest count, return the city with the greatest number.",
     "examples": [
@@ -13182,8 +13182,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Trees"
     ],
-    "acceptance": "41.8%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an undirected tree of `n` nodes labeled from `0` to `n - 1` and its `n - 1` edges in `edges`, you can choose any node as the root. The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf. Return a list of all root labels that produce a tree of minimum possible height. You may return the answer in any order.",
     "examples": [
@@ -13272,8 +13272,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Union Find"
     ],
-    "acceptance": "62.1%",
-    "submissions": "740K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an array of variable pairs `equations` and an array of real numbers `values`, where `equations[i] = [A_i, B_i]` and `values[i]` represent the equation `A_i / B_i = values[i]`. You are also given `queries` where `queries[j] = [C_j, D_j]` asks for the value of `C_j / D_j`. Return an array of answers rounded to 5 decimal places, using `-1.0` whenever a query cannot be determined.",
     "examples": [
@@ -13361,8 +13361,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Sorting"
     ],
-    "acceptance": "57.9%",
-    "submissions": "680K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a list `accounts` where each element `accounts[i]` is a list of strings with the first element being a user's name and the remaining elements being emails belonging to that account, merge any two accounts that share at least one common email address. Note that two accounts with the same name may belong to different people if they share no emails. Return the merged accounts where each account starts with the user's name followed by their unique emails in sorted lexicographical order.",
     "examples": [
@@ -13448,8 +13448,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Tarjan"
     ],
-    "acceptance": "56.4%",
-    "submissions": "490K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A data center has `n` servers numbered `0` to `n - 1` connected by undirected network cables given in `connections`, where `connections[i] = [u, v]`. A connection is critical (a bridge) if removing it disconnects some servers from reaching others. Return all critical connections in the network as `[min(u, v), max(u, v)]` pairs in any order.",
     "examples": [
@@ -13535,8 +13535,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Hash Table"
     ],
-    "acceptance": "47.2%",
-    "submissions": "520K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an array `routes` representing city bus routes where `routes[i]` is the list of bus stops that bus `i` visits repeatedly in a loop. You start at bus stop `source` and want to reach bus stop `target`. You can board any bus at your current stop and transfer to another bus at any shared stop. Return the minimum number of buses you must take to travel from `source` to `target`, or `-1` if it is impossible.",
     "examples": [
@@ -13626,8 +13626,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Dynamic Programming"
     ],
-    "acceptance": "64.8%",
-    "submissions": "240K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You have an undirected connected graph of `n` nodes labeled from `0` to `n - 1`, given as an adjacency list `graph` where `graph[i]` is a list of all nodes connected to node `i`. Return the length (number of edges) of the shortest path that visits every node at least once. You may start and stop at any node, and you may revisit nodes and reuse edges.",
     "examples": [
@@ -13713,8 +13713,8 @@ export const initialProblems: Problem[] = [
       "Shortest Path",
       "Matrix"
     ],
-    "acceptance": "62.9%",
-    "submissions": "180K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `m x n` grid where each cell contains an arrow sign: `1` points right, `2` points left, `3` points down, and `4` points up. Starting at `(0, 0)`, following a cell's existing arrow costs `0`, while modifying a cell's arrow to point in any of the other 3 directions costs `1`. Return the minimum total cost to ensure there is at least one valid path from `(0, 0)` to `(m - 1, n - 1)`.",
     "examples": [
@@ -13802,8 +13802,8 @@ export const initialProblems: Problem[] = [
       "Eulerian Path",
       "Sorting"
     ],
-    "acceptance": "43.5%",
-    "submissions": "920K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given a list of airline `tickets` where `tickets[i] = [from_i, to_i]` represents a one-way flight. Reconstruct the itinerary in order and return it. All itineraries start at `'JFK'` and must use every ticket exactly once. If multiple valid itineraries exist, return the one that has the smallest lexicographical order when read as a single list of airport codes.",
     "examples": [
@@ -13891,8 +13891,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "Hash Table"
     ],
-    "acceptance": "48.1%",
-    "submissions": "340K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `n x n` binary matrix `grid` where `1` represents land and `0` represents water. You are allowed to change at most one `0` cell into a `1`. Return the size of the largest 4-directionally connected island of `1`s after performing at most one such change.",
     "examples": [
@@ -13977,8 +13977,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "Dynamic Programming"
     ],
-    "acceptance": "66.7%",
-    "submissions": "210K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given `n` courses labeled from `1` to `n`, an array `relations` where `relations[j] = [prevCourse, nextCourse]` indicates that `prevCourse` must be completed before `nextCourse` can start, and an array `time` where `time[i]` is the number of months required to complete course `i + 1`. You may take any number of courses simultaneously as long as their prerequisites are finished. Return the minimum number of months required to complete all `n` courses.",
     "examples": [
@@ -14065,8 +14065,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Heap"
     ],
-    "acceptance": "30.4%",
-    "submissions": "270K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are navigating a city with `n` intersections numbered `0` to `n - 1` connected by bidirectional roads given in `roads`, where `roads[i] = [u, v, t]` indicates a road taking `t` minutes to traverse. Return the number of distinct shortest-time paths from intersection `0` to intersection `n - 1`, modulo `10^9 + 7`.",
     "examples": [
@@ -14154,8 +14154,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "DFS"
     ],
-    "acceptance": "86.9%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the `root` of a Binary Search Tree (serialized as a level-order list with `null` for missing nodes) and two integers `low` and `high`, return the sum of values of all nodes with a value in the inclusive range `[low, high]`.",
     "examples": [
@@ -14242,8 +14242,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "DFS"
     ],
-    "acceptance": "58.6%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the `root` of a Binary Search Tree (serialized as a level-order list with `null` for missing nodes), return the minimum absolute difference between the values of any two distinct nodes in the tree.",
     "examples": [
@@ -14328,8 +14328,8 @@ export const initialProblems: Problem[] = [
       "Simulation",
       "Arrays"
     ],
-    "acceptance": "77.2%",
-    "submissions": "530K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are keeping score for a game with special rules. Given a list of strings `operations` where each operation is one of: an integer `x` (record a new score of `x`), `'+'` (record a new score equal to the sum of the previous two scores), `'D'` (record a new score equal to double the previous score), or `'C'` (invalidate and remove the previous score), return the sum of all valid scores remaining on the record.",
     "examples": [
@@ -14412,8 +14412,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Stack"
     ],
-    "acceptance": "83.6%",
-    "submissions": "590K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A valid parentheses string `s` can be decomposed into primitive valid parentheses substrings `s = P_1 + P_2 + ... + P_k`, where each `P_i` is nonempty and cannot be split into two nonempty valid parentheses strings. Remove the outermost `'('` and `')'` of every primitive substring in `s` and return the resulting string.",
     "examples": [
@@ -14498,8 +14498,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "DFS"
     ],
-    "acceptance": "54.5%",
-    "submissions": "720K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Houses in a neighborhood are arranged in a binary tree (serialized as a level-order list `root` with `null` for missing nodes). Each node's value is the amount of money stored in that house. If two directly linked houses (a parent and its child) are robbed on the same night, an alarm triggers. Return the maximum amount of money you can rob without triggering the alarm.",
     "examples": [
@@ -14586,8 +14586,8 @@ export const initialProblems: Problem[] = [
       "Prefix Sum",
       "Hash Table"
     ],
-    "acceptance": "46.2%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the `root` of a binary tree (serialized as a level-order list with `null` for missing nodes) and an integer `targetSum`, return the number of downward paths where the sum of node values along the path equals `targetSum`. A path does not need to start at the root or end at a leaf, but it must travel strictly downward from parent to child.",
     "examples": [
@@ -14672,8 +14672,8 @@ export const initialProblems: Problem[] = [
       "Trees",
       "Binary Search Tree"
     ],
-    "acceptance": "52.0%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the `root` of a Binary Search Tree (serialized as a trimmed level-order list with `null` for missing nodes) and an integer `key`, delete the node with value `key` if it exists while preserving the BST property. When deleting a node with two children, replace its value with its in-order successor (the minimum node in its right subtree) and delete that successor. Return the resulting BST serialized as a trimmed level-order list.",
     "examples": [
@@ -14759,8 +14759,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Simulation"
     ],
-    "acceptance": "69.7%",
-    "submissions": "510K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two integer arrays `pushed` and `popped`, each containing distinct values, return `true` if and only if this could have been the result of a sequence of push and pop operations on an initially empty stack.",
     "examples": [
@@ -14844,8 +14844,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Sorting"
     ],
-    "acceptance": "56.3%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a collection of candidate integers `candidates` (which may contain duplicates) and a target integer `target`, find all unique combinations in `candidates` where the chosen numbers sum to `target`. Each element in `candidates` may be used at most once in a combination, and the solution set must not contain duplicate combinations. Return each combination sorted in non-decreasing order.",
     "examples": [
@@ -14931,8 +14931,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Sorting"
     ],
-    "acceptance": "58.1%",
-    "submissions": "1.3M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an integer array `nums` that may contain duplicates, return all possible unique subsets (the power set). Each subset should be sorted in non-decreasing order, and the solution set must not contain duplicate subsets.",
     "examples": [
@@ -15016,8 +15016,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Dynamic Programming"
     ],
-    "acceptance": "70.3%",
-    "submissions": "1.2M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return all possible palindrome partitionings of `s`.",
     "examples": [
@@ -15100,8 +15100,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Strings"
     ],
-    "acceptance": "51.1%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A valid IPv4 address consists of exactly four integers separated by single dots, where each integer is between `0` and `255` (inclusive) and cannot have leading zeros (except `'0'` itself). Given a string `s` containing only digits, return all possible valid IP addresses that can be formed by inserting three dots into `s`.",
     "examples": [
@@ -15186,8 +15186,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Linked List"
     ],
-    "acceptance": "45.0%",
-    "submissions": "610K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Simulate a Least Frequently Used (LFU) cache with capacity `capacity`. You are given a list of `operations` where each operation is either `['put', key, value]` or `['get', key]`. `get(key)` returns the cached value if present (and increments its use count) or `-1` otherwise. `put(key, value)` inserts or updates `key` (incrementing its use count; if at capacity, evicts the least frequently used key, breaking ties by evicting the least recently used key). Return the list of results for all `'get'` operations in order.",
     "examples": [
@@ -15273,8 +15273,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Dynamic Programming"
     ],
-    "acceptance": "46.9%",
-    "submissions": "280K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given the `root` of a binary tree (serialized as a level-order list with `null` for missing nodes). A security camera placed at a node can monitor its parent, itself, and its immediate children. Return the minimum number of cameras needed to monitor every node in the tree.",
     "examples": [
@@ -15361,8 +15361,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Hash Table"
     ],
-    "acceptance": "48.8%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given the `root` of a binary tree (serialized as a level-order list with `null` for missing nodes), assign the root position `(row = 0, col = 0)`. For any node at `(r, c)`, its left child is at `(r + 1, c - 1)` and its right child is at `(r + 1, c + 1)`. Return the vertical order traversal of the tree from the leftmost column to the rightmost column. Within each column, sort nodes by row ascending, and break ties at the exact same `(row, col)` by node value ascending.",
     "examples": [
@@ -15448,8 +15448,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Strings"
     ],
-    "acceptance": "57.6%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Design a round-trip codec for binary trees: given a binary tree `root` (as a trimmed level-order list with `null` for missing nodes), encode it into a compact preorder string representation using `'#'` for null pointers and `','` as delimiters, and then decode that string back into the exact trimmed level-order list. Return the decoded trimmed level-order list to verify lossless round-trip serialization.",
     "examples": [
@@ -15534,8 +15534,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "DFS"
     ],
-    "acceptance": "54.6%",
-    "submissions": "850K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given the `root` of a Binary Search Tree (serialized as a trimmed level-order list) in which the values of exactly two nodes have been swapped by mistake. Recover the BST without changing its structure and return the corrected tree as a trimmed level-order list.",
     "examples": [
@@ -15621,8 +15621,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Math"
     ],
-    "acceptance": "40.4%",
-    "submissions": "570K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a string `num` containing only digits and an integer `target`, return all possibilities to insert the binary operators `'+'`, `'-'`, and/or `'*'` between the digits of `num` so that the resulting expression evaluates to `target`. Operands in the returned expressions must not contain leading zeros (except `'0'` itself).",
     "examples": [
@@ -15710,8 +15710,8 @@ export const initialProblems: Problem[] = [
       "Two Heaps",
       "Design"
     ],
-    "acceptance": "38.7%",
-    "submissions": "460K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and a window size `k`, a window of size `k` slides from the very left of `nums` to the very right by one position at a time. Return an array of the median value for each window position as floating-point numbers.",
     "examples": [
@@ -15796,8 +15796,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Arrays"
     ],
-    "acceptance": "63.4%",
-    "submissions": "160K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are designing an obstacle course given an array `obstacles` of length `n`, where `obstacles[i]` is the height of the `i`-th obstacle. For every index `i` from `0` to `n - 1`, find the length of the longest non-decreasing subsequence of `obstacles[0..i]` that ends at index `i` (i.e., includes `obstacles[i]`). Return an array `ans` of length `n` with these lengths.",
     "examples": [
@@ -15880,8 +15880,8 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Math"
     ],
-    "acceptance": "42.3%",
-    "submissions": "1.1M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An ugly number is a positive integer whose prime factors are limited to `2`, `3`, and `5`. Given an integer `n`, return `true` if `n` is an ugly number, or `false` otherwise.",
     "examples": [
@@ -15964,8 +15964,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Two Pointers"
     ],
-    "acceptance": "53.4%",
-    "submissions": "980K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are distributing cookies to children. Each child `i` has a greed factor `g[i]`, which is the minimum cookie size that satisfies them, and each cookie `j` has size `s[j]`. You can give each child at most one cookie, and a child is satisfied if `s[j] >= g[i]`. Return the maximum number of children you can satisfy.",
     "examples": [
@@ -16050,8 +16050,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Dynamic Programming"
     ],
-    "acceptance": "71.8%",
-    "submissions": "2.4M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "The Fibonacci sequence is defined by `F(0) = 0`, `F(1) = 1`, and `F(n) = F(n - 1) + F(n - 2)` for `n > 1`. Given `n`, calculate and return `F(n)`.",
     "examples": [
@@ -16134,8 +16134,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Counting"
     ],
-    "acceptance": "55.4%",
-    "submissions": "490K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A harmonious array is an array where the difference between its maximum value and its minimum value is exactly `1`. Given an integer array `nums`, return the length of its longest harmonious subsequence among all possible subsequences.",
     "examples": [
@@ -16218,8 +16218,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Graphs"
     ],
-    "acceptance": "60.4%",
-    "submissions": "390K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A chess knight is placed on any numeric key (`0` through `9`) of a standard phone keypad (`1-2-3`, `4-5-6`, `7-8-9`, `*-0-#`). Given an integer `n`, return how many distinct phone numbers of length `n` the knight can dial by making `n - 1` valid L-shaped knight jumps, modulo `10^9 + 7`.",
     "examples": [
@@ -16302,8 +16302,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Strings"
     ],
-    "acceptance": "62.5%",
-    "submissions": "520K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `word1` and `word2`, return the minimum number of single-character deletion steps required to make `word1` and `word2` identical.",
     "examples": [
@@ -16386,8 +16386,8 @@ export const initialProblems: Problem[] = [
       "Game Theory",
       "Math"
     ],
-    "acceptance": "71.2%",
-    "submissions": "480K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Alice and Bob play a game with an even number of piles of stones arranged in a row, where `piles[i]` is the number of stones in the `i`-th pile and the total number of stones is odd (so there are no ties). Players alternate turns taking an entire pile from either the left or right end, with Alice going first. Assuming both players play optimally, return `true` if Alice wins and `false` if Bob wins.",
     "examples": [
@@ -16472,8 +16472,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Bit Manipulation"
     ],
-    "acceptance": "38.2%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and an integer `k`, return `true` if it is possible to divide `nums` into `k` non-empty subsets whose sums are all equal, or `false` otherwise.",
     "examples": [
@@ -16559,8 +16559,8 @@ export const initialProblems: Problem[] = [
       "Arrays",
       "Sorting"
     ],
-    "acceptance": "60.2%",
-    "submissions": "1.6M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a collection of numbers `nums` that might contain duplicates, return all possible unique permutations in any order.",
     "examples": [
@@ -16644,8 +16644,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Dynamic Programming"
     ],
-    "acceptance": "40.9%",
-    "submissions": "310K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A subarray `B` of `arr` is a mountain if `len(B) >= 3` and there exists some interior peak index `i` (`0 < i < len(B) - 1`) such that `B[0] < B[1] < ... < B[i]` and `B[i] > B[i + 1] > ... > B[len(B) - 1]`. Given an integer array `arr`, return the length of the longest mountain subarray, or `0` if none exists.",
     "examples": [
@@ -16730,8 +16730,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "43.6%",
-    "submissions": "410K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `n x n` integer matrix `board` where cells are labeled `1` to `n^2` in Boustrophedon (alternating left-to-right and right-to-left) order starting from the bottom-left cell `(n - 1, 0)`. You start on square `1` and each move rolls a 6-sided die to advance to `curr + 1 .. min(curr + 6, n^2)`. If the destination square has `board[r][c] != -1`, you must immediately jump to square `board[r][c]` (at most one jump per roll). Return the minimum number of die rolls required to reach square `n^2`, or `-1` if impossible.",
     "examples": [
@@ -16817,8 +16817,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "Divide and Conquer"
     ],
-    "acceptance": "72.8%",
-    "submissions": "1.9M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` sorted in strictly ascending order, convert it into a height-balanced Binary Search Tree by always choosing the left-middle element `mid = (left + right) // 2` as the root of each subarray `[left..right]`. Return the resulting BST serialized as a trimmed level-order list with `null` for missing nodes.",
     "examples": [
@@ -16901,8 +16901,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Strings"
     ],
-    "acceptance": "34.6%",
-    "submissions": "780K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return the minimum number of cuts needed for a palindrome partitioning of `s`.",
     "examples": [
@@ -16986,8 +16986,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Strings"
     ],
-    "acceptance": "59.8%",
-    "submissions": "280K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two strings `str1` and `str2`, return the length of the shortest string that contains both `str1` and `str2` as subsequences.",
     "examples": [
@@ -17070,8 +17070,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Arrays"
     ],
-    "acceptance": "46.4%",
-    "submissions": "570K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A frog is crossing a river with stones at sorted positions given by `stones`. Initially, the frog is on the first stone (`stones[0] == 0`) and assumes its first jump must be `1` unit. If the frog's last jump was `k` units, its next jump must be `k - 1`, `k`, or `k + 1` units (strictly forward, so jump size > 0). Return `true` if the frog can reach the last stone, or `false` otherwise.",
     "examples": [
@@ -17155,8 +17155,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "71.8%",
-    "submissions": "240K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an `rows x cols` matrix `grid` representing a field of cherries where `grid[r][c]` is the number of cherries at cell `(r, c)`. Two robots start at `(0, 0)` and `(0, cols - 1)`. At each step, both robots move down one row simultaneously, and each robot can stay in its column or move 1 column left or right (`c - 1`, `c`, or `c + 1`). When both robots land on the same cell, only one collects its cherries. Return the maximum total cherries both robots can collect upon reaching the bottom row.",
     "examples": [
@@ -17241,8 +17241,8 @@ export const initialProblems: Problem[] = [
       "Merge Sort",
       "Prefix Sum"
     ],
-    "acceptance": "36.5%",
-    "submissions": "230K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer array `nums` and two integers `lower` and `upper`, return the number of non-empty contiguous subarrays `nums[i..j]` (`0 <= i <= j < nums.length`) whose sum lies in the inclusive range `[lower, upper]`.",
     "examples": [
@@ -17328,8 +17328,8 @@ export const initialProblems: Problem[] = [
       "Strings",
       "Two Pointers"
     ],
-    "acceptance": "43.6%",
-    "submissions": "210K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given strings `s1` and `s2`, return the minimum contiguous substring `W` of `s1` such that `s2` is a subsequence of `W`. If there is no such substring, return the empty string `''`. If multiple minimum-length substrings exist, return the one with the leftmost starting index.",
     "examples": [
@@ -17416,8 +17416,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Number Theory"
     ],
-    "acceptance": "40.8%",
-    "submissions": "180K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an integer array of unique positive integers `nums`. Consider an undirected graph where each element of `nums` is a node, and there is an edge between `nums[i]` and `nums[j]` if they share a common factor greater than `1`. Return the size of the largest connected component in this graph.",
     "examples": [
@@ -17501,8 +17501,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Arrays"
     ],
-    "acceptance": "49.5%",
-    "submissions": "1.5M",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`-th day. Find the maximum profit you can achieve by completing at most two transactions. You may not engage in multiple transactions simultaneously (you must sell the stock before you buy again).",
     "examples": [
@@ -17586,8 +17586,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "54.2%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A power substation logs net phase imbalances `phases` every second. Count how many non-empty contiguous time windows have a total imbalance divisible by harmonic factor `harm`.",
     "examples": [
@@ -17668,8 +17668,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "42.1%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A rail yard numbers freight cars in sequence `cars`. Rearrange `cars` in-place into the lexicographically next greater ordering (or the lowest ascending ordering if already at the highest), and return `cars`.",
     "examples": [
@@ -17749,8 +17749,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Cyclic Sort"
     ],
-    "acceptance": "62.0%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A pharmacy expected lot numbers `1..n` (`n = len(scanned)`), but duplicates caused some lots to be skipped in `scanned`. Return all missing lot numbers in ascending order using O(1) extra space (excluding output).",
     "examples": [
@@ -17831,8 +17831,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "59.1%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Two regional warehouses report SKU arrays `west` and `east`. Return an array of SKUs present in both warehouses, where each SKU appears as many times as its minimum count across both lists.",
     "examples": [
@@ -17912,8 +17912,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "47.2%",
-    "submissions": "92K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A cryptography test checks whether plaintext `plain` and ciphertext `cipher` (equal length) could be produced by a strict one-to-one monoalphabetic substitution cipher. Return `true` iff a bijection exists.",
     "examples": [
@@ -17994,8 +17994,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "52.1%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A genomics tool scans a lowercase DNA sequence `seq` for every start index where a contiguous substring of length `len(motif)` is an anagram (character permutation) of `motif`. Return all start indices in ascending order.",
     "examples": [
@@ -18075,8 +18075,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "52.3%",
-    "submissions": "66K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An audio DSP pipeline applies positive integer gain stages `gains`. Count how many contiguous sequences of stages have a combined multiplicative gain strictly less than `ceiling`.",
     "examples": [
@@ -18158,8 +18158,8 @@ export const initialProblems: Problem[] = [
       "Math",
       "Simulation"
     ],
-    "acceptance": "42.0%",
-    "submissions": "79K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A billing engine multiplies two non-negative decimal integer strings `a` and `b` without converting them directly to native big integers. Return their product as a decimal string.",
     "examples": [
@@ -18240,8 +18240,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Bit Manipulation"
     ],
-    "acceptance": "55.2%",
-    "submissions": "91K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two FPGA registers output unsigned binary strings `reg_a` and `reg_b`. Compute their binary sum and return it as a binary string without leading zeros (except `\"0\"`).",
     "examples": [
@@ -18321,8 +18321,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Monotonic Stack"
     ],
-    "acceptance": "65.9%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A weather buoy logs daily barometric readings `readings`. For each day `i`, compute the maximum number of consecutive days ending at day `i` (inclusive) whose pressure was less than or equal to `readings[i]`.",
     "examples": [
@@ -18403,8 +18403,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Dynamic Programming"
     ],
-    "acceptance": "38.2%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A risk engine evaluates every contiguous window of daily NAV values `navs` by its minimum value. Return the sum of the minimum value across all contiguous windows of `navs`, modulo `10^9 + 7`.",
     "examples": [
@@ -18486,8 +18486,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Monotonic Stack"
     ],
-    "acceptance": "50.8%",
-    "submissions": "57K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A semiconductor wafer map `wafer` uses `'1'` for clean silicon cells and `'0'` for defective cells. Return the maximum area of an axis-aligned rectangle consisting entirely of `'1'`s.",
     "examples": [
@@ -18568,8 +18568,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Math"
     ],
-    "acceptance": "44.6%",
-    "submissions": "63K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Evaluate a valid financial rule string `rule` containing integers, `'+'`, `'-'`, `'('`, `')'`, and spaces, and return its integer result.",
     "examples": [
@@ -18650,8 +18650,8 @@ export const initialProblems: Problem[] = [
       "Queue",
       "Design"
     ],
-    "acceptance": "67.4%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Implement a FIFO message queue using two LIFO stacks with amortized O(1) operations. Process `ops` (`[\"enq\", x]`, `[\"deq\"]`, `[\"front\"]`, `[\"isEmpty\"]`) and return all outputs produced by `deq`, `front`, and `isEmpty`.",
     "examples": [
@@ -18731,8 +18731,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "71.2%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A glitch filter processes a lowercase symbol string `stream` by repeatedly canceling any two adjacent identical characters until none remain. Return the cleaned string.",
     "examples": [
@@ -18812,8 +18812,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "68.9%",
-    "submissions": "81K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A search query `query` contains lowercase letters, `'('`, and `')'`. Remove the minimum number of unmatched parentheses (dropping unmatched `')'` immediately and rightmost unmatched `'('` at the end) so the query is balanced, and return it.",
     "examples": [
@@ -18893,8 +18893,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "64.4%",
-    "submissions": "56K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A compiler computes a complexity score for a balanced block string `blocks` (`'('` and `')'`) where `\"()\"` scores `1`, concatenated blocks `AB` score `A + B`, and nested `(A)` scores `2 * A`. Return the total score.",
     "examples": [
@@ -18975,8 +18975,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Dynamic Programming"
     ],
-    "acceptance": "76.1%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An actuarial modeling tool precomputes the first `tiers` rows of Pascal's binomial coefficient triangle. Return the triangle as a list of integer rows.",
     "examples": [
@@ -19056,8 +19056,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "52.4%",
-    "submissions": "93K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A pre-allocated sorted log buffer `buf` holds `m` valid timestamps followed by `n` trailing `0` slots. Merge a second sorted timestamp array `extra` (length `n`) into `buf` in-place in ascending order and return `buf`.",
     "examples": [
@@ -19139,8 +19139,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Sorting"
     ],
-    "acceptance": "37.4%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A marketing planner evaluates candidate channel budgets `budgets` (which may include rebates/negatives). Return all unique sorted quadruplets `[a, b, c, d]` from four distinct entries summing exactly to `goal`.",
     "examples": [
@@ -19220,8 +19220,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "62.1%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A multi-track mixer receives sample IDs `samples` in a linked chain. Regroup all samples at odd 1-based positions first followed by all samples at even 1-based positions, preserving relative order within each group.",
     "examples": [
@@ -19301,8 +19301,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Recursion"
     ],
-    "acceptance": "66.0%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A legacy data converter swaps every two adjacent entries in an entry stream `entries` (leaving a lone trailing entry untouched if the length is odd). Return the converted stream.",
     "examples": [
@@ -19382,8 +19382,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "58.1%",
-    "submissions": "65K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A support queue holds ticket severity scores `scores`. Partition `scores` stably so all tickets with severity strictly less than `cutoff` come before tickets `>= cutoff`, preserving original arrival order inside both groups.",
     "examples": [
@@ -19464,8 +19464,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Divide and Conquer"
     ],
-    "acceptance": "55.1%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An aggregator receives `k` already-sorted ascending timestamp arrays in `feeds`. Merge all `k` feeds into one globally sorted ascending array in `O(N log k)` time.",
     "examples": [
@@ -19546,8 +19546,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "48.6%",
-    "submissions": "95K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A catalog stores strictly increasing integer product IDs in `ids`. Given a `new_id`, return its index if already present, or the index where it should be inserted to preserve sorted order, in `O(log n)` time.",
     "examples": [
@@ -19628,8 +19628,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Math"
     ],
-    "acceptance": "40.5%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A contractor has `tiles` identical 1x1 ceramic tiles and wants to lay the largest possible solid square patio (`side * side <= tiles`). Return the integer `side` without using built-in square root functions.",
     "examples": [
@@ -19710,8 +19710,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Greedy"
     ],
-    "acceptance": "41.2%",
-    "submissions": "69K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a list of non-negative integer fragment codes `frags`, arrange and concatenate them to produce the numerically largest possible string code.",
     "examples": [
@@ -19793,8 +19793,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "67.2%",
-    "submissions": "58K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an integer amplitude array `amps`, reorder it in-place in one linear pass so `amps[0] <= amps[1] >= amps[2] <= amps[3] ...` by swapping adjacent out-of-order pairs, and return `amps`.",
     "examples": [
@@ -19875,8 +19875,8 @@ export const initialProblems: Problem[] = [
       "Divide and Conquer",
       "Sorting"
     ],
-    "acceptance": "43.1%",
-    "submissions": "54K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given chronological auction bids `bids`, return an array `lower_after` where `lower_after[i]` is the count of strictly lower bids submitted after bid `i` (`j > i` and `bids[j] < bids[i]`).",
     "examples": [
@@ -19956,8 +19956,8 @@ export const initialProblems: Problem[] = [
       "Divide and Conquer",
       "Sorting"
     ],
-    "acceptance": "32.0%",
-    "submissions": "49K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given chronological asset prices `prices`, count the number of severe crash pairs `(i, j)` such that `i < j` and `prices[i] > 2 * prices[j]`.",
     "examples": [
@@ -20037,8 +20037,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "64.2%",
-    "submissions": "82K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two binary configuration ASTs are serialized in level-order as `ast_a` and `ast_b`. Return `true` iff they have identical shape and matching node values at every position.",
     "examples": [
@@ -20118,8 +20118,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "58.1%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A binary routing tree is serialized in level-order as `tree`. Return `true` iff the left and right subtrees of the root are exact mirror images of each other.",
     "examples": [
@@ -20199,8 +20199,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "54.0%",
-    "submissions": "70K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A binary partition tree is given in level-order `tree`. Return `true` iff for every node the heights of its left and right subtrees differ by at most `1`.",
     "examples": [
@@ -20280,8 +20280,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "52.3%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A binary cost tree is given in level-order `tree`. Return `true` iff there exists a path from the root to any leaf whose node values sum exactly to `budget`.",
     "examples": [
@@ -20361,8 +20361,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "BFS"
     ],
-    "acceptance": "65.0%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary tree in level-order `tree`, return the value of the rightmost node at every depth level from top to bottom.",
     "examples": [
@@ -20442,8 +20442,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "BFS"
     ],
-    "acceptance": "60.8%",
-    "submissions": "66K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A bi-directional plotter prints nodes of a binary tree (`tree` in level-order) alternating sweep directions: left-to-right on even levels and right-to-left on odd levels. Return the grouped tier lists.",
     "examples": [
@@ -20523,8 +20523,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "73.8%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In a binary telemetry tree (`tree` in level-order), a node is dominant if no ancestor on the path from the root to that node has a strictly larger value. Return the total count of dominant nodes.",
     "examples": [
@@ -20604,8 +20604,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "63.7%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a general binary tree of unique IDs in level-order `tree` and two IDs `x` and `y` present in the tree, return the ID of their Lowest Common Ancestor.",
     "examples": [
@@ -20686,8 +20686,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "66.2%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A binary tree of single decimal digits (`0..9`) is serialized in level-order `tree`. Each root-to-leaf path forms a decimal integer. Return the sum of all root-to-leaf decimal integers.",
     "examples": [
@@ -20769,8 +20769,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "66.0%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In an `m x n` integer pixel map `canvas`, clicking pixel `(sr, sc)` with paint `paint` recolors all 4-directionally connected pixels sharing the original color of `(sr, sc)`. Return the updated `canvas`.",
     "examples": [
@@ -20851,8 +20851,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "71.8%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A satellite sonar map `reef` uses `1` for living coral cells and `0` for open sand. Return the area (cell count) of the largest 4-directionally connected coral patch, or `0` if none exists.",
     "examples": [
@@ -20933,8 +20933,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "41.5%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A containment grid `zone` marks barriers as `'X'` and open chambers as `'O'`. Seal (`'O' -> 'X'`) every chamber region that cannot reach the outer grid border via 4-directional `'O'` steps, and return `zone`.",
     "examples": [
@@ -21015,8 +21015,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "55.4%",
-    "submissions": "58K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "In an `m x n` elevation map `terrain`, rainwater flows to 4-directional neighbors of equal or lower elevation. Top/left borders drain to the North Basin and bottom/right borders drain to the South Basin. Return all `[r, c]` cells that drain to both basins.",
     "examples": [
@@ -21097,8 +21097,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Backtracking"
     ],
-    "acceptance": "81.9%",
-    "submissions": "62K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A CI workflow DAG has stages `0..n-1` given as adjacency list `stages`. Enumerate all distinct execution paths from stage `0` to final stage `n - 1`.",
     "examples": [
@@ -21180,8 +21180,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "DFS"
     ],
-    "acceptance": "74.1%",
-    "submissions": "65K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A research lab has `n` vaults (`0..n-1`); only vault `0` starts unlocked. `badges[i]` lists the vault numbers whose keycards are stored inside vault `i`. Return `true` if a technician can open every vault.",
     "examples": [
@@ -21262,8 +21262,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "BFS"
     ],
-    "acceptance": "63.2%",
-    "submissions": "53K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A finite state machine is given as directed adjacency list `trans`. A state is guaranteed-halting if every possible transition path from it ends at a terminal state (a state with `0` outgoing edges). Return all guaranteed-halting state indices in ascending order.",
     "examples": [
@@ -21344,8 +21344,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "String"
     ],
-    "acceptance": "36.8%",
-    "submissions": "51K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An archived list of lowercase words `entries` is sorted according to a custom alphabet permutation. Recover the lexicographically smallest valid alphabet string consistent with `entries`, or return `\"\"` if `entries` is contradictory.",
     "examples": [
@@ -21425,8 +21425,8 @@ export const initialProblems: Problem[] = [
       "Graph",
       "Union Find"
     ],
-    "acceptance": "64.0%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A cluster has `n` nodes (`0..n-1`) and undirected peer connections `links`. Return the number of separate connected server clusters.",
     "examples": [
@@ -21508,8 +21508,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "String"
     ],
-    "acceptance": "41.0%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given equal-length codewords `start_code`, `end_code`, and a whitelist `allowed`, each step mutates exactly one character to produce another word in `allowed`. Return the minimum number of words in the chain from `start_code` to `end_code` (inclusive), or `0` if impossible.",
     "examples": [
@@ -21590,8 +21590,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Array"
     ],
-    "acceptance": "78.8%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given a list of unique service IDs `services`, return all possible sequential rollout permutations in any order.",
     "examples": [
@@ -21672,8 +21672,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "62.1%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "An IVR hotline maps keypad digits `'2'`–`'9'` to standard phone letters (`2->abc, ..., 9->wxyz`). Given a digit string `keys`, return all possible letter mnemonics, or `[]` if `keys` is empty.",
     "examples": [
@@ -21753,8 +21753,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "String"
     ],
-    "acceptance": "75.1%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A parser fuzzer needs every valid balanced string consisting of `pairs` pairs of `'('` and `')'`. Return all well-formed combinations.",
     "examples": [
@@ -21835,8 +21835,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "DFS"
     ],
-    "acceptance": "44.1%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an `m x n` character grid `board` and a target signature string `sig`, return `true` if `sig` can be traced across 4-directionally adjacent cells without reusing any cell.",
     "examples": [
@@ -21918,8 +21918,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "String"
     ],
-    "acceptance": "79.5%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A log stream `events` consists of lowercase event-type letters. Partition `events` into as many contiguous shards as possible so that each event type appears in at most one shard. Return the list of shard lengths.",
     "examples": [
@@ -21999,8 +21999,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "41.4%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Linear mesh repeaters have forward reach `reaches[i]`. Guaranteed that the last repeater is reachable from repeater `0`, return the minimum number of hops needed to reach the final repeater.",
     "examples": [
@@ -22081,8 +22081,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Math"
     ],
-    "acceptance": "63.1%",
-    "submissions": "86K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A museum archive stores catalog numbers as valid Roman numerals (`1..3999`) in `code`. Convert `code` to its integer value.",
     "examples": [
@@ -22163,8 +22163,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Math"
     ],
-    "acceptance": "66.0%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Convert a positive integer catalog ID `num` (`1 <= num <= 3999`) into its canonical Roman numeral string.",
     "examples": [
@@ -22244,8 +22244,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "43.1%",
-    "submissions": "67K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a schema pattern `schema` (single letters) and a space-separated token frame `frame`, return `true` iff there is a strict one-to-one bijection between each letter of `schema` and each word of `frame`.",
     "examples": [
@@ -22326,8 +22326,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Counting"
     ],
-    "acceptance": "63.5%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A repair kit requires component codes listed in `blueprint` (lowercase letters), and the warehouse bin holds available parts `bin_parts`. Return `true` if every required component in `blueprint` can be drawn from `bin_parts` without reuse.",
     "examples": [
@@ -22408,8 +22408,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "46.0%",
-    "submissions": "69K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An intrusion detector watches a lowercase byte stream `stream` for any contiguous slice that is a permutation of alert signature `sig`. Return `true` if such a slice exists.",
     "examples": [
@@ -22489,8 +22489,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "43.2%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Toll gates sit around a circular beltway with expected daily revenues `tolls` (gate 0 is adjacent to gate `n - 1`). Traffic regulations forbid activating two adjacent gates. Return the maximum daily revenue.",
     "examples": [
@@ -22570,8 +22570,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "36.0%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A legacy pager encodes letters `'A'`–`'Z'` as `'1'`–`'26'`. Given a digit string `digits`, return how many distinct letter messages it can decode into.",
     "examples": [
@@ -22651,8 +22651,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "64.8%",
-    "submissions": "67K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given distinct token denominations `tokens` (unlimited supply) and a target value `total`, return the number of unordered combinations that sum to `total`.",
     "examples": [
@@ -22733,8 +22733,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "48.0%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A lab instrument has non-negative calibration weights `weights`. Assigning either `'+'` or `'-'` to each weight, return how many distinct sign assignments sum exactly to `goal`.",
     "examples": [
@@ -22815,8 +22815,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Matrix"
     ],
-    "acceptance": "65.2%",
-    "submissions": "75K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An automated guided vehicle crosses an `m x n` floor `energy` from `(0, 0)` to `(m - 1, n - 1)` moving only down or right. Return the minimum total energy consumed along any path.",
     "examples": [
@@ -22896,8 +22896,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "58.0%",
-    "submissions": "63K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a triangular cost table `pyramid` where row `r` has `r + 1` integers, find the minimum total cost from apex `(0, 0)` to the bottom row moving at each step from index `i` to `i` or `i + 1` on the row below.",
     "examples": [
@@ -22977,8 +22977,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "63.4%",
-    "submissions": "59K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an uppercase RNA base sequence `rna`, return the length of the longest palindromic subsequence (not necessarily contiguous) inside `rna`.",
     "examples": [
@@ -23058,8 +23058,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "48.5%",
-    "submissions": "52K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an event stream `stream` and a target signature `sig`, return the number of distinct index subsequences of `stream` that spell `sig`.",
     "examples": [
@@ -23139,8 +23139,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "41.2%",
-    "submissions": "58K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two ordered log channels `ch_a` and `ch_b` were multiplexed into `merged`. Return `true` iff `merged` is a valid order-preserving interleaving of `ch_a` and `ch_b`.",
     "examples": [
@@ -23221,8 +23221,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Recursion"
     ],
-    "acceptance": "29.4%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Implement full-string matching of packet header `text` against rule `pattern` supporting `'.'` (any single character) and `'*'` (zero or more of the preceding token).",
     "examples": [
@@ -23302,8 +23302,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Interval DP"
     ],
-    "acceptance": "59.2%",
-    "submissions": "48K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A simulation lists target multipliers `vals` in a row. Clearing target `i` awards `vals[i - 1] * vals[i] * vals[i + 1]` points (out-of-bounds boundaries count as `1`) and merges its left and right neighbors. Return the maximum total points achievable by clearing all targets.",
     "examples": [
@@ -23384,8 +23384,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Dynamic Programming"
     ],
-    "acceptance": "78.2%",
-    "submissions": "79K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Precompute an array `table` of length `max_mask + 1` where `table[i]` is the number of active `1` bits in the binary representation of `i`.",
     "examples": [
@@ -23464,8 +23464,8 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Bit Manipulation"
     ],
-    "acceptance": "73.0%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a non-negative integer bitmask `mask` representing enabled feature flags, return the count of enabled (`1`) flags.",
     "examples": [
@@ -23545,8 +23545,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "55.0%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a linked sequence of integer tags `tags`, return `true` if the sequence reads identically from front-to-back and back-to-front.",
     "examples": [
@@ -23626,8 +23626,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "78.8%",
-    "submissions": "70K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a non-empty linked stream of IDs `stream`, return the tail starting from the middle node (if there are two middle nodes, start from the second middle node).",
     "examples": [
@@ -23707,8 +23707,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "54.4%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted ascending chain of sensor keys `keys`, remove duplicate entries so each distinct key appears once and return the deduplicated list.",
     "examples": [
@@ -23788,8 +23788,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "39.8%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A digital signage carousel stores slide IDs `slides`. Rotate `slides` to the right by `steps` positions (`steps` may exceed `len(slides)`) and return the rotated list.",
     "examples": [
@@ -23871,8 +23871,8 @@ export const initialProblems: Problem[] = [
       "Sorting",
       "Divide and Conquer"
     ],
-    "acceptance": "60.4%",
-    "submissions": "65K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Sort an unsorted linked record stream `records` in ascending order using top-down merge sort in `O(n log n)` time and return the sorted list.",
     "examples": [
@@ -23953,8 +23953,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Linked List"
     ],
-    "acceptance": "67.0%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary menu tree in level-order `tree`, flatten it in-place into a right-linked preorder sequence (root, left, right) and return its values.",
     "examples": [
@@ -24035,8 +24035,8 @@ export const initialProblems: Problem[] = [
       "Divide and Conquer",
       "Hash Table"
     ],
-    "acceptance": "65.5%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `preorder` and `inorder` traversal logs of a binary tree with unique node IDs, reconstruct the tree and return its trimmed level-order list.",
     "examples": [
@@ -24117,8 +24117,8 @@ export const initialProblems: Problem[] = [
       "KMP",
       "Two Pointers"
     ],
-    "acceptance": "44.2%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A deep-packet inspector searches a lowercase payload `payload` for the first index where signature `sig` occurs as a contiguous substring, returning `-1` if absent.",
     "examples": [
@@ -24198,8 +24198,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "35.6%",
-    "submissions": "82K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sequence string `seq`, return the longest contiguous palindromic substring (if multiple tie for maximum length, return the earliest one).",
     "examples": [
@@ -24279,8 +24279,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "70.1%",
-    "submissions": "67K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a lowercase string `seq`, return the total number of contiguous palindromic substrings (counting substrings with different start or end indices separately).",
     "examples": [
@@ -24360,8 +24360,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "46.8%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a raw command string `line` with arbitrary leading, trailing, and repeated spaces, reverse the order of its non-space word tokens separated by single spaces.",
     "examples": [
@@ -24441,8 +24441,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Parsing"
     ],
-    "acceptance": "18.5%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Parse a raw text field `raw` into a 32-bit signed integer: skip leading spaces, read an optional `'+'`/`'-'` sign, read consecutive decimal digits until a non-digit, and clamp the result to `[-2^31, 2^31 - 1]`.",
     "examples": [
@@ -24522,8 +24522,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Simulation"
     ],
-    "acceptance": "50.1%",
-    "submissions": "63K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Encode a plaintext string `text` using a `rails`-row rail-fence zigzag pattern (writing diagonally down and up across `rails` rows, then reading row by row).",
     "examples": [
@@ -24605,8 +24605,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Hash Table"
     ],
-    "acceptance": "73.0%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two arrays of unique integers `queries` (a subset of `series`) and `series`, return an array where each entry is the first value strictly to the right of `queries[i]` in `series` that is greater than `queries[i]`, or `-1` if none exists.",
     "examples": [
@@ -24686,8 +24686,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Design"
     ],
-    "acceptance": "55.8%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Simulate a stack supporting `push`, `pop`, `peek`, and `min` in O(1) time. Given `cmds` (`[\"push\", x]`, `[\"pop\"]`, `[\"peek\"]`, `[\"min\"]`), return the outputs of all `peek` and `min` calls.",
     "examples": [
@@ -24768,8 +24768,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Dynamic Programming"
     ],
-    "acceptance": "35.4%",
-    "submissions": "62K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a stream `tokens` of `'('` and `')'`, return the length of the longest contiguous well-formed (balanced) parenthesis substring.",
     "examples": [
@@ -24849,8 +24849,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "45.8%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted non-decreasing integer array `keys` and a `target`, return `[first_idx, last_idx]` of `target` in `O(log n)` time, or `[-1, -1]` if absent.",
     "examples": [
@@ -24931,8 +24931,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Bucket Sort"
     ],
-    "acceptance": "64.0%",
-    "submissions": "75K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "Given an integer array of HTTP error codes `codes` and an integer `k`, return the `k` most frequent error codes in any order in `O(n)` time.",
     "examples": [
@@ -25013,8 +25013,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Boyer-Moore"
     ],
-    "acceptance": "65.8%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In a distributed vote log `ballots` of length `n`, one candidate ID is guaranteed to appear strictly more than `floor(n / 2)` times. Find that quorum leader in `O(n)` time and `O(1)` space.",
     "examples": [
@@ -25094,8 +25094,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "42.5%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Rotate an on-call engineer roster `roster` to the right by `shifts` positions in-place using O(1) extra space and return `roster`.",
     "examples": [
@@ -25176,8 +25176,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "62.8%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted non-decreasing price list `prices` and a target `budget`, find the unique 1-indexed pair `[idx1, idx2]` (`idx1 < idx2`) whose prices sum to `budget` using O(1) extra space.",
     "examples": [
@@ -25258,8 +25258,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Sliding Window"
     ],
-    "acceptance": "55.9%",
-    "submissions": "65K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A sensor state log `states` uses uppercase letters `'A'`–`'Z'`. You may override at most `edits` noisy readings to any state letter. Return the length of the longest contiguous window of identical state letters achievable.",
     "examples": [
@@ -25341,8 +25341,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Math"
     ],
-    "acceptance": "45.1%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Evaluate an infix billing expression string `expr` containing non-negative integers, `'+'`, `'-'`, `'*'`, `'/'` (truncating toward zero), and spaces, obeying standard operator precedence.",
     "examples": [
@@ -25422,8 +25422,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "62.0%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A read-only array `badges` contains `n + 1` badge IDs where every ID is in `[1, n]` and exactly one ID is duplicated. Find that duplicate ID in `O(n)` time and `O(1)` extra space without modifying `badges`.",
     "examples": [
@@ -25503,8 +25503,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "47.5%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an audit queue `items` and an integer `n` (`1 <= n <= len(items)`), remove the `n`-th item from the tail of the queue and return the remaining list.",
     "examples": [
@@ -25584,8 +25584,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "60.4%",
-    "submissions": "66K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a buffer of packet IDs `buf = [p0, p1, ..., pn-1]`, interleave from front and back alternately to produce `[p0, pn-1, p1, pn-2, ...]` and return the reordered buffer.",
     "examples": [
@@ -25666,8 +25666,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Array"
     ],
-    "acceptance": "46.1%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Adjacent unit-width buildings along a boulevard have heights `heights`. Mount the largest rectangular billboard fully supported against consecutive buildings and return its maximum area.",
     "examples": [
@@ -25748,8 +25748,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "56.2%",
-    "submissions": "185K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A fulfillment center loads cargo pods that require an exact combined weight `pod_limit`. Given an array `pallets` where `pallets[i]` is the weight of the pallet at bay `i`, return the two distinct bay indices `[i, j]` whose pallet weights sum exactly to `pod_limit`. Exactly one valid pair is guaranteed.",
     "examples": [
@@ -25835,8 +25835,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Kadane"
     ],
-    "acceptance": "54.7%",
-    "submissions": "142K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An energy operator logs hourly net power flow `net_kw` (positive for solar surplus, negative for battery drain). Return the maximum cumulative net energy generated over any non-empty contiguous block of hours.",
     "examples": [
@@ -25920,8 +25920,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Prefix Sum"
     ],
-    "acceptance": "61.0%",
-    "submissions": "118K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A sorting belt carries parcels with weights `loads`. An inspector needs the leftmost pivot index `i` where the sum of parcel weights strictly to the left of `i` equals the sum of parcel weights strictly to the right of `i`. Return `-1` if no such balance pivot exists.",
     "examples": [
@@ -26006,8 +26006,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "48.9%",
-    "submissions": "164K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A factory sensor emits integer readings `readings` once per second. A fault is flagged if the exact same reading appears twice within `max_gap` seconds (`|i - j| <= max_gap`). Return `true` if a fault is detected, otherwise `false`.",
     "examples": [
@@ -26091,8 +26091,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "64.3%",
-    "submissions": "130K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A store display shelf is represented by an array `slots` where `0` marks an empty slot and positive integers represent product SKUs. Slide all active SKUs to the left preserving their order while pushing empty `0` slots to the right end in-place, and return `slots`.",
     "examples": [
@@ -26176,8 +26176,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "59.8%",
-    "submissions": "112K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A cloud monitoring feed logs minute-by-minute status `uptime` where `1` means healthy and `0` means an error minute. Your SLA error budget allows forgiving at most `budget` error minutes. Return the length of the longest continuous compliant stretch.",
     "examples": [
@@ -26264,8 +26264,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Sorting"
     ],
-    "acceptance": "37.2%",
-    "submissions": "148K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A mobility platform evaluates integer fare adjustments `deltas` (positive surcharges, negative discounts). Return all unique sorted triplets `[a, b, c]` from distinct entries in `deltas` whose adjustments net out to exactly `0`.",
     "examples": [
@@ -26350,8 +26350,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "45.3%",
-    "submissions": "124K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An assembly line logs net unit adjustments per hour in `hourly_net` (positive for output, negative for rework deductions). Count how many contiguous hour intervals achieved an exact net total of `quota`.",
     "examples": [
@@ -26434,8 +26434,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Greedy"
     ],
-    "acceptance": "58.1%",
-    "submissions": "195K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A desk records hourly spot quotes `quotes` for a single commodity. You may open at most one long position at hour `i` and close it at a later hour `j > i`. Return the maximum spread `quotes[j] - quotes[i]`, or `0` if no profitable trade exists.",
     "examples": [
@@ -26518,8 +26518,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Sliding Window"
     ],
-    "acceptance": "49.2%",
-    "submissions": "104K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A CDN edge node logs positive request sizes in kilobytes `payloads`. Return the minimal number of consecutive requests whose combined payload is at least `quota`, or `0` if the entire log sums to less than `quota`.",
     "examples": [
@@ -26604,8 +26604,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Monotonic Queue"
     ],
-    "acceptance": "46.4%",
-    "submissions": "92K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A pharmaceutical refrigerator logs temperature readings `temps` every minute. An audit requires reporting the peak temperature observed within every contiguous `window` minutes from start to finish.",
     "examples": [
@@ -26690,8 +26690,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Prefix Sum"
     ],
-    "acceptance": "50.1%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A route telemetry file encodes each kilometer as `1` (uphill) or `0` (downhill) in `grades`. Find the length of the longest contiguous stretch of road containing an equal number of uphill and downhill kilometers.",
     "examples": [
@@ -26775,8 +26775,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Greedy"
     ],
-    "acceptance": "57.3%",
-    "submissions": "116K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Along a dockside channel, vertical steel bulkheads of heights `walls` stand 1 meter apart. Choose two bulkheads to form a temporary retention basin holding the maximum cross-sectional area `(j - i) * min(walls[i], walls[j])`.",
     "examples": [
@@ -26858,8 +26858,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Two Pointers"
     ],
-    "acceptance": "61.2%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A hillside farm is graded into unit-width concrete terraces with non-negative integer elevations `terraces`. After a storm, compute how many total units of rainwater remain pooled in the depressions between higher terraces.",
     "examples": [
@@ -26943,8 +26943,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "47.6%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A supermarket aisle lists the supplier ID of each shelf bay in `brands`. A promotional banner can cover any contiguous sequence of bays as long as it spans at most `2` distinct supplier IDs. Return the maximum number of bays the banner can cover.",
     "examples": [
@@ -27027,8 +27027,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Prefix Sum"
     ],
-    "acceptance": "65.1%",
-    "submissions": "110K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "In a syndicated loan desk, each participant has an integer risk multiplier `factors[i]`. Compute an array `peer_prod` where `peer_prod[i]` is the product of all participants' multipliers except participant `i`, in `O(n)` time without using division.",
     "examples": [
@@ -27112,8 +27112,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Hash Table"
     ],
-    "acceptance": "48.1%",
-    "submissions": "101K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A ticket kiosk receives an unsorted list of reserved seat numbers `seats` along a single massive row. Return the length of the longest block of consecutive integer seat numbers in `O(n)` time.",
     "examples": [
@@ -27197,8 +27197,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "39.5%",
-    "submissions": "134K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An API gateway encodes each incoming request's route as a single ASCII character in `trace`. Return the length of the longest contiguous request streak in which every route character is distinct.",
     "examples": [
@@ -27280,8 +27280,8 @@ export const initialProblems: Problem[] = [
       "Array",
       "Cyclic Sort"
     ],
-    "acceptance": "41.0%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A shipping manifest contains an unsorted array of integer crate tags `tags` (which may include zeros, negatives, or duplicates). Find the smallest positive integer tag (`>= 1`) not present in `tags`, in `O(n)` time and `O(1)` extra space.",
     "examples": [
@@ -27365,8 +27365,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "58.9%",
-    "submissions": "96K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A river ferry can carry at most two vehicles per crossing with a combined weight not exceeding `deck_cap`. Given vehicle weights `vehicles` (each `<= deck_cap`), return the minimum number of crossings needed to transport all vehicles.",
     "examples": [
@@ -27448,8 +27448,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "53.4%",
-    "submissions": "115K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A hardware diagnostic tool emits a string `sig`. Ignore all non-alphanumeric delimiters and letter casing; return `true` if the sanitized signature reads identically forward and backward.",
     "examples": [
@@ -27531,8 +27531,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "46.8%",
-    "submissions": "160K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A config linter strips everything except brackets `()[]{}` into a string `expr`. Return `true` if every opened delimiter is closed by the matching type in proper nested order.",
     "examples": [
@@ -27613,8 +27613,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Math"
     ],
-    "acceptance": "54.1%",
-    "submissions": "98K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A spreadsheet engine compiles cell formulas into postfix token arrays `formula` containing integer strings and operators `'+'`, `'-'`, `'*'`, `'/'` (where division truncates toward zero). Evaluate and return the integer result.",
     "examples": [
@@ -27696,8 +27696,8 @@ export const initialProblems: Problem[] = [
       "Monotonic Stack",
       "Array"
     ],
-    "acceptance": "65.2%",
-    "submissions": "105K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A coastal weather station records hourly peak wind speeds `gusts`. For each hour `i`, return how many hours must pass until a strictly stronger gust occurs, or `0` if no stronger gust appears later in the log.",
     "examples": [
@@ -27779,8 +27779,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Simulation"
     ],
-    "acceptance": "45.9%",
-    "submissions": "82K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Delivery drones fly along a narrow 1D tunnel at equal speed. Each entry in `drones` gives mass (absolute value) and direction (`> 0` eastbound, `< 0` westbound). On a head-on collision, the lighter drone is grounded; if equal mass, both are grounded. Return the surviving drones in order.",
     "examples": [
@@ -27863,8 +27863,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "58.7%",
-    "submissions": "91K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A chip verification tool compresses signal sequences using `k[seq]`, meaning `seq` repeats `k` times (with arbitrary nesting). Expand `vector_code` and return the uncompressed signal string.",
     "examples": [
@@ -27946,8 +27946,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "String"
     ],
-    "acceptance": "47.2%",
-    "submissions": "79K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A container runtime normalizes user-supplied absolute mount paths `raw_path`. Collapse repeated `'/'`, ignore `'.'` segments, pop the parent directory on `'..'`, and return the canonical path starting with `'/'`.",
     "examples": [
@@ -28028,8 +28028,8 @@ export const initialProblems: Problem[] = [
       "Stack",
       "Sorting"
     ],
-    "acceptance": "52.9%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Autonomous freight trucks travel toward a port at milepost `port_mile` on a single-lane highway without overtaking. Given starting mileposts `starts` and cruising `speeds`, a faster trailing truck merges into a slower convoy ahead. Return how many distinct convoys reach the port.",
     "examples": [
@@ -28112,8 +28112,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Hash Table"
     ],
-    "acceptance": "67.8%",
-    "submissions": "112K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A fraud-detection pipeline inspects lowercase alphabetic transaction codes `codes`. Cluster together all codes that are character-rearrangements (anagrams) of one another and return the clusters in any order.",
     "examples": [
@@ -28194,8 +28194,8 @@ export const initialProblems: Problem[] = [
     "topics": [
       "String"
     ],
-    "acceptance": "46.5%",
-    "submissions": "138K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a list of lowercase microservice hostnames `hosts`, return the longest shared prefix string present at the start of every hostname, or `\"\"` if none exists.",
     "examples": [
@@ -28276,8 +28276,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Design"
     ],
-    "acceptance": "49.4%",
-    "submissions": "64K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A network agent bundles arbitrary ASCII log messages `packets` into a single wire string and unpacks them on the receiving end. Implement `wire_roundtrip(packets)` using length-prefixed framing (`<len>:<payload>`) and return the decoded list.",
     "examples": [
@@ -28359,8 +28359,8 @@ export const initialProblems: Problem[] = [
       "String",
       "Two Pointers"
     ],
-    "acceptance": "56.3%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A low-bandwidth satellite transmits state symbols `states` as a character array. Compress consecutive identical symbols in-place: emit the symbol once, followed by the individual decimal digits of the run length only if the run length is `> 1`. Return the packed character list.",
     "examples": [
@@ -28442,8 +28442,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "String"
     ],
-    "acceptance": "35.2%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A security system shortens numeric badge serial `serial` by deleting exactly `drops` digits while keeping remaining digits in order. Return the numerically smallest possible resulting string (with no leading zeros, or `\"0\"` if zero).",
     "examples": [
@@ -28526,8 +28526,8 @@ export const initialProblems: Problem[] = [
       "Sliding Window",
       "Hash Table"
     ],
-    "acceptance": "43.1%",
-    "submissions": "85K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A SIEM engine scans an event stream `stream` for the shortest contiguous slice containing every required event code in `required` (respecting duplicate counts). Return that shortest slice, or `\"\"` if no slice satisfies `required`.",
     "examples": [
@@ -28610,8 +28610,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Stack"
     ],
-    "acceptance": "51.0%",
-    "submissions": "89K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two remote operators type command strings `log_a` and `log_b` where `'#'` represents a backspace key. Return `true` if both operators end up with the exact same final terminal buffer.",
     "examples": [
@@ -28691,8 +28691,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Array"
     ],
-    "acceptance": "59.6%",
-    "submissions": "62K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A media server stores track IDs in a linked playback queue `tracks`. Reverse every full consecutive block of `block_size` tracks, leaving any trailing partial block of fewer than `block_size` tracks in its original order.",
     "examples": [
@@ -28773,8 +28773,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "Design"
     ],
-    "acceptance": "44.8%",
-    "submissions": "95K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An edge gateway caches sensor lookups with maximum size `cap`. Given a sequence of commands `cmds` (`[\"set\", k, v]` or `[\"read\", k]`), evict the least-recently-used key when capacity is exceeded and return the list of integer results from all `read` commands (`-1` on cache miss).",
     "examples": [
@@ -28856,8 +28856,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Two Pointers"
     ],
-    "acceptance": "54.0%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A router chain is represented by `next_hop` where router `i` forwards to `next_hop[i]` (`-1` terminates delivery). Starting at router `0`, return `true` if a packet enters an infinite routing loop using O(1) extra space.",
     "examples": [
@@ -28939,8 +28939,8 @@ export const initialProblems: Problem[] = [
       "Linked List",
       "Math"
     ],
-    "acceptance": "46.7%",
-    "submissions": "114K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two legacy accounting tapes store non-negative integers in reverse decimal digit order (`tape_a` and `tape_b`). Sum the two amounts and return the result in the same reverse-digit list format.",
     "examples": [
@@ -29021,8 +29021,8 @@ export const initialProblems: Problem[] = [
       "Queue",
       "Sliding Window"
     ],
-    "acceptance": "74.9%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A health monitor receives strictly increasing millisecond timestamps `beats` and a sliding window duration `span_ms`. For each incoming heartbeat `t`, return how many heartbeats occurred in the inclusive window `[t - span_ms, t]`.",
     "examples": [
@@ -29103,8 +29103,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "60.4%",
-    "submissions": "122K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An append-only audit log stores strictly increasing integer epoch timestamps in `epochs`. Return the index of `query_epoch` in `O(log n)` time, or `-1` if absent.",
     "examples": [
@@ -29186,8 +29186,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "42.3%",
-    "submissions": "108K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A circular telemetry buffer stores unique ascending sequence IDs `ring` that wrapped around an unknown rotation point. Find the index of `seq_id` in `O(log n)` time, or return `-1` if missing.",
     "examples": [
@@ -29268,8 +29268,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "52.1%",
-    "submissions": "91K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A rotated ring buffer `ring` holds unique ascending sequence IDs wrapped at an unknown offset. Return the oldest (smallest) sequence ID in `O(log n)` time.",
     "examples": [
@@ -29350,8 +29350,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "49.7%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A media server has `clips` (each entry is clip size in MB) to transcode within `deadline_hrs` hours. Each hour it processes up to `rate` MB from one clip (starting a new clip only on the next hour). Return the minimum integer `rate` (MB/hr) to finish all clips within `deadline_hrs`.",
     "examples": [
@@ -29433,8 +29433,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Greedy"
     ],
-    "acceptance": "69.1%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Ordered cargo lots with weights `tons` must be dispatched sequentially by barge within `max_days` voyages. Return the smallest barge tonnage capacity that dispatches all lots within `max_days`.",
     "examples": [
@@ -29515,8 +29515,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Greedy"
     ],
-    "acceptance": "55.8%",
-    "submissions": "61K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A CI pipeline runs `jobs` in strict order, where `jobs[i]` is duration in seconds. Partition `jobs` into `workers` non-empty contiguous batches so that the longest batch duration is minimized. Return that minimized peak duration.",
     "examples": [
@@ -29598,8 +29598,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "47.4%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A drone lidar scan records altitudes `alt` where adjacent readings never tie (`alt[i] != alt[i + 1]`) and beyond-boundary altitudes are `-inf`. Find the index of a local ridge strictly taller than its neighbors in `O(log n)` time.",
     "examples": [
@@ -29681,8 +29681,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Two Pointers"
     ],
-    "acceptance": "54.2%",
-    "submissions": "83K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A distributed key-value store organizes integer keys into an `m x n` grid `shards` where every row is sorted ascending left-to-right and every column is sorted ascending top-to-bottom. Return `true` if `key` exists in `shards`.",
     "examples": [
@@ -29762,8 +29762,8 @@ export const initialProblems: Problem[] = [
       "Intervals",
       "Sorting"
     ],
-    "acceptance": "50.3%",
-    "submissions": "119K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A medical clinic receives unsorted appointment blocks `bookings` where each entry is `[start_min, end_min]`. Consolidate all overlapping or touching blocks into sorted non-overlapping busy blocks.",
     "examples": [
@@ -29844,8 +29844,8 @@ export const initialProblems: Problem[] = [
       "Intervals",
       "Array"
     ],
-    "acceptance": "44.5%",
-    "submissions": "93K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a sorted list of non-overlapping scheduled maintenance windows `windows` and an emergency patch window `patch`, insert `patch` and merge any overlapping windows, returning the updated sorted schedule.",
     "examples": [
@@ -29926,8 +29926,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Sorting"
     ],
-    "acceptance": "53.7%",
-    "submissions": "67K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A single dish antenna receives requested satellite downlink windows `passes` (`[start, end]`). Touching windows (`end == start`) do not conflict. Return the minimum number of passes to drop so the remaining passes have zero overlap.",
     "examples": [
@@ -30008,8 +30008,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Sorting"
     ],
-    "acceptance": "52.4%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A hospital schedules surgeries with intervals `surgeries` (`[start_min, end_min]`). A suite vacated at minute `t` can immediately host a surgery starting at minute `t`. Return the minimum number of operating suites required.",
     "examples": [
@@ -30090,8 +30090,8 @@ export const initialProblems: Problem[] = [
       "Two Pointers",
       "Array"
     ],
-    "acceptance": "64.7%",
-    "submissions": "98K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A router buffer holds packet priority tags `tiers` where `0` is urgent, `1` is normal, and `2` is bulk. Partition `tiers` in-place into `[0...0, 1...1, 2...2]` in a single pass without calling a built-in sort, and return `tiers`.",
     "examples": [
@@ -30172,8 +30172,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Sorting"
     ],
-    "acceptance": "66.3%",
-    "submissions": "112K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an unsorted array of RPC response times in milliseconds `latencies` and an integer `k`, return the `k`-th highest latency measurement (counting duplicates).",
     "examples": [
@@ -30253,8 +30253,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "Simulation"
     ],
-    "acceptance": "52.0%",
-    "submissions": "86K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An optical inspection camera sweeps an `m x n` circuit board `cells` starting at `(0, 0)` and moving in a clockwise inward spiral. Return the inspected cell values in visit order.",
     "examples": [
@@ -30334,8 +30334,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "Math"
     ],
-    "acceptance": "74.5%",
-    "submissions": "79K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An architectural tool stores an `n x n` square tile blueprint in `plan`. Rotate `plan` 90 degrees clockwise in-place and return it.",
     "examples": [
@@ -30415,8 +30415,8 @@ export const initialProblems: Problem[] = [
       "Matrix",
       "Array"
     ],
-    "acceptance": "56.9%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A datacenter floor is an `m x n` grid `racks` where `0` indicates a tripped breaker. Safety interlocks shut down the entire row and column of every tripped breaker. Apply the shutdown in-place using O(1) extra space and return `racks`.",
     "examples": [
@@ -30496,8 +30496,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "40.2%",
-    "submissions": "58K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A developer's published apps have sorted non-decreasing download scores `scores` (in thousands). Compute the developer's quality index `h`: the largest integer `h` such that at least `h` apps have a score `>= h`, in `O(log n)` time.",
     "examples": [
@@ -30578,8 +30578,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Array"
     ],
-    "acceptance": "58.6%",
-    "submissions": "65K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two redundant sensors log identical readings into a sorted array `signals`, so every value appears twice consecutively except one corrupted reading that appears only once. Return the single unpaired reading in `O(log n)` time.",
     "examples": [
@@ -30660,8 +30660,8 @@ export const initialProblems: Problem[] = [
       "Binary Search",
       "Divide and Conquer"
     ],
-    "acceptance": "40.9%",
-    "submissions": "94K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Two exchanges publish sorted integer quote arrays `feed_a` and `feed_b`. Compute the exact combined median as a float in `O(log(min(m, n)))` time without merging the arrays.",
     "examples": [
@@ -30743,8 +30743,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "76.4%",
-    "submissions": "82K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A UI renders a binary management tree serialized in level-order as `chart` (`null` for missing reports). Flip the entire org chart horizontally (recursively swapping left and right direct reports) and return its trimmed level-order array.",
     "examples": [
@@ -30824,8 +30824,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "75.2%",
-    "submissions": "94K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary escalation tree in level-order representation `tree`, return the maximum number of nodes along any path from the root down to a leaf.",
     "examples": [
@@ -30905,8 +30905,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "DFS"
     ],
-    "acceptance": "60.8%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A binary clock-distribution tree is given in level-order `tree`. Return the maximum number of edges (hops) between any two components in the tree (the path need not pass through the root).",
     "examples": [
@@ -30986,8 +30986,8 @@ export const initialProblems: Problem[] = [
       "Binary Tree",
       "BFS"
     ],
-    "acceptance": "67.9%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a binary alert tree in level-order `tree`, group all node IDs by depth tier from top to bottom (left-to-right within each tier).",
     "examples": [
@@ -31067,8 +31067,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "DFS"
     ],
-    "acceptance": "35.1%",
-    "submissions": "102K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A storage engine dumps a binary key index in level-order `tree`. Return `true` iff every node strictly exceeds all keys in its left subtree and is strictly less than all keys in its right subtree.",
     "examples": [
@@ -31149,8 +31149,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Stack"
     ],
-    "acceptance": "72.1%",
-    "submissions": "78K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a valid BST of player latency scores in level-order `tree` and a 1-based rank `k`, return the `k`-th smallest score in the tree.",
     "examples": [
@@ -31230,8 +31230,8 @@ export const initialProblems: Problem[] = [
       "Binary Search Tree",
       "Tree"
     ],
-    "acceptance": "65.8%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A BST of unique router IDs is given in level-order `tree`. Given two router IDs `a` and `b` present in the tree, return the ID of their lowest common ancestor hub.",
     "examples": [
@@ -31313,8 +31313,8 @@ export const initialProblems: Problem[] = [
       "DFS",
       "Dynamic Programming"
     ],
-    "acceptance": "41.2%",
-    "submissions": "66K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Each station in a binary distribution tree (`tree` in level-order) yields an integer net margin (positive or negative). Return the maximum total margin along any non-empty simple path connecting adjacent stations.",
     "examples": [
@@ -31396,8 +31396,8 @@ export const initialProblems: Problem[] = [
       "Design",
       "String"
     ],
-    "acceptance": "65.1%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Implement a prefix directory supporting `add`, `exact`, and `prefix` commands in `cmds` (`[\"add\", term]`, `[\"exact\", term]`, `[\"prefix\", pre]`). Return the list of boolean answers for all `exact` and `prefix` queries.",
     "examples": [
@@ -31479,8 +31479,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "61.1%",
-    "submissions": "92K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A rooftop telemetry map `panels` uses `'1'` for active solar cells and `'0'` for empty roof tiles. Return the number of separate 4-directionally connected active solar clusters.",
     "examples": [
@@ -31561,8 +31561,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "54.7%",
-    "submissions": "81K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A server floor `hall` has `0` (aisle), `1` (healthy rack), and `2` (overheating rack). Every minute, overheating spreads to all 4-directionally adjacent healthy racks. Return the minutes until no healthy rack remains, or `-1` if some healthy rack is isolated.",
     "examples": [
@@ -31643,8 +31643,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "BFS"
     ],
-    "acceptance": "48.3%",
-    "submissions": "91K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A monorepo has `num_pkgs` packages (`0..num_pkgs-1`) and dependency pairs `deps` where `[a, b]` means package `b` must be built before package `a`. Return `true` if all packages can be built without circular dependencies.",
     "examples": [
@@ -31726,8 +31726,8 @@ export const initialProblems: Problem[] = [
       "Topological Sort",
       "Heap"
     ],
-    "acceptance": "52.2%",
-    "submissions": "76K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `num_pkgs` packages (`0..num_pkgs-1`) and dependencies `deps` where `[a, b]` means `b` precedes `a`, return the lexicographically smallest valid build order, or `[]` if a cycle prevents building all packages.",
     "examples": [
@@ -31808,8 +31808,8 @@ export const initialProblems: Problem[] = [
       "Dijkstra",
       "Heap"
     ],
-    "acceptance": "55.1%",
-    "submissions": "70K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A mesh has `n` servers (`1..n`) connected by directed latency links `links[i] = [u, v, ms]`. Server `origin` broadcasts a config update. Return the minimum milliseconds until all `n` servers receive it, or `-1` if any server is unreachable.",
     "examples": [
@@ -31890,8 +31890,8 @@ export const initialProblems: Problem[] = [
       "Graph",
       "Union Find"
     ],
-    "acceptance": "64.1%",
-    "submissions": "63K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An undirected fiber network of `n` hubs (`1..n`) began as a tree before one redundant cable was laid. Given `cables`, return the cable that closes the cycle (the last such cable in `cables` if multiple could break the cycle).",
     "examples": [
@@ -31971,8 +31971,8 @@ export const initialProblems: Problem[] = [
       "Graph",
       "BFS"
     ],
-    "acceptance": "57.0%",
-    "submissions": "69K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An undirected adjacency list `conflicts` lists pairs of engineers (`0..n-1`) who cannot work the same shift. Return `true` iff all engineers can be assigned to two shifts (Day and Night) with zero intra-shift conflicts.",
     "examples": [
@@ -32053,8 +32053,8 @@ export const initialProblems: Problem[] = [
       "Bellman-Ford",
       "Dynamic Programming"
     ],
-    "acceptance": "40.5%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given `n` airports (`0..n-1`) and directed charter legs `legs[i] = [u, v, cost]`, return the cheapest total cost from `src` to `dst` using at most `max_layovers` intermediate stops, or `-1` if no route exists.",
     "examples": [
@@ -32136,8 +32136,8 @@ export const initialProblems: Problem[] = [
       "Minimum Spanning Tree",
       "Prim"
     ],
-    "acceptance": "66.5%",
-    "submissions": "58K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A university plans to connect all buildings located at 2D integer grid coordinates `coords` using underground trenches dug strictly along north-south and east-west grid lines (Manhattan distance). Return the minimum total trench length to connect all buildings.",
     "examples": [
@@ -32218,8 +32218,8 @@ export const initialProblems: Problem[] = [
       "BFS",
       "Matrix"
     ],
-    "acceptance": "49.1%",
-    "submissions": "67K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An autonomous rover navigates an `n x n` floor map `floor` (`0` = open, `1` = obstacle) from `(0, 0)` to `(n - 1, n - 1)` moving 8-directionally. Return the fewest cells visited along a valid path, or `-1` if blocked.",
     "examples": [
@@ -32301,8 +32301,8 @@ export const initialProblems: Problem[] = [
       "Heap",
       "Matrix"
     ],
-    "acceptance": "60.4%",
-    "submissions": "54K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A rescue hovercraft must cross an `n x n` terrain map `elev` from `(0, 0)` to `(n - 1, n - 1)` via 4-directional steps. It can traverse any cell whose elevation is `<= water_level`. Return the minimum `water_level` needed to complete the crossing.",
     "examples": [
@@ -32383,8 +32383,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Math"
     ],
-    "acceptance": "54.6%",
-    "submissions": "118K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A bipedal warehouse robot climbs a loading dock with `steps` risers, advancing either `1` or `2` risers per stride. Return the number of distinct stride sequences that reach the top.",
     "examples": [
@@ -32464,8 +32464,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "52.3%",
-    "submissions": "104K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An array `megawatts` lists potential power output at candidate turbine sites along a mountain ridge. Wake turbulence forbids building on two adjacent sites. Return the maximum total megawatts achievable.",
     "examples": [
@@ -32546,8 +32546,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "45.8%",
-    "submissions": "98K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A transit kiosk stocks unlimited tokens of denominations `denoms`. Return the fewest number of tokens required to refund exact change `due`, or `-1` if `due` cannot be formed.",
     "examples": [
@@ -32628,8 +32628,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Binary Search"
     ],
-    "acceptance": "56.9%",
-    "submissions": "87K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given an array of quarterly revenue integers `rev`, return the length of the longest strictly increasing subsequence of quarters (not necessarily consecutive).",
     "examples": [
@@ -32709,8 +32709,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "58.4%",
-    "submissions": "79K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given two DNA primer strings `strand_a` and `strand_b` consisting of `'A'`, `'C'`, `'G'`, `'T'`, return the length of their longest common subsequence.",
     "examples": [
@@ -32790,8 +32790,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "String"
     ],
-    "acceptance": "57.0%",
-    "submissions": "84K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Given a misspelled query `typed` and a target dictionary word `target`, return the minimum number of single-character insertions, deletions, or substitutions needed to transform `typed` into `target`.",
     "examples": [
@@ -32872,8 +32872,8 @@ export const initialProblems: Problem[] = [
       "Hash Table",
       "String"
     ],
-    "acceptance": "48.0%",
-    "submissions": "77K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A domain registrar checks whether a concatenated lowercase slug `slug` can be cleanly partitioned into one or more words from `lexicon` (words may be reused). Return `true` if a full segmentation exists.",
     "examples": [
@@ -32954,8 +32954,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Knapsack"
     ],
-    "acceptance": "47.1%",
-    "submissions": "72K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A cargo plane must load crates with positive integer weights `crates` into left and right wing pods such that both pods carry the exact same total weight. Return `true` if such a split is possible.",
     "examples": [
@@ -33036,8 +33036,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Math"
     ],
-    "acceptance": "65.3%",
-    "submissions": "83K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A delivery quadcopter flies across an `rows x cols` airspace grid from `(0, 0)` to `(rows - 1, cols - 1)`, moving only south or east. Return the total number of distinct flight paths.",
     "examples": [
@@ -33117,8 +33117,8 @@ export const initialProblems: Problem[] = [
       "Dynamic Programming",
       "Array"
     ],
-    "acceptance": "35.4%",
-    "submissions": "91K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A backtester models daily leverage factors as an integer array `factors` (positive, zero, or negative). Return the largest possible product of any non-empty contiguous streak of days.",
     "examples": [
@@ -33199,8 +33199,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "40.1%",
-    "submissions": "88K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Radio relay towers stand in a line with integer transmission ranges `ranges`, where tower `i` can forward a signal to any tower up to `i + ranges[i]`. Starting from tower `0`, return `true` if the signal can reach the final tower.",
     "examples": [
@@ -33281,8 +33281,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "46.4%",
-    "submissions": "74K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "An electric van runs a circular route of `n` depots. Depot `i` provides `charge[i]` kWh and driving to `(i + 1) % n` consumes `drain[i]` kWh. Return the unique starting depot index that completes the loop with non-negative battery, or `-1` if impossible.",
     "examples": [
@@ -33362,8 +33362,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Counting"
     ],
-    "acceptance": "61.0%",
-    "submissions": "71K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A GPU scheduler executes labeled kernel jobs `kernels` (uppercase letters). Identical kernels require at least `cooldown` cycles between executions. Return the minimum total cycles needed to complete all jobs.",
     "examples": [
@@ -33444,8 +33444,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Bit Manipulation"
     ],
-    "acceptance": "78.6%",
-    "submissions": "68K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "An A/B testing harness accepts a list of unique integer feature flag IDs `flags`. Return all possible subsets of enabled flags (the power set) with no duplicate subsets.",
     "examples": [
@@ -33526,8 +33526,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Array"
     ],
-    "acceptance": "71.9%",
-    "submissions": "75K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": true,
     "description": "A store offers distinct positive integer item prices `prices`. Customers can buy any item unlimited times. Return all unique price combinations that spend a gift card `credit` down to exactly `0`.",
     "examples": [
@@ -33608,8 +33608,8 @@ export const initialProblems: Problem[] = [
       "Backtracking",
       "Bit Manipulation"
     ],
-    "acceptance": "74.0%",
-    "submissions": "52K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Place `n` laser scanners on an `n x n` cleanroom floor grid so that no two scanners share the same row, column, or diagonal beam line. Return the number of distinct valid placements.",
     "examples": [
@@ -33689,8 +33689,8 @@ export const initialProblems: Problem[] = [
       "Greedy",
       "Array"
     ],
-    "acceptance": "44.5%",
-    "submissions": "59K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Sales reps sit in a row with quarterly performance scores `scores`. Every rep gets at least 1 bonus token, and any rep with a strictly higher score than an adjacent neighbor must receive strictly more tokens than that neighbor. Return the minimum total bonus tokens required.",
     "examples": [
@@ -33771,8 +33771,8 @@ export const initialProblems: Problem[] = [
       "Design",
       "Two Heaps"
     ],
-    "acceptance": "53.1%",
-    "submissions": "62K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A pipeline telemetry service processes `events`: `[\"log\", val]` records an integer pressure reading, and `[\"median\"]` queries the current median as a float. Return the list of float results for all `median` queries.",
     "examples": [
@@ -33853,8 +33853,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Array"
     ],
-    "acceptance": "75.1%",
-    "submissions": "114K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "Every transmitted packet logs its integer ID twice in `log_ids` (once on send, once on ACK), except one unacknowledged packet that appears only once. Return that lone packet ID in `O(n)` time and `O(1)` space.",
     "examples": [
@@ -33934,8 +33934,8 @@ export const initialProblems: Problem[] = [
       "Bit Manipulation",
       "Math"
     ],
-    "acceptance": "49.8%",
-    "submissions": "96K",
+    "acceptance": "—",
+    "submissions": "0",
     "orderInvariant": false,
     "description": "A kernel slab allocator only accepts block sizes `block_bytes` that are exact powers of two (`1, 2, 4, 8, ...`). Return `true` if `block_bytes` is a valid power of two in `O(1)` time without loops.",
     "examples": [

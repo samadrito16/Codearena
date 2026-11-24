@@ -1,4 +1,6 @@
 import rateLimit from 'express-rate-limit';
+import type { Request, Response, NextFunction } from 'express';
+import { db } from '../db/database.js';
 
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -29,6 +31,38 @@ export const executionLimiter = rateLimit({
     });
   },
 });
+
+/**
+ * Free-tier daily execution quota limiter:
+ * Enforces per-user / per-IP daily caps (N runs per day) matching the single API call per run architecture.
+ */
+export function dailyExecutionQuotaLimiter(req: Request, res: Response, next: NextFunction) {
+  const userId = req.user ? req.user.id : null;
+  const role = req.user ? req.user.role : undefined;
+  const plan = req.user ? req.user.plan : undefined;
+  const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+
+  const quota = db.checkExecutionQuota(userId, clientIp, role, plan);
+
+  res.setHeader('X-RateLimit-Daily-Limit', String(quota.limit));
+  res.setHeader('X-RateLimit-Daily-Remaining', String(quota.remaining));
+  res.setHeader('X-RateLimit-Daily-Reset', quota.resetAt);
+
+  if (!quota.allowed) {
+    res.status(429).json({
+      error: {
+        code: 'DAILY_QUOTA_EXCEEDED',
+        message: `Daily code execution limit reached (${quota.limit} executions/day for ${plan || (userId ? 'free' : 'guest')} tier). Your quota resets at midnight UTC.`,
+        limit: quota.limit,
+        remaining: 0,
+        resetAt: quota.resetAt,
+      },
+    });
+    return;
+  }
+
+  next();
+}
 
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

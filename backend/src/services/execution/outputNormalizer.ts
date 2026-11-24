@@ -1,4 +1,12 @@
-import { SENTINEL_START, SENTINEL_END } from './types.js';
+import {
+  SENTINEL_START,
+  SENTINEL_END,
+  SENTINEL_CASE_START,
+  SENTINEL_CASE_END,
+  SENTINEL_ERROR_START,
+  SENTINEL_ERROR_END,
+  type BatchCaseOutput,
+} from './types.js';
 
 export interface SplitOutput {
   userStdout: string;
@@ -37,6 +45,57 @@ export function extractSentinelOutput(rawStdout: string | undefined): SplitOutpu
     userStdout: '',
     resultValue: str.trim(),
   };
+}
+
+/**
+ * Parses multi-case batch output produced by batch execution drivers.
+ * Maps caseNumber to its user debug logs, returned value, or runtime error.
+ */
+export function parseBatchCasesOutput(rawStdout: string | undefined): Map<number, BatchCaseOutput> {
+  const results = new Map<number, BatchCaseOutput>();
+  if (!rawStdout) {
+    return results;
+  }
+
+  const str = rawStdout.replace(/\r\n/g, '\n');
+  const caseRegex = /__CODEARENA_CASE_START__\s+(\d+)\s*\n([\s\S]*?)__CODEARENA_CASE_END__\s+\1/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = caseRegex.exec(str)) !== null) {
+    const caseNum = parseInt(match[1], 10);
+    const caseBody = match[2];
+
+    let userStdout = '';
+    let resultValue: string | undefined = undefined;
+    let error: string | undefined = undefined;
+
+    const resStartIdx = caseBody.indexOf(SENTINEL_START);
+    const resEndIdx = caseBody.indexOf(SENTINEL_END);
+
+    const errStartIdx = caseBody.indexOf(SENTINEL_ERROR_START);
+    const errEndIdx = caseBody.indexOf(SENTINEL_ERROR_END);
+
+    if (errStartIdx !== -1 && errEndIdx !== -1 && errEndIdx > errStartIdx) {
+      const beforeErr = caseBody.slice(0, errStartIdx).trim();
+      error = cleanErrorMessage(caseBody.slice(errStartIdx + SENTINEL_ERROR_START.length, errEndIdx).trim());
+      userStdout = beforeErr;
+    } else if (resStartIdx !== -1 && resEndIdx !== -1 && resEndIdx > resStartIdx) {
+      const beforeRes = caseBody.slice(0, resStartIdx).trim();
+      resultValue = caseBody.slice(resStartIdx + SENTINEL_START.length, resEndIdx).trim();
+      userStdout = beforeRes;
+    } else {
+      userStdout = caseBody.trim();
+    }
+
+    results.set(caseNum, {
+      caseNumber: caseNum,
+      userStdout,
+      resultValue,
+      error,
+    });
+  }
+
+  return results;
 }
 
 /**

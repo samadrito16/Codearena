@@ -72,7 +72,9 @@ export default function ProblemPreviewModal({
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <DifficultyBadge difficulty={problem.difficulty}/>
-              <span className="text-[11px] font-semibold text-muted tabular-nums">{problem.acceptance} acceptance</span>
+              {problem.acceptance && problem.acceptance !== '—' && problem.acceptance !== '0%' && (
+                <span className="text-[11px] font-semibold text-muted tabular-nums">{problem.acceptance} acceptance</span>
+              )}
               <span className="text-[10px] text-muted tabular-nums">· {currentIndex + 1} of {totalCount}</span>
             </div>
             <h3 className="mt-2 font-display text-xl font-bold tracking-tight text-primary">{problem.title}</h3>

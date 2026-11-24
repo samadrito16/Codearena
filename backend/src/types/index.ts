@@ -1,4 +1,5 @@
 export type UserRole = 'user' | 'admin';
+export type UserPlan = 'free' | 'pro' | 'premium';
 
 export interface User {
   id: string;
@@ -6,6 +7,7 @@ export interface User {
   email: string;
   passwordHash: string;
   role: UserRole;
+  plan?: UserPlan;
   emailVerified: boolean;
   isActive: boolean;
   createdAt: string;
@@ -17,6 +19,7 @@ export interface PublicUser {
   name: string;
   email: string;
   role: UserRole;
+  plan?: UserPlan;
   email_verified: boolean;
 }
 

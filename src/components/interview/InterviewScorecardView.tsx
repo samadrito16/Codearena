@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AlertTriangle,
   ArrowRight,
@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Code2,
   Cpu,
+  Lock,
   RotateCcw,
   ShieldAlert,
   ShieldCheck,
@@ -17,7 +18,8 @@ import {
   Zap,
 } from 'lucide-react';
 import { ActiveInterviewRound, InterviewScorecard } from '../../types/interview';
-import { getProblemEditorial } from '../../data/editorials';
+import { editorialsService } from '../../services/editorialsService';
+import type { ProblemEditorial } from '../../types';
 import TimeAllocationChart from './TimeAllocationChart';
 
 interface InterviewScorecardViewProps {
@@ -34,9 +36,27 @@ export default function InterviewScorecardView({
   onBackToHub,
 }: InterviewScorecardViewProps) {
   const [activeEditorialTab, setActiveEditorialTab] = useState<1 | 2>(1);
+  const [ed1, setEd1] = useState<ProblemEditorial | null>(null);
+  const [ed2, setEd2] = useState<ProblemEditorial | null>(null);
+  const [editorialLoading, setEditorialLoading] = useState(false);
 
-  const ed1 = getProblemEditorial(round.problem1.id);
-  const ed2 = getProblemEditorial(round.problem2.id);
+  useEffect(() => {
+    let cancelled = false;
+    setEditorialLoading(true);
+    Promise.all([
+      editorialsService.getByProblemId(round.problem1.id).catch(() => null),
+      editorialsService.getByProblemId(round.problem2.id).catch(() => null),
+    ]).then(([res1, res2]) => {
+      if (!cancelled) {
+        setEd1(res1);
+        setEd2(res2);
+        setEditorialLoading(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [round.problem1.id, round.problem2.id]);
 
   const verdictStyles: Record<string, { bg: string; text: string; border: string; label: string }> = {
     'STRONG HIRE': {
@@ -95,11 +115,13 @@ export default function InterviewScorecardView({
 
           {/* Big Score / Percentile Badges */}
           <div className="flex items-center gap-4 shrink-0">
-            <div className="rounded-2xl p-4 bg-black/25 border backdrop-blur-md text-center min-w-[110px]" style={{ borderColor: 'var(--ca-border)' }}>
-              <div className="text-[10px] uppercase font-bold text-muted">Percentile</div>
-              <div className="text-2xl font-black text-primary">{scorecard.percentile}%</div>
-              <div className="text-[10px] text-muted">vs FAANG peers</div>
-            </div>
+            {scorecard.percentile !== undefined && (
+              <div className="rounded-2xl p-4 bg-black/25 border backdrop-blur-md text-center min-w-[110px]" style={{ borderColor: 'var(--ca-border)' }}>
+                <div className="text-[10px] uppercase font-bold text-muted">Percentile</div>
+                <div className="text-2xl font-black text-primary">{scorecard.percentile}%</div>
+                <div className="text-[10px] text-muted">vs peers</div>
+              </div>
+            )}
 
             <div className="rounded-2xl p-4 bg-black/25 border backdrop-blur-md text-center min-w-[110px]" style={{ borderColor: 'var(--ca-border)' }}>
               <div className="text-[10px] uppercase font-bold text-muted">Composite Score</div>
@@ -306,6 +328,18 @@ export default function InterviewScorecardView({
           </div>
         )}
 
+        {activeEditorialTab === 1 && !ed1 && (
+          <div className="py-6 text-center space-y-2">
+            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
+              <Lock size={18} />
+            </div>
+            <div className="text-xs font-bold text-primary">Editorial Gated by Plan</div>
+            <p className="text-[11px] text-muted max-w-sm mx-auto">
+              Complete reference solutions and progressive hints are available with a Pro or Premium plan.
+            </p>
+          </div>
+        )}
+
         {activeEditorialTab === 2 && ed2 && (
           <div className="space-y-4 text-xs">
             <div className="flex items-center gap-2 text-primary font-bold text-sm">
@@ -336,6 +370,18 @@ export default function InterviewScorecardView({
                 </pre>
               </div>
             )}
+          </div>
+        )}
+
+        {activeEditorialTab === 2 && !ed2 && (
+          <div className="py-6 text-center space-y-2">
+            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20">
+              <Lock size={18} />
+            </div>
+            <div className="text-xs font-bold text-primary">Editorial Gated by Plan</div>
+            <p className="text-[11px] text-muted max-w-sm mx-auto">
+              Complete reference solutions and progressive hints are available with a Pro or Premium plan.
+            </p>
           </div>
         )}
       </div>

@@ -22,6 +22,11 @@ export interface ExecutionResponse {
   stdout?: string;
   stderr?: string;
   rankingPercentile?: number;
+  quota?: {
+    limit: number;
+    remaining: number;
+    resetAt: string;
+  };
   submission?: {
     id: string;
     outcome: string;
@@ -56,4 +61,16 @@ export async function submitCode(options: {
     method: 'POST',
     body: JSON.stringify(options),
   });
+}
+
+export interface QuotaResponse {
+  limit: number;
+  remaining: number;
+  count: number;
+  resetAt: string;
+  tier: string;
+}
+
+export async function getExecutionQuota(): Promise<QuotaResponse> {
+  return apiRequest<QuotaResponse>('/submissions/quota');
 }

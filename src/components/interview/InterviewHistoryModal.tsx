@@ -35,10 +35,6 @@ export default function InterviewHistoryModal({
   if (!isOpen) return null;
 
   const totalRounds = history.length;
-  const avgPercentile =
-    totalRounds > 0
-      ? Math.round(history.reduce((acc, h) => acc + h.percentile, 0) / totalRounds)
-      : 0;
   const passedRounds = history.filter(
     (h) => h.verdict === 'STRONG HIRE' || h.verdict === 'HIRE'
   ).length;
@@ -93,7 +89,7 @@ export default function InterviewHistoryModal({
         {/* Telemetry Summary Strip inside modal */}
         {totalRounds > 0 && (
           <div
-            className="grid grid-cols-3 gap-3 p-4 sm:px-6 bg-black/20 border-b text-xs font-mono shrink-0"
+            className="grid grid-cols-2 gap-3 p-4 sm:px-6 bg-black/20 border-b text-xs font-mono shrink-0"
             style={{ borderColor: 'var(--ca-border)' }}
           >
             <div className="flex items-center gap-2">
@@ -113,16 +109,6 @@ export default function InterviewHistoryModal({
               <div>
                 <span className="text-[10px] uppercase font-sans text-muted block">Hire Rate</span>
                 <span className="font-bold text-emerald-500">{passRate}%</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
-                <Zap size={14} />
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-sans text-muted block">Avg Percentile</span>
-                <span className="font-bold text-cyan-400">{avgPercentile}%</span>
               </div>
             </div>
           </div>
@@ -151,7 +137,6 @@ export default function InterviewHistoryModal({
                     <th className="p-3.5">Round</th>
                     <th className="p-3.5">Verdict</th>
                     <th className="p-3.5">Score</th>
-                    <th className="p-3.5">Percentile</th>
                     <th className="p-3.5">Pacing</th>
                     <th className="p-3.5">Integrity & Notes</th>
                     <th className="p-3.5">Date</th>
@@ -179,7 +164,6 @@ export default function InterviewHistoryModal({
                         </span>
                       </td>
                       <td className="p-3.5 font-bold text-primary">{item.overallScore} / 100</td>
-                      <td className="p-3.5 font-mono text-cyan-400 font-bold">{item.percentile}%</td>
                       <td className="p-3.5 text-muted">{item.timeAllocation.pacingRating}</td>
                       <td className="p-3.5 text-muted">
                         {item.autoSubmitReason ? (

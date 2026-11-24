@@ -500,7 +500,11 @@ export default function Problems() {
 
               <div>
                 <span className="mb-1 block text-[10px] text-slate-400 md:hidden">Acceptance</span>
-                <span className="text-xs font-semibold text-slate-600 tabular-nums dark:text-slate-300">{problem.acceptance}</span>
+                <span className="text-xs font-semibold text-slate-600 tabular-nums dark:text-slate-300">
+                  {problem.acceptance && problem.acceptance !== '—' && problem.acceptance !== '0%'
+                    ? problem.acceptance
+                    : '—'}
+                </span>
               </div>
 
               <div>

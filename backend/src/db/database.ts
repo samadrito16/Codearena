@@ -33,6 +33,7 @@ interface DatabaseSchema {
     dailyCompletions: Record<string, string>;
     profile?: UserProfileData;
   }>;
+  dailyExecutions?: Record<string, { count: number; date: string }>;
 }
 
 export class Database {
@@ -46,6 +47,7 @@ export class Database {
     activity: [],
     auditLogs: [],
     progress: {},
+    dailyExecutions: {},
   };
 
   private filePath: string;
@@ -85,6 +87,7 @@ export class Database {
     if (!this.data.activity) this.data.activity = [];
     if (!this.data.auditLogs) this.data.auditLogs = [];
     if (!this.data.progress) this.data.progress = {};
+    if (!this.data.dailyExecutions) this.data.dailyExecutions = {};
 
     // Seed admin user if not present
     const existingAdmin = this.findUserByEmail('admin@prismcode.com') || this.findUserByEmail('admin@codearena.com');
@@ -236,6 +239,7 @@ export class Database {
       name: user.name,
       email: user.email,
       role: user.role,
+      plan: user.plan || (user.role === 'admin' ? 'premium' : 'free'),
       email_verified: user.emailVerified,
     };
   }
@@ -253,6 +257,16 @@ export class Database {
     this.data.emailVerificationTokens = this.data.emailVerificationTokens.filter(
       (t) => !t.used && new Date(t.expiresAt).getTime() > now
     );
+
+    // Prune expired daily execution counts from prior days
+    const today = new Date().toISOString().slice(0, 10);
+    if (this.data.dailyExecutions) {
+      for (const k of Object.keys(this.data.dailyExecutions)) {
+        if (this.data.dailyExecutions[k]?.date !== today) {
+          delete this.data.dailyExecutions[k];
+        }
+      }
+    }
 
     if (this.data.sessions.length !== sessionsBefore) {
       await this.save();
@@ -372,15 +386,13 @@ export class Database {
     return publicProblem;
   }
 
-  public calculatePercentile(problemId: string, runtimeMs: number): number {
+  public calculatePercentile(problemId: string, runtimeMs: number): number | undefined {
     const all = this.data.submissions.filter(
       (s) => s.problemId === problemId && s.outcome === 'accepted' && (s.runtimeMs || 0) > 0,
     );
-    if (all.length < 3) {
-      // Calibrated baseline: fast runs (<= 30ms) beat 88-97%, moderate (<= 100ms) beat 70-87%
-      if (runtimeMs <= 30) return Math.round(Math.min(99.2, 92.0 + (30 - runtimeMs) * 0.24) * 10) / 10;
-      if (runtimeMs <= 100) return Math.round(Math.max(68.0, 92.0 - ((runtimeMs - 30) / 70) * 24) * 10) / 10;
-      return Math.round(Math.max(30.0, 68.0 - Math.min(35, (runtimeMs - 100) / 15)) * 10) / 10;
+    // Real cohort data requirement: hide percentiles until there are at least 5 real accepted submissions
+    if (all.length < 5) {
+      return undefined;
     }
     const slowerCount = all.filter((s) => (s.runtimeMs || 0) > runtimeMs).length;
     const sameCount = all.filter((s) => (s.runtimeMs || 0) === runtimeMs).length;
@@ -472,6 +484,94 @@ export class Database {
     }
     await this.save();
     return submission;
+  }
+
+  // --- Daily Execution Quotas (Free Tier Rate Limiting) ---
+  public getExecutionQuotaKey(userId?: string | null, clientIp?: string): string {
+    if (userId && userId !== 'guest') {
+      return `user:${userId}`;
+    }
+    const cleanIp = (clientIp || '127.0.0.1').replace(/^::ffff:/, '');
+    return `ip:${cleanIp}`;
+  }
+
+  public checkExecutionQuota(
+    userId?: string | null,
+    clientIp?: string,
+    role?: string,
+    plan?: string,
+  ): {
+    allowed: boolean;
+    limit: number;
+    remaining: number;
+    count: number;
+    resetAt: string;
+    key: string;
+  } {
+    const key = this.getExecutionQuotaKey(userId, clientIp);
+    const today = new Date().toISOString().slice(0, 10);
+
+    let limit = config.dailyExecutionLimitFree;
+    if (role === 'admin' || plan === 'premium') {
+      limit = config.dailyExecutionLimitPremium;
+    } else if (plan === 'pro') {
+      limit = config.dailyExecutionLimitPro;
+    } else if (!userId || userId === 'guest') {
+      limit = config.dailyExecutionLimitGuest;
+    }
+
+    if (!this.data.dailyExecutions) {
+      this.data.dailyExecutions = {};
+    }
+
+    const record = this.data.dailyExecutions[key];
+    let count = 0;
+    if (record && record.date === today) {
+      count = record.count;
+    }
+
+    const tomorrow = new Date();
+    tomorrow.setUTCHours(24, 0, 0, 0);
+    const resetAt = tomorrow.toISOString();
+
+    const remaining = Math.max(0, limit - count);
+    const allowed = count < limit;
+
+    return {
+      allowed,
+      limit,
+      remaining,
+      count,
+      resetAt,
+      key,
+    };
+  }
+
+  public async incrementExecutionUsage(
+    userId?: string | null,
+    clientIp?: string,
+  ): Promise<{ count: number; remaining: number }> {
+    const key = this.getExecutionQuotaKey(userId, clientIp);
+    const today = new Date().toISOString().slice(0, 10);
+
+    if (!this.data.dailyExecutions) {
+      this.data.dailyExecutions = {};
+    }
+
+    const record = this.data.dailyExecutions[key];
+    let currentCount = 0;
+    if (record && record.date === today) {
+      currentCount = record.count;
+    }
+
+    const newCount = currentCount + 1;
+    this.data.dailyExecutions[key] = {
+      count: newCount,
+      date: today,
+    };
+
+    await this.save();
+    return { count: newCount, remaining: 0 };
   }
 
   // --- Activity ---

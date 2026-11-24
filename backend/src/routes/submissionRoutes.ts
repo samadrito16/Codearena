@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 import { z } from 'zod';
 import { db } from '../db/database.js';
 import { requireAuth } from '../middleware/auth.js';
-import { executionLimiter } from '../middleware/rateLimiter.js';
+import { executionLimiter, dailyExecutionQuotaLimiter } from '../middleware/rateLimiter.js';
 import type { SubmissionOutcome, SubmissionRecord } from '../types/index.js';
 import { runTestCases, type TestCaseInput } from '../services/onlineCompilerService.js';
 
@@ -54,8 +54,25 @@ router.get('/', requireAuth, (req: Request, res: Response) => {
   res.json(submissions);
 });
 
+// GET /api/submissions/quota (public / guest supported)
+router.get('/quota', (req: Request, res: Response) => {
+  const userId = req.user ? req.user.id : null;
+  const role = req.user ? req.user.role : undefined;
+  const plan = req.user ? req.user.plan : undefined;
+  const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+
+  const quota = db.checkExecutionQuota(userId, clientIp, role, plan);
+  res.json({
+    limit: quota.limit,
+    remaining: quota.remaining,
+    count: quota.count,
+    resetAt: quota.resetAt,
+    tier: plan || (userId ? 'free' : 'guest'),
+  });
+});
+
 // POST /api/submissions/run (public / guest supported, strictly rate-limited)
-router.post('/run', executionLimiter, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/run', executionLimiter, dailyExecutionQuotaLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, customInput, cases } = runSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
@@ -86,6 +103,11 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
       orderInvariant: Boolean(problem?.orderInvariant),
     });
 
+    const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+    const userId = req.user ? req.user.id : null;
+    await db.incrementExecutionUsage(userId, clientIp);
+    const quota = db.checkExecutionQuota(userId, clientIp, req.user?.role, req.user?.plan);
+
     res.json({
       success: batchResult.success,
       verdict: batchResult.verdict,
@@ -97,6 +119,11 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
       stdout: batchResult.stdout,
       stderr: batchResult.stderr,
       customInput: customInput ?? null,
+      quota: {
+        limit: quota.limit,
+        remaining: quota.remaining,
+        resetAt: quota.resetAt,
+      },
     });
   } catch (err) {
     next(err);
@@ -104,7 +131,7 @@ router.post('/run', executionLimiter, async (req: Request, res: Response, next: 
 });
 
 // POST /api/submissions/submit (supports both authenticated and guest submissions, strictly rate-limited)
-router.post('/submit', executionLimiter, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { problemId, code, language, durationSeconds, cases, title, difficulty } = submitSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
@@ -113,16 +140,16 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
       return;
     }
 
-    // Use full testCases suite if available, otherwise explicit cases or examples
+    // Server-authoritative test suite execution: Always run against server's full test suite (including hidden cases)
     let testCases: TestCaseInput[] = [];
-    if (cases && cases.length > 0) {
+    if (problem?.testCases && problem.testCases.length > 0) {
+      testCases = problem.testCases;
+    } else if (cases && cases.length > 0) {
       testCases = cases.map((c, i) => ({
         caseNumber: c.caseNumber ?? (i + 1),
         input: c.input,
         expected: c.expected ?? c.expectedOutput ?? '',
       }));
-    } else if (problem?.testCases && problem.testCases.length > 0) {
-      testCases = problem.testCases;
     } else if (problem) {
       testCases = problem.examples.map((ex, idx) => ({
         caseNumber: idx + 1,
@@ -194,6 +221,31 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
         ? db.calculatePercentile(problemId, batchResult.runtimeMs)
         : undefined;
 
+    // Mask hidden test cases from response to prevent DevTools network inspection leaks
+    const sanitizedCases = batchResult.cases.map((c, idx) => {
+      const tc = testCases[idx];
+      if (tc?.isHidden) {
+        return {
+          ...c,
+          input: '[Hidden test case]',
+          expected: '[Hidden]',
+          actual: c.passed ? '[Passed]' : '[Hidden]',
+          stdout: undefined,
+          stderr: c.stderr ? 'Runtime Error in hidden test case' : undefined,
+        };
+      }
+      return c;
+    });
+
+    const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+    await db.incrementExecutionUsage(req.user ? req.user.id : null, clientIp);
+    const quota = db.checkExecutionQuota(
+      req.user ? req.user.id : null,
+      clientIp,
+      req.user?.role,
+      req.user?.plan
+    );
+
     res.status(201).json({
       success: batchResult.success,
       submission,
@@ -203,9 +255,14 @@ router.post('/submit', executionLimiter, async (req: Request, res: Response, nex
       rankingPercentile,
       totalPassed: batchResult.totalPassed,
       totalTests: batchResult.totalTests,
-      cases: batchResult.cases,
+      cases: sanitizedCases,
       stdout: batchResult.stdout,
       stderr: batchResult.stderr,
+      quota: {
+        limit: quota.limit,
+        remaining: quota.remaining,
+        resetAt: quota.resetAt,
+      },
     });
   } catch (err) {
     next(err);

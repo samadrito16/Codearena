@@ -1,7 +1,11 @@
 import { getCompilerId } from './languageRegistry.js';
-import { buildExecutionSource } from './execution/harnessBuilder.js';
+import {
+  buildExecutionSource,
+  buildBatchExecutionSource,
+} from './execution/harnessBuilder.js';
 import {
   extractSentinelOutput,
+  parseBatchCasesOutput,
   compareOutputs,
   cleanErrorMessage,
   normalizeOutput,
@@ -14,7 +18,7 @@ import type {
   ExecutionVerdict,
 } from './execution/types.js';
 
-export { normalizeOutput, buildExecutionSource };
+export { normalizeOutput, buildExecutionSource, buildBatchExecutionSource };
 export type { TestCaseInput, TestCaseEvaluation, BatchExecutionResult };
 
 export interface RunOptions {
@@ -24,9 +28,8 @@ export interface RunOptions {
 }
 
 /**
- * Runs test cases against the specified language and user code.
- * - Supports concurrent evaluation for public samples (runCode).
- * - Supports sequential early-exit on the first failure for submission evaluation (submitCode).
+ * Runs test cases against the specified language and user code in a SINGLE container invocation.
+ * All test cases are packaged into one batch execution payload, eliminating multiple remote API calls.
  */
 export async function runTestCases(
   languageId: string,
@@ -34,8 +37,29 @@ export async function runTestCases(
   testCases: TestCaseInput[],
   options: RunOptions = {},
 ): Promise<BatchExecutionResult> {
+  if (!testCases || testCases.length === 0) {
+    return {
+      success: true,
+      verdict: 'Accepted',
+      runtimeMs: 0,
+      memoryMb: 0,
+      totalPassed: 0,
+      totalTests: 0,
+      cases: [],
+    };
+  }
+
   const compilerId = getCompilerId(languageId);
-  const evaluations: TestCaseEvaluation[] = [];
+  const { code, stdin } = buildBatchExecutionSource(
+    languageId,
+    userCode,
+    testCases,
+    {
+      earlyExit: options.earlyExit,
+      orderInvariant: options.orderInvariant,
+      functionNameHint: options.functionNameHint,
+    },
+  );
 
   let maxRuntime = 0;
   let maxMemory = 0;
@@ -43,86 +67,176 @@ export async function runTestCases(
   let overallStdout = '';
   let finalVerdict: ExecutionVerdict = 'Accepted';
   let hasFailed = false;
+  let failingCaseNumber: number | undefined = undefined;
 
-  for (const tc of testCases) {
-    const { code, stdin } = buildExecutionSource(
-      languageId,
-      userCode,
-      tc.input,
-      options.functionNameHint,
-    );
+  const evaluations: TestCaseEvaluation[] = [];
 
-    try {
-      const res = await executeCode(languageId, compilerId, code, stdin);
-      maxRuntime = Math.max(maxRuntime, res.runtimeMs);
-      maxMemory = Math.max(maxMemory, res.memoryMb);
+  try {
+    // Single isolated container execution for all test cases
+    const res = await executeCode(languageId, compilerId, code, stdin);
+    maxRuntime = res.runtimeMs;
+    maxMemory = res.memoryMb;
 
-      const { userStdout, resultValue } = extractSentinelOutput(res.stdout);
-      if (userStdout) {
-        overallStdout += (overallStdout ? '\n' : '') + userStdout;
+    const isTle = res.exitCode === 124;
+    const cleanedErr = cleanErrorMessage(res.stderr);
+    if (cleanedErr) {
+      overallStderr = cleanedErr;
+    }
+
+    // Parse batch outputs for each case
+    let parsedCases = parseBatchCasesOutput(res.stdout);
+
+    // Fallback for single-case or legacy output without batch case wrappers
+    if (parsedCases.size === 0 && res.stdout) {
+      const single = extractSentinelOutput(res.stdout);
+      if (single.resultValue || single.userStdout) {
+        parsedCases = new Map([
+          [
+            testCases[0].caseNumber,
+            {
+              caseNumber: testCases[0].caseNumber,
+              userStdout: single.userStdout,
+              resultValue: single.resultValue,
+            },
+          ],
+        ]);
       }
+    }
 
-      let isTle = res.exitCode === 124;
-      let isRuntimeError = res.exitCode !== 0 && !isTle;
-      let isCompilationError = false;
+    // Determine if execution failed globally due to compilation error
+    let isCompilationError = false;
+    if (cleanedErr) {
+      if (
+        cleanedErr.includes('SyntaxError') ||
+        cleanedErr.includes('error: ') ||
+        cleanedErr.includes('compilation error') ||
+        cleanedErr.includes('javac') ||
+        (res.exitCode !== 0 && parsedCases.size === 0)
+      ) {
+        isCompilationError = true;
+      }
+    }
 
-      // Classify compilation error vs runtime error
-      const cleanedErr = cleanErrorMessage(res.stderr);
-      if (cleanedErr) {
-        overallStderr = cleanedErr;
-        if (
-          cleanedErr.includes('SyntaxError') ||
-          cleanedErr.includes('error: ') ||
-          cleanedErr.includes('compilation error')
-        ) {
-          isCompilationError = true;
-          isRuntimeError = false;
+    for (let i = 0; i < testCases.length; i++) {
+      const tc = testCases[i];
+      const caseOut = parsedCases.get(tc.caseNumber);
+
+      if (isCompilationError) {
+        evaluations.push({
+          caseNumber: tc.caseNumber,
+          input: tc.input,
+          expected: tc.expected,
+          actual: '',
+          passed: false,
+          runtimeMs: 0,
+          stderr: cleanedErr,
+        });
+        if (!hasFailed) {
+          hasFailed = true;
+          finalVerdict = 'Compilation Error';
+          failingCaseNumber = tc.caseNumber;
         }
+        continue;
       }
 
-      // Check correctness
-      const passed =
-        !isTle &&
-        !isRuntimeError &&
-        !isCompilationError &&
-        compareOutputs(tc.expected, resultValue, options.orderInvariant);
+      if (!caseOut) {
+        // Case was not executed (stopped due to early exit or killed by TLE)
+        if (hasFailed && options.earlyExit) {
+          evaluations.push({
+            caseNumber: tc.caseNumber,
+            input: tc.input,
+            expected: tc.expected,
+            actual: '',
+            passed: false,
+            notRun: true,
+          });
+          continue;
+        }
 
-      const evaluation: TestCaseEvaluation = {
+        if (isTle && !hasFailed) {
+          hasFailed = true;
+          finalVerdict = 'Time Limit Exceeded';
+          failingCaseNumber = tc.caseNumber;
+          evaluations.push({
+            caseNumber: tc.caseNumber,
+            input: tc.input,
+            expected: tc.expected,
+            actual: '',
+            passed: false,
+            runtimeMs: res.runtimeMs,
+            stderr: 'Time Limit Exceeded',
+          });
+          continue;
+        }
+
+        evaluations.push({
+          caseNumber: tc.caseNumber,
+          input: tc.input,
+          expected: tc.expected,
+          actual: '',
+          passed: false,
+          runtimeMs: 0,
+          stderr: cleanedErr || 'Runtime Error: Test case did not produce output',
+        });
+        if (!hasFailed) {
+          hasFailed = true;
+          finalVerdict = isTle ? 'Time Limit Exceeded' : 'Runtime Error';
+          failingCaseNumber = tc.caseNumber;
+        }
+        continue;
+      }
+
+      // Append user stdout if present
+      if (caseOut.userStdout) {
+        overallStdout += (overallStdout ? '\n' : '') + caseOut.userStdout;
+      }
+
+      // Check runtime error for this specific case
+      if (caseOut.error) {
+        hasFailed = true;
+        if (finalVerdict === 'Accepted') {
+          finalVerdict = 'Runtime Error';
+          failingCaseNumber = tc.caseNumber;
+        }
+        evaluations.push({
+          caseNumber: tc.caseNumber,
+          input: tc.input,
+          expected: tc.expected,
+          actual: '',
+          passed: false,
+          runtimeMs: res.runtimeMs,
+          stdout: caseOut.userStdout || undefined,
+          stderr: caseOut.error,
+        });
+        continue;
+      }
+
+      const actualValue = caseOut.resultValue ?? '';
+      const passed = compareOutputs(tc.expected, actualValue, options.orderInvariant);
+
+      evaluations.push({
         caseNumber: tc.caseNumber,
         input: tc.input,
         expected: tc.expected,
-        actual: resultValue,
+        actual: actualValue,
         passed,
         runtimeMs: res.runtimeMs,
-        stdout: userStdout || undefined,
-        stderr: cleanedErr || undefined,
-      };
+        stdout: caseOut.userStdout || undefined,
+      });
 
-      evaluations.push(evaluation);
-
-      if (!passed) {
+      if (!passed && !hasFailed) {
         hasFailed = true;
-        if (isTle) {
-          finalVerdict = 'Time Limit Exceeded';
-        } else if (isCompilationError) {
-          finalVerdict = 'Compilation Error';
-        } else if (isRuntimeError) {
-          finalVerdict = 'Runtime Error';
-        } else {
-          finalVerdict = 'Wrong Answer';
-        }
-
-        // Sequential Early-Exit for submissions
-        if (options.earlyExit) {
-          break;
-        }
+        finalVerdict = 'Wrong Answer';
+        failingCaseNumber = tc.caseNumber;
       }
-    } catch (err: unknown) {
-      hasFailed = true;
-      finalVerdict = 'Runtime Error';
-      const errMsg = err instanceof Error ? err.message : String(err);
-      overallStderr = errMsg;
+    }
+  } catch (err: unknown) {
+    hasFailed = true;
+    finalVerdict = 'Runtime Error';
+    const errMsg = err instanceof Error ? err.message : String(err);
+    overallStderr = errMsg;
 
+    for (const tc of testCases) {
       evaluations.push({
         caseNumber: tc.caseNumber,
         input: tc.input,
@@ -132,7 +246,6 @@ export async function runTestCases(
         runtimeMs: 0,
         stderr: errMsg,
       });
-
       if (options.earlyExit) {
         break;
       }
@@ -149,12 +262,13 @@ export async function runTestCases(
   return {
     success: finalVerdict === 'Accepted',
     verdict: finalVerdict,
-    runtimeMs: maxRuntime || 12,
-    memoryMb: maxMemory || 14.5,
+    runtimeMs: maxRuntime,
+    memoryMb: maxMemory,
     totalPassed,
     totalTests,
     cases: evaluations,
     stdout: overallStdout || undefined,
     stderr: overallStderr || undefined,
+    failingCaseNumber,
   };
 }

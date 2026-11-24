@@ -81,12 +81,14 @@ export interface ProblemCollection {
 }
 
 export type UserRole = 'user' | 'admin';
+export type UserPlan = 'free' | 'pro' | 'premium';
 
 export interface User {
   id: string;
   name: string;
   email: string;
   role: UserRole;
+  plan?: UserPlan;
   email_verified: boolean;
 }
 

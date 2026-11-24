@@ -1,8 +1,7 @@
 import type { LeaderboardEntry } from '../data/leaderboard';
 import type { LearningPath } from '../data/learningPaths';
-import type { ProblemEditorial } from '../data/editorials';
+import type { ProblemEditorial, Problem } from '../types';
 import type { StorageWriteResult } from '../lib/storage';
-import type { Problem } from '../types';
 
 export type ResourceStatus = 'loading' | 'ready' | 'error';
 

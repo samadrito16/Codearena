@@ -1,13 +1,5 @@
 import { ActiveInterviewRound, InterviewScorecard, InterviewVerdict } from '../../types/interview';
 
-function normalCdf(x: number, mean: number, stdDev: number): number {
-  const z = (x - mean) / stdDev;
-  const t = 1.0 / (1.0 + 0.2316419 * Math.abs(z));
-  const d = 0.3989423 * Math.exp((-z * z) / 2);
-  const prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
-  return z > 0 ? 1.0 - prob : prob;
-}
-
 export function computeInterviewScorecard(round: ActiveInterviewRound): InterviewScorecard {
   const p1 = round.problem1State;
   const p2 = round.problem2State;
@@ -65,8 +57,8 @@ export function computeInterviewScorecard(round: ActiveInterviewRound): Intervie
     verdict = 'LEAN HIRE';
   }
 
-  // Estimated Percentile (Mean = 58, StdDev = 18 for simulated FAANG candidates)
-  const percentile = Math.min(99.8, Math.max(5.0, Math.round(normalCdf(overallScore, 58, 18) * 1000) / 10));
+  // Percentile: hidden until sufficient real candidate cohort data is collected
+  const percentile = undefined;
 
   // Integrity Rating
   let integrityRating = 'Pristine (0 infractions)';
@@ -125,8 +117,8 @@ export function computeInterviewScorecard(round: ActiveInterviewRound): Intervie
     efficiency: {
       problem1RuntimeMs: p1.runtimeMs,
       problem2RuntimeMs: p2.runtimeMs,
-      runtimePercentile: Math.min(99, Math.round(70 + Math.random() * 25)),
-      memoryPercentile: Math.min(99, Math.round(65 + Math.random() * 30)),
+      runtimePercentile: undefined,
+      memoryPercentile: undefined,
       efficiencyVerdict: p1.isSolved && p2.isSolved ? 'Optimal Big-O Complexity Met' : 'Sub-optimal or Incomplete Test Run',
     },
     integrity: {

@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 dotenv.config();
+// Ensure backend/.env is also loaded when running from project root
+dotenv.config({ path: path.resolve(process.cwd(), 'backend', '.env') });
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
@@ -40,6 +42,12 @@ export const config = {
   // OnlineCompiler.io Code Execution Engine
   onlineCompilerApiKey: process.env.ONLINECOMPILER_API_KEY || '',
   onlineCompilerApiUrl: process.env.ONLINECOMPILER_API_URL || 'https://api.onlinecompiler.io/api/run-code-sync/',
+
+  // Daily Free Tier Execution Quotas (per calendar day UTC)
+  dailyExecutionLimitFree: parseInt(process.env.DAILY_EXECUTION_LIMIT_FREE || process.env.MAX_DAILY_RUNS_PER_USER || '50', 10),
+  dailyExecutionLimitGuest: parseInt(process.env.DAILY_EXECUTION_LIMIT_GUEST || '20', 10),
+  dailyExecutionLimitPro: parseInt(process.env.DAILY_EXECUTION_LIMIT_PRO || '250', 10),
+  dailyExecutionLimitPremium: parseInt(process.env.DAILY_EXECUTION_LIMIT_PREMIUM || '1000', 10),
 
   // Judge / Execution settings
   judge0ApiKey: process.env.JUDGE0_API_KEY || '',

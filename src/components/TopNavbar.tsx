@@ -114,7 +114,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     <header className={`top-navbar-root ${isScrolled ? 'is-scrolled' : ''}`}>
       <div
         className={`mx-auto flex h-[52px] w-full ${
-          isFullWidthNav ? 'max-w-none px-4 sm:px-8 lg:px-12' : 'max-w-[1560px] px-3 sm:px-5 lg:px-7'
+          isFullWidthNav ? 'max-w-none px-4 sm:px-6 lg:px-8' : 'max-w-[1560px] px-3 sm:px-5 lg:px-7'
         } items-center justify-between`}
       >
         {/* Left Side: Brand & Navigation */}

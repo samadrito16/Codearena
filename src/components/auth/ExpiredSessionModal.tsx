@@ -4,16 +4,19 @@ import { Clock, LogIn, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function ExpiredSessionModal() {
-  const { sessionExpired, dismissSessionExpired } = useAuth();
+  const { sessionExpired, dismissSessionExpired, status, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (sessionExpired) {
+    // Only open if sessionExpired is true and the user is NOT actively authenticated
+    if (sessionExpired && status !== 'authenticated' && !user) {
       setIsOpen(true);
+    } else if (status === 'authenticated' || Boolean(user)) {
+      setIsOpen(false);
     }
-  }, [sessionExpired]);
+  }, [sessionExpired, status, user]);
 
   if (!isOpen) return null;
 

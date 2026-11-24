@@ -49,10 +49,6 @@ export default function InterviewHub() {
 
   // Compute telemetry summary from history
   const totalRounds = history.length;
-  const avgPercentile =
-    totalRounds > 0
-      ? Math.round(history.reduce((acc, h) => acc + h.percentile, 0) / totalRounds)
-      : 0;
   const passedRounds = history.filter(
     (h) => h.verdict === 'STRONG HIRE' || h.verdict === 'HIRE'
   ).length;
@@ -80,7 +76,7 @@ export default function InterviewHub() {
         className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b"
         style={{ borderColor: 'var(--ca-border)' }}
       >
-        <div className="max-w-3xl space-y-3">
+        <div className="max-w-4xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border border-indigo-500/20 bg-indigo-500/10 text-indigo-500">
             <Timer size={13} />
             <span>Simulated Interview Conditions</span>
@@ -131,19 +127,6 @@ export default function InterviewHub() {
             <div>
               <div className="text-[10px] uppercase font-sans font-bold text-muted">Hire Rate</div>
               <div className="text-sm font-bold text-emerald-500">{passRate}%</div>
-            </div>
-          </div>
-
-          <div
-            className="flex items-center gap-2.5 rounded-2xl p-3 border"
-            style={{ borderColor: 'var(--ca-border)', backgroundColor: 'var(--ca-surface)' }}
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-500 border border-cyan-500/20">
-              <Zap size={16} />
-            </div>
-            <div>
-              <div className="text-[10px] uppercase font-sans font-bold text-muted">Avg Percentile</div>
-              <div className="text-sm font-bold text-cyan-500">{avgPercentile}%</div>
             </div>
           </div>
         </div>

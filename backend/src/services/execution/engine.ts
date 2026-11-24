@@ -46,7 +46,7 @@ function runProcessWithStdin(
           stdout,
           stderr: 'Time Limit Exceeded (4s)',
           runtimeMs: timeoutMs,
-          memoryMb: 18.5,
+          memoryMb: 0,
           exitCode: 124,
         });
       }, timeoutMs);
@@ -60,7 +60,7 @@ function runProcessWithStdin(
           stdout,
           stderr: err.message,
           runtimeMs: Date.now() - start,
-          memoryMb: 12.0,
+          memoryMb: 0,
           exitCode: 1,
         });
       });
@@ -72,7 +72,7 @@ function runProcessWithStdin(
           stdout: stdout.replace(/\r\n/g, '\n'),
           stderr: stderr.replace(/\r\n/g, '\n'),
           runtimeMs: Math.max(1, Date.now() - start),
-          memoryMb: 14.5,
+          memoryMb: 0,
           exitCode: code ?? 0,
         });
       });
@@ -86,7 +86,7 @@ function runProcessWithStdin(
         stdout: '',
         stderr: err instanceof Error ? err.message : String(err),
         runtimeMs: Date.now() - start,
-        memoryMb: 10.0,
+        memoryMb: 0,
         exitCode: 1,
       });
     }
@@ -137,11 +137,11 @@ async function executeWithOnlineCompiler(
 
     const data = (await response.json()) as OnlineCompilerResponse;
     const parsedTime = parseFloat(String(data.time ?? '0'));
-    const runtimeMs = parsedTime > 0 ? Math.round(parsedTime * 1000) : 12;
+    const runtimeMs = parsedTime > 0 ? Math.round(parsedTime * 1000) : 0;
 
     const parsedMem = parseFloat(String(data.memory ?? '0'));
     // OnlineCompiler reports memory in KB (e.g. 132040 KB = ~128.9 MB)
-    const memoryMb = parsedMem > 0 ? Math.round((parsedMem / 1024) * 10) / 10 : 15.2;
+    const memoryMb = parsedMem > 0 ? Math.round((parsedMem / 1024) * 10) / 10 : 0;
 
     let exitCode = data.exit_code ?? 0;
     if (data.status === 'time_limit_exceeded' || data.signal === 'SIGKILL' || data.signal === 'SIGXCPU') {

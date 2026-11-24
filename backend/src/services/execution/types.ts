@@ -1,5 +1,10 @@
 export const SENTINEL_START = '__CODEARENA_RESULT_START__';
 export const SENTINEL_END = '__CODEARENA_RESULT_END__';
+export const SENTINEL_CASE_START = '__CODEARENA_CASE_START__';
+export const SENTINEL_CASE_END = '__CODEARENA_CASE_END__';
+export const SENTINEL_ERROR_START = '__CODEARENA_ERROR_START__';
+export const SENTINEL_ERROR_END = '__CODEARENA_ERROR_END__';
+export const SENTINEL_CASE_DELIMITER = '<<<__CODEARENA_CASE__>>>';
 
 export interface TestCaseInput {
   caseNumber: number;
@@ -17,6 +22,20 @@ export interface TestCaseEvaluation {
   runtimeMs?: number;
   stdout?: string;
   stderr?: string;
+  notRun?: boolean;
+}
+
+export interface BatchCaseOutput {
+  caseNumber: number;
+  userStdout?: string;
+  resultValue?: string;
+  error?: string;
+}
+
+export interface ExecutionQuotaInfo {
+  limit: number;
+  remaining: number;
+  resetAt: string;
 }
 
 export type ExecutionVerdict =
@@ -37,6 +56,7 @@ export interface BatchExecutionResult {
   stdout?: string;
   stderr?: string;
   failingCaseNumber?: number;
+  quota?: ExecutionQuotaInfo;
 }
 
 export interface EngineRunResult {

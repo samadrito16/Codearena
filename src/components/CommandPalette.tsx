@@ -158,7 +158,7 @@ export default function CommandPalette() {
         id: `problem-${problem.id}`,
         group: 'Problems' as const,
         title: problem.title,
-        subtitle: `${problem.topics.slice(0, 3).join(' · ')} · ${problem.acceptance} acceptance`,
+        subtitle: `${problem.topics.slice(0, 3).join(' · ')}${problem.acceptance && problem.acceptance !== '—' && problem.acceptance !== '0%' ? ` · ${problem.acceptance} acceptance` : ''}`,
         keywords: `${problem.id} ${problem.title} ${problem.difficulty} ${problem.topics.join(' ')} ${problem.description}`,
         icon: isSolved ? <CheckCircle2 size={15} className="text-emerald-500"/> : <Code2 size={15}/>,
         badge: problem.difficulty,

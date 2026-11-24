@@ -10,6 +10,7 @@ import { apiLimiter } from './middleware/rateLimiter.js';
 
 import authRoutes from './routes/authRoutes.js';
 import problemRoutes from './routes/problemRoutes.js';
+import editorialRoutes from './routes/editorialRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import submissionRoutes from './routes/submissionRoutes.js';
@@ -83,6 +84,7 @@ app.get('/api/health', (req, res) => {
 // Mount modular API routers with clean /api path prefixes
 app.use('/api/auth', authRoutes);
 app.use('/api/problems', problemRoutes);
+app.use('/api/editorials', editorialRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/submissions', submissionRoutes);

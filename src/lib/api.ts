@@ -84,13 +84,22 @@ export async function apiRequest<T>(
       error?: { message?: string; code?: string };
     } | null;
 
-    // Trigger session expired event on 401 (excluding active login/register credential attempts)
-    if (response.status === 401 && !path.includes('/login') && !path.includes('/register')) {
+    // Trigger session expired event ONLY on genuine session expiration for active authenticated sessions.
+    // Routine probes (/auth/me, /editorial, /health) and background silent requests must never trigger the alarm.
+    const isProbeOrPublic =
+      path === '/auth/me' ||
+      path.includes('/login') ||
+      path.includes('/register') ||
+      path.includes('/editorial') ||
+      path.includes('/health') ||
+      silent;
+
+    if (response.status === 401 && !isProbeOrPublic && body?.error?.code === 'SESSION_EXPIRED') {
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new CustomEvent('codearena:session-expired', {
           detail: {
             path,
-            code: body?.error?.code || 'SESSION_EXPIRED',
+            code: 'SESSION_EXPIRED',
             message: body?.error?.message || 'Your session has expired. Please sign in again to continue.',
           },
         }));

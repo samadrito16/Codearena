@@ -702,10 +702,12 @@ function WorkspaceSession({
               <div className="mt-6"><h3 className="mb-3 text-xs font-bold text-primary">Constraints</h3><ul className="list-disc space-y-1.5 pl-5 text-xs leading-6 text-muted">{problem.constraints.map((item) => <li key={item}>{item}</li>)}</ul></div>
               <div className="workspace-description-footer mt-8">
                 <div className="flex flex-wrap items-start gap-x-5 gap-y-2">
-                  <div>
-                    <p className="text-[10px] text-muted">Acceptance rate</p>
-                    <p className="mt-0.5 text-xs font-bold text-primary tabular-nums">{problem.acceptance}</p>
-                  </div>
+                  {problem.acceptance && problem.acceptance !== '—' && problem.acceptance !== '0%' && (
+                    <div>
+                      <p className="text-[10px] text-muted">Acceptance rate</p>
+                      <p className="mt-0.5 text-xs font-bold text-primary tabular-nums">{problem.acceptance}</p>
+                    </div>
+                  )}
                   <div
                     title={`Estimated active practice time for this session. Automatically pauses when the browser tab is hidden or after ${PRACTICE_IDLE_THRESHOLD_MINUTES} minutes without interaction. Sessions under ${MIN_PRACTICE_SESSION_SECONDS}s are not logged.`}
                   >
@@ -1123,14 +1125,18 @@ function WorkspaceSession({
                         </div>
 
                         <div className="flex items-center gap-3 text-xs text-muted">
-                          <span className="inline-flex items-center gap-1 font-mono">
-                            <Clock size={12} className="themed-link"/>
-                            {executionResult.runtimeMs} ms
-                          </span>
-                          <span className="inline-flex items-center gap-1 font-mono">
-                            <Cpu size={12} className="themed-link"/>
-                            {executionResult.memoryMb} MB
-                          </span>
+                          {executionResult.runtimeMs !== undefined && executionResult.runtimeMs > 0 && (
+                            <span className="inline-flex items-center gap-1 font-mono">
+                              <Clock size={12} className="themed-link"/>
+                              {executionResult.runtimeMs} ms
+                            </span>
+                          )}
+                          {executionResult.memoryMb !== undefined && executionResult.memoryMb > 0 && (
+                            <span className="inline-flex items-center gap-1 font-mono">
+                              <Cpu size={12} className="themed-link"/>
+                              {executionResult.memoryMb} MB
+                            </span>
+                          )}
                           {executionResult.rankingPercentile !== undefined && (
                             <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
                               Beats {executionResult.rankingPercentile}%

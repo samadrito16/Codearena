@@ -10,6 +10,13 @@ import CommandPalette from './CommandPalette';
 import Footer from './Footer';
 import { PrismMark } from './PrismLogo';
 import SmoothScrollProvider from './SmoothScrollProvider';
+import {
+  getStoredActiveRound,
+  saveStoredActiveRound,
+  saveInterviewHistoryItem,
+} from '../lib/interview/progress';
+import { computeInterviewScorecard } from '../lib/interview/scoring';
+import { ActiveInterviewRound } from '../types/interview';
 
 const baseMobileItems = [
   ['/dashboard', 'Overview'],
@@ -36,7 +43,7 @@ export default function Layout() {
   const isEditor = location.pathname.startsWith('/editor');
   const isInterviewStudio = location.pathname.startsWith('/interview/') && location.pathname !== '/interview';
   const isInterviewHub = location.pathname === '/interview';
-  const isFullWidthPage = isYearPlanner || isInterviewHub;
+  const isFullWidthPage = isYearPlanner || isInterviewHub || isInterviewStudio;
   const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio;
 
   const isAuthRoute = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].some(
@@ -72,6 +79,24 @@ export default function Layout() {
       );
     }
   }, [location.pathname, isWorkspace, isEditor, isAuthRoute]);
+
+  // Proctored mock interview lockdown: If candidate navigates anywhere away from the interview studio, auto-submit immediately
+  useEffect(() => {
+    if (!isInterviewStudio) {
+      const active = getStoredActiveRound();
+      if (active && !active.isCompleted) {
+        const finished: ActiveInterviewRound = {
+          ...active,
+          isCompleted: true,
+          submittedAt: Date.now(),
+          autoSubmitReason: 'Auto-submitted: Exited proctored interview room',
+        };
+        const scorecard = computeInterviewScorecard(finished);
+        saveInterviewHistoryItem(scorecard);
+        saveStoredActiveRound(null);
+      }
+    }
+  }, [isInterviewStudio, location.pathname]);
 
   return (
     <SmoothScrollProvider>
@@ -163,7 +188,7 @@ export default function Layout() {
               isWorkspaceLike
                 ? `${isInterviewStudio ? 'h-screen' : 'h-[calc(100vh-52px)]'} workspace-route-main w-full overflow-hidden p-0 m-0`
                 : isFullWidthPage
-                ? 'w-full max-w-none flex-1 px-4 sm:px-8 lg:px-12 pb-12 pt-4'
+                ? 'w-full max-w-none flex-1 px-4 sm:px-6 lg:px-8 pb-12 pt-4'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
             }
           >
