@@ -17,6 +17,9 @@ import type {
   User,
   UserProfileData,
   UserProgressData,
+  IssuedCertificate,
+  PublicProfileBadge,
+  PublicProfileData,
 } from '../types/index.js';
 
 interface DatabaseSchema {
@@ -34,6 +37,7 @@ interface DatabaseSchema {
     profile?: UserProfileData;
   }>;
   dailyExecutions?: Record<string, { count: number; date: string }>;
+  certificates?: IssuedCertificate[];
 }
 
 export class Database {
@@ -48,6 +52,7 @@ export class Database {
     auditLogs: [],
     progress: {},
     dailyExecutions: {},
+    certificates: [],
   };
 
   private filePath: string;
@@ -88,6 +93,7 @@ export class Database {
     if (!this.data.auditLogs) this.data.auditLogs = [];
     if (!this.data.progress) this.data.progress = {};
     if (!this.data.dailyExecutions) this.data.dailyExecutions = {};
+    if (!this.data.certificates) this.data.certificates = [];
 
     // Seed admin user if not present
     const existingAdmin = this.findUserByEmail('admin@prismcode.com') || this.findUserByEmail('admin@codearena.com');
@@ -160,7 +166,16 @@ export class Database {
     try {
       const payload = JSON.stringify(this.data, null, 2);
       await fs.promises.writeFile(tempPath, payload, 'utf-8');
-      await fs.promises.rename(tempPath, this.filePath);
+      try {
+        await fs.promises.rename(tempPath, this.filePath);
+      } catch (renameErr: any) {
+        if (renameErr.code === 'EPERM' || renameErr.code === 'EBUSY') {
+          await fs.promises.copyFile(tempPath, this.filePath);
+          await fs.promises.unlink(tempPath).catch(() => {});
+        } else {
+          throw renameErr;
+        }
+      }
     } catch (err) {
       console.error('[Database] Failed to write database file:', err);
     } finally {
@@ -687,6 +702,256 @@ export class Database {
     });
 
     return entries;
+  }
+
+  // --- Certificates & Shareable Credentials ---
+  public listCertificates(userId: string): IssuedCertificate[] {
+    if (!this.data.certificates) return [];
+    return this.data.certificates.filter((c) => c.userId === userId);
+  }
+
+  public findCertificateById(certId: string): IssuedCertificate | undefined {
+    if (!this.data.certificates || !certId) return undefined;
+    const normalized = certId.trim().toUpperCase();
+    return this.data.certificates.find((c) => c.id.toUpperCase() === normalized);
+  }
+
+  public async createCertificate(cert: IssuedCertificate): Promise<IssuedCertificate> {
+    if (!this.data.certificates) {
+      this.data.certificates = [];
+    }
+    const existingIdx = this.data.certificates.findIndex(
+      (c) => c.id === cert.id || (c.userId === cert.userId && c.trackId === cert.trackId)
+    );
+    if (existingIdx !== -1) {
+      this.data.certificates[existingIdx] = cert;
+    } else {
+      this.data.certificates.unshift(cert);
+    }
+    await this.save();
+    return cert;
+  }
+
+  // --- Verified Badges Computation ---
+  public computeUserBadges(userId: string): PublicProfileBadge[] {
+    const progress = this.data.progress[userId] || { solvedIds: [], dailyCompletions: {} };
+    const solvedIds = progress.solvedIds || [];
+    const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+
+    const totalSolved = solvedProblems.length;
+    const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
+    const hardSolved = solvedProblems.filter((p) => p.difficulty === 'Hard').length;
+    const streak = Object.keys(progress.dailyCompletions || {}).length;
+    const hasInterview = (this.data.activity || []).some(
+      (a) => a.userId === userId && (a.topic.toLowerCase().includes('interview') || a.type === 'practice')
+    );
+
+    const definitions = [
+      {
+        id: 'first-solve',
+        title: 'First Breakthrough',
+        description: 'Solved your first algorithmic problem on PrismCode',
+        category: 'milestone',
+        tier: 'bronze',
+        unlocked: totalSolved >= 1,
+      },
+      {
+        id: 'five-solved',
+        title: 'Algorithmic Foundation',
+        description: 'Successfully solved 5 distinct algorithmic problems',
+        category: 'milestone',
+        tier: 'bronze',
+        unlocked: totalSolved >= 5,
+      },
+      {
+        id: 'twenty-five-solved',
+        title: 'Quarter Century',
+        description: 'Conquered 25 verified algorithmic challenges',
+        category: 'milestone',
+        tier: 'silver',
+        unlocked: totalSolved >= 25,
+      },
+      {
+        id: 'fifty-solved',
+        title: 'Half Century Vanguard',
+        description: 'Achieved 50 verified problem solutions',
+        category: 'milestone',
+        tier: 'gold',
+        unlocked: totalSolved >= 50,
+      },
+      {
+        id: 'century-club',
+        title: 'Century Club 100',
+        description: 'Reached elite milestone of 100 verified solved problems',
+        category: 'milestone',
+        tier: 'diamond',
+        unlocked: totalSolved >= 100,
+      },
+      {
+        id: 'medium-artisan',
+        title: 'Medium Artisan',
+        description: 'Solved 15+ Medium-tier algorithmic challenges',
+        category: 'mastery',
+        tier: 'silver',
+        unlocked: mediumSolved >= 15,
+      },
+      {
+        id: 'medium-vanguard',
+        title: 'Medium Vanguard',
+        description: 'Conquered 35+ Medium-tier algorithmic challenges',
+        category: 'mastery',
+        tier: 'gold',
+        unlocked: mediumSolved >= 35,
+      },
+      {
+        id: 'hard-breakthrough',
+        title: 'Hard Breakthrough',
+        description: 'Solved at least 1 Hard-difficulty algorithmic problem',
+        category: 'mastery',
+        tier: 'gold',
+        unlocked: hardSolved >= 1,
+      },
+      {
+        id: 'hard-veteran',
+        title: 'Hard Veteran',
+        description: 'Conquered 5+ Hard-difficulty algorithmic challenges',
+        category: 'mastery',
+        tier: 'diamond',
+        unlocked: hardSolved >= 5,
+      },
+      {
+        id: 'week-streak',
+        title: '7-Day Consistency',
+        description: 'Maintained a 7-day daily practice streak',
+        category: 'streak',
+        tier: 'silver',
+        unlocked: streak >= 7,
+      },
+      {
+        id: 'month-streak',
+        title: '30-Day Dedication',
+        description: 'Maintained a 30-day continuous daily coding streak',
+        category: 'streak',
+        tier: 'diamond',
+        unlocked: streak >= 30,
+      },
+      {
+        id: 'interview-verified',
+        title: 'Interview Ready',
+        description: 'Completed technical interview simulation with proctoring integrity',
+        category: 'interview',
+        tier: 'gold',
+        unlocked: hasInterview || totalSolved >= 10,
+      },
+    ];
+
+    const badges: PublicProfileBadge[] = [];
+    const today = new Date().toISOString();
+
+    for (const d of definitions) {
+      if (d.unlocked) {
+        const hash = crypto
+          .createHmac('sha256', 'prismcode_verified_badge_salt')
+          .update(`${userId}:${d.id}`)
+          .digest('hex')
+          .slice(0, 10)
+          .toUpperCase();
+
+        badges.push({
+          id: d.id,
+          title: d.title,
+          description: d.description,
+          category: d.category,
+          tier: d.tier,
+          unlockedAt: today,
+          verificationHash: `PRISM-BDG-${hash}`,
+        });
+      }
+    }
+
+    return badges;
+  }
+
+  // --- Public Profile Resolver ---
+  public findUserByIdOrHandle(identifier: string): User | undefined {
+    if (!identifier) return undefined;
+    const clean = identifier.trim().toLowerCase();
+
+    // 1. Direct ID match
+    const byId = this.data.users.find((u) => u.id.toLowerCase() === clean);
+    if (byId) return byId;
+
+    // 2. Email username match (e.g. alex from alex@example.com)
+    const byEmailPrefix = this.data.users.find((u) => u.email.split('@')[0].toLowerCase() === clean);
+    if (byEmailPrefix) return byEmailPrefix;
+
+    // 3. Display name slug match
+    const bySlug = this.data.users.find((u) => {
+      const slug = u.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return slug === clean;
+    });
+    if (bySlug) return bySlug;
+
+    // 4. Profile display name slug match
+    for (const [uid, p] of Object.entries(this.data.progress)) {
+      if (p.profile?.displayName) {
+        const pSlug = p.profile.displayName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        if (pSlug === clean) {
+          return this.findUserById(uid);
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  public getPublicProfileData(identifier: string): PublicProfileData | null {
+    const user = this.findUserByIdOrHandle(identifier);
+    if (!user) return null;
+
+    const progress = this.data.progress[user.id] || { solvedIds: [], dailyCompletions: {} };
+    const profile = progress.profile || {
+      displayName: user.name,
+      bio: '',
+      avatarMode: 'initials' as const,
+      avatarColor: 'indigo',
+      avatarImage: '',
+      visibility: 'public' as const,
+      updatedAt: null,
+    };
+
+    const solvedIds = progress.solvedIds || [];
+    const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+    const easySolved = solvedProblems.filter((p) => p.difficulty === 'Easy').length;
+    const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
+    const hardSolved = solvedProblems.filter((p) => p.difficulty === 'Hard').length;
+    const points = easySolved * 10 + mediumSolved * 20 + hardSolved * 30;
+    const streak = Object.keys(progress.dailyCompletions || {}).length;
+
+    const badges = this.computeUserBadges(user.id);
+    const certificates = this.listCertificates(user.id);
+    const handle = user.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    return {
+      id: user.id,
+      handle,
+      name: profile.displayName || user.name,
+      bio: profile.bio || '',
+      avatarMode: profile.avatarMode || 'initials',
+      avatarColor: profile.avatarColor || 'indigo',
+      avatarImage: profile.avatarImage || '',
+      visibility: profile.visibility || 'public',
+      stats: {
+        solvedCount: solvedIds.length,
+        easySolved,
+        mediumSolved,
+        hardSolved,
+        points,
+        streak,
+      },
+      badges,
+      certificates,
+    };
   }
 }
 

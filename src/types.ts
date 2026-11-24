@@ -175,3 +175,92 @@ export interface AdminImportResponse {
   rejected: { row: number; label: string; reasons: string[] }[];
 }
 
+export interface CertificateMetrics {
+  solvedCount: number;
+  mediumCount: number;
+  hardCount: number;
+  rankPercentile?: number;
+}
+
+export interface IssuedCertificate {
+  id: string;
+  userId: string;
+  recipientName: string;
+  trackId: string;
+  title: string;
+  description: string;
+  issueDate: string;
+  expiryDate?: string;
+  credentialHash: string;
+  skills: string[];
+  metrics: CertificateMetrics;
+}
+
+export interface CertificateTrack {
+  id: string;
+  title: string;
+  description: string;
+  requiredSolved: number;
+  requiredMedium: number;
+  requiredHard: number;
+  skills: string[];
+  isEligible: boolean;
+  progressPct: number;
+  currentSolved: number;
+  currentMedium: number;
+  currentHard: number;
+}
+
+export interface VerifiedBadge {
+  id: string;
+  title: string;
+  description: string;
+  category: 'milestone' | 'mastery' | 'streak' | 'interview';
+  tier: 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond';
+  unlocked: boolean;
+  unlockedAt?: string;
+  verificationHash?: string;
+  progress: number;
+  target: number;
+  progressLabel: string;
+}
+
+export interface PublicProfileBadge {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  tier: string;
+  unlockedAt: string;
+  verificationHash: string;
+}
+
+export interface PublicProfileData {
+  id: string;
+  handle: string;
+  name: string;
+  bio: string;
+  avatarMode: 'initials' | 'image';
+  avatarColor: string;
+  avatarImage: string;
+  visibility: 'public' | 'private';
+  company?: string;
+  university?: string;
+  location?: string;
+  publicEmail?: string;
+  website?: string;
+  socialLinks?: string[];
+  stats: {
+    solvedCount: number;
+    easySolved: number;
+    mediumSolved: number;
+    hardSolved: number;
+    points: number;
+    streak: number;
+  };
+  badges: PublicProfileBadge[];
+  certificates: IssuedCertificate[];
+  isPrivate?: boolean;
+}
+
+

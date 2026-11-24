@@ -31,6 +31,8 @@ import InterviewStudio from './pages/InterviewStudio';
 import YearPlanner from './pages/YearPlanner';
 import Projects from './pages/Projects';
 import StandaloneEditor from './pages/StandaloneEditor';
+import PublicProfile from './pages/PublicProfile';
+import CertificateVerification from './pages/CertificateVerification';
 
 const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'];
 
@@ -188,6 +190,9 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/review" element={<ReviewHub />} />
           <Route path="/interview" element={<InterviewHub />} />
+          <Route path="/u/:identifier" element={<PublicProfile />} />
+          <Route path="/p/:identifier" element={<PublicProfile />} />
+          <Route path="/verify/:certId" element={<CertificateVerification />} />
 
           {/* Protected Application Routes (Requires login; intercepts and redirects to login) */}
           <Route element={<RequireAuth />}>

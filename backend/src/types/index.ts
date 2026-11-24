@@ -173,3 +173,61 @@ export interface AuditLog {
   ipAddress?: string;
   timestamp: string;
 }
+
+export interface CertificateMetrics {
+  solvedCount: number;
+  mediumCount: number;
+  hardCount: number;
+  rankPercentile?: number;
+}
+
+export interface IssuedCertificate {
+  id: string;
+  userId: string;
+  recipientName: string;
+  trackId: string;
+  title: string;
+  description: string;
+  issueDate: string;
+  expiryDate?: string;
+  credentialHash: string;
+  skills: string[];
+  metrics: CertificateMetrics;
+}
+
+export interface PublicProfileBadge {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  tier: string;
+  unlockedAt: string;
+  verificationHash: string;
+}
+
+export interface PublicProfileData {
+  id: string;
+  handle: string;
+  name: string;
+  bio: string;
+  avatarMode: 'initials' | 'image';
+  avatarColor: string;
+  avatarImage: string;
+  visibility: 'public' | 'private';
+  company?: string;
+  university?: string;
+  location?: string;
+  publicEmail?: string;
+  website?: string;
+  socialLinks?: string[];
+  stats: {
+    solvedCount: number;
+    easySolved: number;
+    mediumSolved: number;
+    hardSolved: number;
+    points: number;
+    streak: number;
+  };
+  badges: PublicProfileBadge[];
+  certificates: IssuedCertificate[];
+}
