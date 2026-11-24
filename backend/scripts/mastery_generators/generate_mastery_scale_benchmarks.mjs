@@ -129,23 +129,22 @@ const referenceSolvers = {
     }
     return maxLen;
   },
-  'sw-005': (nums, k) => {
-    function atMost(target) {
-      if (target <= 0) return 0;
-      const count = new Map();
-      let l = 0, res = 0;
-      for (let r = 0; r < nums.length; r++) {
-        count.set(nums[r], (count.get(nums[r]) || 0) + 1);
-        while (count.size > target) {
-          count.set(nums[l], count.get(nums[l]) - 1);
-          if (count.get(nums[l]) === 0) count.delete(nums[l]);
-          l++;
-        }
-        res += r - l + 1;
+  'sw-005': (s, maxDistinct) => {
+    if (maxDistinct === 0 || !s) return 0;
+    const counts = new Map();
+    let left = 0, maxLen = 0;
+    for (let right = 0; right < s.length; right++) {
+      const ch = s[right];
+      counts.set(ch, (counts.get(ch) || 0) + 1);
+      while (counts.size > maxDistinct) {
+        const leftCh = s[left];
+        counts.set(leftCh, counts.get(leftCh) - 1);
+        if (counts.get(leftCh) === 0) counts.delete(leftCh);
+        left++;
       }
-      return res;
+      maxLen = Math.max(maxLen, right - left + 1);
     }
-    return atMost(k) - atMost(k - 1);
+    return maxLen;
   },
   'hm-001': (nums, target) => {
     const map = new Map();
@@ -163,7 +162,9 @@ const referenceSolvers = {
       if (!map.has(key)) map.set(key, []);
       map.get(key).push(w);
     }
-    return Array.from(map.values());
+    return Array.from(map.values())
+      .map((g) => g.slice().sort())
+      .sort((a, b) => a.length - b.length || a[0].localeCompare(b[0]));
   },
   'hm-003': (nums, k) => {
     const map = new Map([[0, 1]]);
@@ -708,8 +709,9 @@ const scaleConfigGenerators = {
     const r = 50, c = 50;
     const grid = Array.from({ length: r }, () => new Array(c).fill(1));
     grid[0][0] = 2;
-    const expected = String(referenceSolvers['bfs-003'](grid));
     const input = `grid_cells = ${JSON.stringify(grid)}`;
+    const gridCopy = grid.map((row) => row.slice());
+    const expected = String(referenceSolvers['bfs-003'](gridCopy));
     return {
       n_size: r * c,
       input,
@@ -723,8 +725,9 @@ const scaleConfigGenerators = {
   'bfs-004': () => {
     const n = 50;
     const grid = Array.from({ length: n }, () => new Array(n).fill(0));
-    const expected = String(referenceSolvers['bfs-004'](grid));
     const input = `grid_terrain = ${JSON.stringify(grid)}`;
+    const gridCopy = grid.map((row) => row.slice());
+    const expected = String(referenceSolvers['bfs-004'](gridCopy));
     return {
       n_size: n * n,
       input,

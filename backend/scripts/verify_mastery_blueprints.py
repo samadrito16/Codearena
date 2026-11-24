@@ -10,6 +10,9 @@ import json
 import random
 import sys
 import os
+import re
+import inspect
+import time
 
 def get_catalog_path():
     candidates = [
@@ -28,11 +31,137 @@ def load_catalog():
     with open(CATALOG_PATH, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def parse_named_input(raw):
+    raw = raw.strip()
+    parts = re.split(r',\s*(?=[a-zA-Z_]\w*\s*=)', raw)
+    scope = {}
+    for p in parts:
+        if '=' in p:
+            k, v = p.split('=', 1)
+            k = k.strip()
+            v = v.strip()
+            scope[k] = eval(v, {
+                '__builtins__': None,
+                'true': True, 'false': False, 'null': None,
+                'True': True, 'False': False, 'None': None
+            })
+    return scope
+
+def normalize_val(val):
+    if isinstance(val, (list, tuple)):
+        return [normalize_val(x) for x in val]
+    return val
+
+def values_match(actual, expected, pid=None):
+    if pid == 'hm-002':
+        def sort_groups(lst):
+            return sorted([sorted(g) for g in lst], key=lambda x: (len(x), x[0] if x else ''))
+        return sort_groups(actual) == sort_groups(expected)
+    if pid == 'tp-005':
+        return sorted([sorted(x) for x in actual]) == sorted([sorted(x) for x in expected])
+    return normalize_val(actual) == normalize_val(expected)
+
 def run_tests():
     catalog = load_catalog()
     problems = catalog['problems']
-    print(f"=== Verifying {len(problems)} Mastery Blueprints (Brute Force vs Optimal Differential Fuzzing) ===\n")
+    print(f"=== Verifying {len(problems)} Mastery Blueprints ===\n")
+    print("--- Phase 1: Verifying Statement Examples & Test Cases Against Reference Solutions ---")
     
+    total_examples_verified = 0
+    total_test_cases_verified = 0
+
+    for idx, p in enumerate(problems, start=1):
+        pid = p['id']
+        title = p['title']
+        
+        opt_code = p['optimal_solution']['code']
+        bf_code = p['brute_force']['code']
+        
+        opt_scope = {}
+        bf_scope = {}
+        exec(opt_code, opt_scope)
+        exec(bf_code, bf_scope)
+        
+        fn_name = None
+        for line in opt_code.splitlines():
+            line = line.strip()
+            if line.startswith('def '):
+                fn_name = line.split('(')[0].replace('def ', '').strip()
+                break
+                
+        opt_fn = opt_scope[fn_name]
+        bf_fn = bf_scope[fn_name]
+        sig = inspect.signature(opt_fn)
+
+        # 1. Verify Statement Examples
+        for ex_idx, ex in enumerate(p['statement'].get('examples', []), start=1):
+            raw_in = ex['input']
+            raw_out = ex['output']
+            explanation = ex.get('explanation', '')
+            
+            # Check for leftover draft / informal scratchpad thoughts
+            for bad_word in ['wait,', 'todo', 'fixme', 'scratchpad']:
+                assert bad_word not in explanation.lower(), \
+                    f"Problem {pid} Example {ex_idx} explanation contains draft monologue: \"{explanation}\""
+                
+            kwargs = parse_named_input(raw_in)
+            expected_val = eval(raw_out, {
+                '__builtins__': None,
+                'true': True, 'false': False, 'null': None,
+                'True': True, 'False': False, 'None': None
+            })
+            
+            call_args = [kwargs[param] for param in sig.parameters.keys() if param in kwargs]
+            if len(call_args) != len(sig.parameters):
+                call_args = list(kwargs.values())
+                
+            opt_res = opt_fn(*call_args)
+            bf_res = bf_fn(*call_args)
+            
+            assert values_match(opt_res, expected_val, pid), \
+                f"Problem {pid} Example {ex_idx} OPTIMAL MISMATCH! Expected {expected_val}, got {opt_res} on input: {raw_in}"
+            assert values_match(bf_res, expected_val, pid), \
+                f"Problem {pid} Example {ex_idx} BRUTE FORCE MISMATCH! Expected {expected_val}, got {bf_res} on input: {raw_in}"
+            total_examples_verified += 1
+
+        # 2. Verify Statement Test Cases
+        for tc_idx, tc in enumerate(p['statement'].get('test_cases', []), start=1):
+            raw_in = tc['input']
+            raw_out = tc['expected']
+            explanation = tc.get('explanation', '')
+            is_scale = tc.get('isScaleTest', False)
+            
+            for bad_word in ['wait,', 'todo', 'fixme', 'scratchpad']:
+                assert bad_word not in explanation.lower(), \
+                    f"Problem {pid} Test Case {tc_idx} explanation contains draft monologue: \"{explanation}\""
+                
+            kwargs = parse_named_input(raw_in)
+            expected_val = eval(raw_out, {
+                '__builtins__': None,
+                'true': True, 'false': False, 'null': None,
+                'True': True, 'False': False, 'None': None
+            })
+            
+            call_args = [kwargs[param] for param in sig.parameters.keys() if param in kwargs]
+            if len(call_args) != len(sig.parameters):
+                call_args = list(kwargs.values())
+                
+            opt_res = opt_fn(*call_args)
+            assert values_match(opt_res, expected_val, pid), \
+                f"Problem {pid} Test Case {tc_idx} OPTIMAL MISMATCH! Expected {expected_val}, got {opt_res} on input: {raw_in}"
+                
+            if not is_scale:
+                bf_res = bf_fn(*call_args)
+                assert values_match(bf_res, expected_val, pid), \
+                    f"Problem {pid} Test Case {tc_idx} BRUTE FORCE MISMATCH! Expected {expected_val}, got {bf_res} on input: {raw_in}"
+            total_test_cases_verified += 1
+
+        print(f"  ✓ {pid} ({title}): Verified {len(p['statement']['examples'])} examples & {len(p['statement']['test_cases'])} test cases agree with reference solutions.")
+
+    print(f"\n[PHASE 1 COMPLETE] All {total_examples_verified} statement examples and {total_test_cases_verified} test cases match reference solutions with zero draft thoughts.\n")
+
+    # Phase 2: Differential Fuzzing
+    print("--- Phase 2: Brute Force vs Optimal Differential Fuzzing ---")
     total_passed = 0
     total_fuzz_tests = 0
 
@@ -439,10 +568,8 @@ def run_tests():
     print("Zero placeholders. Every brute force & optimal solution mathematically identical.")
     print("=" * 65 + "\n")
 
-    # Phase 2: Verifying High-N Scale Benchmarks (Time Complexity Claims)
-    print("=== Phase 2: Verifying High-N Scale Benchmarks (Proving TLE vs Optimal Pass) ===\n")
-    import time
-    import inspect
+    # Phase 3: Verifying High-N Scale Benchmarks (Time Complexity Claims)
+    print("=== Phase 3: Verifying High-N Scale Benchmarks (Proving TLE vs Optimal Pass) ===\n")
 
     scale_passed = 0
     for idx, p in enumerate(problems, start=1):
@@ -466,7 +593,6 @@ def run_tests():
 
         # Execute input assignment in clean scope
         input_scope = {}
-        import re
         assignment_lines = re.split(r',\s*(?=[a-zA-Z_]\w*\s*=)', sb['input'])
         exec('\n'.join(assignment_lines), input_scope)
 

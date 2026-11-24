@@ -19,8 +19,8 @@ export function getCuratedTwoPointers() {
         examples: [
           {
             input: 'telemetry_readings = [3, 8, 12, 19, 27], target_discrepancy = 31',
-            output: '[2, 4]',
-            explanation: 'telemetry_readings[1] + telemetry_readings[3] = 8 + 19 = 27... wait, 8 + 19 = 27; reading 8 at index 2 and 19 at index 4 (1-based) gives 8 + 19 = 27, but with target 31, 12 (index 3) + 19 (index 4) = 31. Thus [3, 4] or for 8 + 23.'
+            output: '[3, 4]',
+            explanation: 'telemetry_readings[2] + telemetry_readings[3] = 12 + 19 = 31. Since the problem requires 1-based indices, the result is [3, 4].'
           },
           {
             input: 'telemetry_readings = [-10, -3, 0, 5, 9], target_discrepancy = -5',
