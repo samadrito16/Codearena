@@ -24,7 +24,7 @@ export default function MasteryHub() {
             Master Fundamental Blueprints
           </h1>
           <p className="text-xs sm:text-sm text-muted mt-2 max-w-xl leading-relaxed">
-            25 foundational patterns, subgoal architectures, and targeted boundary condition recall.
+            {stats.totalBlueprints} foundational blueprints across 5 core algorithmic patterns with subgoal architectures, line-by-line annotations, and active drills.
           </p>
         </div>
 

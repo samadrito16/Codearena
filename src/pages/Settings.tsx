@@ -1,18 +1,24 @@
 import React from 'react';
 import {
   Activity,
+  ArrowRight,
   Award,
   Building,
+  Calendar,
   Check,
   CheckCircle2,
   Clock,
+  Flame,
   Globe,
   EyeOff,
   Mail,
   MapPin,
   Moon,
   Share2,
+  Sliders,
+  Sparkles,
   Sun,
+  Target,
   UserCheck,
   KeyRound,
   LogOut,
@@ -82,6 +88,8 @@ export default function Settings() {
     setFontSize,
     privacySettings,
     updatePrivacySettings,
+    adaptiveMasteryPlan,
+    updateAdaptiveMasteryPlan,
   } = useApp();
 
   const isPrivate = privacySettings.profileVisibility === 'private';
@@ -441,6 +449,204 @@ export default function Settings() {
                     onChange={(checked) => updatePrivacySettings({ showAchievements: checked })}
                     icon={Award}
                   />
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Topic: Adaptive Mastery & YearPlanner Integration */}
+        <section aria-labelledby="settings-adaptive-title" className="space-y-6">
+          <div>
+            <div className="flex items-center gap-2.5">
+              <h2
+                id="settings-adaptive-title"
+                className="text-xl sm:text-2xl font-extrabold text-primary tracking-tight"
+              >
+                Adaptive Preparation &amp; YearPlanner
+              </h2>
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-500 border border-amber-500/20">
+                <Sparkles size={11} /> Smart Pacing
+              </span>
+            </div>
+            <p className="mt-1 text-xs sm:text-sm text-muted leading-relaxed">
+              Connect your YearPlanner timeline with the 100 Mastery blueprints to turn your schedule into an adaptive curriculum like &ldquo;Placements in 45 days, here&apos;s today&apos;s set&rdquo;.
+            </p>
+          </div>
+
+          <div
+            className="p-5 rounded-2xl border transition-all space-y-6"
+            style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+          >
+            {/* Master Toggle Card */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3.5 min-w-0">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">
+                  <Target size={20} />
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold text-primary">
+                    Connect YearPlanner to Mastery Data
+                  </h3>
+                  <p className="text-xs text-muted mt-0.5 leading-relaxed">
+                    Automatically computes daily blueprint targets and displays &ldquo;Today&apos;s Set&rdquo; on your YearPlanner calendar.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                role="switch"
+                aria-checked={adaptiveMasteryPlan.enabled}
+                aria-label="Toggle adaptive mastery in YearPlanner"
+                onClick={() =>
+                  updateAdaptiveMasteryPlan({
+                    enabled: !adaptiveMasteryPlan.enabled,
+                  })
+                }
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                  adaptiveMasteryPlan.enabled ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'
+                }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                    adaptiveMasteryPlan.enabled ? 'translate-x-5' : 'translate-x-0'
+                  }`}
+                />
+              </button>
+            </div>
+
+            {/* Expanded Configuration Controls when Enabled */}
+            {adaptiveMasteryPlan.enabled && (
+              <div className="pt-5 border-t space-y-6 animate-in fade-in" style={{ borderColor: 'var(--ca-border)' }}>
+                {/* Target Milestone / Goal Selection */}
+                <div>
+                  <label htmlFor="settings-adaptive-goal" className="block text-xs font-bold text-primary mb-2">
+                    Target Milestone &amp; Objective
+                  </label>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {[
+                      'Campus Placements in 45 Days',
+                      'FAANG Interview in 30 Days',
+                      'Summer Internship in 60 Days',
+                      'Algorithm Mastery in 90 Days',
+                    ].map((preset) => {
+                      const isSelected = adaptiveMasteryPlan.targetGoal === preset;
+                      return (
+                        <button
+                          key={preset}
+                          type="button"
+                          onClick={() => {
+                            const days = preset.includes('30') ? 30 : preset.includes('45') ? 45 : preset.includes('60') ? 60 : 90;
+                            const targetDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                            updateAdaptiveMasteryPlan({
+                              targetGoal: preset,
+                              targetDays: days,
+                              targetDate,
+                              dailyPace: Math.max(1, Math.ceil(100 / days)),
+                            });
+                          }}
+                          className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
+                            isSelected
+                              ? 'border-indigo-500 bg-indigo-500/10 text-indigo-500'
+                              : 'border-slate-200 dark:border-slate-800 text-muted hover:text-primary'
+                          }`}
+                        >
+                          {preset}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <input
+                    id="settings-adaptive-goal"
+                    type="text"
+                    value={adaptiveMasteryPlan.targetGoal}
+                    onChange={(e) => updateAdaptiveMasteryPlan({ targetGoal: e.target.value })}
+                    placeholder="e.g. Placements in 45 days, here's today's set"
+                    className="form-input text-xs py-2 w-full"
+                  />
+                </div>
+
+                {/* Days remaining slider */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-primary">Timeline Horizon</span>
+                    <span className="text-xs font-mono font-bold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-md">
+                      {adaptiveMasteryPlan.targetDays} Days Target
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={14}
+                    max={180}
+                    step={1}
+                    value={adaptiveMasteryPlan.targetDays}
+                    onChange={(e) => {
+                      const days = Number(e.target.value);
+                      const targetDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                      updateAdaptiveMasteryPlan({
+                        targetDays: days,
+                        targetDate,
+                        dailyPace: Math.max(1, Math.ceil(100 / days)),
+                      });
+                    }}
+                    className="w-full accent-indigo-600"
+                  />
+                </div>
+
+                {/* Dynamic Calculated Pacing Preview Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3.5 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+                    <p className="text-[10px] font-bold uppercase text-muted">Daily Target Pace</p>
+                    <p className="mt-1 text-base sm:text-lg font-extrabold text-primary flex items-center gap-1.5">
+                      <Flame size={16} className="text-orange-500" />
+                      <span>{Math.max(1, Math.ceil(100 / adaptiveMasteryPlan.targetDays))} blueprints / day</span>
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-muted">To conquer 100 blueprints</p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+                    <p className="text-[10px] font-bold uppercase text-muted">Target Completion</p>
+                    <p className="mt-1 text-base sm:text-lg font-extrabold text-primary flex items-center gap-1.5">
+                      <Calendar size={16} className="text-indigo-400" />
+                      <span>{adaptiveMasteryPlan.targetDate}</span>
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-muted">{adaptiveMasteryPlan.targetDays} days countdown</p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+                    <p className="text-[10px] font-bold uppercase text-muted">Curriculum Scope</p>
+                    <p className="mt-1 text-base sm:text-lg font-extrabold text-emerald-500 flex items-center gap-1.5">
+                      <CheckCircle2 size={16} />
+                      <span>100 Blueprints</span>
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-muted">5 Core Algorithmic Patterns</p>
+                  </div>
+                </div>
+
+                {/* Adaptive Options Toggle */}
+                <div className="pt-2">
+                  <PrivacyToggle
+                    label="Prioritize Unmastered &amp; Harder Patterns First"
+                    description="Dynamically pushes patterns with lower completion rates to the front of today's set."
+                    checked={adaptiveMasteryPlan.prioritizeWeakPatterns}
+                    onChange={(checked) => updateAdaptiveMasteryPlan({ prioritizeWeakPatterns: checked })}
+                    icon={Sliders}
+                  />
+                </div>
+
+                {/* Navigation CTA */}
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-xs text-muted">
+                    Adaptive plan is active in YearPlanner.
+                  </span>
+                  <Link
+                    to="/year"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-500 hover:text-indigo-400 hover:underline"
+                  >
+                    <span>View Today&apos;s Set in YearPlanner</span>
+                    <ArrowRight size={13} />
+                  </Link>
                 </div>
               </div>
             )}

@@ -1,0 +1,4304 @@
+[
+  {
+    "id": "two-sum",
+    "title": "Two Sum",
+    "normalizedTitle": "two sum",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "valid-parentheses",
+    "title": "Valid Parentheses",
+    "normalizedTitle": "valid parentheses",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Stack"
+    ]
+  },
+  {
+    "id": "longest-substring",
+    "title": "Longest Substring Without Repeating Characters",
+    "normalizedTitle": "longest substring without repeating characters",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "container-water",
+    "title": "Container With Most Water",
+    "normalizedTitle": "container with most water",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "median-arrays",
+    "title": "Median of Two Sorted Arrays",
+    "normalizedTitle": "median of two sorted arrays",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Binary Search",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "binary-tree-level-order",
+    "title": "Binary Tree Level Order Traversal",
+    "normalizedTitle": "binary tree level order traversal",
+    "difficulty": "Medium",
+    "topics": [
+      "Tree",
+      "Binary Tree",
+      "Breadth-First Search"
+    ]
+  },
+  {
+    "id": "reverse-linked-list",
+    "title": "Reverse Linked List",
+    "normalizedTitle": "reverse linked list",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "climbing-stairs",
+    "title": "Climbing Stairs",
+    "normalizedTitle": "climbing stairs",
+    "difficulty": "Easy",
+    "topics": [
+      "Dynamic Programming",
+      "Math",
+      "Memoization"
+    ]
+  },
+  {
+    "id": "maximum-subarray",
+    "title": "Maximum Subarray",
+    "normalizedTitle": "maximum subarray",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Dynamic Programming",
+      "Kadane"
+    ]
+  },
+  {
+    "id": "move-zeroes",
+    "title": "Move Zeroes",
+    "normalizedTitle": "move zeroes",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "find-disappeared-numbers",
+    "title": "Find All Numbers Disappeared in an Array",
+    "normalizedTitle": "find all numbers disappeared in an array",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Cyclic Sort"
+    ]
+  },
+  {
+    "id": "spiral-matrix",
+    "title": "Spiral Matrix",
+    "normalizedTitle": "spiral matrix",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Array",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "rotate-image",
+    "title": "Rotate Image",
+    "normalizedTitle": "rotate image",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Array",
+      "Math"
+    ]
+  },
+  {
+    "id": "set-matrix-zeroes",
+    "title": "Set Matrix Zeroes",
+    "normalizedTitle": "set matrix zeroes",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "insert-interval",
+    "title": "Insert Interval",
+    "normalizedTitle": "insert interval",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Array"
+    ]
+  },
+  {
+    "id": "non-overlapping-intervals",
+    "title": "Non-overlapping Intervals",
+    "normalizedTitle": "non-overlapping intervals",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "meeting-rooms-ii",
+    "title": "Meeting Rooms II",
+    "normalizedTitle": "meeting rooms ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Heap",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "contiguous-array",
+    "title": "Contiguous Array",
+    "normalizedTitle": "contiguous array",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "subarray-sums-divisible-by-k",
+    "title": "Subarray Sums Divisible by K",
+    "normalizedTitle": "subarray sums divisible by k",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "four-sum",
+    "title": "4Sum",
+    "normalizedTitle": "4sum",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "next-permutation",
+    "title": "Next Permutation",
+    "normalizedTitle": "next permutation",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "pascals-triangle",
+    "title": "Pascal's Triangle",
+    "normalizedTitle": "pascal's triangle",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "merge-sorted-array-inplace",
+    "title": "Merge Sorted Array",
+    "normalizedTitle": "merge sorted array",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "intersection-of-two-arrays-ii",
+    "title": "Intersection of Two Arrays II",
+    "normalizedTitle": "intersection of two arrays ii",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "isomorphic-strings",
+    "title": "Isomorphic Strings",
+    "normalizedTitle": "isomorphic strings",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "word-pattern",
+    "title": "Word Pattern",
+    "normalizedTitle": "word pattern",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "ransom-note",
+    "title": "Ransom Note",
+    "normalizedTitle": "ransom note",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table",
+      "Counting"
+    ]
+  },
+  {
+    "id": "find-all-anagrams-in-a-string",
+    "title": "Find All Anagrams in a String",
+    "normalizedTitle": "find all anagrams in a string",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "permutation-in-string",
+    "title": "Permutation in String",
+    "normalizedTitle": "permutation in string",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "max-consecutive-ones-iii",
+    "title": "Max Consecutive Ones III",
+    "normalizedTitle": "max consecutive ones iii",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "fruit-into-baskets",
+    "title": "Fruit Into Baskets",
+    "normalizedTitle": "fruit into baskets",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "subarray-product-less-than-k",
+    "title": "Subarray Product Less Than K",
+    "normalizedTitle": "subarray product less than k",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "boats-to-save-people",
+    "title": "Boats to Save People",
+    "normalizedTitle": "boats to save people",
+    "difficulty": "Medium",
+    "topics": [
+      "Two Pointers",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "backspace-string-compare",
+    "title": "Backspace String Compare",
+    "normalizedTitle": "backspace string compare",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Two Pointers",
+      "Stack"
+    ]
+  },
+  {
+    "id": "roman-to-integer",
+    "title": "Roman to Integer",
+    "normalizedTitle": "roman to integer",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table",
+      "Math"
+    ]
+  },
+  {
+    "id": "integer-to-roman",
+    "title": "Integer to Roman",
+    "normalizedTitle": "integer to roman",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Greedy",
+      "Math"
+    ]
+  },
+  {
+    "id": "multiply-strings",
+    "title": "Multiply Strings",
+    "normalizedTitle": "multiply strings",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Math",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "add-binary",
+    "title": "Add Binary",
+    "normalizedTitle": "add binary",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Bit Manipulation",
+      "Math"
+    ]
+  },
+  {
+    "id": "string-compression",
+    "title": "String Compression",
+    "normalizedTitle": "string compression",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "remove-k-digits",
+    "title": "Remove K Digits",
+    "normalizedTitle": "remove k digits",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Greedy",
+      "String"
+    ]
+  },
+  {
+    "id": "online-stock-span",
+    "title": "Online Stock Span",
+    "normalizedTitle": "online stock span",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Design"
+    ]
+  },
+  {
+    "id": "sum-of-subarray-minimums",
+    "title": "Sum of Subarray Minimums",
+    "normalizedTitle": "sum of subarray minimums",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "maximal-rectangle",
+    "title": "Maximal Rectangle",
+    "normalizedTitle": "maximal rectangle",
+    "difficulty": "Hard",
+    "topics": [
+      "Matrix",
+      "Stack",
+      "Monotonic Stack",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "basic-calculator-parentheses",
+    "title": "Basic Calculator",
+    "normalizedTitle": "basic calculator",
+    "difficulty": "Hard",
+    "topics": [
+      "Stack",
+      "String",
+      "Math"
+    ]
+  },
+  {
+    "id": "implement-queue-using-stacks",
+    "title": "Implement Queue using Stacks",
+    "normalizedTitle": "implement queue using stacks",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "Queue",
+      "Design"
+    ]
+  },
+  {
+    "id": "remove-all-adjacent-duplicates",
+    "title": "Remove All Adjacent Duplicates In String",
+    "normalizedTitle": "remove all adjacent duplicates in string",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "minimum-remove-to-make-valid-parentheses",
+    "title": "Minimum Remove to Make Valid Parentheses",
+    "normalizedTitle": "minimum remove to make valid parentheses",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "score-of-parentheses",
+    "title": "Score of Parentheses",
+    "normalizedTitle": "score of parentheses",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "palindrome-linked-list",
+    "title": "Palindrome Linked List",
+    "normalizedTitle": "palindrome linked list",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "middle-of-the-linked-list",
+    "title": "Middle of the Linked List",
+    "normalizedTitle": "middle of the linked list",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "remove-duplicates-from-sorted-list",
+    "title": "Remove Duplicates from Sorted List",
+    "normalizedTitle": "remove duplicates from sorted list",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "odd-even-linked-list",
+    "title": "Odd Even Linked List",
+    "normalizedTitle": "odd even linked list",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "swap-nodes-in-pairs",
+    "title": "Swap Nodes in Pairs",
+    "normalizedTitle": "swap nodes in pairs",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Recursion"
+    ]
+  },
+  {
+    "id": "rotate-linked-list",
+    "title": "Rotate List",
+    "normalizedTitle": "rotate list",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "partition-linked-list",
+    "title": "Partition List",
+    "normalizedTitle": "partition list",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "sort-linked-list",
+    "title": "Sort List",
+    "normalizedTitle": "sort list",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Sorting",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "search-insert-position",
+    "title": "Search Insert Position",
+    "normalizedTitle": "search insert position",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "sqrt-x-integer",
+    "title": "Sqrt(x)",
+    "normalizedTitle": "sqrt(x)",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Search",
+      "Math"
+    ]
+  },
+  {
+    "id": "find-peak-element",
+    "title": "Find Peak Element",
+    "normalizedTitle": "find peak element",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "capacity-to-ship-packages-within-d-days",
+    "title": "Capacity To Ship Packages Within D Days",
+    "normalizedTitle": "capacity to ship packages within d days",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "split-array-largest-sum",
+    "title": "Split Array Largest Sum",
+    "normalizedTitle": "split array largest sum",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Search",
+      "Greedy",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "single-element-in-a-sorted-array",
+    "title": "Single Element in a Sorted Array",
+    "normalizedTitle": "single element in a sorted array",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "search-a-2d-matrix-ii",
+    "title": "Search a 2D Matrix II",
+    "normalizedTitle": "search a 2d matrix ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Binary Search",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "h-index-sorted",
+    "title": "H-Index II",
+    "normalizedTitle": "h-index ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "largest-number-concat",
+    "title": "Largest Number",
+    "normalizedTitle": "largest number",
+    "difficulty": "Medium",
+    "topics": [
+      "Sorting",
+      "String",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "wiggle-sort-adjacent",
+    "title": "Wiggle Sort",
+    "normalizedTitle": "wiggle sort",
+    "difficulty": "Medium",
+    "topics": [
+      "Sorting",
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "count-of-smaller-numbers-after-self",
+    "title": "Count of Smaller Numbers After Self",
+    "normalizedTitle": "count of smaller numbers after self",
+    "difficulty": "Hard",
+    "topics": [
+      "Divide and Conquer",
+      "Sorting",
+      "Binary Indexed Tree"
+    ]
+  },
+  {
+    "id": "reverse-pairs",
+    "title": "Reverse Pairs",
+    "normalizedTitle": "reverse pairs",
+    "difficulty": "Hard",
+    "topics": [
+      "Divide and Conquer",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "same-tree",
+    "title": "Same Tree",
+    "normalizedTitle": "same tree",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "symmetric-tree",
+    "title": "Symmetric Tree",
+    "normalizedTitle": "symmetric tree",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS",
+      "BFS"
+    ]
+  },
+  {
+    "id": "balanced-binary-tree",
+    "title": "Balanced Binary Tree",
+    "normalizedTitle": "balanced binary tree",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "path-sum-root-to-leaf",
+    "title": "Path Sum",
+    "normalizedTitle": "path sum",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "binary-tree-right-side-view",
+    "title": "Binary Tree Right Side View",
+    "normalizedTitle": "binary tree right side view",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "BFS",
+      "DFS"
+    ]
+  },
+  {
+    "id": "binary-tree-zigzag-level-order",
+    "title": "Binary Tree Zigzag Level Order Traversal",
+    "normalizedTitle": "binary tree zigzag level order traversal",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "BFS",
+      "Queue"
+    ]
+  },
+  {
+    "id": "count-good-nodes-in-binary-tree",
+    "title": "Count Good Nodes in Binary Tree",
+    "normalizedTitle": "count good nodes in binary tree",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "lowest-common-ancestor-binary-tree",
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "normalizedTitle": "lowest common ancestor of a binary tree",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "flatten-binary-tree-to-preorder",
+    "title": "Flatten Binary Tree to Preorder List",
+    "normalizedTitle": "flatten binary tree to preorder list",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS",
+      "Linked List"
+    ]
+  },
+  {
+    "id": "sum-root-to-leaf-numbers",
+    "title": "Sum Root to Leaf Numbers",
+    "normalizedTitle": "sum root to leaf numbers",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "flood-fill",
+    "title": "Flood Fill",
+    "normalizedTitle": "flood fill",
+    "difficulty": "Easy",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "max-area-of-island",
+    "title": "Max Area of Island",
+    "normalizedTitle": "max area of island",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "DFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "surrounded-regions",
+    "title": "Surrounded Regions",
+    "normalizedTitle": "surrounded regions",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "pacific-atlantic-water-flow",
+    "title": "Pacific Atlantic Water Flow",
+    "normalizedTitle": "pacific atlantic water flow",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "shortest-path-in-binary-matrix",
+    "title": "Shortest Path in Binary Matrix",
+    "normalizedTitle": "shortest path in binary matrix",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "all-paths-from-source-to-target",
+    "title": "All Paths From Source to Target",
+    "normalizedTitle": "all paths from source to target",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "DFS",
+      "Backtracking"
+    ]
+  },
+  {
+    "id": "keys-and-rooms",
+    "title": "Keys and Rooms",
+    "normalizedTitle": "keys and rooms",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "DFS"
+    ]
+  },
+  {
+    "id": "find-eventual-safe-states",
+    "title": "Find Eventual Safe States",
+    "normalizedTitle": "find eventual safe states",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "BFS"
+    ]
+  },
+  {
+    "id": "swim-in-rising-water",
+    "title": "Swim in Rising Water",
+    "normalizedTitle": "swim in rising water",
+    "difficulty": "Hard",
+    "topics": [
+      "Graph",
+      "Dijkstra",
+      "Heap",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "alien-dictionary-order",
+    "title": "Alien Dictionary",
+    "normalizedTitle": "alien dictionary",
+    "difficulty": "Hard",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "String"
+    ]
+  },
+  {
+    "id": "house-robber-ii",
+    "title": "House Robber II",
+    "normalizedTitle": "house robber ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "decode-ways",
+    "title": "Decode Ways",
+    "normalizedTitle": "decode ways",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "coin-change-ii",
+    "title": "Coin Change II",
+    "normalizedTitle": "coin change ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "target-sum-ways",
+    "title": "Target Sum",
+    "normalizedTitle": "target sum",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "minimum-path-sum",
+    "title": "Minimum Path Sum",
+    "normalizedTitle": "minimum path sum",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "triangle-min-path-sum",
+    "title": "Triangle",
+    "normalizedTitle": "triangle",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "longest-palindromic-subsequence",
+    "title": "Longest Palindromic Subsequence",
+    "normalizedTitle": "longest palindromic subsequence",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "distinct-subsequences",
+    "title": "Distinct Subsequences",
+    "normalizedTitle": "distinct subsequences",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "interleaving-string",
+    "title": "Interleaving String",
+    "normalizedTitle": "interleaving string",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "regular-expression-matching",
+    "title": "Regular Expression Matching",
+    "normalizedTitle": "regular expression matching",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "String",
+      "Recursion"
+    ]
+  },
+  {
+    "id": "jump-game-ii",
+    "title": "Jump Game II",
+    "normalizedTitle": "jump game ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "candy-distribution",
+    "title": "Candy",
+    "normalizedTitle": "candy",
+    "difficulty": "Hard",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "partition-labels",
+    "title": "Partition Labels",
+    "normalizedTitle": "partition labels",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Two Pointers",
+      "String"
+    ]
+  },
+  {
+    "id": "permutations-all",
+    "title": "Permutations",
+    "normalizedTitle": "permutations",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Array"
+    ]
+  },
+  {
+    "id": "letter-combinations-of-a-phone-number",
+    "title": "Letter Combinations of a Phone Number",
+    "normalizedTitle": "letter combinations of a phone number",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "generate-parentheses",
+    "title": "Generate Parentheses",
+    "normalizedTitle": "generate parentheses",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "String",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "word-search-grid",
+    "title": "Word Search",
+    "normalizedTitle": "word search",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Matrix",
+      "DFS"
+    ]
+  },
+  {
+    "id": "find-median-from-data-stream",
+    "title": "Find Median from Data Stream",
+    "normalizedTitle": "find median from data stream",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Design",
+      "Two Heaps"
+    ]
+  },
+  {
+    "id": "number-of-1-bits",
+    "title": "Number of 1 Bits",
+    "normalizedTitle": "number of 1 bits",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "power-of-two",
+    "title": "Power of Two",
+    "normalizedTitle": "power of two",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation",
+      "Math"
+    ]
+  },
+  {
+    "id": "missing-sequence-number",
+    "title": "Missing Number in Range",
+    "normalizedTitle": "missing number in range",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Bit Manipulation",
+      "Math"
+    ]
+  },
+  {
+    "id": "squares-of-sorted-array",
+    "title": "Squares of a Sorted Array",
+    "normalizedTitle": "squares of a sorted array",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "lemonade-change-counter",
+    "title": "Lemonade Change",
+    "normalizedTitle": "lemonade change",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "can-place-flowers-beds",
+    "title": "Can Place Flowers",
+    "normalizedTitle": "can place flowers",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "three-sum-closest-target",
+    "title": "3Sum Closest",
+    "normalizedTitle": "3sum closest",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "continuous-subarray-sum-multiple-k",
+    "title": "Continuous Subarray Sum (Multiple of K)",
+    "normalizedTitle": "continuous subarray sum (multiple of k)",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "max-points-from-cards",
+    "title": "Maximum Points You Can Obtain from Cards",
+    "normalizedTitle": "maximum points you can obtain from cards",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "min-ops-reduce-x-to-zero",
+    "title": "Minimum Operations to Reduce X to Zero",
+    "normalizedTitle": "minimum operations to reduce x to zero",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "next-greater-element-circular",
+    "title": "Next Greater Element II (Circular Array)",
+    "normalizedTitle": "next greater element ii (circular array)",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Array"
+    ]
+  },
+  {
+    "id": "pattern-132-detector",
+    "title": "132 Pattern Subsequence",
+    "normalizedTitle": "132 pattern subsequence",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Array"
+    ]
+  },
+  {
+    "id": "k-closest-points-origin",
+    "title": "K Closest Points to Origin",
+    "normalizedTitle": "k closest points to origin",
+    "difficulty": "Medium",
+    "topics": [
+      "Heap",
+      "Sorting",
+      "Geometry"
+    ]
+  },
+  {
+    "id": "reorganize-string-no-adjacent",
+    "title": "Reorganize String (No Adjacent Duplicates)",
+    "normalizedTitle": "reorganize string (no adjacent duplicates)",
+    "difficulty": "Medium",
+    "topics": [
+      "Heap",
+      "Greedy",
+      "String"
+    ]
+  },
+  {
+    "id": "shortest-subarray-sum-at-least-k",
+    "title": "Shortest Subarray with Sum at Least K",
+    "normalizedTitle": "shortest subarray with sum at least k",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Prefix Sum",
+      "Monotonic Queue"
+    ]
+  },
+  {
+    "id": "min-refueling-stops-highway",
+    "title": "Minimum Number of Refueling Stops",
+    "normalizedTitle": "minimum number of refueling stops",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Greedy",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "ipo-maximize-capital",
+    "title": "IPO — Maximize Capital with K Projects",
+    "normalizedTitle": "ipo — maximize capital with k projects",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "subarrays-with-k-different-integers",
+    "title": "Subarrays with K Different Integers",
+    "normalizedTitle": "subarrays with k different integers",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "course-schedule-iii-deadlines",
+    "title": "Course Schedule III (Max Courses with Deadlines)",
+    "normalizedTitle": "course schedule iii (max courses with deadlines)",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "patching-array-min-additions",
+    "title": "Patching Array (Minimum Range Coverage Additions)",
+    "normalizedTitle": "patching array (minimum range coverage additions)",
+    "difficulty": "Hard",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "max-frequency-stack-design",
+    "title": "Maximum Frequency Stack",
+    "normalizedTitle": "maximum frequency stack",
+    "difficulty": "Hard",
+    "topics": [
+      "Stack",
+      "Hash Table",
+      "Design"
+    ]
+  },
+  {
+    "id": "min-cost-to-hire-k-workers",
+    "title": "Minimum Cost to Hire K Workers",
+    "normalizedTitle": "minimum cost to hire k workers",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "min-cost-climbing-stairs",
+    "title": "Min Cost Climbing Stairs",
+    "normalizedTitle": "min cost climbing stairs",
+    "difficulty": "Easy",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "happy-number-cycle",
+    "title": "Happy Number",
+    "normalizedTitle": "happy number",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Hash Table",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "plus-one-digit-array",
+    "title": "Plus One",
+    "normalizedTitle": "plus one",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Math"
+    ]
+  },
+  {
+    "id": "excel-sheet-column-number",
+    "title": "Excel Sheet Column Number",
+    "normalizedTitle": "excel sheet column number",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "String"
+    ]
+  },
+  {
+    "id": "perfect-squares-min-sum",
+    "title": "Perfect Squares",
+    "normalizedTitle": "perfect squares",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "BFS",
+      "Math"
+    ]
+  },
+  {
+    "id": "integer-break-max-product",
+    "title": "Integer Break",
+    "normalizedTitle": "integer break",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Math",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "combination-sum-iv-ordered",
+    "title": "Combination Sum IV (Ordered Sequences)",
+    "normalizedTitle": "combination sum iv (ordered sequences)",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "ones-and-zeroes-2d-knapsack",
+    "title": "Ones and Zeroes (2D 0/1 Knapsack)",
+    "normalizedTitle": "ones and zeroes (2d 0/1 knapsack)",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack",
+      "String"
+    ]
+  },
+  {
+    "id": "maximal-square-binary-grid",
+    "title": "Maximal Square",
+    "normalizedTitle": "maximal square",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "longest-string-chain",
+    "title": "Longest String Chain",
+    "normalizedTitle": "longest string chain",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Hash Table",
+      "String"
+    ]
+  },
+  {
+    "id": "predict-the-winner-game-dp",
+    "title": "Predict the Winner (Two-Player End-Pick Game)",
+    "normalizedTitle": "predict the winner (two-player end-pick game)",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Game Theory"
+    ]
+  },
+  {
+    "id": "min-falling-path-sum-grid",
+    "title": "Minimum Falling Path Sum",
+    "normalizedTitle": "minimum falling path sum",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "longest-increasing-path-matrix",
+    "title": "Longest Increasing Path in a Matrix",
+    "normalizedTitle": "longest increasing path in a matrix",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "DFS",
+      "Matrix",
+      "Graph"
+    ]
+  },
+  {
+    "id": "min-cost-to-cut-a-stick",
+    "title": "Minimum Cost to Cut a Stick",
+    "normalizedTitle": "minimum cost to cut a stick",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Interval DP"
+    ]
+  },
+  {
+    "id": "russian-doll-envelopes",
+    "title": "Russian Doll Envelopes",
+    "normalizedTitle": "russian doll envelopes",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Search",
+      "Dynamic Programming",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "wildcard-pattern-matching",
+    "title": "Wildcard Matching (? and *)",
+    "normalizedTitle": "wildcard matching (? and *)",
+    "difficulty": "Hard",
+    "topics": [
+      "String",
+      "Greedy",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "dungeon-game-min-hp",
+    "title": "Dungeon Game (Minimum Initial Health)",
+    "normalizedTitle": "dungeon game (minimum initial health)",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "best-time-stock-k-transactions",
+    "title": "Best Time to Buy and Sell Stock IV (At Most K Trades)",
+    "normalizedTitle": "best time to buy and sell stock iv (at most k trades)",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "max-profit-job-scheduling",
+    "title": "Maximum Profit in Job Scheduling",
+    "normalizedTitle": "maximum profit in job scheduling",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Binary Search",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "min-insertions-make-palindrome",
+    "title": "Minimum Insertion Steps to Make a String Palindrome",
+    "normalizedTitle": "minimum insertion steps to make a string palindrome",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "town-judge-finder",
+    "title": "Find the Town Judge",
+    "normalizedTitle": "find the town judge",
+    "difficulty": "Easy",
+    "topics": [
+      "Graphs",
+      "Arrays",
+      "Counting"
+    ]
+  },
+  {
+    "id": "graph-path-existence",
+    "title": "Check If Path Exists in Graph",
+    "normalizedTitle": "check if path exists in graph",
+    "difficulty": "Easy",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "DFS",
+      "Union Find"
+    ]
+  },
+  {
+    "id": "valid-mountain-peak",
+    "title": "Valid Mountain Array",
+    "normalizedTitle": "valid mountain array",
+    "difficulty": "Easy",
+    "topics": [
+      "Arrays",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "monotonic-sequence-check",
+    "title": "Monotonic Array",
+    "normalizedTitle": "monotonic array",
+    "difficulty": "Easy",
+    "topics": [
+      "Arrays"
+    ]
+  },
+  {
+    "id": "combination-lock-bfs",
+    "title": "Open the Combination Lock",
+    "normalizedTitle": "open the combination lock",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Strings",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "genetic-mutation-steps",
+    "title": "Minimum Genetic Mutation",
+    "normalizedTitle": "minimum genetic mutation",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Strings",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "employee-inform-time",
+    "title": "Time Needed to Inform All Employees",
+    "normalizedTitle": "time needed to inform all employees",
+    "difficulty": "Medium",
+    "topics": [
+      "Trees",
+      "Graphs",
+      "DFS",
+      "BFS"
+    ]
+  },
+  {
+    "id": "min-effort-grid-path",
+    "title": "Path With Minimum Effort",
+    "normalizedTitle": "path with minimum effort",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "Dijkstra",
+      "Heap",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "city-smallest-neighbors",
+    "title": "Find the City With Smallest Neighbors at Threshold",
+    "normalizedTitle": "find the city with smallest neighbors at threshold",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "Shortest Path",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "minimum-height-trees-roots",
+    "title": "Minimum Height Trees",
+    "normalizedTitle": "minimum height trees",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "Topological Sort",
+      "BFS",
+      "Trees"
+    ]
+  },
+  {
+    "id": "evaluate-division-queries",
+    "title": "Evaluate Division Ratios",
+    "normalizedTitle": "evaluate division ratios",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "DFS",
+      "BFS",
+      "Union Find"
+    ]
+  },
+  {
+    "id": "merge-user-accounts-dsu",
+    "title": "Accounts Merge",
+    "normalizedTitle": "accounts merge",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "Union Find",
+      "Hash Table",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "critical-network-bridges",
+    "title": "Critical Connections in a Network",
+    "normalizedTitle": "critical connections in a network",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "DFS",
+      "Tarjan"
+    ]
+  },
+  {
+    "id": "bus-routes-min-transfers",
+    "title": "Bus Routes Minimum Transfers",
+    "normalizedTitle": "bus routes minimum transfers",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "shortest-path-all-nodes",
+    "title": "Shortest Path Visiting All Nodes",
+    "normalizedTitle": "shortest path visiting all nodes",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Bit Manipulation",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "min-cost-valid-grid-path",
+    "title": "Minimum Cost to Make at Least One Valid Path",
+    "normalizedTitle": "minimum cost to make at least one valid path",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Shortest Path",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "reconstruct-flight-itinerary",
+    "title": "Reconstruct Flight Itinerary",
+    "normalizedTitle": "reconstruct flight itinerary",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "DFS",
+      "Eulerian Path",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "making-a-large-island",
+    "title": "Making a Large Island",
+    "normalizedTitle": "making a large island",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "DFS",
+      "BFS",
+      "Matrix",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "parallel-courses-iii-time",
+    "title": "Parallel Courses III",
+    "normalizedTitle": "parallel courses iii",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "Topological Sort",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "ways-to-arrive-destination",
+    "title": "Number of Ways to Arrive at Destination",
+    "normalizedTitle": "number of ways to arrive at destination",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "Dijkstra",
+      "Dynamic Programming",
+      "Heap"
+    ]
+  },
+  {
+    "id": "bst-range-sum-query",
+    "title": "Range Sum of BST",
+    "normalizedTitle": "range sum of bst",
+    "difficulty": "Easy",
+    "topics": [
+      "Trees",
+      "Binary Search Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "bst-min-absolute-diff",
+    "title": "Minimum Absolute Difference in BST",
+    "normalizedTitle": "minimum absolute difference in bst",
+    "difficulty": "Easy",
+    "topics": [
+      "Trees",
+      "Binary Search Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "baseball-score-tracker",
+    "title": "Baseball Game Score Tracker",
+    "normalizedTitle": "baseball game score tracker",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "Simulation",
+      "Arrays"
+    ]
+  },
+  {
+    "id": "strip-outer-parentheses",
+    "title": "Remove Outermost Parentheses",
+    "normalizedTitle": "remove outermost parentheses",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Stack"
+    ]
+  },
+  {
+    "id": "house-robber-tree-dp",
+    "title": "House Robber III",
+    "normalizedTitle": "house robber iii",
+    "difficulty": "Medium",
+    "topics": [
+      "Trees",
+      "Dynamic Programming",
+      "DFS"
+    ]
+  },
+  {
+    "id": "binary-tree-path-sum-iii",
+    "title": "Path Sum III",
+    "normalizedTitle": "path sum iii",
+    "difficulty": "Medium",
+    "topics": [
+      "Trees",
+      "DFS",
+      "Prefix Sum",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "bst-delete-key-node",
+    "title": "Delete Node in a BST",
+    "normalizedTitle": "delete node in a bst",
+    "difficulty": "Medium",
+    "topics": [
+      "Trees",
+      "Binary Search Tree"
+    ]
+  },
+  {
+    "id": "validate-stack-push-pop",
+    "title": "Validate Stack Sequences",
+    "normalizedTitle": "validate stack sequences",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Arrays",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "unique-combination-sum-ii",
+    "title": "Combination Sum II",
+    "normalizedTitle": "combination sum ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Arrays",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "subsets-with-duplicates",
+    "title": "Subsets II",
+    "normalizedTitle": "subsets ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Arrays",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "all-palindrome-partitions",
+    "title": "Palindrome Partitioning",
+    "normalizedTitle": "palindrome partitioning",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Strings",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "restore-valid-ip-addresses",
+    "title": "Restore IP Addresses",
+    "normalizedTitle": "restore ip addresses",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Strings"
+    ]
+  },
+  {
+    "id": "lfu-cache-design",
+    "title": "LFU Cache Operations",
+    "normalizedTitle": "lfu cache operations",
+    "difficulty": "Hard",
+    "topics": [
+      "Design",
+      "Hash Table",
+      "Linked List"
+    ]
+  },
+  {
+    "id": "binary-tree-cameras-min",
+    "title": "Binary Tree Cameras",
+    "normalizedTitle": "binary tree cameras",
+    "difficulty": "Hard",
+    "topics": [
+      "Trees",
+      "Greedy",
+      "DFS",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "tree-vertical-order-traversal",
+    "title": "Vertical Order Traversal of a Binary Tree",
+    "normalizedTitle": "vertical order traversal of a binary tree",
+    "difficulty": "Hard",
+    "topics": [
+      "Trees",
+      "BFS",
+      "Sorting",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "serialize-deserialize-tree",
+    "title": "Serialize and Deserialize Binary Tree",
+    "normalizedTitle": "serialize and deserialize binary tree",
+    "difficulty": "Hard",
+    "topics": [
+      "Trees",
+      "Design",
+      "BFS",
+      "DFS",
+      "Strings"
+    ]
+  },
+  {
+    "id": "recover-swapped-bst",
+    "title": "Recover Binary Search Tree",
+    "normalizedTitle": "recover binary search tree",
+    "difficulty": "Hard",
+    "topics": [
+      "Trees",
+      "Binary Search Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "expression-add-operators",
+    "title": "Expression Add Operators",
+    "normalizedTitle": "expression add operators",
+    "difficulty": "Hard",
+    "topics": [
+      "Backtracking",
+      "Strings",
+      "Math"
+    ]
+  },
+  {
+    "id": "sliding-window-median",
+    "title": "Sliding Window Median",
+    "normalizedTitle": "sliding window median",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Sliding Window",
+      "Two Heaps",
+      "Design"
+    ]
+  },
+  {
+    "id": "longest-valid-obstacle-course",
+    "title": "Find the Longest Valid Obstacle Course at Each Position",
+    "normalizedTitle": "find the longest valid obstacle course at each position",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Search",
+      "Dynamic Programming",
+      "Arrays"
+    ]
+  },
+  {
+    "id": "ugly-number-factor-check",
+    "title": "Ugly Number",
+    "normalizedTitle": "ugly number",
+    "difficulty": "Easy",
+    "topics": [
+      "Math"
+    ]
+  },
+  {
+    "id": "assign-cookies-greedy",
+    "title": "Assign Cookies",
+    "normalizedTitle": "assign cookies",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Sorting",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "fibonacci-sequence-nth",
+    "title": "Fibonacci Number",
+    "normalizedTitle": "fibonacci number",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "longest-harmonious-subseq",
+    "title": "Longest Harmonious Subsequence",
+    "normalizedTitle": "longest harmonious subsequence",
+    "difficulty": "Easy",
+    "topics": [
+      "Hash Table",
+      "Arrays",
+      "Counting"
+    ]
+  },
+  {
+    "id": "knight-dialer-moves",
+    "title": "Knight Dialer",
+    "normalizedTitle": "knight dialer",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Graphs"
+    ]
+  },
+  {
+    "id": "min-delete-two-strings",
+    "title": "Delete Operation for Two Strings",
+    "normalizedTitle": "delete operation for two strings",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Strings"
+    ]
+  },
+  {
+    "id": "stone-game-optimal-dp",
+    "title": "Stone Game",
+    "normalizedTitle": "stone game",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Game Theory",
+      "Math"
+    ]
+  },
+  {
+    "id": "partition-k-equal-subsets",
+    "title": "Partition to K Equal Sum Subsets",
+    "normalizedTitle": "partition to k equal sum subsets",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Dynamic Programming",
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "unique-permutations-ii",
+    "title": "Permutations II",
+    "normalizedTitle": "permutations ii",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Arrays",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "longest-mountain-subarray",
+    "title": "Longest Mountain in Array",
+    "normalizedTitle": "longest mountain in array",
+    "difficulty": "Medium",
+    "topics": [
+      "Arrays",
+      "Two Pointers",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "snakes-and-ladders-bfs",
+    "title": "Snakes and Ladders",
+    "normalizedTitle": "snakes and ladders",
+    "difficulty": "Medium",
+    "topics": [
+      "Graphs",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "sorted-array-to-balanced-bst",
+    "title": "Convert Sorted Array to Binary Search Tree",
+    "normalizedTitle": "convert sorted array to binary search tree",
+    "difficulty": "Medium",
+    "topics": [
+      "Trees",
+      "Binary Search Tree",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "palindrome-partition-min-cuts",
+    "title": "Palindrome Partitioning II",
+    "normalizedTitle": "palindrome partitioning ii",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Strings"
+    ]
+  },
+  {
+    "id": "shortest-common-supersequence",
+    "title": "Shortest Common Supersequence",
+    "normalizedTitle": "shortest common supersequence",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Strings"
+    ]
+  },
+  {
+    "id": "frog-jump-river-stones",
+    "title": "Frog Jump",
+    "normalizedTitle": "frog jump",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Hash Table",
+      "Arrays"
+    ]
+  },
+  {
+    "id": "cherry-pickup-ii-robots",
+    "title": "Cherry Pickup II",
+    "normalizedTitle": "cherry pickup ii",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "count-of-range-sum-mergesort",
+    "title": "Count of Range Sum",
+    "normalizedTitle": "count of range sum",
+    "difficulty": "Hard",
+    "topics": [
+      "Divide and Conquer",
+      "Merge Sort",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "min-window-subsequence",
+    "title": "Minimum Window Subsequence",
+    "normalizedTitle": "minimum window subsequence",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Strings",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "largest-component-common-factor",
+    "title": "Largest Component Size by Common Factor",
+    "normalizedTitle": "largest component size by common factor",
+    "difficulty": "Hard",
+    "topics": [
+      "Graphs",
+      "Union Find",
+      "Math",
+      "Number Theory"
+    ]
+  },
+  {
+    "id": "stock-profit-two-transactions",
+    "title": "Best Time to Buy and Sell Stock III",
+    "normalizedTitle": "best time to buy and sell stock iii",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Arrays"
+    ]
+  },
+  {
+    "id": "substation-harmonic-modulo-windows",
+    "title": "Power Substation Harmonic-Multiple Windows",
+    "normalizedTitle": "power substation harmonic-multiple windows",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "dispatch-next-route-sequence",
+    "title": "Rail Yard Next Lexicographical Car Sequence",
+    "normalizedTitle": "rail yard next lexicographical car sequence",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "inventory-audit-missing-lot-ids",
+    "title": "Pharmacy Inventory Unscanned Lot IDs",
+    "normalizedTitle": "pharmacy inventory unscanned lot ids",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Cyclic Sort"
+    ]
+  },
+  {
+    "id": "stock-ledger-shared-skus",
+    "title": "Dual-Warehouse Shared SKU Multiplicity",
+    "normalizedTitle": "dual-warehouse shared sku multiplicity",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "cipher-bijection-auditor",
+    "title": "Substitution Cipher Bijection Auditor",
+    "normalizedTitle": "substitution cipher bijection auditor",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "dna-motif-anagram-positions",
+    "title": "Genome Scanner Scrambled Motif Offsets",
+    "normalizedTitle": "genome scanner scrambled motif offsets",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "gain-chain-subarray-budget",
+    "title": "Audio Signal Gain-Chain Bounded Sub-Windows",
+    "normalizedTitle": "audio signal gain-chain bounded sub-windows",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "big-ledger-decimal-multiplier",
+    "title": "Arbitrary-Precision Invoice String Multiplier",
+    "normalizedTitle": "arbitrary-precision invoice string multiplier",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Math",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "bitstream-binary-adder",
+    "title": "FPGA Bit-Register String Adder",
+    "normalizedTitle": "fpga bit-register string adder",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "pressure-sensor-lookback-span",
+    "title": "Barometer Consecutive Lower-Or-Equal Span",
+    "normalizedTitle": "barometer consecutive lower-or-equal span",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack"
+    ]
+  },
+  {
+    "id": "floor-risk-subarray-floor-sum",
+    "title": "Portfolio Contiguous Window Floor-Value Sum",
+    "normalizedTitle": "portfolio contiguous window floor-value sum",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "wafer-defect-free-rectangle",
+    "title": "Silicon Wafer Largest Clean Rectangular Die",
+    "normalizedTitle": "silicon wafer largest clean rectangular die",
+    "difficulty": "Hard",
+    "topics": [
+      "Matrix",
+      "Stack",
+      "Monotonic Stack"
+    ]
+  },
+  {
+    "id": "formula-nested-signed-eval",
+    "title": "Accounting Rule Nested Signed Evaluator",
+    "normalizedTitle": "accounting rule nested signed evaluator",
+    "difficulty": "Hard",
+    "topics": [
+      "Stack",
+      "String",
+      "Math"
+    ]
+  },
+  {
+    "id": "message-broker-two-stack-fifo",
+    "title": "Message Broker Two-Stack FIFO Simulator",
+    "normalizedTitle": "message broker two-stack fifo simulator",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "Queue",
+      "Design"
+    ]
+  },
+  {
+    "id": "signal-adjacent-pair-cancel",
+    "title": "Noise Filter Adjacent Duplicate Canceler",
+    "normalizedTitle": "noise filter adjacent duplicate canceler",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "query-filter-paren-repair",
+    "title": "Search Filter Minimal Parenthesis Repair",
+    "normalizedTitle": "search filter minimal parenthesis repair",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "ast-nesting-weight-scorer",
+    "title": "Balanced Scope Tree Nesting Scorer",
+    "normalizedTitle": "balanced scope tree nesting scorer",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "pascal-binomial-risk-table",
+    "title": "Actuarial Binomial Coefficient Triangle",
+    "normalizedTitle": "actuarial binomial coefficient triangle",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "log-shard-inplace-merge",
+    "title": "Sorted Log Buffer In-Place Tail Merge",
+    "normalizedTitle": "sorted log buffer in-place tail merge",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "campaign-budget-quad-match",
+    "title": "Ad-Campaign Four-Channel Exact Spend",
+    "normalizedTitle": "ad-campaign four-channel exact spend",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "playlist-odd-even-lane-split",
+    "title": "Audio Mixer Odd-Even Channel Regrouping",
+    "normalizedTitle": "audio mixer odd-even channel regrouping",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "ledger-adjacent-pair-swap",
+    "title": "Double-Entry Tape Adjacent Pair Reversal",
+    "normalizedTitle": "double-entry tape adjacent pair reversal",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Recursion"
+    ]
+  },
+  {
+    "id": "priority-queue-threshold-partition",
+    "title": "Ticket Queue Priority Threshold Partition",
+    "normalizedTitle": "ticket queue priority threshold partition",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "sorted-feed-k-way-aggregator",
+    "title": "Multi-Exchange K-Way Sorted Feed Merger",
+    "normalizedTitle": "multi-exchange k-way sorted feed merger",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Linked List",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "catalog-sorted-insert-slot",
+    "title": "Sorted Catalog Binary Insertion Slot",
+    "normalizedTitle": "sorted catalog binary insertion slot",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "tile-mosaic-square-side",
+    "title": "Floor Tile Maximum Square Dimension",
+    "normalizedTitle": "floor tile maximum square dimension",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Search",
+      "Math"
+    ]
+  },
+  {
+    "id": "serial-concat-max-badge",
+    "title": "Asset Tag Maximum Concatenated Code",
+    "normalizedTitle": "asset tag maximum concatenated code",
+    "difficulty": "Medium",
+    "topics": [
+      "Sorting",
+      "String",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "audio-wave-alternating-peaks",
+    "title": "Waveform Alternating Valley-Peak Reorder",
+    "normalizedTitle": "waveform alternating valley-peak reorder",
+    "difficulty": "Medium",
+    "topics": [
+      "Sorting",
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "auction-trailing-lower-bids",
+    "title": "Auction Feed Trailing Lower-Bid Counter",
+    "normalizedTitle": "auction feed trailing lower-bid counter",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Indexed Tree",
+      "Divide and Conquer",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "price-crash-double-inversion-pairs",
+    "title": "Market Crash Double-Drop Pair Counter",
+    "normalizedTitle": "market crash double-drop pair counter",
+    "difficulty": "Hard",
+    "topics": [
+      "Divide and Conquer",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "tree-schema-equality-check",
+    "title": "Config AST Structural Equality Check",
+    "normalizedTitle": "config ast structural equality check",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "load-balancer-tree-symmetry",
+    "title": "Load-Balancer Tree Mirror Symmetry Check",
+    "normalizedTitle": "load-balancer tree mirror symmetry check",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "sharding-tree-height-balance",
+    "title": "Shard Tree Height-Balance Verifier",
+    "normalizedTitle": "shard tree height-balance verifier",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "budget-tree-exact-leaf-sum",
+    "title": "Budget Allocation Root-to-Leaf Target Check",
+    "normalizedTitle": "budget allocation root-to-leaf target check",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "skyline-tree-right-profile",
+    "title": "Hierarchy Tree Right-Edge Profile",
+    "normalizedTitle": "hierarchy tree right-edge profile",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "BFS"
+    ]
+  },
+  {
+    "id": "printer-zigzag-tier-order",
+    "title": "Bi-Directional Printhead Tree Tier Sweep",
+    "normalizedTitle": "bi-directional printhead tree tier sweep",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "BFS"
+    ]
+  },
+  {
+    "id": "telemetry-tree-dominant-nodes",
+    "title": "Telemetry Tree Path-Dominant Node Count",
+    "normalizedTitle": "telemetry tree path-dominant node count",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "lineage-tree-common-ancestor",
+    "title": "Genealogy Binary Tree Common Ancestor",
+    "normalizedTitle": "genealogy binary tree common ancestor",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "digit-tree-path-checksum",
+    "title": "Trie-Digit Tree Root-to-Leaf Checksum",
+    "normalizedTitle": "trie-digit tree root-to-leaf checksum",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "pixel-canvas-region-recolor",
+    "title": "Vector Editor Connected Pixel Bucket Fill",
+    "normalizedTitle": "vector editor connected pixel bucket fill",
+    "difficulty": "Easy",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "reef-satellite-largest-coral",
+    "title": "Marine Survey Largest Connected Reef Patch",
+    "normalizedTitle": "marine survey largest connected reef patch",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "quarantine-zone-enclosed-capture",
+    "title": "Bio-Containment Enclosed Zone Sealing",
+    "normalizedTitle": "bio-containment enclosed zone sealing",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "watershed-dual-basin-ridge",
+    "title": "Continental Divide Dual-Basin Watershed Cells",
+    "normalizedTitle": "continental divide dual-basin watershed cells",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "workflow-dag-all-execution-paths",
+    "title": "Workflow Engine All Start-to-Finish Paths",
+    "normalizedTitle": "workflow engine all start-to-finish paths",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "DFS",
+      "Backtracking"
+    ]
+  },
+  {
+    "id": "vault-badge-full-access-check",
+    "title": "Facility Security Full Vault Reachability",
+    "normalizedTitle": "facility security full vault reachability",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "DFS"
+    ]
+  },
+  {
+    "id": "state-machine-guaranteed-halt-nodes",
+    "title": "Protocol State Machine Guaranteed-Halt States",
+    "normalizedTitle": "protocol state machine guaranteed-halt states",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "BFS"
+    ]
+  },
+  {
+    "id": "unknown-script-lexicon-order",
+    "title": "Ciphered Archive Alphabet Order Recovery",
+    "normalizedTitle": "ciphered archive alphabet order recovery",
+    "difficulty": "Hard",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "String"
+    ]
+  },
+  {
+    "id": "network-cluster-island-count",
+    "title": "Peer Mesh Isolated Cluster Counter",
+    "normalizedTitle": "peer mesh isolated cluster counter",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Union Find"
+    ]
+  },
+  {
+    "id": "dictionary-one-char-hop-distance",
+    "title": "Codeword Single-Mutation Shortest Chain",
+    "normalizedTitle": "codeword single-mutation shortest chain",
+    "difficulty": "Hard",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Hash Table",
+      "String"
+    ]
+  },
+  {
+    "id": "deployment-order-all-permutations",
+    "title": "Microservice Rollout All Deployment Orders",
+    "normalizedTitle": "microservice rollout all deployment orders",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Array"
+    ]
+  },
+  {
+    "id": "keypad-mnemonic-all-codes",
+    "title": "IVR Phone-Tree Letter Mnemonic Generator",
+    "normalizedTitle": "ivr phone-tree letter mnemonic generator",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "balanced-tag-pair-generator",
+    "title": "Fuzz Tester Balanced Delimiter Generator",
+    "normalizedTitle": "fuzz tester balanced delimiter generator",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "String"
+    ]
+  },
+  {
+    "id": "boggle-sensor-grid-trace",
+    "title": "PCB Letter-Matrix Signature Tracer",
+    "normalizedTitle": "pcb letter-matrix signature tracer",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Matrix",
+      "DFS"
+    ]
+  },
+  {
+    "id": "stream-label-minimal-cuts",
+    "title": "Log Stream Non-Overlapping Event Shards",
+    "normalizedTitle": "log stream non-overlapping event shards",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Two Pointers",
+      "String"
+    ]
+  },
+  {
+    "id": "relay-hop-minimum-jumps",
+    "title": "Mesh Backbone Minimum Signal Hops",
+    "normalizedTitle": "mesh backbone minimum signal hops",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "romans-legacy-invoice-parser",
+    "title": "Archival Roman-Numeral Batch Decoder",
+    "normalizedTitle": "archival roman-numeral batch decoder",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table",
+      "Math"
+    ]
+  },
+  {
+    "id": "romans-batch-code-formatter",
+    "title": "Archival Roman-Numeral Batch Formatter",
+    "normalizedTitle": "archival roman-numeral batch formatter",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Greedy",
+      "Math"
+    ]
+  },
+  {
+    "id": "protocol-word-bijection-check",
+    "title": "Protocol Frame Token-Pattern Bijection",
+    "normalizedTitle": "protocol frame token-pattern bijection",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "parts-kit-supply-verifier",
+    "title": "Assembly Kit Component Supply Verifier",
+    "normalizedTitle": "assembly kit component supply verifier",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Hash Table",
+      "Counting"
+    ]
+  },
+  {
+    "id": "stream-sliding-permutation-alert",
+    "title": "IDS Packet Stream Scrambled Signature Detector",
+    "normalizedTitle": "ids packet stream scrambled signature detector",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "ring-road-nonadjacent-tolls",
+    "title": "Ring Highway Non-Adjacent Toll Revenue",
+    "normalizedTitle": "ring highway non-adjacent toll revenue",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "digit-message-decoding-count",
+    "title": "Telemetry Numeric-Cipher Decoding Count",
+    "normalizedTitle": "telemetry numeric-cipher decoding count",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "token-dispenser-combo-count",
+    "title": "Arcade Token Dispenser Combination Ways",
+    "normalizedTitle": "arcade token dispenser combination ways",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "sensor-bias-sign-assignment",
+    "title": "Calibration Offset Sign-Assignment Ways",
+    "normalizedTitle": "calibration offset sign-assignment ways",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "warehouse-grid-min-energy-path",
+    "title": "AGV Floor Minimum Energy Traversal",
+    "normalizedTitle": "agv floor minimum energy traversal",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "pyramid-descent-min-cost",
+    "title": "Decision Pyramid Minimum Cost Descent",
+    "normalizedTitle": "decision pyramid minimum cost descent",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "rna-folding-palindromic-subseq",
+    "title": "RNA Strand Longest Palindromic Folding",
+    "normalizedTitle": "rna strand longest palindromic folding",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "log-pattern-distinct-matches",
+    "title": "Audit Stream Distinct Subsequence Matches",
+    "normalizedTitle": "audit stream distinct subsequence matches",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "dual-stream-interleave-verifier",
+    "title": "Dual-Channel Log Interleave Verifier",
+    "normalizedTitle": "dual-channel log interleave verifier",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "wildcard-star-dot-matcher",
+    "title": "Firewall Rule Regex Dot-Star Matcher",
+    "normalizedTitle": "firewall rule regex dot-star matcher",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "String",
+      "Recursion"
+    ]
+  },
+  {
+    "id": "balloon-demolition-max-payout",
+    "title": "Mine-Clearance Coupled Target Max Score",
+    "normalizedTitle": "mine-clearance coupled target max score",
+    "difficulty": "Hard",
+    "topics": [
+      "Dynamic Programming",
+      "Interval DP"
+    ]
+  },
+  {
+    "id": "bit-counter-range-popcounts",
+    "title": "Telemetry Feature-Mask Popcount Table",
+    "normalizedTitle": "telemetry feature-mask popcount table",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "hamming-active-flags-count",
+    "title": "Feature Flag Active Bit Counter",
+    "normalizedTitle": "feature flag active bit counter",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "palindrome-chain-verifier",
+    "title": "Packet Chain Mirror Symmetry Check",
+    "normalizedTitle": "packet chain mirror symmetry check",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "chain-midpoint-suffix",
+    "title": "Stream Midpoint Second-Half Extractor",
+    "normalizedTitle": "stream midpoint second-half extractor",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "sorted-chain-deduplicator",
+    "title": "Sorted Telemetry Chain Deduplicator",
+    "normalizedTitle": "sorted telemetry chain deduplicator",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "circular-playlist-right-shift",
+    "title": "Carousel Queue Right-Shift Rotation",
+    "normalizedTitle": "carousel queue right-shift rotation",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "chain-merge-sorter",
+    "title": "Linked Record Stream O(n log n) Sorter",
+    "normalizedTitle": "linked record stream o(n log n) sorter",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Sorting",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "tree-preorder-chain-flatten",
+    "title": "Binary Menu Tree Preorder Linearizer",
+    "normalizedTitle": "binary menu tree preorder linearizer",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "DFS",
+      "Linked List"
+    ]
+  },
+  {
+    "id": "tree-rebuild-pre-in-arrays",
+    "title": "Binary Tree Reconstructor from Dual Logs",
+    "normalizedTitle": "binary tree reconstructor from dual logs",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "Divide and Conquer",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "packet-payload-kmp-needle",
+    "title": "Packet Inspector First Signature Offset",
+    "normalizedTitle": "packet inspector first signature offset",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "KMP",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "dna-longest-mirror-segment",
+    "title": "Genomics Longest Mirror-Palindrome Segment",
+    "normalizedTitle": "genomics longest mirror-palindrome segment",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "motif-palindrome-counter",
+    "title": "Sequence Symmetry Substring Counter",
+    "normalizedTitle": "sequence symmetry substring counter",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "log-phrase-word-reverser",
+    "title": "CLI Command Token-Order Reverser",
+    "normalizedTitle": "cli command token-order reverser",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "legacy-form-int32-parser",
+    "title": "Legacy Form Clamped 32-Bit Integer Parser",
+    "normalizedTitle": "legacy form clamped 32-bit integer parser",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Parsing"
+    ]
+  },
+  {
+    "id": "rail-fence-cipher-encoder",
+    "title": "Rail-Fence Zigzag Cipher Encoder",
+    "normalizedTitle": "rail-fence zigzag cipher encoder",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "metric-next-higher-lookup",
+    "title": "Benchmark Next-Higher Metric Query",
+    "normalizedTitle": "benchmark next-higher metric query",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "telemetry-min-tracker-stack",
+    "title": "Sensor Buffer O(1) Running-Minimum Stack",
+    "normalizedTitle": "sensor buffer o(1) running-minimum stack",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Design"
+    ]
+  },
+  {
+    "id": "syntax-longest-balanced-span",
+    "title": "Parser Longest Well-Formed Block Span",
+    "normalizedTitle": "parser longest well-formed block span",
+    "difficulty": "Hard",
+    "topics": [
+      "Stack",
+      "String",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "sorted-log-event-span-bounds",
+    "title": "Sorted Index First-and-Last Key Bounds",
+    "normalizedTitle": "sorted index first-and-last key bounds",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "telemetry-top-k-error-codes",
+    "title": "Monitoring Top-K Most Frequent Error Codes",
+    "normalizedTitle": "monitoring top-k most frequent error codes",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Bucket Sort"
+    ]
+  },
+  {
+    "id": "consensus-quorum-leader-vote",
+    "title": "Consensus Quorum Strict-Majority Ballot",
+    "normalizedTitle": "consensus quorum strict-majority ballot",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Boyer-Moore"
+    ]
+  },
+  {
+    "id": "shift-roster-inplace-rotation",
+    "title": "On-Call Roster Cyclic Right Rotation",
+    "normalizedTitle": "on-call roster cyclic right rotation",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "sorted-catalog-pair-budget",
+    "title": "Sorted Catalog 1-Indexed Pair Budget",
+    "normalizedTitle": "sorted catalog 1-indexed pair budget",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "telemetry-uniform-patch-window",
+    "title": "Telemetry Signal Longest Uniform-State Window",
+    "normalizedTitle": "telemetry signal longest uniform-state window",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "ledger-infix-precedence-eval",
+    "title": "Billing Infix Expression Evaluator",
+    "normalizedTitle": "billing infix expression evaluator",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String",
+      "Math"
+    ]
+  },
+  {
+    "id": "pigeonhole-duplicate-badge-finder",
+    "title": "Read-Only Badge Log Duplicate Finder",
+    "normalizedTitle": "read-only badge log duplicate finder",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "audit-queue-drop-nth-tail",
+    "title": "Audit Queue One-Pass Drop-Nth-From-End",
+    "normalizedTitle": "audit queue one-pass drop-nth-from-end",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "deck-alternating-end-interleave",
+    "title": "Packet Buffer Front-Back Interleaver",
+    "normalizedTitle": "packet buffer front-back interleaver",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "skyline-bar-max-billboard",
+    "title": "City Skyline Largest Rectangular Billboard",
+    "normalizedTitle": "city skyline largest rectangular billboard",
+    "difficulty": "Hard",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Array"
+    ]
+  },
+  {
+    "id": "warehouse-aisle-pair-budget",
+    "title": "Warehouse Aisle Pallet Pairing",
+    "normalizedTitle": "warehouse aisle pallet pairing",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "solar-grid-peak-surplus",
+    "title": "Microgrid Peak Net Surplus Window",
+    "normalizedTitle": "microgrid peak net surplus window",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Dynamic Programming",
+      "Kadane"
+    ]
+  },
+  {
+    "id": "courier-parcel-balance-point",
+    "title": "Conveyor Belt Load Balance Pivot",
+    "normalizedTitle": "conveyor belt load balance pivot",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "telemetry-duplicate-sensor-window",
+    "title": "IoT Sensor Stuck-Reading Detector",
+    "normalizedTitle": "iot sensor stuck-reading detector",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "retail-shelf-sku-consolidation",
+    "title": "Retail Shelf Active SKU Compaction",
+    "normalizedTitle": "retail shelf active sku compaction",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "cloud-billing-spike-window",
+    "title": "Cloud SLA Uptime Stretch with Error Budget",
+    "normalizedTitle": "cloud sla uptime stretch with error budget",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "ride-share-fare-triplet-match",
+    "title": "Ride-Share Zero-Net Subsidy Triplets",
+    "normalizedTitle": "ride-share zero-net subsidy triplets",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "factory-conveyor-batch-rebalance",
+    "title": "Factory Shift Quota Sub-Runs",
+    "normalizedTitle": "factory shift quota sub-runs",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "trading-desk-drawdown-recovery",
+    "title": "Commodity Contract Optimal Entry-Exit Spread",
+    "normalizedTitle": "commodity contract optimal entry-exit spread",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "cdn-bandwidth-burst-quota",
+    "title": "CDN Shortest Burst Reaching Bandwidth Quota",
+    "normalizedTitle": "cdn shortest burst reaching bandwidth quota",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "cold-chain-sensor-drift-range",
+    "title": "Cold-Chain Rolling Peak Temperature Audit",
+    "normalizedTitle": "cold-chain rolling peak temperature audit",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Sliding Window",
+      "Monotonic Queue"
+    ]
+  },
+  {
+    "id": "fleet-fuel-tank-equalization",
+    "title": "Highway Grade Balanced Elevation Segment",
+    "normalizedTitle": "highway grade balanced elevation segment",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "port-crane-container-reservoir",
+    "title": "Port Bulkhead Maximum Flood Basin",
+    "normalizedTitle": "port bulkhead maximum flood basin",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Two Pointers",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "smart-irrigation-terrace-capture",
+    "title": "Terraced Farm Rainwater Retention",
+    "normalizedTitle": "terraced farm rainwater retention",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "grocery-aisle-two-brand-showcase",
+    "title": "Supermarket Two-Brand Promotional Span",
+    "normalizedTitle": "supermarket two-brand promotional span",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "auction-bid-multiplier-excluding-self",
+    "title": "Risk-Factor Peer Multiplier Array",
+    "normalizedTitle": "risk-factor peer multiplier array",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Prefix Sum"
+    ]
+  },
+  {
+    "id": "ticket-kiosk-consecutive-seat-block",
+    "title": "Stadium Longest Contiguous Seat Block",
+    "normalizedTitle": "stadium longest contiguous seat block",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "api-rate-limiter-burst-window",
+    "title": "API Gateway Longest Unique-Route Streak",
+    "normalizedTitle": "api gateway longest unique-route streak",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "fulfillment-crate-smallest-missing-tag",
+    "title": "Crate Barcode Lowest Unassigned Positive ID",
+    "normalizedTitle": "crate barcode lowest unassigned positive id",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Cyclic Sort"
+    ]
+  },
+  {
+    "id": "freight-ferry-paired-vehicle-load",
+    "title": "Ferry Deck Minimum Vehicle Crossings",
+    "normalizedTitle": "ferry deck minimum vehicle crossings",
+    "difficulty": "Medium",
+    "topics": [
+      "Two Pointers",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "log-sanitizer-palindrome-check",
+    "title": "Telemetry Signature Symmetry Verifier",
+    "normalizedTitle": "telemetry signature symmetry verifier",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "config-template-bracket-linter",
+    "title": "DSL Template Delimiter Linter",
+    "normalizedTitle": "dsl template delimiter linter",
+    "difficulty": "Easy",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "spreadsheet-postfix-formula-engine",
+    "title": "Spreadsheet Postfix Formula Evaluator",
+    "normalizedTitle": "spreadsheet postfix formula evaluator",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Math"
+    ]
+  },
+  {
+    "id": "weather-station-warmer-forecast-wait",
+    "title": "Observatory Next-Peak Wind Gust Wait",
+    "normalizedTitle": "observatory next-peak wind gust wait",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Array"
+    ]
+  },
+  {
+    "id": "drone-corridor-head-on-resolution",
+    "title": "Autonomous Drone Tunnel Collision Simulator",
+    "normalizedTitle": "autonomous drone tunnel collision simulator",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "macro-expander-nested-repeat",
+    "title": "Hardware Test-Vector Macro Expander",
+    "normalizedTitle": "hardware test-vector macro expander",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "cli-filesystem-canonical-resolver",
+    "title": "Container Mount Path Normalizer",
+    "normalizedTitle": "container mount path normalizer",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "String"
+    ]
+  },
+  {
+    "id": "shipping-lane-convoy-clusters",
+    "title": "Single-Lane Freight Convoy Counter",
+    "normalizedTitle": "single-lane freight convoy counter",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "ledger-code-anagram-bucketing",
+    "title": "Transaction Checksum Anagram Clustering",
+    "normalizedTitle": "transaction checksum anagram clustering",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "dns-label-shared-prefix",
+    "title": "Service Hostname Common Prefix Extractor",
+    "normalizedTitle": "service hostname common prefix extractor",
+    "difficulty": "Easy",
+    "topics": [
+      "String"
+    ]
+  },
+  {
+    "id": "packet-framing-codec-roundtrip",
+    "title": "Telemetry Packet Length-Prefixed Codec",
+    "normalizedTitle": "telemetry packet length-prefixed codec",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Design"
+    ]
+  },
+  {
+    "id": "sensor-stream-run-length-packer",
+    "title": "Telemetry State Run-Length Packer",
+    "normalizedTitle": "telemetry state run-length packer",
+    "difficulty": "Medium",
+    "topics": [
+      "String",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "badge-id-minimize-after-deletions",
+    "title": "Badge Serial Minimum Code After Pruning",
+    "normalizedTitle": "badge serial minimum code after pruning",
+    "difficulty": "Medium",
+    "topics": [
+      "Stack",
+      "Monotonic Stack",
+      "Greedy",
+      "String"
+    ]
+  },
+  {
+    "id": "audit-trail-window-matcher",
+    "title": "SIEM Shortest Compliance Log Slice",
+    "normalizedTitle": "siem shortest compliance log slice",
+    "difficulty": "Hard",
+    "topics": [
+      "String",
+      "Sliding Window",
+      "Hash Table"
+    ]
+  },
+  {
+    "id": "terminal-buffer-backspace-equivalence",
+    "title": "CLI Keystroke Buffer Equivalence",
+    "normalizedTitle": "cli keystroke buffer equivalence",
+    "difficulty": "Easy",
+    "topics": [
+      "String",
+      "Two Pointers",
+      "Stack"
+    ]
+  },
+  {
+    "id": "playlist-queue-reverse-segments",
+    "title": "Streaming Queue Block-Size Reversal",
+    "normalizedTitle": "streaming queue block-size reversal",
+    "difficulty": "Hard",
+    "topics": [
+      "Linked List",
+      "Array"
+    ]
+  },
+  {
+    "id": "telemetry-buffer-lru-eviction",
+    "title": "IoT Gateway LRU Edge Cache Simulator",
+    "normalizedTitle": "iot gateway lru edge cache simulator",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Hash Table",
+      "Design"
+    ]
+  },
+  {
+    "id": "routing-ring-loop-detector",
+    "title": "Packet Forwarding Table Loop Detector",
+    "normalizedTitle": "packet forwarding table loop detector",
+    "difficulty": "Easy",
+    "topics": [
+      "Linked List",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "invoice-digit-stream-adder",
+    "title": "Legacy Tape Reverse-Digit Ledger Adder",
+    "normalizedTitle": "legacy tape reverse-digit ledger adder",
+    "difficulty": "Medium",
+    "topics": [
+      "Linked List",
+      "Math"
+    ]
+  },
+  {
+    "id": "heartbeat-monitor-rolling-3sec",
+    "title": "Microservice Trailing-Window Heartbeat Counter",
+    "normalizedTitle": "microservice trailing-window heartbeat counter",
+    "difficulty": "Easy",
+    "topics": [
+      "Queue",
+      "Sliding Window"
+    ]
+  },
+  {
+    "id": "log-archive-timestamp-lookup",
+    "title": "Append-Only Log Timestamp Binary Lookup",
+    "normalizedTitle": "append-only log timestamp binary lookup",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "rotated-ring-buffer-lookup",
+    "title": "Circular Ring-Buffer Sequence Search",
+    "normalizedTitle": "circular ring-buffer sequence search",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "ring-buffer-start-offset",
+    "title": "Circular Buffer Oldest Sequence Value",
+    "normalizedTitle": "circular buffer oldest sequence value",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "video-transcoder-min-bitrate",
+    "title": "Media Pipeline Minimum Transcode Speed",
+    "normalizedTitle": "media pipeline minimum transcode speed",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "cargo-vessel-daily-tonnage",
+    "title": "Freight Manifest Minimum Barge Capacity",
+    "normalizedTitle": "freight manifest minimum barge capacity",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "batch-job-cluster-partition",
+    "title": "Ordered Batch Pipeline Min-Max Worker Load",
+    "normalizedTitle": "ordered batch pipeline min-max worker load",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Search",
+      "Greedy"
+    ]
+  },
+  {
+    "id": "radar-elevation-local-crest",
+    "title": "Terrain Radar Local Ridge Finder",
+    "normalizedTitle": "terrain radar local ridge finder",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "sorted-shard-matrix-lookup",
+    "title": "Sharded Keyspace 2D Matrix Lookup",
+    "normalizedTitle": "sharded keyspace 2d matrix lookup",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Binary Search",
+      "Two Pointers"
+    ]
+  },
+  {
+    "id": "clinic-appointment-merge",
+    "title": "Clinic Busy-Block Schedule Consolidator",
+    "normalizedTitle": "clinic busy-block schedule consolidator",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "maintenance-window-insert",
+    "title": "Emergency Downtime Window Insertion",
+    "normalizedTitle": "emergency downtime window insertion",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Array"
+    ]
+  },
+  {
+    "id": "satellite-pass-min-drops",
+    "title": "Ground-Station Satellite Pass Conflict Pruner",
+    "normalizedTitle": "ground-station satellite pass conflict pruner",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Greedy",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "operating-room-peak-suites",
+    "title": "Hospital Surgical Suite Peak Allocation",
+    "normalizedTitle": "hospital surgical suite peak allocation",
+    "difficulty": "Medium",
+    "topics": [
+      "Intervals",
+      "Heap",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "priority-lane-three-tier-sort",
+    "title": "Network QoS Three-Tier Packet Partition",
+    "normalizedTitle": "network qos three-tier packet partition",
+    "difficulty": "Medium",
+    "topics": [
+      "Sorting",
+      "Two Pointers",
+      "Array"
+    ]
+  },
+  {
+    "id": "telemetry-kth-highest-latency",
+    "title": "RPC Trace Kth-Highest Latency Spike",
+    "normalizedTitle": "rpc trace kth-highest latency spike",
+    "difficulty": "Medium",
+    "topics": [
+      "Heap",
+      "Sorting"
+    ]
+  },
+  {
+    "id": "sensor-grid-spiral-sweep",
+    "title": "Robotic Inspection Grid Clockwise Spiral",
+    "normalizedTitle": "robotic inspection grid clockwise spiral",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "blueprint-90-degree-rotation",
+    "title": "CAD Floorplan 90-Degree In-Place Rotation",
+    "normalizedTitle": "cad floorplan 90-degree in-place rotation",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Math"
+    ]
+  },
+  {
+    "id": "datacenter-rack-fault-mask",
+    "title": "Datacenter Power-Bus Fault Isolation",
+    "normalizedTitle": "datacenter power-bus fault isolation",
+    "difficulty": "Medium",
+    "topics": [
+      "Matrix",
+      "Array"
+    ]
+  },
+  {
+    "id": "citation-impact-threshold",
+    "title": "App Store Quality-Score H-Index",
+    "normalizedTitle": "app store quality-score h-index",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "paired-sensor-lone-reading",
+    "title": "Dual-Redundant Sensor Unpaired Signal",
+    "normalizedTitle": "dual-redundant sensor unpaired signal",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Array"
+    ]
+  },
+  {
+    "id": "two-feed-combined-median",
+    "title": "Dual Market-Feed Exact Median",
+    "normalizedTitle": "dual market-feed exact median",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Search",
+      "Divide and Conquer"
+    ]
+  },
+  {
+    "id": "org-chart-mirror-layout",
+    "title": "Binary Org-Chart Left-Right Mirror",
+    "normalizedTitle": "binary org-chart left-right mirror",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "org-chart-max-reporting-depth",
+    "title": "Decision Tree Deepest Escalation Chain",
+    "normalizedTitle": "decision tree deepest escalation chain",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "circuit-tree-longest-wire",
+    "title": "Binary Circuit Tree Longest Wire Span",
+    "normalizedTitle": "binary circuit tree longest wire span",
+    "difficulty": "Easy",
+    "topics": [
+      "Binary Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "alert-tree-tier-grouping",
+    "title": "Alert Escalation Tree Tier Grouping",
+    "normalizedTitle": "alert escalation tree tier grouping",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Tree",
+      "BFS"
+    ]
+  },
+  {
+    "id": "index-tree-bst-integrity",
+    "title": "Database Index Tree Ordering Auditor",
+    "normalizedTitle": "database index tree ordering auditor",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search Tree",
+      "DFS"
+    ]
+  },
+  {
+    "id": "leaderboard-bst-kth-rank",
+    "title": "BST Score Index Kth-Lowest Query",
+    "normalizedTitle": "bst score index kth-lowest query",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search Tree",
+      "DFS",
+      "Stack"
+    ]
+  },
+  {
+    "id": "routing-bst-common-hub",
+    "title": "BST Routing Hierarchy Common Hub",
+    "normalizedTitle": "bst routing hierarchy common hub",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search Tree",
+      "Tree"
+    ]
+  },
+  {
+    "id": "pipeline-tree-peak-profit-path",
+    "title": "Binary Supply Tree Peak Margin Path",
+    "normalizedTitle": "binary supply tree peak margin path",
+    "difficulty": "Hard",
+    "topics": [
+      "Binary Tree",
+      "DFS",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "autocomplete-prefix-directory",
+    "title": "Search Bar Prefix Directory Engine",
+    "normalizedTitle": "search bar prefix directory engine",
+    "difficulty": "Medium",
+    "topics": [
+      "Trie",
+      "Design",
+      "String"
+    ]
+  },
+  {
+    "id": "solar-farm-panel-clusters",
+    "title": "Rooftop Active Solar Array Counter",
+    "normalizedTitle": "rooftop active solar array counter",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "server-rack-thermal-spread",
+    "title": "Server Hall Thermal Runaway Timer",
+    "normalizedTitle": "server hall thermal runaway timer",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "build-pipeline-cycle-check",
+    "title": "Microservice Build DAG Feasibility",
+    "normalizedTitle": "microservice build dag feasibility",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "BFS"
+    ]
+  },
+  {
+    "id": "build-pipeline-execution-order",
+    "title": "Deterministic Package Build Scheduler",
+    "normalizedTitle": "deterministic package build scheduler",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Topological Sort",
+      "Heap"
+    ]
+  },
+  {
+    "id": "mesh-broadcast-propagation-time",
+    "title": "Service Mesh Broadcast Convergence Time",
+    "normalizedTitle": "service mesh broadcast convergence time",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Dijkstra",
+      "Heap"
+    ]
+  },
+  {
+    "id": "fiber-network-redundant-link",
+    "title": "Campus Fiber Ring Redundant Cable",
+    "normalizedTitle": "campus fiber ring redundant cable",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Union Find"
+    ]
+  },
+  {
+    "id": "two-team-conflict-partition",
+    "title": "Shift Scheduler Conflict-Free Two-Team Split",
+    "normalizedTitle": "shift scheduler conflict-free two-team split",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS"
+    ]
+  },
+  {
+    "id": "airline-budget-k-layovers",
+    "title": "Freight Charter Cheapest K-Layover Route",
+    "normalizedTitle": "freight charter cheapest k-layover route",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Bellman-Ford",
+      "Dynamic Programming"
+    ]
+  },
+  {
+    "id": "campus-fiber-minimum-trench",
+    "title": "Campus Fiber Minimum Manhattan Trench",
+    "normalizedTitle": "campus fiber minimum manhattan trench",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "Minimum Spanning Tree",
+      "Prim"
+    ]
+  },
+  {
+    "id": "warehouse-robot-clear-corridor",
+    "title": "Autonomous Rover 8-Way Shortest Path",
+    "normalizedTitle": "autonomous rover 8-way shortest path",
+    "difficulty": "Medium",
+    "topics": [
+      "Graph",
+      "BFS",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "flood-zone-escape-elevation",
+    "title": "Rescue Boat Minimum Flood-Depth Route",
+    "normalizedTitle": "rescue boat minimum flood-depth route",
+    "difficulty": "Hard",
+    "topics": [
+      "Graph",
+      "Dijkstra",
+      "Heap",
+      "Matrix"
+    ]
+  },
+  {
+    "id": "stairway-step-combinations",
+    "title": "Warehouse Bot Dock-Ramp Step Plans",
+    "normalizedTitle": "warehouse bot dock-ramp step plans",
+    "difficulty": "Easy",
+    "topics": [
+      "Dynamic Programming",
+      "Math"
+    ]
+  },
+  {
+    "id": "windmill-nonadjacent-yield",
+    "title": "Ridge Wind-Turbine Non-Adjacent Yield",
+    "normalizedTitle": "ridge wind-turbine non-adjacent yield",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "vending-machine-min-coins",
+    "title": "Transit Kiosk Minimal Token Dispenser",
+    "normalizedTitle": "transit kiosk minimal token dispenser",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "sensor-strictly-rising-trend",
+    "title": "Quarterly Metrics Longest Strictly Rising Trend",
+    "normalizedTitle": "quarterly metrics longest strictly rising trend",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Binary Search"
+    ]
+  },
+  {
+    "id": "dna-primer-shared-backbone",
+    "title": "Bioinformatics Shared Genetic Backbone",
+    "normalizedTitle": "bioinformatics shared genetic backbone",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "spellcheck-minimum-edits",
+    "title": "Search Autocorrect Minimum Keystroke Edits",
+    "normalizedTitle": "search autocorrect minimum keystroke edits",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "String"
+    ]
+  },
+  {
+    "id": "url-slug-dictionary-split",
+    "title": "Domain Slug Valid Lexicon Segmentation",
+    "normalizedTitle": "domain slug valid lexicon segmentation",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Hash Table",
+      "String"
+    ]
+  },
+  {
+    "id": "cargo-twin-container-balance",
+    "title": "Twin Cargo Container Exact Weight Split",
+    "normalizedTitle": "twin cargo container exact weight split",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Knapsack"
+    ]
+  },
+  {
+    "id": "drone-grid-route-count",
+    "title": "Airspace Sector Monotonic Flight Paths",
+    "normalizedTitle": "airspace sector monotonic flight paths",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Math"
+    ]
+  },
+  {
+    "id": "compound-return-peak-streak",
+    "title": "Portfolio Multiplier Peak Contiguous Product",
+    "normalizedTitle": "portfolio multiplier peak contiguous product",
+    "difficulty": "Medium",
+    "topics": [
+      "Dynamic Programming",
+      "Array"
+    ]
+  },
+  {
+    "id": "relay-tower-end-to-end-reach",
+    "title": "Radio Relay Chain End-to-End Connectivity",
+    "normalizedTitle": "radio relay chain end-to-end connectivity",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "ev-charging-loop-start-station",
+    "title": "EV Delivery Loop Viable Starting Depot",
+    "normalizedTitle": "ev delivery loop viable starting depot",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "gpu-job-cooldown-scheduler",
+    "title": "GPU Kernel Cooldown Minimum Cycles",
+    "normalizedTitle": "gpu kernel cooldown minimum cycles",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Counting"
+    ]
+  },
+  {
+    "id": "feature-flag-power-set",
+    "title": "Experimentation Matrix All Flag Combinations",
+    "normalizedTitle": "experimentation matrix all flag combinations",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "bundle-pricing-exact-combos",
+    "title": "Gift-Card Exact Bundle Combinations",
+    "normalizedTitle": "gift-card exact bundle combinations",
+    "difficulty": "Medium",
+    "topics": [
+      "Backtracking",
+      "Array"
+    ]
+  },
+  {
+    "id": "server-rack-nonattacking-sensors",
+    "title": "Cleanroom Grid Non-Interfering Laser Scanners",
+    "normalizedTitle": "cleanroom grid non-interfering laser scanners",
+    "difficulty": "Hard",
+    "topics": [
+      "Backtracking",
+      "Bit Manipulation"
+    ]
+  },
+  {
+    "id": "bonus-tier-neighbor-allocation",
+    "title": "Sales Floor Neighbor-Fair Minimum Bonus Pool",
+    "normalizedTitle": "sales floor neighbor-fair minimum bonus pool",
+    "difficulty": "Hard",
+    "topics": [
+      "Greedy",
+      "Array"
+    ]
+  },
+  {
+    "id": "telemetry-stream-live-median",
+    "title": "Pressure Gauge Live Streaming Median",
+    "normalizedTitle": "pressure gauge live streaming median",
+    "difficulty": "Hard",
+    "topics": [
+      "Heap",
+      "Design",
+      "Two Heaps"
+    ]
+  },
+  {
+    "id": "parity-check-unmatched-packet",
+    "title": "ACK Log Unmatched Packet Identifier",
+    "normalizedTitle": "ack log unmatched packet identifier",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation",
+      "Array"
+    ]
+  },
+  {
+    "id": "memory-page-alignment-check",
+    "title": "Allocator Power-of-Two Page Size Validator",
+    "normalizedTitle": "allocator power-of-two page size validator",
+    "difficulty": "Easy",
+    "topics": [
+      "Bit Manipulation",
+      "Math"
+    ]
+  }
+]

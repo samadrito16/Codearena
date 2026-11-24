@@ -29,6 +29,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useMasteryProgress } from '../lib/mastery/progress';
+import { getAllMasteryProblems, PATTERN_CONFIG, type PatternId } from '../lib/mastery/catalog';
 import { readStorage, writeStorage } from '../lib/storage';
 import {
   generateQuarters,
@@ -82,6 +84,14 @@ export const HABIT_COLORS = [
   { id: 'pink', label: 'Pink', hex: '#ec4899' },
 ];
 
+const PATTERN_ACCENT_COLORS: Record<PatternId, string> = {
+  two_pointers: '#3b82f6',
+  sliding_window: '#06b6d4',
+  hash_maps: '#8b5cf6',
+  dynamic_programming: '#f59e0b',
+  breadth_first_search: '#10b981',
+};
+
 const DEFAULT_HABITS: Habit[] = [
   { id: 'habit-1', name: 'Labs & Practice', targetMinutes: 20, color: '#10b981', streakDays: 0, createdAt: new Date().toISOString() },
   { id: 'habit-2', name: 'Daily Challenge solve', targetMinutes: 15, color: '#f59e0b', streakDays: 3, createdAt: new Date().toISOString() },
@@ -112,9 +122,87 @@ export function formatWeekDateRange(startDate: Date, endDate: Date): string {
 }
 
 export default function YearPlanner() {
-  const { activityLog } = useApp();
+  const { activityLog, adaptiveMasteryPlan, updateAdaptiveMasteryPlan } = useApp();
+  const { getProblemProgress, getOverallStats, toggleCompleted } = useMasteryProgress();
   const today = useMemo(() => new Date(), []);
   const [selectedYear, setSelectedYear] = useState<number>(() => today.getFullYear());
+
+  // ── Mastery Catalog & Adaptive Calculations ──
+  const allMasteryProblems = useMemo(() => getAllMasteryProblems(), []);
+  const overallMasteryStats = useMemo(() => getOverallStats(), [getOverallStats]);
+
+  const daysRemaining = useMemo(() => {
+    if (!adaptiveMasteryPlan?.targetDate) return adaptiveMasteryPlan?.targetDays || 45;
+    const target = new Date(adaptiveMasteryPlan.targetDate).getTime();
+    const now = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+    const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+    return Math.max(1, diff);
+  }, [adaptiveMasteryPlan?.targetDate, adaptiveMasteryPlan?.targetDays, today]);
+
+  // Solved vs Unsolved Blueprints
+  const { completedProblems, unsolvedProblems, masteryPercent } = useMemo(() => {
+    const completed = [];
+    const unsolved = [];
+    for (const problem of allMasteryProblems) {
+      const prog = getProblemProgress(problem.id);
+      if (prog.completed) {
+        completed.push(problem);
+      } else {
+        unsolved.push(problem);
+      }
+    }
+    const percent = allMasteryProblems.length > 0 
+      ? Math.round((completed.length / allMasteryProblems.length) * 100) 
+      : 0;
+    return { completedProblems: completed, unsolvedProblems: unsolved, masteryPercent: percent };
+  }, [allMasteryProblems, getProblemProgress]);
+
+  // Dynamic daily pace required to finish by target deadline
+  const dynamicDailyPace = useMemo(() => {
+    if (unsolvedProblems.length === 0) return 0;
+    return Math.max(1, Math.ceil(unsolvedProblems.length / daysRemaining));
+  }, [unsolvedProblems.length, daysRemaining]);
+
+  // Curated "Today's Set"
+  const todaysMasterySet = useMemo(() => {
+    if (unsolvedProblems.length === 0) return [];
+
+    const targetCount = Math.min(4, Math.max(2, adaptiveMasteryPlan?.dailyPace || dynamicDailyPace || 3));
+
+    if (adaptiveMasteryPlan?.prioritizeWeakPatterns && overallMasteryStats?.patternCompletion) {
+      // Prioritize patterns with lowest completion percentages
+      const sortedPatterns = (['two_pointers', 'sliding_window', 'hash_maps', 'dynamic_programming', 'breadth_first_search'] as PatternId[])
+        .map((pid) => {
+          const data = overallMasteryStats.patternCompletion[pid] || { completed: 0, total: 20 };
+          return {
+            patternId: pid,
+            completionRatio: data.total > 0 ? data.completed / data.total : 0,
+          };
+        })
+        .sort((a, b) => a.completionRatio - b.completionRatio);
+
+      const selected: typeof unsolvedProblems = [];
+      for (const { patternId } of sortedPatterns) {
+        if (selected.length >= targetCount) break;
+        const matching = unsolvedProblems.filter((p) => p.pattern === patternId && !selected.some((s) => s.id === p.id));
+        for (const item of matching) {
+          if (selected.length >= targetCount) break;
+          selected.push(item);
+        }
+      }
+
+      for (const item of unsolvedProblems) {
+        if (selected.length >= targetCount) break;
+        if (!selected.some((s) => s.id === item.id)) {
+          selected.push(item);
+        }
+      }
+      return selected;
+    }
+
+    // Default sequential track curriculum
+    return unsolvedProblems.slice(0, targetCount);
+  }, [unsolvedProblems, adaptiveMasteryPlan?.dailyPace, adaptiveMasteryPlan?.prioritizeWeakPatterns, dynamicDailyPace, overallMasteryStats]);
   
   // Persistent viewMode state ('weeks' or 'days')
   const [viewMode, setViewMode] = useState<'weeks' | 'days'>(() => {
@@ -353,57 +441,339 @@ export default function YearPlanner() {
   const primaryHabitCompleted = primaryHabit ? Boolean(habitCompletions[activeDateKey]?.[primaryHabit.id]) : false;
   const primaryColor = primaryHabit?.color || '#10b981';
 
-  // Common Milestone Banner Card Component
-  const renderBanner = () => (
-    <div
-      className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 border shadow-sm overflow-hidden w-full"
-      style={{
-        backgroundColor: 'var(--ca-surface)',
-        borderColor: 'var(--ca-border)',
-      }}
-    >
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1.5 max-w-xl">
-          <h1 className="font-display text-xl sm:text-2xl font-bold text-primary tracking-tight">
-            {selectedYear} is a blank wall. Fill it in.
-          </h1>
-          <p className="text-xs sm:text-sm text-muted leading-relaxed">
-            Start with the big rocks: trips, launches, exams, birthdays. Click any week or date to add plans, then set habits to track each day.
-          </p>
+  // Common Milestone Banner Card Component (Adaptive Placement Hub or Blank Wall)
+  const renderBanner = () => {
+    if (adaptiveMasteryPlan?.enabled) {
+      return (
+        <div
+          className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-7 border shadow-lg overflow-hidden w-full space-y-6"
+          style={{
+            backgroundColor: 'var(--ca-surface)',
+            borderColor: 'color-mix(in srgb, var(--ca-border) 60%, #6366f1 40%)',
+            boxShadow: '0 4px 24px -1px rgba(99, 102, 241, 0.08)',
+          }}
+        >
+          {/* Top Row: Milestone Info & Actions */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  <Sparkles size={11} className="animate-pulse" />
+                  Adaptive Placement Engine
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                  <Flame size={10} />
+                  {daysRemaining} days left
+                </span>
+              </div>
+              <h1 className="font-display text-xl sm:text-2xl font-extrabold text-primary tracking-tight flex items-center gap-2">
+                <span>{adaptiveMasteryPlan.targetGoal || 'Campus Placements in 45 Days'}</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-muted">
+                Target Deadline: <strong className="text-primary">{adaptiveMasteryPlan.targetDate}</strong> · Pace: <strong className="text-primary">{dynamicDailyPace} blueprints/day</strong> to conquer all 100 patterns.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+              <Link
+                to="/mastery"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition text-primary hover:border-indigo-500/40"
+                style={{
+                  backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
+                  borderColor: 'var(--ca-border)',
+                }}
+              >
+                <Layers size={13} />
+                All 100 Blueprints
+              </Link>
+              <Link
+                to="/settings"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition text-primary hover:border-amber-500/40"
+                style={{
+                  backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
+                  borderColor: 'var(--ca-border)',
+                }}
+                title="Adjust target days and pace in Settings"
+              >
+                <SlidersHorizontal size={13} />
+                Tune Plan
+              </Link>
+              <button
+                type="button"
+                onClick={() => updateAdaptiveMasteryPlan({ enabled: false })}
+                className="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl text-xs font-medium text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition"
+                title="Pause adaptive plan"
+              >
+                Pause
+              </button>
+            </div>
+          </div>
+
+          {/* Overall Progress Bar & Track Badges */}
+          <div className="space-y-2 pt-1 border-t" style={{ borderColor: 'var(--ca-border)' }}>
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-semibold text-primary">
+                Curriculum Progress: {completedProblems.length} / {allMasteryProblems.length} Blueprints Mastered
+              </span>
+              <span className="font-mono font-bold text-indigo-400">{masteryPercent}% Complete</span>
+            </div>
+            <div className="h-2 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden relative">
+              <div
+                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500"
+                style={{ width: `${masteryPercent}%` }}
+              />
+            </div>
+
+            {/* Pattern Breakdown Badges */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+              {(['two_pointers', 'sliding_window', 'hash_maps', 'dynamic_programming', 'breadth_first_search'] as PatternId[]).map((pid) => {
+                const conf = PATTERN_CONFIG[pid];
+                const stats = overallMasteryStats?.patternCompletion?.[pid] || { completed: 0, total: 20 };
+                const dotColor = PATTERN_ACCENT_COLORS[pid] || '#6366f1';
+                return (
+                  <div
+                    key={pid}
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg border text-muted"
+                    style={{
+                      borderColor: 'var(--ca-border)',
+                      backgroundColor: 'color-mix(in srgb, var(--ca-surface) 92%, black 8%)',
+                    }}
+                  >
+                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: dotColor }} />
+                    <span className="font-medium text-primary">{conf.name}</span>
+                    <span className="font-mono text-[10px] text-muted">{stats.completed}/{stats.total}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 🎯 Today's Set Section */}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Target size={16} className="text-amber-500" />
+                <h2 className="text-sm font-bold text-primary tracking-tight">Today&apos;s Set</h2>
+                <span className="text-xs text-muted">
+                  · Calibrated for today&apos;s {dynamicDailyPace} blueprint pace
+                </span>
+              </div>
+              {unsolvedProblems.length > 0 && (
+                <span className="text-[11px] text-muted font-mono">
+                  {unsolvedProblems.length} remaining in catalog
+                </span>
+              )}
+            </div>
+
+            {todaysMasterySet.length === 0 ? (
+              <div className="p-6 rounded-2xl border text-center space-y-2 bg-emerald-500/5 border-emerald-500/20">
+                <Trophy size={28} className="mx-auto text-emerald-500" />
+                <h3 className="text-sm font-bold text-primary">All 100 Blueprints Mastered!</h3>
+                <p className="text-xs text-muted max-w-md mx-auto">
+                  You have mastered every single algorithmic blueprint in the curriculum. Your placement algorithmic foundation is battle-ready!
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {todaysMasterySet.map((problem) => {
+                  const patternConf = PATTERN_CONFIG[problem.pattern];
+                  const prog = getProblemProgress(problem.id);
+                  const isDone = prog.completed;
+                  const patternBadgeColor = PATTERN_ACCENT_COLORS[problem.pattern] || '#6366f1';
+
+                  return (
+                    <div
+                      key={problem.id}
+                      className="rounded-xl p-4 border flex flex-col justify-between gap-3 transition-all hover:border-indigo-500/40 hover:shadow-sm"
+                      style={{
+                        backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
+                        borderColor: isDone ? 'rgba(16, 185, 129, 0.4)' : 'var(--ca-border)',
+                      }}
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span
+                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white"
+                            style={{ backgroundColor: patternBadgeColor }}
+                          >
+                            {patternConf?.name || problem.pattern}
+                          </span>
+                          <span
+                            className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${
+                              problem.difficulty === 'Easy'
+                                ? 'text-emerald-500 bg-emerald-500/10'
+                                : problem.difficulty === 'Medium'
+                                ? 'text-amber-500 bg-amber-500/10'
+                                : 'text-rose-500 bg-rose-500/10'
+                            }`}
+                          >
+                            {problem.difficulty}
+                          </span>
+                        </div>
+
+                        <h3 className="text-sm font-bold text-primary line-clamp-1" title={problem.title}>
+                          {problem.title}
+                        </h3>
+
+                        <p className="text-xs text-muted line-clamp-2 leading-relaxed">
+                          {problem.statement.description}
+                        </p>
+
+                        <div className="flex items-center gap-3 text-[11px] text-muted pt-1">
+                          <span className="flex items-center gap-1">
+                            <Clock size={11} />
+                            {problem.estimated_minutes || 20} min
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Zap size={11} className="text-amber-500" />
+                            {problem.hardest_lines_to_test.length} high-risk lines
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-2 pt-3 border-t" style={{ borderColor: 'var(--ca-border)' }}>
+                        <button
+                          type="button"
+                          onClick={() => toggleCompleted(problem.id)}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition ${
+                            isDone
+                              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
+                              : 'border-neutral-700 text-muted hover:text-primary hover:border-neutral-500'
+                          }`}
+                          title={isDone ? 'Mark as uncompleted' : 'Mark as mastered'}
+                        >
+                          <CheckCircle2 size={13} className={isDone ? 'text-emerald-400' : 'text-neutral-500'} />
+                          {isDone ? 'Mastered' : 'Mark Done'}
+                        </button>
+
+                        <Link
+                          to={`/mastery/${problem.slug}`}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm"
+                        >
+                          Launch Studio
+                          <ArrowUpRight size={13} />
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // Default Banner when Adaptive Plan is paused / not enabled
+    return (
+      <div className="space-y-4 w-full">
+        <div
+          className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 border shadow-sm overflow-hidden w-full"
+          style={{
+            backgroundColor: 'var(--ca-surface)',
+            borderColor: 'var(--ca-border)',
+          }}
+        >
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1.5 max-w-xl">
+              <h1 className="font-display text-xl sm:text-2xl font-bold text-primary tracking-tight">
+                {selectedYear} is a blank wall. Fill it in.
+              </h1>
+              <p className="text-xs sm:text-sm text-muted leading-relaxed">
+                Start with the big rocks: trips, launches, exams, birthdays. Click any week or date to add plans, then set habits to track each day.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  const thisWeek = allWeeks.find((w) => w.isCurrentWeek) || allWeeks[0];
+                  if (thisWeek) {
+                    setSelectedWeek(thisWeek);
+                    setSelectedPlanDayKey(thisWeek.days[0].dateKey);
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm"
+              >
+                Add your first plan <ArrowUpRight size={14} />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setNewHabitColor('#10b981');
+                  setIsAddingHabit(true);
+                }}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border text-primary hover:border-amber-500/40 transition shadow-sm"
+                style={{
+                  backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
+                  borderColor: 'var(--ca-border)',
+                }}
+              >
+                <Plus size={14} /> Add a habit
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0">
-          <button
-            type="button"
-            onClick={() => {
-              const thisWeek = allWeeks.find((w) => w.isCurrentWeek) || allWeeks[0];
-              if (thisWeek) {
-                setSelectedWeek(thisWeek);
-                setSelectedPlanDayKey(thisWeek.days[0].dateKey);
-              }
-            }}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm"
-          >
-            Add your first plan <ArrowUpRight size={14} />
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setNewHabitColor('#10b981');
-              setIsAddingHabit(true);
-            }}
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border text-primary hover:border-amber-500/40 transition shadow-sm"
-            style={{
-              backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
-              borderColor: 'var(--ca-border)',
-            }}
-          >
-            <Plus size={14} /> Add a habit
-          </button>
+        {/* Adaptive Placement Engine Activation Prompt */}
+        <div
+          className="relative rounded-2xl p-4 sm:p-5 border flex flex-col md:flex-row md:items-center justify-between gap-4"
+          style={{
+            backgroundColor: 'color-mix(in srgb, var(--ca-surface) 92%, #6366f1 8%)',
+            borderColor: 'color-mix(in srgb, var(--ca-border) 70%, #6366f1 30%)',
+          }}
+        >
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Sparkles size={14} className="text-indigo-400" />
+              <span className="text-xs font-bold text-primary">
+                Adaptive Placement Engine Available
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-semibold">
+                100 Blueprints
+              </span>
+            </div>
+            <p className="text-xs text-muted max-w-2xl leading-relaxed">
+              Connect YearPlanner to Mastery data to activate an adaptive roadmap (e.g. &ldquo;Campus Placements in 45 Days&rdquo;). Automatically schedules today&apos;s daily problem set calibrated to your target interview deadline.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                const targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + 45);
+                updateAdaptiveMasteryPlan({
+                  enabled: true,
+                  targetGoal: 'Campus Placements in 45 Days',
+                  targetDays: 45,
+                  targetDate: targetDate.toISOString().split('T')[0],
+                  dailyPace: 3,
+                });
+              }}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition shadow-sm"
+            >
+              <Zap size={13} />
+              Activate 45-Day Plan
+            </button>
+            <Link
+              to="/settings"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border text-primary hover:border-indigo-500/40 transition"
+              style={{
+                backgroundColor: 'var(--ca-surface)',
+                borderColor: 'var(--ca-border)',
+              }}
+            >
+              <SlidersHorizontal size={13} />
+              Configure in Settings
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="w-full space-y-6 pb-20">

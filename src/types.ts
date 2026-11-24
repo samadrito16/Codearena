@@ -263,4 +263,16 @@ export interface PublicProfileData {
   isPrivate?: boolean;
 }
 
+export interface AdaptiveMasteryPlan {
+  enabled: boolean;
+  targetGoal: string;
+  targetDays: number;
+  targetDate: string;
+  dailyPace: number;
+  prioritizeWeakPatterns: boolean;
+  selectedPatternOrder: string[];
+  startDate: string;
+}
+
+
 

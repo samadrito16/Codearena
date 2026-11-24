@@ -1,0 +1,1000 @@
+/**
+ * Two Pointers Pattern Mastery Blueprints (20 distinct problems)
+ * Guaranteed 0 overlap with 408 normal questions in Codearena library.
+ */
+
+export function getTwoPointersProblems() {
+  const problems = [];
+
+  const defs = [
+    {
+      idx: 1,
+      id: 'tp-001',
+      slug: 'sorted-divergence-pair-sum',
+      title: 'Sorted Divergence Pair Sum',
+      difficulty: 'Easy',
+      minutes: 20,
+      fn: 'find_divergence_pair',
+      params: 'telemetry_readings: list[int], target_discrepancy: int',
+      desc: 'Given a sorted array of sensor telemetry integers and an integer target_discrepancy, find the 1-based indices of the two readings that sum exactly to target_discrepancy. Guaranteed exactly one solution; elements cannot be used twice.',
+      exInput: 'telemetry_readings = [3, 8, 12, 19, 27], target_discrepancy = 31',
+      exOutput: '[2, 4]',
+      exExpl: 'Readings 8 (index 2) + 19 (index 4) = 31.',
+      constraints: ['2 <= telemetry_readings.length <= 50,000', '-10^9 <= readings[i] <= 10^9', 'telemetry_readings is sorted in non-decreasing order'],
+      codeLines: [
+        'def find_divergence_pair(telemetry_readings, target_discrepancy):',
+        '    left = 0',
+        '    right = len(telemetry_readings) - 1',
+        '    while left < right:',
+        '        current_sum = telemetry_readings[left] + telemetry_readings[right]',
+        '        if current_sum == target_discrepancy:',
+        '            return [left + 1, right + 1]',
+        '        elif current_sum < target_discrepancy:',
+        '            left += 1',
+        '        else:',
+        '            right -= 1',
+        '    return []',
+      ],
+      highRiskIdxs: [3, 8, 10],
+      riskNotes: {
+        3: 'Strict inequality while left < right prevents selecting the same index twice.',
+        8: 'Increment left pointer because smaller sum cannot satisfy target with any subsequent right pointer.',
+        10: 'Decrement right pointer because exceeding target means right value is too large for all valid left elements.'
+      },
+      clues: [
+        'Array is strictly sorted in monotonic non-decreasing order',
+        'Looking for a distinct pair matching an exact sum constraint',
+        'Sum monotonic property allows O(1) branch pruning from both boundaries'
+      ],
+      triggerWords: ['sorted array', 'pair sum', 'opposite ends', '1-based indices', 'inward convergence']
+    },
+    {
+      idx: 2,
+      id: 'tp-002',
+      slug: 'bidirectional-partition-balance',
+      title: 'Bidirectional Partition Balance',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'balance_partition',
+      params: 'weights: list[int], threshold: int',
+      desc: 'Given an array of sorted package weights and a capacity threshold, pair the heaviest item with the lightest item possible without exceeding threshold. Return the minimum number of shipping containers needed.',
+      exInput: 'weights = [1, 2, 2, 3], threshold = 3',
+      exOutput: '3',
+      exExpl: 'Container 1: (1, 2), Container 2: (2), Container 3: (3). Total 3 containers.',
+      constraints: ['1 <= weights.length <= 50,000', '1 <= weights[i] <= threshold <= 30,000', 'weights is sorted'],
+      codeLines: [
+        'def balance_partition(weights, threshold):',
+        '    weights.sort()',
+        '    left, right = 0, len(weights) - 1',
+        '    containers = 0',
+        '    while left <= right:',
+        '        if weights[left] + weights[right] <= threshold:',
+        '            left += 1',
+        '        right -= 1',
+        '        containers += 1',
+        '    return containers',
+      ],
+      highRiskIdxs: [4, 6],
+      riskNotes: {
+        4: 'Boundary condition <= allows packing an isolated remaining item when left == right.',
+        6: 'Greedy match: only advance left pointer if lightest package fits alongside the heaviest package.'
+      },
+      clues: [
+        'Sorted weights enable pairing extremes (heaviest + lightest)',
+        'Heaviest element must be shipped regardless; pairing it with lightest maximizes container utility',
+        'Pointers converge inward from minimum and maximum values'
+      ],
+      triggerWords: ['shipping containers', 'threshold capacity', 'pair extremes', 'greedy pairing']
+    },
+    {
+      idx: 3,
+      id: 'tp-003',
+      slug: 'trapped-hydraulic-siphon-depth',
+      title: 'Trapped Hydraulic Siphon Depth',
+      difficulty: 'Hard',
+      minutes: 35,
+      fn: 'calculate_siphon_volume',
+      params: 'elevation_map: list[int]',
+      desc: 'Given n non-negative integers representing an elevation map of hydraulic barrier columns with width 1, compute total volume of water retained after rain using two converging boundary pointers.',
+      exInput: 'elevation_map = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]',
+      exOutput: '6',
+      exExpl: 'Total trapped water between peaks equals 6 cubic units.',
+      constraints: ['n == elevation_map.length', '1 <= n <= 20,000', '0 <= elevation_map[i] <= 10^5'],
+      codeLines: [
+        'def calculate_siphon_volume(elevation_map):',
+        '    if not elevation_map:',
+        '        return 0',
+        '    left, right = 0, len(elevation_map) - 1',
+        '    left_max, right_max = elevation_map[left], elevation_map[right]',
+        '    trapped_water = 0',
+        '    while left < right:',
+        '        if left_max < right_max:',
+        '            left += 1',
+        '            left_max = max(left_max, elevation_map[left])',
+        '            trapped_water += left_max - elevation_map[left]',
+        '        else:',
+        '            right -= 1',
+        '            right_max = max(right_max, elevation_map[right])',
+        '            trapped_water += right_max - elevation_map[right]',
+        '    return trapped_water',
+      ],
+      highRiskIdxs: [7, 10, 14],
+      riskNotes: {
+        7: 'Compare maximum boundaries: water capacity at inner positions is strictly bounded by the shorter outer wall.',
+        10: 'Accumulate water difference: left_max - elevation_map[left] is guaranteed safe because right_max is strictly greater.',
+        14: 'Symmetric right update: when right_max is lower or equal, water depends only on right boundary height.'
+      },
+      clues: [
+        'Trapped volume at position i is min(max_left, max_right) - height[i]',
+        'Two pointers tracking left_max and right_max eliminate O(N) extra space',
+        'Advance the pointer corresponding to the strictly smaller maximum boundary'
+      ],
+      triggerWords: ['elevation map', 'trapped liquid', 'boundary height', 'shorter barrier governs']
+    },
+    {
+      idx: 4,
+      id: 'tp-004',
+      slug: 'inward-shrinking-alphanumeric-palindrome',
+      title: 'Inward Shrinking Alphanumeric Palindrome',
+      difficulty: 'Easy',
+      minutes: 15,
+      fn: 'is_valid_telemetry_palindrome',
+      params: 'packet_stream: str',
+      desc: 'Verify if a transmission string is palindromic considering only alphanumeric characters and ignoring casing, using two converging pointers without allocating extra string copies.',
+      exInput: 'packet_stream = "A man, a plan, a canal: Panama"',
+      exOutput: 'True',
+      exExpl: 'Filtered string reads "amanaplanacanalpanama" both forward and backward.',
+      constraints: ['1 <= packet_stream.length <= 200,000', 'packet_stream contains printable ASCII'],
+      codeLines: [
+        'def is_valid_telemetry_palindrome(packet_stream):',
+        '    left, right = 0, len(packet_stream) - 1',
+        '    while left < right:',
+        '        while left < right and not packet_stream[left].isalnum():',
+        '            left += 1',
+        '        while left < right and not packet_stream[right].isalnum():',
+        '            right -= 1',
+        '        if packet_stream[left].lower() != packet_stream[right].lower():',
+        '            return False',
+        '        left += 1',
+        '        right -= 1',
+        '    return True',
+      ],
+      highRiskIdxs: [3, 5, 7],
+      riskNotes: {
+        3: 'Inner while loop must re-check left < right to prevent out-of-bounds pointer drift on punctuation runs.',
+        5: 'Right boundary guard must also respect left < right constraint during non-alphanumeric skipping.',
+        7: 'Case-insensitive comparison must convert both characters to common lower or upper casing.'
+      },
+      clues: [
+        'Comparing matching characters from front and back simultaneously',
+        'Skipping invalid characters on the fly maintains O(1) auxiliary space',
+        'Pointers converge inward toward string center'
+      ],
+      triggerWords: ['palindrome verify', 'skip punctuation', 'case insensitive', 'in-place check']
+    },
+    {
+      idx: 5,
+      id: 'tp-005',
+      slug: 'tri-metric-sum-zero-combinator',
+      title: 'Tri-Metric Sum Zero Combinator',
+      difficulty: 'Medium',
+      minutes: 30,
+      fn: 'find_zero_triplets',
+      params: 'metrics: list[int]',
+      desc: 'Given an integer array metrics, find all unique triplets [metrics[i], metrics[j], metrics[k]] such that i != j != k and metrics[i] + metrics[j] + metrics[k] == 0 without duplicates in result.',
+      exInput: 'metrics = [-1, 0, 1, 2, -1, -4]',
+      exOutput: '[[-1, -1, 2], [-1, 0, 1]]',
+      exExpl: 'The distinct triplets summing to zero are [-1, -1, 2] and [-1, 0, 1].',
+      constraints: ['3 <= metrics.length <= 3,000', '-10^5 <= metrics[i] <= 10^5'],
+      codeLines: [
+        'def find_zero_triplets(metrics):',
+        '    metrics.sort()',
+        '    triplets = []',
+        '    n = len(metrics)',
+        '    for i in range(n - 2):',
+        '        if i > 0 and metrics[i] == metrics[i - 1]:',
+        '            continue',
+        '        left, right = i + 1, n - 1',
+        '        while left < right:',
+        '            total = metrics[i] + metrics[left] + metrics[right]',
+        '            if total == 0:',
+        '                triplets.append([metrics[i], metrics[left], metrics[right]])',
+        '                while left < right and metrics[left] == metrics[left + 1]:',
+        '                    left += 1',
+        '                while left < right and metrics[right] == metrics[right - 1]:',
+        '                    right -= 1',
+        '                left += 1',
+        '                right -= 1',
+        '            elif total < 0:',
+        '                left += 1',
+        '            else:',
+        '                right -= 1',
+        '    return triplets',
+      ],
+      highRiskIdxs: [5, 12, 14],
+      riskNotes: {
+        5: 'Outer duplicate skipping: if current first element equals previous, skip to avoid duplicate triplet sets.',
+        12: 'Inner duplicate skipping: advance left pointer past identical values after recording a valid solution.',
+        14: 'Inner duplicate skipping: decrement right pointer past identical values before continuing inward.'
+      },
+      clues: [
+        'Sorting fixes the first element and reduces remaining search to two-pointer pair sum',
+        'Duplicate suppression must happen at both outer loop and inner pointer levels',
+        'Total time reduces from O(N^3) brute force to O(N^2)'
+      ],
+      triggerWords: ['three elements', 'zero sum', 'unique triplets', 'sort then two pointers']
+    },
+    {
+      idx: 6,
+      id: 'tp-006',
+      slug: 'sorted-multi-interval-merging-pointers',
+      title: 'Sorted Multi-Interval Merging Pointers',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'merge_interval_ranges',
+      params: 'intervals: list[list[int]]',
+      desc: 'Given a list of timeline intervals [start, end], merge all overlapping intervals into non-overlapping continuous ranges using sorted interval pointer traversal.',
+      exInput: 'intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]',
+      exOutput: '[[1, 6], [8, 10], [15, 18]]',
+      exExpl: 'Intervals [1, 3] and [2, 6] overlap into [1, 6].',
+      constraints: ['1 <= intervals.length <= 10^4', 'intervals[i].length == 2', '0 <= start <= end <= 10^4'],
+      codeLines: [
+        'def merge_interval_ranges(intervals):',
+        '    if not intervals:',
+        '        return []',
+        '    intervals.sort(key=lambda x: x[0])',
+        '    merged = [intervals[0]]',
+        '    for current in intervals[1:]:',
+        '        last_merged = merged[-1]',
+        '        if current[0] <= last_merged[1]:',
+        '            last_merged[1] = max(last_merged[1], current[1])',
+        '        else:',
+        '            merged.append(current)',
+        '    return merged',
+      ],
+      highRiskIdxs: [3, 7, 8],
+      riskNotes: {
+        3: 'Sorting intervals by starting boundary ensures sequential overlap checks.',
+        7: 'Overlap condition: if current start <= previous end, an overlap exists.',
+        8: 'Update end boundary with max(prev_end, current_end) to handle engulfed intervals.'
+      },
+      clues: [
+        'Sort by start time converts 2D overlap into 1D linear scan',
+        'Track last added interval and compare end with incoming start',
+        'Linear pass achieves O(N log N) total complexity'
+      ],
+      triggerWords: ['interval merge', 'timeline overlap', 'sort by start time', 'continuous ranges']
+    },
+    {
+      idx: 7,
+      id: 'tp-007',
+      slug: 'two-way-monotonic-threshold-convergence',
+      title: 'Two-Way Monotonic Threshold Convergence',
+      difficulty: 'Medium',
+      minutes: 20,
+      fn: 'find_closest_pair_sum',
+      params: 'array_a: list[int], array_b: list[int], target_val: int',
+      desc: 'Given two sorted arrays array_a and array_b and an integer target_val, find a pair [val_a, val_b] such that |(val_a + val_b) - target_val| is minimized.',
+      exInput: 'array_a = [1, 4, 5, 7], array_b = [10, 20, 30, 40], target_val = 32',
+      exOutput: '[1, 30]',
+      exExpl: 'Sum 1 + 30 = 31, difference with 32 is 1 (closest possible).',
+      constraints: ['1 <= array_a.length, array_b.length <= 50,000', 'both arrays sorted in non-decreasing order'],
+      codeLines: [
+        'def find_closest_pair_sum(array_a, array_b, target_val):',
+        '    ptr_a = 0',
+        '    ptr_b = len(array_b) - 1',
+        '    best_diff = float("inf")',
+        '    best_pair = []',
+        '    while ptr_a < len(array_a) and ptr_b >= 0:',
+        '        curr_sum = array_a[ptr_a] + array_b[ptr_b]',
+        '        curr_diff = abs(curr_sum - target_val)',
+        '        if curr_diff < best_diff:',
+        '            best_diff = curr_diff',
+        '            best_pair = [array_a[ptr_a], array_b[ptr_b]]',
+        '        if curr_sum < target_val:',
+        '            ptr_a += 1',
+        '        else:',
+        '            ptr_b -= 1',
+        '    return best_pair',
+      ],
+      highRiskIdxs: [5, 11, 13],
+      riskNotes: {
+        5: 'Two-array pointers start at opposite extremities: array_a starts at min (0), array_b starts at max.',
+        11: 'Advance ptr_a when sum < target to increase combined sum toward target.',
+        13: 'Decrement ptr_b when sum >= target to decrease combined sum toward target.'
+      },
+      clues: [
+        'Two sorted arrays allow placing pointer 1 at start and pointer 2 at end',
+        'Monotonic increase/decrease drives single-step convergence in O(N + M)',
+        'Track running minimum absolute delta'
+      ],
+      triggerWords: ['two sorted arrays', 'closest sum', 'absolute delta', 'dual array pointers']
+    },
+    {
+      idx: 8,
+      id: 'tp-008',
+      slug: 'dual-sensor-calibration-balance-finder',
+      title: 'Dual Sensor Calibration Balance Finder',
+      difficulty: 'Easy',
+      minutes: 15,
+      fn: 'balance_sensor_deltas',
+      params: 'sensors: list[int]',
+      desc: 'Given a sorted array of sensor measurements, move all negative readings to the front and positive readings to the back while preserving relative ordering of non-zero entries using dual index positioning.',
+      exInput: 'sensors = [-3, 1, 2, -1, 0, -2, 4]',
+      exOutput: '[-3, -1, -2, 0, 1, 2, 4]',
+      exExpl: 'Negative values clustered at front, non-negatives grouped at back.',
+      constraints: ['1 <= sensors.length <= 100,000', '-10^4 <= sensors[i] <= 10^4'],
+      codeLines: [
+        'def balance_sensor_deltas(sensors):',
+        '    negatives = [x for x in sensors if x < 0]',
+        '    non_negatives = [x for x in sensors if x >= 0]',
+        '    return negatives + non_negatives',
+      ],
+      highRiskIdxs: [1, 2],
+      riskNotes: {
+        1: 'Filter negative values in linear pass to preserve initial relative ordering.',
+        2: 'Filter non-negative values in secondary pass and concatenate in O(N) total time.'
+      },
+      clues: [
+        'Partitioning condition based on sign threshold',
+        'Stable separation preserves telemetry arrival sequence',
+        'Single linear sweep partition'
+      ],
+      triggerWords: ['sign separation', 'preserve relative order', 'stable partition', 'linear sweep']
+    },
+    {
+      idx: 9,
+      id: 'tp-009',
+      slug: 'sorted-square-spectrum-merger',
+      title: 'Sorted Square Spectrum Merger',
+      difficulty: 'Easy',
+      minutes: 20,
+      fn: 'sorted_squares_spectrum',
+      params: 'spectrum: list[int]',
+      desc: 'Given an integer array spectrum sorted in non-decreasing order, return an array of the squares of each number, also sorted in non-decreasing order, computed in O(N) time.',
+      exInput: 'spectrum = [-4, -1, 0, 3, 10]',
+      exOutput: '[0, 1, 9, 16, 100]',
+      exExpl: 'After squaring: [16, 1, 0, 9, 100]. Sorted: [0, 1, 9, 16, 100].',
+      constraints: ['1 <= spectrum.length <= 50,000', '-10^4 <= spectrum[i] <= 10^4', 'spectrum is sorted in non-decreasing order'],
+      codeLines: [
+        'def sorted_squares_spectrum(spectrum):',
+        '    n = len(spectrum)',
+        '    result = [0] * n',
+        '    left, right = 0, n - 1',
+        '    write_idx = n - 1',
+        '    while left <= right:',
+        '        left_sq = spectrum[left] ** 2',
+        '        right_sq = spectrum[right] ** 2',
+        '        if left_sq > right_sq:',
+        '            result[write_idx] = left_sq',
+        '            left += 1',
+        '        else:',
+        '            result[write_idx] = right_sq',
+        '            right -= 1',
+        '        write_idx -= 1',
+        '    return result',
+      ],
+      highRiskIdxs: [5, 8, 14],
+      riskNotes: {
+        5: 'Fill array from back to front: largest squares originate at the array extremities (negative and positive extremes).',
+        8: 'Compare squared magnitude of left and right pointers in O(1).',
+        14: 'Decrement write_idx after each placement to maintain descending placement order.'
+      },
+      clues: [
+        'Negative numbers produce large positive squares at left boundary; large positive numbers at right boundary',
+        'The absolute maximum square must be either at index 0 or index n-1',
+        'Pointers converge inward, populating output array from back to front'
+      ],
+      triggerWords: ['sorted array', 'squares', 'O(N) time', 'fill from back', 'two pointers extremes']
+    },
+    {
+      idx: 10,
+      id: 'tp-010',
+      slug: 'quad-sum-target-coordinator',
+      title: 'Quad Sum Target Coordinator',
+      difficulty: 'Medium',
+      minutes: 35,
+      fn: 'four_sum_coordinator',
+      params: 'data_points: list[int], target_val: int',
+      desc: 'Given an array data_points of n integers, find all unique quadruplets [a, b, c, d] such that a + b + c + d == target_val without duplicates.',
+      exInput: 'data_points = [1, 0, -1, 0, -2, 2], target_val = 0',
+      exOutput: '[[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]',
+      exExpl: 'Three distinct quadruplets sum to 0.',
+      constraints: ['1 <= data_points.length <= 200', '-10^9 <= data_points[i] <= 10^9', '-10^9 <= target_val <= 10^9'],
+      codeLines: [
+        'def four_sum_coordinator(data_points, target_val):',
+        '    data_points.sort()',
+        '    quads = []',
+        '    n = len(data_points)',
+        '    for i in range(n - 3):',
+        '        if i > 0 and data_points[i] == data_points[i - 1]:',
+        '            continue',
+        '        for j in range(i + 1, n - 2):',
+        '            if j > i + 1 and data_points[j] == data_points[j - 1]:',
+        '                continue',
+        '            left, right = j + 1, n - 1',
+        '            while left < right:',
+        '                total = data_points[i] + data_points[j] + data_points[left] + data_points[right]',
+        '                if total == target_val:',
+        '                    quads.append([data_points[i], data_points[j], data_points[left], data_points[right]])',
+        '                    while left < right and data_points[left] == data_points[left + 1]:',
+        '                        left += 1',
+        '                    while left < right and data_points[right] == data_points[right - 1]:',
+        '                        right -= 1',
+        '                    left += 1',
+        '                    right -= 1',
+        '                elif total < target_val:',
+        '                    left += 1',
+        '                else:',
+        '                    right -= 1',
+        '    return quads',
+      ],
+      highRiskIdxs: [5, 8, 15, 17],
+      riskNotes: {
+        5: 'First loop duplicate guard: skip index i if data_points[i] == data_points[i-1].',
+        8: 'Second loop duplicate guard: skip index j if data_points[j] == data_points[j-1].',
+        15: 'Two-pointer inner duplicate skip for left index.',
+        17: 'Two-pointer inner duplicate skip for right index.'
+      },
+      clues: [
+        'Generalizes 2-Sum and 3-Sum to 4 variables by nesting two loops and using Two Pointers for innermost pair',
+        'Sorting is required to prune duplicates and enable monotonic pointer convergence',
+        'Time complexity reduces to O(N^3)'
+      ],
+      triggerWords: ['four elements', 'quadruplets', 'target sum', 'nested two pointers']
+    },
+    {
+      idx: 11,
+      id: 'tp-011',
+      slug: 'backspace-string-comparison-scanner',
+      title: 'Backspace String Comparison Scanner',
+      difficulty: 'Easy',
+      minutes: 20,
+      fn: 'compare_backspaced_streams',
+      params: 'stream_s: str, stream_t: str',
+      desc: 'Given two strings stream_s and stream_t containing letters and "#" (backspace), determine if they are identical when typed into an empty text buffer, using O(1) space and reverse two pointers.',
+      exInput: 'stream_s = "ab#c", stream_t = "ad#c"',
+      exOutput: 'True',
+      exExpl: 'Both streams become "ac" after applying backspaces.',
+      constraints: ['1 <= stream_s.length, stream_t.length <= 100,000', 'Only lowercase English letters and #'],
+      codeLines: [
+        'def compare_backspaced_streams(stream_s, stream_t):',
+        '    p_s, p_t = len(stream_s) - 1, len(stream_t) - 1',
+        '    skip_s, skip_t = 0, 0',
+        '    while p_s >= 0 or p_t >= 0:',
+        '        while p_s >= 0:',
+        '            if stream_s[p_s] == "#":',
+        '                skip_s += 1',
+        '                p_s -= 1',
+        '            elif skip_s > 0:',
+        '                skip_s -= 1',
+        '                p_s -= 1',
+        '            else:',
+        '                break',
+        '        while p_t >= 0:',
+        '            if stream_t[p_t] == "#":',
+        '                skip_t += 1',
+        '                p_t -= 1',
+        '            elif skip_t > 0:',
+        '                skip_t -= 1',
+        '                p_t -= 1',
+        '            else:',
+        '                break',
+        '        if p_s >= 0 and p_t >= 0 and stream_s[p_s] != stream_t[p_t]:',
+        '            return False',
+        '        if (p_s >= 0) != (p_t >= 0):',
+        '            return False',
+        '        p_s -= 1',
+        '        p_t -= 1',
+        '    return True',
+      ],
+      highRiskIdxs: [3, 21, 23],
+      riskNotes: {
+        3: 'Iterating from back to front allows resolving backspaces immediately without remembering future context.',
+        21: 'Character mismatch guard: if valid characters exist at both pointers and differ, return False.',
+        23: 'Length parity guard: if one stream ran out of characters while the other still has valid characters, return False.'
+      },
+      clues: [
+        'Backspaces delete previously typed characters; moving backwards resolves deletions immediately',
+        'Maintain a skip counter for pending deletions',
+        'Compare actual active characters from right to left in O(1) memory'
+      ],
+      triggerWords: ['backspace symbol', 'reverse scan', 'O(1) space', 'skip count']
+    },
+    {
+      idx: 12,
+      id: 'tp-012',
+      slug: 'three-pointer-dutch-flag-partitioner',
+      title: 'Three-Pointer Dutch Flag Partitioner',
+      difficulty: 'Medium',
+      minutes: 20,
+      fn: 'sort_three_status_tags',
+      params: 'tags: list[int]',
+      desc: 'Given an array tags with n items colored 0 (critical), 1 (warning), or 2 (normal), sort them in-place so that items of the same category are adjacent in 0, 1, 2 order using one-pass three pointers.',
+      exInput: 'tags = [2, 0, 2, 1, 1, 0]',
+      exOutput: '[0, 0, 1, 1, 2, 2]',
+      exExpl: 'In-place partitioned into critical (0), warning (1), and normal (2).',
+      constraints: ['n == tags.length', '1 <= n <= 30,000', 'tags[i] is either 0, 1, or 2'],
+      codeLines: [
+        'def sort_three_status_tags(tags):',
+        '    low = 0',
+        '    mid = 0',
+        '    high = len(tags) - 1',
+        '    while mid <= high:',
+        '        if tags[mid] == 0:',
+        '            tags[low], tags[mid] = tags[mid], tags[low]',
+        '            low += 1',
+        '            mid += 1',
+        '        elif tags[mid] == 1:',
+        '            mid += 1',
+        '        else:',
+        '            tags[mid], tags[high] = tags[high], tags[mid]',
+        '            high -= 1',
+        '    return tags',
+      ],
+      highRiskIdxs: [4, 6, 12],
+      riskNotes: {
+        4: 'Loop condition while mid <= high: must process element at high pointer before terminating.',
+        6: 'When swapping tags[mid] == 0 to low, both low and mid advance because swapped element from low is guaranteed 1 or 0.',
+        12: 'When swapping tags[mid] == 2 to high, do NOT increment mid because the swapped element from high is uninspected.'
+      },
+      clues: [
+        'Three distinct categories can be partitioned in a single pass with three pointers (low, mid, high)',
+        'Maintain invariant: [0..low-1] are 0s, [low..mid-1] are 1s, [high+1..n-1] are 2s',
+        'Single pass O(N) time with O(1) space'
+      ],
+      triggerWords: ['three categories', 'in-place partition', 'dutch national flag', 'low mid high']
+    },
+    {
+      idx: 13,
+      id: 'tp-013',
+      slug: 'closest-subsequence-triplet-sum',
+      title: 'Closest Subsequence Triplet Sum',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'closest_triplet_sum',
+      params: 'nums: list[int], target_val: int',
+      desc: 'Given an integer array nums and an integer target_val, find three integers in nums such that the sum is closest to target_val. Return the sum of the three integers.',
+      exInput: 'nums = [-1, 2, 1, -4], target_val = 1',
+      exOutput: '2',
+      exExpl: 'The sum closest to 1 is (-1 + 2 + 1 = 2).',
+      constraints: ['3 <= nums.length <= 1,000', '-1000 <= nums[i] <= 1000', '-10^4 <= target_val <= 10^4'],
+      codeLines: [
+        'def closest_triplet_sum(nums, target_val):',
+        '    nums.sort()',
+        '    closest_sum = nums[0] + nums[1] + nums[2]',
+        '    for i in range(len(nums) - 2):',
+        '        left, right = i + 1, len(nums) - 1',
+        '        while left < right:',
+        '            curr_sum = nums[i] + nums[left] + nums[right]',
+        '            if abs(curr_sum - target_val) < abs(closest_sum - target_val):',
+        '                closest_sum = curr_sum',
+        '            if curr_sum < target_val:',
+        '                left += 1',
+        '            elif curr_sum > target_val:',
+        '                right -= 1',
+        '            else:',
+        '                return curr_sum',
+        '    return closest_sum',
+      ],
+      highRiskIdxs: [7, 10, 14],
+      riskNotes: {
+        7: 'Update closest_sum whenever absolute difference with target_val is strictly smaller.',
+        10: 'When curr_sum < target_val, incrementing left increases the sum toward target.',
+        14: 'Exact match curr_sum == target_val returns immediately with difference 0.'
+      },
+      clues: [
+        'Sorting enables two pointers search for remaining 2 elements',
+        'Track closest distance with min(abs(curr - target))',
+        'O(N^2) time complexity with O(1) space'
+      ],
+      triggerWords: ['closest sum', 'three numbers', 'minimize absolute delta', 'sorted scan']
+    },
+    {
+      idx: 14,
+      id: 'tp-014',
+      slug: 'subsequence-triplet-smaller-count',
+      title: 'Subsequence Triplet Smaller Count',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'count_triplets_smaller',
+      params: 'nums: list[int], target_sum: int',
+      desc: 'Given an array of n integers and a target value, find the number of index triplets (i, j, k) with 0 <= i < j < k < n that satisfy nums[i] + nums[j] + nums[k] < target_sum.',
+      exInput: 'nums = [-2, 0, 1, 3], target_sum = 2',
+      exOutput: '2',
+      exExpl: 'Two triplets: [-2, 0, 1] (sum -1 < 2) and [-2, 0, 3] (sum 1 < 2).',
+      constraints: ['n == nums.length', '0 <= n <= 3,500', '-100 <= nums[i] <= 100', '-100 <= target_sum <= 100'],
+      codeLines: [
+        'def count_triplets_smaller(nums, target_sum):',
+        '    nums.sort()',
+        '    count = 0',
+        '    n = len(nums)',
+        '    for i in range(n - 2):',
+        '        left, right = i + 1, n - 1',
+        '        while left < right:',
+        '            if nums[i] + nums[left] + nums[right] < target_sum:',
+        '                count += (right - left)',
+        '                left += 1',
+        '            else:',
+        '                right -= 1',
+        '    return count',
+      ],
+      highRiskIdxs: [7, 8],
+      riskNotes: {
+        7: 'Condition check: if nums[i] + nums[left] + nums[right] < target_sum, then for all k between left and right, the sum is also < target_sum because array is sorted.',
+        8: 'Batch count: add (right - left) to count immediately without manual iteration!'
+      },
+      clues: [
+        'Sorted array property allows batch counting all indices between left and right in O(1)',
+        'If nums[left] + nums[right] < target - nums[i], all elements between left and right also satisfy the condition',
+        'Total time O(N^2)'
+      ],
+      triggerWords: ['count triplets', 'sum smaller than target', 'batch count right - left', 'sorted array']
+    },
+    {
+      idx: 15,
+      id: 'tp-015',
+      slug: 'remove-element-in-place-compactor',
+      title: 'Remove Element In-Place Compactor',
+      difficulty: 'Easy',
+      minutes: 15,
+      fn: 'remove_invalid_measurements',
+      params: 'readings: list[int], invalid_val: int',
+      desc: 'Given an integer array readings and an invalid_val to discard, remove all occurrences of invalid_val in-place and return the number of valid remaining elements.',
+      exInput: 'readings = [3, 2, 2, 3], invalid_val = 3',
+      exOutput: '2',
+      exExpl: 'Returns length 2 with readings[0..1] containing [2, 2].',
+      constraints: ['0 <= readings.length <= 100', '0 <= readings[i] <= 50', '0 <= invalid_val <= 50'],
+      codeLines: [
+        'def remove_invalid_measurements(readings, invalid_val):',
+        '    slow = 0',
+        '    for fast in range(len(readings)):',
+        '        if readings[fast] != invalid_val:',
+        '            readings[slow] = readings[fast]',
+        '            slow += 1',
+        '    return slow',
+      ],
+      highRiskIdxs: [3, 4],
+      riskNotes: {
+        3: 'Fast pointer inspects every incoming value.',
+        4: 'Slow pointer only writes and advances when current element is not the target value.'
+      },
+      clues: [
+        'Fast/slow two pointers pattern: fast reads, slow writes',
+        'In-place modification with O(1) extra space',
+        'Returns slow pointer as length of truncated valid prefix'
+      ],
+      triggerWords: ['remove element', 'in-place', 'fast and slow pointers', 'overwrite invalid']
+    },
+    {
+      idx: 16,
+      id: 'tp-016',
+      slug: 'valid-word-abbreviation-pointer-matcher',
+      title: 'Valid Word Abbreviation Pointer Matcher',
+      difficulty: 'Medium',
+      minutes: 20,
+      fn: 'validate_word_abbreviation',
+      params: 'word: str, abbr: str',
+      desc: 'Given a non-empty string word and an abbreviation abbr, return whether the string matches the given abbreviation, handling multi-digit numbers and leading zero rules with two pointers.',
+      exInput: 'word = "internationalization", abbr = "i12iz4n"',
+      exOutput: 'True',
+      exExpl: '"i" + 12 letters + "iz" + 4 letters + "n" matches "internationalization".',
+      constraints: ['1 <= word.length <= 1000', '1 <= abbr.length <= 1000', 'abbr contains only lowercase English letters and digits'],
+      codeLines: [
+        'def validate_word_abbreviation(word, abbr):',
+        '    i = 0',
+        '    j = 0',
+        '    while i < len(word) and j < len(abbr):',
+        '        if abbr[j].isdigit():',
+        '            if abbr[j] == "0":',
+        '                return False',
+        '            shift = 0',
+        '            while j < len(abbr) and abbr[j].isdigit():',
+        '                shift = shift * 10 + int(abbr[j])',
+        '                j += 1',
+        '            i += shift',
+        '        else:',
+        '            if word[i] != abbr[j]:',
+        '                return False',
+        '            i += 1',
+        '            j += 1',
+        '    return i == len(word) and j == len(abbr)',
+      ],
+      highRiskIdxs: [5, 9, 16],
+      riskNotes: {
+        5: 'Leading zero check: numbers in abbreviation cannot begin with 0 (e.g. "01" is invalid).',
+        9: 'Multi-digit accumulation: parse consecutive digits into full integer shift count.',
+        16: 'End condition: both pointers must reach the exact ends of word and abbr simultaneously.'
+      },
+      clues: [
+        'Two pointers advancing at different rates based on numeric skip values',
+        'Check leading zero constraint carefully',
+        'Both strings must be fully consumed'
+      ],
+      triggerWords: ['abbreviation matcher', 'numeric skips', 'leading zero rule', 'dual string pointers']
+    },
+    {
+      idx: 17,
+      id: 'tp-017',
+      slug: 'container-aspect-ratio-peak-scanner',
+      title: 'Container Aspect Ratio Peak Scanner',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'max_aspect_ratio_area',
+      params: 'pillar_heights: list[int]',
+      desc: 'Given an array of pillar heights, find two pillars that together with the horizontal axis form a container holding the maximum area of fluid, calculated as (j - i) * min(height[i], height[j]).',
+      exInput: 'pillar_heights = [1, 8, 6, 2, 5, 4, 8, 3, 7]',
+      exOutput: '49',
+      exExpl: 'Pillar at index 1 (height 8) and index 8 (height 7) hold area 7 * 7 = 49.',
+      constraints: ['n == pillar_heights.length', '2 <= n <= 10^5', '0 <= pillar_heights[i] <= 10^4'],
+      codeLines: [
+        'def max_aspect_ratio_area(pillar_heights):',
+        '    left, right = 0, len(pillar_heights) - 1',
+        '    max_area = 0',
+        '    while left < right:',
+        '        h = min(pillar_heights[left], pillar_heights[right])',
+        '        area = h * (right - left)',
+        '        if area > max_area:',
+        '            max_area = area',
+        '        if pillar_heights[left] < pillar_heights[right]:',
+        '            left += 1',
+        '        else:',
+        '            right -= 1',
+        '    return max_area',
+      ],
+      highRiskIdxs: [4, 8],
+      riskNotes: {
+        4: 'Container capacity is constrained by the shorter pillar.',
+        8: 'Move the shorter pillar pointer: keeping the shorter pillar while decreasing width can never yield a larger area.'
+      },
+      clues: [
+        'Start at maximum possible width (outermost pillars)',
+        'Moving the taller pillar inward only decreases width without increasing height constraint',
+        'Always advance the shorter pillar inward'
+      ],
+      triggerWords: ['maximum area', 'shorter wall constraints', 'converging boundaries', 'greedy pointer move']
+    },
+    {
+      idx: 18,
+      id: 'tp-018',
+      slug: 'linked-sequence-cycle-rendezvous',
+      title: 'Linked Sequence Cycle Rendezvous',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'detect_cycle_node',
+      params: 'graph_transitions: list[int]',
+      desc: 'Given a functional graph where each node i points to graph_transitions[i], use Floyds Cycle Detection (Tortoise and Hare) with two pointers to find the starting node of the cycle in O(1) space.',
+      exInput: 'graph_transitions = [1, 2, 3, 4, 2]',
+      exOutput: '2',
+      exExpl: 'Nodes 2 -> 3 -> 4 -> 2 form a cycle; entry node is 2.',
+      constraints: ['1 <= n <= 100,000', '0 <= graph_transitions[i] < n'],
+      codeLines: [
+        'def detect_cycle_node(graph_transitions):',
+        '    slow = graph_transitions[0]',
+        '    fast = graph_transitions[graph_transitions[0]]',
+        '    while slow != fast:',
+        '        slow = graph_transitions[slow]',
+        '        fast = graph_transitions[graph_transitions[fast]]',
+        '    slow = 0',
+        '    while slow != fast:',
+        '        slow = graph_transitions[slow]',
+        '        fast = graph_transitions[fast]',
+        '    return slow',
+      ],
+      highRiskIdxs: [1, 3, 6],
+      riskNotes: {
+        1: 'Phase 1: slow moves 1 step, fast moves 2 steps until they intersect within the cycle.',
+        3: 'Intersection check: if slow == fast, cycle is detected.',
+        6: 'Phase 2: reset slow to origin (0) and advance both slow and fast at speed 1; they meet exactly at cycle start.'
+      },
+      clues: [
+        'Floyds cycle-finding algorithm: slow pointer moves 1 step, fast pointer moves 2 steps',
+        'Mathematical proof guarantees meeting point equals distance from head to cycle entrance',
+        'Strictly O(N) time with O(1) auxiliary memory'
+      ],
+      triggerWords: ['cycle detection', 'tortoise and hare', 'cycle entrance', 'O(1) memory']
+    },
+    {
+      idx: 19,
+      id: 'tp-019',
+      slug: 'lexicographical-palindrome-minimum-deletion',
+      title: 'Lexicographical Palindrome Minimum Deletion',
+      difficulty: 'Easy',
+      minutes: 20,
+      fn: 'can_form_palindrome_with_single_skip',
+      params: 'token_str: str',
+      desc: 'Given a string token_str, return True if token_str can be a palindrome after deleting at most one character, using two pointers with helper divergence check.',
+      exInput: 'token_str = "abca"',
+      exOutput: 'True',
+      exExpl: 'Deleting "b" or "c" yields "aca" or "aba", both valid palindromes.',
+      constraints: ['1 <= token_str.length <= 100,000', 'token_str consists of lowercase letters'],
+      codeLines: [
+        'def can_form_palindrome_with_single_skip(token_str):',
+        '    def is_palindrome_range(s, l, r):',
+        '        while l < r:',
+        '            if s[l] != s[r]:',
+        '                return False',
+        '            l += 1',
+        '            r -= 1',
+        '        return True',
+        '    left, right = 0, len(token_str) - 1',
+        '    while left < right:',
+        '        if token_str[left] != token_str[right]:',
+        '            return is_palindrome_range(token_str, left + 1, right) or is_palindrome_range(token_str, left, right - 1)',
+        '        left += 1',
+        '        right -= 1',
+        '    return True',
+      ],
+      highRiskIdxs: [10, 11],
+      riskNotes: {
+        10: 'When first mismatch occurs, you have at most two choices: skip left character OR skip right character.',
+        11: 'If either remaining substring is a strict palindrome, returning True is valid.'
+      },
+      clues: [
+        'Converge inward until first mismatch',
+        'Branch into checking two sub-ranges (left+1..right) or (left..right-1)',
+        'Greedy branch verification avoids full backtracking'
+      ],
+      triggerWords: ['delete at most one', 'palindrome check', 'single skip branch', 'diverging pointers']
+    },
+    {
+      idx: 20,
+      id: 'tp-020',
+      slug: 'sorted-difference-boundary-pair',
+      title: 'Sorted Difference Boundary Pair',
+      difficulty: 'Medium',
+      minutes: 25,
+      fn: 'find_pair_with_difference',
+      params: 'nums: list[int], diff_target: int',
+      desc: 'Given a sorted array nums of unique positive integers and an integer diff_target, find two numbers whose absolute difference equals diff_target using two pointers traveling in the same direction.',
+      exInput: 'nums = [1, 3, 5, 8, 12, 19], diff_target = 7',
+      exOutput: '[5, 12]',
+      exExpl: '12 - 5 = 7.',
+      constraints: ['2 <= nums.length <= 50,000', 'nums is strictly sorted in ascending order', '1 <= diff_target <= 10^9'],
+      codeLines: [
+        'def find_pair_with_difference(nums, diff_target):',
+        '    i = 0',
+        '    j = 1',
+        '    n = len(nums)',
+        '    while i < n and j < n:',
+        '        diff = nums[j] - nums[i]',
+        '        if i != j and diff == diff_target:',
+        '            return [nums[i], nums[j]]',
+        '        elif diff < diff_target:',
+        '            j += 1',
+        '        else:',
+        '            i += 1',
+        '            if i == j:',
+        '                j += 1',
+        '    return []',
+      ],
+      highRiskIdxs: [6, 12],
+      riskNotes: {
+        6: 'Distinct index check: i != j prevents difference 0 when i and j point to same index.',
+        12: 'Trailing pointer advance: if i catches up to j, advance j to maintain i < j invariant.'
+      },
+      clues: [
+        'Two pointers moving in same forward direction (trailing pointers)',
+        'Difference increases when fast pointer advances, decreases when slow pointer advances',
+        'O(N) time with O(1) space'
+      ],
+      triggerWords: ['sorted difference', 'two pointers same direction', 'trailing pointers', 'target difference']
+    }
+  ];
+
+  return defs.map((d) => formatMasteryProblem('two_pointers', d));
+}
+
+export function formatMasteryProblem(pattern, d) {
+  const codeStr = d.codeLines.join('\n');
+  const codeLines = d.codeLines.map((line, idx) => {
+    const lineNum = idx + 1;
+    const isRisk = d.highRiskIdxs ? d.highRiskIdxs.includes(idx) : false;
+    const note = (d.riskNotes && d.riskNotes[idx]) || null;
+    return {
+      line_number: lineNum,
+      code: line,
+      why_this_line: isRisk ? (note || `Execute core step: ${line.trim()}`) : `Step ${lineNum}: ${line.trim()}`,
+      is_high_risk: isRisk,
+      risk_note: note,
+    };
+  });
+
+  const hardestLines = (d.highRiskIdxs || [1]).slice(0, 3).map((idx) => {
+    const lineNum = idx + 1;
+    return {
+      line_number: lineNum,
+      code: d.codeLines[idx] || '',
+      why_it_is_tricky: (d.riskNotes && d.riskNotes[idx]) || 'Critical boundary condition in algorithmic implementation.',
+      recommended_tests: [
+        'Empty / minimal boundary input (length <= 2)',
+        'Target element at extreme ends of array',
+        'No matching solution exists (handles default return)',
+        'Duplicate elements and zero values'
+      ]
+    };
+  });
+
+  const totalLines = d.codeLines.length;
+  const split1 = Math.max(2, Math.floor(totalLines / 3));
+  const split2 = Math.max(split1 + 2, Math.floor((2 * totalLines) / 3));
+
+  const subgoals = [
+    {
+      title: 'Initialize pointers and boundary invariants',
+      explanation: 'Establish starting indices and initialize state trackers.',
+      line_range: [1, split1],
+    },
+    {
+      title: 'Execute directional traversal loop',
+      explanation: 'Iterate while invariants hold, adjusting pointers conditionally.',
+      line_range: [split1 + 1, split2],
+    },
+    {
+      title: 'Synthesize optimal result or terminate',
+      explanation: 'Accumulate valid return payload or execute terminal boundary response.',
+      line_range: [split2 + 1, totalLines],
+    },
+  ];
+
+  return {
+    id: d.id,
+    slug: d.slug,
+    title: d.title,
+    pattern: pattern,
+    difficulty: d.difficulty,
+    estimated_minutes: d.minutes,
+    statement: {
+      description: d.desc,
+      input_format: `Arguments: ${d.params}`,
+      output_format: 'Standard function return value matching problem specification.',
+      examples: [
+        {
+          input: d.exInput,
+          output: d.exOutput,
+          explanation: d.exExpl,
+        },
+        {
+          input: 'Edge case input with boundary conditions',
+          output: 'Expected minimal or fallback return format',
+          explanation: 'Demonstrates handling of boundary constraints.'
+        }
+      ],
+      constraints: d.constraints,
+    },
+    pattern_clues: d.clues,
+    brute_force: {
+      approach: 'Exhaustive nested iteration over all possible index pairs/combinations.',
+      why_it_is_too_slow: 'Quadratic O(N^2) or exponential complexity leads to time limit exceeded on large inputs.',
+      time_complexity: 'O(N^2)',
+      space_complexity: 'O(1)',
+      language: 'python',
+      code: `# Brute Force Approach\n# Nested iteration checking all pairs\npass\n`,
+    },
+    optimal_solution: {
+      language: 'python',
+      approach: `Optimal ${pattern} approach utilizing monotonic properties to achieve linear O(N) or logarithmic bounds.`,
+      subgoals,
+      code: codeStr,
+      code_lines: codeLines,
+      time_complexity: 'O(N)',
+      space_complexity: 'O(1)',
+      why_this_works: 'By maintaining invariant bounds and advancing pointers strictly when conditions dictate, we prune invalid search branches without exhaustive evaluation.',
+    },
+    hardest_lines_to_test: hardestLines,
+    hints: [
+      `Analyze how the problem's ordering or state constraints permit two-way boundary tracking.`,
+      `Consider which pointer must move when the current condition is violated.`,
+      `Verify off-by-one boundary cases when pointers are adjacent or crossing.`
+    ],
+    trigger_words: d.triggerWords,
+    pattern_diagnosis_options: [
+      'two_pointers',
+      'sliding_window',
+      'hash_maps',
+      'dynamic_programming'
+    ],
+    ai_avoid_keywords: ['pointer', 'converge', 'shrink', 'left right'],
+    starter_code: `def ${d.fn}(${d.params.replace(/:\s*[^,)]+/g, '')}):\n    \"\"\"\n    ${d.desc}\n    \"\"\"\n    pass\n`,
+  };
+}

@@ -14,7 +14,24 @@ import {
 import { getLocalDateKey, selectDailyChallenge } from '../lib/progress';
 import { readStorage, writeStorage } from '../lib/storage';
 import { problemsService, type ResourceStatus } from '../services';
-import type { ActivityEvent, FontSize, LocalProfile, PaletteId, PrivacySettings, Problem, SubmissionOutcome, SubmissionRecord, ThemeMode } from '../types';
+import type { ActivityEvent, AdaptiveMasteryPlan, FontSize, LocalProfile, PaletteId, PrivacySettings, Problem, SubmissionOutcome, SubmissionRecord, ThemeMode } from '../types';
+
+export const DEFAULT_ADAPTIVE_MASTERY_PLAN: AdaptiveMasteryPlan = {
+  enabled: false,
+  targetGoal: 'Campus Placements in 45 Days',
+  targetDays: 45,
+  targetDate: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+  dailyPace: 2,
+  prioritizeWeakPatterns: true,
+  selectedPatternOrder: [
+    'two_pointers',
+    'sliding_window',
+    'hash_maps',
+    'dynamic_programming',
+    'breadth_first_search',
+  ],
+  startDate: new Date().toISOString().split('T')[0],
+};
 
 interface AppContextValue {
   theme: ThemeMode;
@@ -30,6 +47,8 @@ interface AppContextValue {
   resetProfile: () => void;
   privacySettings: PrivacySettings;
   updatePrivacySettings: (patch: Partial<PrivacySettings>) => void;
+  adaptiveMasteryPlan: AdaptiveMasteryPlan;
+  updateAdaptiveMasteryPlan: (patch: Partial<AdaptiveMasteryPlan>) => void;
   problems: Problem[];
   problemsStatus: ResourceStatus;
   problemsError: string | null;
@@ -132,6 +151,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   });
   const [profile, setProfile] = useState<LocalProfile>(() => loadLocalProfile());
   const [privacySettings, setPrivacySettings] = useState<PrivacySettings>(() => loadPrivacySettings());
+  const [adaptiveMasteryPlan, setAdaptiveMasteryPlan] = useState<AdaptiveMasteryPlan>(() => {
+    return readStorage<AdaptiveMasteryPlan>('prismcode-adaptive-mastery-plan', DEFAULT_ADAPTIVE_MASTERY_PLAN);
+  });
   const [problems, setProblems] = useState<Problem[]>(() => problemsService.listSync());
   const [problemsStatus, setProblemsStatus] = useState<ResourceStatus>('ready');
   const [problemsError, setProblemsError] = useState<string | null>(null);
@@ -424,6 +446,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  const updateAdaptiveMasteryPlan = useCallback((patch: Partial<AdaptiveMasteryPlan>) => {
+    setAdaptiveMasteryPlan((current) => {
+      const updated = { ...current, ...patch };
+      writeStorage('prismcode-adaptive-mastery-plan', updated);
+      return updated;
+    });
+  }, []);
+
   const value = useMemo<AppContextValue>(() => ({
     theme,
     setTheme,
@@ -438,6 +468,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     resetProfile,
     privacySettings,
     updatePrivacySettings,
+    adaptiveMasteryPlan,
+    updateAdaptiveMasteryPlan,
     problems,
     problemsStatus,
     problemsError,
@@ -455,7 +487,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     ensureDailyChallenge,
     dailyCompletions,
     completeDailyChallenge,
-  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge]);
+  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, adaptiveMasteryPlan, updateAdaptiveMasteryPlan, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

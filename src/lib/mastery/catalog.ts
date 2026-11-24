@@ -1,6 +1,7 @@
-import rawCatalog from '../../../data/mastery/prism_code_first_25_problems.json';
+import rawCatalog from '../../../data/mastery/prism_code_mastery_catalog.json';
 import { MasteryCatalog, MasteryProblem, PatternId } from '../../types/mastery';
 
+export type { PatternId };
 export const masteryCatalog: MasteryCatalog = rawCatalog as unknown as MasteryCatalog;
 
 export interface PatternInfo {
