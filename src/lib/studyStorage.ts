@@ -23,12 +23,12 @@ export interface LibraryFilterPrefs {
   pageSize: ProblemPageSize;
 }
 
-export const STUDY_SYNC_EVENT = 'codearena-study-sync';
+export const STUDY_SYNC_EVENT = 'prismcode-study-sync';
 
-const NOTES_KEY = 'codearena-problem-notes';
-const COLLECTIONS_KEY = 'codearena-collections';
-const BOOKMARKS_KEY = 'codearena-bookmarks';
-const FILTERS_KEY = 'codearena-library-filters';
+const NOTES_KEY = 'prismcode-problem-notes';
+const COLLECTIONS_KEY = 'prismcode-collections';
+const BOOKMARKS_KEY = 'prismcode-bookmarks';
+const FILTERS_KEY = 'prismcode-library-filters';
 
 const VALID_SORTS: readonly ProblemSortOption[] = [
   'default',
@@ -71,6 +71,7 @@ function createStarterCollections(): ProblemCollection[] {
 function notifyStudySync(): void {
   try {
     window.dispatchEvent(new CustomEvent(STUDY_SYNC_EVENT));
+    window.dispatchEvent(new CustomEvent('codearena-study-sync'));
   } catch {
     // Ignore in non-browser environments.
   }
@@ -109,7 +110,7 @@ function isProblemCollection(value: unknown): value is ProblemCollection {
 
 export function loadCollections(): ProblemCollection[] {
   try {
-    const raw = localStorage.getItem(COLLECTIONS_KEY);
+    const raw = localStorage.getItem(COLLECTIONS_KEY) ?? localStorage.getItem('codearena-collections');
     if (raw === null) {
       const starters = createStarterCollections();
       writeStorage(COLLECTIONS_KEY, starters);

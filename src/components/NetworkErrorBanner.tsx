@@ -45,13 +45,17 @@ export default function NetworkErrorBanner() {
       void checkConnection();
     };
 
+    window.addEventListener('prismcode:network-error', handleNetworkError);
     window.addEventListener('codearena:network-error', handleNetworkError);
+    window.addEventListener('prismcode:network-recovered', handleNetworkRecovered);
     window.addEventListener('codearena:network-recovered', handleNetworkRecovered);
     window.addEventListener('offline', handleOffline);
     window.addEventListener('online', handleOnline);
 
     return () => {
+      window.removeEventListener('prismcode:network-error', handleNetworkError);
       window.removeEventListener('codearena:network-error', handleNetworkError);
+      window.removeEventListener('prismcode:network-recovered', handleNetworkRecovered);
       window.removeEventListener('codearena:network-recovered', handleNetworkRecovered);
       window.removeEventListener('offline', handleOffline);
       window.removeEventListener('online', handleOnline);

@@ -77,7 +77,7 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | undefined>(undefined);
 
 function loadSolvedIds(): string[] {
-  const stored = readStorage<unknown>('codearena-solved', ['two-sum', 'valid-parentheses']);
+  const stored = readStorage<unknown>('prismcode-solved', ['two-sum', 'valid-parentheses']);
   return Array.isArray(stored) ? stored.filter((item): item is string => typeof item === 'string') : ['two-sum', 'valid-parentheses'];
 }
 
@@ -96,7 +96,7 @@ function isActivityEvent(value: unknown): value is ActivityEvent {
 }
 
 function loadActivityLog(): ActivityEvent[] {
-  const stored = readStorage<unknown>('codearena-activity', []);
+  const stored = readStorage<unknown>('prismcode-activity', []);
   return Array.isArray(stored) ? stored.filter(isActivityEvent).slice(0, 500) : [];
 }
 
@@ -119,7 +119,7 @@ function isSubmissionRecord(value: unknown): value is SubmissionRecord {
 }
 
 function loadSubmissions(): SubmissionRecord[] {
-  const stored = readStorage<unknown>('codearena-submissions', []);
+  const stored = readStorage<unknown>('prismcode-submissions', []);
   return Array.isArray(stored) ? stored.filter(isSubmissionRecord).slice(0, 500) : [];
 }
 
@@ -130,9 +130,9 @@ function loadStringRecord(key: string): Record<string, string> {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<ThemeMode>(() => readStorage<unknown>('codearena-theme', 'dark') === 'light' ? 'light' : 'dark');
+  const [theme, setTheme] = useState<ThemeMode>(() => readStorage<unknown>('prismcode-theme', 'dark') === 'light' ? 'light' : 'dark');
   const [palette, setPalette] = useState<PaletteId>(() => {
-    const stored = readStorage<unknown>('codearena-palette', defaultPalette);
+    const stored = readStorage<unknown>('prismcode-palette', defaultPalette);
     // Migrate legacy or retired palette selections to the refreshed atmospheric collection.
     if (stored === 'carbon' || stored === 'cobalt' || stored === 'rose' || stored === 'indigo' || stored === 'lagoon' || stored === 'coastal' || stored === 'lavender' || stored === 'amethyst' || stored === 'emerald' || stored === 'volt' || stored === 'fuchsia') return defaultPalette;
     if (stored === 'sage' || stored === 'aurora' || stored === 'oceanic') return 'frost';
@@ -140,13 +140,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return themePalettes.some((item) => item.id === stored) ? stored as PaletteId : defaultPalette;
   });
   const [fontFamily, setFontFamily] = useState<string>(() => {
-    const stored = readStorage<unknown>('codearena-font', defaultFontId);
+    const stored = readStorage<unknown>('prismcode-font', defaultFontId);
     return typeof stored === 'string' && fontOptions.some((f) => f.id === stored)
       ? stored
       : defaultFontId;
   });
   const [fontSize, setFontSize] = useState<FontSize>(() => {
-    const stored = readStorage<unknown>('codearena-font-size', 'standard');
+    const stored = readStorage<unknown>('prismcode-font-size', 'standard');
     return stored === 'compact' || stored === 'large' ? stored : 'standard';
   });
   const [profile, setProfile] = useState<LocalProfile>(() => loadLocalProfile());
@@ -161,8 +161,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [solvedIds, setSolvedIds] = useState<string[]>(loadSolvedIds);
   const [activityLog, setActivityLog] = useState<ActivityEvent[]>(loadActivityLog);
   const [submissions, setSubmissions] = useState<SubmissionRecord[]>(loadSubmissions);
-  const [dailyChallengeByDate, setDailyChallengeByDate] = useState<Record<string, string>>(() => loadStringRecord('codearena-daily-challenges'));
-  const [dailyCompletions, setDailyCompletions] = useState<Record<string, string>>(() => loadStringRecord('codearena-daily-completions'));
+  const [dailyChallengeByDate, setDailyChallengeByDate] = useState<Record<string, string>>(() => loadStringRecord('prismcode-daily-challenges'));
+  const [dailyCompletions, setDailyCompletions] = useState<Record<string, string>>(() => loadStringRecord('prismcode-daily-completions'));
 
   const retryProblems = useCallback(() => {
     problemsReloadRef.current?.abort();
@@ -189,22 +189,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useLayoutEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
-    writeStorage('codearena-theme', theme);
+    writeStorage('prismcode-theme', theme);
   }, [theme]);
   useLayoutEffect(() => {
     document.documentElement.dataset.palette = palette;
-    writeStorage('codearena-palette', palette);
+    writeStorage('prismcode-palette', palette);
   }, [palette]);
   useLayoutEffect(() => {
     const selected = fontOptions.find((item) => item.id === fontFamily) ?? fontOptions[0];
     document.documentElement.style.setProperty('--ca-font-sans', selected.fontFamily);
     document.documentElement.style.setProperty('--ca-font-display', selected.fontFamily);
     document.documentElement.dataset.font = selected.id;
-    writeStorage('codearena-font', selected.id);
+    writeStorage('prismcode-font', selected.id);
   }, [fontFamily]);
   useLayoutEffect(() => {
     document.documentElement.dataset.fontSize = fontSize;
-    writeStorage('codearena-font-size', fontSize);
+    writeStorage('prismcode-font-size', fontSize);
   }, [fontSize]);
   useEffect(() => {
     if (profile.updatedAt === null) {
@@ -219,11 +219,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void problemsService.saveAll(problems);
   }, [problems]);
-  useEffect(() => writeStorage('codearena-solved', solvedIds), [solvedIds]);
-  useEffect(() => writeStorage('codearena-activity', activityLog), [activityLog]);
-  useEffect(() => writeStorage('codearena-submissions', submissions), [submissions]);
-  useEffect(() => writeStorage('codearena-daily-challenges', dailyChallengeByDate), [dailyChallengeByDate]);
-  useEffect(() => writeStorage('codearena-daily-completions', dailyCompletions), [dailyCompletions]);
+  useEffect(() => writeStorage('prismcode-solved', solvedIds), [solvedIds]);
+  useEffect(() => writeStorage('prismcode-activity', activityLog), [activityLog]);
+  useEffect(() => writeStorage('prismcode-submissions', submissions), [submissions]);
+  useEffect(() => writeStorage('prismcode-daily-challenges', dailyChallengeByDate), [dailyChallengeByDate]);
+  useEffect(() => writeStorage('prismcode-daily-completions', dailyCompletions), [dailyCompletions]);
 
   const toggleSolved = useCallback((id: string, durationSeconds?: number, language = 'javascript') => {
     const isAlreadySolved = solvedIds.includes(id);

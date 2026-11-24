@@ -185,9 +185,9 @@ export default function TermsOfService() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Questions About Our Terms?</p>
                 <p className="mt-1">Contact our legal team at:</p>
-                <a href="mailto:legal@refractlabs.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:legal@prismcode.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  legal@refractlabs.com
+                  legal@prismcode.dev
                 </a>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function TermsOfService() {
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
                   These Terms of Service (&ldquo;Terms&rdquo;) represent a legally binding agreement between you (&ldquo;User&rdquo;,
-                  &ldquo;you&rdquo;) and <strong>Refract Labs</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;the Company&rdquo;), operator of <strong>Prismcode</strong> (&ldquo;the Platform&rdquo;).
+                  &ldquo;you&rdquo;) and <strong>PrismCode</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;PrismCode&rdquo;, or &ldquo;the Platform&rdquo;).
                   By accessing Prismcode, registering an account, writing code in the workspace, or submitting solutions to our compiler,
                   you explicitly accept and agree to comply with these Terms.
                 </p>
@@ -238,7 +238,7 @@ export default function TermsOfService() {
                 <ul className="list-disc pl-5 space-y-1.5">
                   <li><strong>Account Accuracy:</strong> You agree to provide accurate, current, and complete registration information and keep your email address updated.</li>
                   <li><strong>Credential Safeguarding:</strong> You are solely responsible for maintaining the confidentiality of your password and active session tokens. You agree not to share your account credentials with third parties.</li>
-                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify Refract Labs immediately at <a href="mailto:security@refractlabs.com" className="themed-link">security@refractlabs.com</a>.</li>
+                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify PrismCode immediately at <a href="mailto:security@prismcode.dev" className="themed-link">security@prismcode.dev</a>.</li>
                 </ul>
               </div>
             </section>
@@ -313,7 +313,7 @@ export default function TermsOfService() {
                 <div className="space-y-3">
                   <p>
                     <strong>Limited Operational License to Prismcode:</strong> By submitting code to the platform (via &ldquo;Run&rdquo; or &ldquo;Submit&rdquo;),
-                    you grant Prismcode and Refract Labs a worldwide, non-exclusive, royalty-free, perpetual license solely to:
+                    you grant PrismCode a worldwide, non-exclusive, royalty-free, perpetual license solely to:
                   </p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>Transmit, compile, run, and evaluate your code in our execution sandboxes against automated test cases.</li>
@@ -323,7 +323,7 @@ export default function TermsOfService() {
 
                   <p className="mt-4">
                     <strong>Prismcode Proprietary Assets:</strong> All Prismcode brand assets, logos, user interfaces, problem descriptions,
-                    test case suites, editorial solutions, curriculum roadmaps, and software infrastructure are the intellectual property of Refract Labs
+                    test case suites, editorial solutions, curriculum roadmaps, and software infrastructure are the intellectual property of PrismCode
                     and protected by international copyright and trademark laws.
                   </p>
                 </div>
@@ -391,7 +391,7 @@ export default function TermsOfService() {
                   THE PLATFORM IS PROVIDED ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; BASIS.
                 </p>
                 <p>
-                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, REFRACT LABS AND PRISMCODE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS,
+                  TO THE MAXIMUM EXTENT PERMITTED BY LAW, PRISMCODE EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS,
                   IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
                   TITLE, AND NON-INFRINGEMENT. WE MAKE NO WARRANTY THAT THE SERVICES OR COMPILER RESULTS WILL BE ACCURATE, UNINTERRUPTED, OR FREE OF ERRORS.
                 </p>
@@ -410,13 +410,13 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  UNDER NO CIRCUMSTANCES SHALL REFRACT LABS, PRISMCODE, ITS DIRECTORS, EMPLOYEES, AFFILIATES, OR COMPILER PROVIDERS BE LIABLE FOR ANY
+                  UNDER NO CIRCUMSTANCES SHALL PRISMCODE, ITS DIRECTORS, EMPLOYEES, AFFILIATES, OR COMPILER PROVIDERS BE LIABLE FOR ANY
                   INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES (INCLUDING LOSS OF DATA, REVENUE, PROFIT, OR BUSINESS INTERRUPTION)
                   ARISING OUT OF OR RELATING TO YOUR USE OR INABILITY TO USE THE PLATFORM OR COMPILER SERVICES.
                 </p>
                 <p>
                   OUR TOTAL AGGREGATE LIABILITY ARISING FROM ALL CLAIMS RELATING TO THE SERVICE SHALL NOT EXCEED THE GREATER OF ONE HUNDRED US DOLLARS ($100 USD)
-                  OR THE TOTAL FEES PAID BY YOU TO REFRACT LABS IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+                  OR THE TOTAL FEES PAID BY YOU TO PRISMCODE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
                 </p>
               </div>
             </section>
@@ -433,7 +433,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  You agree to defend, indemnify, and hold harmless Refract Labs, Prismcode, and their affiliates from and against any claims, liabilities,
+                  You agree to defend, indemnify, and hold harmless PrismCode and its affiliates from and against any claims, liabilities,
                   damages, judgments, awards, losses, costs, or expenses (including reasonable attorneys’ fees) arising out of or relating to
                   your violation of these Terms, your submitted source code, or your breach of the Sandbox Acceptable Use Policy.
                 </p>
@@ -474,7 +474,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which Refract Labs operates,
+                  These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which PrismCode operates,
                   without regard to conflict of law principles. Any legal suit, action, or proceeding arising out of or related to these Terms
                   shall be instituted exclusively in competent courts located within our primary jurisdiction.
                 </p>
@@ -493,7 +493,7 @@ export default function TermsOfService() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  Refract Labs reserves the right to modify these Terms at any time. When modifications occur, we will revise the &ldquo;Effective Date&rdquo;
+                  PrismCode reserves the right to modify these Terms at any time. When modifications occur, we will revise the &ldquo;Effective Date&rdquo;
                   at the top of this page. Your continued use of the platform after the effective date of revised Terms constitutes your acceptance of the changes.
                 </p>
               </div>
@@ -514,9 +514,9 @@ export default function TermsOfService() {
                   If you have questions, feedback, or legal notices concerning these Terms of Service, please contact:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">Refract Labs Legal Affairs</p>
-                  <p>Email: <a href="mailto:legal@refractlabs.com" className="themed-link">legal@refractlabs.com</a></p>
-                  <p>Security & DMCA: <a href="mailto:security@refractlabs.com" className="themed-link">security@refractlabs.com</a></p>
+                  <p className="font-bold text-primary">PrismCode Legal Affairs</p>
+                  <p>Email: <a href="mailto:legal@prismcode.dev" className="themed-link">legal@prismcode.dev</a></p>
+                  <p>Security & DMCA: <a href="mailto:security@prismcode.dev" className="themed-link">security@prismcode.dev</a></p>
                 </div>
               </div>
             </section>

@@ -61,7 +61,7 @@ export default function CertificateVerification() {
       <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
         <div className="flex flex-col items-center gap-3 text-center">
           <div className="h-10 w-10 animate-spin rounded-full border-2 border-amber-500 border-t-transparent" />
-          <p className="text-sm font-semibold text-muted">Verifying credential on Refract Labs ledger...</p>
+          <p className="text-sm font-semibold text-muted">Verifying credential ID on PrismCode...</p>
         </div>
       </div>
     );
@@ -151,7 +151,7 @@ export default function CertificateVerification() {
             </div>
 
             <p className="mt-6 text-xs font-bold uppercase tracking-[0.3em] text-amber-400">
-              Refract Labs • PrismCode Certification Authority
+              PrismCode Credential Authority
             </p>
 
             <h1 className="mt-3 font-serif text-2xl font-bold tracking-tight text-white sm:text-4xl">
@@ -197,7 +197,7 @@ export default function CertificateVerification() {
                 </p>
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-slate-400">Verification Ledger</p>
+                <p className="text-[10px] uppercase font-bold text-slate-400">Verification Status</p>
                 <p className="text-xs font-bold text-emerald-400 mt-1 flex items-center justify-center gap-1">
                   <CheckCircle2 size={13} />
                   <span>Valid</span>
@@ -222,13 +222,13 @@ export default function CertificateVerification() {
               <div>
                 <p className="text-[10px] uppercase tracking-wider text-muted font-bold">Credential Identifier</p>
                 <p className="text-xs font-mono font-bold text-slate-200 select-all">{certificate.id}</p>
-                <p className="text-[10px] text-muted mt-0.5">SHA-256: {certificate.credentialHash.slice(0, 24)}...</p>
+                <p className="text-[10px] text-muted mt-0.5">Unique ID: {certificate.id} • Hash: {certificate.credentialHash.slice(0, 16)}...</p>
               </div>
 
               <div className="text-center sm:text-right">
                 <p className="text-[10px] uppercase tracking-wider text-muted font-bold">Issue Date</p>
                 <p className="text-xs font-bold text-slate-200">{issueDate}</p>
-                <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">PrismCode Ledger Authority</p>
+                <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">PrismCode Credential Authority</p>
               </div>
             </div>
           </div>

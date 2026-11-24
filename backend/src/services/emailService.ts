@@ -43,7 +43,7 @@ class EmailService {
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
                 <h2 style="color: #6366f1;">PrismCode Password Reset</h2>
-                <p>You requested a password reset for your PrismCode account on Refract Labs. Click the button below to reset your password:</p>
+                <p>You requested a password reset for your PrismCode account. Click the button below to reset your password:</p>
                 <div style="margin: 24px 0;">
                   <a href="${resetUrl}" style="background-color: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                     Reset Password
@@ -104,14 +104,14 @@ class EmailService {
             subject: 'Verify your PrismCode email address',
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
-                <h2 style="color: #6366f1;">Welcome to PrismCode by Refract Labs!</h2>
+                <h2 style="color: #6366f1;">Welcome to PrismCode!</h2>
                 <p>Please confirm your email address by clicking the button below:</p>
                 <div style="margin: 24px 0;">
                   <a href="${verificationUrl}" style="background-color: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
                     Verify Email Address
                   </a>
                 </div>
-                <p style="color: #64748b; font-size: 13px;">This link will expire in 24 hours. If you did not create a PrismCode account on Refract Labs, you can safely ignore this email.</p>
+                <p style="color: #64748b; font-size: 13px;">This link will expire in 24 hours. If you did not create a PrismCode account, you can safely ignore this email.</p>
               </div>
             `,
           }),

@@ -6,7 +6,7 @@ export interface WorkspaceLayoutState {
   descriptionCollapsed: boolean;
 }
 
-const STORAGE_KEY = 'codearena-workspace-layout';
+const STORAGE_KEY = 'prismcode-workspace-layout';
 export const DEFAULT_SPLIT_PERCENT = 43;
 export const MIN_SPLIT_PERCENT = 26;
 export const MAX_SPLIT_PERCENT = 62;

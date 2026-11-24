@@ -19,7 +19,7 @@ export interface WorkspaceTestCase {
   explanation?: string;
 }
 
-const STORAGE_KEY = 'codearena-custom-testcases';
+const STORAGE_KEY = 'prismcode-custom-testcases';
 
 function isCustomTestCase(value: unknown): value is CustomTestCase {
   if (!value || typeof value !== 'object') return false;

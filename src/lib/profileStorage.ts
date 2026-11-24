@@ -1,8 +1,8 @@
 import { readStorage, removeStorage, writeStorage } from './storage';
 import type { AvatarColorId, AvatarMode, LocalProfile, PrivacySettings, ProfileVisibility } from '../types';
 
-export const PROFILE_STORAGE_KEY = 'codearena-local-profile';
-export const PRIVACY_STORAGE_KEY = 'codearena-privacy-settings';
+export const PROFILE_STORAGE_KEY = 'prismcode-local-profile';
+export const PRIVACY_STORAGE_KEY = 'prismcode-privacy-settings';
 export const MAX_DISPLAY_NAME_LENGTH = 50;
 export const MAX_BIO_LENGTH = 180;
 export const MAX_AVATAR_IMAGE_LENGTH = 200_000;

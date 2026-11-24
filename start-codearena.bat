@@ -1,5 +1,5 @@
 @echo off
-echo Starting PrismCode by Refract Labs...
+echo Starting PrismCode...
 cd /d "%~dp0"
 if not exist "package.json" (
   echo ERROR: package.json was not found. Open this script from the prismcode-frontend project folder.

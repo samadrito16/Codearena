@@ -206,34 +206,34 @@ export default function YearPlanner() {
   
   // Persistent viewMode state ('weeks' or 'days')
   const [viewMode, setViewMode] = useState<'weeks' | 'days'>(() => {
-    return readStorage<'weeks' | 'days'>('codearena-year-viewmode', 'weeks');
+    return readStorage<'weeks' | 'days'>('prismcode-year-viewmode', 'weeks');
   });
   useEffect(() => {
-    writeStorage('codearena-year-viewmode', viewMode);
+    writeStorage('prismcode-year-viewmode', viewMode);
   }, [viewMode]);
 
   // ── Habits State (Fully editable & persistent) ──
   const [habits, setHabits] = useState<Habit[]>(() => {
-    return readStorage<Habit[]>('codearena-year-habits', DEFAULT_HABITS);
+    return readStorage<Habit[]>('prismcode-year-habits', DEFAULT_HABITS);
   });
   useEffect(() => {
-    writeStorage('codearena-year-habits', habits);
+    writeStorage('prismcode-year-habits', habits);
   }, [habits]);
 
   // Habit completion tracking by dateKey: Record<dateKey, Record<habitId, boolean>>
   const [habitCompletions, setHabitCompletions] = useState<Record<string, Record<string, boolean>>>(() => {
-    return readStorage<Record<string, Record<string, boolean>>>('codearena-habit-completions', {});
+    return readStorage<Record<string, Record<string, boolean>>>('prismcode-habit-completions', {});
   });
   useEffect(() => {
-    writeStorage('codearena-habit-completions', habitCompletions);
+    writeStorage('prismcode-habit-completions', habitCompletions);
   }, [habitCompletions]);
 
   // Habit visibility filter (turn on/off on calendar from bottom-left or top strip)
   const [enabledHabitFilter, setEnabledHabitFilter] = useState<Record<string, boolean>>(() => {
-    return readStorage<Record<string, boolean>>('codearena-habit-filter', {});
+    return readStorage<Record<string, boolean>>('prismcode-habit-filter', {});
   });
   useEffect(() => {
-    writeStorage('codearena-habit-filter', enabledHabitFilter);
+    writeStorage('prismcode-habit-filter', enabledHabitFilter);
   }, [enabledHabitFilter]);
 
   const toggleHabitFilter = (id: string) => {
@@ -245,26 +245,26 @@ export default function YearPlanner() {
 
   // ── Quarter Goals State (Fully editable & removable) ──
   const [quarterGoals, setQuarterGoals] = useState<Record<'Q1' | 'Q2' | 'Q3' | 'Q4', QuarterGoal>>(() => {
-    return readStorage<Record<'Q1' | 'Q2' | 'Q3' | 'Q4', QuarterGoal>>('codearena-quarter-goals', DEFAULT_GOALS);
+    return readStorage<Record<'Q1' | 'Q2' | 'Q3' | 'Q4', QuarterGoal>>('prismcode-quarter-goals', DEFAULT_GOALS);
   });
   useEffect(() => {
-    writeStorage('codearena-quarter-goals', quarterGoals);
+    writeStorage('prismcode-quarter-goals', quarterGoals);
   }, [quarterGoals]);
 
   // ── Week Focus Map (Persisted) ──
   const [weekFocusMap, setWeekFocusMap] = useState<Record<string, string>>(() => {
-    return readStorage<Record<string, string>>('codearena-week-focus', {});
+    return readStorage<Record<string, string>>('prismcode-week-focus', {});
   });
   useEffect(() => {
-    writeStorage('codearena-week-focus', weekFocusMap);
+    writeStorage('prismcode-week-focus', weekFocusMap);
   }, [weekFocusMap]);
 
   // ── Year Plans (Persisted) ──
   const [plans, setPlans] = useState<YearPlan[]>(() => {
-    return readStorage<YearPlan[]>('codearena-year-plans', []);
+    return readStorage<YearPlan[]>('prismcode-year-plans', []);
   });
   useEffect(() => {
-    writeStorage('codearena-year-plans', plans);
+    writeStorage('prismcode-year-plans', plans);
   }, [plans]);
 
   // ── Selected Week & Date for Detail Drawer ──

@@ -122,11 +122,11 @@ router.get('/verify/:certId', (req: Request, res: Response) => {
       handle,
       id: cert.userId,
     },
-    verificationUrl: `https://codearena.dev/verify/${cert.id}`,
+    verificationUrl: `https://prismcode.dev/verify/${cert.id}`,
     issuer: {
       organization: 'PrismCode',
-      division: 'Refract Labs Credentialing Authority',
-      verificationStandard: 'Cryptographic SHA-256 Ledger',
+      division: 'PrismCode Credential Authority',
+      verificationStandard: 'Verifiable credential with a unique ID',
     },
   });
 });

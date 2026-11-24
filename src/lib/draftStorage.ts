@@ -9,8 +9,8 @@ export interface DraftEntry {
   updatedAt: string;
 }
 
-const DRAFTS_STORAGE_KEY = 'codearena-code-drafts';
-const LANGUAGES_STORAGE_KEY = 'codearena-problem-languages';
+const DRAFTS_STORAGE_KEY = 'prismcode-code-drafts';
+const LANGUAGES_STORAGE_KEY = 'prismcode-problem-languages';
 const VALID_LANGUAGES: readonly CodeLanguage[] = ['javascript', 'python', 'java', 'cpp'];
 
 export function isCodeLanguage(value: unknown): value is CodeLanguage {

@@ -5,7 +5,7 @@ export default function Footer() {
       style={{ borderColor: 'var(--ca-border)' }}
       aria-label="Site footer"
     >
-      <p>2026 Refract Labs. All rights reserved.</p>
+      <p>&copy; 2026 PrismCode. All rights reserved.</p>
     </footer>
   );
 }

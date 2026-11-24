@@ -387,7 +387,7 @@ export function parseAndValidateImport(
 
 export function exportProblemsJson(problems: Problem[]): string {
   const dateStamp = new Date().toISOString().slice(0, 10);
-  const fileName = `codearena-question-bank-${dateStamp}.json`;
+  const fileName = `prismcode-question-bank-${dateStamp}.json`;
   const json = JSON.stringify(problems, null, 2);
   const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
   const url = URL.createObjectURL(blob);

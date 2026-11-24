@@ -185,9 +185,9 @@ export default function PrivacyPolicy() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Need Privacy Assistance?</p>
                 <p className="mt-1">Contact our Data Protection team at:</p>
-                <a href="mailto:privacy@refractlabs.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:privacy@prismcode.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  privacy@refractlabs.com
+                  privacy@prismcode.dev
                 </a>
               </div>
             </div>
@@ -207,12 +207,12 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  Welcome to <strong>Prismcode</strong> by <strong>Refract Labs</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;the Platform&rdquo;).
-                  Prismcode provides a modern, high-performance competitive programming ecosystem, real-time code execution,
+                  Welcome to <strong>PrismCode</strong> (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;the Platform&rdquo;).
+                  PrismCode provides a modern, high-performance competitive programming ecosystem, real-time code execution,
                   curated algorithmic challenge tracks, and developer progress analytics.
                 </p>
                 <p>
-                  This Privacy Policy describes how Refract Labs collects, uses, secures, and handles your information when you visit Prismcode
+                  This Privacy Policy describes how PrismCode collects, uses, secures, and handles your information when you visit PrismCode
                   our web application, register an account, submit code solutions, or interact with our APIs.
                 </p>
                 <p>
@@ -447,7 +447,7 @@ export default function PrivacyPolicy() {
               </div>
               <div className="mt-4 space-y-3 text-xs sm:text-sm leading-relaxed text-muted">
                 <p>
-                  Refract Labs applies industry-standard technical and operational safeguards:
+                  PrismCode applies industry-standard technical and operational safeguards:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Cryptographic Password Hashing:</strong> Passwords are salt-hashed using <strong>bcrypt</strong> (10 salt rounds). Plain-text passwords never touch logs, storage, or external networks.</li>
@@ -473,7 +473,7 @@ export default function PrivacyPolicy() {
                   We retain user account data for as long as your account remains active. Code submission history is preserved to populate your skill mastery diagrams and progress logs.
                 </p>
                 <p>
-                  If you close your account or request data deletion via <a href="mailto:privacy@refractlabs.com" className="themed-link">privacy@refractlabs.com</a>,
+                  If you close your account or request data deletion via <a href="mailto:privacy@prismcode.dev" className="themed-link">privacy@prismcode.dev</a>,
                   we permanently scrub your personal identifiers, email, password hashes, and user records within 30 business days.
                 </p>
               </div>
@@ -550,9 +550,9 @@ export default function PrivacyPolicy() {
                   For any privacy inquiries, data deletion requests, or security disclosures, please reach out to our team:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">Refract Labs Security & Privacy Operations</p>
-                  <p>Email: <a href="mailto:privacy@refractlabs.com" className="themed-link">privacy@refractlabs.com</a></p>
-                  <p>Support: <a href="mailto:support@refractlabs.com" className="themed-link">support@refractlabs.com</a></p>
+                  <p className="font-bold text-primary">PrismCode Security & Privacy Operations</p>
+                  <p>Email: <a href="mailto:privacy@prismcode.dev" className="themed-link">privacy@prismcode.dev</a></p>
+                  <p>Support: <a href="mailto:support@prismcode.dev" className="themed-link">support@prismcode.dev</a></p>
                 </div>
               </div>
             </section>

@@ -279,7 +279,7 @@ export default function PublicProfile() {
                 Verified Skill Badges ({badges.length})
               </h2>
             </div>
-            <span className="text-xs text-muted">Tamper-evident verification proof</span>
+            <span className="text-xs text-muted">Verifiable credential with a unique ID</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">

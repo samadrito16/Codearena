@@ -13,7 +13,7 @@ export interface EditorPreferences {
   lineNumbers: EditorLineNumbers;
 }
 
-const STORAGE_KEY = 'codearena-editor-preferences';
+const STORAGE_KEY = 'prismcode-editor-preferences';
 export const MIN_FONT_SIZE = 11;
 export const MAX_FONT_SIZE = 22;
 

@@ -65,7 +65,7 @@ export default function ClaimCertificateModal({
                 Official Certification Tracks
               </h3>
               <p className="text-xs text-muted">
-                Issued by PrismCode & Refract Labs. Claimable once requirements are fulfilled.
+                Issued by PrismCode. Claimable once requirements are fulfilled.
               </p>
             </div>
           </div>

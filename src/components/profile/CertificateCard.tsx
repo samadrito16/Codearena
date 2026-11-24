@@ -32,7 +32,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
     day: 'numeric',
   });
 
-  const appOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://codearena.dev';
+  const appOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://prismcode.dev';
   const verifyUrl = `${appOrigin}/verify/${certificate.id}`;
   const linkedInAddUrl = getLinkedInCertAddUrl(certificate, appOrigin);
   const linkedInShareUrl = getLinkedInSharePostUrl(verifyUrl);
@@ -53,7 +53,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
   return (
     <>
       <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-slate-900/60 to-purple-950/20 p-5 shadow-lg shadow-amber-500/5 backdrop-blur-md transition-all duration-300 hover:border-amber-500/50 hover:shadow-amber-500/10">
-        {/* Holographic Refract Labs Seal Watermark */}
+        {/* Holographic PrismCode Seal Watermark */}
         <div className="pointer-events-none absolute -right-6 -bottom-6 opacity-10 text-amber-400">
           <ShieldCheck size={160} />
         </div>

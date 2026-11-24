@@ -77,7 +77,6 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     service: 'PrismCode Backend API',
-    company: 'Refract Labs',
     uptimeSeconds: Math.floor(process.uptime()),
     timestamp: new Date().toISOString(),
   });

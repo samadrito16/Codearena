@@ -4,7 +4,11 @@ export type StorageWriteResult =
 
 export function readStorage<T>(key: string, fallback: T): T {
   try {
-    const raw = localStorage.getItem(key);
+    let raw = localStorage.getItem(key);
+    if (raw === null && key.startsWith('prismcode-')) {
+      const legacyKey = key.replace(/^prismcode-/, 'codearena-');
+      raw = localStorage.getItem(legacyKey);
+    }
     return raw ? (JSON.parse(raw) as T) : fallback;
   } catch {
     return fallback;

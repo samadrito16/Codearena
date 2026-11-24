@@ -53,8 +53,12 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
       setLocalUser(null);
       setSessionExpired(true);
     };
+    window.addEventListener('prismcode:session-expired', handleExpired);
     window.addEventListener('codearena:session-expired', handleExpired);
-    return () => window.removeEventListener('codearena:session-expired', handleExpired);
+    return () => {
+      window.removeEventListener('prismcode:session-expired', handleExpired);
+      window.removeEventListener('codearena:session-expired', handleExpired);
+    };
   }, [isSignedIn]);
 
   const dismissSessionExpired = useCallback(() => {
@@ -286,8 +290,12 @@ function LocalAuthProviderImpl({ children }: { children: ReactNode }) {
         return null;
       });
     };
+    window.addEventListener('prismcode:session-expired', handleExpired);
     window.addEventListener('codearena:session-expired', handleExpired);
-    return () => window.removeEventListener('codearena:session-expired', handleExpired);
+    return () => {
+      window.removeEventListener('prismcode:session-expired', handleExpired);
+      window.removeEventListener('codearena:session-expired', handleExpired);
+    };
   }, []);
 
   const dismissSessionExpired = useCallback(() => {

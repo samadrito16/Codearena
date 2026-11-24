@@ -756,11 +756,11 @@ export default function Profile() {
                     Verified Badges & Official Certificates
                   </h2>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                    <ShieldCheck size={11} /> Cryptographically Verified
+                    <ShieldCheck size={11} /> Verifiable Credential
                   </span>
                 </div>
                 <p className="text-xs text-muted mt-0.5 leading-relaxed">
-                  Refract Labs tamper-evident credentials. Add directly to your LinkedIn Licenses &amp; Certifications or share with recruiters.
+                  PrismCode verifiable credentials with a unique ID. Add directly to your LinkedIn Licenses &amp; Certifications or share with recruiters.
                 </p>
               </div>
             </div>
@@ -783,7 +783,7 @@ export default function Profile() {
                   <Award size={14} className="text-amber-500" /> Official Certificates ({certificates.length})
                 </h3>
                 <span className="text-[11px] text-muted">
-                  Issuing Authority: Refract Labs
+                  Issuing Authority: PrismCode
                 </span>
               </div>
 
@@ -800,7 +800,7 @@ export default function Profile() {
                   </div>
                   <h4 className="mt-3 text-sm font-bold text-primary">No certificates claimed yet</h4>
                   <p className="mt-1 text-xs text-muted max-w-md mx-auto">
-                    Complete milestone challenges to earn official Refract Labs diplomas and share your 1-click verified credentials on LinkedIn.
+                    Complete milestone challenges to earn official PrismCode certifications and share your verifiable credentials with a unique ID on LinkedIn.
                   </p>
                   <button
                     type="button"
@@ -820,7 +820,7 @@ export default function Profile() {
                   <ShieldCheck size={14} className="text-indigo-500" /> Verifiable Milestone Badges ({verifiedBadges.filter((b) => b.unlocked).length}/{verifiedBadges.length})
                 </h3>
                 <span className="text-[11px] text-muted">
-                  Each badge carries an on-chain style tamper-evident hash
+                  Each badge carries a verifiable credential with a unique ID
                 </span>
               </div>
 

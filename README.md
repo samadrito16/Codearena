@@ -200,8 +200,8 @@ start-prismcode.bat
 #### 1. Clone & Install Dependencies
 ```bash
 # Clone the repository
-git clone https://github.com/samadrito16/Codearena.git
-cd Codearena
+git clone https://github.com/samadrito16/PrismCode.git
+cd PrismCode
 
 # Install Frontend Dependencies
 npm install
@@ -271,5 +271,5 @@ cd ..
 PrismCode is open-source software licensed under the [MIT License](LICENSE).
 
 <p align="center">
-  <sub>Designed & Engineered with care by <strong>Refract Labs</strong>.</sub>
+  <sub>Designed & Engineered with care for <strong>PrismCode</strong> developers.</sub>
 </p>

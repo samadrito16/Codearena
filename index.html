@@ -6,19 +6,19 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="theme-color" content="#0a0b0e" />
-    <meta name="description" content="PrismCode by Refract Labs — practice, compete, and grow as a developer." />
-    <title>PrismCode — Coding Practice by Refract Labs</title>
+    <meta name="description" content="PrismCode — practice, compete, and grow as a developer." />
+    <title>PrismCode — High-Performance Algorithmic Engineering Platform</title>
     <script>
       (function() {
         try {
-          var theme = localStorage.getItem('codearena-theme');
+          var theme = localStorage.getItem('prismcode-theme') || localStorage.getItem('codearena-theme');
           if (theme === 'light') {
             document.documentElement.classList.remove('dark');
           } else {
             document.documentElement.classList.add('dark');
           }
 
-          var palette = localStorage.getItem('codearena-palette');
+          var palette = localStorage.getItem('prismcode-palette') || localStorage.getItem('codearena-palette');
           var validPalettes = ['onyx', 'frost', 'copper', 'crimson', 'dune'];
           if (palette && validPalettes.indexOf(palette) !== -1) {
             document.documentElement.setAttribute('data-palette', palette);
@@ -26,12 +26,12 @@
             document.documentElement.setAttribute('data-palette', 'onyx');
           }
 
-          var font = localStorage.getItem('codearena-font');
+          var font = localStorage.getItem('prismcode-font') || localStorage.getItem('codearena-font');
           if (font) {
             document.documentElement.setAttribute('data-font', font);
           }
 
-          var fontSize = localStorage.getItem('codearena-font-size');
+          var fontSize = localStorage.getItem('prismcode-font-size') || localStorage.getItem('codearena-font-size');
           if (fontSize) {
             document.documentElement.setAttribute('data-font-size', fontSize);
           }

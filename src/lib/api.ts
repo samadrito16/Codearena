@@ -54,9 +54,9 @@ export async function apiRequest<T>(
     // Only dispatch network error banner event for non-silent, active user requests
     // Routine background checks (e.g. /auth/me opportunistic probing) will not trigger the global alarm
     if (typeof window !== 'undefined' && !silent && path !== '/auth/me') {
-      window.dispatchEvent(new CustomEvent('codearena:network-error', {
-        detail: { path, timestamp: Date.now() },
-      }));
+      const errorDetail = { path, timestamp: Date.now() };
+      window.dispatchEvent(new CustomEvent('prismcode:network-error', { detail: errorDetail }));
+      window.dispatchEvent(new CustomEvent('codearena:network-error', { detail: errorDetail }));
     }
     throw new ApiError(
       'Cannot connect to PrismCode server. Check your connection and ensure the backend is running.',
@@ -67,6 +67,7 @@ export async function apiRequest<T>(
 
   // Clear network error indicator when server responds
   if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('prismcode:network-recovered'));
     window.dispatchEvent(new CustomEvent('codearena:network-recovered'));
   }
 
@@ -96,13 +97,13 @@ export async function apiRequest<T>(
 
     if (response.status === 401 && !isProbeOrPublic && body?.error?.code === 'SESSION_EXPIRED') {
       if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('codearena:session-expired', {
-          detail: {
-            path,
-            code: 'SESSION_EXPIRED',
-            message: body?.error?.message || 'Your session has expired. Please sign in again to continue.',
-          },
-        }));
+        const expiredDetail = {
+          path,
+          code: 'SESSION_EXPIRED',
+          message: body?.error?.message || 'Your session has expired. Please sign in again to continue.',
+        };
+        window.dispatchEvent(new CustomEvent('prismcode:session-expired', { detail: expiredDetail }));
+        window.dispatchEvent(new CustomEvent('codearena:session-expired', { detail: expiredDetail }));
       }
     }
 

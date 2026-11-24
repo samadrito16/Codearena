@@ -11,7 +11,7 @@ export function getLinkedInCertAddUrl(cert: IssuedCertificate, originUrl?: strin
   const issueYear = issueDate.getFullYear();
   const issueMonth = issueDate.getMonth() + 1;
 
-  const appOrigin = originUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://codearena.dev');
+  const appOrigin = originUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://prismcode.dev');
   const certUrl = `${appOrigin}/verify/${cert.id}`;
 
   const params = new URLSearchParams({
@@ -50,7 +50,7 @@ export function generateCertificateAnnouncement(cert: IssuedCertificate, verifyU
 Key Verified Metrics:
 • ${cert.metrics.solvedCount} Algorithmic Problems Solved
 • ${cert.metrics.mediumCount} Medium-tier Problems Conquered
-• Verified on the Refract Labs Cryptographic Ledger
+• Verifiable credential with a unique ID: ${cert.id}
 
 Check out my official verified credential:
 ${verifyUrl}
@@ -65,7 +65,7 @@ export function generateBadgeAnnouncement(badge: VerifiedBadge, profileUrl: stri
   return `🏆 Just unlocked the verified "${badge.title}" badge on PrismCode!
 
 ${badge.description}
-Verification Hash: ${badge.verificationHash || 'PRISM-VERIFIED'}
+Unique Credential ID: ${badge.verificationHash || 'PRISM-VERIFIED'}
 
 Inspect my verified solving profile:
 ${profileUrl}
