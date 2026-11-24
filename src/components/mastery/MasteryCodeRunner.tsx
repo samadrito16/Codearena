@@ -125,14 +125,29 @@ export default function MasteryCodeRunner({
     if (onSaveDraft) onSaveDraft(language, template);
   }
 
-  // Build test cases from problem statement examples
+  // Build test cases from problem statement examples + scale benchmark stress case
   const testCases = useMemo(() => {
-    return problem.statement.examples.map((ex, idx) => ({
+    const list = problem.statement.examples.map((ex, idx) => ({
       caseNumber: idx + 1,
+      name: `Example ${idx + 1}`,
       input: ex.input,
       expected: ex.output,
       explanation: ex.explanation,
+      isScaleTest: false,
     }));
+
+    if (problem.scale_benchmark) {
+      list.push({
+        caseNumber: list.length + 1,
+        name: `Scale Stress (N = ${problem.scale_benchmark.n_size.toLocaleString()})`,
+        input: problem.scale_benchmark.input,
+        expected: problem.scale_benchmark.expected,
+        explanation: `Scale stress benchmark verifying ${problem.scale_benchmark.optimal_complexity} passes in <100ms and ${problem.scale_benchmark.brute_force_complexity} TLEs.`,
+        isScaleTest: true,
+      });
+    }
+
+    return list;
   }, [problem]);
 
   async function handleRunCode() {
@@ -521,20 +536,21 @@ export default function MasteryCodeRunner({
                       setSelectedCaseIdx(idx);
                       setIsCustomActive(false);
                     }}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition whitespace-nowrap ${
                       !isCustomActive && selectedCaseIdx === idx
                         ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-sm'
                         : 'bg-black/5 dark:bg-white/5 text-muted hover:text-primary'
                     }`}
                   >
-                    Case {tc.caseNumber}
+                    {tc.isScaleTest && <Flame size={12} className="text-amber-500" />}
+                    <span>{tc.isScaleTest ? 'Scale Stress Test' : `Case ${tc.caseNumber}`}</span>
                   </button>
                 ))}
 
                 <button
                   type="button"
                   onClick={() => setIsCustomActive(true)}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition ${
+                  className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition whitespace-nowrap ${
                     isCustomActive
                       ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-sm'
                       : 'bg-black/5 dark:bg-white/5 text-muted hover:text-primary'
@@ -550,12 +566,23 @@ export default function MasteryCodeRunner({
                   className="p-4 rounded-xl border space-y-3"
                   style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
                 >
+                  {testCases[selectedCaseIdx]?.isScaleTest && (
+                    <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-500 text-xs flex items-center gap-2">
+                      <Flame size={14} className="shrink-0" />
+                      <span>
+                        <strong>Scale Stress Benchmark:</strong> High-N input designed to catch slow solutions. Naive O(N²) or exponential brute force will trigger Time Limit Exceeded (4.0s limit).
+                      </span>
+                    </div>
+                  )}
+
                   <div>
                     <span className="text-[11px] font-bold uppercase tracking-wider text-muted block mb-1">
                       Input Arguments:
                     </span>
-                    <pre className="font-mono text-xs p-2.5 rounded-lg bg-black/10 dark:bg-black/30 text-primary overflow-x-auto">
-                      {testCases[selectedCaseIdx]?.input}
+                    <pre className="font-mono text-xs p-2.5 rounded-lg bg-black/10 dark:bg-black/30 text-primary overflow-x-auto max-h-36">
+                      {testCases[selectedCaseIdx]?.input && testCases[selectedCaseIdx]?.input.length > 800
+                        ? `${testCases[selectedCaseIdx]?.input.slice(0, 450)}...\n\n# [+ ${testCases[selectedCaseIdx]?.input.length.toLocaleString()} characters in full scale benchmark payload]`
+                        : testCases[selectedCaseIdx]?.input}
                     </pre>
                   </div>
 

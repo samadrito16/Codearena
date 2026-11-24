@@ -14,14 +14,14 @@ const runSchema = z.object({
   problemId: z.string().min(1).max(100),
   code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
   language: z.string().min(1).max(50).default('javascript'),
-  customInput: z.string().max(10240, 'Custom input exceeds maximum allowed size (10KB)').optional(),
+  customInput: z.string().max(524288, 'Custom input exceeds maximum allowed size (512KB)').optional(),
   cases: z
     .array(
       z.object({
         caseNumber: z.number().optional(),
-        input: z.string().max(10240),
-        expected: z.string().max(10240).optional(),
-        expectedOutput: z.string().max(10240).optional(),
+        input: z.string().max(524288),
+        expected: z.string().max(524288).optional(),
+        expectedOutput: z.string().max(524288).optional(),
       })
     )
     .max(25, 'Maximum of 25 custom test cases allowed')
@@ -37,9 +37,9 @@ const submitSchema = z.object({
     .array(
       z.object({
         caseNumber: z.number().optional(),
-        input: z.string().max(10240),
-        expected: z.string().max(10240).optional(),
-        expectedOutput: z.string().max(10240).optional(),
+        input: z.string().max(524288),
+        expected: z.string().max(524288).optional(),
+        expectedOutput: z.string().max(524288).optional(),
       })
     )
     .max(50)
@@ -52,8 +52,8 @@ const traceSchema = z.object({
   problemId: z.string().max(100).optional(),
   code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
   language: z.string().min(1).max(50).default('python'),
-  input: z.string().max(10240, 'Input exceeds maximum allowed size (10KB)').optional(),
-  customInput: z.string().max(10240).optional(),
+  input: z.string().max(524288, 'Input exceeds maximum allowed size (512KB)').optional(),
+  customInput: z.string().max(524288).optional(),
   functionNameHint: z.string().max(100).optional(),
   maxSteps: z.number().min(10).max(500).optional(),
 });

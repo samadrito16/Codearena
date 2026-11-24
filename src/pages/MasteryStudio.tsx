@@ -205,6 +205,7 @@ export default function MasteryStudio() {
           <BruteForceCompare
             bruteForce={problem.brute_force}
             optimalSolution={problem.optimal_solution}
+            scaleBenchmark={problem.scale_benchmark}
           />
 
           {/* Module 3 Part 2: Progressive Locked Hint Ladder */}

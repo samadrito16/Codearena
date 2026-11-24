@@ -13,12 +13,34 @@ export interface StatementExample {
   explanation: string;
 }
 
+export interface StatementTestCase {
+  caseNumber: number;
+  name?: string;
+  input: string;
+  expected: string;
+  explanation?: string;
+  isScaleTest?: boolean;
+}
+
+export interface ScaleBenchmark {
+  name: string;
+  description: string;
+  n_size: number;
+  input: string;
+  expected: string;
+  optimal_complexity: string;
+  brute_force_complexity: string;
+  optimal_time_benchmark: string;
+  brute_force_benchmark: string;
+}
+
 export interface ProblemStatement {
   description: string;
   input_format: string;
   output_format: string;
   examples: StatementExample[];
   constraints: string[];
+  test_cases?: StatementTestCase[];
 }
 
 export interface BruteForceSolution {
@@ -79,6 +101,8 @@ export interface MasteryProblem {
   pattern_diagnosis_options: PatternId[];
   ai_avoid_keywords: string[];
   starter_code: string;
+  scale_benchmark?: ScaleBenchmark;
+  test_cases?: StatementTestCase[];
 }
 
 export interface MasteryCatalog {
