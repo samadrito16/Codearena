@@ -63,7 +63,8 @@ export interface TestCaseInput {
 
 export interface ProblemEditorial {
   problemId: string;
-  isStaticDemo: boolean;
+  isStaticDemo?: boolean;
+  isVerified?: boolean;
   summary: string;
   hints: string[];
   approachTitle: string;

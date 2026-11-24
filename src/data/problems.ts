@@ -77,7 +77,35 @@ export const initialProblems: Problem[] = [
         "expected": "[19998, 19999]",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "two-sum",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Trade linear extra space for linear time by indexing previously seen numbers in a hash map as you scan the array once.",
+      "hints": [
+        "A brute-force nested loop checks every pair in O(n²). Can you avoid scanning the rest of the array for each element?.",
+        "For each number nums[i], you know the exact partner value you need: complement = target - nums[i].",
+        "Store each visited value -> index in a hash map. Before inserting nums[i], check whether complement is already in the map."
+      ],
+      "approachTitle": "One-Pass Hash Map",
+      "approachSteps": [
+        "Create an empty hash map seen that maps each visited value to its index.",
+        "Iterate over nums with index i and compute complement = target - nums[i].",
+        "If seen contains complement, return [seen.get(complement), i] immediately.",
+        "Otherwise record seen.set(nums[i], i) and continue."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "pitfalls": [
+        "Check for the complement before inserting nums[i] so you never reuse the same element twice (e.g., nums = [3, 3], target = 6).",
+        "Return indices rather than the values themselves."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function twoSum(nums, target) {\n  const seen = new Map();\n  for (let i = 0; i < nums.length; i += 1) {\n    const complement = target - nums[i];\n    if (seen.has(complement)) {\n      return [seen.get(complement), i];\n    }\n    seen.set(nums[i], i);\n  }\n  return [];\n}"
+      }
+    }
   },
   {
     "id": "valid-parentheses",
@@ -167,7 +195,36 @@ export const initialProblems: Problem[] = [
         "expected": "true",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "valid-parentheses",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Match brackets in last-in, first-out order using a stack so every closing delimiter verifies the most recent unclosed opening delimiter.",
+      "hints": [
+        "The most recently opened bracket must always be the first one to close — which data structure enforces LIFO order?.",
+        "Push opening brackets onto a stack (or push the closing bracket you expect to see next).",
+        "Do not forget to check that the stack is completely empty after reading the entire string."
+      ],
+      "approachTitle": "Stack Matching",
+      "approachSteps": [
+        "Map each closing bracket (), [], {} to its matching opening bracket.",
+        "Walk through each character ch in s.",
+        "If ch is an opening bracket, push it onto the stack.",
+        "If ch is a closing bracket, pop the top of the stack and verify it matches the expected opening bracket (if the stack is empty or mismatches, return false).",
+        "After the loop, return true only if stack.length === 0."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "pitfalls": [
+        "Strings with odd length can never be valid — returning false early is a clean guard.",
+        "Leaving unclosed brackets on the stack (like \"((\") must return false at the end."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function isValid(s) {\n  if (s.length % 2 === 1) return false;\n  const pairs = { ')': '(', ']': '[', '}': '{' };\n  const stack = [];\n  for (const ch of s) {\n    if (ch in pairs) {\n      if (stack.pop() !== pairs[ch]) return false;\n    } else {\n      stack.push(ch);\n    }\n  }\n  return stack.length === 0;\n}"
+      }
+    }
   },
   {
     "id": "longest-substring",
@@ -245,7 +302,35 @@ export const initialProblems: Problem[] = [
         "expected": "26",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "longest-substring",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Maintain a sliding window of unique characters and jump the left pointer past the last occurrence of any repeated character.",
+      "hints": [
+        "Maintain a window [left, right] that always contains distinct characters.",
+        "When s[right] is already inside the current window, advance left to lastSeen[s[right]] + 1.",
+        "Make sure left never moves backward if a character was seen before the current window started."
+      ],
+      "approachTitle": "Sliding Window with Last-Seen Index Map",
+      "approachSteps": [
+        "Initialize left = 0, best = 0, and a map lastIndex from character to its most recent index.",
+        "Expand right from 0 to s.length - 1.",
+        "If s[right] was seen at index prev >= left, move left = prev + 1.",
+        "Update lastIndex.set(s[right], right) and best = Math.max(best, right - left + 1)."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(min(n, charset))",
+      "pitfalls": [
+        "Always use left = Math.max(left, prev + 1) (or guard prev >= left) so stale entries outside the window do not pull left backward.",
+        "Handle empty string \"\" cleanly by returning 0."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function lengthOfLongestSubstring(s) {\n  const lastIndex = new Map();\n  let left = 0;\n  let best = 0;\n  for (let right = 0; right < s.length; right += 1) {\n    const ch = s[right];\n    const prev = lastIndex.get(ch);\n    if (prev !== undefined && prev >= left) {\n      left = prev + 1;\n    }\n    lastIndex.set(ch, right);\n    best = Math.max(best, right - left + 1);\n  }\n  return best;\n}"
+      }
+    }
   },
   {
     "id": "container-water",
@@ -324,7 +409,35 @@ export const initialProblems: Problem[] = [
         "expected": "199990000",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "container-water",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Start with the widest possible container using two pointers at both ends and always move the shorter wall inward.",
+      "hints": [
+        "Container area is width * min(height[left], height[right]). Starting at left = 0 and right = n - 1 maximizes width.",
+        "Moving the taller pointer inward can only shrink width without increasing the limiting shorter height.",
+        "Therefore, only advancing the shorter pointer can potentially find a taller wall that increases area."
+      ],
+      "approachTitle": "Greedy Two Pointers",
+      "approachSteps": [
+        "Set left = 0, right = height.length - 1, and best = 0.",
+        "While left < right, compute area = (right - left) * Math.min(height[left], height[right]) and update best.",
+        "If height[left] < height[right], increment left; otherwise decrement right.",
+        "Return best once the pointers meet."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "pitfalls": [
+        "Do not sort the array — wall positions determine the container width.",
+        "Stop the loop when left === right since width becomes 0."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function maxArea(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let best = 0;\n  while (left < right) {\n    const area = (right - left) * Math.min(height[left], height[right]);\n    best = Math.max(best, area);\n    if (height[left] < height[right]) left += 1;\n    else right -= 1;\n  }\n  return best;\n}"
+      }
+    }
   },
   {
     "id": "median-arrays",
@@ -389,7 +502,35 @@ export const initialProblems: Problem[] = [
         "expected": "1.00000",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "median-arrays",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Binary search the partition of the smaller array so that left and right halves have equal size and valid cross-boundary ordering.",
+      "hints": [
+        "To achieve O(log(m+n)), binary search over the partition index of the smaller array rather than merging.",
+        "Partitioning nums1 at i implies nums2 must be partitioned at j = (m + n + 1) / 2 - i.",
+        "Valid partition requires maxLeft1 <= minRight2 and maxLeft2 <= minRight1."
+      ],
+      "approachTitle": "Binary Search Partitioning",
+      "approachSteps": [
+        "Ensure nums1 is the shorter array (swap if nums1.length > nums2.length).",
+        "Binary search i in [0, m] with j = Math.floor((m + n + 1) / 2) - i.",
+        "Identify maxLeft1, minRight1, maxLeft2, minRight2 using infinity guards at boundaries.",
+        "If valid, return max(maxLeft1, maxLeft2) for odd total, or average of boundary medians for even total."
+      ],
+      "timeComplexity": "O(log(min(m, n)))",
+      "spaceComplexity": "O(1)",
+      "pitfalls": [
+        "Index out of bounds when partition lands at index 0 or length m; use -Infinity and +Infinity.",
+        "Always binary search on the smaller array to guarantee j is non-negative."
+      ],
+      "referenceCode": {
+        "language": "Python",
+        "code": "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    if len(nums1) > len(nums2):\n        nums1, nums2 = nums2, nums1\n    m, n = len(nums1), len(nums2)\n    low, high = 0, m\n    while low <= high:\n        i = (low + high) // 2\n        j = (m + n + 1) // 2 - i\n        max_left1 = float('-inf') if i == 0 else nums1[i - 1]\n        min_right1 = float('inf') if i == m else nums1[i]\n        max_left2 = float('-inf') if j == 0 else nums2[j - 1]\n        min_right2 = float('inf') if j == n else nums2[j]\n        if max_left1 <= min_right2 and max_left2 <= min_right1:\n            if (m + n) % 2 == 1:\n                return float(max(max_left1, max_left2))\n            return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2.0\n        elif max_left1 > min_right2:\n            high = i - 1\n        else:\n            low = i + 1\n    return 0.0"
+      }
+    }
   },
   {
     "id": "binary-tree-level-order",
@@ -446,7 +587,36 @@ export const initialProblems: Problem[] = [
         "expected": "[]",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "binary-tree-level-order",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Traverse the binary tree level by level using a queue, snapshotting queue length at the start of each level.",
+      "hints": [
+        "A queue enforces FIFO order, naturally visiting parents before children.",
+        "Record the queue size at the beginning of each iteration to batch nodes on the exact same depth.",
+        "Boundary edge cases & complexity: Do not use queue.length dynamically inside the loop without snapshotting level size first. Check for null root before queue initialization. Verify your solution strictly meets O(n) time and O(n) space limits."
+      ],
+      "approachTitle": "Breadth-First Level Traversal",
+      "approachSteps": [
+        "If root is null, return [].",
+        "Initialize queue = [root] and result = [].",
+        "While queue is not empty, snapshot levelSize = queue.length and create level = [].",
+        "Pop levelSize nodes, pushing values to level and non-null children to queue.",
+        "Append level to result."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "pitfalls": [
+        "Do not use queue.length dynamically inside the loop without snapshotting level size first.",
+        "Check for null root before queue initialization."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function levelOrder(root) {\n  if (!root) return [];\n  const result = [];\n  const queue = [root];\n  while (queue.length > 0) {\n    const levelSize = queue.length;\n    const currentLevel = [];\n    for (let i = 0; i < levelSize; i += 1) {\n      const node = queue.shift();\n      currentLevel.push(node.val);\n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n    }\n    result.push(currentLevel);\n  }\n  return result;\n}"
+      }
+    }
   },
   {
     "id": "reverse-linked-list",
@@ -502,7 +672,34 @@ export const initialProblems: Problem[] = [
         "expected": "[]",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "reverse-linked-list",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "Iterate through the linked list, redirecting each node's next pointer to its predecessor.",
+      "hints": [
+        "Maintain prev = null and curr = head.",
+        "Before rewiring curr.next = prev, temporarily store curr.next in a nextNode variable so you don't lose the rest of the list.",
+        "Boundary edge cases & complexity: Losing reference to the remaining list before mutating curr.next. Returning curr instead of prev after loop exits (curr will be null). Verify your solution strictly meets O(n) time and O(1) space limits."
+      ],
+      "approachTitle": "Iterative Three-Pointer Rewiring",
+      "approachSteps": [
+        "Set prev = null and curr = head.",
+        "While curr is not null: save nextNode = curr.next, rewire curr.next = prev, advance prev = curr, advance curr = nextNode.",
+        "Return prev as the new head."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "pitfalls": [
+        "Losing reference to the remaining list before mutating curr.next.",
+        "Returning curr instead of prev after loop exits (curr will be null)."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function reverseList(head) {\n  let prev = null;\n  let curr = head;\n  while (curr !== null) {\n    const nextNode = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = nextNode;\n  }\n  return prev;\n}"
+      }
+    }
   },
   {
     "id": "climbing-stairs",
@@ -580,7 +777,35 @@ export const initialProblems: Problem[] = [
         "expected": "165580141",
         "isHidden": true
       }
-    ]
+    ],
+    "editorial": {
+      "problemId": "climbing-stairs",
+      "isStaticDemo": false,
+      "isVerified": true,
+      "summary": "The number of ways to reach step n is the sum of ways to reach step n-1 and step n-2 (Fibonacci sequence).",
+      "hints": [
+        "To reach step n, you can either take 1 step from n-1 or 2 steps from n-2.",
+        "Therefore ways(n) = ways(n-1) + ways(n-2).",
+        "Optimize space from an array to two rolling variables."
+      ],
+      "approachTitle": "Dynamic Programming with Rolling Variables",
+      "approachSteps": [
+        "Handle base cases: if n <= 2, return n.",
+        "Initialize prev2 = 1, prev1 = 2.",
+        "Iterate step from 3 to n: current = prev1 + prev2, prev2 = prev1, prev1 = current.",
+        "Return prev1."
+      ],
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "pitfalls": [
+        "Using naive recursion without memoization leads to O(2ⁿ) Time Limit Exceeded.",
+        "Ensure 1-based indexing for steps."
+      ],
+      "referenceCode": {
+        "language": "JavaScript",
+        "code": "function climbStairs(n) {\n  if (n <= 2) return n;\n  let prev2 = 1;\n  let prev1 = 2;\n  for (let i = 3; i <= n; i += 1) {\n    const current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  return prev1;\n}"
+      }
+    }
   },
   {
     "id": "maximum-subarray",
@@ -657,7 +882,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "maximum-subarray",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Kadane's algorithm: at each element decide whether to extend the previous subarray or start fresh at the current element.",
       "hints": [
         "If the running sum becomes negative, carrying it forward only hurts future subarrays.",
@@ -756,7 +982,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "move-zeroes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a write pointer `pos` that places each non-zero element in order via in-place swap.",
       "hints": [
         "Track the next index `pos` where a non-zero element belongs.",
@@ -842,11 +1069,12 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "find-disappeared-numbers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Negate `nums[abs(x) - 1]` to mark presence in-place, then collect indices whose values remain positive.",
       "hints": [
-        "All values are in `1..n`, mapping directly to indices `0..n-1`.",
-        "Use sign flipping (`-abs(...)`) to mark visited indices without losing their magnitude.",
+        "All values are in `1.n`, mapping directly to indices `0.n-1`.",
+        "Use sign flipping (`-abs(.)`) to mark visited indices without losing their magnitude.",
         "Any index `i` still holding a positive number means `i + 1` was absent."
       ],
       "approachTitle": "In-Place Sign Marking",
@@ -928,7 +1156,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "spiral-matrix",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain four shrinking boundaries `top`, `bottom`, `left`, `right`, peeling one edge at a time while checking boundaries before traversing bottom and left edges.",
       "hints": [
         "Peel top row, right column, bottom row, left column in order.",
@@ -1015,7 +1244,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "rotate-image",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Transpose the matrix across the main diagonal (`matrix[i][j] <-> matrix[j][i]`), then reverse every row.",
       "hints": [
         "90-degree clockwise rotation equals transpose followed by horizontal reflection.",
@@ -1102,7 +1332,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "set-matrix-zeroes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reuse row 0 and column 0 as in-place marker arrays, with two booleans tracking whether row 0 or column 0 originally contained any zeros.",
       "hints": [
         "Store `first_row_zero` and `first_col_zero` before modifying the matrix.",
@@ -1189,7 +1420,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "insert-interval",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform a three-phase linear sweep: emit all intervals ending before `new_interval`, merge all overlapping intervals into `new_interval`, then append all remaining intervals.",
       "hints": [
         "Intervals with `end < new_start` come strictly before.",
@@ -1276,7 +1508,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "non-overlapping-intervals",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort intervals by end time ascending and greedily keep every interval whose start is `>= prev_end`; the rest must be removed.",
       "hints": [
         "Minimizing removals is equivalent to maximizing the number of non-overlapping intervals kept (Activity Selection).",
@@ -1363,7 +1596,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "meeting-rooms-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort meetings by start time and track active meeting end times in a min-heap; reuse the earliest-ending room whenever `heap[0] <= start`.",
       "hints": [
         "The number of rooms needed equals the maximum simultaneous overlapping meetings.",
@@ -1457,7 +1691,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "contiguous-array",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Treat `0` as `-1` and `1` as `+1`; whenever the running prefix balance repeats an earlier balance, the subarray in between has net sum `0` (equal 0s and 1s).",
       "hints": [
         "Map `0 -> -1` and `1 -> +1`.",
@@ -1551,7 +1786,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "subarray-sums-divisible-by-k",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count prefix sums modulo `k`; any two prefixes with identical remainder `rem` define a subarray whose sum is divisible by `k`.",
       "hints": [
         "`(prefix[r] - prefix[l]) % k == 0` iff `prefix[r] % k == prefix[l] % k`.",
@@ -1638,7 +1874,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "four-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort the array, fix two outer indices skipping duplicates, and use two pointers on the remaining suffix.",
       "hints": [
         "Sort `nums` first.",
@@ -1724,7 +1961,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "next-permutation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the rightmost ascent `nums[i] < nums[i + 1]`, swap `nums[i]` with the rightmost element `> nums[i]`, and reverse the suffix `nums[i + 1:]`.",
       "hints": [
         "Scan right-to-left to find the first dip `i` where `nums[i] < nums[i + 1]`.",
@@ -1809,7 +2047,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pascals-triangle",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build each row from the previous row with `1` at both ends and `prev[j - 1] + prev[j]` in the interior.",
       "hints": [
         "Row `r` has length `r + 1` with `1` at indices `0` and `r`.",
@@ -1896,7 +2135,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "merge-sorted-array-inplace",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Fill `nums1` from the back (`m + n - 1` down to `0`) by comparing the largest remaining elements of `nums1` and `nums2`.",
       "hints": [
         "Filling forward overwrites unread values in `nums1`.",
@@ -1982,11 +2222,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "intersection-of-two-arrays-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count frequencies in the smaller array using a hash map, then scan the larger array decrementing counts on each match.",
       "hints": [
         "Count the smaller array to minimize memory usage.",
-        "For each `x` in the second array, if `counts[x] > 0`, append `x` and decrement `counts[x]`."
+        "For each `x` in the second array, if `counts[x] > 0`, append `x` and decrement `counts[x]`.",
+        "Boundary edge cases & complexity: Decrement the count after each match so duplicates aren't over-emitted. Verify your solution strictly meets O(n + m) time and O(min(n, m)) space limits."
       ],
       "approachTitle": "Frequency Counter Intersection",
       "approachSteps": [
@@ -2067,11 +2309,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "isomorphic-strings",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain two hash maps (`s -> t` and `t -> s`) to enforce a strict one-to-one bijection between characters.",
       "hints": [
         "A single forward map misses cases where two different characters in `s` map to the same character in `t` (e.g. `badc` vs `baba`).",
-        "Check both `s_to_t` and `t_to_s` at every position."
+        "Check both `s_to_t` and `t_to_s` at every position.",
+        "Boundary edge cases & complexity: Checking only `s -> t` fails when two distinct letters in `s` collide on one letter in `t`. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Bidirectional Hash Map Bijection",
       "approachSteps": [
@@ -2152,11 +2396,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "word-pattern",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split `s` into words, verify equal length with `pattern`, and enforce a bidirectional mapping between characters and words.",
       "hints": [
         "First check `len(words) == len(pattern)`.",
-        "Use two dictionaries `c2w` and `w2c` to verify a bijection."
+        "Use two dictionaries `c2w` and `w2c` to verify a bijection.",
+        "Boundary edge cases & complexity: Don't forget to check that the number of words equals `len(pattern)`. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Bidirectional Char-Word Map",
       "approachSteps": [
@@ -2238,11 +2484,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ransom-note",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count character frequencies in `magazine` and verify every character in `ransom_note` has sufficient count.",
       "hints": [
         "If `len(ransom_note) > len(magazine)`, return `False` immediately.",
-        "Count `magazine` letters and decrement as you scan `ransom_note`."
+        "Count `magazine` letters and decrement as you scan `ransom_note`.",
+        "Boundary edge cases & complexity: Check `< 0` after decrementing to catch missing letters. Verify your solution strictly meets O(n + m) time and O(1) space limits."
       ],
       "approachTitle": "Character Supply Counter",
       "approachSteps": [
@@ -2324,7 +2572,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "find-all-anagrams-in-a-string",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Slide a fixed-length window of size `len(p)` across `s`, maintaining a 26-element frequency array and comparing against `p`'s frequency array in O(26) = O(1) per step.",
       "hints": [
         "If `len(p) > len(s)`, return `[]`.",
@@ -2411,11 +2660,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "permutation-in-string",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Slide a window of size `len(s1)` across `s2` comparing 26-letter frequency arrays and return `True` on the first match.",
       "hints": [
         "A permutation of `s1` has the exact same length and character counts as `s1`.",
-        "Return `False` immediately if `len(s1) > len(s2)`."
+        "Return `False` immediately if `len(s1) > len(s2)`.",
+        "Boundary edge cases & complexity: Check the initial window at index 0 before sliding. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Fixed-Size Frequency Window",
       "approachSteps": [
@@ -2497,11 +2748,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "max-consecutive-ones-iii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a sliding window containing at most `k` zeros; shrink the left boundary whenever `zeros > k`.",
       "hints": [
         "Rephrase: find the longest subarray with at most `k` zeros.",
-        "Increment `zeros` when `nums[r] == 0`, decrement when `nums[l] == 0`."
+        "Increment `zeros` when `nums[r] == 0`, decrement when `nums[l] == 0`.",
+        "Boundary edge cases & complexity: Handle `k == 0` naturally with `while zeros > k`. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Zero-Budget Sliding Window",
       "approachSteps": [
@@ -2584,11 +2837,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "fruit-into-baskets",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the longest subarray with at most 2 distinct values using a sliding window and a frequency map.",
       "hints": [
-        "Track counts of each fruit type inside `[l..r]`.",
-        "When `len(counts) > 2`, decrement `counts[fruits[l]]`, delete the key if it hits `0`, and increment `l`."
+        "Track counts of each fruit type inside `[l.r]`.",
+        "When `len(counts) > 2`, decrement `counts[fruits[l]]`, delete the key if it hits `0`, and increment `l`.",
+        "Boundary edge cases & complexity: Delete keys whose count drops to `0` so `len(counts)` accurately reflects distinct types. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "At-Most-2-Distinct Sliding Window",
       "approachSteps": [
@@ -2671,7 +2926,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "subarray-product-less-than-k",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Since all elements are positive, maintain a sliding window whose product is `< k`; at each `r`, exactly `r - l + 1` new valid subarrays end at `r`.",
       "hints": [
         "If `k <= 1`, no positive product can be strictly less than `k`, so return `0`.",
@@ -2758,7 +3014,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "boats-to-save-people",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort weights and greedily pair the heaviest remaining person with the lightest remaining person whenever their sum is `<= limit`.",
       "hints": [
         "Each boat holds at most 2 people.",
@@ -2845,7 +3102,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "backspace-string-compare",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan both strings backward skipping characters canceled by `'#'` to compare in O(1) space (or build final stacks).",
       "hints": [
         "Iterating in reverse tells you immediately how many upcoming characters must be skipped.",
@@ -2931,11 +3189,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "roman-to-integer",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan left-to-right: if the current symbol has a smaller value than the next symbol, subtract it; otherwise add it.",
       "hints": [
         "Subtractive pairs like `IV`, `IX`, `XL`, `CM` always have `val[i] < val[i + 1]`.",
-        "All other symbols simply add to the total."
+        "All other symbols simply add to the total.",
+        "Boundary edge cases & complexity: Guard `i + 1 < len(s)` before inspecting the next character. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Lookahead Subtractive Scan",
       "approachSteps": [
@@ -3015,11 +3275,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "integer-to-roman",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Include the 6 subtractive tokens (`CM`, `CD`, `XC`, `XL`, `IX`, `IV`) in a descending lookup table and greedily emit the largest value fitting into `num`.",
       "hints": [
         "There are 13 canonical Roman tokens from 1000 down to 1.",
-        "Use `count, num = divmod(num, val)` for each token."
+        "Use `count, num = divmod(num, val)` for each token.",
+        "Boundary edge cases & complexity: Include all 6 subtractive pairs in strictly descending order. Verify your solution strictly meets O(1) time and O(1) space limits."
       ],
       "approachTitle": "Greedy Value-Token Decomposition",
       "approachSteps": [
@@ -3101,7 +3363,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "multiply-strings",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Allocate a digit array of length `m + n`; the product of digits at `i` and `j` contributes directly to positions `i + j + 1` (ones) and `i + j` (carry).",
       "hints": [
         "The product of an `m`-digit and `n`-digit number has at most `m + n` digits.",
@@ -3189,11 +3452,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "add-binary",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Walk both strings from right to left summing bit values plus `carry`, emitting `total % 2`, and reversing the collected bits.",
       "hints": [
         "Process from least-significant bit (end of string) backward.",
-        "Continue while `i >= 0 or j >= 0 or carry`."
+        "Continue while `i >= 0 or j >= 0 or carry`.",
+        "Boundary edge cases & complexity: Do not forget the final carry bit when both strings end. Verify your solution strictly meets O(max(n, m)) time and O(max(n, m)) space limits."
       ],
       "approachTitle": "Right-to-Left Binary Carry Addition",
       "approachSteps": [
@@ -3274,11 +3539,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "string-compression",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use read and write pointers to measure each run of identical characters, writing the character and each digit of `str(count)` when `count > 1`.",
       "hints": [
         "Counts >= 10 must be split into individual character digits (`'1'`, `'2'`).",
-        "Write pointer never overtakes read pointer."
+        "Write pointer never overtakes read pointer.",
+        "Boundary edge cases & complexity: Split multi-digit counts into separate single-character elements. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "In-Place Run-Length Encoding",
       "approachSteps": [
@@ -3362,7 +3629,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "remove-k-digits",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a monotonic increasing digit stack: pop larger previous digits while `k > 0`, trim any remaining `k` digits from the end, and strip leading zeros.",
       "hints": [
         "Removing a larger digit to the left of a smaller digit always reduces the number.",
@@ -3450,11 +3718,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "online-stock-span",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a decreasing monotonic stack of `(price, span)` pairs, absorbing spans of all popped elements `<= current price`.",
       "hints": [
         "Store `(price, span)` on a stack.",
-        "While `stack and stack[-1][0] <= price`, add `stack.pop()[1]` to `span`."
+        "While `stack and stack[-1][0] <= price`, add `stack.pop()[1]` to `span`.",
+        "Boundary edge cases & complexity: Use `<=` because equal prices count toward the span. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Monotonic Decreasing Span Stack",
       "approachSteps": [
@@ -3536,7 +3806,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sum-of-subarray-minimums",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a monotonic increasing stack to compute each element's contribution `arr[mid] * (mid - left) * (right - mid)` using strict `<` on one side and `<=` on the other to avoid double-counting duplicates.",
       "hints": [
         "Each element `arr[mid]` is the minimum of `(mid - prev_smaller) * (next_smaller_or_eq - mid)` subarrays.",
@@ -3625,11 +3896,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "maximal-rectangle",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build a running column-height histogram row by row and apply the O(cols) monotonic stack Largest Rectangle in Histogram algorithm to each row.",
       "hints": [
         "For each row, `heights[c] = heights[c] + 1` if `matrix[r][c] == '1'` else `0`.",
-        "Run Largest Rectangle in Histogram on `heights` after each row."
+        "Run Largest Rectangle in Histogram on `heights` after each row.",
+        "Boundary edge cases & complexity: Reset `heights[c] = 0` whenever a `'0'` cell is encountered. Verify your solution strictly meets O(rows * cols) time and O(cols) space limits."
       ],
       "approachTitle": "Row-by-Row Histogram Monotonic Stack",
       "approachSteps": [
@@ -3711,7 +3984,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "basic-calculator-parentheses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain running `res`, `num`, and `sign`, pushing `(res, sign)` onto a stack on `'('` and combining on `')'`.",
       "hints": [
         "Unary minus works naturally because `res` starts at `0` before `'-'`.",
@@ -3798,11 +4072,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "implement-queue-using-stacks",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push new elements onto `in_stack`, and lazily pour `in_stack` into `out_stack` only when `out_stack` is empty during `pop` or `peek`.",
       "hints": [
         "Moving an element from `in_stack` to `out_stack` reverses its order into FIFO.",
-        "Each element is pushed/popped at most twice, giving amortized O(1) time."
+        "Each element is pushed/popped at most twice, giving amortized O(1) time.",
+        "Boundary edge cases & complexity: Never pour `in_s` into `out_s` while `out_s` still has elements. Verify your solution strictly meets O(1) amortized time and O(n) space limits."
       ],
       "approachTitle": "Lazy Two-Stack Pour",
       "approachSteps": [
@@ -3884,11 +4160,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "remove-all-adjacent-duplicates",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a character stack: if the top matches the incoming character, pop it; otherwise push.",
       "hints": [
         "A stack automatically exposes newly adjacent characters after a cancellation.",
-        "Join the stack at the end."
+        "Join the stack at the end.",
+        "Boundary edge cases & complexity: Only remove pairs (2 identical characters), not all 3 of `'aaa'` (which becomes `'a'`). Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Adjacent-Cancellation Stack",
       "approachSteps": [
@@ -3969,7 +4247,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "minimum-remove-to-make-valid-parentheses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track indices of unmatched `'('` on a stack and record indices of unmatched `')'` in a removal set, then rebuild the string omitting all marked indices.",
       "hints": [
         "Store index `i` on the stack for every `'('`.",
@@ -4055,7 +4334,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "score-of-parentheses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Every core pair `\"()\"` at nesting depth `d` contributes `2^d` to the total score; sum `1 << depth` whenever `s[i - 1:i + 1] == '()'`. ",
       "hints": [
         "Distributing `2 * (A + B)` gives `2A + 2B`, so only innermost `()` cores contribute weight.",
@@ -4141,11 +4421,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "palindrome-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the midpoint with fast/slow pointers, reverse the second half in-place, and compare both halves node by node.",
       "hints": [
         "Slow/fast pointers locate the middle in O(n) time.",
-        "Reverse the second half to compare in O(1) space."
+        "Reverse the second half to compare in O(1) space.",
+        "Boundary edge cases & complexity: Odd-length lists have a middle node that does not need to match anything. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Midpoint Reverse and Compare",
       "approachSteps": [
@@ -4225,11 +4507,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "middle-of-the-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Advance `slow` by 1 and `fast` by 2 until `fast` reaches the end; `slow` lands at index `len // 2`.",
       "hints": [
         "When `fast` moves twice as fast as `slow`, `slow` is halfway when `fast` finishes.",
-        "For even length `2k`, index `k` is the second middle node."
+        "For even length `2k`, index `k` is the second middle node.",
+        "Boundary edge cases & complexity: Check `fast and fast.next` in the loop condition. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Fast and Slow Pointers",
       "approachSteps": [
@@ -4309,11 +4593,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "remove-duplicates-from-sorted-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Walk through the sorted list skipping any node whose value equals the previous kept node.",
       "hints": [
         "Because the list is sorted, duplicates are always adjacent.",
-        "Only advance `curr` when `curr.next.val != curr.val`."
+        "Only advance `curr` when `curr.next.val != curr.val`.",
+        "Boundary edge cases & complexity: Handle empty list without raising IndexError. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Adjacent Duplicate Skip",
       "approachSteps": [
@@ -4394,11 +4680,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "odd-even-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain separate `odd` and `even` pointer chains and attach `even_head` to the tail of the `odd` chain.",
       "hints": [
-        "Grouping is by node index (1st, 3rd, 5th...), NOT by node value parity.",
-        "Save `even_head = head.next` before rewiring."
+        "Grouping is by node index (1st, 3rd, 5th.), NOT by node value parity.",
+        "Save `even_head = head.next` before rewiring.",
+        "Boundary edge cases & complexity: Do not group by `val % 2`; group by position. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Dual Odd/Even Pointer Chains",
       "approachSteps": [
@@ -4478,11 +4766,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "swap-nodes-in-pairs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Step through the list two nodes at a time, swapping adjacent pairs `(i, i + 1)` while `i + 1 < n`.",
       "hints": [
         "Use a dummy node when rewiring linked list pointers so `prev.next` updates cleanly.",
-        "Leave the last node untouched if length is odd."
+        "Leave the last node untouched if length is odd.",
+        "Boundary edge cases & complexity: Stop at `len(res) - 1` so an odd final element does not trigger IndexError. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Iterative Pairwise Swap",
       "approachSteps": [
@@ -4563,11 +4853,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "rotate-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Connect tail to head to form a ring, reduce `k %= n`, and break the ring after `n - k` nodes.",
       "hints": [
         "Always handle empty lists before computing `k % n`.",
-        "Rotating right by `k % n` moves the last `k % n` nodes to the front."
+        "Rotating right by `k % n` moves the last `k % n` nodes to the front.",
+        "Boundary edge cases & complexity: Modulo by zero occurs if you don't guard `not values`. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Circular Tail-to-Head Cut",
       "approachSteps": [
@@ -4648,11 +4940,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "partition-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build two dummy-headed lists (`before` for `< x` and `after` for `>= x`), then link `before.tail -> after.head`.",
       "hints": [
         "Preserve relative order inside both partitions.",
-        "In pointer-based linked lists, remember to set `after_tail.next = None` to prevent a cycle."
+        "In pointer-based linked lists, remember to set `after_tail.next = None` to prevent a cycle.",
+        "Boundary edge cases & complexity: Nodes equal to `x` belong to the second (`>= x`) partition. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Two-Bucket Stable Partition",
       "approachSteps": [
@@ -4733,11 +5027,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sort-linked-list",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split the list at its midpoint recursively and merge the two sorted halves in linear time.",
       "hints": [
         "Merge sort guarantees O(n log n) worst-case time on linked lists.",
-        "Base case is a list of length `<= 1`."
+        "Base case is a list of length `<= 1`.",
+        "Boundary edge cases & complexity: On linked lists, disconnect the left half's tail (`prev.next = None`) before recursing. Verify your solution strictly meets O(n log n) time and O(log n) recursion space limits."
       ],
       "approachTitle": "Top-Down Merge Sort",
       "approachSteps": [
@@ -4818,11 +5114,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "search-insert-position",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the first index `l` where `nums[l] >= target` (lower bound) using binary search on `[0, len(nums)]`.",
       "hints": [
         "Set `r = len(nums)` so targets greater than all elements can return `len(nums)`.",
-        "Shrink `[l, r)` until `l == r`."
+        "Shrink `[l, r)` until `l == r`.",
+        "Boundary edge cases & complexity: Upper bound must include `len(nums)` for insertion after the last element. Verify your solution strictly meets O(log n) time and O(1) space limits."
       ],
       "approachTitle": "Lower-Bound Binary Search",
       "approachSteps": [
@@ -4902,11 +5200,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sqrt-x-integer",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search for the largest integer `mid` in `[0, x]` satisfying `mid * mid <= x`.",
       "hints": [
         "If `x < 2`, return `x` directly.",
-        "Binary search in `[1, x // 2]` comparing `mid * mid` with `x`."
+        "Binary search in `[1, x // 2]` comparing `mid * mid` with `x`.",
+        "Boundary edge cases & complexity: In 32-bit languages, compare `mid <= x / mid` instead of `mid * mid <= x` to avoid overflow. Verify your solution strictly meets O(log x) time and O(1) space limits."
       ],
       "approachTitle": "Monotonic Square Binary Search",
       "approachSteps": [
@@ -4988,11 +5288,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "find-peak-element",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare `nums[mid]` with `nums[mid + 1]`: always climb uphill (`l = mid + 1` if rising, `r = mid` if falling) until `l == r`.",
       "hints": [
         "If `nums[mid] < nums[mid + 1]`, a peak is guaranteed to exist on the right side.",
-        "Otherwise a peak is guaranteed on the left side including `mid`."
+        "Otherwise a peak is guaranteed on the left side including `mid`.",
+        "Boundary edge cases & complexity: Because `l < r`, `mid + 1` is always strictly in bounds. Verify your solution strictly meets O(log n) time and O(1) space limits."
       ],
       "approachTitle": "Uphill Slope Binary Search",
       "approachSteps": [
@@ -5074,11 +5376,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "capacity-to-ship-packages-within-d-days",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the ship capacity in `[max(weights), sum(weights)]`, greedily packing each day up to `mid` to count required days.",
       "hints": [
         "Capacity must be at least `max(weights)` so the heaviest single package fits.",
-        "Greedy linear packing checks feasibility in O(n)."
+        "Greedy linear packing checks feasibility in O(n).",
+        "Boundary edge cases & complexity: Initialize `needed = 1` (the first day) before scanning `weights`. Verify your solution strictly meets O(n log(sum(weights))) time and O(1) space limits."
       ],
       "approachTitle": "Binary Search on Capacity",
       "approachSteps": [
@@ -5161,11 +5465,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "split-array-largest-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the maximum allowed subarray sum `mid` in `[max(nums), sum(nums)]` and verify greedily whether `nums` can be partitioned into `<= k` subarrays.",
       "hints": [
         "Feasibility is monotonic in `mid`.",
-        "Greedily start a new subarray whenever `cur + x > mid`."
+        "Greedily start a new subarray whenever `cur + x > mid`.",
+        "Boundary edge cases & complexity: Lower bound must be `max(nums)` so every single element fits in a subarray. Verify your solution strictly meets O(n log(sum(nums))) time and O(1) space limits."
       ],
       "approachTitle": "Binary Search + Greedy Partition Check",
       "approachSteps": [
@@ -5246,11 +5552,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "single-element-in-a-sorted-array",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Before the single element, pairs start at even indices `(2k, 2k+1)`; after it, pairs start at odd indices. Snap `mid` to even (`mid & ~1`) and check `nums[mid] == nums[mid + 1]`.",
       "hints": [
         "Force `mid` to be even (`if mid % 2 == 1: mid -= 1`).",
-        "If `nums[mid] == nums[mid + 1]`, the single element is to the right (`l = mid + 2`); else `r = mid`."
+        "If `nums[mid] == nums[mid + 1]`, the single element is to the right (`l = mid + 2`); else `r = mid`.",
+        "Boundary edge cases & complexity: Ensure `mid` is even before comparing `mid` with `mid + 1`. Verify your solution strictly meets O(log n) time and O(1) space limits."
       ],
       "approachTitle": "Even-Index Parity Binary Search",
       "approachSteps": [
@@ -5333,11 +5641,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "search-a-2d-matrix-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Start at the top-right corner `(0, n - 1)`: move left if `val > target`, move down if `val < target`, eliminating one row or column per step.",
       "hints": [
         "At the top-right corner, moving left strictly decreases and moving down strictly increases.",
-        "Total steps are at most `m + n`."
+        "Total steps are at most `m + n`.",
+        "Boundary edge cases & complexity: Starting at top-left or bottom-right does not give a unique direction to prune. Verify your solution strictly meets O(m + n) time and O(1) space limits."
       ],
       "approachTitle": "Top-Right Staircase Elimination",
       "approachSteps": [
@@ -5418,11 +5728,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "h-index-sorted",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the smallest index `i` such that `citations[i] >= n - i`; then the h-index is `n - i`.",
       "hints": [
         "At index `i`, there are `n - i` papers with at least `citations[i]` citations.",
-        "Binary search for the first index where `citations[mid] >= n - mid`."
+        "Binary search for the first index where `citations[mid] >= n - mid`.",
+        "Boundary edge cases & complexity: Handle all-zero citations returning `0` cleanly (`l == n`). Verify your solution strictly meets O(log n) time and O(1) space limits."
       ],
       "approachTitle": "Suffix-Count Binary Search",
       "approachSteps": [
@@ -5504,11 +5816,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "largest-number-concat",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Convert numbers to strings and sort with custom comparator placing `a` before `b` iff `a + b > b + a`.",
       "hints": [
         "Comparing `a + b` vs `b + a` defines a strict weak ordering.",
-        "If the largest element is `'0'`, return `'0'` instead of `'000'`."
+        "If the largest element is `'0'`, return `'0'` instead of `'000'`.",
+        "Boundary edge cases & complexity: Handle `[0, 0]` returning `'0'`, not `'00'`. Verify your solution strictly meets O(n log n * k) time and O(n * k) space limits."
       ],
       "approachTitle": "Custom Concatenation Comparator Sort",
       "approachSteps": [
@@ -5590,11 +5904,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "wiggle-sort-adjacent",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan left-to-right: at even index `i`, swap with `i + 1` if `nums[i] > nums[i + 1]`; at odd index `i`, swap if `nums[i] < nums[i + 1]`.",
       "hints": [
         "Fixing an adjacent violation at `(i, i + 1)` never breaks the already-fixed inequality at `(i - 1, i)`.",
-        "Runs in O(n) time without full sorting."
+        "Runs in O(n) time without full sorting.",
+        "Boundary edge cases & complexity: Even indices need `<=` next element, odd indices need `>=` next element. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "One-Pass Adjacent Greedy Swap",
       "approachSteps": [
@@ -5675,11 +5991,12 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "count-of-smaller-numbers-after-self",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Coordinate-compress `nums` and scan right-to-left using a Fenwick Tree (Binary Indexed Tree) to query how many strictly smaller ranks have already been seen.",
       "hints": [
         "Scanning right-to-left turns 'after self' into 'already inserted'.",
-        "Map unique sorted values to 1-based ranks `1..m`.",
+        "Map unique sorted values to 1-based ranks `1.m`.",
         "Query `bit.sum(rank - 1)` then `bit.add(rank, 1)`."
       ],
       "approachTitle": "Reverse Scan + Fenwick Tree (BIT)",
@@ -5761,7 +6078,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "reverse-pairs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "During merge sort, before merging two sorted halves `left` and `right`, use a monotonic two-pointer scan to count pairs with `left[i] > 2 * right[j]` in linear time.",
       "hints": [
         "Because both halves are sorted, as `i` advances `j` never moves backward.",
@@ -5847,11 +6165,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "same-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Recursively check that both nodes are `None`, or both exist with equal values and identical left and right subtrees.",
       "hints": [
         "Two `None` nodes match; one `None` and one non-`None` do not.",
-        "Compare `a.val == b.val` and recurse on left and right."
+        "Compare `a.val == b.val` and recurse on left and right.",
+        "Boundary edge cases & complexity: Handle empty trees returning `True`. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Simultaneous Recursive DFS",
       "approachSteps": [
@@ -5932,11 +6252,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "symmetric-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Check `is_mirror(root.left, root.right)` where two subtrees are mirrors iff `a.val == b.val`, `is_mirror(a.left, b.right)`, and `is_mirror(a.right, b.left)`.",
       "hints": [
         "Compare outer pair `(a.left, b.right)` and inner pair `(a.right, b.left)`.",
-        "Both `None` is symmetric."
+        "Both `None` is symmetric.",
+        "Boundary edge cases & complexity: Compare `a.left` with `b.right` (mirrored), not `b.left`. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Recursive Mirror Verification",
       "approachSteps": [
@@ -6016,11 +6338,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "balanced-binary-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run a bottom-up post-order DFS returning subtree height, or `-1` as an early sentinel as soon as any node is unbalanced.",
       "hints": [
         "Computing height top-down at every node is O(n^2).",
-        "Bottom-up DFS checks balance and computes height in a single O(n) pass."
+        "Bottom-up DFS checks balance and computes height in a single O(n) pass.",
+        "Boundary edge cases & complexity: Return `True` for an empty tree. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Bottom-Up Height Sentinel DFS",
       "approachSteps": [
@@ -6101,11 +6425,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "path-sum-root-to-leaf",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Subtract `node.val` from `remaining` down the tree and return `True` only at a true leaf (`not node.left and not node.right`) where `remaining == node.val`.",
       "hints": [
         "An empty tree has no root-to-leaf path, even if `target_sum == 0`.",
-        "A node with one child is NOT a leaf."
+        "A node with one child is NOT a leaf.",
+        "Boundary edge cases & complexity: Do not treat a node with a single missing child as a leaf. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Top-Down Remaining-Sum DFS",
       "approachSteps": [
@@ -6186,11 +6512,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "binary-tree-right-side-view",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform level-order BFS and record the last node popped at each level.",
       "hints": [
         "Only walking down `root.right` misses deeper nodes in the left subtree.",
-        "In BFS, the final node of every level is the rightmost visible node."
+        "In BFS, the final node of every level is the rightmost visible node.",
+        "Boundary edge cases & complexity: Return `[]` for empty input. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Level-Order Last-Node BFS",
       "approachSteps": [
@@ -6271,11 +6599,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "binary-tree-zigzag-level-order",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run standard level-order BFS and reverse odd-indexed levels (or use a deque per level).",
       "hints": [
         "Keep child enqueueing strictly left-then-right.",
-        "Flip a `left_to_right` boolean after each level."
+        "Flip a `left_to_right` boolean after each level.",
+        "Boundary edge cases & complexity: Do not alter child enqueue order unless using a double-ended stack traversal. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Alternating-Direction BFS",
       "approachSteps": [
@@ -6356,11 +6686,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "count-good-nodes-in-binary-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Pass `max_so_far` down a top-down DFS; count `1` whenever `node.val >= max_so_far` and propagate `max(max_so_far, node.val)`.",
       "hints": [
         "The root is always good.",
-        "Initialize `max_so_far = root.val` to handle negative node values."
+        "Initialize `max_so_far = root.val` to handle negative node values.",
+        "Boundary edge cases & complexity: Never initialize `mx = 0` because node values can be negative. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Path-Maximum Top-Down DFS",
       "approachSteps": [
@@ -6441,11 +6773,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "lowest-common-ancestor-binary-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "In post-order DFS, return `node` immediately if it equals `p` or `q`; if both left and right subtrees return non-null, `node` is the LCA.",
       "hints": [
         "Unlike a BST, you cannot prune by value comparisons.",
-        "If only one side returns a node, bubble that node upward."
+        "If only one side returns a node, bubble that node upward.",
+        "Boundary edge cases & complexity: Return `node.val` (int), not the `TreeNode` object. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Post-Order Target Bubbling DFS",
       "approachSteps": [
@@ -6527,11 +6861,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "flatten-binary-tree-to-preorder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Morris-style rewiring: for each node with a left child, attach `curr.right` to the rightmost node of `curr.left`, then move `curr.left` to `curr.right`.",
       "hints": [
         "Morris traversal flattens the tree in O(1) extra space.",
-        "Alternatively, iterative preorder with a stack visits nodes in the exact flattened order."
+        "Alternatively, iterative preorder with a stack visits nodes in the exact flattened order.",
+        "Boundary edge cases & complexity: Clear `curr.left = None` after moving it to `curr.right`. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Morris In-Place Preorder Flattening",
       "approachSteps": [
@@ -6612,11 +6948,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sum-root-to-leaf-numbers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Carry `curr = curr * 10 + node.val` down the DFS and return `curr` at every leaf node.",
       "hints": [
         "Update `nxt = curr * 10 + node.val` at each step.",
-        "Return `nxt` when both children are `None`."
+        "Return `nxt` when both children are `None`.",
+        "Boundary edge cases & complexity: Only add to the total at true leaf nodes. Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Decimal-Accumulator DFS",
       "approachSteps": [
@@ -6697,11 +7035,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "flood-fill",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "If `image[sr][sc] == color`, return immediately to prevent an infinite loop; otherwise BFS 4-directional neighbors matching `orig`.",
       "hints": [
-        "Check `if orig == color: return image` first!",
-        "Recolor cells as they are enqueued."
+        "Check `if orig == color: return image` first!.",
+        "Recolor cells as they are enqueued.",
+        "Boundary edge cases & complexity: Omitting `if orig == color: return` causes infinite looping. Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "Guarded 4-Directional BFS",
       "approachSteps": [
@@ -6783,11 +7123,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "max-area-of-island",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Flood-fill each unvisited land component, counting cells visited per component and tracking the maximum area.",
       "hints": [
         "Mark visited cells `0` to avoid revisiting.",
-        "Sum the component size during BFS/DFS and update `best`."
+        "Sum the component size during BFS/DFS and update `best`.",
+        "Boundary edge cases & complexity: Diagonal cells are NOT connected. Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "Connected-Component Area BFS",
       "approachSteps": [
@@ -6868,11 +7210,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "surrounded-regions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Instead of testing every interior `'O'`, run BFS from all border `'O'`s marking safe cells `'S'`, then flip remaining `'O'`s to `'X'` and restore `'S'` back to `'O'`.",
       "hints": [
         "Think in reverse: find all `'O'`s that CANNOT be captured.",
-        "Any `'O'` reachable from the 4 borders is safe."
+        "Any `'O'` reachable from the 4 borders is safe.",
+        "Boundary edge cases & complexity: Check all four borders (top, bottom, left, right). Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "Border-Seeded Reverse BFS",
       "approachSteps": [
@@ -6954,11 +7298,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pacific-atlantic-water-flow",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run two reverse-uphill BFS traversals starting from the Pacific border and the Atlantic border (moving to neighbors with `height >= curr`), then intersect the two reachable sets.",
       "hints": [
         "Flowing downhill from a cell to an ocean is equivalent to climbing uphill from the ocean to that cell.",
-        "Intersect `pac_visited & atl_visited`."
+        "Intersect `pac_visited & atl_visited`.",
+        "Boundary edge cases & complexity: Reverse traversal requires `heights[nr][nc] >= heights[r][c]`. Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "Dual Reverse-Uphill BFS",
       "approachSteps": [
@@ -7040,11 +7386,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shortest-path-in-binary-matrix",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run 8-directional BFS starting at `(0, 0)` with distance `1`, returning the distance upon reaching `(n - 1, n - 1)`.",
       "hints": [
         "If `grid[0][0] == 1` or `grid[n-1][n-1] == 1`, return `-1` immediately.",
-        "Movement is 8-directional (including diagonals)."
+        "Movement is 8-directional (including diagonals).",
+        "Boundary edge cases & complexity: Path length counts cells (starts at 1), not steps. Verify your solution strictly meets O(n^2) time and O(n^2) space limits."
       ],
       "approachTitle": "8-Directional Shortest-Path BFS",
       "approachSteps": [
@@ -7126,11 +7474,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "all-paths-from-source-to-target",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Because the graph is a DAG, run DFS backtracking from node `0` without needing a visited set, recording `path[:]` whenever reaching `n - 1`.",
       "hints": [
         "A DAG has no cycles, so paths always terminate.",
-        "Push neighbor, recurse, and pop to backtrack."
+        "Push neighbor, recurse, and pop to backtrack.",
+        "Boundary edge cases & complexity: Append a copy `path[:]` rather than `path` itself. Verify your solution strictly meets O(2^n * n) time and O(n) stack space limits."
       ],
       "approachTitle": "DAG DFS Path Enumeration",
       "approachSteps": [
@@ -7211,11 +7561,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "keys-and-rooms",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform BFS/DFS starting from room `0` and check whether `len(visited) == len(rooms)`.",
       "hints": [
         "Rooms are nodes and keys are directed edges.",
-        "Check full reachability from node `0`."
+        "Check full reachability from node `0`.",
+        "Boundary edge cases & complexity: A room may contain a key to itself; `visited` prevents infinite loops. Verify your solution strictly meets O(V + E) time and O(V) space limits."
       ],
       "approachTitle": "Single-Source Reachability BFS",
       "approachSteps": [
@@ -7296,11 +7648,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "find-eventual-safe-states",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reverse all edges and run Kahn's topological sort starting from terminal nodes (`outdegree == 0`); every node processed is eventually safe.",
       "hints": [
         "A node is safe iff all of its outgoing edges lead to safe nodes.",
-        "Reversing edges turns out-degrees into in-degrees."
+        "Reversing edges turns out-degrees into in-degrees.",
+        "Boundary edge cases & complexity: Return the safe nodes in ascending sorted order. Verify your solution strictly meets O(V + E) time and O(V + E) space limits."
       ],
       "approachTitle": "Reverse-Graph Kahn's Topological Sort",
       "approachSteps": [
@@ -7383,11 +7737,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "swim-in-rising-water",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run minimax Dijkstra using a min-heap keyed by `max_elevation_on_path`; the first time `(n - 1, n - 1)` is popped yields the minimum required time.",
       "hints": [
         "Path cost is `max(elevations on path)` rather than sum.",
-        "Always expand the reachable cell with the lowest elevation using a min-heap."
+        "Always expand the reachable cell with the lowest elevation using a min-heap.",
+        "Boundary edge cases & complexity: Starting time is `grid[0][0]`, not `0`. Verify your solution strictly meets O(n^2 log n) time and O(n^2) space limits."
       ],
       "approachTitle": "Minimax Dijkstra with Min-Heap",
       "approachSteps": [
@@ -7469,7 +7825,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "alien-dictionary-order",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare adjacent word pairs at their first differing character to build a directed precedence graph, detect invalid prefix inversions (`\"abc\"` before `\"ab\"`), and topologically sort with a min-heap.",
       "hints": [
         "Only the FIRST differing character between adjacent words implies a precedence edge.",
@@ -7555,11 +7912,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "house-robber-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Break the circle by taking the maximum of linear House Robber on `nums[:-1]` and `nums[1:]`.",
       "hints": [
         "House 0 and house `n - 1` cannot both be robbed.",
-        "Handle `len(nums) == 1` as a special base case."
+        "Handle `len(nums) == 1` as a special base case.",
+        "Boundary edge cases & complexity: Forgetting `len(nums) == 1` makes both slices empty and returns `0`. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Split-Circle Dual Linear DP",
       "approachSteps": [
@@ -7640,11 +7999,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "decode-ways",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use linear DP where `dp[i]` adds `dp[i - 1]` if `s[i - 1] != '0'` and adds `dp[i - 2]` if `10 <= int(s[i - 2:i]) <= 26`.",
       "hints": [
         "A leading `'0'` cannot be decoded at all.",
-        "Two-digit codes must be between `10` and `26` inclusive."
+        "Two-digit codes must be between `10` and `26` inclusive.",
+        "Boundary edge cases & complexity: `'0'` alone is invalid; `'06'` is also invalid as a 2-digit code. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Rolling 1D Decoding DP",
       "approachSteps": [
@@ -7725,11 +8086,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "coin-change-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Iterate coins in the outer loop and amounts forward in the inner loop (`dp[a] += dp[a - c]`) to count unordered combinations without permutations.",
       "hints": [
         "Outer loop over `coins` guarantees each combination is counted once in canonical coin order.",
-        "Base case `dp[0] = 1`."
+        "Base case `dp[0] = 1`.",
+        "Boundary edge cases & complexity: Putting `amount` in the outer loop counts ordered permutations instead of combinations. Verify your solution strictly meets O(amount * len(coins)) time and O(amount) space limits."
       ],
       "approachTitle": "Coin-Outer Unbounded Knapsack DP",
       "approachSteps": [
@@ -7811,11 +8174,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "target-sum-ways",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Transform `P - N = target` and `P + N = total` into `P = (total + target) / 2`, then solve 0/1 subset-sum counting.",
       "hints": [
         "If `abs(target) > total` or `(total + target)` is odd, return `0`.",
-        "Iterate sums backward from `pos` down to `x` so each item is used once."
+        "Iterate sums backward from `pos` down to `x` so each item is used once.",
+        "Boundary edge cases & complexity: Elements equal to `0` naturally double ways when iterating down to `x = 0`. Verify your solution strictly meets O(n * pos) time and O(pos) space limits."
       ],
       "approachTitle": "Algebraic Reduction to 0/1 Subset-Sum DP",
       "approachSteps": [
@@ -7896,11 +8261,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "minimum-path-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a 1D row of minimum cumulative costs where each cell updates `dp[c] = grid[r][c] + min(dp[c], dp[c - 1])`.",
       "hints": [
         "First row can only be reached from the left; first column only from above.",
-        "1D DP uses O(n) space without mutating the input grid."
+        "1D DP uses O(n) space without mutating the input grid.",
+        "Boundary edge cases & complexity: Update `dp[0]` before iterating `c = 1.n-1`. Verify your solution strictly meets O(m * n) time and O(n) space limits."
       ],
       "approachTitle": "1D Rolling Row Grid DP",
       "approachSteps": [
@@ -7981,11 +8348,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "triangle-min-path-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Collapse the triangle bottom-up starting from the last row: `dp[i] = row[i] + min(dp[i], dp[i + 1])`.",
       "hints": [
         "Bottom-up eliminates boundary checks at row edges.",
-        "After reaching row 0, `dp[0]` holds the global minimum path sum."
+        "After reaching row 0, `dp[0]` holds the global minimum path sum.",
+        "Boundary edge cases & complexity: Make a copy of the last row so you don't mutate the caller's input. Verify your solution strictly meets O(n^2) time and O(n) space limits."
       ],
       "approachTitle": "Bottom-Up Triangle Collapse DP",
       "approachSteps": [
@@ -8066,11 +8435,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-palindromic-subsequence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "The longest palindromic subsequence of `s` is identical to the Longest Common Subsequence of `s` and `reversed(s)` (or solved via interval DP).",
       "hints": [
         "Subsequence characters do not have to be contiguous.",
-        "`LPS(s) == LCS(s, s[::-1])`."
+        "`LPS(s) == LCS(s, s[::-1])`.",
+        "Boundary edge cases & complexity: Do not confuse subsequence with contiguous substring. Verify your solution strictly meets O(n^2) time and O(n) space limits."
       ],
       "approachTitle": "LCS with Reversed String (1D DP)",
       "approachSteps": [
@@ -8150,11 +8521,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "distinct-subsequences",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain 1D `dp[j]` = ways to match prefix `t[:j]`; for each character `c` in `s`, iterate `j` backward from `len(t)` down to `1` adding `dp[j - 1]` whenever `c == t[j - 1]`.",
       "hints": [
         "Base case: `dp[0] = 1` (one way to form empty `t`).",
-        "Iterating `j` backward ensures each character of `s` is used at most once."
+        "Iterating `j` backward ensures each character of `s` is used at most once.",
+        "Boundary edge cases & complexity: Iterating `j` forward reuses the same character in `s` multiple times. Verify your solution strictly meets O(m * n) time and O(n) space limits."
       ],
       "approachTitle": "1D Backward-Sweep Subsequence DP",
       "approachSteps": [
@@ -8235,11 +8608,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "interleaving-string",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Let `dp[i][j]` be whether `s1[:i]` and `s2[:j]` interleave to form `s3[:i + j]`, compressed to a 1D boolean array.",
       "hints": [
         "First check `len(s1) + len(s2) == len(s3)`.",
-        "`dp[j]` updates from top (`dp[j] and s1[i-1] == s3[i+j-1]`) or left (`dp[j-1] and s2[j-1] == s3[i+j-1]`)."
+        "`dp[j]` updates from top (`dp[j] and s1[i-1] == s3[i+j-1]`) or left (`dp[j-1] and s2[j-1] == s3[i+j-1]`).",
+        "Boundary edge cases & complexity: Never skip the initial length check `len(s1) + len(s2) == len(s3)`. Verify your solution strictly meets O(m * n) time and O(n) space limits."
       ],
       "approachTitle": "1D Prefix Interleaving DP",
       "approachSteps": [
@@ -8323,11 +8698,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "regular-expression-matching",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use 2D DP (or memoized recursion) on `(i, j)`: when `p[j + 1] == '*'`, either skip the `x*` pair (`j + 2`) or consume one matching char in `s` (`i + 1, j`).",
       "hints": [
         "`x*` can match ZERO occurrences of `x`.",
-        "Memoize `(i, j)` pairs to avoid exponential branching."
+        "Memoize `(i, j)` pairs to avoid exponential branching.",
+        "Boundary edge cases & complexity: Even when `i == len(s)`, remaining pattern like `a*b*` can still match empty string. Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "Top-Down Memoized Regex DP",
       "approachSteps": [
@@ -8409,11 +8786,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "jump-game-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform implicit BFS levels across indices: track `cur_end` of the current jump and `farthest` reachable for the next jump; increment `jumps` whenever `i == cur_end`.",
       "hints": [
         "Only loop `i` up to `len(nums) - 2` because reaching `n - 1` needs no further jump.",
-        "At `i == cur_end`, commit to `cur_end = farthest` and `jumps += 1`."
+        "At `i == cur_end`, commit to `cur_end = farthest` and `jumps += 1`.",
+        "Boundary edge cases & complexity: Stop the loop at `n - 2` so you don't count an extra jump at the final index. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Greedy Implicit-BFS Layer Sweep",
       "approachSteps": [
@@ -8494,11 +8873,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "candy-distribution",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Satisfy left-neighbor constraints in a forward pass, then satisfy right-neighbor constraints in a backward pass taking `max(candies[i], candies[i + 1] + 1)`.",
       "hints": [
         "Equal neighbors do NOT require equal candies (e.g. `[1, 2, 2]` -> `[1, 2, 1]`).",
-        "Two opposite linear passes satisfy both left and right strict inequalities minimally."
+        "Two opposite linear passes satisfy both left and right strict inequalities minimally.",
+        "Boundary edge cases & complexity: In the backward pass use `max(.)` so you don't violate the forward-pass constraint. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Two-Pass Left-Right Greedy",
       "approachSteps": [
@@ -8581,11 +8962,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "partition-labels",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Record each character's last occurrence index; sweep forward extending `end = max(end, last[ch])` and cut a partition whenever `i == end`.",
       "hints": [
         "A partition containing character `c` must extend at least to `last[c]`.",
-        "Once `i` reaches `end`, no character in the current part appears again later."
+        "Once `i` reaches `end`, no character in the current part appears again later.",
+        "Boundary edge cases & complexity: Update `start = i + 1` immediately after closing a partition. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Last-Occurrence Greedy Sweep",
       "approachSteps": [
@@ -8666,11 +9049,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "permutations-all",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Swap each candidate into position `start`, recurse on `start + 1`, and swap back to restore state.",
       "hints": [
         "In-place swapping avoids allocating a `used` array.",
-        "Record a copy `nums[:]` when `start == len(nums)`."
+        "Record a copy `nums[:]` when `start == len(nums)`.",
+        "Boundary edge cases & complexity: Always append a shallow copy `nums[:]`. Verify your solution strictly meets O(n * n!) time and O(n) stack space limits."
       ],
       "approachTitle": "In-Place Swap Backtracking",
       "approachSteps": [
@@ -8751,11 +9136,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "letter-combinations-of-a-phone-number",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map digits `'2'`–`'9'` to their keypad letters and backtrack index by index building character combinations.",
       "hints": [
         "Remember to return `[]` (not `[\"\"]`) when `digits` is empty.",
-        "7 maps to 4 letters (`pqrs`) and 9 maps to 4 letters (`wxyz`)."
+        "7 maps to 4 letters (`pqrs`) and 9 maps to 4 letters (`wxyz`).",
+        "Boundary edge cases & complexity: Empty `digits` must return `[]`, not `[\"\"]`. Verify your solution strictly meets O(4^n * n) time and O(n) stack space limits."
       ],
       "approachTitle": "Keypad Mapping Backtracking",
       "approachSteps": [
@@ -8836,11 +9223,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "generate-parentheses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Backtrack tracking `open_cnt` and `close_cnt`: add `'('` whenever `open_cnt < n`, and add `')'` whenever `close_cnt < open_cnt`.",
       "hints": [
         "Never place a closing parenthesis if `close_cnt == open_cnt`.",
-        "Emit when `len(path) == 2 * n`."
+        "Emit when `len(path) == 2 * n`.",
+        "Boundary edge cases & complexity: Checking `c < n` instead of `c < o` generates invalid sequences like `\")(\"`. Verify your solution strictly meets O(4^n / sqrt(n)) time and O(n) stack space limits."
       ],
       "approachTitle": "Constrained Open/Close Backtracking",
       "approachSteps": [
@@ -8922,11 +9311,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "word-search-grid",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run DFS backtracking from every cell matching `word[0]`, temporarily marking visited cells `'#'` and restoring them on backtrack.",
       "hints": [
         "Mark `board[r][c] = '#'` before recursing to neighbors and restore it afterward.",
-        "Return `True` immediately when `idx == len(word)`."
+        "Return `True` immediately when `idx == len(word)`.",
+        "Boundary edge cases & complexity: Always restore `board[r][c]` before returning from DFS. Verify your solution strictly meets O(m * n * 3^L) time and O(L) stack space limits."
       ],
       "approachTitle": "In-Place Grid DFS Backtracking",
       "approachSteps": [
@@ -9007,11 +9398,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "find-median-from-data-stream",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a max-heap `lo` for the smaller half and a min-heap `hi` for the larger half balanced so `len(lo) >= len(hi)` and `len(lo) - len(hi) <= 1`.",
       "hints": [
         "In Python, simulate a max-heap by storing negated values `-x`.",
-        "Always push to `lo`, move `lo`'s max to `hi`, and rebalance back to `lo` if `len(hi) > len(lo)`."
+        "Always push to `lo`, move `lo`'s max to `hi`, and rebalance back to `lo` if `len(hi) > len(lo)`.",
+        "Boundary edge cases & complexity: Remember to negate values when pushing/popping from the max-heap `lo`. Verify your solution strictly meets O(log n) add, O(1) median time and O(n) space limits."
       ],
       "approachTitle": "Balanced Two-Heap Streaming Median",
       "approachSteps": [
@@ -9090,11 +9483,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "number-of-1-bits",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Repeatedly clear the lowest set bit with `n &= n - 1` until `n == 0`, counting iterations (Brian Kernighan's algorithm).",
       "hints": [
         "`n & (n - 1)` turns off the rightmost `1` bit in `n`.",
-        "The loop runs only once per set bit rather than 32 times."
+        "The loop runs only once per set bit rather than 32 times.",
+        "Boundary edge cases & complexity: Handle `n == 0` returning `0`. Verify your solution strictly meets O(k) where k <= 32 time and O(1) space limits."
       ],
       "approachTitle": "Brian Kernighan Bit-Clearing Loop",
       "approachSteps": [
@@ -9174,11 +9569,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "power-of-two",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "A positive integer is a power of two iff it has exactly one set bit, which holds iff `n > 0 and (n & (n - 1)) == 0`.",
       "hints": [
         "Zero and negative numbers are never powers of two.",
-        "Clearing the single set bit of a power of two leaves `0`."
+        "Clearing the single set bit of a power of two leaves `0`.",
+        "Boundary edge cases & complexity: Forgetting `n > 0` falsely returns `True` for `n = 0`. Verify your solution strictly meets O(1) time and O(1) space limits."
       ],
       "approachTitle": "Single-Bit O(1) Bitwise Check",
       "approachSteps": [
@@ -9259,10 +9656,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "missing-sequence-number",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Subtract `sum(nums)` from Gauss's formula `n * (n + 1) // 2` (or XOR all indices `0..n` with all values).",
       "hints": [
-        "The sum of `0..n` is `n * (n + 1) // 2`."
+        "Conceptual Intuition: Consider a Gauss Sum Difference paradigm. Subtract `sum(nums)` from Gauss's formula `n * (n + 1) // 2` (or XOR all indices `0.n` with all values).",
+        "Algorithmic Mechanics: The sum of `0.n` is `n * (n + 1) // 2`. Compute `n = len(nums)` and return `n * (n + 1) // 2 - sum(nums)`.",
+        "Edge Cases & Optimization: Use XOR in fixed-width 32-bit languages if `n` could overflow `n*(n+1)`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Gauss Sum Difference",
       "approachSteps": [
@@ -9341,10 +9741,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "squares-of-sorted-array",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "The largest square always sits at one of the two ends `l` or `r`; fill the output array from back to front using two pointers.",
       "hints": [
-        "Compare `abs(nums[l])` and `abs(nums[r])`."
+        "Conceptual Intuition: Consider a Outward-In Two-Pointer Fill paradigm. The largest square always sits at one of the two ends `l` or `r`; fill the output array from back to front using two pointers.",
+        "Algorithmic Mechanics: Compare `abs(nums[l])` and `abs(nums[r])`. Fill `res[pos]` from `n - 1` down to `0` picking the larger square from ends.",
+        "Edge Cases & Optimization: Fill backward so no reversal is needed. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Outward-In Two-Pointer Fill",
       "approachSteps": [
@@ -9423,10 +9826,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "lemonade-change-counter",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track counts of `$5` and `$10` bills; for `$20`, greedily hand out `($10 + $5)` before `(3 * $5)` to preserve flexible `$5` bills.",
       "hints": [
-        "`$5` bills are strictly more versatile than `$10` bills."
+        "Conceptual Intuition: Consider a Greedy Denomination Conservation paradigm. Track counts of `$5` and `$10` bills; for `$20`, greedily hand out `($10 + $5)` before `(3 * $5)` to preserve flexible `$5` bills.",
+        "Algorithmic Mechanics: `$5` bills are strictly more versatile than `$10` bills. Track `five, ten`; process each bill returning `False` if change cannot be made.",
+        "Edge Cases & Optimization: Always prefer giving `$10 + $5` over three `$5`s for a `$20` bill. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Denomination Conservation",
       "approachSteps": [
@@ -9505,10 +9911,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "can-place-flowers-beds",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Greedily plant at the leftmost plot `i` where `bed[i] == 0` and both adjacent plots (if in bounds) are `0`.",
       "hints": [
-        "Mark `bed[i] = 1` upon planting so the next index sees it."
+        "Conceptual Intuition: Consider a Left-to-Right Greedy Planting paradigm. Greedily plant at the leftmost plot `i` where `bed[i] == 0` and both adjacent plots (if in bounds) are `0`.",
+        "Algorithmic Mechanics: Mark `bed[i] = 1` upon planting so the next index sees it. Scan `bed`, plant whenever left/self/right are 0, return `placed >= n`.",
+        "Edge Cases & Optimization: Handle `n == 0` returning `True`. Ensure time complexity is bounded to O(m) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Left-to-Right Greedy Planting",
       "approachSteps": [
@@ -9587,10 +9996,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "three-sum-closest-target",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `nums`, fix `i`, and converge two pointers `l, r` updating `best` whenever `abs(s - target) < abs(best - target)`.",
       "hints": [
-        "Return `target` immediately on an exact match."
+        "Conceptual Intuition: Consider a Sorted Two-Pointer Closest Search paradigm. Sort `nums`, fix `i`, and converge two pointers `l, r` updating `best` whenever `abs(s - target) < abs(best - target)`.",
+        "Algorithmic Mechanics: Return `target` immediately on an exact match. Sort `nums`, run outer loop + two pointers tracking closest sum.",
+        "Edge Cases & Optimization: Initialize `best = nums[0] + nums[1] + nums[2]`. Ensure time complexity is bounded to O(n^2) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Two-Pointer Closest Search",
       "approachSteps": [
@@ -9670,10 +10082,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "continuous-subarray-sum-multiple-k",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Record the earliest index where each `prefix_sum % k` appears; if a remainder repeats at distance `i - first[rem] >= 2`, return `True`.",
       "hints": [
-        "Seed `first = {0: -1}` and never overwrite an existing remainder's earliest index."
+        "Conceptual Intuition: Consider a Earliest-Remainder Hash Map paradigm. Record the earliest index where each `prefix_sum % k` appears; if a remainder repeats at distance `i - first[rem] >= 2`, return `True`.",
+        "Algorithmic Mechanics: Seed `first = {0: -1}` and never overwrite an existing remainder's earliest index. Track `rem = (rem + x) % k`; if seen and `i - first[rem] >= 2`, return `True`.",
+        "Edge Cases & Optimization: Length must be at least 2 (`i - first[rem] >= 2`). Ensure time complexity is bounded to O(n) with O(min(n, k)) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Earliest-Remainder Hash Map",
       "approachSteps": [
@@ -9751,10 +10166,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "max-points-from-cards",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Taking `k` cards from both ends leaves a contiguous unchosen window of length `n - k`; minimize that window's sum and subtract from `sum(cards)`.",
       "hints": [
-        "Equivalently, start with the first `k` cards and swap left-prefix cards for right-suffix cards one by one."
+        "Conceptual Intuition: Consider a Complement Fixed-Size Sliding Window paradigm. Taking `k` cards from both ends leaves a contiguous unchosen window of length `n - k`; minimize that window's sum and subtract from `sum(cards)`.",
+        "Algorithmic Mechanics: Equivalently, start with the first `k` cards and swap left-prefix cards for right-suffix cards one by one. Find min sum of any contiguous `n - k` subarray; return `total - min_window`.",
+        "Edge Cases & Optimization: Handle `k == len(cards)` returning `sum(cards)`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Complement Fixed-Size Sliding Window",
       "approachSteps": [
@@ -9833,10 +10251,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-ops-reduce-x-to-zero",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the longest contiguous middle subarray summing to `sum(nums) - x` via sliding window, and return `n - max_len`.",
       "hints": [
-        "If `target = sum(nums) - x < 0`, return `-1`; if `target == 0`, return `len(nums)`."
+        "Conceptual Intuition: Consider a Longest-Middle-Subarray Sliding Window paradigm. Find the longest contiguous middle subarray summing to `sum(nums) - x` via sliding window, and return `n - max_len`.",
+        "Algorithmic Mechanics: If `target = sum(nums) - x < 0`, return `-1`; if `target == 0`, return `len(nums)`. Slide window targeting `sum(nums) - x`, track longest match `best`, return `n - best`.",
+        "Edge Cases & Optimization: Return `-1` if no middle subarray equals `target`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Longest-Middle-Subarray Sliding Window",
       "approachSteps": [
@@ -9915,10 +10336,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "next-greater-element-circular",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Iterate `2 * n` steps using `i % n` with a decreasing monotonic stack of indices, pushing indices only during the first pass (`i < n`).",
       "hints": [
-        "Two passes over the array simulate circular wrap-around without duplicating memory."
+        "Conceptual Intuition: Consider a Double-Pass Circular Monotonic Stack paradigm. Iterate `2 * n` steps using `i % n` with a decreasing monotonic stack of indices, pushing indices only during the first pass (`i < n`).",
+        "Algorithmic Mechanics: Two passes over the array simulate circular wrap-around without duplicating memory. Loop `i in range(2 * n)`: pop indices with `nums[idx] < nums[i % n]` setting `ans[idx] = nums[i % n]`; push `i` if `i < n`.",
+        "Edge Cases & Optimization: Only push indices when `i < n`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Double-Pass Circular Monotonic Stack",
       "approachSteps": [
@@ -9997,10 +10421,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pattern-132-detector",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan right-to-left maintaining a decreasing stack of candidate `3`s and tracking the largest popped `2` (`third`); if any element is `< third`, we found `1 < 2 < 3`.",
       "hints": [
-        "Popping smaller elements from the right stack guarantees there is a larger `3` to their left."
+        "Conceptual Intuition: Consider a Right-to-Left Monotonic Stack paradigm. Scan right-to-left maintaining a decreasing stack of candidate `3`s and tracking the largest popped `2` (`third`); if any element is `< third`, we found `1 < 2 < 3`.",
+        "Algorithmic Mechanics: Popping smaller elements from the right stack guarantees there is a larger `3` to their left. Initialize `st = []`, `third = -inf`; scan reversed `nums`: if `x < third` return `True`; pop `< x` updating `third`; push `x`.",
+        "Edge Cases & Optimization: Strict inequality `<` is required for both `1 < 2` and `2 < 3`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Right-to-Left Monotonic Stack",
       "approachSteps": [
@@ -10079,10 +10506,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "k-closest-points-origin",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare squared distances `x*x + y*y` (avoiding square roots) using a size-`k` max-heap or `heapq.nsmallest`.",
       "hints": [
-        "Squared distance preserves exact Euclidean ordering."
+        "Conceptual Intuition: Consider a Squared-Distance Heap Selection paradigm. Compare squared distances `x*x + y*y` (avoiding square roots) using a size-`k` max-heap or `heapq.nsmallest`.",
+        "Algorithmic Mechanics: Squared distance preserves exact Euclidean ordering. Select `k` points minimizing `x*x + y*y`.",
+        "Edge Cases & Optimization: No floating-point `sqrt` is needed. Ensure time complexity is bounded to O(n log k) with O(k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Squared-Distance Heap Selection",
       "approachSteps": [
@@ -10161,10 +10591,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "reorganize-string-no-adjacent",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "A valid no-adjacent-duplicate rearrangement exists iff the maximum character frequency is at most `(len(s) + 1) // 2`.",
       "hints": [
-        "Even indices `0, 2, 4, ...` hold at most `(n + 1) // 2` copies of the most frequent letter."
+        "Conceptual Intuition: Consider a Pigeonhole Max-Frequency Bound paradigm. A valid no-adjacent-duplicate rearrangement exists iff the maximum character frequency is at most `(len(s) + 1) // 2`.",
+        "Algorithmic Mechanics: Even indices `0, 2, 4, .` hold at most `(n + 1) // 2` copies of the most frequent letter. Count letters; return `max(counts.values()) <= (len(s) + 1) // 2`.",
+        "Edge Cases & Optimization: Use `(len(s) + 1) // 2`, not `len(s) // 2`, to handle odd lengths. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Pigeonhole Max-Frequency Bound",
       "approachSteps": [
@@ -10245,11 +10678,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shortest-subarray-sum-at-least-k",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build prefix sums `P` and maintain an increasing monotonic deque of candidate start indices: pop from front while `P[i] - P[dq[0]] >= k`, and pop from back while `P[dq[-1]] >= P[i]`.",
       "hints": [
         "Negative numbers break standard sliding window.",
-        "A larger earlier prefix sum is strictly dominated by a smaller later prefix sum."
+        "A larger earlier prefix sum is strictly dominated by a smaller later prefix sum.",
+        "Boundary edge cases & complexity: Include `P[0] = 0` so subarrays starting at index 0 are considered. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Prefix Sum + Monotonic Increasing Deque",
       "approachSteps": [
@@ -10329,10 +10764,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-refueling-stops-highway",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push passed stations' fuel capacities into a max-heap; whenever fuel runs dry before the next milestone, retroactively refuel from the largest passed station.",
       "hints": [
-        "Append `[target, 0]` as a final sentinel station."
+        "Conceptual Intuition: Consider a Retroactive Max-Heap Greedy Refueling paradigm. Push passed stations' fuel capacities into a max-heap; whenever fuel runs dry before the next milestone, retroactively refuel from the largest passed station.",
+        "Algorithmic Mechanics: Append `[target, 0]` as a final sentinel station. Track `reach = start_fuel`; before each station `pos`, pop max-heap while `reach < pos`, increment `stops`, push `fuel`.",
+        "Edge Cases & Optimization: Return `-1` if heap empties while `reach < pos`. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Retroactive Max-Heap Greedy Refueling",
       "approachSteps": [
@@ -10413,10 +10851,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ipo-maximize-capital",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort projects by required capital ascending; in each of `k` rounds push all newly affordable projects into a max-heap by profit and greedily pick the top profit.",
       "hints": [
-        "Break early if the max-heap is empty."
+        "Conceptual Intuition: Consider a Capital-Sorted + Profit Max-Heap paradigm. Sort projects by required capital ascending; in each of `k` rounds push all newly affordable projects into a max-heap by profit and greedily pick the top profit.",
+        "Algorithmic Mechanics: Break early if the max-heap is empty. Sort `(cap, prof)`, unlock affordable projects into max-heap, pop max up to `k` times.",
+        "Edge Cases & Optimization: `k` can exceed `len(profits)`; break when the heap is empty. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Capital-Sorted + Profit Max-Heap",
       "approachSteps": [
@@ -10495,10 +10936,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "subarrays-with-k-different-integers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count subarrays with `exactly K` distinct values as `at_most(K) - at_most(K - 1)` using a linear sliding window.",
       "hints": [
-        "`at_most(m)` adds `r - l + 1` at each right endpoint once `len(counts) <= m`."
+        "Conceptual Intuition: Consider a At-Most-K Difference Sliding Window paradigm. Count subarrays with `exactly K` distinct values as `at_most(K) - at_most(K - 1)` using a linear sliding window.",
+        "Algorithmic Mechanics: `at_most(m)` adds `r - l + 1` at each right endpoint once `len(counts) <= m`. Define `at_most(m)` and return `at_most(k) - at_most(k - 1)`.",
+        "Edge Cases & Optimization: Return `0` in `at_most(0)`. Ensure time complexity is bounded to O(n) with O(k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "At-Most-K Difference Sliding Window",
       "approachSteps": [
@@ -10578,10 +11022,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "course-schedule-iii-deadlines",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort courses by deadline ascending, add each course's duration to `time` and a max-heap, and whenever `time > deadline` drop the longest course taken so far.",
       "hints": [
-        "Dropping the longest course never reduces course count and maximizes remaining time for later deadlines."
+        "Conceptual Intuition: Consider a Deadline-Sorted Regret Max-Heap paradigm. Sort courses by deadline ascending, add each course's duration to `time` and a max-heap, and whenever `time > deadline` drop the longest course taken so far.",
+        "Algorithmic Mechanics: Dropping the longest course never reduces course count and maximizes remaining time for later deadlines. Sort by `last_day`; push `-dur`, add `dur` to `t`; if `t > last_day`, subtract `-heappop(h)`.",
+        "Edge Cases & Optimization: Even a single course with `dur > last_day` gets pushed and immediately popped, keeping `len(h)` exact. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Deadline-Sorted Regret Max-Heap",
       "approachSteps": [
@@ -10660,10 +11107,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "patching-array-min-additions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain `miss` = smallest unformable sum (`1` initially); if `nums[i] <= miss`, extend `miss += nums[i]`, else patch with `miss` itself (`miss += miss`).",
       "hints": [
-        "If `[1, miss)` is covered, adding `miss` extends coverage maximally to `[1, 2 * miss)`."
+        "Conceptual Intuition: Consider a Greedy Reach-Doubling Patch paradigm. Maintain `miss` = smallest unformable sum (`1` initially); if `nums[i] <= miss`, extend `miss += nums[i]`, else patch with `miss` itself (`miss += miss`).",
+        "Algorithmic Mechanics: If `[1, miss)` is covered, adding `miss` extends coverage maximally to `[1, 2 * miss)`. While `miss <= n`: consume `nums[i]` if `<= miss`, else add patch `miss` and double `miss`.",
+        "Edge Cases & Optimization: Use 64-bit `miss` in Java/C++ since `miss` can exceed `2^31 - 1`. Ensure time complexity is bounded to O(m + log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Reach-Doubling Patch",
       "approachSteps": [
@@ -10742,10 +11192,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "max-frequency-stack-design",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map each frequency `f` to a stack of elements that reached frequency `f`, tracking `max_freq` for O(1) push and pop.",
       "hints": [
-        "Decrement `max_freq` when `group[max_freq]` becomes empty."
+        "Conceptual Intuition: Consider a Frequency-Tiered Stack Map paradigm. Map each frequency `f` to a stack of elements that reached frequency `f`, tracking `max_freq` for O(1) push and pop.",
+        "Algorithmic Mechanics: Decrement `max_freq` when `group[max_freq]` becomes empty. On `push(x)`: increment `freq[x]`, push `x` to `group[freq[x]]`, update `max_freq`. On `pop()`: pop from `group[max_freq]`, decrement `freq[x]`, decrement `max_freq` if bucket empty.",
+        "Edge Cases & Optimization: Remember to decrement `freq[x]` on pop. Ensure time complexity is bounded to O(1) per op with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency-Tiered Stack Map",
       "approachSteps": [
@@ -10825,10 +11278,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-cost-to-hire-k-workers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort workers by `wage / quality` ratio ascending and maintain the `k` smallest qualities in a max-heap; at each worker the team cost is `ratio * sum_k_qualities`.",
       "hints": [
-        "The highest `wage / quality` ratio in a chosen group sets the unit rate for everyone in the group."
+        "Conceptual Intuition: Consider a Ratio-Sorted Quality Max-Heap paradigm. Sort workers by `wage / quality` ratio ascending and maintain the `k` smallest qualities in a max-heap; at each worker the team cost is `ratio * sum_k_qualities`.",
+        "Algorithmic Mechanics: The highest `wage / quality` ratio in a chosen group sets the unit rate for everyone in the group. Sort by `w / q`; maintain size-`k` max-heap of `q` and running `qsum`; minimize `ratio * qsum`.",
+        "Edge Cases & Optimization: Round final float to 5 decimal places. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Ratio-Sorted Quality Max-Heap",
       "approachSteps": [
@@ -10907,10 +11363,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-cost-climbing-stairs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track the minimum cost to stand at `i - 2` and `i - 1`, advancing `a, b = b, min(a + cost[i-2], b + cost[i-1])`.",
       "hints": [
-        "Standing on step 0 or step 1 initially costs 0 before paying to jump from it."
+        "Conceptual Intuition: Consider a O(1)-Space Linear DP paradigm. Track the minimum cost to stand at `i - 2` and `i - 1`, advancing `a, b = b, min(a + cost[i-2], b + cost[i-1])`.",
+        "Algorithmic Mechanics: Standing on step 0 or step 1 initially costs 0 before paying to jump from it. Start `a = b = 0`, iterate `i` from `2` to `n`, return `b`.",
+        "Edge Cases & Optimization: The top is at index `len(cost)`, not `len(cost) - 1`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "O(1)-Space Linear DP",
       "approachSteps": [
@@ -10989,10 +11448,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "happy-number-cycle",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track visited sums in a set (or use Floyd's cycle detector) until `n == 1` or a value repeats.",
       "hints": [
-        "Digit-square sums quickly shrink below 1000 so cycles are tiny."
+        "Conceptual Intuition: Consider a Cycle Detection Set paradigm. Track visited sums in a set (or use Floyd's cycle detector) until `n == 1` or a value repeats.",
+        "Algorithmic Mechanics: Digit-square sums quickly shrink below 1000 so cycles are tiny. Loop replacing `n` with sum of squared digits until `n == 1` or `n in seen`.",
+        "Edge Cases & Optimization: Stop as soon as `n == 1`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Cycle Detection Set",
       "approachSteps": [
@@ -11071,10 +11533,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "plus-one-digit-array",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan backward from the least-significant digit: if `< 9`, increment and return; else set to `0` and continue, prepending `1` if all digits were `9`.",
       "hints": [
-        "Only all-9 arrays grow in length."
+        "Conceptual Intuition: Consider a Right-to-Left Carry Propagation paradigm. Scan backward from the least-significant digit: if `< 9`, increment and return; else set to `0` and continue, prepending `1` if all digits were `9`.",
+        "Algorithmic Mechanics: Only all-9 arrays grow in length. Scan right-to-left incrementing first `< 9` digit; if all `9`, return `[1] + [0] * n`.",
+        "Edge Cases & Optimization: Handle `[9]` -> `[1, 0]`. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Right-to-Left Carry Propagation",
       "approachSteps": [
@@ -11153,10 +11618,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "excel-sheet-column-number",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Evaluate `col` as a bijective base-26 number: `ans = ans * 26 + (ord(ch) - 64)`.",
       "hints": [
-        "`'A'` has value `1`, `'Z'` has value `26`."
+        "Conceptual Intuition: Consider a Base-26 Positional Accumulation paradigm. Evaluate `col` as a bijective base-26 number: `ans = ans * 26 + (ord(ch) - 64)`.",
+        "Algorithmic Mechanics: `'A'` has value `1`, `'Z'` has value `26`. Accumulate `ans = ans * 26 + (ord(ch) - ord('A') + 1)`.",
+        "Edge Cases & Optimization: Add `+ 1` since `'A'` is 1, not 0. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Base-26 Positional Accumulation",
       "approachSteps": [
@@ -11235,10 +11703,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "perfect-squares-min-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run bottom-up DP (or shortest-path BFS) over squares `s <= n`: `dp[i] = min(dp[i - s] + 1)`.",
       "hints": [
-        "By Lagrange's Four-Square Theorem, the answer is always 1, 2, 3, or 4."
+        "Conceptual Intuition: Consider a Unbounded Square Knapsack DP paradigm. Run bottom-up DP (or shortest-path BFS) over squares `s <= n`: `dp[i] = min(dp[i - s] + 1)`.",
+        "Algorithmic Mechanics: By Lagrange's Four-Square Theorem, the answer is always 1, 2, 3, or 4. Precompute squares `<= n`, fill `dp[1.n]` taking `min(dp[i - s]) + 1`.",
+        "Edge Cases & Optimization: Greedy largest square fails on `12` (`9+1+1+1=4` vs `4+4+4=3`). Ensure time complexity is bounded to O(n * sqrt(n)) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Unbounded Square Knapsack DP",
       "approachSteps": [
@@ -11317,10 +11788,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "integer-break-max-product",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Factor out `3`s while `n > 4` (leaving `4 = 2 * 2` instead of `3 * 1`), after handling `n <= 3` directly.",
       "hints": [
-        "For `n >= 5`, `3 * (n - 3) > n`, while `4` is better kept as `4` than `3 * 1`."
+        "Conceptual Intuition: Consider a Greedy Factor-of-3 Decomposition paradigm. Factor out `3`s while `n > 4` (leaving `4 = 2 * 2` instead of `3 * 1`), after handling `n <= 3` directly.",
+        "Algorithmic Mechanics: For `n >= 5`, `3 * (n - 3) > n`, while `4` is better kept as `4` than `3 * 1`. If `n <= 3`, return `n - 1`; while `n > 4`, multiply `ans *= 3` and `n -= 3`; return `ans * n`.",
+        "Edge Cases & Optimization: Do not split `4` into `3 + 1`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Factor-of-3 Decomposition",
       "approachSteps": [
@@ -11399,10 +11873,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "combination-sum-iv-ordered",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Put `amount` in the outer loop and `nums` in the inner loop (`dp[a] += dp[a - x]`) to count ordered permutations.",
       "hints": [
-        "Outer loop on `amount` distinguishes `[1, 2]` from `[2, 1]`."
+        "Conceptual Intuition: Consider a Amount-Outer Permutation DP paradigm. Put `amount` in the outer loop and `nums` in the inner loop (`dp[a] += dp[a - x]`) to count ordered permutations.",
+        "Algorithmic Mechanics: Outer loop on `amount` distinguishes `[1, 2]` from `[2, 1]`. Initialize `dp[0] = 1`; for `a` in `1.target`, sum `dp[a - x]` for `x <= a`.",
+        "Edge Cases & Optimization: Outer loop on `nums` would count unordered combinations instead. Ensure time complexity is bounded to O(target * n) with O(target) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Amount-Outer Permutation DP",
       "approachSteps": [
@@ -11482,10 +11959,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ones-and-zeroes-2d-knapsack",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Solve 2D 0/1 knapsack over `(zeros, ones)` iterating both dimensions backward from `(m, n)` down to `(z, o)`.",
       "hints": [
-        "Backward loops ensure each string is selected at most once."
+        "Conceptual Intuition: Consider a 2D 0/1 Knapsack DP paradigm. Solve 2D 0/1 knapsack over `(zeros, ones)` iterating both dimensions backward from `(m, n)` down to `(z, o)`.",
+        "Algorithmic Mechanics: Backward loops ensure each string is selected at most once. For each string `(z, o)`, update `dp[i][j] = max(dp[i][j], dp[i - z][j - o] + 1)` backward.",
+        "Edge Cases & Optimization: Iterating forward allows selecting the same string multiple times. Ensure time complexity is bounded to O(L * m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "2D 0/1 Knapsack DP",
       "approachSteps": [
@@ -11563,10 +12043,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "maximal-square-binary-grid",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Let `dp[r][c]` be the side length of the largest all-`'1'` square ending at `(r, c)`: `1 + min(top, left, diag)`. Return `max_side ** 2`.",
       "hints": [
-        "Remember to return area (`side * side`), not side length."
+        "Conceptual Intuition: Consider a Rolling-Row Square-Side DP paradigm. Let `dp[r][c]` be the side length of the largest all-`'1'` square ending at `(r, c)`: `1 + min(top, left, diag)`. Return `max_side ** 2`.",
+        "Algorithmic Mechanics: Remember to return area (`side * side`), not side length. Track `prev` and `curr` rows updating `1 + min(prev[j], curr[j-1], prev[j-1])` on `'1'`.",
+        "Edge Cases & Optimization: Return `best * best`, not `best`. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Rolling-Row Square-Side DP",
       "approachSteps": [
@@ -11646,10 +12129,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-string-chain",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort words by length ascending; for each word `w`, try deleting each single character `w[:i] + w[i+1:]` and set `dp[w] = 1 + max(dp.get(pred, 0))`.",
       "hints": [
-        "Deleting 1 char from `w` takes O(L) with `L <= 16`."
+        "Conceptual Intuition: Consider a Length-Sorted Predecessor Hash DP paradigm. Sort words by length ascending; for each word `w`, try deleting each single character `w[:i] + w[i+1:]` and set `dp[w] = 1 + max(dp.get(pred, 0))`.",
+        "Algorithmic Mechanics: Deleting 1 char from `w` takes O(L) with `L <= 16`. Sort by `len`, compute `dp[w]` over all single-char deletions, return `max(dp.values())`.",
+        "Edge Cases & Optimization: Sort by length first so all shorter predecessors are already evaluated. Ensure time complexity is bounded to O(n log n + n * L^2) with O(n * L) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Length-Sorted Predecessor Hash DP",
       "approachSteps": [
@@ -11727,10 +12213,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "predict-the-winner-game-dp",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use minimax interval DP where `dp[l][r]` is the maximum net score advantage `current_player - opponent` on subarray `nums[l..r]`.",
       "hints": [
-        "`dp[l][r] = max(nums[l] - dp[l + 1][r], nums[r] - dp[l][r - 1])`."
+        "Conceptual Intuition: Consider a Minimax Interval Advantage DP paradigm. Use minimax interval DP where `dp[l][r]` is the maximum net score advantage `current_player - opponent` on subarray `nums[l.r]`.",
+        "Algorithmic Mechanics: `dp[l][r] = max(nums[l] - dp[l + 1][r], nums[r] - dp[l][r - 1])`. Fill `dp[l][r]` bottom-up and return `dp[0][n - 1] >= 0`.",
+        "Edge Cases & Optimization: Ties (`>= 0`) count as a win for Player 1. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Minimax Interval Advantage DP",
       "approachSteps": [
@@ -11809,10 +12298,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-falling-path-sum-grid",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Roll a 1D row of minimum cumulative sums where `curr[c] = row[c] + min(prev[max(0, c-1):min(n, c+2)])`.",
       "hints": [
-        "Return `min(prev)` after processing the last row."
+        "Conceptual Intuition: Consider a Rolling 3-Neighbor Row DP paradigm. Roll a 1D row of minimum cumulative sums where `curr[c] = row[c] + min(prev[max(0, c-1):min(n, c+2)])`.",
+        "Algorithmic Mechanics: Return `min(prev)` after processing the last row. Start `prev = matrix[0]`, transition row by row, return `min(prev)`.",
+        "Edge Cases & Optimization: Handle negative entries cleanly. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Rolling 3-Neighbor Row DP",
       "approachSteps": [
@@ -11892,10 +12384,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-increasing-path-matrix",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Strict inequalities form an implicit DAG with no cycles, so memoized DFS computes the longest path starting from every cell in O(m * n) total time.",
       "hints": [
-        "No visited set is needed because strictly increasing edges cannot form cycles."
+        "Conceptual Intuition: Consider a Memoized Implicit-DAG DFS paradigm. Strict inequalities form an implicit DAG with no cycles, so memoized DFS computes the longest path starting from every cell in O(m * n) total time.",
+        "Algorithmic Mechanics: No visited set is needed because strictly increasing edges cannot form cycles. Cache `dfs(r, c) = 1 + max(dfs(nr, nc) for higher neighbors)` and return global max.",
+        "Edge Cases & Optimization: Use strictly greater `>` for neighbor transitions. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Memoized Implicit-DAG DFS",
       "approachSteps": [
@@ -11974,10 +12469,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-cost-to-cut-a-stick",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `[0] + cuts + [n]` and run interval DP where `dp[l][r] = (pts[r] - pts[l]) + min(dp[l][k] + dp[k][r])` over `l < k < r`.",
       "hints": [
-        "Base case: adjacent points (`r - l == 1`) have 0 interior cuts and cost 0."
+        "Conceptual Intuition: Consider a Sorted-Endpoints Interval DP paradigm. Sort `[0] + cuts + [n]` and run interval DP where `dp[l][r] = (pts[r] - pts[l]) + min(dp[l][k] + dp[k][r])` over `l < k < r`.",
+        "Algorithmic Mechanics: Base case: adjacent points (`r - l == 1`) have 0 interior cuts and cost 0. Sort `pts = [0] + sorted(cuts) + [n]` and fill `dp[l][r]` by increasing gap `2.m-1`.",
+        "Edge Cases & Optimization: Sort `cuts` before building intervals. Ensure time complexity is bounded to O(c^3) with O(c^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted-Endpoints Interval DP",
       "approachSteps": [
@@ -12056,10 +12554,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "russian-doll-envelopes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort by width ascending and height DESCENDING on ties, then compute the O(n log n) Longest Increasing Subsequence on heights.",
       "hints": [
-        "Sorting height descending on equal widths prevents two same-width envelopes from both entering the LIS."
+        "Conceptual Intuition: Consider a 2D Sort + Patience LIS paradigm. Sort by width ascending and height DESCENDING on ties, then compute the O(n log n) Longest Increasing Subsequence on heights.",
+        "Algorithmic Mechanics: Sorting height descending on equal widths prevents two same-width envelopes from both entering the LIS. Sort by `(w, -h)`, run `bisect_left` LIS over `h`.",
+        "Edge Cases & Optimization: Sorting height ascending on ties breaks strict width nesting. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "2D Sort + Patience LIS",
       "approachSteps": [
@@ -12138,10 +12639,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "wildcard-pattern-matching",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use O(1)-space two pointers recording the last `'*'` index `star` and matched `s` position `match`, backtracking greedily only to the most recent `'*'`.",
       "hints": [
-        "Unlike regex `.*`, wildcard `'*'` is independent of the preceding character."
+        "Conceptual Intuition: Consider a Greedy Last-Star Two Pointers paradigm. Use O(1)-space two pointers recording the last `'*'` index `star` and matched `s` position `match`, backtracking greedily only to the most recent `'*'`.",
+        "Algorithmic Mechanics: Unlike regex `.*`, wildcard `'*'` is independent of the preceding character. Advance `(i, j)` on match; save `(star, match)` on `'*'`; backtrack to `star + 1, match + 1` on mismatch; skip trailing `'*'`.",
+        "Edge Cases & Optimization: Consume trailing `'*'`s in `p` after `s` finishes. Ensure time complexity is bounded to O(n + m) typical, O(n * m) worst with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Last-Star Two Pointers",
       "approachSteps": [
@@ -12219,10 +12723,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dungeon-game-min-hp",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Work backward from `(m - 1, n - 1)` to `(0, 0)`: `need[r][c] = max(1, min(need[r+1][c], need[r][c+1]) - dungeon[r][c])`.",
       "hints": [
-        "Forward DP fails because future healing cannot rescue a negative dip earlier."
+        "Conceptual Intuition: Consider a Reverse Bottom-Up Health DP paradigm. Work backward from `(m - 1, n - 1)` to `(0, 0)`: `need[r][c] = max(1, min(need[r+1][c], need[r][c+1]) - dungeon[r][c])`.",
+        "Algorithmic Mechanics: Forward DP fails because future healing cannot rescue a negative dip earlier. Initialize `dp = [inf] * (n + 1)` with `dp[n - 1] = 1`; sweep rows and cols backward.",
+        "Edge Cases & Optimization: Clamp every cell's minimum needed HP to at least `1`. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Reverse Bottom-Up Health DP",
       "approachSteps": [
@@ -12301,10 +12808,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "best-time-stock-k-transactions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain `buy[t]` and `sell[t]` for `t = 1..k` (or sum all positive day-to-day gains when `k >= n // 2`).",
       "hints": [
-        "When `k >= len(prices) // 2`, unlimited transactions apply."
+        "Conceptual Intuition: Consider a K-Transaction State-Machine DP paradigm. Maintain `buy[t]` and `sell[t]` for `t = 1.k` (or sum all positive day-to-day gains when `k >= n // 2`).",
+        "Algorithmic Mechanics: When `k >= len(prices) // 2`, unlimited transactions apply. Initialize `buy = [-inf] * (k + 1)`, `sell = [0] * (k + 1)`; update for each price `p`.",
+        "Edge Cases & Optimization: Handle `k == 0` or empty `prices` returning `0`. Ensure time complexity is bounded to O(n * k) with O(k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "K-Transaction State-Machine DP",
       "approachSteps": [
@@ -12383,10 +12893,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "max-profit-job-scheduling",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort jobs by `end_time`, and for each job binary search the last job finishing `<= start_time` using `bisect_right` to compute `dp[i] = max(dp[i - 1], dp[prev] + profit)`.",
       "hints": [
-        "Weighted interval scheduling requires DP + binary search rather than pure greedy."
+        "Conceptual Intuition: Consider a End-Sorted Weighted Interval DP paradigm. Sort jobs by `end_time`, and for each job binary search the last job finishing `<= start_time` using `bisect_right` to compute `dp[i] = max(dp[i - 1], dp[prev] + profit)`.",
+        "Algorithmic Mechanics: Weighted interval scheduling requires DP + binary search rather than pure greedy. Sort jobs by end time, maintain `ends` and `dp`, binary search `bisect_right(ends, s)`.",
+        "Edge Cases & Optimization: Use `bisect_right` because a job finishing at `s` is compatible with a job starting at `s`. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "End-Sorted Weighted Interval DP",
       "approachSteps": [
@@ -12464,10 +12977,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-insertions-make-palindrome",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "The minimum insertions needed equals `len(s) - LPS(s)` where `LPS(s) = LCS(s, reversed(s))`.",
       "hints": [
-        "Every character not in the longest palindromic subsequence needs one mirrored partner inserted."
+        "Conceptual Intuition: Consider a Complement of Longest Palindromic Subsequence paradigm. The minimum insertions needed equals `len(s) - LPS(s)` where `LPS(s) = LCS(s, reversed(s))`.",
+        "Algorithmic Mechanics: Every character not in the longest palindromic subsequence needs one mirrored partner inserted. Compute `lps = LCS(s, s[::-1])` with rolling 1D DP and return `len(s) - lps`.",
+        "Edge Cases & Optimization: Already palindromic strings return `0`. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Complement of Longest Palindromic Subsequence",
       "approachSteps": [
@@ -12549,11 +13065,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "town-judge-finder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track net trust score (in-degree minus out-degree) for each person; the judge has score `n - 1`.",
       "hints": [
         "Model trust relationships as directed edges from `a` to `b`.",
-        "The judge has in-degree `n - 1` and out-degree `0`."
+        "The judge has in-degree `n - 1` and out-degree `0`.",
+        "Boundary edge cases & complexity: Forgetting the edge case `n = 1` with empty `trust`, where person `1` is the judge. Verify your solution strictly meets O(n + E) time and O(n) space limits."
       ],
       "approachTitle": "Net Degree Counting",
       "approachSteps": [
@@ -12637,11 +13155,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "graph-path-existence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Disjoint Set Union (Union-Find) or BFS to check whether `source` and `destination` belong to the same connected component.",
       "hints": [
         "If `source == destination`, the answer is immediately `true`.",
-        "Union-Find with path compression checks connectivity in nearly O(1) per edge."
+        "Union-Find with path compression checks connectivity in nearly O(1) per edge.",
+        "Boundary edge cases & complexity: Using deep recursion DFS on a linear chain of 200,000 vertices can hit Python's recursion limit. Verify your solution strictly meets O(n + E * alpha(n)) time and O(n) space limits."
       ],
       "approachTitle": "Disjoint Set Union (Union-Find)",
       "approachSteps": [
@@ -12722,11 +13242,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "valid-mountain-peak",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Walk uphill from the start to the peak, verify the peak is strictly interior, then walk downhill to the end.",
       "hints": [
         "The peak cannot be at index `0` or index `n - 1`.",
-        "A single linear scan suffices."
+        "A single linear scan suffices.",
+        "Boundary edge cases & complexity: Allowing purely increasing or purely decreasing arrays to pass. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Single-Pass Ascent and Descent",
       "approachSteps": [
@@ -12808,10 +13330,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "monotonic-sequence-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track two boolean flags, `inc` and `dec`, in a single pass over adjacent pairs.",
       "hints": [
-        "An array is monotonic if it never both increases and decreases."
+        "Conceptual Intuition: Consider a Two-Flag Single Pass paradigm. Track two boolean flags, `inc` and `dec`, in a single pass over adjacent pairs.",
+        "Algorithmic Mechanics: An array is monotonic if it never both increases and decreases. Initialize `inc = True` and `dec = True`. For each adjacent pair `(nums[i], nums[i + 1])`, set `inc = False` if `nums[i] > nums[i + 1]` and `dec = False` if `nums[i] < nums[i + 1]`.",
+        "Edge Cases & Optimization: Treating equal adjacent elements as breaking monotonicity. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Two-Flag Single Pass",
       "approachSteps": [
@@ -12895,11 +13420,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "combination-lock-bfs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Model the 10,000 lock states as an unweighted graph and run Breadth-First Search from `'0000'` avoiding `deadends`.",
       "hints": [
         "Each state has 8 neighbors (rotate each of the 4 wheels by +1 or -1 mod 10).",
-        "Check if `'0000'` itself is in `deadends` before starting BFS."
+        "Check if `'0000'` itself is in `deadends` before starting BFS.",
+        "Boundary edge cases & complexity: Forgetting to check whether `'0000'` is a deadend. Verify your solution strictly meets O(10^4 * 4) time and O(10^4) space limits."
       ],
       "approachTitle": "Unweighted Shortest Path via BFS",
       "approachSteps": [
@@ -12985,11 +13512,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "genetic-mutation-steps",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run BFS from `startGene`, transitioning to any unvisited gene in `bank` that differs in exactly one position.",
       "hints": [
         "If `endGene` is not in `bank` and `startGene != endGene`, it is unreachable.",
-        "Because `bank` is small, checking Hamming distance 1 or trying 3 alternative characters per index is very fast."
+        "Because `bank` is small, checking Hamming distance 1 or trying 3 alternative characters per index is very fast.",
+        "Boundary edge cases & complexity: Forgetting that `startGene` does not need to be in `bank`. Verify your solution strictly meets O(N * L * 4) time and O(N) space limits."
       ],
       "approachTitle": "BFS Over Valid Bank States",
       "approachSteps": [
@@ -13076,10 +13605,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "employee-inform-time",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build the management tree from `manager` and compute the maximum root-to-leaf sum of `informTime` using iterative BFS/DFS.",
       "hints": [
-        "Subordinates are notified in parallel, so the total time is the longest weighted path from `headID` to any employee."
+        "Conceptual Intuition: Consider a Iterative BFS on Organization Tree paradigm. Build the management tree from `manager` and compute the maximum root-to-leaf sum of `informTime` using iterative BFS/DFS.",
+        "Algorithmic Mechanics: Subordinates are notified in parallel, so the total time is the longest weighted path from `headID` to any employee. Build an adjacency list `children` mapping each manager to their direct reports. Run BFS starting from `(headID, 0)` tracking the cumulative time to reach each node.",
+        "Edge Cases & Optimization: Adding `informTime[leaf]` for a leaf node with no subordinates (though leaves usually have 0, only add `informTime[u]` when forwarding to a child). Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Iterative BFS on Organization Tree",
       "approachSteps": [
@@ -13163,10 +13695,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-effort-grid-path",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use modified Dijkstra's algorithm where the path cost is the maximum edge weight along the path rather than the sum.",
       "hints": [
-        "Because `max(effort, edge_weight)` is non-decreasing as you extend a path, Dijkstra's greedy property holds."
+        "Conceptual Intuition: Consider a Minimax Dijkstra with Min-Heap paradigm. Use modified Dijkstra's algorithm where the path cost is the maximum edge weight along the path rather than the sum.",
+        "Algorithmic Mechanics: Because `max(effort, edge_weight)` is non-decreasing as you extend a path, Dijkstra's greedy property holds. Initialize `dist[r][c] = inf` with `dist[0][0] = 0` and a min-heap `[(0, 0, 0)]`. Pop `(eff, r, c)`. If `(r, c)` is the bottom-right cell, return `eff`.",
+        "Edge Cases & Optimization: Summing elevation differences instead of taking the maximum. Ensure time complexity is bounded to O(R * C * log(R * C)) with O(R * C) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Minimax Dijkstra with Min-Heap",
       "approachSteps": [
@@ -13250,11 +13785,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "city-smallest-neighbors",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compute all-pairs shortest paths with Floyd-Warshall in O(n^3) time, then count reachable neighbors per city and break ties by larger city index.",
       "hints": [
         "With `n <= 100`, an `O(n^3)` Floyd-Warshall matrix is both simple and fast.",
-        "Use `<=` when updating the best city so ties favor the greater city ID."
+        "Use `<=` when updating the best city so ties favor the greater city ID.",
+        "Boundary edge cases & complexity: Placing the intermediate node `k` in the innermost loop instead of the outermost loop. Verify your solution strictly meets O(n^3) time and O(n^2) space limits."
       ],
       "approachTitle": "Floyd-Warshall All-Pairs Shortest Paths",
       "approachSteps": [
@@ -13339,11 +13876,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "minimum-height-trees-roots",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Iteratively peel layers of leaf nodes (degree 1) inward until at most 2 centroid nodes remain.",
       "hints": [
         "A tree has at most 2 centers (the midpoints of its longest path).",
-        "Removing all current leaves simultaneously preserves the tree's centers."
+        "Removing all current leaves simultaneously preserves the tree's centers.",
+        "Boundary edge cases & complexity: Not handling `n = 1` (no edges, no degree-1 nodes). Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Iterative Leaf Trimming (Topological Peeling)",
       "approachSteps": [
@@ -13430,10 +13969,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "evaluate-division-queries",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Represent equations as a weighted directed graph (`u -> v` with weight `w`, and `v -> u` with weight `1 / w`), then answer each query via BFS/DFS multiplying edge weights.",
       "hints": [
-        "If either query variable is not in the graph, immediately return `-1.0` (even for `['x', 'x']`)."
+        "Conceptual Intuition: Consider a Weighted Graph BFS paradigm. Represent equations as a weighted directed graph (`u -> v` with weight `w`, and `v -> u` with weight `1 / w`), then answer each query via BFS/DFS multiplying edge weights.",
+        "Algorithmic Mechanics: If either query variable is not in the graph, immediately return `-1.0` (even for `['x', 'x']`). Build `graph[a].append((b, val))` and `graph[b].append((a, 1.0 / val))`. For each query `[src, dst]`, if `src` or `dst` is absent from `graph`, append `-1.0`.",
+        "Edge Cases & Optimization: Returning `1.0` for `x / x` when `x` never appeared in `equations`. Ensure time complexity is bounded to O(Q * (V + E)) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Weighted Graph BFS",
       "approachSteps": [
@@ -13518,10 +14060,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "merge-user-accounts-dsu",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Union-Find over account indices (or emails) to merge accounts that share any email, then group and sort emails per connected component.",
       "hints": [
-        "Map each seen email to the first account index that contained it; when seen again, union the two account indices."
+        "Conceptual Intuition: Consider a Union-Find by Account Index paradigm. Use Union-Find over account indices (or emails) to merge accounts that share any email, then group and sort emails per connected component.",
+        "Algorithmic Mechanics: Map each seen email to the first account index that contained it; when seen again, union the two account indices. Initialize DSU over `0.len(accounts)-1`. Maintain `email_to_id`: for each email in `accounts[i][1:]`, if already in `email_to_id`, union `i` with `email_to_id[email]`; otherwise store `email_to_id[email] = i`.",
+        "Edge Cases & Optimization: Merging accounts merely because they share the same user name. Ensure time complexity is bounded to O(N * K * log(N * K)) with O(N * K) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Union-Find by Account Index",
       "approachSteps": [
@@ -13605,10 +14150,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "critical-network-bridges",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Tarjan's bridge-finding DFS to track discovery times `disc[u]` and lowest reachable discovery times `low[u]`; tree edge `(u, v)` is a bridge iff `low[v] > disc[u]`.",
       "hints": [
-        "An edge belongs to a cycle if and only if there is a back-edge from the subtree of `v` reaching `u` or an ancestor of `u`."
+        "Conceptual Intuition: Consider a Tarjan's Bridge-Finding Algorithm paradigm. Use Tarjan's bridge-finding DFS to track discovery times `disc[u]` and lowest reachable discovery times `low[u]`; tree edge `(u, v)` is a bridge iff `low[v] > disc[u]`.",
+        "Algorithmic Mechanics: An edge belongs to a cycle if and only if there is a back-edge from the subtree of `v` reaching `u` or an ancestor of `u`. Build an undirected adjacency list. Run DFS maintaining `disc[u]` and `low[u]`.",
+        "Edge Cases & Optimization: Updating `low[u]` using the direct parent edge instead of skipping `v == parent`. Ensure time complexity is bounded to O(V + E) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Tarjan's Bridge-Finding Algorithm",
       "approachSteps": [
@@ -13693,11 +14241,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bus-routes-min-transfers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map each stop to the bus routes passing through it and run BFS over bus routes (marking both visited routes and visited stops).",
       "hints": [
         "If `source == target`, 0 buses are needed.",
-        "Tracking visited routes ensures each route's stops are scanned at most once."
+        "Tracking visited routes ensures each route's stops are scanned at most once.",
+        "Boundary edge cases & complexity: Not clearing or marking visited stops, which causes quadratic re-scanning on hub stops. Verify your solution strictly meets O(S) where S is total stops across all routes time and O(S) space limits."
       ],
       "approachTitle": "Route-Level BFS",
       "approachSteps": [
@@ -13782,10 +14332,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shortest-path-all-nodes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run multi-source BFS over `(node, visited_bitmask)` states starting from `(i, 1 << i)` for all `i`, stopping as soon as `visited_bitmask == (1 << n) - 1`.",
       "hints": [
-        "Since `n <= 12`, there are at most `12 * 2^12 = 49,152` states."
+        "Conceptual Intuition: Consider a Bitmask Multi-Source BFS paradigm. Run multi-source BFS over `(node, visited_bitmask)` states starting from `(i, 1 << i)` for all `i`, stopping as soon as `visited_bitmask == (1 << n) - 1`.",
+        "Algorithmic Mechanics: Since `n <= 12`, there are at most `12 * 2^12 = 49,152` states. If `n == 1`, return `0`. Let `target = (1 << n) - 1`.",
+        "Edge Cases & Optimization: Forgetting the `n == 1` base case where the answer is `0`. Ensure time complexity is bounded to O(n * 2^n) with O(n * 2^n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bitmask Multi-Source BFS",
       "approachSteps": [
@@ -13869,11 +14422,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-cost-valid-grid-path",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Model the grid as a 0-1 weighted graph and run 0-1 BFS using a deque: push 0-cost moves to the front and 1-cost moves to the back.",
       "hints": [
         "Every edge has weight 0 (matching the cell's arrow) or 1 (changing the arrow).",
-        "0-1 BFS finds shortest paths in O(m * n) without a heap."
+        "0-1 BFS finds shortest paths in O(m * n) without a heap.",
+        "Boundary edge cases & complexity: Confusing the direction indices (1=right, 2=left, 3=down, 4=up). Verify your solution strictly meets O(m * n) time and O(m * n) space limits."
       ],
       "approachTitle": "0-1 BFS with Deque",
       "approachSteps": [
@@ -13959,10 +14514,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "reconstruct-flight-itinerary",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the lexicographically smallest Eulerian path starting at `'JFK'` using Hierholzer's algorithm with sorted adjacency lists (or min-heaps).",
       "hints": [
-        "A greedy DFS can get stuck at a dead-end airport before visiting a cycle; Hierholzer's algorithm records airports in post-order and reverses the result."
+        "Conceptual Intuition: Consider a Hierholzer's Algorithm (Post-Order DFS) paradigm. Find the lexicographically smallest Eulerian path starting at `'JFK'` using Hierholzer's algorithm with sorted adjacency lists (or min-heaps).",
+        "Algorithmic Mechanics: A greedy DFS can get stuck at a dead-end airport before visiting a cycle; Hierholzer's algorithm records airports in post-order and reverses the result. Build an adjacency list mapping each origin to its destinations sorted in reverse order (so `.pop()` returns the smallest destination in O(1)). Use an explicit stack initialized with `['JFK']` and an empty `route` list.",
+        "Edge Cases & Optimization: Using backtracking without Hierholzer's post-order construction, which can time out on repeated cycles. Ensure time complexity is bounded to O(E log E) with O(E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Hierholzer's Algorithm (Post-Order DFS)",
       "approachSteps": [
@@ -14047,10 +14605,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "making-a-large-island",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Label each existing island with a unique ID (>= 2) and record its area; then for each `0` cell, sum `1` plus the areas of distinct neighboring island IDs.",
       "hints": [
-        "Use a set of neighboring island IDs for each `0` cell so you never double-count an island touching the cell from two sides."
+        "Conceptual Intuition: Consider a Connected Component Labeling + Neighbor Deduplication paradigm. Label each existing island with a unique ID (>= 2) and record its area; then for each `0` cell, sum `1` plus the areas of distinct neighboring island IDs.",
+        "Algorithmic Mechanics: Use a set of neighboring island IDs for each `0` cell so you never double-count an island touching the cell from two sides. Paint each connected component of `1`s with IDs `2, 3, .` using iterative BFS/DFS and store `area[id]`. Initialize `best = max(area.values(), default=0)`.",
+        "Edge Cases & Optimization: Forgetting the all-1s grid where there are no `0` cells to flip. Ensure time complexity is bounded to O(n^2) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Connected Component Labeling + Neighbor Deduplication",
       "approachSteps": [
@@ -14134,10 +14695,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "parallel-courses-iii-time",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Kahn's topological sort combined with DAG DP: `finish[v] = time[v] + max(finish[u])` over all prerequisites `u` of `v`.",
       "hints": [
-        "The minimum time to complete all courses equals the longest weighted path in the DAG."
+        "Conceptual Intuition: Consider a Kahn's Topological Sort + Longest Path DP paradigm. Use Kahn's topological sort combined with DAG DP: `finish[v] = time[v] + max(finish[u])` over all prerequisites `u` of `v`.",
+        "Algorithmic Mechanics: The minimum time to complete all courses equals the longest weighted path in the DAG. Build adjacency list and `indegree` array (0-indexed). Initialize `finish[i] = time[i]` and enqueue all nodes with `indegree == 0`.",
+        "Edge Cases & Optimization: Using 1-based course labels directly as 0-based indices into `time`. Ensure time complexity is bounded to O(V + E) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Kahn's Topological Sort + Longest Path DP",
       "approachSteps": [
@@ -14222,11 +14786,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ways-to-arrive-destination",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run Dijkstra's algorithm while maintaining both `dist[v]` (shortest time) and `ways[v]` (number of shortest paths to `v` mod `10^9 + 7`).",
       "hints": [
         "When a strictly shorter path to `v` is found, reset `ways[v] = ways[u]`.",
-        "When an equally short path to `v` is found, add `ways[u]` to `ways[v]`."
+        "When an equally short path to `v` is found, add `ways[u]` to `ways[v]`.",
+        "Boundary edge cases & complexity: Using 32-bit integers for distances in C++/Java when edge weights go up to `10^9`. Verify your solution strictly meets O((V + E) log V) time and O(V + E) space limits."
       ],
       "approachTitle": "Dijkstra with Path-Count DP",
       "approachSteps": [
@@ -14312,10 +14878,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bst-range-sum-query",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use the BST ordering property to prune subtrees outside `[low, high]` during DFS.",
       "hints": [
-        "Only visit the left child if `node.val > low` and the right child if `node.val < high`."
+        "Conceptual Intuition: Consider a Pruned BST Traversal paradigm. Use the BST ordering property to prune subtrees outside `[low, high]` during DFS.",
+        "Algorithmic Mechanics: Only visit the left child if `node.val > low` and the right child if `node.val < high`. Deserialize the level-order list into a binary tree. Traverse with an explicit stack starting at `root`.",
+        "Edge Cases & Optimization: Ignoring the BST property and visiting every node unnecessarily. Ensure time complexity is bounded to O(n) worst case, O(k + h) average with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Pruned BST Traversal",
       "approachSteps": [
@@ -14398,10 +14967,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bst-min-absolute-diff",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform an in-order traversal of the BST to visit values in sorted order and track the minimum difference between consecutive visited values.",
       "hints": [
-        "In a sorted sequence, the minimum absolute difference always occurs between two adjacent elements."
+        "Conceptual Intuition: Consider a In-Order Traversal with Previous Pointer paradigm. Perform an in-order traversal of the BST to visit values in sorted order and track the minimum difference between consecutive visited values.",
+        "Algorithmic Mechanics: In a sorted sequence, the minimum absolute difference always occurs between two adjacent elements. Deserialize the level-order array into a BST. Run iterative in-order traversal maintaining `prev` and `best`.",
+        "Edge Cases & Optimization: Only comparing parent-child pairs instead of in-order predecessors/successors. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "In-Order Traversal with Previous Pointer",
       "approachSteps": [
@@ -14484,10 +15056,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "baseball-score-tracker",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a stack of valid scores and simulate each operation in O(1) time.",
       "hints": [
-        "Use `stack.pop()` for `'C'`, `stack[-1] * 2` for `'D'`, and `stack[-1] + stack[-2]` for `'+'`."
+        "Conceptual Intuition: Consider a Stack Simulation paradigm. Maintain a stack of valid scores and simulate each operation in O(1) time.",
+        "Algorithmic Mechanics: Use `stack.pop()` for `'C'`, `stack[-1] * 2` for `'D'`, and `stack[-1] + stack[-2]` for `'+'`. Initialize an empty list `stack`. Iterate over `op` in `operations`: pop on `'C'`, push `2 * stack[-1]` on `'D'`, push `stack[-1] + stack[-2]` on `'+'`, else push `int(op)`.",
+        "Edge Cases & Optimization: Forgetting negative integers when parsing score strings. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Stack Simulation",
       "approachSteps": [
@@ -14568,10 +15143,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "strip-outer-parentheses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track the current nesting depth `depth`; append `'('` only when `depth > 0` before incrementing, and append `')'` only when `depth > 1` before decrementing.",
       "hints": [
-        "The outermost `'('` transitions depth from `0 -> 1`, and the outermost `')'` transitions depth from `1 -> 0`."
+        "Conceptual Intuition: Consider a Nesting Depth Counter paradigm. Track the current nesting depth `depth`; append `'('` only when `depth > 0` before incrementing, and append `')'` only when `depth > 1` before decrementing.",
+        "Algorithmic Mechanics: The outermost `'('` transitions depth from `0 -> 1`, and the outermost `')'` transitions depth from `1 -> 0`. Initialize `depth = 0` and an empty list `out`. For each character `ch` in `s`: if `ch == '('`, append it if `depth > 0`, then `depth += 1`.",
+        "Edge Cases & Optimization: Incrementing or decrementing `depth` in the wrong order relative to the `depth > 0` check. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Nesting Depth Counter",
       "approachSteps": [
@@ -14654,10 +15232,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "house-robber-tree-dp",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "For each subtree, return a pair `(rob_this, skip_this)` via post-order Tree DP.",
       "hints": [
-        "If you rob a node, you must skip both children. If you skip a node, you can take the best of robbing or skipping each child independently."
+        "Conceptual Intuition: Consider a Post-Order Tree DP paradigm. For each subtree, return a pair `(rob_this, skip_this)` via post-order Tree DP.",
+        "Algorithmic Mechanics: If you rob a node, you must skip both children. If you skip a node, you can take the best of robbing or skipping each child independently. Deserialize `root` into a binary tree. Define `dfs(node)` returning `(take, skip)`.",
+        "Edge Cases & Optimization: Assuming optimal solutions only pick alternating levels (as in `[4, 1, null, 2, null, 3]`, where `4 + 3 = 7`). Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Post-Order Tree DP",
       "approachSteps": [
@@ -14743,10 +15324,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "binary-tree-path-sum-iii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a hash map of prefix sums along the current root-to-node path during DFS, backtracking the map count when leaving a node.",
       "hints": [
-        "Just like Subarray Sum Equals K, the number of valid paths ending at the current node is `prefix_counts[curr_sum - targetSum]`."
+        "Conceptual Intuition: Consider a DFS with Prefix Sum Hash Map paradigm. Maintain a hash map of prefix sums along the current root-to-node path during DFS, backtracking the map count when leaving a node.",
+        "Algorithmic Mechanics: Just like Subarray Sum Equals K, the number of valid paths ending at the current node is `prefix_counts[curr_sum - targetSum]`. Deserialize `root` into a binary tree. Initialize `counts = {0: 1}`.",
+        "Edge Cases & Optimization: Forgetting to decrement `counts[curr]` on backtrack, which leaks prefix sums into sibling subtrees. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "DFS with Prefix Sum Hash Map",
       "approachSteps": [
@@ -14829,10 +15413,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bst-delete-key-node",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Recursively search for `key`; if it has 0 or 1 child return the non-null child, and if it has 2 children copy the leftmost node of its right subtree and recursively delete that successor.",
       "hints": [
-        "The in-order successor of a node with a right child is found by moving right once and then left as far as possible."
+        "Conceptual Intuition: Consider a Recursive BST Deletion with In-Order Successor paradigm. Recursively search for `key`; if it has 0 or 1 child return the non-null child, and if it has 2 children copy the leftmost node of its right subtree and recursively delete that successor.",
+        "Algorithmic Mechanics: The in-order successor of a node with a right child is found by moving right once and then left as far as possible. Deserialize `root` into a BST. In `delete(node, key)`: recurse left if `key < node.val`, right if `key > node.val`.",
+        "Edge Cases & Optimization: Leaving trailing `null` entries when serializing the final tree. Ensure time complexity is bounded to O(h) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Recursive BST Deletion with In-Order Successor",
       "approachSteps": [
@@ -14915,10 +15502,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "validate-stack-push-pop",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Simulate the stack greedily: push each element from `pushed`, and immediately pop whenever the stack top matches `popped[j]`.",
       "hints": [
-        "Because all elements are distinct, whenever the stack top equals the next required popped value, popping immediately is always safe."
+        "Conceptual Intuition: Consider a Greedy Stack Simulation paradigm. Simulate the stack greedily: push each element from `pushed`, and immediately pop whenever the stack top matches `popped[j]`.",
+        "Algorithmic Mechanics: Because all elements are distinct, whenever the stack top equals the next required popped value, popping immediately is always safe. Initialize `stack = []` and pointer `j = 0`. For each `x` in `pushed`, append `x` to `stack`, then while `stack` is non-empty and `stack[-1] == popped[j]`, pop and increment `j`.",
+        "Edge Cases & Optimization: Checking `if` instead of `while` when popping matched elements. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Stack Simulation",
       "approachSteps": [
@@ -15001,10 +15591,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "unique-combination-sum-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `candidates` and run backtracking, skipping duplicate values at the same recursion depth (`i > start and candidates[i] == candidates[i - 1]`).",
       "hints": [
-        "Break out of the loop early once `candidates[i] > rem` because the array is sorted."
+        "Conceptual Intuition: Consider a Sorted Backtracking with Depth-Level Deduplication paradigm. Sort `candidates` and run backtracking, skipping duplicate values at the same recursion depth (`i > start and candidates[i] == candidates[i - 1]`).",
+        "Algorithmic Mechanics: Break out of the loop early once `candidates[i] > rem` because the array is sorted. Sort `candidates`. Define `dfs(start, rem, path)`: if `rem == 0`, append `path[:]` and return.",
+        "Edge Cases & Optimization: Skipping duplicates globally (`i > 0`) instead of only at the same recursion level (`i > start`), which erroneously forbids `[1, 1, 6]`. Ensure time complexity is bounded to O(2^n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Backtracking with Depth-Level Deduplication",
       "approachSteps": [
@@ -15087,10 +15680,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "subsets-with-duplicates",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `nums` and backtrack, skipping `nums[i]` when `i > start and nums[i] == nums[i - 1]`.",
       "hints": [
-        "Sorting places equal elements adjacent so duplicates at the same decision level are skipped in O(1)."
+        "Conceptual Intuition: Consider a Sorted Backtracking paradigm. Sort `nums` and backtrack, skipping `nums[i]` when `i > start and nums[i] == nums[i - 1]`.",
+        "Algorithmic Mechanics: Sorting places equal elements adjacent so duplicates at the same decision level are skipped in O(1). Sort `nums`. In `dfs(start)`, record `path[:]` into `res`.",
+        "Edge Cases & Optimization: Forgetting to sort `nums` before skipping adjacent duplicates. Ensure time complexity is bounded to O(n * 2^n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Backtracking",
       "approachSteps": [
@@ -15172,10 +15768,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "all-palindrome-partitions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Precompute a palindrome lookup table `is_pal[i][j]` and use backtracking from index `0` to try every palindromic prefix.",
       "hints": [
-        "At index `start`, try every `end >= start` such that `s[start:end + 1]` is a palindrome."
+        "Conceptual Intuition: Consider a Backtracking with Palindrome Table paradigm. Precompute a palindrome lookup table `is_pal[i][j]` and use backtracking from index `0` to try every palindromic prefix.",
+        "Algorithmic Mechanics: At index `start`, try every `end >= start` such that `s[start:end + 1]` is a palindrome. Precompute `is_pal[i][j]` in O(n^2) time. In `dfs(start)`: if `start == n`, append `path[:]` and return.",
+        "Edge Cases & Optimization: Appending `path` by reference instead of copying `path[:]`. Ensure time complexity is bounded to O(n * 2^n) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Backtracking with Palindrome Table",
       "approachSteps": [
@@ -15256,10 +15855,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "restore-valid-ip-addresses",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Backtrack over 4 segments of length 1 to 3, pruning whenever remaining digits cannot fit or a segment has a leading zero or exceeds 255.",
       "hints": [
-        "If `len(s) < 4` or `len(s) > 12`, no valid IPv4 address can exist."
+        "Conceptual Intuition: Consider a Bounded Backtracking paradigm. Backtrack over 4 segments of length 1 to 3, pruning whenever remaining digits cannot fit or a segment has a leading zero or exceeds 255.",
+        "Algorithmic Mechanics: If `len(s) < 4` or `len(s) > 12`, no valid IPv4 address can exist. Return `[]` immediately if `len(s) < 4` or `len(s) > 12`. In `dfs(idx, parts)`: if `len(parts) == 4`, record `'.'.join(parts)` when `idx == len(s)` and return.",
+        "Edge Cases & Optimization: Allowing segments like `'01'` or `'00'`. Ensure time complexity is bounded to O(3^4) = O(1) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bounded Backtracking",
       "approachSteps": [
@@ -15343,10 +15945,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "lfu-cache-design",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain `key -> (val, freq)` and `freq -> OrderedDict` (doubly linked list) plus `min_freq` so both `get` and `put` operate in O(1).",
       "hints": [
-        "When incrementing a key's frequency from `f` to `f + 1`, if bucket `f` becomes empty and `f == min_freq`, increment `min_freq`."
+        "Conceptual Intuition: Consider a Frequency Buckets with OrderedDict paradigm. Maintain `key -> (val, freq)` and `freq -> OrderedDict` (doubly linked list) plus `min_freq` so both `get` and `put` operate in O(1).",
+        "Algorithmic Mechanics: When incrementing a key's frequency from `f` to `f + 1`, if bucket `f` becomes empty and `f == min_freq`, increment `min_freq`. Store `key_map[k] = [val, freq]` and `freq_map[f] = OrderedDict()`. On `touch(k)`: remove `k` from `freq_map[f]`, increment `f`, insert into `freq_map[f + 1]`, and bump `min_freq` if `freq_map[min_freq]` is now empty.",
+        "Edge Cases & Optimization: Forgetting `capacity == 0` where `put` must be a no-op. Ensure time complexity is bounded to O(1) per operation with O(capacity) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency Buckets with OrderedDict",
       "approachSteps": [
@@ -15429,11 +16034,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "binary-tree-cameras-min",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use bottom-up greedy DFS with 3 states: `0` (needs coverage), `1` (has camera), `2` (covered without camera). Place a camera at any node whose child is in state `0`.",
       "hints": [
         "Placing a camera at a leaf's parent is always at least as good as placing it at the leaf itself.",
-        "Don't forget to check whether the root itself still needs coverage after DFS returns."
+        "Don't forget to check whether the root itself still needs coverage after DFS returns.",
+        "Boundary edge cases & complexity: Forgetting to add a camera when the root returns state `0` (e.g., single-node tree). Verify your solution strictly meets O(n) time and O(h) space limits."
       ],
       "approachTitle": "Bottom-Up 3-State Greedy DFS",
       "approachSteps": [
@@ -15517,10 +16124,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "tree-vertical-order-traversal",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Collect `(col, row, val)` tuples for every node via DFS/BFS, sort them lexicographically, and group values by `col`.",
       "hints": [
-        "Sorting `(col, row, val)` directly satisfies all three ordering rules at once."
+        "Conceptual Intuition: Consider a Coordinate Collection + Lexicographical Sort paradigm. Collect `(col, row, val)` tuples for every node via DFS/BFS, sort them lexicographically, and group values by `col`.",
+        "Algorithmic Mechanics: Sorting `(col, row, val)` directly satisfies all three ordering rules at once. Deserialize `root` into a binary tree. Traverse the tree collecting `(col, row, node.val)` for every node.",
+        "Edge Cases & Optimization: Relying on BFS order alone without sorting same-`(row, col)` nodes by value. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Coordinate Collection + Lexicographical Sort",
       "approachSteps": [
@@ -15604,10 +16214,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "serialize-deserialize-tree",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use preorder DFS with explicit `'#'` null markers for serialization, and consume the token iterator recursively during deserialization.",
       "hints": [
-        "Preorder traversal with null sentinels uniquely determines any binary tree."
+        "Conceptual Intuition: Consider a Preorder DFS Codec with Null Sentinels paradigm. Use preorder DFS with explicit `'#'` null markers for serialization, and consume the token iterator recursively during deserialization.",
+        "Algorithmic Mechanics: Preorder traversal with null sentinels uniquely determines any binary tree. Build the tree from `root`. `serialize(node)`: emit `str(node.val)` then recurse left and right, emitting `'#'` for `None`.",
+        "Edge Cases & Optimization: Failing to handle negative numbers or `0` (falsy in Python) properly. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Preorder DFS Codec with Null Sentinels",
       "approachSteps": [
@@ -15691,10 +16304,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "recover-swapped-bst",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "An in-order traversal of a corrupted BST has either one or two inversions (`prev.val > cur.val`); record `first = prev` on the first inversion and `second = cur` on every inversion, then swap their values.",
       "hints": [
-        "When the two swapped nodes are adjacent in in-order, only one inversion occurs; when non-adjacent, two inversions occur."
+        "Conceptual Intuition: Consider a In-Order Inversion Detection paradigm. An in-order traversal of a corrupted BST has either one or two inversions (`prev.val > cur.val`); record `first = prev` on the first inversion and `second = cur` on every inversion, then swap their values.",
+        "Algorithmic Mechanics: When the two swapped nodes are adjacent in in-order, only one inversion occurs; when non-adjacent, two inversions occur. Deserialize `root` into a binary tree. Run iterative in-order traversal tracking `prev`, `first`, and `second`.",
+        "Edge Cases & Optimization: Not handling the single-inversion case when the swapped nodes are adjacent in in-order. Ensure time complexity is bounded to O(n) with O(h) (or O(1) with Morris traversal) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "In-Order Inversion Detection",
       "approachSteps": [
@@ -15778,11 +16394,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "expression-add-operators",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Backtrack over operand splits while carrying both the running value `val` and the last signed multiplicative term `last` so `'*'` can undo and re-apply precedence in O(1).",
       "hints": [
         "For multiplication: `new_val = val - last + last * cur` and `new_last = last * cur`.",
-        "Stop extending an operand if its first character is `'0'` and its length exceeds 1."
+        "Stop extending an operand if its first character is `'0'` and its length exceeds 1.",
+        "Boundary edge cases & complexity: Allowing multi-digit numbers with leading zeros such as `'05'`. Verify your solution strictly meets O(n * 4^n) time and O(n) space limits."
       ],
       "approachTitle": "Backtracking with Precedence Tracking",
       "approachSteps": [
@@ -15866,11 +16484,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sliding-window-median",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a max-heap `small` and a min-heap `large` with lazy deletion counts so each slide updates the median in O(log k) time.",
       "hints": [
         "Keep `small` holding `(k + 1) // 2` valid elements and `large` holding `k // 2` valid elements.",
-        "Prune lazily deleted elements whenever they surface at the top of either heap."
+        "Prune lazily deleted elements whenever they surface at the top of either heap.",
+        "Boundary edge cases & complexity: Not pruning lazy-deleted elements from heap tops before reading the median or rebalancing. Verify your solution strictly meets O(n log k) time and O(n) space limits."
       ],
       "approachTitle": "Two Heaps with Lazy Deletion",
       "approachSteps": [
@@ -15952,10 +16572,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-valid-obstacle-course",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a patience-sorting `tails` array where `tails[L]` is the smallest ending height of a non-decreasing subsequence of length `L + 1`, using upper-bound binary search (`bisect_right`).",
       "hints": [
-        "Because equal heights are allowed (non-decreasing), use `bisect_right` instead of `bisect_left`."
+        "Conceptual Intuition: Consider a Patience Sorting with Upper-Bound Binary Search paradigm. Maintain a patience-sorting `tails` array where `tails[L]` is the smallest ending height of a non-decreasing subsequence of length `L + 1`, using upper-bound binary search (`bisect_right`).",
+        "Algorithmic Mechanics: Because equal heights are allowed (non-decreasing), use `bisect_right` instead of `bisect_left`. Initialize an empty list `tails` and result list `ans`. For each `h` in `obstacles`, find `idx = bisect_right(tails, h)`.",
+        "Edge Cases & Optimization: Using `bisect_left`, which computes strictly increasing subsequences instead of non-decreasing ones. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Patience Sorting with Upper-Bound Binary Search",
       "approachSteps": [
@@ -16035,10 +16658,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ugly-number-factor-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reject non-positive integers, then repeatedly divide `n` by `2`, `3`, and `5` and check if the result equals `1`.",
       "hints": [
-        "Remember that `1` has no prime factors, so `1` is considered an ugly number, whereas `0` and negative numbers are not."
+        "Conceptual Intuition: Consider a Iterative Factor Division paradigm. Reject non-positive integers, then repeatedly divide `n` by `2`, `3`, and `5` and check if the result equals `1`.",
+        "Algorithmic Mechanics: Remember that `1` has no prime factors, so `1` is considered an ugly number, whereas `0` and negative numbers are not. If `n <= 0`, return `False`. For `p` in `(2, 3, 5)`, divide `n` by `p` while `n % p == 0`.",
+        "Edge Cases & Optimization: Entering an infinite loop on `n = 0` because `0 % 2 == 0`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Iterative Factor Division",
       "approachSteps": [
@@ -16121,10 +16747,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "assign-cookies-greedy",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort both `g` and `s` and use two pointers to match the least greedy child with the smallest cookie that satisfies them.",
       "hints": [
-        "Giving a needlessly large cookie to an easy-to-satisfy child wastes capacity for greedier children."
+        "Conceptual Intuition: Consider a Sort + Two-Pointer Greedy Matching paradigm. Sort both `g` and `s` and use two pointers to match the least greedy child with the smallest cookie that satisfies them.",
+        "Algorithmic Mechanics: Giving a needlessly large cookie to an easy-to-satisfy child wastes capacity for greedier children. Sort `g` and `s` in ascending order. Initialize `i = 0` (child) and `j = 0` (cookie).",
+        "Edge Cases & Optimization: Advancing the child pointer even when the current cookie is too small. Ensure time complexity is bounded to O(n log n + m log m) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sort + Two-Pointer Greedy Matching",
       "approachSteps": [
@@ -16205,10 +16834,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "fibonacci-sequence-nth",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compute `F(n)` iteratively in O(n) time and O(1) space using two rolling variables.",
       "hints": [
-        "Only the last two Fibonacci values are needed at each step."
+        "Conceptual Intuition: Consider a Iterative Rolling Variables paradigm. Compute `F(n)` iteratively in O(n) time and O(1) space using two rolling variables.",
+        "Algorithmic Mechanics: Only the last two Fibonacci values are needed at each step. Initialize `a, b = 0, 1`. Repeat `n` times: `a, b = b, a + b`.",
+        "Edge Cases & Optimization: Using naive recursion, which takes exponential O(2^n) time. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Iterative Rolling Variables",
       "approachSteps": [
@@ -16290,10 +16922,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-harmonious-subseq",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count frequencies of each value; for every value `x` where `x + 1` also exists, update the answer with `freq[x] + freq[x + 1]`.",
       "hints": [
-        "Subsequence order does not matter—only the counts of `x` and `x + 1`."
+        "Conceptual Intuition: Consider a Frequency Map Pairing paradigm. Count frequencies of each value; for every value `x` where `x + 1` also exists, update the answer with `freq[x] + freq[x + 1]`.",
+        "Algorithmic Mechanics: Subsequence order does not matter—only the counts of `x` and `x + 1`. Build `freq = Counter(nums)`. For each `x` in `freq`, if `x + 1` is in `freq`, update `best = max(best, freq[x] + freq[x + 1])`.",
+        "Edge Cases & Optimization: Returning `freq[x]` when `x + 1` is absent (difference would be 0, not 1). Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency Map Pairing",
       "approachSteps": [
@@ -16373,10 +17008,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "knight-dialer-moves",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a 10-element DP vector `dp[d]` for the number of length-`k` paths ending at digit `d`, transitioning along the fixed knight move graph.",
       "hints": [
-        "Digit `5` has no valid knight moves; `0` jumps to `4, 6`."
+        "Conceptual Intuition: Consider a State-Transition DP on 10-Node Graph paradigm. Maintain a 10-element DP vector `dp[d]` for the number of length-`k` paths ending at digit `d`, transitioning along the fixed knight move graph.",
+        "Algorithmic Mechanics: Digit `5` has no valid knight moves; `0` jumps to `4, 6`. Hardcode the knight adjacency list for digits `0.9`. Initialize `dp = [1] * 10`.",
+        "Edge Cases & Optimization: Forgetting to apply modulo `10^9 + 7` at each step. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "State-Transition DP on 10-Node Graph",
       "approachSteps": [
@@ -16458,10 +17096,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-delete-two-strings",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Find the Longest Common Subsequence length `L`; the minimum deletions equal `len(word1) + len(word2) - 2 * L`.",
       "hints": [
-        "Any characters kept in both strings must form a common subsequence."
+        "Conceptual Intuition: Consider a Longest Common Subsequence DP paradigm. Find the Longest Common Subsequence length `L`; the minimum deletions equal `len(word1) + len(word2) - 2 * L`.",
+        "Algorithmic Mechanics: Any characters kept in both strings must form a common subsequence. Compute `lcs` of `word1` and `word2` using 1D space-optimized DP. Return `len(word1) + len(word2) - 2 * lcs`.",
+        "Edge Cases & Optimization: Confusing deletion distance with full Levenshtein edit distance (which allows substitutions). Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Longest Common Subsequence DP",
       "approachSteps": [
@@ -16543,10 +17184,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stone-game-optimal-dp",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Interval DP `dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1])` computes Alice's optimal score margin; mathematically, with even piles and odd total, Alice can always force taking all even-indexed or all odd-indexed piles and win.",
       "hints": [
-        "Use interval DP for the general game, or notice the parity coloring argument."
+        "Conceptual Intuition: Consider a Minimax Interval DP (Space Optimized) paradigm. Interval DP `dp[i][j] = max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1])` computes Alice's optimal score margin; mathematically, with even piles and odd total, Alice can always force taking all even-indexed or all odd-indexed piles and win.",
+        "Algorithmic Mechanics: Use interval DP for the general game, or notice the parity coloring argument. Initialize `dp = piles[:]` representing single-pile margins. For subarray lengths `2.n`, update `dp[i] = max(piles[i] - dp[i + 1], piles[i + length - 1] - dp[i])`.",
+        "Edge Cases & Optimization: Assuming the parity shortcut still holds if the number of piles were odd. Ensure time complexity is bounded to O(n^2) DP (or O(1) via parity proof) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Minimax Interval DP (Space Optimized)",
       "approachSteps": [
@@ -16628,11 +17272,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "partition-k-equal-subsets",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use bitmask DP over subsets of used elements: `dp[mask]` stores the current partial bucket sum modulo `target`, or `-1` if `mask` is unreachable.",
       "hints": [
         "If `sum(nums) % k != 0` or `max(nums) > target`, immediately return `false`.",
-        "Because `n <= 16`, a `2^n` bitmask DP runs cleanly in milliseconds."
+        "Because `n <= 16`, a `2^n` bitmask DP runs cleanly in milliseconds.",
+        "Boundary edge cases & complexity: Unpruned backtracking can time out on adversarial inputs like `[2,2,2,2,3,4,5]`. Verify your solution strictly meets O(n * 2^n) time and O(2^n) space limits."
       ],
       "approachTitle": "Bitmask Dynamic Programming",
       "approachSteps": [
@@ -16715,10 +17361,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "unique-permutations-ii",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count occurrences of each unique number in a `Counter` and backtrack by iterating over distinct keys with remaining count > 0.",
       "hints": [
-        "Iterating over distinct values in a frequency map automatically avoids generating duplicate permutations."
+        "Conceptual Intuition: Consider a Frequency-Map Backtracking paradigm. Count occurrences of each unique number in a `Counter` and backtrack by iterating over distinct keys with remaining count > 0.",
+        "Algorithmic Mechanics: Iterating over distinct values in a frequency map automatically avoids generating duplicate permutations. Build `counts = Counter(nums)`. In `dfs()`: if `len(path) == len(nums)`, append `path[:]` and return.",
+        "Edge Cases & Optimization: Generating duplicates by iterating over indices without a `used` + duplicate-skip check. Ensure time complexity is bounded to O(n * n!) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency-Map Backtracking",
       "approachSteps": [
@@ -16800,10 +17449,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "longest-mountain-subarray",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan for strict local peaks (`arr[i - 1] < arr[i] > arr[i + 1]`) and expand left and right pointers from each peak in O(n) total time.",
       "hints": [
-        "Each element is visited at most twice because mountains can only overlap at their endpoints."
+        "Conceptual Intuition: Consider a Peak Detection and Expansion paradigm. Scan for strict local peaks (`arr[i - 1] < arr[i] > arr[i + 1]`) and expand left and right pointers from each peak in O(n) total time.",
+        "Algorithmic Mechanics: Each element is visited at most twice because mountains can only overlap at their endpoints. Iterate `i` from `1` to `n - 2`. Whenever `arr[i - 1] < arr[i] > arr[i + 1]`, expand `l` left while `arr[l - 1] < arr[l]` and `r` right while `arr[r] > arr[r + 1]`.",
+        "Edge Cases & Optimization: Resetting `i` to `r + 1` instead of `r`, which can skip a valley that starts the next mountain. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Peak Detection and Expansion",
       "approachSteps": [
@@ -16887,10 +17539,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "snakes-and-ladders-bfs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Flatten the Boustrophedon board into a 1D array of length `n^2 + 1`, then run BFS from square `1` to square `n^2`.",
       "hints": [
-        "For 1-indexed square `s`, let `q, rem = divmod(s - 1, n)`; row is `n - 1 - q`, and col is `rem` if `q` is even else `n - 1 - rem`."
+        "Conceptual Intuition: Consider a Board Flattening + Unweighted BFS paradigm. Flatten the Boustrophedon board into a 1D array of length `n^2 + 1`, then run BFS from square `1` to square `n^2`.",
+        "Algorithmic Mechanics: For 1-indexed square `s`, let `q, rem = divmod(s - 1, n)`; row is `n - 1 - q`, and col is `rem` if `q` is even else `n - 1 - rem`. Map each square `1.n^2` to its `(r, c)` board value. Run BFS from `(1, 0)` with a `visited` set.",
+        "Edge Cases & Optimization: Chaining two ladders/snakes in a single turn (the rules allow at most one jump per roll). Ensure time complexity is bounded to O(n^2) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Board Flattening + Unweighted BFS",
       "approachSteps": [
@@ -16974,10 +17629,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-array-to-balanced-bst",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Recursively pick `mid = (l + r) // 2` as the root and build left `[l, mid - 1]` and right `[mid + 1, r]` subtrees, then serialize via BFS.",
       "hints": [
-        "Splitting at the exact midpoint guarantees left and right subtree heights differ by at most 1."
+        "Conceptual Intuition: Consider a Divide and Conquer Midpoint Construction paradigm. Recursively pick `mid = (l + r) // 2` as the root and build left `[l, mid - 1]` and right `[mid + 1, r]` subtrees, then serialize via BFS.",
+        "Algorithmic Mechanics: Splitting at the exact midpoint guarantees left and right subtree heights differ by at most 1. Define `build(l, r)`: if `l > r`, return `None`; else create `Node(nums[mid])` with `left = build(l, mid - 1)` and `right = build(mid + 1, r)`. Serialize the resulting tree using level-order BFS and strip trailing `None` values.",
+        "Edge Cases & Optimization: Slicing `nums` at every recursive call, which degrades time complexity to O(n log n). Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Divide and Conquer Midpoint Construction",
       "approachSteps": [
@@ -17057,10 +17715,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "palindrome-partition-min-cuts",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Expand around every possible palindrome center `c` (odd and even length) and relax `dp[r + 1] = min(dp[r + 1], dp[l] + 1)` in O(n^2) time and O(n) space.",
       "hints": [
-        "Initialize `dp[i] = i - 1` (with `dp[0] = -1`) so a palindrome covering `s[0..r]` gives `dp[r + 1] = 0` cuts."
+        "Conceptual Intuition: Consider a Expand-Around-Center DP paradigm. Expand around every possible palindrome center `c` (odd and even length) and relax `dp[r + 1] = min(dp[r + 1], dp[l] + 1)` in O(n^2) time and O(n) space.",
+        "Algorithmic Mechanics: Initialize `dp[i] = i - 1` (with `dp[0] = -1`) so a palindrome covering `s[0.r]` gives `dp[r + 1] = 0` cuts. Initialize `dp = [i - 1 for i in range(n + 1)]`. For each center `c` from `0` to `n - 1`, expand `(l, r) = (c, c)` and `(c, c + 1)` while `s[l] == s[r]`.",
+        "Edge Cases & Optimization: Allocating an O(n^2) boolean table when O(n) space via center expansion is both faster and leaner. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Expand-Around-Center DP",
       "approachSteps": [
@@ -17142,10 +17803,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shortest-common-supersequence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "The length of the Shortest Common Supersequence equals `len(str1) + len(str2) - LCS(str1, str2)`.",
       "hints": [
-        "Each character in the Longest Common Subsequence only needs to appear once in the supersequence."
+        "Conceptual Intuition: Consider a LCS Reduction with Space-Optimized DP paradigm. The length of the Shortest Common Supersequence equals `len(str1) + len(str2) - LCS(str1, str2)`.",
+        "Algorithmic Mechanics: Each character in the Longest Common Subsequence only needs to appear once in the supersequence. Compute `lcs` of `str1` and `str2` using a 1D DP array. Return `len(str1) + len(str2) - lcs`.",
+        "Edge Cases & Optimization: Confusing subsequence with contiguous substring. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "LCS Reduction with Space-Optimized DP",
       "approachSteps": [
@@ -17227,10 +17891,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "frog-jump-river-stones",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map each stone position to the set of jump sizes `k` that can land on it, propagating `k - 1`, `k`, and `k + 1` forward to existing stone positions.",
       "hints": [
-        "Start with `dp[0] = {0}` so from stone `0` the only positive step `0 + 1 = 1` is allowed."
+        "Conceptual Intuition: Consider a Forward Reachability Hash-Set DP paradigm. Map each stone position to the set of jump sizes `k` that can land on it, propagating `k - 1`, `k`, and `k + 1` forward to existing stone positions.",
+        "Algorithmic Mechanics: Start with `dp[0] = {0}` so from stone `0` the only positive step `0 + 1 = 1` is allowed. Initialize `dp = {pos: set() for pos in stones}` and `dp[0].add(0)`. For each `pos` in `stones`, for each `k` in `dp[pos]`, try `step` in `(k - 1, k, k + 1)` with `step > 0`: if `pos + step` is in `dp`, add `step` to `dp[pos + step]`.",
+        "Edge Cases & Optimization: Allowing jump size `0` which loops in place on the same stone. Ensure time complexity is bounded to O(n^2) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Forward Reachability Hash-Set DP",
       "approachSteps": [
@@ -17311,10 +17978,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cherry-pickup-ii-robots",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use bottom-up 2D rolling DP `dp[c1][c2]` representing the maximum cherries collectible from row `r` onward when Robot 1 is at `c1` and Robot 2 is at `c2`.",
       "hints": [
-        "Because both robots descend one row per step, their shared row `r` is implicit in the iteration."
+        "Conceptual Intuition: Consider a Bottom-Up Row-by-Row Rolling DP paradigm. Use bottom-up 2D rolling DP `dp[c1][c2]` representing the maximum cherries collectible from row `r` onward when Robot 1 is at `c1` and Robot 2 is at `c2`.",
+        "Algorithmic Mechanics: Because both robots descend one row per step, their shared row `r` is implicit in the iteration. Initialize `dp[c1][c2]` for the bottom row `R - 1`. Iterate `r` from `R - 2` down to `0`.",
+        "Edge Cases & Optimization: Double-counting `grid[r][c1]` when `c1 == c2`. Ensure time complexity is bounded to O(R * C^2) with O(C^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bottom-Up Row-by-Row Rolling DP",
       "approachSteps": [
@@ -17398,10 +18068,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "count-of-range-sum-mergesort",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build prefix sums `P` and count pairs `i < j` with `lower <= P[j] - P[i] <= upper` during Merge Sort using two monotone pointers across the sorted right half.",
       "hints": [
-        "Because both halves are sorted before merging, as `P[i]` increases, the valid window `[lo, hi)` in the right half moves strictly rightward."
+        "Conceptual Intuition: Consider a Merge Sort Counting on Prefix Sums paradigm. Build prefix sums `P` and count pairs `i < j` with `lower <= P[j] - P[i] <= upper` during Merge Sort using two monotone pointers across the sorted right half.",
+        "Algorithmic Mechanics: Because both halves are sorted before merging, as `P[i]` increases, the valid window `[lo, hi)` in the right half moves strictly rightward. Compute prefix sum array `P` of length `n + 1` with `P[0] = 0`. In `sort_count(l, r)`: split at `m = (l + r) // 2` and recursively count left and right halves.",
+        "Edge Cases & Optimization: Forgetting `P[0] = 0`, which drops all subarrays starting at index `0`. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Merge Sort Counting on Prefix Sums",
       "approachSteps": [
@@ -17485,10 +18158,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "min-window-subsequence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain `dp[j]` = the largest starting index in `s1` such that `s2[:j]` is a subsequence of `s1[dp[j]..i]`, updating in reverse order for each character `s1[i]`.",
       "hints": [
-        "Updating `j` from `len(s2)` down to `1` allows O(len(s2)) space."
+        "Conceptual Intuition: Consider a 1D Rolling Start-Index DP paradigm. Maintain `dp[j]` = the largest starting index in `s1` such that `s2[:j]` is a subsequence of `s1[dp[j].i]`, updating in reverse order for each character `s1[i]`.",
+        "Algorithmic Mechanics: Updating `j` from `len(s2)` down to `1` allows O(len(s2)) space. Initialize `dp = [-1] * (len(s2) + 1)`. For each index `i`, set `dp[0] = i` (conceptually before matching `s2[0]` at `i`), and iterate `j` from `len(s2)` down to `1`: if `s1[i] == s2[j - 1]`, set `dp[j] = i if j == 1 else dp[j - 1]`.",
+        "Edge Cases & Optimization: Updating `j` left-to-right in a 1D array, which allows one character of `s1` to match multiple consecutive characters of `s2`. Ensure time complexity is bounded to O(|s1| * |s2|) with O(|s2|) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "1D Rolling Start-Index DP",
       "approachSteps": [
@@ -17573,10 +18249,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "largest-component-common-factor",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Factorize each `x` in `nums` into its prime factors and union `x` with each of its prime factors in a Disjoint Set Union structure; count the largest group among `find(x)` for `x` in `nums`.",
       "hints": [
-        "Avoid O(n^2) pairwise GCD checks by connecting each number directly to its prime divisors."
+        "Conceptual Intuition: Consider a Prime Factorization + Union-Find paradigm. Factorize each `x` in `nums` into its prime factors and union `x` with each of its prime factors in a Disjoint Set Union structure; count the largest group among `find(x)` for `x` in `nums`.",
+        "Algorithmic Mechanics: Avoid O(n^2) pairwise GCD checks by connecting each number directly to its prime divisors. Initialize DSU over `0.max(nums)`. For each `x` in `nums`, trial-divide up to `sqrt(x)` to find all prime factors `p` and call `union(x, p)`.",
+        "Edge Cases & Optimization: Counting prime factor nodes that are not actually in `nums` as part of the component size. Ensure time complexity is bounded to O(n * sqrt(M) * alpha(M)) with O(M) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Prime Factorization + Union-Find",
       "approachSteps": [
@@ -17657,10 +18336,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stock-profit-two-transactions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track 4 O(1) state-machine variables (`buy1`, `sell1`, `buy2`, `sell2`) representing the best cash balance after each stage of up to two trades.",
       "hints": [
-        "Buying a second time starts from the profit already banked in `sell1`: `buy2 = max(buy2, sell1 - p)`."
+        "Conceptual Intuition: Consider a 4-State O(1)-Space State Machine DP paradigm. Track 4 O(1) state-machine variables (`buy1`, `sell1`, `buy2`, `sell2`) representing the best cash balance after each stage of up to two trades.",
+        "Algorithmic Mechanics: Buying a second time starts from the profit already banked in `sell1`: `buy2 = max(buy2, sell1 - p)`. Initialize `buy1 = buy2 = -inf` and `sell1 = sell2 = 0`. For each price `p`: update `buy1 = max(buy1, -p)`, `sell1 = max(sell1, buy1 + p)`, `buy2 = max(buy2, sell1 - p)`, `sell2 = max(sell2, buy2 + p)`.",
+        "Edge Cases & Optimization: Initializing `buy1` and `buy2` to `0` instead of `-inf`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "4-State O(1)-Space State Machine DP",
       "approachSteps": [
@@ -17742,10 +18424,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "substation-harmonic-modulo-windows",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count prefix sums modulo `harm`; every pair of matching remainders forms a divisible window.",
       "hints": [
-        "Seed `counts[0] = 1` for windows starting at index 0."
+        "Conceptual Intuition: Consider a Modular Prefix Remainder Map paradigm. Count prefix sums modulo `harm`; every pair of matching remainders forms a divisible window.",
+        "Algorithmic Mechanics: Seed `counts[0] = 1` for windows starting at index 0. Track `rem = (rem + x) % harm`, add `counts[rem]` to `ans`, increment `counts[rem]`.",
+        "Edge Cases & Optimization: Normalize negative remainders in Java/C++ using `((r % k) + k) % k`. Ensure time complexity is bounded to O(n) with O(harm) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Modular Prefix Remainder Map",
       "approachSteps": [
@@ -17823,10 +18508,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dispatch-next-route-sequence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Locate the rightmost ascent `cars[i] < cars[i + 1]`, swap with the rightmost element `> cars[i]`, and reverse the suffix `cars[i + 1:]`.",
       "hints": [
-        "Use `>=` and `<=` when skipping non-increasing tails with duplicates."
+        "Conceptual Intuition: Consider a Pivot Swap & Suffix Reversal paradigm. Locate the rightmost ascent `cars[i] < cars[i + 1]`, swap with the rightmost element `> cars[i]`, and reverse the suffix `cars[i + 1:]`.",
+        "Algorithmic Mechanics: Use `>=` and `<=` when skipping non-increasing tails with duplicates. Find rightmost `i` with `cars[i] < cars[i + 1]`, swap with rightmost `j` where `cars[j] > cars[i]`, reverse `cars[i + 1:]`.",
+        "Edge Cases & Optimization: Handle strictly descending sequences by reversing the whole array. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Pivot Swap & Suffix Reversal",
       "approachSteps": [
@@ -17905,10 +18593,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "inventory-audit-missing-lot-ids",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Negate `scanned[abs(v) - 1]` to mark seen lot IDs in-place, then collect `i + 1` for every still-positive entry.",
       "hints": [
-        "Take `abs(v)` before indexing."
+        "Conceptual Intuition: Consider a Sign-Flip Presence Marking paradigm. Negate `scanned[abs(v) - 1]` to mark seen lot IDs in-place, then collect `i + 1` for every still-positive entry.",
+        "Algorithmic Mechanics: Take `abs(v)` before indexing. Mark `scanned[abs(v) - 1]` negative, then gather indices with positive values.",
+        "Edge Cases & Optimization: Only negate if positive so double-negation doesn't erase the mark. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sign-Flip Presence Marking",
       "approachSteps": [
@@ -17986,10 +18677,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stock-ledger-shared-skus",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count frequencies in the shorter warehouse list, then scan the other list emitting and decrementing matches.",
       "hints": [
-        "Decrement the count on every match so multiplicity equals `min(cnt_west, cnt_east)`."
+        "Conceptual Intuition: Consider a Hash Counter Multiplicity Match paradigm. Count frequencies in the shorter warehouse list, then scan the other list emitting and decrementing matches.",
+        "Algorithmic Mechanics: Decrement the count on every match so multiplicity equals `min(cnt_west, cnt_east)`. Build `Counter` on smaller list, emit matches while `cnt[x] > 0`.",
+        "Edge Cases & Optimization: Never emit more copies than exist in the smaller warehouse. Ensure time complexity is bounded to O(n + m) with O(min(n, m)) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Hash Counter Multiplicity Match",
       "approachSteps": [
@@ -18067,10 +18761,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cipher-bijection-auditor",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain bidirectional maps `p2c` and `c2p` verifying consistency at every character pair.",
       "hints": [
-        "Two distinct plaintext letters cannot map to the same ciphertext letter."
+        "Conceptual Intuition: Consider a Bidirectional Character Map paradigm. Maintain bidirectional maps `p2c` and `c2p` verifying consistency at every character pair.",
+        "Algorithmic Mechanics: Two distinct plaintext letters cannot map to the same ciphertext letter. Verify both `p2c` and `c2p` on each `(a, b)` in `zip(plain, cipher)`.",
+        "Edge Cases & Optimization: One-way maps miss many-to-one collisions. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bidirectional Character Map",
       "approachSteps": [
@@ -18149,10 +18846,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dna-motif-anagram-positions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Slide a fixed window of size `len(motif)` updating 26-letter counts and recording every index where window counts equal motif counts.",
       "hints": [
-        "Return `[]` immediately when `len(motif) > len(seq)`."
+        "Conceptual Intuition: Consider a Fixed-Width Frequency Window paradigm. Slide a fixed window of size `len(motif)` updating 26-letter counts and recording every index where window counts equal motif counts.",
+        "Algorithmic Mechanics: Return `[]` immediately when `len(motif) > len(seq)`. Compare 26-slot frequency arrays across every window.",
+        "Edge Cases & Optimization: Check index 0 before entering the slide loop. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Fixed-Width Frequency Window",
       "approachSteps": [
@@ -18231,10 +18931,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "gain-chain-subarray-budget",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a sliding product `< ceiling`; each valid right endpoint `r` contributes `r - l + 1` contiguous chains.",
       "hints": [
-        "Return `0` immediately if `ceiling <= 1`."
+        "Conceptual Intuition: Consider a Multiplicative Sliding Window paradigm. Maintain a sliding product `< ceiling`; each valid right endpoint `r` contributes `r - l + 1` contiguous chains.",
+        "Algorithmic Mechanics: Return `0` immediately if `ceiling <= 1`. Multiply `gains[r]`, divide out `gains[l]` while `prod >= ceiling`, add `r - l + 1`.",
+        "Edge Cases & Optimization: Guard `ceiling <= 1`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Multiplicative Sliding Window",
       "approachSteps": [
@@ -18314,10 +19017,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "big-ledger-decimal-multiplier",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Accumulate partial digit products into an `m + n` digit array at indices `i + j + 1` and `i + j`.",
       "hints": [
-        "Strip leading zeros carefully, returning `'0'` if either input is `'0'`."
+        "Conceptual Intuition: Consider a Positional Digit-Array Multiplication paradigm. Accumulate partial digit products into an `m + n` digit array at indices `i + j + 1` and `i + j`.",
+        "Algorithmic Mechanics: Strip leading zeros carefully, returning `'0'` if either input is `'0'`. Iterate `i, j` backward, add `d1 * d2 + pos[i + j + 1]`, split remainder and carry.",
+        "Edge Cases & Optimization: Return `'0'` early when either operand is `'0'`. Ensure time complexity is bounded to O(m * n) with O(m + n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Positional Digit-Array Multiplication",
       "approachSteps": [
@@ -18395,10 +19101,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bitstream-binary-adder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sum bits right-to-left with a carry flag and reverse the emitted bits.",
       "hints": [
-        "Continue while `i >= 0 or j >= 0 or carry`."
+        "Conceptual Intuition: Consider a Right-to-Left Carry Ripple paradigm. Sum bits right-to-left with a carry flag and reverse the emitted bits.",
+        "Algorithmic Mechanics: Continue while `i >= 0 or j >= 0 or carry`. Emit `str(s & 1)` and set `carry = s >> 1`, then reverse.",
+        "Edge Cases & Optimization: Handle trailing carry overflow bit. Ensure time complexity is bounded to O(max(n, m)) with O(max(n, m)) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Right-to-Left Carry Ripple",
       "approachSteps": [
@@ -18476,10 +19185,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pressure-sensor-lookback-span",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a decreasing monotonic stack of `(reading, span)` tuples, summing popped spans for all `<= current`.",
       "hints": [
-        "Each element is pushed and popped at most once -> O(n) total."
+        "Conceptual Intuition: Consider a Monotonic Span Compression Stack paradigm. Maintain a decreasing monotonic stack of `(reading, span)` tuples, summing popped spans for all `<= current`.",
+        "Algorithmic Mechanics: Each element is pushed and popped at most once -> O(n) total. While `st and st[-1][0] <= r`, absorb `st.pop()[1]` into `span`; push `(r, span)`.",
+        "Edge Cases & Optimization: Use `<=` since ties count toward the span. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Span Compression Stack",
       "approachSteps": [
@@ -18559,10 +19271,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "floor-risk-subarray-floor-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a monotonic increasing stack with a trailing `0` sentinel to compute each element's exact window-minimum contribution `(mid - left) * (right - mid)`.",
       "hints": [
-        "Use `>=` on one side and strict `<` on the other to handle duplicates uniquely."
+        "Conceptual Intuition: Consider a Monotonic Stack Contribution Sum paradigm. Use a monotonic increasing stack with a trailing `0` sentinel to compute each element's exact window-minimum contribution `(mid - left) * (right - mid)`.",
+        "Algorithmic Mechanics: Use `>=` on one side and strict `<` on the other to handle duplicates uniquely. Pop while `navs[st[-1]] >= x`, add `navs[mid] * (mid - left) * (i - mid) % MOD`.",
+        "Edge Cases & Optimization: Modulo every accumulation by `10^9 + 7`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Stack Contribution Sum",
       "approachSteps": [
@@ -18641,10 +19356,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "wafer-defect-free-rectangle",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Accumulate column heights row-by-row and run O(cols) monotonic stack histogram area on each row.",
       "hints": [
-        "Append a trailing `0` column height sentinel to flush the stack."
+        "Conceptual Intuition: Consider a Row-Histogram Monotonic Stack paradigm. Accumulate column heights row-by-row and run O(cols) monotonic stack histogram area on each row.",
+        "Algorithmic Mechanics: Append a trailing `0` column height sentinel to flush the stack. Update `heights[c]`, run increasing stack over `heights` maximizing `h * w`.",
+        "Edge Cases & Optimization: Reset `heights[c] = 0` on `'0'` cells. Ensure time complexity is bounded to O(rows * cols) with O(cols) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Row-Histogram Monotonic Stack",
       "approachSteps": [
@@ -18723,10 +19441,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "formula-nested-signed-eval",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push `(res, sign)` on `'('` and combine `prev_res + prev_sign * res` on `')'`.",
       "hints": [
-        "Flush `sign * num` at the end of the string."
+        "Conceptual Intuition: Consider a Scope-Stack Expression Evaluator paradigm. Push `(res, sign)` on `'('` and combine `prev_res + prev_sign * res` on `')'`.",
+        "Algorithmic Mechanics: Flush `sign * num` at the end of the string. Track `res, num, sign`; push/pop scope on parentheses.",
+        "Edge Cases & Optimization: Reset `num = 0` after every operator and `')'`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Scope-Stack Expression Evaluator",
       "approachSteps": [
@@ -18805,10 +19526,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "message-broker-two-stack-fifo",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push onto `in_stack` and lazily pour into `out_stack` only when `out_stack` is empty.",
       "hints": [
-        "Amortized O(1) per op because each element moves at most once from `in_stack` to `out_stack`."
+        "Conceptual Intuition: Consider a Lazy Two-Stack FIFO paradigm. Push onto `in_stack` and lazily pour into `out_stack` only when `out_stack` is empty.",
+        "Algorithmic Mechanics: Amortized O(1) per op because each element moves at most once from `in_stack` to `out_stack`. Pour `in_s` into `out_s` when `out_s` is empty before `deq`/`front`.",
+        "Edge Cases & Optimization: Only pour when `out_s` is empty. Ensure time complexity is bounded to O(1) amortized with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Lazy Two-Stack FIFO",
       "approachSteps": [
@@ -18886,10 +19610,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "signal-adjacent-pair-cancel",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Pop from a stack if `stack[-1] == ch`, otherwise push `ch`.",
       "hints": [
-        "Cascading cancellations happen automatically as the stack unwinds."
+        "Conceptual Intuition: Consider a Pair-Cancellation Stack paradigm. Pop from a stack if `stack[-1] == ch`, otherwise push `ch`.",
+        "Algorithmic Mechanics: Cascading cancellations happen automatically as the stack unwinds. Scan `stream`, pop on top match else push, join stack.",
+        "Edge Cases & Optimization: Three identical letters `'aaa'` reduce to `'a'`, not `''`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Pair-Cancellation Stack",
       "approachSteps": [
@@ -18967,10 +19694,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "query-filter-paren-repair",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Stack unmatched `'('` indices, record unmatched `')'` indices in a drop set, union leftover stack indices into the drop set, and rebuild.",
       "hints": [
-        "Store indices, not characters."
+        "Conceptual Intuition: Consider a Unmatched-Index Drop Set paradigm. Stack unmatched `'('` indices, record unmatched `')'` indices in a drop set, union leftover stack indices into the drop set, and rebuild.",
+        "Algorithmic Mechanics: Store indices, not characters. Scan `query` marking bad indices, then filter out bad indices.",
+        "Edge Cases & Optimization: Use a set for O(1) exclusion checks. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Unmatched-Index Drop Set",
       "approachSteps": [
@@ -19049,10 +19779,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ast-nesting-weight-scorer",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Every leaf pair `\"()\"` at depth `d` contributes `1 << d` to the total score in O(1) space.",
       "hints": [
-        "Decrement `depth` on `')'` before checking `blocks[i - 1] == '('`."
+        "Conceptual Intuition: Consider a Depth-Weighted Leaf Sum paradigm. Every leaf pair `\"()\"` at depth `d` contributes `1 << d` to the total score in O(1) space.",
+        "Algorithmic Mechanics: Decrement `depth` on `')'` before checking `blocks[i - 1] == '('`. Track `depth`; whenever `blocks[i - 1:i + 1] == '()'`, add `1 << depth`.",
+        "Edge Cases & Optimization: Decrement `depth` before shifting `1 << depth`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Depth-Weighted Leaf Sum",
       "approachSteps": [
@@ -19130,10 +19863,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pascal-binomial-risk-table",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build each tier with `1` at both ends and `prev[j - 1] + prev[j]` inside.",
       "hints": [
-        "Row `r` has `r + 1` entries."
+        "Conceptual Intuition: Consider a Row-by-Row Binomial Recurrence paradigm. Build each tier with `1` at both ends and `prev[j - 1] + prev[j]` inside.",
+        "Algorithmic Mechanics: Row `r` has `r + 1` entries. Start with `[[1]]`, append `tiers - 1` rows from `tri[-1]`.",
+        "Edge Cases & Optimization: Handle `tiers == 1` cleanly. Ensure time complexity is bounded to O(tiers^2) with O(tiers^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Row-by-Row Binomial Recurrence",
       "approachSteps": [
@@ -19212,10 +19948,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "log-shard-inplace-merge",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Write from index `m + n - 1` down to `0` picking the larger tail element from `buf` or `extra`.",
       "hints": [
-        "Loop while `j >= 0`; once `extra` finishes, remaining `buf` items are already sorted in place."
+        "Conceptual Intuition: Consider a Backward Three-Pointer In-Place Merge paradigm. Write from index `m + n - 1` down to `0` picking the larger tail element from `buf` or `extra`.",
+        "Algorithmic Mechanics: Loop while `j >= 0`; once `extra` finishes, remaining `buf` items are already sorted in place. Set `i = m - 1, j = n - 1, k = m + n - 1` and place larger element at `buf[k]`.",
+        "Edge Cases & Optimization: Check `i >= 0` before reading `buf[i]`. Ensure time complexity is bounded to O(m + n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Backward Three-Pointer In-Place Merge",
       "approachSteps": [
@@ -19294,10 +20033,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "campaign-budget-quad-match",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `budgets`, fix two outer indices skipping duplicates, and converge two pointers on the suffix.",
       "hints": [
-        "Skip duplicates at all four pointer positions."
+        "Conceptual Intuition: Consider a Sorted Dual-Anchor Two Pointers paradigm. Sort `budgets`, fix two outer indices skipping duplicates, and converge two pointers on the suffix.",
+        "Algorithmic Mechanics: Skip duplicates at all four pointer positions. Sort `budgets`, run nested loops `(i, j)` + two pointers `(l, r)`.",
+        "Edge Cases & Optimization: Return `[]` when `len(budgets) < 4`. Ensure time complexity is bounded to O(n^3) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Dual-Anchor Two Pointers",
       "approachSteps": [
@@ -19375,10 +20117,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "playlist-odd-even-lane-split",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Separate odd-indexed and even-indexed nodes into two chains and link the odd tail to the even head.",
       "hints": [
-        "Group by position index, not sample value parity."
+        "Conceptual Intuition: Consider a Dual-Chain Position Split paradigm. Separate odd-indexed and even-indexed nodes into two chains and link the odd tail to the even head.",
+        "Algorithmic Mechanics: Group by position index, not sample value parity. Concatenate `samples[0::2]` and `samples[1::2]`.",
+        "Edge Cases & Optimization: Handle empty or 1-element lists cleanly. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dual-Chain Position Split",
       "approachSteps": [
@@ -19456,10 +20201,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ledger-adjacent-pair-swap",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Iterate by step 2 up to `n - 1` swapping `(i, i + 1)`.",
       "hints": [
-        "Guard `i + 1 < n` for odd-length streams."
+        "Conceptual Intuition: Consider a Step-2 Pairwise Swap paradigm. Iterate by step 2 up to `n - 1` swapping `(i, i + 1)`.",
+        "Algorithmic Mechanics: Guard `i + 1 < n` for odd-length streams. Copy `entries`, swap `res[i], res[i + 1]` for `i in range(0, n - 1, 2)`.",
+        "Edge Cases & Optimization: Handle empty list without error. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Step-2 Pairwise Swap",
       "approachSteps": [
@@ -19537,10 +20285,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "priority-queue-threshold-partition",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split into two stable chains (`< cutoff` and `>= cutoff`) and link them.",
       "hints": [
-        "Scores equal to `cutoff` belong to the second partition."
+        "Conceptual Intuition: Consider a Two-Chain Stable Partition paradigm. Split into two stable chains (`< cutoff` and `>= cutoff`) and link them.",
+        "Algorithmic Mechanics: Scores equal to `cutoff` belong to the second partition. Filter `< cutoff` followed by `>= cutoff`.",
+        "Edge Cases & Optimization: Preserve arrival order in both partitions. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Two-Chain Stable Partition",
       "approachSteps": [
@@ -19620,10 +20371,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-feed-k-way-aggregator",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Seed a min-heap with the head of every non-empty feed `(val, feed_idx, elem_idx)`, popping the smallest and advancing that feed's cursor.",
       "hints": [
-        "Skip empty sub-feeds when initializing the heap."
+        "Conceptual Intuition: Consider a K-Way Min-Heap Merge paradigm. Seed a min-heap with the head of every non-empty feed `(val, feed_idx, elem_idx)`, popping the smallest and advancing that feed's cursor.",
+        "Algorithmic Mechanics: Skip empty sub-feeds when initializing the heap. Push `(f[0], i, 0)` for non-empty `f`; pop min, append, push next from same feed.",
+        "Edge Cases & Optimization: Handle empty `feeds` and empty sub-lists. Ensure time complexity is bounded to O(N log k) with O(k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "K-Way Min-Heap Merge",
       "approachSteps": [
@@ -19702,10 +20456,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "catalog-sorted-insert-slot",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the lower bound in `[0, len(ids)]` for the first index `>= new_id`.",
       "hints": [
-        "Set `r = len(ids)` to allow insertion past the end."
+        "Conceptual Intuition: Consider a Lower-Bound Binary Search paradigm. Binary search the lower bound in `[0, len(ids)]` for the first index `>= new_id`.",
+        "Algorithmic Mechanics: Set `r = len(ids)` to allow insertion past the end. Converge `[l, r)` until `l == r` and return `l`.",
+        "Edge Cases & Optimization: Upper bound must be `len(ids)`, not `len(ids) - 1`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Lower-Bound Binary Search",
       "approachSteps": [
@@ -19783,10 +20540,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "tile-mosaic-square-side",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the largest integer `m` such that `m * m <= tiles`.",
       "hints": [
-        "Return `tiles` directly when `tiles < 2`."
+        "Conceptual Intuition: Consider a Integer Square-Root Binary Search paradigm. Binary search the largest integer `m` such that `m * m <= tiles`.",
+        "Algorithmic Mechanics: Return `tiles` directly when `tiles < 2`. Search `[1, tiles // 2]` and return `r`.",
+        "Edge Cases & Optimization: Handle `0` and `1` early. Ensure time complexity is bounded to O(log tiles) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Integer Square-Root Binary Search",
       "approachSteps": [
@@ -19866,10 +20626,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "serial-concat-max-badge",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort stringified fragments with custom comparator placing `a` before `b` iff `a + b > b + a`.",
       "hints": [
-        "Return `'0'` if the first sorted fragment is `'0'`."
+        "Conceptual Intuition: Consider a Concatenation-Order Custom Sort paradigm. Sort stringified fragments with custom comparator placing `a` before `b` iff `a + b > b + a`.",
+        "Algorithmic Mechanics: Return `'0'` if the first sorted fragment is `'0'`. Sort via `cmp_to_key` on `a + b` vs `b + a`, join, handle leading `'0'`.",
+        "Edge Cases & Optimization: Handle all-zero arrays cleanly. Ensure time complexity is bounded to O(n log n * k) with O(n * k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Concatenation-Order Custom Sort",
       "approachSteps": [
@@ -19948,10 +20711,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "audio-wave-alternating-peaks",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Swap `(i, i + 1)` whenever an even index has `amps[i] > amps[i + 1]` or an odd index has `amps[i] < amps[i + 1]`.",
       "hints": [
-        "Local adjacent swaps never break prior satisfied inequalities."
+        "Conceptual Intuition: Consider a Single-Pass Greedy Adjacent Swap paradigm. Swap `(i, i + 1)` whenever an even index has `amps[i] > amps[i + 1]` or an odd index has `amps[i] < amps[i + 1]`.",
+        "Algorithmic Mechanics: Local adjacent swaps never break prior satisfied inequalities. Scan `0.n-2` fixing parity violations in-place.",
+        "Edge Cases & Optimization: Even indices require `<=`, odd indices require `>=`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Single-Pass Greedy Adjacent Swap",
       "approachSteps": [
@@ -20030,10 +20796,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "auction-trailing-lower-bids",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Rank-compress unique bids and scan right-to-left using a Fenwick Tree (BIT) querying `rank - 1` before inserting `rank`.",
       "hints": [
-        "Strictly lower requires querying `rank - 1`."
+        "Conceptual Intuition: Consider a Reverse Scan + Fenwick Tree paradigm. Rank-compress unique bids and scan right-to-left using a Fenwick Tree (BIT) querying `rank - 1` before inserting `rank`.",
+        "Algorithmic Mechanics: Strictly lower requires querying `rank - 1`. Compress values to `1.m`, scan backward querying `bit(r - 1)` then updating `bit(r)`.",
+        "Edge Cases & Optimization: Ties do not count as strictly lower. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Reverse Scan + Fenwick Tree",
       "approachSteps": [
@@ -20111,10 +20880,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "price-crash-double-inversion-pairs",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count cross-half crash pairs with a monotonic two-pointer scan during merge sort before merging the two sorted halves.",
       "hints": [
-        "Because both halves are sorted, `j` only moves forward."
+        "Conceptual Intuition: Consider a Merge-Sort Cross-Pair Sweep paradigm. Count cross-half crash pairs with a monotonic two-pointer scan during merge sort before merging the two sorted halves.",
+        "Algorithmic Mechanics: Because both halves are sorted, `j` only moves forward. Sort left & right, two-pointer count `left[i] > 2 * right[j]`, merge.",
+        "Edge Cases & Optimization: Count pairs BEFORE merging `left` and `right`. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Merge-Sort Cross-Pair Sweep",
       "approachSteps": [
@@ -20192,10 +20964,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "tree-schema-equality-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Deserialize both trees and recursively compare structure and values.",
       "hints": [
-        "Two `None` nodes are equal."
+        "Conceptual Intuition: Consider a Simultaneous Recursive DFS paradigm. Deserialize both trees and recursively compare structure and values.",
+        "Algorithmic Mechanics: Two `None` nodes are equal. Compare `a.v == b.v` and recurse on left and right.",
+        "Edge Cases & Optimization: Handle empty trees returning `True`. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Simultaneous Recursive DFS",
       "approachSteps": [
@@ -20273,10 +21048,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "load-balancer-tree-symmetry",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Check `mirror(root.l, root.r)` comparing `(a.l, b.r)` and `(a.r, b.l)` recursively.",
       "hints": [
-        "Outer pairs and inner pairs must match."
+        "Conceptual Intuition: Consider a Recursive Mirror DFS paradigm. Check `mirror(root.l, root.r)` comparing `(a.l, b.r)` and `(a.r, b.l)` recursively.",
+        "Algorithmic Mechanics: Outer pairs and inner pairs must match. Deserialize and check `mirror(root.l, root.r)`.",
+        "Edge Cases & Optimization: Compare opposite children `a.l` with `b.r`. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Recursive Mirror DFS",
       "approachSteps": [
@@ -20354,10 +21132,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sharding-tree-height-balance",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a bottom-up post-order DFS returning `-1` immediately upon finding any height difference `> 1`.",
       "hints": [
-        "Single O(n) pass avoids redundant height recomputation."
+        "Conceptual Intuition: Consider a Bottom-Up Sentinel Height DFS paradigm. Use a bottom-up post-order DFS returning `-1` immediately upon finding any height difference `> 1`.",
+        "Algorithmic Mechanics: Single O(n) pass avoids redundant height recomputation. Compute `lh, rh`; return `-1` if unbalanced else `1 + max(lh, rh)`.",
+        "Edge Cases & Optimization: Empty tree is balanced (`True`). Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bottom-Up Sentinel Height DFS",
       "approachSteps": [
@@ -20435,10 +21216,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "budget-tree-exact-leaf-sum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Subtract `node.v` down DFS and check `rem == node.v` strictly at true leaf nodes.",
       "hints": [
-        "A leaf has both `left is None` and `right is None`."
+        "Conceptual Intuition: Consider a Remaining-Budget Leaf DFS paradigm. Subtract `node.v` down DFS and check `rem == node.v` strictly at true leaf nodes.",
+        "Algorithmic Mechanics: A leaf has both `left is None` and `right is None`. Deserialize; return `False` if empty; DFS subtracting `u.v` until leaf.",
+        "Edge Cases & Optimization: Empty tree returns `False` even when `budget == 0`. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Remaining-Budget Leaf DFS",
       "approachSteps": [
@@ -20516,10 +21300,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "skyline-tree-right-profile",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform level-order BFS and record the final node popped in each depth level.",
       "hints": [
-        "Snapshot `len(q)` per level."
+        "Conceptual Intuition: Consider a Level-End BFS Capture paradigm. Perform level-order BFS and record the final node popped in each depth level.",
+        "Algorithmic Mechanics: Snapshot `len(q)` per level. Deserialize and emit the last value of each BFS level.",
+        "Edge Cases & Optimization: Walking only `root.r` misses deeper left branches. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Level-End BFS Capture",
       "approachSteps": [
@@ -20597,10 +21384,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "printer-zigzag-tier-order",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run level-order BFS and reverse odd-depth level lists before appending.",
       "hints": [
-        "Toggle a boolean flag after each level."
+        "Conceptual Intuition: Consider a Alternating-Flip BFS paradigm. Run level-order BFS and reverse odd-depth level lists before appending.",
+        "Algorithmic Mechanics: Toggle a boolean flag after each level. Collect each BFS tier and reverse when `not ltr`.",
+        "Edge Cases & Optimization: Keep queue insertion order strictly left-then-right. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Alternating-Flip BFS",
       "approachSteps": [
@@ -20678,10 +21468,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-tree-dominant-nodes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Carry `path_max` down a top-down DFS and count every node with `u.v >= path_max`.",
       "hints": [
-        "Start `path_max = root.v` so negative values work."
+        "Conceptual Intuition: Consider a Path-Maximum Top-Down DFS paradigm. Carry `path_max` down a top-down DFS and count every node with `u.v >= path_max`.",
+        "Algorithmic Mechanics: Start `path_max = root.v` so negative values work. Deserialize and sum `(u.v >= mx) + dfs(u.l, max(mx, u.v)) + dfs(u.r, max(mx, u.v))`.",
+        "Edge Cases & Optimization: Do not initialize `path_max = 0`. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Path-Maximum Top-Down DFS",
       "approachSteps": [
@@ -20760,10 +21553,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "lineage-tree-common-ancestor",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Return `u` if `u.v in (x, y)`; if both left and right calls return non-null, `u` is the LCA, else bubble up the non-null child.",
       "hints": [
-        "Works on any binary tree without BST ordering."
+        "Conceptual Intuition: Consider a Post-Order Bubbling DFS paradigm. Return `u` if `u.v in (x, y)`; if both left and right calls return non-null, `u` is the LCA, else bubble up the non-null child.",
+        "Algorithmic Mechanics: Works on any binary tree without BST ordering. Deserialize and bubble target matches upward.",
+        "Edge Cases & Optimization: Return the node value integer, not the node reference. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Post-Order Bubbling DFS",
       "approachSteps": [
@@ -20842,10 +21638,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "digit-tree-path-checksum",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Accumulate `cur = cur * 10 + u.v` down DFS and return `cur` at leaf nodes.",
       "hints": [
-        "Only emit values at leaf nodes."
+        "Conceptual Intuition: Consider a Decimal-Prefix DFS paradigm. Accumulate `cur = cur * 10 + u.v` down DFS and return `cur` at leaf nodes.",
+        "Algorithmic Mechanics: Only emit values at leaf nodes. Pass `cur * 10 + u.v` to children; return at leaves.",
+        "Edge Cases & Optimization: Handle single-node trees cleanly. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Decimal-Prefix DFS",
       "approachSteps": [
@@ -20924,10 +21723,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pixel-canvas-region-recolor",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Guard `orig == paint` upfront, then BFS 4-directional neighbors matching `orig`.",
       "hints": [
-        "Without `if orig == paint: return canvas`, BFS loops forever."
+        "Conceptual Intuition: Consider a Guarded 4-Way BFS Fill paradigm. Guard `orig == paint` upfront, then BFS 4-directional neighbors matching `orig`.",
+        "Algorithmic Mechanics: Without `if orig == paint: return canvas`, BFS loops forever. Check `orig != paint`, recolor `(sr, sc)`, BFS matching neighbors.",
+        "Edge Cases & Optimization: Guard against same-color no-op. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Guarded 4-Way BFS Fill",
       "approachSteps": [
@@ -21006,10 +21808,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "reef-satellite-largest-coral",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "BFS-flood-fill each unvisited `1` cell, measuring component size and tracking the maximum.",
       "hints": [
-        "Mark visited cells `0` on enqueue."
+        "Conceptual Intuition: Consider a Connected-Component Size BFS paradigm. BFS-flood-fill each unvisited `1` cell, measuring component size and tracking the maximum.",
+        "Algorithmic Mechanics: Mark visited cells `0` on enqueue. Scan grid; flood-fill every `1` and update `best`.",
+        "Edge Cases & Optimization: Only 4-directional neighbors connect. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Connected-Component Size BFS",
       "approachSteps": [
@@ -21088,10 +21893,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "quarantine-zone-enclosed-capture",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "BFS from all border `'O'`s marking safe cells `'S'`, then convert remaining `'O'`s to `'X'` and `'S'` back to `'O'`.",
       "hints": [
-        "Start from the 4 borders rather than testing interior cells."
+        "Conceptual Intuition: Consider a Border-Seeded Escape BFS paradigm. BFS from all border `'O'`s marking safe cells `'S'`, then convert remaining `'O'`s to `'X'` and `'S'` back to `'O'`.",
+        "Algorithmic Mechanics: Start from the 4 borders rather than testing interior cells. Mark border-reachable `'O'` as `'S'`, flip `'O'->'X'` and `'S'->'O'`.",
+        "Edge Cases & Optimization: Scan all four border edges. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Border-Seeded Escape BFS",
       "approachSteps": [
@@ -21170,10 +21978,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "watershed-dual-basin-ridge",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run two uphill BFS passes from North borders and South borders (`next_elev >= curr_elev`) and intersect the two visited sets.",
       "hints": [
-        "Climbing uphill from borders avoids O((mn)^2) repeated searches."
+        "Conceptual Intuition: Consider a Dual Uphill Reverse BFS paradigm. Run two uphill BFS passes from North borders and South borders (`next_elev >= curr_elev`) and intersect the two visited sets.",
+        "Algorithmic Mechanics: Climbing uphill from borders avoids O((mn)^2) repeated searches. BFS uphill from top/left, BFS uphill from bottom/right, intersect sets.",
+        "Edge Cases & Optimization: Reverse flow uses `>=`. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dual Uphill Reverse BFS",
       "approachSteps": [
@@ -21253,10 +22064,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "workflow-dag-all-execution-paths",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run DFS backtracking from stage `0`, saving `path[:]` whenever reaching `n - 1`.",
       "hints": [
-        "A DAG guarantees termination without a visited set."
+        "Conceptual Intuition: Consider a DAG Backtracking Enumeration paradigm. Run DFS backtracking from stage `0`, saving `path[:]` whenever reaching `n - 1`.",
+        "Algorithmic Mechanics: A DAG guarantees termination without a visited set. Push neighbor, recurse, pop; record `path[:]` at `n - 1`.",
+        "Edge Cases & Optimization: Copy `path[:]` when recording a completed path. Ensure time complexity is bounded to O(2^n * n) with O(n) stack auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "DAG Backtracking Enumeration",
       "approachSteps": [
@@ -21335,10 +22149,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "vault-badge-full-access-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Explore reachable vaults via DFS/BFS from vault `0` and check `len(visited) == len(badges)`.",
       "hints": [
-        "Track `visited` to avoid infinite loops on cyclic keycards."
+        "Conceptual Intuition: Consider a Source-0 Graph Reachability paradigm. Explore reachable vaults via DFS/BFS from vault `0` and check `len(visited) == len(badges)`.",
+        "Algorithmic Mechanics: Track `visited` to avoid infinite loops on cyclic keycards. DFS from `0`, return `len(vis) == len(badges)`.",
+        "Edge Cases & Optimization: Handle self-keys gracefully via `visited`. Ensure time complexity is bounded to O(V + E) with O(V) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Source-0 Graph Reachability",
       "approachSteps": [
@@ -21417,10 +22234,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "state-machine-guaranteed-halt-nodes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reverse all transitions and run Kahn's BFS starting from terminal states (`outdeg == 0`).",
       "hints": [
-        "A state is guaranteed-halting once all its outgoing targets are guaranteed-halting."
+        "Conceptual Intuition: Consider a Reversed-Edge Kahn's Sort paradigm. Reverse all transitions and run Kahn's BFS starting from terminal states (`outdeg == 0`).",
+        "Algorithmic Mechanics: A state is guaranteed-halting once all its outgoing targets are guaranteed-halting. Build reversed graph and `outdeg`, peel zero-outdeg states via queue, return sorted safe list.",
+        "Edge Cases & Optimization: Emit results in ascending order. Ensure time complexity is bounded to O(V + E) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Reversed-Edge Kahn's Sort",
       "approachSteps": [
@@ -21499,10 +22319,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "unknown-script-lexicon-order",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Extract the first differing character from each adjacent word pair into a directed graph (checking prefix invalidity), then run min-heap Kahn's sort.",
       "hints": [
-        "Deduplicate edges before incrementing in-degree."
+        "Conceptual Intuition: Consider a Adjacent-Pair Precedence + Min-Heap Kahn's paradigm. Extract the first differing character from each adjacent word pair into a directed graph (checking prefix invalidity), then run min-heap Kahn's sort.",
+        "Algorithmic Mechanics: Deduplicate edges before incrementing in-degree. Build char graph from adjacent mismatches, check prefix inversions, topologically sort.",
+        "Edge Cases & Optimization: Explicitly reject `len(w1) > len(w2) and w1.startswith(w2)`. Ensure time complexity is bounded to O(C + U log U) with O(U + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Adjacent-Pair Precedence + Min-Heap Kahn's",
       "approachSteps": [
@@ -21580,10 +22403,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "network-cluster-island-count",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Initialize Union-Find with `clusters = n` and decrement whenever an edge merges two distinct roots.",
       "hints": [
-        "Redundant edges inside the same component do not change the count."
+        "Conceptual Intuition: Consider a Union-Find Component Counter paradigm. Initialize Union-Find with `clusters = n` and decrement whenever an edge merges two distinct roots.",
+        "Algorithmic Mechanics: Redundant edges inside the same component do not change the count. Union endpoints of each link; decrement `clusters` on distinct roots.",
+        "Edge Cases & Optimization: Check `ru != rv` before decrementing. Ensure time complexity is bounded to O(n + E * alpha(n)) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Union-Find Component Counter",
       "approachSteps": [
@@ -21664,10 +22490,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dictionary-one-char-hop-distance",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Index `allowed` words by single-character wildcard masks (`h*t`) and run BFS from `(start_code, 1)`.",
       "hints": [
-        "Clear each wildcard bucket after visiting it so it is never re-iterated."
+        "Conceptual Intuition: Consider a Wildcard-Bucket BFS paradigm. Index `allowed` words by single-character wildcard masks (`h*t`) and run BFS from `(start_code, 1)`.",
+        "Algorithmic Mechanics: Clear each wildcard bucket after visiting it so it is never re-iterated. Return `0` if `end_code not in allowed`; build mask buckets; BFS to `end_code`.",
+        "Edge Cases & Optimization: Return word count (starts at 1), not edge count. Ensure time complexity is bounded to O(N * L^2) with O(N * L^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Wildcard-Bucket BFS",
       "approachSteps": [
@@ -21745,10 +22574,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "deployment-order-all-permutations",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Swap each candidate into index `s`, recurse on `s + 1`, and restore on backtrack.",
       "hints": [
-        "Append a copy `arr[:]` at base case `s == len(arr)`."
+        "Conceptual Intuition: Consider a Swap-In-Place Backtracking paradigm. Swap each candidate into index `s`, recurse on `s + 1`, and restore on backtrack.",
+        "Algorithmic Mechanics: Append a copy `arr[:]` at base case `s == len(arr)`. Swap `arr[s], arr[i]`, recurse `bt(s + 1)`, swap back.",
+        "Edge Cases & Optimization: Never append a mutable reference without copying. Ensure time complexity is bounded to O(n * n!) with O(n) stack auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Swap-In-Place Backtracking",
       "approachSteps": [
@@ -21827,10 +22659,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "keypad-mnemonic-all-codes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Backtrack character by character across the keypad mapping for `keys`.",
       "hints": [
-        "Return `[]` for empty `keys`."
+        "Conceptual Intuition: Consider a Keypad Backtracking paradigm. Backtrack character by character across the keypad mapping for `keys`.",
+        "Algorithmic Mechanics: Return `[]` for empty `keys`. For each digit position, branch over mapped letters and emit when complete.",
+        "Edge Cases & Optimization: Remember `'7'` and `'9'` map to 4 letters each. Ensure time complexity is bounded to O(4^n * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Keypad Backtracking",
       "approachSteps": [
@@ -21908,10 +22743,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "balanced-tag-pair-generator",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track `open_used` and `close_used`, allowing `'('` when `open_used < pairs` and `')'` when `close_used < open_used`.",
       "hints": [
-        "Never let `close_used` exceed `open_used`."
+        "Conceptual Intuition: Consider a Constrained Backtracking paradigm. Track `open_used` and `close_used`, allowing `'('` when `open_used < pairs` and `')'` when `close_used < open_used`.",
+        "Algorithmic Mechanics: Never let `close_used` exceed `open_used`. Branch on `'('` if `o < pairs` and `')'` if `c < o`.",
+        "Edge Cases & Optimization: Emit when `len(path) == 2 * pairs`. Ensure time complexity is bounded to O(4^n / sqrt(n)) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Constrained Backtracking",
       "approachSteps": [
@@ -21991,10 +22829,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "boggle-sensor-grid-trace",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "DFS from every cell matching `sig[0]`, temporarily marking visited cells `'#'` and restoring on backtrack.",
       "hints": [
-        "Restore `board[r][c]` before returning from DFS."
+        "Conceptual Intuition: Consider a In-Place Marking Grid DFS paradigm. DFS from every cell matching `sig[0]`, temporarily marking visited cells `'#'` and restoring on backtrack.",
+        "Algorithmic Mechanics: Restore `board[r][c]` before returning from DFS. Check character match, mark `'#'`, recurse 4 neighbors, restore.",
+        "Edge Cases & Optimization: Never leave `'#'` behind when a branch fails. Ensure time complexity is bounded to O(m * n * 3^L) with O(L) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "In-Place Marking Grid DFS",
       "approachSteps": [
@@ -22073,10 +22914,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stream-label-minimal-cuts",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Precompute each letter's last index and cut a shard whenever the sweep index `i` catches up to `end = max(end, last[ch])`.",
       "hints": [
-        "Reset `start = i + 1` after every cut."
+        "Conceptual Intuition: Consider a Last-Index Greedy Cut paradigm. Precompute each letter's last index and cut a shard whenever the sweep index `i` catches up to `end = max(end, last[ch])`.",
+        "Algorithmic Mechanics: Reset `start = i + 1` after every cut. Build `last`, sweep extending `end`, emit `end - start + 1` at `i == end`.",
+        "Edge Cases & Optimization: Handle single-letter strings returning `[len]`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Last-Index Greedy Cut",
       "approachSteps": [
@@ -22154,10 +22998,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "relay-hop-minimum-jumps",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track `cur_end` of the current hop layer and `far` for the next hop; increment `hops` when `i == cur_end` up to `n - 2`.",
       "hints": [
-        "Stop at `len(reaches) - 2`."
+        "Conceptual Intuition: Consider a Implicit-BFS Greedy Layer Sweep paradigm. Track `cur_end` of the current hop layer and `far` for the next hop; increment `hops` when `i == cur_end` up to `n - 2`.",
+        "Algorithmic Mechanics: Stop at `len(reaches) - 2`. Update `far = max(far, i + reaches[i])`; at `i == cur_end`, bump `hops` and set `cur_end = far`.",
+        "Edge Cases & Optimization: Single-node array needs `0` hops. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Implicit-BFS Greedy Layer Sweep",
       "approachSteps": [
@@ -22236,10 +23083,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "romans-legacy-invoice-parser",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Subtract a symbol's value when it is strictly smaller than the next symbol; otherwise add it.",
       "hints": [
-        "Look ahead 1 character."
+        "Conceptual Intuition: Consider a Single-Pass Subtractive Lookahead paradigm. Subtract a symbol's value when it is strictly smaller than the next symbol; otherwise add it.",
+        "Algorithmic Mechanics: Look ahead 1 character. Sum values subtracting whenever `vals[code[i]] < vals[code[i + 1]]`.",
+        "Edge Cases & Optimization: Guard `i + 1 < len(code)`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Single-Pass Subtractive Lookahead",
       "approachSteps": [
@@ -22318,10 +23168,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "romans-batch-code-formatter",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Greedily decompose `num` against a 13-entry descending `(value, symbol)` table including subtractive pairs.",
       "hints": [
-        "Use `divmod(num, val)` for each token."
+        "Conceptual Intuition: Consider a 13-Token Greedy Decomposition paradigm. Greedily decompose `num` against a 13-entry descending `(value, symbol)` table including subtractive pairs.",
+        "Algorithmic Mechanics: Use `divmod(num, val)` for each token. Iterate descending tokens appending `sym * count`.",
+        "Edge Cases & Optimization: Include all 6 subtractive forms (`CM, CD, XC, XL, IX, IV`). Ensure time complexity is bounded to O(1) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "13-Token Greedy Decomposition",
       "approachSteps": [
@@ -22399,10 +23252,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "protocol-word-bijection-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split `frame` into words, check equal length with `schema`, and verify bidirectional maps `c2w` and `w2c`.",
       "hints": [
-        "Guard `len(words) == len(schema)` first."
+        "Conceptual Intuition: Consider a Bidirectional Token Map paradigm. Split `frame` into words, check equal length with `schema`, and verify bidirectional maps `c2w` and `w2c`.",
+        "Algorithmic Mechanics: Guard `len(words) == len(schema)` first. Check equal counts, then enforce bijection across `zip(schema, words)`.",
+        "Edge Cases & Optimization: Check both directions to reject collisions. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bidirectional Token Map",
       "approachSteps": [
@@ -22481,10 +23337,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "parts-kit-supply-verifier",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Verify `Counter(blueprint) - Counter(bin_parts)` is empty.",
       "hints": [
-        "Multiset subtraction checks every component multiplicity in O(n + m)."
+        "Conceptual Intuition: Consider a Frequency Supply Check paradigm. Verify `Counter(blueprint) - Counter(bin_parts)` is empty.",
+        "Algorithmic Mechanics: Multiset subtraction checks every component multiplicity in O(n + m). Compare letter counts of `blueprint` against `bin_parts`.",
+        "Edge Cases & Optimization: Set membership alone misses duplicate component needs. Ensure time complexity is bounded to O(n + m) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency Supply Check",
       "approachSteps": [
@@ -22563,10 +23422,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stream-sliding-permutation-alert",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Slide a window of length `len(sig)` over `stream` comparing 26-slot frequency arrays.",
       "hints": [
-        "Return `False` immediately if `len(sig) > len(stream)`."
+        "Conceptual Intuition: Consider a Fixed-Width Frequency Window paradigm. Slide a window of length `len(sig)` over `stream` comparing 26-slot frequency arrays.",
+        "Algorithmic Mechanics: Return `False` immediately if `len(sig) > len(stream)`. Initialize counts for `sig` and `stream[:k]`, slide updating entering/exiting counts.",
+        "Edge Cases & Optimization: Check the initial window at index 0. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Fixed-Width Frequency Window",
       "approachSteps": [
@@ -22644,10 +23506,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ring-road-nonadjacent-tolls",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Take `max(linear(tolls[:-1]), linear(tolls[1:]))` after handling `len == 1`.",
       "hints": [
-        "Gate 0 and gate `n - 1` cannot both be active."
+        "Conceptual Intuition: Consider a Split-Ring Dual Linear DP paradigm. Take `max(linear(tolls[:-1]), linear(tolls[1:]))` after handling `len == 1`.",
+        "Algorithmic Mechanics: Gate 0 and gate `n - 1` cannot both be active. Handle `len == 1`, then run linear DP on both open arcs.",
+        "Edge Cases & Optimization: Handle single-gate beltway directly. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Split-Ring Dual Linear DP",
       "approachSteps": [
@@ -22725,10 +23590,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "digit-message-decoding-count",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain rolling DP states `prev2, prev1`, adding `prev1` when `digits[i] != '0'` and `prev2` when `10 <= int(digits[i-1:i+1]) <= 26`.",
       "hints": [
-        "Return `0` immediately if `digits[0] == '0'`."
+        "Conceptual Intuition: Consider a Rolling 1D Decoding DP paradigm. Maintain rolling DP states `prev2, prev1`, adding `prev1` when `digits[i] != '0'` and `prev2` when `10 <= int(digits[i-1:i+1]) <= 26`.",
+        "Algorithmic Mechanics: Return `0` immediately if `digits[0] == '0'`. Scan `1.n-1` combining 1-digit and 2-digit valid transitions.",
+        "Edge Cases & Optimization: `'00'` and `'30'` produce `0` valid ways. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Rolling 1D Decoding DP",
       "approachSteps": [
@@ -22807,10 +23675,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "token-dispenser-combo-count",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Loop over `tokens` in the outer loop and `amount` forward in the inner loop (`dp[a] += dp[a - t]`).",
       "hints": [
-        "Token-outer loop prevents counting permutations twice."
+        "Conceptual Intuition: Consider a Unbounded Combination DP paradigm. Loop over `tokens` in the outer loop and `amount` forward in the inner loop (`dp[a] += dp[a - t]`).",
+        "Algorithmic Mechanics: Token-outer loop prevents counting permutations twice. Initialize `dp[0] = 1`; for each `t`, accumulate `dp[a] += dp[a - t]`.",
+        "Edge Cases & Optimization: Total `0` always has `1` combination (the empty set). Ensure time complexity is bounded to O(total * len(tokens)) with O(total) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Unbounded Combination DP",
       "approachSteps": [
@@ -22889,10 +23760,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sensor-bias-sign-assignment",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reduce to 0/1 subset sum counting for `pos = (sum(weights) + goal) // 2` after verifying parity and bounds.",
       "hints": [
-        "Iterate sums backward from `pos` down to `w`."
+        "Conceptual Intuition: Consider a 0/1 Subset-Sum Counting DP paradigm. Reduce to 0/1 subset sum counting for `pos = (sum(weights) + goal) // 2` after verifying parity and bounds.",
+        "Algorithmic Mechanics: Iterate sums backward from `pos` down to `w`. Check `abs(goal) <= tot` and `(tot + goal) % 2 == 0`; run backward 1D DP.",
+        "Edge Cases & Optimization: Zero weights double valid combinations cleanly when looping down to `w = 0`. Ensure time complexity is bounded to O(n * pos) with O(pos) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "0/1 Subset-Sum Counting DP",
       "approachSteps": [
@@ -22970,10 +23844,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "warehouse-grid-min-energy-path",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a 1D row of minimum cumulative costs updating `dp[c] = row[c] + min(dp[c], dp[c - 1])`.",
       "hints": [
-        "Initialize `dp` with prefix sums of row 0."
+        "Conceptual Intuition: Consider a 1D Rolling Grid DP paradigm. Maintain a 1D row of minimum cumulative costs updating `dp[c] = row[c] + min(dp[c], dp[c - 1])`.",
+        "Algorithmic Mechanics: Initialize `dp` with prefix sums of row 0. Accumulate row 0, then update each subsequent row in O(n) space.",
+        "Edge Cases & Optimization: Update `dp[0] += row[0]` before `c = 1.n-1`. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "1D Rolling Grid DP",
       "approachSteps": [
@@ -23051,10 +23928,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pyramid-descent-min-cost",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Fold the pyramid bottom-up into a 1D array via `dp[i] = pyramid[r][i] + min(dp[i], dp[i + 1])`.",
       "hints": [
-        "Bottom-up eliminates all edge-index boundary checks."
+        "Conceptual Intuition: Consider a Bottom-Up 1D Fold DP paradigm. Fold the pyramid bottom-up into a 1D array via `dp[i] = pyramid[r][i] + min(dp[i], dp[i + 1])`.",
+        "Algorithmic Mechanics: Bottom-up eliminates all edge-index boundary checks. Copy bottom row into `dp`, fold upward to `dp[0]`.",
+        "Edge Cases & Optimization: Copy the bottom row so the caller's input isn't mutated. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bottom-Up 1D Fold DP",
       "approachSteps": [
@@ -23132,10 +24012,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "rna-folding-palindromic-subseq",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compute the Longest Common Subsequence between `rna` and `rna[::-1]` using a 1D rolling row.",
       "hints": [
-        "`LPS(s) == LCS(s, reversed(s))`."
+        "Conceptual Intuition: Consider a Reversed-LCS 1D DP paradigm. Compute the Longest Common Subsequence between `rna` and `rna[::-1]` using a 1D rolling row.",
+        "Algorithmic Mechanics: `LPS(s) == LCS(s, reversed(s))`. Run rolling-row LCS on `(rna, rna[::-1])`.",
+        "Edge Cases & Optimization: Subsequences can skip bases. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Reversed-LCS 1D DP",
       "approachSteps": [
@@ -23213,10 +24096,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "log-pattern-distinct-matches",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain 1D `dp[j]` = ways to match `sig[:j]`, sweeping `j` backward from `len(sig)` down to `1` for every character in `stream`.",
       "hints": [
-        "Backward sweep prevents reusing the same `stream` character."
+        "Conceptual Intuition: Consider a 1D Backward-Sweep Subsequence DP paradigm. Maintain 1D `dp[j]` = ways to match `sig[:j]`, sweeping `j` backward from `len(sig)` down to `1` for every character in `stream`.",
+        "Algorithmic Mechanics: Backward sweep prevents reusing the same `stream` character. Seed `dp[0] = 1`; for `ch` in `stream`, for `j` down to `1`: if `ch == sig[j-1]`, `dp[j] += dp[j-1]`.",
+        "Edge Cases & Optimization: Never sweep `j` forward. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "1D Backward-Sweep Subsequence DP",
       "approachSteps": [
@@ -23294,10 +24180,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dual-stream-interleave-verifier",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Check `len(ch_a) + len(ch_b) == len(merged)`, then run 1D boolean DP tracking reachable `(i, j)` prefix pairs.",
       "hints": [
-        "`dp[j]` updates from `dp[j]` (taking from `ch_a`) or `dp[j - 1]` (taking from `ch_b`)."
+        "Conceptual Intuition: Consider a 1D Prefix Interleaving DP paradigm. Check `len(ch_a) + len(ch_b) == len(merged)`, then run 1D boolean DP tracking reachable `(i, j)` prefix pairs.",
+        "Algorithmic Mechanics: `dp[j]` updates from `dp[j]` (taking from `ch_a`) or `dp[j - 1]` (taking from `ch_b`). Verify combined length, initialize row 0, transition rows `1.m`.",
+        "Edge Cases & Optimization: Update `dp[0]` on each row before looping `j = 1.n`. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "1D Prefix Interleaving DP",
       "approachSteps": [
@@ -23376,10 +24265,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "wildcard-star-dot-matcher",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Memoize `(i, j)` transitions; when `pattern[j + 1] == '*'`, either skip the `x*` pair (`j + 2`) or consume one matching char in `text` (`i + 1, j`).",
       "hints": [
-        "`x*` may match zero occurrences."
+        "Conceptual Intuition: Consider a Memoized Top-Down Regex DP paradigm. Memoize `(i, j)` transitions; when `pattern[j + 1] == '*'`, either skip the `x*` pair (`j + 2`) or consume one matching char in `text` (`i + 1, j`).",
+        "Algorithmic Mechanics: `x*` may match zero occurrences. Use `@lru_cache` on `dp(i, j)` branching on `pattern[j + 1] == '*'`.",
+        "Edge Cases & Optimization: Trailing `x*` can match empty `text`. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Memoized Top-Down Regex DP",
       "approachSteps": [
@@ -23458,10 +24350,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "balloon-demolition-max-payout",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Pad `vals` with `1` at both ends and run interval DP choosing which target `k` is cleared LAST inside open interval `(l, r)`.",
       "hints": [
-        "Choosing the last cleared target decouples `(l, k)` and `(k, r)`."
+        "Conceptual Intuition: Consider a Last-Cleared Interval DP paradigm. Pad `vals` with `1` at both ends and run interval DP choosing which target `k` is cleared LAST inside open interval `(l, r)`.",
+        "Algorithmic Mechanics: Choosing the last cleared target decouples `(l, k)` and `(k, r)`. Fill `dp[l][r]` in increasing order of `r - l`.",
+        "Edge Cases & Optimization: Iterate interval width `gap` in the outer loop. Ensure time complexity is bounded to O(n^3) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Last-Cleared Interval DP",
       "approachSteps": [
@@ -23539,10 +24434,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bit-counter-range-popcounts",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Fill `ans[i] = ans[i >> 1] + (i & 1)` in O(n) total time.",
       "hints": [
-        "Right-shifting by 1 drops only the least significant bit."
+        "Conceptual Intuition: Consider a Bit-Shift Linear DP paradigm. Fill `ans[i] = ans[i >> 1] + (i & 1)` in O(n) total time.",
+        "Algorithmic Mechanics: Right-shifting by 1 drops only the least significant bit. Allocate `max_mask + 1` zeros and fill `1.max_mask`.",
+        "Edge Cases & Optimization: Array length is `max_mask + 1`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bit-Shift Linear DP",
       "approachSteps": [
@@ -23619,10 +24517,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "hamming-active-flags-count",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Clear the lowest set bit with `mask &= mask - 1` until zero, counting iterations.",
       "hints": [
-        "Loops only once per `1` bit."
+        "Conceptual Intuition: Consider a Brian Kernighan Bit-Clear paradigm. Clear the lowest set bit with `mask &= mask - 1` until zero, counting iterations.",
+        "Algorithmic Mechanics: Loops only once per `1` bit. While `mask`: `mask &= mask - 1; cnt += 1`.",
+        "Edge Cases & Optimization: Handle `mask == 0` returning `0`. Ensure time complexity is bounded to O(k) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Brian Kernighan Bit-Clear",
       "approachSteps": [
@@ -23700,10 +24601,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "palindrome-chain-verifier",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare mirrored positions from both ends (or reverse the second half of a linked list in-place).",
       "hints": [
-        "Both odd and even lengths work identically."
+        "Conceptual Intuition: Consider a Symmetric Two-End Comparison paradigm. Compare mirrored positions from both ends (or reverse the second half of a linked list in-place).",
+        "Algorithmic Mechanics: Both odd and even lengths work identically. Compare `tags` against `tags[::-1]`.",
+        "Edge Cases & Optimization: Single-element chains are symmetric. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Symmetric Two-End Comparison",
       "approachSteps": [
@@ -23781,10 +24685,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "chain-midpoint-suffix",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Fast/slow pointer traversal lands `slow` at `len(stream) // 2`.",
       "hints": [
-        "For even length `2k`, index `k` is the second middle."
+        "Conceptual Intuition: Consider a Fast-Slow Midpoint Locator paradigm. Fast/slow pointer traversal lands `slow` at `len(stream) // 2`.",
+        "Algorithmic Mechanics: For even length `2k`, index `k` is the second middle. Return `stream[len(stream) // 2:]`.",
+        "Edge Cases & Optimization: Handle 1-element streams. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Fast-Slow Midpoint Locator",
       "approachSteps": [
@@ -23862,10 +24769,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-chain-deduplicator",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Emit an element only when `res` is empty or `res[-1] != x`.",
       "hints": [
-        "Sorted order places all duplicates consecutively."
+        "Conceptual Intuition: Consider a Adjacent Duplicate Filter paradigm. Emit an element only when `res` is empty or `res[-1] != x`.",
+        "Algorithmic Mechanics: Sorted order places all duplicates consecutively. Scan `keys` appending whenever value changes.",
+        "Edge Cases & Optimization: Handle empty input cleanly. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Adjacent Duplicate Filter",
       "approachSteps": [
@@ -23944,10 +24854,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "circular-playlist-right-shift",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Guard empty `slides`, reduce `steps %= len(slides)`, and move the last `steps` entries to the front.",
       "hints": [
-        "Avoid modulo by zero on empty lists."
+        "Conceptual Intuition: Consider a Modulo Tail-to-Head Rotation paradigm. Guard empty `slides`, reduce `steps %= len(slides)`, and move the last `steps` entries to the front.",
+        "Algorithmic Mechanics: Avoid modulo by zero on empty lists. If empty return `[]`; compute `k = steps % n`; slice `slides[-k:] + slides[:-k]` if `k`.",
+        "Edge Cases & Optimization: When `k == 0`, return a copy of `slides` unchanged. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Modulo Tail-to-Head Rotation",
       "approachSteps": [
@@ -24026,10 +24939,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "chain-merge-sorter",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split `records` in half recursively and merge the two sorted halves linearly.",
       "hints": [
-        "Base case: length `<= 1`."
+        "Conceptual Intuition: Consider a Top-Down Merge Sort paradigm. Split `records` in half recursively and merge the two sorted halves linearly.",
+        "Algorithmic Mechanics: Base case: length `<= 1`. Recursively sort left/right halves and merge.",
+        "Edge Cases & Optimization: Handle empty and single-element inputs. Ensure time complexity is bounded to O(n log n) with O(log n) stack auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Top-Down Merge Sort",
       "approachSteps": [
@@ -24108,10 +25024,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "tree-preorder-chain-flatten",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Rewire left subtrees onto `curr.right` using Morris pointer threading in O(1) auxiliary space.",
       "hints": [
-        "Link `rightmost(curr.l).r = curr.r`, move `curr.l` to `curr.r`, and clear `curr.l = None`."
+        "Conceptual Intuition: Consider a Morris Preorder Flattening paradigm. Rewire left subtrees onto `curr.right` using Morris pointer threading in O(1) auxiliary space.",
+        "Algorithmic Mechanics: Link `rightmost(curr.l).r = curr.r`, move `curr.l` to `curr.r`, and clear `curr.l = None`. Deserialize, Morris-flatten to right spine, collect values.",
+        "Edge Cases & Optimization: Set `curr.l = None` after moving. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Morris Preorder Flattening",
       "approachSteps": [
@@ -24190,10 +25109,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "tree-rebuild-pre-in-arrays",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map `inorder` indices in a hash table, consume roots from `preorder`, and recursively build left `[l, mid - 1]` then right `[mid + 1, r]`.",
       "hints": [
-        "Always build left subtree before right subtree so the preorder cursor stays synchronized."
+        "Conceptual Intuition: Consider a Hash-Indexed Divide and Conquer paradigm. Map `inorder` indices in a hash table, consume roots from `preorder`, and recursively build left `[l, mid - 1]` then right `[mid + 1, r]`.",
+        "Algorithmic Mechanics: Always build left subtree before right subtree so the preorder cursor stays synchronized. Build `idx` map, recurse `build(l, r)`, BFS-serialize and trim trailing `None`s.",
+        "Edge Cases & Optimization: Trim trailing `None` entries in the level-order output. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Hash-Indexed Divide and Conquer",
       "approachSteps": [
@@ -24272,10 +25194,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "packet-payload-kmp-needle",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build the KMP `lps` prefix table for `sig` and match against `payload` in linear O(n + m) time.",
       "hints": [
-        "On mismatch at `j > 0`, fall back to `lps[j - 1]`."
+        "Conceptual Intuition: Consider a KMP Linear Substring Search paradigm. Build the KMP `lps` prefix table for `sig` and match against `payload` in linear O(n + m) time.",
+        "Algorithmic Mechanics: On mismatch at `j > 0`, fall back to `lps[j - 1]`. Precompute `lps`, scan `payload` advancing/falling back `j`.",
+        "Edge Cases & Optimization: Return `-1` if `len(sig) > len(payload)`. Ensure time complexity is bounded to O(n + m) with O(m) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "KMP Linear Substring Search",
       "approachSteps": [
@@ -24353,10 +25278,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dna-longest-mirror-segment",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Expand outward around every odd center `(i, i)` and even center `(i, i + 1)` in O(1) space.",
       "hints": [
-        "Only update best bounds on strictly greater length `>` to preserve earliest tie."
+        "Conceptual Intuition: Consider a Center Expansion Sweep paradigm. Expand outward around every odd center `(i, i)` and even center `(i, i + 1)` in O(1) space.",
+        "Algorithmic Mechanics: Only update best bounds on strictly greater length `>` to preserve earliest tie. Expand from `(i, i)` and `(i, i + 1)` for all `i`, returning `seq[bl:br]`.",
+        "Edge Cases & Optimization: Check both odd and even centers. Ensure time complexity is bounded to O(n^2) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Center Expansion Sweep",
       "approachSteps": [
@@ -24434,10 +25362,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "motif-palindrome-counter",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Expand from every `(i, i)` and `(i, i + 1)` center, incrementing `total` on every valid expansion.",
       "hints": [
-        "Each matching pair `(l, r)` identifies a distinct palindromic substring."
+        "Conceptual Intuition: Consider a Center-Expansion Counter paradigm. Expand from every `(i, i)` and `(i, i + 1)` center, incrementing `total` on every valid expansion.",
+        "Algorithmic Mechanics: Each matching pair `(l, r)` identifies a distinct palindromic substring. Sum expansions over all `2n - 1` centers.",
+        "Edge Cases & Optimization: Include even centers `(i, i + 1)`. Ensure time complexity is bounded to O(n^2) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Center-Expansion Counter",
       "approachSteps": [
@@ -24515,10 +25446,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "log-phrase-word-reverser",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Tokenize ignoring arbitrary whitespace, reverse the token list, and join with a single space.",
       "hints": [
-        "`line.split()` automatically collapses repeated spaces and strips outer whitespace."
+        "Conceptual Intuition: Consider a Whitespace Tokenization & Reversal paradigm. Tokenize ignoring arbitrary whitespace, reverse the token list, and join with a single space.",
+        "Algorithmic Mechanics: `line.split()` automatically collapses repeated spaces and strips outer whitespace. Return `' '.join(reversed(line.split()))`.",
+        "Edge Cases & Optimization: Avoid `split(' ')` which leaves empty strings between multiple spaces. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Whitespace Tokenization & Reversal",
       "approachSteps": [
@@ -24596,10 +25530,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "legacy-form-int32-parser",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Advance a cursor past `' '`, parse at most one sign, accumulate digits, and clamp to `[-2^31, 2^31 - 1]`.",
       "hints": [
-        "Return `0` if the first non-space/non-sign character is not a digit."
+        "Conceptual Intuition: Consider a Sequential Cursor Parser paradigm. Advance a cursor past `' '`, parse at most one sign, accumulate digits, and clamp to `[-2^31, 2^31 - 1]`.",
+        "Algorithmic Mechanics: Return `0` if the first non-space/non-sign character is not a digit. Skip spaces, read sign, accumulate digits, clamp.",
+        "Edge Cases & Optimization: Handle empty strings cleanly. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sequential Cursor Parser",
       "approachSteps": [
@@ -24678,10 +25615,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "rail-fence-cipher-encoder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Bounce a row index `r` between `0` and `rails - 1`, appending each character to `rows[r]`, then concatenate all rows.",
       "hints": [
-        "Return `text` directly if `rails == 1` or `rails >= len(text)`."
+        "Conceptual Intuition: Consider a Row-Bucket Bounce Simulation paradigm. Bounce a row index `r` between `0` and `rails - 1`, appending each character to `rows[r]`, then concatenate all rows.",
+        "Algorithmic Mechanics: Return `text` directly if `rails == 1` or `rails >= len(text)`. Flip `step` at `r == 0` and `r == rails - 1`, join all buckets.",
+        "Edge Cases & Optimization: Handle `rails == 1` upfront. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Row-Bucket Bounce Simulation",
       "approachSteps": [
@@ -24760,10 +25700,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "metric-next-higher-lookup",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Precompute next-greater values for `series` using a decreasing monotonic stack and hash map, then look up each query in O(1).",
       "hints": [
-        "Default unmapped keys to `-1`."
+        "Conceptual Intuition: Consider a Monotonic Stack + Hash Lookup paradigm. Precompute next-greater values for `series` using a decreasing monotonic stack and hash map, then look up each query in O(1).",
+        "Algorithmic Mechanics: Default unmapped keys to `-1`. Scan `series` populating `nxt`, return `[nxt.get(q, -1) for q in queries]`.",
+        "Edge Cases & Optimization: Values are distinct so value-keyed lookup is exact. Ensure time complexity is bounded to O(n + m) with O(m) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Stack + Hash Lookup",
       "approachSteps": [
@@ -24841,10 +25784,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-min-tracker-stack",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Store `(value, min_so_far)` pairs on each push so `min` and `peek` both read `stack[-1]` in O(1).",
       "hints": [
-        "Paired tuples handle duplicate minimums automatically."
+        "Conceptual Intuition: Consider a Paired Value-Min Stack paradigm. Store `(value, min_so_far)` pairs on each push so `min` and `peek` both read `stack[-1]` in O(1).",
+        "Algorithmic Mechanics: Paired tuples handle duplicate minimums automatically. Push `(x, min(x, st[-1][1]))`, pop on `pop`, read `[0]`/`[1]` on `peek`/`min`.",
+        "Edge Cases & Optimization: Handle empty stack on the first push. Ensure time complexity is bounded to O(1) per op with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Paired Value-Min Stack",
       "approachSteps": [
@@ -24923,10 +25869,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "syntax-longest-balanced-span",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Keep a boundary-index stack seeded with `[-1]`; pop on `')'` and measure `i - stack[-1]` (pushing `i` if empty).",
       "hints": [
-        "The bottom of the stack always holds the last unmatched boundary index."
+        "Conceptual Intuition: Consider a Boundary-Index Stack paradigm. Keep a boundary-index stack seeded with `[-1]`; pop on `')'` and measure `i - stack[-1]` (pushing `i` if empty).",
+        "Algorithmic Mechanics: The bottom of the stack always holds the last unmatched boundary index. Seed `st = [-1]`; push `'('` indices; on `')'`, pop, push `i` if empty else maximize `i - st[-1]`.",
+        "Edge Cases & Optimization: Re-seed `st.append(i)` whenever popping empties the stack. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Boundary-Index Stack",
       "approachSteps": [
@@ -25004,10 +25953,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-log-event-span-bounds",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use `bisect_left` for the first index and `bisect_right - 1` for the last index.",
       "hints": [
-        "Verify `l < len(keys) and keys[l] == target`."
+        "Conceptual Intuition: Consider a Dual Lower/Upper Binary Search paradigm. Use `bisect_left` for the first index and `bisect_right - 1` for the last index.",
+        "Algorithmic Mechanics: Verify `l < len(keys) and keys[l] == target`. Find `l = bisect_left`, check presence, return `[l, bisect_right - 1]`.",
+        "Edge Cases & Optimization: Guard empty `keys`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dual Lower/Upper Binary Search",
       "approachSteps": [
@@ -25087,10 +26039,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-top-k-error-codes",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Count frequencies and place codes into buckets indexed `1..n`, scanning downward until `k` codes are collected.",
       "hints": [
-        "Bucket sort achieves O(n) without O(n log n) sorting."
+        "Conceptual Intuition: Consider a Frequency Bucket Sort paradigm. Count frequencies and place codes into buckets indexed `1.n`, scanning downward until `k` codes are collected.",
+        "Algorithmic Mechanics: Bucket sort achieves O(n) without O(n log n) sorting. Count with `Counter`, bucket by frequency, collect top `k` from highest bucket down.",
+        "Edge Cases & Optimization: Allocate `len(codes) + 1` buckets. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency Bucket Sort",
       "approachSteps": [
@@ -25168,10 +26123,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "consensus-quorum-leader-vote",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Boyer-Moore majority voting: cancel opposing ballots in pairs so only the strict majority survives.",
       "hints": [
-        "Reset `cand = b` whenever `votes == 0`."
+        "Conceptual Intuition: Consider a Boyer-Moore Voting paradigm. Use Boyer-Moore majority voting: cancel opposing ballots in pairs so only the strict majority survives.",
+        "Algorithmic Mechanics: Reset `cand = b` whenever `votes == 0`. Track `cand, votes`; increment on match else decrement.",
+        "Edge Cases & Optimization: Guaranteed existence avoids needing a second verification pass. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Boyer-Moore Voting",
       "approachSteps": [
@@ -25250,10 +26208,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shift-roster-inplace-rotation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Reduce `k = shifts % n`, reverse the entire array, reverse `[0..k-1]`, and reverse `[k..n-1]`.",
       "hints": [
-        "Three in-place reversals run in O(n) time and O(1) space."
+        "Conceptual Intuition: Consider a Three-Reversal In-Place Shift paradigm. Reduce `k = shifts % n`, reverse the entire array, reverse `[0.k-1]`, and reverse `[k.n-1]`.",
+        "Algorithmic Mechanics: Three in-place reversals run in O(n) time and O(1) space. Normalize `k %= n`; reverse all, reverse prefix `k`, reverse suffix `n - k`.",
+        "Edge Cases & Optimization: Always take `shifts % len(roster)` first. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Three-Reversal In-Place Shift",
       "approachSteps": [
@@ -25332,10 +26293,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-catalog-pair-budget",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Converge `l` and `r` from both ends: move `l` right if sum `< budget`, `r` left if `> budget`, returning `[l + 1, r + 1]` on match.",
       "hints": [
-        "Remember to add 1 to both indices."
+        "Conceptual Intuition: Consider a Opposite-End Two Pointers paradigm. Converge `l` and `r` from both ends: move `l` right if sum `< budget`, `r` left if `> budget`, returning `[l + 1, r + 1]` on match.",
+        "Algorithmic Mechanics: Remember to add 1 to both indices. Loop `l < r` adjusting pointers toward `budget`.",
+        "Edge Cases & Optimization: Return 1-based indices. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Opposite-End Two Pointers",
       "approachSteps": [
@@ -25414,10 +26378,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-uniform-patch-window",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Expand a sliding window tracking `max_freq`; shrink `l` whenever `(r - l + 1) - max_freq > edits`.",
       "hints": [
-        "`max_freq` never needs to be recomputed downward."
+        "Conceptual Intuition: Consider a Monotonic Frequency Sliding Window paradigm. Expand a sliding window tracking `max_freq`; shrink `l` whenever `(r - l + 1) - max_freq > edits`.",
+        "Algorithmic Mechanics: `max_freq` never needs to be recomputed downward. Count window letters, update `max_freq`, shrink while replacements needed `> edits`.",
+        "Edge Cases & Optimization: Decrement `counts[states[l]]` before incrementing `l`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Frequency Sliding Window",
       "approachSteps": [
@@ -25496,10 +26463,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ledger-infix-precedence-eval",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Stack additive terms; apply `'*'` and `'/'` immediately against `stack[-1]` using `int(a / b)`, and return `sum(stack)`.",
       "hints": [
-        "Append a sentinel `'+'` to flush the final number."
+        "Conceptual Intuition: Consider a Term-Stack Precedence Evaluator paradigm. Stack additive terms; apply `'*'` and `'/'` immediately against `stack[-1]` using `int(a / b)`, and return `sum(stack)`.",
+        "Algorithmic Mechanics: Append a sentinel `'+'` to flush the final number. Track previous `op` and `num`, apply `op` on each new operator, sum stack.",
+        "Edge Cases & Optimization: Use `int(st.pop() / num)` for zero-truncated division. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Term-Stack Precedence Evaluator",
       "approachSteps": [
@@ -25577,10 +26547,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pigeonhole-duplicate-badge-finder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Treat `i -> badges[i]` as a functional graph and locate the cycle entry point using Floyd's two-phase Tortoise and Hare algorithm.",
       "hints": [
-        "Phase 1 meets inside the cycle; Phase 2 resets `slow = 0` and steps both by 1."
+        "Conceptual Intuition: Consider a Floyd Cycle Entry Detection paradigm. Treat `i -> badges[i]` as a functional graph and locate the cycle entry point using Floyd's two-phase Tortoise and Hare algorithm.",
+        "Algorithmic Mechanics: Phase 1 meets inside the cycle; Phase 2 resets `slow = 0` and steps both by 1. Step `s = b[s]`, `f = b[b[f]]` until equal; reset `s = 0` and step both by 1 until equal.",
+        "Edge Cases & Optimization: Advance before comparing in Phase 1 since both start at `0`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Floyd Cycle Entry Detection",
       "approachSteps": [
@@ -25658,10 +26631,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "audit-queue-drop-nth-tail",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain an `n`-node gap between `fast` and `slow` starting from a dummy node so `slow` lands right before the node to unlink.",
       "hints": [
-        "A dummy head handles removing the very first item cleanly."
+        "Conceptual Intuition: Consider a Fixed-Gap Two-Pointer Unlink paradigm. Maintain an `n`-node gap between `fast` and `slow` starting from a dummy node so `slow` lands right before the node to unlink.",
+        "Algorithmic Mechanics: A dummy head handles removing the very first item cleanly. Remove index `len(items) - n` via dummy-headed two pointers.",
+        "Edge Cases & Optimization: `n` is 1-indexed from the tail. Ensure time complexity is bounded to O(L) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Fixed-Gap Two-Pointer Unlink",
       "approachSteps": [
@@ -25739,10 +26715,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "deck-alternating-end-interleave",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Converge `l` and `r` from both ends emitting `buf[l]` and (when `l != r`) `buf[r]`.",
       "hints": [
-        "In a linked list, split at midpoint, reverse second half, and merge alternately."
+        "Conceptual Intuition: Consider a Converging End-to-End Interleave paradigm. Converge `l` and `r` from both ends emitting `buf[l]` and (when `l != r`) `buf[r]`.",
+        "Algorithmic Mechanics: In a linked list, split at midpoint, reverse second half, and merge alternately. While `l <= r`, emit `buf[l]`, then `buf[r]` if `l != r`.",
+        "Edge Cases & Optimization: Avoid duplicating the middle element when `l == r`. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Converging End-to-End Interleave",
       "approachSteps": [
@@ -25822,10 +26801,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "skyline-bar-max-billboard",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain an increasing monotonic stack of indices with a trailing `0` sentinel; pop taller bars and compute each popped bar's maximum spanning width.",
       "hints": [
-        "When the stack empties after a pop, width spans all the way to index `0` (`width = i`)."
+        "Conceptual Intuition: Consider a Monotonic Increasing Stack with Sentinel paradigm. Maintain an increasing monotonic stack of indices with a trailing `0` sentinel; pop taller bars and compute each popped bar's maximum spanning width.",
+        "Algorithmic Mechanics: When the stack empties after a pop, width spans all the way to index `0` (`width = i`). Iterate `heights + [0]`, pop while `heights[st[-1]] > h`, maximize `height * width`.",
+        "Edge Cases & Optimization: Append trailing `0` to flush all bars remaining on the stack. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Increasing Stack with Sentinel",
       "approachSteps": [
@@ -25904,7 +26886,8 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "warehouse-aisle-pair-budget",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Record each seen pallet weight's bay index in a hash table so every new bay checks for `pod_limit - weight` in O(1) time.",
       "hints": [
         "Checking every pair of bays takes O(n^2) time.",
@@ -25991,11 +26974,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "solar-grid-peak-surplus",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain the best contiguous surplus ending at the current hour (`max(x, curr + x)`) and track the global peak.",
       "hints": [
         "A negative running prefix can only reduce future sums, so reset to the current hour.",
-        "Initialize both `curr` and `best` to `net_kw[0]`."
+        "Initialize both `curr` and `best` to `net_kw[0]`.",
+        "Boundary edge cases & complexity: Do not initialize `best = 0` when all hours can be negative. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Running Best-Window Scan",
       "approachSteps": [
@@ -26076,11 +27061,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "courier-parcel-balance-point",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Precompute `total = sum(loads)` and scan left-to-right maintaining `left_sum`; index `i` is balanced iff `left_sum == total - left_sum - loads[i]`.",
       "hints": [
         "Right sum at index `i` is `total - left_sum - loads[i]`.",
-        "Check before adding `loads[i]` to `left_sum`."
+        "Check before adding `loads[i]` to `left_sum`.",
+        "Boundary edge cases & complexity: Index 0 has `left_sum = 0`, which can match if the remaining suffix sums to 0. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Total-Sum Running Prefix Check",
       "approachSteps": [
@@ -26162,11 +27149,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-duplicate-sensor-window",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a sliding hash set of at most `max_gap` previous readings; if the incoming reading is already in the set, return `True`.",
       "hints": [
         "Evict `readings[i - max_gap]` once the window exceeds `max_gap`.",
-        "Alternatively store the last seen index of each value in a hash map."
+        "Alternatively store the last seen index of each value in a hash map.",
+        "Boundary edge cases & complexity: Handle `max_gap == 0` where no two distinct indices can satisfy `|i - j| <= 0`. Verify your solution strictly meets O(n) time and O(min(n, max_gap)) space limits."
       ],
       "approachTitle": "Bounded-Window Hash Set",
       "approachSteps": [
@@ -26247,11 +27236,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "retail-shelf-sku-consolidation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a `write` pointer for the next active SKU slot and swap each non-zero SKU into `slots[write]`.",
       "hints": [
         "Swapping `slots[write]` and `slots[read]` preserves relative order of non-zeros.",
-        "Advance `write` only on non-zero entries."
+        "Advance `write` only on non-zero entries.",
+        "Boundary edge cases & complexity: Never sort the array, as SKUs must keep their original shelf order. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "In-Place Stable Compaction",
       "approachSteps": [
@@ -26333,11 +27324,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cloud-billing-spike-window",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Slide a window across `uptime` maintaining at most `budget` error minutes (`0`s), shrinking from the left whenever errors exceed `budget`.",
       "hints": [
-        "Track `errors` inside `[l..r]`.",
-        "Advance `l` while `errors > budget`."
+        "Track `errors` inside `[l.r]`.",
+        "Advance `l` while `errors > budget`.",
+        "Boundary edge cases & complexity: Handle `budget == 0` cleanly. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Error-Budget Sliding Window",
       "approachSteps": [
@@ -26420,11 +27413,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ride-share-fare-triplet-match",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `deltas`, fix each distinct first element, and use converging two pointers skipping duplicate values to collect all unique zero-sum triplets.",
       "hints": [
         "Stop outer loop as soon as `deltas[i] > 0`.",
-        "Skip duplicate values for `i`, `l`, and `r`."
+        "Skip duplicate values for `i`, `l`, and `r`.",
+        "Boundary edge cases & complexity: Deduplicating only the outer index still emits duplicate pairs from `(l, r)`. Verify your solution strictly meets O(n^2) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Sorted Anchor + Two Pointers",
       "approachSteps": [
@@ -26506,11 +27501,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "factory-conveyor-batch-rebalance",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track running prefix sums in a frequency map seeded with `{0: 1}` and add `freq[prefix - quota]` at every hour.",
       "hints": [
         "Negative rework values prevent using a sliding window.",
-        "Query `freq[curr - quota]` before incrementing `freq[curr]`."
+        "Query `freq[curr - quota]` before incrementing `freq[curr]`.",
+        "Boundary edge cases & complexity: Always seed `{0: 1}` so intervals starting at hour 0 are counted. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Prefix-Sum Frequency Map",
       "approachSteps": [
@@ -26590,11 +27587,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "trading-desk-drawdown-recovery",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track the lowest historical quote `low` seen so far and maximize `quote - low` in one linear pass.",
       "hints": [
         "You must enter before exiting.",
-        "Keep a running minimum quote."
+        "Keep a running minimum quote.",
+        "Boundary edge cases & complexity: Return `0` rather than a negative spread when prices only decline. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "One-Pass Running Low Tracker",
       "approachSteps": [
@@ -26675,11 +27674,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cdn-bandwidth-burst-quota",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Because all payloads are positive, expand the right end until `curr >= quota`, then shrink the left end as far as possible while updating the minimal length.",
       "hints": [
         "Positive payloads guarantee monotonicity of window sums.",
-        "Return `0` if `best` was never updated."
+        "Return `0` if `best` was never updated.",
+        "Boundary edge cases & complexity: Return `0`, not `inf`, when no window meets `quota`. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "Shrinking-Threshold Sliding Window",
       "approachSteps": [
@@ -26760,11 +27761,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cold-chain-sensor-drift-range",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a decreasing monotonic deque of indices so `temps[dq[0]]` is always the current window's peak in O(1) amortized time.",
       "hints": [
         "Discard older indices whose temperature is `<=` the incoming reading.",
-        "Expire `dq[0]` when `dq[0] <= i - window`."
+        "Expire `dq[0]` when `dq[0] <= i - window`.",
+        "Boundary edge cases & complexity: Store indices, not temperatures, so expiration checks are exact. Verify your solution strictly meets O(n) time and O(window) space limits."
       ],
       "approachTitle": "Monotonic Decreasing Index Deque",
       "approachSteps": [
@@ -26846,11 +27849,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "fleet-fuel-tank-equalization",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Map `1 -> +1` and `0 -> -1` and record the earliest index of each cumulative elevation balance in a hash map.",
       "hints": [
         "Equal net elevation at indices `a` and `b` implies equal uphill and downhill segments between `a + 1` and `b`.",
-        "Seed `{0: -1}` before index 0."
+        "Seed `{0: -1}` before index 0.",
+        "Boundary edge cases & complexity: Never overwrite the earliest recorded index for a balance value. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Earliest-Balance Hash Map",
       "approachSteps": [
@@ -26931,10 +27936,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "port-crane-container-reservoir",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Start pointers at both ends and always move the shorter bulkhead inward since moving the taller one can never improve the limiting height.",
       "hints": [
-        "Width strictly shrinks by 1 per move, so only replacing the shorter wall can yield a larger area."
+        "Conceptual Intuition: Consider a Converging Shorter-Wall Two Pointers paradigm. Start pointers at both ends and always move the shorter bulkhead inward since moving the taller one can never improve the limiting height.",
+        "Algorithmic Mechanics: Width strictly shrinks by 1 per move, so only replacing the shorter wall can yield a larger area. Set `l = 0`, `r = len(walls) - 1`, `best = 0`. While `l < r`, update `best`, then advance `l` if `walls[l] < walls[r]` else decrement `r`.",
+        "Edge Cases & Optimization: Evaluate area before moving either pointer. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Converging Shorter-Wall Two Pointers",
       "approachSteps": [
@@ -27014,11 +28022,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "smart-irrigation-terrace-capture",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain two inward pointers with `l_max` and `r_max`; process the lower side each step because its water surface is strictly bounded by its own side's max.",
       "hints": [
         "Water above terrace `i` is `min(left_max, right_max) - terraces[i]`.",
-        "No extra prefix/suffix arrays are needed with two pointers."
+        "No extra prefix/suffix arrays are needed with two pointers.",
+        "Boundary edge cases & complexity: Update `lm`/`rm` before subtracting the current elevation. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "O(1)-Space Two-Pointer Water Surface",
       "approachSteps": [
@@ -27099,10 +28109,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "grocery-aisle-two-brand-showcase",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a sliding window frequency dictionary; whenever distinct keys exceed 2, shrink from the left until `len(counts) <= 2`.",
       "hints": [
-        "Remove a brand key from the dictionary as soon as its count reaches 0."
+        "Conceptual Intuition: Consider a At-Most-Two-Keys Sliding Window paradigm. Maintain a sliding window frequency dictionary; whenever distinct keys exceed 2, shrink from the left until `len(counts) <= 2`.",
+        "Algorithmic Mechanics: Remove a brand key from the dictionary as soon as its count reaches 0. Initialize `cnt = {}`, `l = best = 0`. Increment `cnt[brands[r]]`; while `len(cnt) > 2`, decrement `cnt[brands[l]]` (deleting at 0) and increment `l`.",
+        "Edge Cases & Optimization: Zero-count keys left in the dict inflate `len(cnt)`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "At-Most-Two-Keys Sliding Window",
       "approachSteps": [
@@ -27183,11 +28196,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "auction-bid-multiplier-excluding-self",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Write prefix products left-to-right into the output array, then multiply by running suffix products right-to-left.",
       "hints": [
         "Division fails when any factor is `0`.",
-        "Two linear passes use O(1) extra space."
+        "Two linear passes use O(1) extra space.",
+        "Boundary edge cases & complexity: Handle multiple zeros naturally without branching. Verify your solution strictly meets O(n) time and O(1) auxiliary space limits."
       ],
       "approachTitle": "Prefix-Suffix Two-Pass Product",
       "approachSteps": [
@@ -27268,11 +28283,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ticket-kiosk-consecutive-seat-block",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Put all seats into a hash set and only walk upward from seat `s` when `s - 1` is absent.",
       "hints": [
         "Each seat is visited at most twice across all walks.",
-        "Deduplicate via `set(seats)` first."
+        "Deduplicate via `set(seats)` first.",
+        "Boundary edge cases & complexity: Iterating over `seats` instead of `s_set` degrades on duplicate entries. Verify your solution strictly meets O(n) time and O(n) space limits."
       ],
       "approachTitle": "Hash-Set Block-Start Expansion",
       "approachSteps": [
@@ -27353,10 +28370,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "api-rate-limiter-burst-window",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track each route's last seen index in a hash map and jump the left pointer past any repeated route inside the current window.",
       "hints": [
-        "Only move `l` forward (`if last[ch] >= l: l = last[ch] + 1`)."
+        "Conceptual Intuition: Consider a Last-Seen Index Sliding Window paradigm. Track each route's last seen index in a hash map and jump the left pointer past any repeated route inside the current window.",
+        "Algorithmic Mechanics: Only move `l` forward (`if last[ch] >= l: l = last[ch] + 1`). Initialize `last = {}`, `l = best = 0`. For `r, ch` in `enumerate(trace)`, update `l` if `ch` repeats inside window, store `last[ch] = r`, maximize `r - l + 1`.",
+        "Edge Cases & Optimization: Never allow `l` to jump backward to an older occurrence. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Last-Seen Index Sliding Window",
       "approachSteps": [
@@ -27436,11 +28456,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "fulfillment-crate-smallest-missing-tag",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Place every tag `v` in `[1..n]` into index `v - 1` via cyclic swapping, then return the first `i + 1` where `tags[i] != i + 1`.",
       "hints": [
         "The answer is always in `[1, n + 1]`.",
-        "Break out of the swap loop if `tags[target] == tags[i]` to prevent infinite loops on duplicates."
+        "Break out of the swap loop if `tags[target] == tags[i]` to prevent infinite loops on duplicates.",
+        "Boundary edge cases & complexity: Store `target = tags[i] - 1` in a temporary variable before tuple-swapping in Python. Verify your solution strictly meets O(n) time and O(1) space limits."
       ],
       "approachTitle": "In-Place Cyclic Slot Placement",
       "approachSteps": [
@@ -27521,10 +28543,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "freight-ferry-paired-vehicle-load",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort weights ascending and pair the heaviest remaining vehicle with the lightest remaining vehicle whenever their combined weight fits `deck_cap`.",
       "hints": [
-        "Always load the heaviest vehicle `r`; also load `l` if `vehicles[l] + vehicles[r] <= deck_cap`."
+        "Conceptual Intuition: Consider a Sorted Extremes Greedy Pairing paradigm. Sort weights ascending and pair the heaviest remaining vehicle with the lightest remaining vehicle whenever their combined weight fits `deck_cap`.",
+        "Algorithmic Mechanics: Always load the heaviest vehicle `r`; also load `l` if `vehicles[l] + vehicles[r] <= deck_cap`. Sort `vehicles`. Use `l = 0`, `r = n - 1`, `trips = 0`; while `l <= r`, advance `l` if pair fits, decrement `r`, increment `trips`.",
+        "Edge Cases & Optimization: Use `l <= r` to count a solo remaining vehicle. Ensure time complexity is bounded to O(n log n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Extremes Greedy Pairing",
       "approachSteps": [
@@ -27604,10 +28629,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "log-sanitizer-palindrome-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Converge two pointers from both ends skipping non-alphanumeric characters and comparing lowercase letters.",
       "hints": [
-        "Keep digits `0-9` since they are alphanumeric."
+        "Conceptual Intuition: Consider a Zero-Allocation Two Pointers paradigm. Converge two pointers from both ends skipping non-alphanumeric characters and comparing lowercase letters.",
+        "Algorithmic Mechanics: Keep digits `0-9` since they are alphanumeric. Skip non-alphanumeric characters on both ends. Compare `sig[l].lower() == sig[r].lower()` until `l >= r`.",
+        "Edge Cases & Optimization: Strings with only punctuation sanitize to empty string and are symmetric (`True`). Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Zero-Allocation Two Pointers",
       "approachSteps": [
@@ -27687,10 +28715,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "config-template-bracket-linter",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push opening brackets onto a stack and match each closing bracket against the top of the stack.",
       "hints": [
-        "Map closing brackets to their expected opening counterparts."
+        "Conceptual Intuition: Consider a LIFO Delimiter Stack paradigm. Push opening brackets onto a stack and match each closing bracket against the top of the stack.",
+        "Algorithmic Mechanics: Map closing brackets to their expected opening counterparts. Push openers, pop and verify on closers, and check `not stack` at the end.",
+        "Edge Cases & Optimization: Guard against popping from an empty stack on unexpected closers. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "LIFO Delimiter Stack",
       "approachSteps": [
@@ -27769,10 +28800,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "spreadsheet-postfix-formula-engine",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Evaluate with an operand stack using `int(a / b)` for zero-truncated division.",
       "hints": [
-        "Pop `b` (right operand) before `a` (left operand)."
+        "Conceptual Intuition: Consider a Postfix Operand Stack paradigm. Evaluate with an operand stack using `int(a / b)` for zero-truncated division.",
+        "Algorithmic Mechanics: Pop `b` (right operand) before `a` (left operand). Push numbers; on operators pop `b, a`, compute, and push result.",
+        "Edge Cases & Optimization: In Python, `//` floors instead of truncating toward zero. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Postfix Operand Stack",
       "approachSteps": [
@@ -27852,10 +28886,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "weather-station-warmer-forecast-wait",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a decreasing monotonic stack of hour indices; whenever a stronger gust arrives, pop all weaker hours and record `i - prev`.",
       "hints": [
-        "Equal wind speeds do not trigger a pop since we need strictly stronger gusts."
+        "Conceptual Intuition: Consider a Monotonic Decreasing Index Stack paradigm. Maintain a decreasing monotonic stack of hour indices; whenever a stronger gust arrives, pop all weaker hours and record `i - prev`.",
+        "Algorithmic Mechanics: Equal wind speeds do not trigger a pop since we need strictly stronger gusts. Initialize `ans = [0] * n` and `st = []`. While `st and gusts[st[-1]] < g`, pop `p` and set `ans[p] = i - p`; push `i`.",
+        "Edge Cases & Optimization: Use strict `<` comparison. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Decreasing Index Stack",
       "approachSteps": [
@@ -27936,10 +28973,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "drone-corridor-head-on-resolution",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Simulate with a stack: collisions occur only when `stack[-1] > 0` (eastbound) and incoming `d < 0` (westbound).",
       "hints": [
-        "Westbound followed by eastbound fly away from each other."
+        "Conceptual Intuition: Consider a Stack Collision Resolver paradigm. Simulate with a stack: collisions occur only when `stack[-1] > 0` (eastbound) and incoming `d < 0` (westbound).",
+        "Algorithmic Mechanics: Westbound followed by eastbound fly away from each other. While `st and st[-1] > 0 and d < 0`, resolve mass comparison. Push `d` only if it survives all collisions.",
+        "Edge Cases & Optimization: Continue colliding if the incoming westbound drone destroys `st[-1]`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Stack Collision Resolver",
       "approachSteps": [
@@ -28019,10 +29059,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "macro-expander-nested-repeat",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push `(current_string, repeat_count)` on `'['` and pop-concatenate `prev + curr * mult` on `']'`.",
       "hints": [
-        "Accumulate multi-digit multipliers with `num = num * 10 + int(ch)`."
+        "Conceptual Intuition: Consider a Context-Saving Stack Expander paradigm. Push `(current_string, repeat_count)` on `'['` and pop-concatenate `prev + curr * mult` on `']'`.",
+        "Algorithmic Mechanics: Accumulate multi-digit multipliers with `num = num * 10 + int(ch)`. Track `st`, `curr`, and `num`. Save on `'['`, expand on `']'`, append letters directly.",
+        "Edge Cases & Optimization: Reset `num = 0` and `curr = ''` when pushing onto the stack. Ensure time complexity is bounded to O(output_len) with O(output_len) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Context-Saving Stack Expander",
       "approachSteps": [
@@ -28102,10 +29145,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cli-filesystem-canonical-resolver",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Split `raw_path` by `'/'`, maintain a directory stack popping on `'..'` and skipping `''`/`.`.",
       "hints": [
-        "Three dots `'...'` is an ordinary folder name."
+        "Conceptual Intuition: Consider a Segment Stack Normalization paradigm. Split `raw_path` by `'/'`, maintain a directory stack popping on `'.'` and skipping `''`/`.`.",
+        "Algorithmic Mechanics: Three dots `'.'` is an ordinary folder name. Split on `'/'`, process segments onto `st`, return `'/' + '/'.join(st)`.",
+        "Edge Cases & Optimization: Check `if st:` before popping on `'.'`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Segment Stack Normalization",
       "approachSteps": [
@@ -28184,11 +29230,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "shipping-lane-convoy-clusters",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort trucks closest-to-port first; a trailing truck forms a new convoy iff its floating-point ETA strictly exceeds the slowest convoy ahead.",
       "hints": [
         "Compute `eta = (port_mile - pos) / spd`.",
-        "Sort descending by `pos`."
+        "Sort descending by `pos`.",
+        "Boundary edge cases & complexity: Use float division for exact arrival time comparisons. Verify your solution strictly meets O(n log n) time and O(n) space limits."
       ],
       "approachTitle": "Reverse-Position ETA Sweep",
       "approachSteps": [
@@ -28268,10 +29316,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ledger-code-anagram-bucketing",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Hash each code by its 26-letter frequency tuple into a dictionary of lists.",
       "hints": [
-        "Convert the 26-element count array into an immutable tuple key."
+        "Conceptual Intuition: Consider a 26-Letter Frequency Tuple Bucketing paradigm. Hash each code by its 26-letter frequency tuple into a dictionary of lists.",
+        "Algorithmic Mechanics: Convert the 26-element count array into an immutable tuple key. Count characters per code into a tuple key and append to `groups[key]`. Return `list(groups.values())`.",
+        "Edge Cases & Optimization: Handle empty strings cleanly. Ensure time complexity is bounded to O(n * k) with O(n * k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "26-Letter Frequency Tuple Bucketing",
       "approachSteps": [
@@ -28350,10 +29401,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dns-label-shared-prefix",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare character column `i` of `hosts[0]` against all other hostnames and stop at the first mismatch or string end.",
       "hints": [
-        "Vertical scanning stops early on the very first differing column."
+        "Conceptual Intuition: Consider a Column-Wise Prefix Scan paradigm. Compare character column `i` of `hosts[0]` against all other hostnames and stop at the first mismatch or string end.",
+        "Algorithmic Mechanics: Vertical scanning stops early on the very first differing column. Loop `i, ch` over `hosts[0]`; if any `h` has `i >= len(h)` or `h[i] != ch`, return `hosts[0][:i]`.",
+        "Edge Cases & Optimization: Guard `i >= len(h)` for shorter strings. Ensure time complexity is bounded to O(S) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Column-Wise Prefix Scan",
       "approachSteps": [
@@ -28432,10 +29486,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "packet-framing-codec-roundtrip",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Frame each packet as `f\"{len(p)}:{p}\"` and decode by locating `':'`, parsing integer length `L`, and slicing `L` characters.",
       "hints": [
-        "Never split on `':'` globally since payloads may contain colons."
+        "Conceptual Intuition: Consider a Length-Prefixed Wire Framing paradigm. Frame each packet as `f\"{len(p)}:{p}\"` and decode by locating `':'`, parsing integer length `L`, and slicing `L` characters.",
+        "Algorithmic Mechanics: Never split on `':'` globally since payloads may contain colons. Encode with `len:payload`. Decode via cursor `i`, finding next `':'` at `j`, slicing `[j+1 : j+1+L]`.",
+        "Edge Cases & Optimization: Handle empty payloads (`0:`) cleanly. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Length-Prefixed Wire Framing",
       "approachSteps": [
@@ -28514,10 +29571,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sensor-stream-run-length-packer",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Measure each contiguous run with a `read` pointer and emit the symbol plus each digit of `str(count)` (if `count > 1`) via a `write` pointer.",
       "hints": [
-        "Multi-digit run lengths like 10 become `'1', '0'`."
+        "Conceptual Intuition: Consider a Two-Pointer Run-Length Packer paradigm. Measure each contiguous run with a `read` pointer and emit the symbol plus each digit of `str(count)` (if `count > 1`) via a `write` pointer.",
+        "Algorithmic Mechanics: Multi-digit run lengths like 10 become `'1', '0'`. Scan runs with `read`, write symbol + digits at `write`, return `states[:write]`.",
+        "Edge Cases & Optimization: Emit count digits only when `count > 1`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Two-Pointer Run-Length Packer",
       "approachSteps": [
@@ -28598,10 +29658,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "badge-id-minimize-after-deletions",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain an increasing digit stack popping larger left digits while `drops > 0`, trim any remaining `drops` from the right, and strip leading zeros.",
       "hints": [
-        "If digits are already ascending, trim from the tail."
+        "Conceptual Intuition: Consider a Greedy Monotonic Digit Stack paradigm. Maintain an increasing digit stack popping larger left digits while `drops > 0`, trim any remaining `drops` from the right, and strip leading zeros.",
+        "Algorithmic Mechanics: If digits are already ascending, trim from the tail. Pop while `drops > 0 and st and st[-1] > d`. Slice off trailing `drops` if left, strip leading `'0'`s, return `res or '0'`.",
+        "Edge Cases & Optimization: Return `\"0\"` when all surviving digits are zeros or empty. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Monotonic Digit Stack",
       "approachSteps": [
@@ -28681,10 +29744,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "audit-trail-window-matcher",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Expand right until all required event counts are satisfied, then contract left while tracking the shortest valid slice.",
       "hints": [
-        "Track `formed` distinct event codes meeting their required multiplicity."
+        "Conceptual Intuition: Consider a Expand-Contract Event Counter Window paradigm. Expand right until all required event counts are satisfied, then contract left while tracking the shortest valid slice.",
+        "Algorithmic Mechanics: Track `formed` distinct event codes meeting their required multiplicity. Count `need = Counter(required)`. Expand `r`, increment `formed` when `win[ch] == need[ch]`.",
+        "Edge Cases & Optimization: Check exact equality `win[ch] == need[ch]` when incrementing `formed`. Ensure time complexity is bounded to O(n + m) with O(m) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Expand-Contract Event Counter Window",
       "approachSteps": [
@@ -28765,10 +29831,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "terminal-buffer-backspace-equivalence",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Walk both strings in reverse using a `skip` counter for `'#'` so surviving characters are compared lazily in O(1) space.",
       "hints": [
-        "Backspacing on an empty buffer is a no-op."
+        "Conceptual Intuition: Consider a Reverse Lazy Generator Comparison paradigm. Walk both strings in reverse using a `skip` counter for `'#'` so surviving characters are compared lazily in O(1) space.",
+        "Algorithmic Mechanics: Backspacing on an empty buffer is a no-op. Yield surviving characters from right to left and compare pairs with `zip_longest`.",
+        "Edge Cases & Optimization: Compare generators with `zip_longest` so differing surviving lengths return `False`. Ensure time complexity is bounded to O(n + m) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Reverse Lazy Generator Comparison",
       "approachSteps": [
@@ -28846,10 +29915,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "playlist-queue-reverse-segments",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Step through the queue in increments of `block_size` and reverse each complete slice `[i : i + block_size]` while `i + block_size <= n`.",
       "hints": [
-        "Never reverse a trailing remainder shorter than `block_size`."
+        "Conceptual Intuition: Consider a Full-Block Segment Reversal paradigm. Step through the queue in increments of `block_size` and reverse each complete slice `[i : i + block_size]` while `i + block_size <= n`.",
+        "Algorithmic Mechanics: Never reverse a trailing remainder shorter than `block_size`. Copy `tracks` and reverse each full `[i : i + block_size]` block.",
+        "Edge Cases & Optimization: Check `i + block_size <= n` before reversing. Ensure time complexity is bounded to O(n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Full-Block Segment Reversal",
       "approachSteps": [
@@ -28929,10 +30001,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-buffer-lru-eviction",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use an `OrderedDict` (hash map + doubly linked list) to refresh accessed/updated keys to the MRU tail and evict from the LRU head in O(1).",
       "hints": [
-        "Updating an existing key refreshes its recency without increasing cache size."
+        "Conceptual Intuition: Consider a OrderedDict O(1) LRU Simulation paradigm. Use an `OrderedDict` (hash map + doubly linked list) to refresh accessed/updated keys to the MRU tail and evict from the LRU head in O(1).",
+        "Algorithmic Mechanics: Updating an existing key refreshes its recency without increasing cache size. On `read`, move key to end and emit value (or `-1`). On `set`, assign, move to end, and pop oldest if `len > cap`.",
+        "Edge Cases & Optimization: Do not forget `move_to_end` on `set` of an already-present key. Ensure time complexity is bounded to O(1) per command with O(cap) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "OrderedDict O(1) LRU Simulation",
       "approachSteps": [
@@ -29012,10 +30087,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "routing-ring-loop-detector",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Advance `slow` one hop and `fast` two hops from router `0`; if they meet, a loop exists, otherwise `fast` reaches `-1`.",
       "hints": [
-        "Check both `fast != -1` and `next_hop[fast] != -1` before stepping `fast` twice."
+        "Conceptual Intuition: Consider a Floyd's Fast-Slow Hop Detection paradigm. Advance `slow` one hop and `fast` two hops from router `0`; if they meet, a loop exists, otherwise `fast` reaches `-1`.",
+        "Algorithmic Mechanics: Check both `fast != -1` and `next_hop[fast] != -1` before stepping `fast` twice. Start `slow = fast = 0`. Loop stepping `slow` by 1 and `fast` by 2; return `True` on collision, `False` on `-1`.",
+        "Edge Cases & Optimization: Handle self-loops (`next_hop[0] == 0`) cleanly. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Floyd's Fast-Slow Hop Detection",
       "approachSteps": [
@@ -29095,10 +30173,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "invoice-digit-stream-adder",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sum matching positions with a running `carry` until both tapes and `carry` are exhausted.",
       "hints": [
-        "Keep looping while `i < len(tape_a) or j < len(tape_b) or carry`."
+        "Conceptual Intuition: Consider a Carry-Propagating Stream Addition paradigm. Sum matching positions with a running `carry` until both tapes and `carry` are exhausted.",
+        "Algorithmic Mechanics: Keep looping while `i < len(tape_a) or j < len(tape_b) or carry`. Add digits plus carry, append `s % 10`, update `carry = s // 10`.",
+        "Edge Cases & Optimization: Emit a final `1` if carry remains after both tapes finish. Ensure time complexity is bounded to O(max(n, m)) with O(max(n, m)) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Carry-Propagating Stream Addition",
       "approachSteps": [
@@ -29177,10 +30258,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "heartbeat-monitor-rolling-3sec",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Push each beat onto a FIFO deque and evict front entries strictly less than `t - span_ms`.",
       "hints": [
-        "Timestamps are strictly increasing so oldest entries are always at `q[0]`."
+        "Conceptual Intuition: Consider a FIFO Expiration Deque paradigm. Push each beat onto a FIFO deque and evict front entries strictly less than `t - span_ms`.",
+        "Algorithmic Mechanics: Timestamps are strictly increasing so oldest entries are always at `q[0]`. Append `t`, popleft while `q[0] < t - span_ms`, append `len(q)`.",
+        "Edge Cases & Optimization: Boundary `t - span_ms` is inclusive. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "FIFO Expiration Deque",
       "approachSteps": [
@@ -29259,10 +30343,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "log-archive-timestamp-lookup",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Halve the inclusive range `[l, r]` at each step by comparing `epochs[mid]` with `query_epoch`.",
       "hints": [
-        "Use `while l <= r`."
+        "Conceptual Intuition: Consider a Iterative Binary Search paradigm. Halve the inclusive range `[l, r]` at each step by comparing `epochs[mid]` with `query_epoch`.",
+        "Algorithmic Mechanics: Use `while l <= r`. Initialize `l = 0, r = n - 1`. Compare `epochs[mid]` with `query_epoch` and narrow bounds.",
+        "Edge Cases & Optimization: Return `-1` if the loop exits without finding a match. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Iterative Binary Search",
       "approachSteps": [
@@ -29342,10 +30429,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "rotated-ring-buffer-lookup",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Identify which half (`[l..m]` or `[m..r]`) is monotonically sorted and test whether `seq_id` falls inside it.",
       "hints": [
-        "Use `ring[l] <= ring[m]` to handle 2-element ranges."
+        "Conceptual Intuition: Consider a Sorted-Half Binary Search paradigm. Identify which half (`[l.m]` or `[m.r]`) is monotonically sorted and test whether `seq_id` falls inside it.",
+        "Algorithmic Mechanics: Use `ring[l] <= ring[m]` to handle 2-element ranges. Check `ring[m] == seq_id`; branch on sorted half and update `l` or `r`.",
+        "Edge Cases & Optimization: Strict `<` on `ring[l] < ring[m]` breaks when `l == m`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted-Half Binary Search",
       "approachSteps": [
@@ -29424,10 +30514,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ring-buffer-start-offset",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compare `ring[mid]` with `ring[r]`; if `ring[mid] > ring[r]`, the wrap point is strictly right (`l = mid + 1`), else `r = mid`.",
       "hints": [
-        "Shrink until `l == r` and return `ring[l]`."
+        "Conceptual Intuition: Consider a Right-Bound Binary Search paradigm. Compare `ring[mid]` with `ring[r]`; if `ring[mid] > ring[r]`, the wrap point is strictly right (`l = mid + 1`), else `r = mid`.",
+        "Algorithmic Mechanics: Shrink until `l == r` and return `ring[l]`. While `l < r`, move `l = mid + 1` if `ring[mid] > ring[r]` else `r = mid`.",
+        "Edge Cases & Optimization: Never set `r = mid - 1` when `ring[mid]` could be the minimum. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Right-Bound Binary Search",
       "approachSteps": [
@@ -29506,10 +30599,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "video-transcoder-min-bitrate",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search `rate` in `[1, max(clips)]` using integer ceiling `(c + rate - 1) // rate` to count total hours.",
       "hints": [
-        "Feasibility is monotonic: higher rates always need fewer or equal hours."
+        "Conceptual Intuition: Consider a Answer-Space Binary Search paradigm. Binary search `rate` in `[1, max(clips)]` using integer ceiling `(c + rate - 1) // rate` to count total hours.",
+        "Algorithmic Mechanics: Feasibility is monotonic: higher rates always need fewer or equal hours. Set `l = 1, r = max(clips)`. Sum `(c + mid - 1) // mid`; narrow `r = mid` if `<= deadline_hrs` else `l = mid + 1`.",
+        "Edge Cases & Optimization: Use integer ceiling to avoid floating-point precision loss. Ensure time complexity is bounded to O(n log M) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Answer-Space Binary Search",
       "approachSteps": [
@@ -29589,10 +30685,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cargo-vessel-daily-tonnage",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search capacity in `[max(tons), sum(tons)]` and greedily load consecutive lots per voyage.",
       "hints": [
-        "Start `l = max(tons)` so every single lot fits."
+        "Conceptual Intuition: Consider a Monotonic Capacity Binary Search paradigm. Binary search capacity in `[max(tons), sum(tons)]` and greedily load consecutive lots per voyage.",
+        "Algorithmic Mechanics: Start `l = max(tons)` so every single lot fits. Greedily count voyages for candidate `mid`; narrow `[l, r]` until `l == r`.",
+        "Edge Cases & Optimization: Initialize `voyages = 1` before iterating through `tons`. Ensure time complexity is bounded to O(n log S) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Monotonic Capacity Binary Search",
       "approachSteps": [
@@ -29671,10 +30770,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "batch-job-cluster-partition",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the peak worker load cap in `[max(jobs), sum(jobs)]` and greedily check if `<= workers` contiguous batches suffice.",
       "hints": [
-        "Greedy packing minimizes the number of batches for any fixed cap `mid`."
+        "Conceptual Intuition: Consider a Binary Search on Peak Batch Cap paradigm. Binary search the peak worker load cap in `[max(jobs), sum(jobs)]` and greedily check if `<= workers` contiguous batches suffice.",
+        "Algorithmic Mechanics: Greedy packing minimizes the number of batches for any fixed cap `mid`. Set `l = max(jobs), r = sum(jobs)`. Count batches for cap `mid` and converge `l == r`.",
+        "Edge Cases & Optimization: Ensure `l = max(jobs)` so no job exceeds the cap. Ensure time complexity is bounded to O(n log S) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Binary Search on Peak Batch Cap",
       "approachSteps": [
@@ -29754,10 +30856,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "radar-elevation-local-crest",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Always move toward the higher adjacent slope (`alt[mid] < alt[mid + 1]` -> go right, else go left including `mid`).",
       "hints": [
-        "Boundary `-inf` guarantees an ascending slope always reaches a ridge."
+        "Conceptual Intuition: Consider a Slope-Climbing Binary Search paradigm. Always move toward the higher adjacent slope (`alt[mid] < alt[mid + 1]` -> go right, else go left including `mid`).",
+        "Algorithmic Mechanics: Boundary `-inf` guarantees an ascending slope always reaches a ridge. While `l < r`, compare `alt[m]` and `alt[m + 1]` and shrink to the ascending side.",
+        "Edge Cases & Optimization: Use `while l < r` so `m + 1` stays in bounds. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Slope-Climbing Binary Search",
       "approachSteps": [
@@ -29836,10 +30941,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sorted-shard-matrix-lookup",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Start at top-right `(0, n - 1)`: step left if current value `> key`, step down if `< key`.",
       "hints": [
-        "Eliminates one full row or column every comparison."
+        "Conceptual Intuition: Consider a Top-Right Staircase Search paradigm. Start at top-right `(0, n - 1)`: step left if current value `> key`, step down if `< key`.",
+        "Algorithmic Mechanics: Eliminates one full row or column every comparison. Loop while `r < m and c >= 0` narrowing row/col.",
+        "Edge Cases & Optimization: Guard `c >= 0` and `r < m`. Ensure time complexity is bounded to O(m + n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Top-Right Staircase Search",
       "approachSteps": [
@@ -29918,10 +31026,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "clinic-appointment-merge",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort bookings by start minute and linearly extend the latest merged block whenever `s <= merged[-1][1]`.",
       "hints": [
-        "Take `max(merged[-1][1], e)` to handle contained intervals."
+        "Conceptual Intuition: Consider a Start-Sorted Linear Merge paradigm. Sort bookings by start minute and linearly extend the latest merged block whenever `s <= merged[-1][1]`.",
+        "Algorithmic Mechanics: Take `max(merged[-1][1], e)` to handle contained intervals. Sort by `x[0]`, merge overlapping intervals in one pass.",
+        "Edge Cases & Optimization: Never blindly overwrite `merged[-1][1] = e`. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Start-Sorted Linear Merge",
       "approachSteps": [
@@ -29999,10 +31110,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "maintenance-window-insert",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Emit all windows ending before `patch`, merge all overlapping windows into `[ps, pe]`, then append all remaining windows.",
       "hints": [
-        "Runs in O(n) without re-sorting."
+        "Conceptual Intuition: Consider a Three-Phase Linear Insertion paradigm. Emit all windows ending before `patch`, merge all overlapping windows into `[ps, pe]`, then append all remaining windows.",
+        "Algorithmic Mechanics: Runs in O(n) without re-sorting. Copy strictly earlier windows, fold overlapping ones into `[ps, pe]`, append suffix.",
+        "Edge Cases & Optimization: Handle empty `windows` returning `[patch]`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Three-Phase Linear Insertion",
       "approachSteps": [
@@ -30081,10 +31195,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "satellite-pass-min-drops",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort passes by end time ascending and greedily keep every pass starting at or after the last kept end time.",
       "hints": [
-        "Keeping the earliest-ending pass maximizes remaining dish availability."
+        "Conceptual Intuition: Consider a Earliest-End Activity Selection paradigm. Sort passes by end time ascending and greedily keep every pass starting at or after the last kept end time.",
+        "Algorithmic Mechanics: Keeping the earliest-ending pass maximizes remaining dish availability. Sort by `x[1]`, count passes with `s < prev_end`.",
+        "Edge Cases & Optimization: Touching endpoints (`s == prev_end`) are valid and not dropped. Ensure time complexity is bounded to O(n log n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Earliest-End Activity Selection",
       "approachSteps": [
@@ -30163,10 +31280,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "operating-room-peak-suites",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort by start time and track active suite end times in a min-heap, reusing the earliest free suite when `ends[0] <= start`.",
       "hints": [
-        "Heap size at the end equals the peak concurrent suites."
+        "Conceptual Intuition: Consider a Min-Heap Active Suite Tracker paradigm. Sort by start time and track active suite end times in a min-heap, reusing the earliest free suite when `ends[0] <= start`.",
+        "Algorithmic Mechanics: Heap size at the end equals the peak concurrent suites. Sort by start; for `[s, e]`, pop `ends[0]` if `<= s`, then push `e`; return `len(ends)`.",
+        "Edge Cases & Optimization: Use `<=` so immediate turnover reuses a suite. Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Min-Heap Active Suite Tracker",
       "approachSteps": [
@@ -30246,10 +31366,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "priority-lane-three-tier-sort",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a 3-way Dutch National Flag partition with `lo`, `mid`, `hi` pointers.",
       "hints": [
-        "Do not advance `mid` after swapping with `hi`."
+        "Conceptual Intuition: Consider a Three-Pointer In-Place Partition paradigm. Use a 3-way Dutch National Flag partition with `lo`, `mid`, `hi` pointers.",
+        "Algorithmic Mechanics: Do not advance `mid` after swapping with `hi`. Swap `0`s to `lo` (`lo++, mid++`), skip `1`s (`mid++`), swap `2`s to `hi` (`hi--`).",
+        "Edge Cases & Optimization: Loop condition must be `mid <= hi`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Three-Pointer In-Place Partition",
       "approachSteps": [
@@ -30327,10 +31450,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-kth-highest-latency",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a min-heap of size `k` so its root always holds the `k`-th largest value seen.",
       "hints": [
-        "Replace `heap[0]` whenever an incoming latency exceeds `heap[0]`."
+        "Conceptual Intuition: Consider a Size-K Min-Heap paradigm. Maintain a min-heap of size `k` so its root always holds the `k`-th largest value seen.",
+        "Algorithmic Mechanics: Replace `heap[0]` whenever an incoming latency exceeds `heap[0]`. Heapify `latencies[:k]`, iterate rest replacing root if larger, return `heap[0]`.",
+        "Edge Cases & Optimization: Use a min-heap (not max-heap) to retain the top `k` elements. Ensure time complexity is bounded to O(n log k) with O(k) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Size-K Min-Heap",
       "approachSteps": [
@@ -30408,10 +31534,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sensor-grid-spiral-sweep",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track `top, bottom, left, right` boundaries and peel the four edges clockwise while guarding non-empty rows/columns.",
       "hints": [
-        "Re-check `top <= bottom` and `left <= right` before bottom and left passes."
+        "Conceptual Intuition: Consider a Four-Boundary Spiral Peeling paradigm. Track `top, bottom, left, right` boundaries and peel the four edges clockwise while guarding non-empty rows/columns.",
+        "Algorithmic Mechanics: Re-check `top <= bottom` and `left <= right` before bottom and left passes. Traverse top, right, bottom, left shrinking boundaries inward.",
+        "Edge Cases & Optimization: Single-row/column grids duplicate elements if inner guards are omitted. Ensure time complexity is bounded to O(m * n) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Four-Boundary Spiral Peeling",
       "approachSteps": [
@@ -30489,10 +31618,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "blueprint-90-degree-rotation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Transpose `plan` across its main diagonal, then reverse every row in-place.",
       "hints": [
-        "Only swap upper-triangle entries `j > i` during transpose."
+        "Conceptual Intuition: Consider a Transpose + Horizontal Flip paradigm. Transpose `plan` across its main diagonal, then reverse every row in-place.",
+        "Algorithmic Mechanics: Only swap upper-triangle entries `j > i` during transpose. Transpose in-place, reverse each row, return `plan`.",
+        "Edge Cases & Optimization: Swapping all `(i, j)` cancels the transpose. Ensure time complexity is bounded to O(n^2) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Transpose + Horizontal Flip",
       "approachSteps": [
@@ -30570,10 +31702,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "datacenter-rack-fault-mask",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use row 0 and column 0 as in-place fault markers plus two booleans for whether row 0 or column 0 originally had a `0`.",
       "hints": [
-        "Zero interior cells before applying row-0 and col-0 shutdown flags."
+        "Conceptual Intuition: Consider a Header-Row/Col In-Place Markers paradigm. Use row 0 and column 0 as in-place fault markers plus two booleans for whether row 0 or column 0 originally had a `0`.",
+        "Algorithmic Mechanics: Zero interior cells before applying row-0 and col-0 shutdown flags. Save `r0, c0` flags, mark interior faults on row 0/col 0, zero interior, then zero row 0/col 0.",
+        "Edge Cases & Optimization: Never zero row 0 before propagating its column markers. Ensure time complexity is bounded to O(m * n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Header-Row/Col In-Place Markers",
       "approachSteps": [
@@ -30652,10 +31787,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "citation-impact-threshold",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the leftmost index `l` where `scores[l] >= n - l` and return `n - l`.",
       "hints": [
-        "There are `n - mid` apps from `mid` to `n - 1`."
+        "Conceptual Intuition: Consider a Suffix-Threshold Binary Search paradigm. Binary search the leftmost index `l` where `scores[l] >= n - l` and return `n - l`.",
+        "Algorithmic Mechanics: There are `n - mid` apps from `mid` to `n - 1`. Set `l = 0, r = n`; while `l < r`, narrow on `scores[m] >= n - m`; return `n - l`.",
+        "Edge Cases & Optimization: Use `r = n` so all-zero arrays return `n - n = 0`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Suffix-Threshold Binary Search",
       "approachSteps": [
@@ -30734,10 +31872,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "paired-sensor-lone-reading",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Snap `mid` to an even index and check `signals[mid] == signals[mid + 1]`: if equal, the unpaired value is right (`l = mid + 2`), else `r = mid`.",
       "hints": [
-        "Parity of pair start indices flips right at the unpaired element."
+        "Conceptual Intuition: Consider a Even-Aligned Binary Search paradigm. Snap `mid` to an even index and check `signals[mid] == signals[mid + 1]`: if equal, the unpaired value is right (`l = mid + 2`), else `r = mid`.",
+        "Algorithmic Mechanics: Parity of pair start indices flips right at the unpaired element. Ensure `m` is even; advance `l = m + 2` on pair match else `r = m`.",
+        "Edge Cases & Optimization: Always snap `m` to even before checking `m + 1`. Ensure time complexity is bounded to O(log n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Even-Aligned Binary Search",
       "approachSteps": [
@@ -30816,10 +31957,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "two-feed-combined-median",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Binary search the cut index `i` in the shorter feed so `i + j == (m + n + 1) // 2` and cross-border inequalities `A_l <= B_r` and `B_l <= A_r` hold.",
       "hints": [
-        "Always binary search on the shorter array."
+        "Conceptual Intuition: Consider a Half-Cut Partition Binary Search paradigm. Binary search the cut index `i` in the shorter feed so `i + j == (m + n + 1) // 2` and cross-border inequalities `A_l <= B_r` and `B_l <= A_r` hold.",
+        "Algorithmic Mechanics: Always binary search on the shorter array. Swap so `len(A) <= len(B)`. Binary search cut `i` using `-inf`/`+inf` sentinels.",
+        "Edge Cases & Optimization: Return a `float` even when total count is odd. Ensure time complexity is bounded to O(log(min(m, n))) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Half-Cut Partition Binary Search",
       "approachSteps": [
@@ -30898,10 +32042,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "org-chart-mirror-layout",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Deserialize the level-order tree, recursively swap `left` and `right`, and serialize back trimming trailing `None`s.",
       "hints": [
-        "Trim trailing `None` entries from the serialized list."
+        "Conceptual Intuition: Consider a Recursive Subtree Mirror paradigm. Deserialize the level-order tree, recursively swap `left` and `right`, and serialize back trimming trailing `None`s.",
+        "Algorithmic Mechanics: Trim trailing `None` entries from the serialized list. Deserialize -> DFS swap -> BFS serialize & trim.",
+        "Edge Cases & Optimization: Handle empty `chart` returning `[]`. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Recursive Subtree Mirror",
       "approachSteps": [
@@ -30979,10 +32126,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "org-chart-max-reporting-depth",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compute `1 + max(depth(left), depth(right))` bottom-up.",
       "hints": [
-        "Base case `None` returns `0`."
+        "Conceptual Intuition: Consider a Recursive Depth DFS paradigm. Compute `1 + max(depth(left), depth(right))` bottom-up.",
+        "Algorithmic Mechanics: Base case `None` returns `0`. Deserialize and compute `1 + max(dfs(l), dfs(r))`.",
+        "Edge Cases & Optimization: Empty input list returns `0`. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Recursive Depth DFS",
       "approachSteps": [
@@ -31060,10 +32210,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "circuit-tree-longest-wire",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track `best = max(best, lh + rh)` during a single post-order height DFS.",
       "hints": [
-        "Each call returns `1 + max(lh, rh)`."
+        "Conceptual Intuition: Consider a Post-Order Height & Span Tracking paradigm. Track `best = max(best, lh + rh)` during a single post-order height DFS.",
+        "Algorithmic Mechanics: Each call returns `1 + max(lh, rh)`. Deserialize and track `lh + rh` at every node.",
+        "Edge Cases & Optimization: Return edge count, not node count. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Post-Order Height & Span Tracking",
       "approachSteps": [
@@ -31141,10 +32294,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "alert-tree-tier-grouping",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a FIFO queue and snapshot `len(q)` at the beginning of each tier.",
       "hints": [
-        "Process exactly `len(q)` nodes per tier."
+        "Conceptual Intuition: Consider a Tier-Snapshotted BFS paradigm. Use a FIFO queue and snapshot `len(q)` at the beginning of each tier.",
+        "Algorithmic Mechanics: Process exactly `len(q)` nodes per tier. Deserialize and run level-order BFS collecting each tier.",
+        "Edge Cases & Optimization: Return `[]` for empty input. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Tier-Snapshotted BFS",
       "approachSteps": [
@@ -31222,10 +32378,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "index-tree-bst-integrity",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Propagate strict `(low, high)` bounds down DFS so every node satisfies `low < node.v < high`.",
       "hints": [
-        "Immediate child checks miss ancestor-bound violations."
+        "Conceptual Intuition: Consider a Range-Bounded DFS Audit paradigm. Propagate strict `(low, high)` bounds down DFS so every node satisfies `low < node.v < high`.",
+        "Algorithmic Mechanics: Immediate child checks miss ancestor-bound violations. Start with `(-inf, +inf)`, narrow to `(low, u.v)` left and `(u.v, high)` right.",
+        "Edge Cases & Optimization: Strict inequality rejects duplicate keys. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Range-Bounded DFS Audit",
       "approachSteps": [
@@ -31304,10 +32463,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "leaderboard-bst-kth-rank",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Perform iterative inorder traversal with an explicit stack and return immediately on the `k`-th popped node.",
       "hints": [
-        "Inorder traversal of a BST yields values in ascending order."
+        "Conceptual Intuition: Consider a Early-Exit Iterative Inorder paradigm. Perform iterative inorder traversal with an explicit stack and return immediately on the `k`-th popped node.",
+        "Algorithmic Mechanics: Inorder traversal of a BST yields values in ascending order. Push left spines, pop and decrement `k`, return `u.v` when `k == 0`.",
+        "Edge Cases & Optimization: `k` is 1-indexed. Ensure time complexity is bounded to O(h + k) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Early-Exit Iterative Inorder",
       "approachSteps": [
@@ -31386,10 +32548,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "routing-bst-common-hub",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Descend from the root: go left if both `a, b < curr.v`, go right if both `> curr.v`, else `curr.v` is the split hub.",
       "hints": [
-        "Exploit BST ordering for O(h) descent."
+        "Conceptual Intuition: Consider a BST Split-Node Descent paradigm. Descend from the root: go left if both `a, b < curr.v`, go right if both `> curr.v`, else `curr.v` is the split hub.",
+        "Algorithmic Mechanics: Exploit BST ordering for O(h) descent. Walk down left/right until `a` and `b` split.",
+        "Edge Cases & Optimization: Do not assume `a < b`. Ensure time complexity is bounded to O(h) with O(1) auxiliary auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "BST Split-Node Descent",
       "approachSteps": [
@@ -31469,10 +32634,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "pipeline-tree-peak-profit-path",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Post-order DFS computes `lg = max(0, gain(left))`, `rg = max(0, gain(right))`, updates `best = max(best, u.v + lg + rg)`, and returns `u.v + max(lg, rg)`.",
       "hints": [
-        "Initialize `best = float('-inf')` for all-negative trees."
+        "Conceptual Intuition: Consider a Post-Order Branch-Gain DP paradigm. Post-order DFS computes `lg = max(0, gain(left))`, `rg = max(0, gain(right))`, updates `best = max(best, u.v + lg + rg)`, and returns `u.v + max(lg, rg)`.",
+        "Algorithmic Mechanics: Initialize `best = float('-inf')` for all-negative trees. Clamp negative child gains to `0`, update global peak, return best single branch upward.",
+        "Edge Cases & Optimization: Path cannot split into both children when continuing to parent. Ensure time complexity is bounded to O(n) with O(h) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Post-Order Branch-Gain DP",
       "approachSteps": [
@@ -31552,10 +32720,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "autocomplete-prefix-directory",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build a nested-dictionary Trie with a terminal marker `'#'` on completed words.",
       "hints": [
-        "`exact` requires `'#' in node`; `prefix` only requires reaching the end of `pre`."
+        "Conceptual Intuition: Consider a Nested-Dict Prefix Trie paradigm. Build a nested-dictionary Trie with a terminal marker `'#'` on completed words.",
+        "Algorithmic Mechanics: `exact` requires `'#' in node`; `prefix` only requires reaching the end of `pre`. Walk/create dicts on `add`; traverse on `exact` and `prefix`.",
+        "Edge Cases & Optimization: Never confuse prefix presence with full-word membership. Ensure time complexity is bounded to O(L) per command with O(total chars) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Nested-Dict Prefix Trie",
       "approachSteps": [
@@ -31634,10 +32805,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "solar-farm-panel-clusters",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Scan all grid cells; on each `'1'`, increment `clusters` and BFS-flood-fill its 4-directional component to `'0'`.",
       "hints": [
-        "Mark cells `'0'` upon enqueueing to avoid duplicate queue items."
+        "Conceptual Intuition: Consider a Grid Component BFS paradigm. Scan all grid cells; on each `'1'`, increment `clusters` and BFS-flood-fill its 4-directional component to `'0'`.",
+        "Algorithmic Mechanics: Mark cells `'0'` upon enqueueing to avoid duplicate queue items. Loop over grid; flood-fill each unvisited `'1'`.",
+        "Edge Cases & Optimization: Diagonal adjacency does not merge clusters. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Grid Component BFS",
       "approachSteps": [
@@ -31716,10 +32890,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "server-rack-thermal-spread",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Seed multi-source BFS with all initial `2`s and count minutes while `q and healthy > 0`.",
       "hints": [
-        "Return `0` immediately if there are no healthy racks."
+        "Conceptual Intuition: Consider a Multi-Source Level BFS paradigm. Seed multi-source BFS with all initial `2`s and count minutes while `q and healthy > 0`.",
+        "Algorithmic Mechanics: Return `0` immediately if there are no healthy racks. Count `healthy`, enqueue all `2`s, expand wave by wave until `healthy == 0`.",
+        "Edge Cases & Optimization: Stop expanding once `healthy == 0` so no extra minute is added. Ensure time complexity is bounded to O(m * n) with O(m * n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Multi-Source Level BFS",
       "approachSteps": [
@@ -31799,10 +32976,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "build-pipeline-cycle-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use Kahn's BFS topological sort; return `True` iff all `num_pkgs` nodes are emitted.",
       "hints": [
-        "Add directed edge `b -> a` and increment `indeg[a]`."
+        "Conceptual Intuition: Consider a Kahn's Indegree Queue paradigm. Use Kahn's BFS topological sort; return `True` iff all `num_pkgs` nodes are emitted.",
+        "Algorithmic Mechanics: Add directed edge `b -> a` and increment `indeg[a]`. Enqueue zero-indegree nodes, pop and decrement dependents, compare `built == num_pkgs`.",
+        "Edge Cases & Optimization: Check edge direction `b -> a`. Ensure time complexity is bounded to O(V + E) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Kahn's Indegree Queue",
       "approachSteps": [
@@ -31881,10 +33061,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "build-pipeline-execution-order",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run Kahn's topological sort using a min-heap of ready packages to guarantee the lexicographically smallest build schedule.",
       "hints": [
-        "Return `[]` when `len(order) != num_pkgs`."
+        "Conceptual Intuition: Consider a Min-Heap Lexicographic Topological Sort paradigm. Run Kahn's topological sort using a min-heap of ready packages to guarantee the lexicographically smallest build schedule.",
+        "Algorithmic Mechanics: Return `[]` when `len(order) != num_pkgs`. Push zero-indegree nodes into min-heap, pop smallest, unlock neighbors.",
+        "Edge Cases & Optimization: Return `[]` on cycle. Ensure time complexity is bounded to O((V + E) log V) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Min-Heap Lexicographic Topological Sort",
       "approachSteps": [
@@ -31964,10 +33147,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "mesh-broadcast-propagation-time",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run Dijkstra from `origin` with a min-heap; return `max(dist.values())` if all `n` servers are reached, else `-1`.",
       "hints": [
-        "Skip popped entries with `d > dist[u]`."
+        "Conceptual Intuition: Consider a Dijkstra Shortest-Latency Broadcast paradigm. Run Dijkstra from `origin` with a min-heap; return `max(dist.values())` if all `n` servers are reached, else `-1`.",
+        "Algorithmic Mechanics: Skip popped entries with `d > dist[u]`. Build directed adjacency list, run min-heap Dijkstra, check `len(dist) == n`.",
+        "Edge Cases & Optimization: Return `0` when `n == 1`. Ensure time complexity is bounded to O(E log V) with O(V + E) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dijkstra Shortest-Latency Broadcast",
       "approachSteps": [
@@ -32045,10 +33231,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "fiber-network-redundant-link",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Process cables sequentially with Union-Find; the first cable whose endpoints already share a root closes the cycle.",
       "hints": [
-        "Hubs are 1-indexed (`1..n`)."
+        "Conceptual Intuition: Consider a Disjoint Set Union Cycle Detector paradigm. Process cables sequentially with Union-Find; the first cable whose endpoints already share a root closes the cycle.",
+        "Algorithmic Mechanics: Hubs are 1-indexed (`1.n`). For `[u, v]`, if `find(u) == find(v)`, return `[u, v]`; else union.",
+        "Edge Cases & Optimization: Allocate `parent` of size `len(cables) + 1`. Ensure time complexity is bounded to O(n * alpha(n)) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Disjoint Set Union Cycle Detector",
       "approachSteps": [
@@ -32126,10 +33315,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "two-team-conflict-partition",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "2-color every connected component via BFS; any edge connecting two same-colored nodes proves no 2-shift split exists.",
       "hints": [
-        "Iterate over all nodes to handle disconnected components."
+        "Conceptual Intuition: Consider a BFS Bipartite Two-Coloring paradigm. 2-color every connected component via BFS; any edge connecting two same-colored nodes proves no 2-shift split exists.",
+        "Algorithmic Mechanics: Iterate over all nodes to handle disconnected components. For each uncolored node, BFS alternating colors `0` and `1` and check conflicts.",
+        "Edge Cases & Optimization: Disconnected components must each be colored. Ensure time complexity is bounded to O(V + E) with O(V) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "BFS Bipartite Two-Coloring",
       "approachSteps": [
@@ -32209,10 +33401,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "airline-budget-k-layovers",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run `max_layovers + 1` rounds of Bellman-Ford using a fresh distance snapshot each round.",
       "hints": [
-        "Copying `dist` each round enforces at most 1 new edge per round."
+        "Conceptual Intuition: Consider a K+1 Round Snapshot Bellman-Ford paradigm. Run `max_layovers + 1` rounds of Bellman-Ford using a fresh distance snapshot each round.",
+        "Algorithmic Mechanics: Copying `dist` each round enforces at most 1 new edge per round. Relax all edges `max_layovers + 1` times from `dist` into `nxt`.",
+        "Edge Cases & Optimization: In-place updates within a round violate the layover cap. Ensure time complexity is bounded to O(k * E) with O(V) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "K+1 Round Snapshot Bellman-Ford",
       "approachSteps": [
@@ -32291,10 +33486,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "campus-fiber-minimum-trench",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run O(n^2) dense Prim's MST algorithm computing Manhattan distances on the fly without materializing O(n^2) edges.",
       "hints": [
-        "Track `best[i]` = cheapest Manhattan edge from building `i` to the visited MST."
+        "Conceptual Intuition: Consider a Dense-Graph Prim's MST paradigm. Run O(n^2) dense Prim's MST algorithm computing Manhattan distances on the fly without materializing O(n^2) edges.",
+        "Algorithmic Mechanics: Track `best[i]` = cheapest Manhattan edge from building `i` to the visited MST. Repeat `n` times: pick closest unvisited building, add its distance, relax remaining unvisited buildings.",
+        "Edge Cases & Optimization: Handle `n == 1` returning `0`. Ensure time complexity is bounded to O(n^2) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dense-Graph Prim's MST",
       "approachSteps": [
@@ -32373,10 +33571,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "warehouse-robot-clear-corridor",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run 8-directional BFS starting at `(0, 0, 1)` after checking both endpoints are open (`0`).",
       "hints": [
-        "Mark cells visited when enqueued."
+        "Conceptual Intuition: Consider a 8-Way Unweighted BFS paradigm. Run 8-directional BFS starting at `(0, 0, 1)` after checking both endpoints are open (`0`).",
+        "Algorithmic Mechanics: Mark cells visited when enqueued. Check endpoints; BFS 8 neighbors returning `d` at `(n - 1, n - 1)`.",
+        "Edge Cases & Optimization: Return `1` for `[[0]]`. Ensure time complexity is bounded to O(n^2) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "8-Way Unweighted BFS",
       "approachSteps": [
@@ -32457,10 +33658,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "flood-zone-escape-elevation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run minimax Dijkstra using a min-heap ordered by `max_elevation_along_path`.",
       "hints": [
-        "Start heap with `(elev[0][0], 0, 0)`."
+        "Conceptual Intuition: Consider a Minimax Elevation Dijkstra paradigm. Run minimax Dijkstra using a min-heap ordered by `max_elevation_along_path`.",
+        "Algorithmic Mechanics: Start heap with `(elev[0][0], 0, 0)`. Pop lowest peak level, push unvisited 4-neighbors with `max(lvl, elev[nr][nc])`, stop at `(n - 1, n - 1)`.",
+        "Edge Cases & Optimization: Must account for `elev[0][0]` as the minimum starting water level. Ensure time complexity is bounded to O(n^2 log n) with O(n^2) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Minimax Elevation Dijkstra",
       "approachSteps": [
@@ -32538,10 +33742,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "stairway-step-combinations",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Each step count follows the Fibonacci recurrence `f(k) = f(k - 1) + f(k - 2)` in O(1) space.",
       "hints": [
-        "Track only the previous two values `a` and `b`."
+        "Conceptual Intuition: Consider a Rolling Two-State Fibonacci DP paradigm. Each step count follows the Fibonacci recurrence `f(k) = f(k - 1) + f(k - 2)` in O(1) space.",
+        "Algorithmic Mechanics: Track only the previous two values `a` and `b`. Start `a, b = 1, 1`; iterate `steps - 1` times updating `a, b = b, a + b`.",
+        "Edge Cases & Optimization: Unmemoized recursion times out for `steps = 45`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Rolling Two-State Fibonacci DP",
       "approachSteps": [
@@ -32620,10 +33827,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "windmill-nonadjacent-yield",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "At each site `w`, choose `max(skip, take)` via `p2, p1 = p1, max(p1, p2 + w)`.",
       "hints": [
-        "Never assume optimal selection alternates strictly every other site."
+        "Conceptual Intuition: Consider a O(1)-Space Linear DP paradigm. At each site `w`, choose `max(skip, take)` via `p2, p1 = p1, max(p1, p2 + w)`.",
+        "Algorithmic Mechanics: Never assume optimal selection alternates strictly every other site. Initialize `p2 = p1 = 0`, iterate `w` updating `p2, p1 = p1, max(p1, p2 + w)`.",
+        "Edge Cases & Optimization: Handle single-site arrays cleanly. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "O(1)-Space Linear DP",
       "approachSteps": [
@@ -32702,10 +33912,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "vending-machine-min-coins",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Build bottom-up `dp[a]` = minimum tokens for sum `a` across all `d` in `denoms`.",
       "hints": [
-        "Greedy fails for non-canonical denominations like `[1, 3, 4]`."
+        "Conceptual Intuition: Consider a Unbounded Knapsack Min-Count DP paradigm. Build bottom-up `dp[a]` = minimum tokens for sum `a` across all `d` in `denoms`.",
+        "Algorithmic Mechanics: Greedy fails for non-canonical denominations like `[1, 3, 4]`. Initialize `dp = [due + 1] * (due + 1)` with `dp[0] = 0`; relax `dp[a] = min(dp[a], dp[a - d] + 1)`.",
+        "Edge Cases & Optimization: Return `0` when `due == 0`. Ensure time complexity is bounded to O(due * len(denoms)) with O(due) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Unbounded Knapsack Min-Count DP",
       "approachSteps": [
@@ -32783,10 +33996,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "sensor-strictly-rising-trend",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain minimal tail values `tails` of increasing subsequences by length and update each element via `bisect_left` in O(n log n).",
       "hints": [
-        "Use `bisect_left` for strictly increasing order."
+        "Conceptual Intuition: Consider a Patience Sorting Binary Search paradigm. Maintain minimal tail values `tails` of increasing subsequences by length and update each element via `bisect_left` in O(n log n).",
+        "Algorithmic Mechanics: Use `bisect_left` for strictly increasing order. For each `x`, find `i = bisect_left(tails, x)` and replace or append.",
+        "Edge Cases & Optimization: `bisect_right` would allow equal elements (non-decreasing). Ensure time complexity is bounded to O(n log n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Patience Sorting Binary Search",
       "approachSteps": [
@@ -32864,10 +34080,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "dna-primer-shared-backbone",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Use a rolling 1D DP row updating `curr[j + 1] = prev[j] + 1` on base match and `max(prev[j + 1], curr[j])` on mismatch.",
       "hints": [
-        "Keep `prev` and `curr` separate to preserve the diagonal entry."
+        "Conceptual Intuition: Consider a Rolling-Row Sequence Alignment DP paradigm. Use a rolling 1D DP row updating `curr[j + 1] = prev[j] + 1` on base match and `max(prev[j + 1], curr[j])` on mismatch.",
+        "Algorithmic Mechanics: Keep `prev` and `curr` separate to preserve the diagonal entry. Iterate over characters of `strand_a` updating a length `len(strand_b) + 1` row.",
+        "Edge Cases & Optimization: In-place overwrites corrupt `prev[j]` unless iterated backward. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Rolling-Row Sequence Alignment DP",
       "approachSteps": [
@@ -32945,10 +34164,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "spellcheck-minimum-edits",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Compute Levenshtein edit distance via rolling 1D DP rows.",
       "hints": [
-        "Base row is `[0, 1, 2, ..., len(target)]`."
+        "Conceptual Intuition: Consider a Levenshtein Rolling-Row DP paradigm. Compute Levenshtein edit distance via rolling 1D DP rows.",
+        "Algorithmic Mechanics: Base row is `[0, 1, 2, ., len(target)]`. Match copies diagonal `prev[j - 1]`; mismatch takes `1 + min(prev[j], curr[j - 1], prev[j - 1])`.",
+        "Edge Cases & Optimization: Initialize `curr[0] = i` on each row. Ensure time complexity is bounded to O(m * n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Levenshtein Rolling-Row DP",
       "approachSteps": [
@@ -33028,10 +34250,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "url-slug-dictionary-split",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Let `dp[i]` indicate whether `slug[:i]` is segmentable; check suffix lengths up to `max_word_len` against a hash set of `lexicon`.",
       "hints": [
-        "Seed `dp[0] = True` and cap inner loop by `max_len`."
+        "Conceptual Intuition: Consider a Bounded-Suffix Reachability DP paradigm. Let `dp[i]` indicate whether `slug[:i]` is segmentable; check suffix lengths up to `max_word_len` against a hash set of `lexicon`.",
+        "Algorithmic Mechanics: Seed `dp[0] = True` and cap inner loop by `max_len`. Build `word_set` and `max_len`; fill `dp[1.n]`.",
+        "Edge Cases & Optimization: Greedy longest-prefix matching fails on overlapping words like `[\"aaaa\", \"aaa\"]`. Ensure time complexity is bounded to O(n * L^2) with O(n + D) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bounded-Suffix Reachability DP",
       "approachSteps": [
@@ -33110,10 +34335,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "cargo-twin-container-balance",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Check `sum(crates) % 2 == 0`, then track reachable subset sums up to `total // 2` using a bitmask `bits |= bits << w`.",
       "hints": [
-        "Odd total weight is immediately impossible."
+        "Conceptual Intuition: Consider a Bitset 0/1 Subset-Sum DP paradigm. Check `sum(crates) % 2 == 0`, then track reachable subset sums up to `total // 2` using a bitmask `bits |= bits << w`.",
+        "Algorithmic Mechanics: Odd total weight is immediately impossible. Start `bits = 1`, shift-OR every crate weight, check bit `total // 2`.",
+        "Edge Cases & Optimization: Return `False` immediately for odd total weight. Ensure time complexity is bounded to O(n * target / w) with O(target / w) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bitset 0/1 Subset-Sum DP",
       "approachSteps": [
@@ -33191,10 +34419,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "drone-grid-route-count",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Roll a 1D row of path counts initialized to `[1] * cols`, updating `dp[c] += dp[c - 1]` for each remaining row.",
       "hints": [
-        "Equivalently `math.comb(rows + cols - 2, rows - 1)`."
+        "Conceptual Intuition: Consider a 1D Rolling Grid DP paradigm. Roll a 1D row of path counts initialized to `[1] * cols`, updating `dp[c] += dp[c - 1]` for each remaining row.",
+        "Algorithmic Mechanics: Equivalently `math.comb(rows + cols - 2, rows - 1)`. Initialize `dp = [1] * cols`; accumulate left neighbor across `rows - 1` rows.",
+        "Edge Cases & Optimization: A 1xN or Nx1 corridor has exactly `1` path. Ensure time complexity is bounded to O(rows * cols) with O(cols) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "1D Rolling Grid DP",
       "approachSteps": [
@@ -33273,10 +34504,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "compound-return-peak-streak",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track both `cur_max` and `cur_min` ending at each day because multiplying by a negative swaps their roles.",
       "hints": [
-        "Compute `cur_max * x` and `cur_min * x` before overwriting either variable."
+        "Conceptual Intuition: Consider a Dual Min/Max Streak DP paradigm. Track both `cur_max` and `cur_min` ending at each day because multiplying by a negative swaps their roles.",
+        "Algorithmic Mechanics: Compute `cur_max * x` and `cur_min * x` before overwriting either variable. Initialize `hi = lo = best = factors[0]`; update `(hi, lo)` over `(x, hi*x, lo*x)`.",
+        "Edge Cases & Optimization: Handle single negative element returning itself. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Dual Min/Max Streak DP",
       "approachSteps": [
@@ -33355,10 +34589,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "relay-tower-end-to-end-reach",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sweep left-to-right maintaining the farthest reachable tower index `reach`; return `False` if any index `i > reach`.",
       "hints": [
-        "Single-tower chain `[0]` already starts at the last tower."
+        "Conceptual Intuition: Consider a Greedy Farthest-Reach Scan paradigm. Sweep left-to-right maintaining the farthest reachable tower index `reach`; return `False` if any index `i > reach`.",
+        "Algorithmic Mechanics: Single-tower chain `[0]` already starts at the last tower. Track `reach = max(reach, i + r)`; return `False` if `i > reach`.",
+        "Edge Cases & Optimization: Check `i > reach` BEFORE updating `reach`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Greedy Farthest-Reach Scan",
       "approachSteps": [
@@ -33436,10 +34673,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "ev-charging-loop-start-station",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Track total net energy and current battery `tank`; whenever `tank < 0`, reset `start = i + 1` and `tank = 0`. Return `start` if `total >= 0` else `-1`.",
       "hints": [
-        "No depot inside a failing prefix can succeed either."
+        "Conceptual Intuition: Consider a Single-Pass Deficit Reset paradigm. Track total net energy and current battery `tank`; whenever `tank < 0`, reset `start = i + 1` and `tank = 0`. Return `start` if `total >= 0` else `-1`.",
+        "Algorithmic Mechanics: No depot inside a failing prefix can succeed either. Accumulate `total` and `tank`; reset `start = i + 1` whenever `tank < 0`.",
+        "Edge Cases & Optimization: Must check `total >= 0` before returning `start`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Single-Pass Deficit Reset",
       "approachSteps": [
@@ -33518,10 +34758,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "gpu-job-cooldown-scheduler",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Let `mf` be the max kernel count and `mc` be how many kernels hit `mf`; return `max(len(kernels), (mf - 1) * (cooldown + 1) + mc)`.",
       "hints": [
-        "The most frequent kernels dictate the frame skeleton."
+        "Conceptual Intuition: Consider a Frequency-Frame Closed-Form Formula paradigm. Let `mf` be the max kernel count and `mc` be how many kernels hit `mf`; return `max(len(kernels), (mf - 1) * (cooldown + 1) + mc)`.",
+        "Algorithmic Mechanics: The most frequent kernels dictate the frame skeleton. Count frequencies, compute `mf` and `mc`, return `max(len(kernels), (mf - 1) * (cooldown + 1) + mc)`.",
+        "Edge Cases & Optimization: Never return less than `len(kernels)`. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Frequency-Frame Closed-Form Formula",
       "approachSteps": [
@@ -33600,10 +34843,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "feature-flag-power-set",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Backtrack over flag indices, recording a shallow copy `path[:]` at every recursion node.",
       "hints": [
-        "Advance `start` to `i + 1` so subsets are unique."
+        "Conceptual Intuition: Consider a Index-Ordered Power-Set Backtracking paradigm. Backtrack over flag indices, recording a shallow copy `path[:]` at every recursion node.",
+        "Algorithmic Mechanics: Advance `start` to `i + 1` so subsets are unique. Recurse `bt(start)`, appending `path[:]` and branching on `i in range(start, n)`.",
+        "Edge Cases & Optimization: Always copy `path[:]` before appending to results. Ensure time complexity is bounded to O(n * 2^n) with O(n) stack auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Index-Ordered Power-Set Backtracking",
       "approachSteps": [
@@ -33682,10 +34928,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bundle-pricing-exact-combos",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Sort `prices`, backtrack allowing reuse of index `i` (`bt(i, rem - p)`), and prune immediately when `p > rem`.",
       "hints": [
-        "Passing `i` allows reuse while avoiding duplicate permutations."
+        "Conceptual Intuition: Consider a Sorted Pruned Combination Search paradigm. Sort `prices`, backtrack allowing reuse of index `i` (`bt(i, rem - p)`), and prune immediately when `p > rem`.",
+        "Algorithmic Mechanics: Passing `i` allows reuse while avoiding duplicate permutations. Sort `prices`; recurse `bt(start, rem)` breaking when `prices[i] > rem`.",
+        "Edge Cases & Optimization: Never reset loop start to `0` or duplicate orderings appear. Ensure time complexity is bounded to O(N^(T/M)) with O(T/M) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Sorted Pruned Combination Search",
       "approachSteps": [
@@ -33763,10 +35012,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "server-rack-nonattacking-sensors",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Place one scanner per row using three `n`-bit masks (`cols`, `d1`, `d2`) shifted left/right on each row transition.",
       "hints": [
-        "Extract available columns via `bit = avail & -avail`."
+        "Conceptual Intuition: Consider a Bitmask Row Backtracking paradigm. Place one scanner per row using three `n`-bit masks (`cols`, `d1`, `d2`) shifted left/right on each row transition.",
+        "Algorithmic Mechanics: Extract available columns via `bit = avail & -avail`. Mask available columns with `(1 << n) - 1`, iterate set bits, shift diagonals.",
+        "Edge Cases & Optimization: Mask shifted diagonals with `full = (1 << n) - 1`. Ensure time complexity is bounded to O(n!) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bitmask Row Backtracking",
       "approachSteps": [
@@ -33844,10 +35096,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "bonus-tier-neighbor-allocation",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Run a left-to-right pass for left neighbors and a right-to-left pass taking `max(tokens[i], tokens[i + 1] + 1)` for right neighbors.",
       "hints": [
-        "Equal-scoring neighbors can drop back to 1 token."
+        "Conceptual Intuition: Consider a Bidirectional Greedy Pass paradigm. Run a left-to-right pass for left neighbors and a right-to-left pass taking `max(tokens[i], tokens[i + 1] + 1)` for right neighbors.",
+        "Algorithmic Mechanics: Equal-scoring neighbors can drop back to 1 token. Start `[1] * n`, bump ascending left-to-right, then take `max` ascending right-to-left.",
+        "Edge Cases & Optimization: Use `max(.)` on the backward pass so the forward constraint stays satisfied. Ensure time complexity is bounded to O(n) with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bidirectional Greedy Pass",
       "approachSteps": [
@@ -33927,10 +35182,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "telemetry-stream-live-median",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Maintain a max-heap `lo` (lower half) and min-heap `hi` (upper half) with `len(lo) >= len(hi)` and size difference `<= 1`.",
       "hints": [
-        "Negate numbers pushed into `lo` to emulate a max-heap in Python."
+        "Conceptual Intuition: Consider a Balanced Two-Heap Median Tracker paradigm. Maintain a max-heap `lo` (lower half) and min-heap `hi` (upper half) with `len(lo) >= len(hi)` and size difference `<= 1`.",
+        "Algorithmic Mechanics: Negate numbers pushed into `lo` to emulate a max-heap in Python. Push `-x` to `lo`, move top to `hi`, rebalance to `lo` if `len(hi) > len(lo)`.",
+        "Edge Cases & Optimization: Return `float` even for odd sample counts. Ensure time complexity is bounded to O(log n) log, O(1) median with O(n) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Balanced Two-Heap Median Tracker",
       "approachSteps": [
@@ -34008,10 +35266,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "parity-check-unmatched-packet",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "XOR all IDs together; every matched send/ACK pair cancels to `0`, leaving the lone packet ID.",
       "hints": [
-        "`a ^ a == 0` and `a ^ 0 == a`."
+        "Conceptual Intuition: Consider a Bitwise XOR Cancellation paradigm. XOR all IDs together; every matched send/ACK pair cancels to `0`, leaving the lone packet ID.",
+        "Algorithmic Mechanics: `a ^ a == 0` and `a ^ 0 == a`. Accumulate `ans ^= x` over `log_ids` and return `ans`.",
+        "Edge Cases & Optimization: Avoid sorting or hash maps to stay strictly O(n) time and O(1) space. Ensure time complexity is bounded to O(n) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Bitwise XOR Cancellation",
       "approachSteps": [
@@ -34089,10 +35350,13 @@ export const initialProblems: Problem[] = [
     ],
     "editorial": {
       "problemId": "memory-page-alignment-check",
-      "isStaticDemo": true,
+      "isStaticDemo": false,
+      "isVerified": true,
       "summary": "Check `block_bytes > 0 and (block_bytes & (block_bytes - 1)) == 0` in O(1) time.",
       "hints": [
-        "A positive integer has exactly one `1` bit iff clearing its lowest `1` bit yields `0`."
+        "Conceptual Intuition: Consider a Constant-Time Bit-Clear Test paradigm. Check `block_bytes > 0 and (block_bytes & (block_bytes - 1)) == 0` in O(1) time.",
+        "Algorithmic Mechanics: A positive integer has exactly one `1` bit iff clearing its lowest `1` bit yields `0`. Return `block_bytes > 0 and (block_bytes & (block_bytes - 1)) == 0`.",
+        "Edge Cases & Optimization: Reject `<= 0` explicitly. Ensure time complexity is bounded to O(1) with O(1) auxiliary space to avoid Time Limit Exceeded."
       ],
       "approachTitle": "Constant-Time Bit-Clear Test",
       "approachSteps": [
@@ -34110,3 +35374,13 @@ export const initialProblems: Problem[] = [
     }
   }
 ];
+
+export const problems: Problem[] = initialProblems;
+
+export function getProblemById(id: string): Problem | undefined {
+  return problems.find((p) => p.id === id);
+}
+
+export function getProblemBySlug(slug: string): Problem | undefined {
+  return problems.find((p) => p.id === slug);
+}

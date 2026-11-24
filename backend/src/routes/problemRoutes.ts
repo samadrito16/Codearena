@@ -25,8 +25,8 @@ router.get('/:id/editorial', (req: Request, res: Response) => {
     return;
   }
 
-  // Canonical demo problem ('two-sum') is free for demonstration and evaluation
-  if (editorial.isStaticDemo && problemId === 'two-sum') {
+  // Free sample problem ('two-sum') is accessible on all tiers for demonstration
+  if (problemId === 'two-sum') {
     res.json(editorial);
     return;
   }

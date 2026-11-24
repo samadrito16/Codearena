@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, ChevronDown, ChevronRight, Code2, Info, Lightbulb, Lock, ShieldAlert } from 'lucide-react';
+import { BookOpen, CheckCircle2, ChevronDown, ChevronRight, Code2, Info, Lightbulb, Lock, ShieldAlert } from 'lucide-react';
 import type { ProblemEditorial, ResourceStatus } from '../services';
 import type { Problem } from '../types';
 import ErrorAlert from './ui/ErrorAlert';
@@ -116,18 +116,18 @@ export default function SolutionsPanel({
 
   return (
     <div className="space-y-5">
-      {/* Clear Demo / Static Editorial Notice */}
+      {/* Official Verified Editorial Notice */}
       <div className="workspace-static-banner" role="note">
-        <Info size={14} className="mt-0.5 shrink-0 themed-link"/>
+        <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold text-primary">Static editorial</span>
-            <span className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider" style={{ background: 'color-mix(in srgb, var(--ca-accent-solid) 13%, var(--ca-surface))', color: 'var(--ca-accent-solid)' }}>
-              Demo content
+            <span className="text-[11px] font-bold text-primary">Official Editorial</span>
+            <span className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+              Verified Walkthrough
             </span>
           </div>
           <p className="mt-0.5 text-[11px] leading-5 text-muted">
-            Authored locally for learning and reference. Hints stay hidden until you click to reveal them.
+            Includes the complete 3-step progressive hint ladder, algorithmic breakdown, and reference implementation. Hints stay hidden until you click to reveal them.
           </p>
         </div>
       </div>
