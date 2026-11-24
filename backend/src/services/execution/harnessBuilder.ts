@@ -629,6 +629,46 @@ public class Main {
 
     const stdinPayload = formatDelimitedCasesStdin(cases);
 
+    const hasTwoSum = trimmed.includes('twoSum') || options.functionNameHint === 'twoSum';
+    const hasIsValid = trimmed.includes('isValid') || options.functionNameHint === 'isValid';
+    const hasLengthOfLongestSubstring = trimmed.includes('lengthOfLongestSubstring') || options.functionNameHint === 'lengthOfLongestSubstring';
+
+    let cppDispatchBody = '';
+    if (hasTwoSum) {
+      cppDispatchBody = `
+            if (tokens.size() >= 2) {
+                auto arr = CodeArenaHelper::parseIntArray(tokens[0]);
+                int target = 0;
+                try { target = std::stoi(tokens[1]); } catch (...) {}
+                auto ans = sol.twoSum(arr, target);
+                std::cout << "[";
+                for (size_t i = 0; i < ans.size(); i++) {
+                    if (i > 0) std::cout << ",";
+                    std::cout << ans[i];
+                }
+                std::cout << "]\\n";
+            } else {
+                std::cout << "[]\\n";
+            }
+      `;
+    } else if (hasIsValid) {
+      cppDispatchBody = `
+            std::string s = CodeArenaHelper::parseString(tokens[0]);
+            bool b = sol.isValid(s);
+            std::cout << (b ? "true" : "false") << "\\n";
+      `;
+    } else if (hasLengthOfLongestSubstring) {
+      cppDispatchBody = `
+            std::string s = CodeArenaHelper::parseString(tokens[0]);
+            int len = sol.lengthOfLongestSubstring(s);
+            std::cout << len << "\\n";
+      `;
+    } else {
+      cppDispatchBody = `
+            std::cout << "null\\n";
+      `;
+    }
+
     const cppHarness = `
 #include <iostream>
 #include <vector>
@@ -684,18 +724,26 @@ int main() {
     auto runCase = [](int caseNum, const std::string& raw) -> bool {
         std::string rawInput = CodeArenaHelper::trim(raw);
         std::vector<std::string> tokens;
-        if (rawInput.find('=') != std::string::npos) {
-            size_t pos = 0;
-            while (pos < rawInput.size()) {
-                size_t eq = rawInput.find('=', pos);
-                if (eq == std::string::npos) break;
-                size_t comma = rawInput.find(',', eq);
-                if (comma == std::string::npos) comma = rawInput.size();
-                tokens.push_back(CodeArenaHelper::trim(rawInput.substr(eq + 1, comma - (eq + 1))));
-                pos = comma + 1;
+        int depth = 0;
+        std::string current = "";
+        for (size_t i = 0; i < rawInput.size(); i++) {
+            char c = rawInput[i];
+            if (c == '[' || c == '{' || c == '(') depth++;
+            else if (c == ']' || c == '}' || c == ')') depth--;
+
+            if (depth == 0 && c == ',') {
+                size_t eq = current.find('=');
+                if (eq != std::string::npos) tokens.push_back(CodeArenaHelper::trim(current.substr(eq + 1)));
+                else tokens.push_back(CodeArenaHelper::trim(current));
+                current = "";
+            } else {
+                current += c;
             }
-        } else {
-            tokens.push_back(rawInput);
+        }
+        if (!current.empty()) {
+            size_t eq = current.find('=');
+            if (eq != std::string::npos) tokens.push_back(CodeArenaHelper::trim(current.substr(eq + 1)));
+            else tokens.push_back(CodeArenaHelper::trim(current));
         }
 
         std::cout << "${SENTINEL_CASE_START} " << caseNum << "\\n";
@@ -703,31 +751,7 @@ int main() {
         try {
             Solution sol;
             std::cout << "${SENTINEL_START}\\n";
-            if (tokens.size() >= 2) {
-                auto arr = CodeArenaHelper::parseIntArray(tokens[0]);
-                int target = 0;
-                try { target = std::stoi(tokens[1]); } catch (...) {}
-                auto ans = sol.twoSum(arr, target);
-                std::cout << "[";
-                for (size_t i = 0; i < ans.size(); i++) {
-                    if (i > 0) std::cout << ",";
-                    std::cout << ans[i];
-                }
-                std::cout << "]\\n";
-            } else if (tokens.size() == 1) {
-                std::string s = CodeArenaHelper::parseString(tokens[0]);
-                try {
-                    bool b = sol.isValid(s);
-                    std::cout << (b ? "true" : "false") << "\\n";
-                } catch (...) {
-                    try {
-                        int len = sol.lengthOfLongestSubstring(s);
-                        std::cout << len << "\\n";
-                    } catch (...) {
-                        std::cout << "null\\n";
-                    }
-                }
-            }
+            ${cppDispatchBody}
             std::cout << "${SENTINEL_END}\\n";
         } catch (const std::exception& e) {
             passed = false;
@@ -765,6 +789,27 @@ int main() {
 }
 `;
     return { code: cppHarness, stdin: stdinPayload };
+  }
+
+  // 5. SQL Batch Driver Harness (SQLite 3 / DuckDB)
+  if (lang === 'sql' || lang === 'sqlite' || lang === 'duckdb') {
+    let script = `.mode list\n.separator |\n.nullvalue null\n`;
+    for (const c of cases) {
+      if (c.input && c.input.trim()) {
+        const tableRegex = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-zA-Z0-9_]+)/gi;
+        let m: RegExpExecArray | null;
+        while ((m = tableRegex.exec(c.input)) !== null) {
+          script += `DROP TABLE IF EXISTS ${m[1]};\n`;
+        }
+      }
+      script += `\n.print ${SENTINEL_CASE_START} ${c.caseNumber}\n.print ${SENTINEL_START}\n`;
+      if (c.input && c.input.trim()) {
+        script += `${c.input.trim()}\n`;
+      }
+      script += `${trimmed}${trimmed.endsWith(';') ? '' : ';'}\n`;
+      script += `.print ${SENTINEL_END}\n.print ${SENTINEL_CASE_END} ${c.caseNumber}\n`;
+    }
+    return { code: script, stdin: '' };
   }
 
   // Fallback for other languages

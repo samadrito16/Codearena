@@ -21,7 +21,7 @@
 
 **PrismCode** is a high-performance algorithmic engineering ecosystem built to bridge the gap between abstract algorithmic practice and real-world senior software engineering. 
 
-While traditional platforms focus on isolated, single-function LeetCode-style snippets, PrismCode provides a multi-dimensional engineering suite:
+While traditional platforms focus on isolated, single-function coding snippets, PrismCode provides a multi-dimensional engineering suite:
 - **Cloud Monaco Workspace**: Full-bleed coding environment with multi-language execution, custom test suites, and sub-100ms telemetry across 400+ curated algorithmic challenges.
 - **Subgoal Pattern Mastery Studio**: Deconstructs algorithmic thinking into cognitive blueprints, brute-force bottleneck comparisons, active fill-in recall drills, and in-studio live execution.
 - **AI-Era Code Review Arena**: Audits multi-file broken repositories, concurrency race conditions, and flawed AI-generated PR code for senior engineering interviews.

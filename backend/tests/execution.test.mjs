@@ -8,6 +8,7 @@ dotenv.config();
 import { runTestCases } from '../dist/services/onlineCompilerService.js';
 import { parseBatchCasesOutput, compareOutputs, extractSentinelOutput } from '../dist/services/execution/outputNormalizer.js';
 import { buildBatchExecutionSource } from '../dist/services/execution/harnessBuilder.js';
+import { BACKEND_LANGUAGES, isSupportedLanguage, getCompilerId } from '../dist/services/languageRegistry.js';
 import { db } from '../dist/db/database.js';
 
 let passedTests = 0;
@@ -267,6 +268,126 @@ def two_sum(nums, target
     const result = await runTestCases('python', syntaxErrorCode, testCases);
     assert.strictEqual(result.success, false);
     assert.strictEqual(result.verdict, 'Compilation Error');
+  });
+
+  await itAsync('runs multiple C++ test cases in ONE single remote call', async () => {
+    const cppCode = `
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> seen;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            int diff = target - nums[i];
+            if (seen.count(diff)) return {seen[diff], i};
+            seen[nums[i]] = i;
+        }
+        return {};
+    }
+};
+`;
+    const testCases = [
+      { caseNumber: 1, input: 'nums = [2, 7, 11, 15], target = 9', expected: '[0, 1]' },
+      { caseNumber: 2, input: 'nums = [3, 2, 4], target = 6', expected: '[1, 2]' },
+      { caseNumber: 3, input: 'nums = [3, 3], target = 6', expected: '[0, 1]' },
+    ];
+
+    const result = await runTestCases('cpp', cppCode, testCases);
+    assert.strictEqual(result.success, true);
+    assert.strictEqual(result.verdict, 'Accepted');
+    assert.strictEqual(result.totalPassed, 3);
+    assert.strictEqual(result.totalTests, 3);
+  });
+
+  await itAsync('runs multiple Java test cases via reflection in ONE single remote call', async () => {
+    const javaCode = `
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        java.util.Map<Integer, Integer> seen = new java.util.HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int diff = target - nums[i];
+            if (seen.containsKey(diff)) {
+                return new int[]{seen.get(diff), i};
+            }
+            seen.put(nums[i], i);
+        }
+        return new int[]{};
+    }
+}
+`;
+    const testCases = [
+      { caseNumber: 1, input: 'nums = [2, 7, 11, 15], target = 9', expected: '[0, 1]' },
+      { caseNumber: 2, input: 'nums = [3, 2, 4], target = 6', expected: '[1, 2]' },
+      { caseNumber: 3, input: 'nums = [3, 3], target = 6', expected: '[0, 1]' },
+    ];
+
+    const result = await runTestCases('java', javaCode, testCases);
+    assert.strictEqual(result.success, true);
+    assert.strictEqual(result.verdict, 'Accepted');
+    assert.strictEqual(result.totalPassed, 3);
+    assert.strictEqual(result.totalTests, 3);
+  });
+
+  await itAsync('runs multiple SQL test cases with schema isolation and order invariance in ONE single call', async () => {
+    const sqlCode = `
+SELECT department, COUNT(*) as cnt FROM employees GROUP BY department ORDER BY department;
+`;
+    const sqlCases = [
+      {
+        caseNumber: 1,
+        input: `
+CREATE TABLE employees (id INT, department TEXT);
+INSERT INTO employees VALUES (1, 'Engineering'), (2, 'Engineering'), (3, 'Sales');
+`,
+        expected: 'Engineering|2\nSales|1',
+      },
+      {
+        caseNumber: 2,
+        input: `
+CREATE TABLE employees (id INT, department TEXT);
+INSERT INTO employees VALUES (1, 'Design'), (2, 'Design'), (3, 'Design'), (4, 'Marketing');
+`,
+        expected: 'Marketing|1\nDesign|3',
+      },
+    ];
+
+    const result = await runTestCases('sql', sqlCode, sqlCases, { orderInvariant: true });
+    assert.strictEqual(result.success, true);
+    assert.strictEqual(result.verdict, 'Accepted');
+    assert.strictEqual(result.totalPassed, 2);
+    assert.strictEqual(result.totalTests, 2);
+  });
+
+  console.log('\n--- 5. Testing Streamlined Core Language Registry ---');
+
+  it('validates core language support and removes obsolete novelty languages', () => {
+    // 5 core deeply-tested languages are present
+    assert.strictEqual(isSupportedLanguage('python'), true);
+    assert.strictEqual(isSupportedLanguage('cpp'), true);
+    assert.strictEqual(isSupportedLanguage('java'), true);
+    assert.strictEqual(isSupportedLanguage('javascript'), true);
+    assert.strictEqual(isSupportedLanguage('sql'), true);
+
+    // Aliases resolve correctly
+    assert.strictEqual(getCompilerId('python'), 'python-3.14');
+    assert.strictEqual(getCompilerId('c++'), 'g++-15');
+    assert.strictEqual(getCompilerId('java'), 'openjdk-25');
+    assert.strictEqual(getCompilerId('js'), 'nodejs-24');
+    assert.strictEqual(getCompilerId('sqlite'), 'sqlite-3');
+
+    // Novelty/esoteric languages have been pruned
+    assert.strictEqual(isSupportedLanguage('cobol'), false);
+    assert.strictEqual(isSupportedLanguage('assembly'), false);
+    assert.strictEqual(isSupportedLanguage('pascal'), false);
+    assert.strictEqual(isSupportedLanguage('fortran'), false);
+    assert.strictEqual(isSupportedLanguage('freebasic'), false);
+
+    // Language count is streamlined (<= 12 core runtimes instead of 45+)
+    const langCount = Object.keys(BACKEND_LANGUAGES).length;
+    assert.ok(langCount <= 12, `Registry is streamlined to ${langCount} core runtimes`);
   });
 
   console.log(`\n================================`);

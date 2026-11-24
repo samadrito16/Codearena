@@ -55,7 +55,7 @@ Key Verified Metrics:
 Check out my official verified credential:
 ${verifyUrl}
 
-#Algorithms #DataStructures #Coding #SoftwareEngineering #PrismCode #LeetCode #CareerGrowth`;
+#Algorithms #DataStructures #Coding #SoftwareEngineering #PrismCode #ProblemSolving #CareerGrowth`;
 }
 
 /**

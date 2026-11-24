@@ -171,7 +171,7 @@ export function normalizeOutput(str: string | undefined): string {
 }
 
 /**
- * Compares expected vs actual output using LeetCode matching rules:
+ * Compares expected vs actual output using standard competitive matching rules:
  * 1. Strict normalized equality
  * 2. Floating-point precision (epsilon 1e-5)
  * 3. Automatic sorted comparison (order invariance)
@@ -223,6 +223,17 @@ export function compareOutputs(
     const sortedAct = deepSortCanonical(parsedAct);
     if (JSON.stringify(sortedExp) === JSON.stringify(sortedAct)) {
       return true;
+    }
+  }
+
+  // 5. Line-by-line order-invariant comparison (e.g. for SQL query result sets)
+  if (orderInvariant) {
+    const expLines = expNorm.split('\n').map((l) => l.trim()).filter(Boolean).sort();
+    const actLines = actNorm.split('\n').map((l) => l.trim()).filter(Boolean).sort();
+    if (expLines.length === actLines.length && expLines.length > 0) {
+      if (expLines.every((l, idx) => l === actLines[idx])) {
+        return true;
+      }
     }
   }
 

@@ -12604,9 +12604,9 @@
         "output_format": "Standard function return value matching problem specification.",
         "examples": [
           {
-            "input": "text_stream = \"leetcode\"",
+            "input": "text_stream = \"prismcode\"",
             "output": "0",
-            "explanation": "\"l\" is the first character that only appears once, index is 0."
+            "explanation": "\"p\" is the first character that only appears once, index is 0."
           },
           {
             "input": "Edge case input with boundary conditions",
@@ -16481,9 +16481,9 @@
         "output_format": "Standard function return value matching problem specification.",
         "examples": [
           {
-            "input": "stream_str = \"leetcode\", word_dict = [\"leet\", \"code\"]",
+            "input": "stream_str = \"prismcode\", word_dict = [\"prism\", \"code\"]",
             "output": "True",
-            "explanation": "Segment into \"leet code\"."
+            "explanation": "Segment into \"prism code\"."
           },
           {
             "input": "Edge case input with boundary conditions",

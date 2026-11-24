@@ -95,6 +95,13 @@ console.log('  [PASS] getPublicProfileData honors user privacy setting (visibili
 // Restore public
 await db.updateUserProfile(testUser.id, { visibility: 'public' });
 
+// Test Certificate Share Branding & Hashtags
+const certLibSource = await import('node:fs').then(fs => fs.readFileSync('../src/lib/certificates.ts', 'utf8'));
+assert.ok(certLibSource.includes('#PrismCode'), 'Share text must include #PrismCode hashtag');
+assert.ok(!certLibSource.includes('#LeetCode'), 'Share text must NOT include #LeetCode');
+assert.ok(!certLibSource.toLowerCase().includes('leetcode'), 'Share text must NOT mention LeetCode');
+console.log('  [PASS] certificate announcement text uses original branding (#PrismCode) without competitor hashtags');
+
 console.log('\n================================');
 console.log('All Certificate & Public Profile tests passed!');
 console.log('================================\n');

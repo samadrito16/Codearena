@@ -1,4 +1,4 @@
-import { buildExecutionSource } from '../src/services/execution/harnessBuilder.js';
+import { buildExecutionSource, buildBatchExecutionSource } from '../src/services/execution/harnessBuilder.js';
 import {
   extractSentinelOutput,
   compareOutputs,
@@ -6,6 +6,7 @@ import {
   normalizeOutput,
 } from '../src/services/execution/outputNormalizer.js';
 import { runTestCases } from '../src/services/onlineCompilerService.js';
+import { BACKEND_LANGUAGES, isSupportedLanguage, getCompilerId } from '../src/services/languageRegistry.js';
 
 let passedTests = 0;
 let totalTests = 0;
@@ -21,7 +22,7 @@ function assert(condition: boolean, testName: string, details?: unknown) {
 }
 
 async function runTests() {
-  console.log('=== [CodeArena] LeetCode-Grade Execution Pipeline Tests ===\n');
+  console.log('=== [CodeArena] Production-Grade Execution Pipeline Tests ===\n');
 
   // Test 1: Order-Invariance & Canonical Sorting
   console.log('[Suite 1: Output Normalization & Order-Invariance]');
@@ -212,6 +213,45 @@ public:
       cppHarness.code.includes('__CODEARENA_RESULT_START__'),
       'C++ driver includes sentinel delimiters',
     );
+  }
+
+  // Test 7: SQL Driver Synthesis & Batch Isolation
+  console.log('\n[Suite 7: SQL Driver Synthesis & Batch Isolation]');
+  {
+    const sqlCode = 'SELECT department, count(*) FROM employees GROUP BY department;';
+    const sqlHarness = buildBatchExecutionSource('sql', sqlCode, [
+      { caseNumber: 1, input: 'CREATE TABLE employees (id INT, department TEXT); INSERT INTO employees VALUES (1, "Eng");', expected: 'Eng|1' },
+      { caseNumber: 2, input: 'CREATE TABLE employees (id INT, department TEXT); INSERT INTO employees VALUES (2, "Sales");', expected: 'Sales|1' },
+    ]);
+    assert(
+      sqlHarness.code.includes('.mode list') && sqlHarness.code.includes('.separator |'),
+      'SQL harness configures pipe-delimited SQLite list mode',
+    );
+    assert(
+      sqlHarness.code.includes('DROP TABLE IF EXISTS employees;'),
+      'SQL harness generates DROP TABLE statements for cross-case schema isolation',
+    );
+    assert(
+      sqlHarness.code.includes('__CODEARENA_CASE_START__ 1') && sqlHarness.code.includes('__CODEARENA_CASE_START__ 2'),
+      'SQL harness includes multi-case sentinel markers',
+    );
+  }
+
+  // Test 8: Streamlined Core Language Registry
+  console.log('\n[Suite 8: Streamlined Core Language Registry]');
+  {
+    assert(isSupportedLanguage('python'), 'Python is supported in core registry');
+    assert(isSupportedLanguage('cpp'), 'C++ is supported in core registry');
+    assert(isSupportedLanguage('java'), 'Java is supported in core registry');
+    assert(isSupportedLanguage('javascript'), 'JavaScript is supported in core registry');
+    assert(isSupportedLanguage('sql'), 'SQL is supported in core registry');
+
+    assert(!isSupportedLanguage('cobol'), 'COBOL is removed from language registry');
+    assert(!isSupportedLanguage('assembly'), 'Assembly is removed from language registry');
+    assert(!isSupportedLanguage('pascal'), 'Pascal is removed from language registry');
+
+    const totalLangs = Object.keys(BACKEND_LANGUAGES).length;
+    assert(totalLangs <= 12, `Language registry is streamlined (${totalLangs} total entries, down from 47)`);
   }
 
   console.log(`\n=================================================`);

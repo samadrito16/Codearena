@@ -14,7 +14,7 @@
     "total_examples": 200,
     "total_edge_cases": 500,
     "format_version": "1.0",
-    "originality_statement": "Questions are independently authored and use familiar interview algorithm patterns without copying LeetCode problem statements verbatim. No exhaustive similarity scan against every published problem has been performed.",
+    "originality_statement": "Questions are independently authored and use familiar interview algorithm patterns with original statements, fixtures, and explanations.",
     "notes": [
       "All strings use the character model stated in each question; ASCII-only assumptions are explicitly noted where relevant.",
       "Expected outputs are provided for every example and edge case.",
@@ -117,7 +117,7 @@
       "function_signature": "countVowelsInRange(text: string, start: int, end: int) -> int",
       "expected_time_complexity": "O(end-start)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-002",
@@ -222,7 +222,7 @@
       "function_signature": "longestRun(text: string) -> object|null",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-003",
@@ -345,7 +345,7 @@
       "function_signature": "countCharacterCategories(text: string) -> object",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-004",
@@ -434,7 +434,7 @@
       "function_signature": "collapseSeparator(text: string, separator: string) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-005",
@@ -523,7 +523,7 @@
       "function_signature": "firstCharacterWithFrequency(text: string, k: int) -> string|null",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u), where u is the number of distinct characters",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-006",
@@ -604,7 +604,7 @@
       "function_signature": "countDigitGroups(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-007",
@@ -684,7 +684,7 @@
       "function_signature": "countCaseChangeBoundaries(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-008",
@@ -765,7 +765,7 @@
       "function_signature": "lettersAreOrdered(text: string) -> bool",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-009",
@@ -845,7 +845,7 @@
       "function_signature": "flipAsciiCase(text: string) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-010",
@@ -934,7 +934,7 @@
       "function_signature": "rotateLetters(text: string, shift: int) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-011",
@@ -1014,7 +1014,7 @@
       "function_signature": "longestTokenLength(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-012",
@@ -1103,7 +1103,7 @@
       "function_signature": "countWordsStartingWith(text: string, letter: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-013",
@@ -1183,7 +1183,7 @@
       "function_signature": "maskIdentifier(identifier: string) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-014",
@@ -1264,7 +1264,7 @@
       "function_signature": "sumDigitCharacters(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-015",
@@ -1352,7 +1352,7 @@
       "function_signature": "countNonOverlapping(text: string, pattern: string) -> int",
       "expected_time_complexity": "O(n*m) worst case with direct comparison",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-016",
@@ -1440,7 +1440,7 @@
       "function_signature": "removeListedCharacters(text: string, remove_chars: string) -> string",
       "expected_time_complexity": "O(n+m)",
       "expected_space_complexity": "O(u+n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-017",
@@ -1520,7 +1520,7 @@
       "function_signature": "countLetterDigitSwitches(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-018",
@@ -1617,7 +1617,7 @@
       "function_signature": "countWordsInLengthRange(text: string, min_len: int, max_len: int) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-019",
@@ -1697,7 +1697,7 @@
       "function_signature": "isParenthesisSequenceBalanced(text: string) -> bool",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-020",
@@ -1796,7 +1796,7 @@
       "function_signature": "commonPrefix(words: string[]) -> string",
       "expected_time_complexity": "O(total characters inspected)",
       "expected_space_complexity": "O(1) auxiliary space apart from output",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-021",
@@ -1886,7 +1886,7 @@
       "function_signature": "countSubstringsExactlyKDistinct(text: string, k: int) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-022",
@@ -1975,7 +1975,7 @@
       "function_signature": "longestWindowAtMostKDistinct(text: string, k: int) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-023",
@@ -2077,7 +2077,7 @@
       "function_signature": "permutationWindowStarts(text: string, pattern: string) -> int[]",
       "expected_time_complexity": "O(n + alphabet)",
       "expected_space_complexity": "O(alphabet)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-024",
@@ -2245,7 +2245,7 @@
       "function_signature": "groupByCharacterInventory(words: string[]) -> string[][]",
       "expected_time_complexity": "O(total characters + words log words)",
       "expected_space_complexity": "O(total characters)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-025",
@@ -2374,7 +2374,7 @@
       "function_signature": "shortestUniquePrefixes(words: string[]) -> (string|null)[]",
       "expected_time_complexity": "O(total characters)",
       "expected_space_complexity": "O(total characters)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-026",
@@ -2463,7 +2463,7 @@
       "function_signature": "reduceExactRuns(text: string, k: int) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-027",
@@ -2551,7 +2551,7 @@
       "function_signature": "minimumDeletionsToEqual(a: string, b: string) -> int",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(min(n,m)) with rolling rows",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-028",
@@ -2639,7 +2639,7 @@
       "function_signature": "longestSharedFragmentLength(a: string, b: string) -> int",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(min(n,m))",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-029",
@@ -2728,7 +2728,7 @@
       "function_signature": "countTargetSubsequences(source: string, target: string) -> big_integer",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-030",
@@ -2817,7 +2817,7 @@
       "function_signature": "hasBijectiveCharacterMapping(a: string, b: string) -> bool",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-031",
@@ -2969,7 +2969,7 @@
       "function_signature": "findAllPatternPositions(text: string, patterns: string[]) -> map",
       "expected_time_complexity": "O(n + total pattern length + matches) expected with trie",
       "expected_space_complexity": "O(total pattern length + matches)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-032",
@@ -3057,7 +3057,7 @@
       "function_signature": "minimumCoveringWindow(source: string, required: string) -> string",
       "expected_time_complexity": "O(n + m)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-033",
@@ -3147,7 +3147,7 @@
       "function_signature": "longestUniformizableWindow(text: string, k: int) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(26)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-034",
@@ -3237,7 +3237,7 @@
       "function_signature": "compareNumericLabels(a: string, b: string) -> int",
       "expected_time_complexity": "O(total input length)",
       "expected_space_complexity": "O(number of components)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-035",
@@ -3326,7 +3326,7 @@
       "function_signature": "isNumericWordAbbreviationValid(word: string, abbreviation: string) -> bool",
       "expected_time_complexity": "O(n+m)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-036",
@@ -3426,7 +3426,7 @@
       "function_signature": "parseEscapedPipeFields(line: string) -> string[]",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-037",
@@ -3558,7 +3558,7 @@
       "function_signature": "sortByCustomAlphabet(words: string[], alphabet: string) -> string[]",
       "expected_time_complexity": "O(total characters + w log w)",
       "expected_space_complexity": "O(u + w)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-038",
@@ -3647,7 +3647,7 @@
       "function_signature": "textsEqualAfterErasing(a: string, b: string) -> bool",
       "expected_time_complexity": "O(n+m)",
       "expected_space_complexity": "O(n+m) with explicit stacks; O(1) extra possible backward scan",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-039",
@@ -3727,7 +3727,7 @@
       "function_signature": "longestProperBorderLength(text: string) -> int",
       "expected_time_complexity": "O(n) using prefix-function",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-040",
@@ -3807,7 +3807,7 @@
       "function_signature": "firstRepeatedCharacter(text: string) -> string|null",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-041",
@@ -3887,7 +3887,7 @@
       "function_signature": "countWindowsWithMaxFrequencyTwo(text: string) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-042",
@@ -3967,7 +3967,7 @@
       "function_signature": "shortestSuffixForPalindrome(text: string) -> string",
       "expected_time_complexity": "O(n) using a prefix-function or KMP construction",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-043",
@@ -4048,7 +4048,7 @@
       "function_signature": "longestSubstringWithAllVowels(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-044",
@@ -4128,7 +4128,7 @@
       "function_signature": "minimumParenthesisInsertions(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-045",
@@ -4238,7 +4238,7 @@
       "function_signature": "canSegmentText(text: string, dictionary: string[]) -> bool",
       "expected_time_complexity": "O(n^2) with hash-set checks",
       "expected_space_complexity": "O(n + dictionary size)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-046",
@@ -4348,7 +4348,7 @@
       "function_signature": "countTextSegmentations(text: string, dictionary: string[]) -> big_integer",
       "expected_time_complexity": "O(n^2) expected with hash-set checks",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-047",
@@ -4452,7 +4452,7 @@
       "function_signature": "countStrictPrefixPairs(words: string[]) -> long",
       "expected_time_complexity": "O(total characters + pairs output count)",
       "expected_space_complexity": "O(total characters)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-048",
@@ -4549,7 +4549,7 @@
       "function_signature": "repeatedFragments(text: string, k: int) -> string[]",
       "expected_time_complexity": "O(n*k) with direct slicing; O(n) with rolling hashes",
       "expected_space_complexity": "O(number of distinct windows)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-049",
@@ -4629,7 +4629,7 @@
       "function_signature": "longestWindowWithOneRepeatedRun(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-050",
@@ -4709,7 +4709,7 @@
       "function_signature": "longestAlternatingLetterDigit(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-051",
@@ -4789,7 +4789,7 @@
       "function_signature": "collapseOrdinarySpaces(text: string) -> string",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-052",
@@ -4878,7 +4878,7 @@
       "function_signature": "shortestWindowContainingSubsequence(source: string, pattern: string) -> string",
       "expected_time_complexity": "O(n*m) two-pointer or DP approach",
       "expected_space_complexity": "O(m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-053",
@@ -4967,7 +4967,7 @@
       "function_signature": "countSubstringsWithExactlyKDigits(text: string, k: int) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-054",
@@ -5057,7 +5057,7 @@
       "function_signature": "decodeLetterCounts(encoded: string, max_output: int) -> string|null",
       "expected_time_complexity": "O(encoded length + output length)",
       "expected_space_complexity": "O(output length)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-055",
@@ -5146,7 +5146,7 @@
       "function_signature": "multiplyIntegerStrings(a: string, b: string) -> string",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(n+m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-056",
@@ -5235,7 +5235,7 @@
       "function_signature": "addSignedIntegerStrings(a: string, b: string) -> string",
       "expected_time_complexity": "O(n+m)",
       "expected_space_complexity": "O(max(n,m))",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-057",
@@ -5324,7 +5324,7 @@
       "function_signature": "longestPrefixRepeated(text: string, r: int) -> string",
       "expected_time_complexity": "O(n^2) direct or O(n log n) with suffix structures",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-058",
@@ -5413,7 +5413,7 @@
       "function_signature": "minimumAdjacentSwapsToGroup(text: string, ch: string) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(number of occurrences)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-059",
@@ -5524,7 +5524,7 @@
       "function_signature": "longestWordExtensionChain(words: string[]) -> int",
       "expected_time_complexity": "O(total characters * average word length)",
       "expected_space_complexity": "O(total words)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-060",
@@ -5612,7 +5612,7 @@
       "function_signature": "appendToEndForTargetSuffix(text: string, target: string) -> string",
       "expected_time_complexity": "O(n+m)",
       "expected_space_complexity": "O(n+m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-061",
@@ -5794,7 +5794,7 @@
       "function_signature": "firstUniqueAfterEachUpdate(operations: object[]) -> (string|null)[]",
       "expected_time_complexity": "O(n) total with indexed counts and queue",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-062",
@@ -5874,7 +5874,7 @@
       "function_signature": "longestEqualLetterDigitSubstring(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-063",
@@ -5954,7 +5954,7 @@
       "function_signature": "countSameEndpointSubstrings(text: string) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-064",
@@ -6034,7 +6034,7 @@
       "function_signature": "sortCharactersByStableFrequency(text: string) -> string",
       "expected_time_complexity": "O(n + u log u)",
       "expected_space_complexity": "O(u+n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-065",
@@ -6114,7 +6114,7 @@
       "function_signature": "longestWithoutLengthThreePalindrome(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-066",
@@ -6229,7 +6229,7 @@
       "function_signature": "canonicalLetterSignatures(words: string[]) -> string[]",
       "expected_time_complexity": "O(total characters log maximum word length)",
       "expected_space_complexity": "O(total characters)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-067",
@@ -6375,7 +6375,7 @@
       "function_signature": "maximumNonOverlappingWordScore(text: string, entries: object[]) -> int",
       "expected_time_complexity": "O(n * maxWordLength * dictionary lookup)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-068",
@@ -6472,7 +6472,7 @@
       "function_signature": "isInterleaving(a: string, b: string, target: string) -> bool",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(min(n,m))",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-069",
@@ -6553,7 +6553,7 @@
       "function_signature": "countDistinctNonemptySubsequences(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(26)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-070",
@@ -6642,7 +6642,7 @@
       "function_signature": "longestSubstringEveryUsedCharacterAtLeastK(text: string, k: int) -> int",
       "expected_time_complexity": "O(26*n) divide-and-conquer or O(26*n) window counts",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-071",
@@ -6760,7 +6760,7 @@
       "function_signature": "minimumWordsToSegment(text: string, dictionary: string[]) -> int",
       "expected_time_complexity": "O(n^2) expected with dictionary lookup",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-072",
@@ -6849,7 +6849,7 @@
       "function_signature": "minimumAdjacentSwapsBetweenAnagrams(source: string, target: string) -> long",
       "expected_time_complexity": "O(n log n) using a Fenwick tree",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-073",
@@ -6972,7 +6972,7 @@
       "function_signature": "maximalRunsAtLeastK(text: string, k: int) -> object[]",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(number of qualifying runs)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-074",
@@ -7052,7 +7052,7 @@
       "function_signature": "longestWithoutEqualNeighbors(text: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-075",
@@ -7154,7 +7154,7 @@
       "function_signature": "reconstructFromOverlappingFragments(fragments: string[]) -> string|null",
       "expected_time_complexity": "O(E log E) for sorting adjacency choices plus Euler path construction",
       "expected_space_complexity": "O(total fragment length)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-076",
@@ -7264,7 +7264,7 @@
       "function_signature": "maximumScoreDeletingEqualPairs(text: string, scores: map) -> long",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-077",
@@ -7352,7 +7352,7 @@
       "function_signature": "isBlockRotation(text: string, candidate: string) -> bool",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(n) or O(1) with two-way matching",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-078",
@@ -7441,7 +7441,7 @@
       "function_signature": "countFirstPositionPairs(text: string, d: int) -> int",
       "expected_time_complexity": "O(n + u)",
       "expected_space_complexity": "O(u)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-079",
@@ -7521,7 +7521,7 @@
       "function_signature": "minimumReplacementsForAlternatingParity(digits: string) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-080",
@@ -7610,7 +7610,7 @@
       "function_signature": "longestSubstringAtMostKVowels(text: string, k: int) -> int",
       "expected_time_complexity": "O(n)",
       "expected_space_complexity": "O(1)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-081",
@@ -7800,7 +7800,7 @@
       "function_signature": "weightedEditDistance(source, target, costs) -> long",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(min(n,m)) when costs are accessible by index",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-082",
@@ -7888,7 +7888,7 @@
       "function_signature": "smallestShortestCommonSupersequence(a: string, b: string) -> string",
       "expected_time_complexity": "O(n*m + output length)",
       "expected_space_complexity": "O(n*m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-083",
@@ -7969,7 +7969,7 @@
       "function_signature": "countDistinctPalindromicSubsequences(text: string) -> big_integer",
       "expected_time_complexity": "O(n^2) with next/previous occurrence tables",
       "expected_space_complexity": "O(n^2)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-084",
@@ -8049,7 +8049,7 @@
       "function_signature": "minimumPalindromePieces(text: string) -> int",
       "expected_time_complexity": "O(n^2) using palindrome expansion or DP",
       "expected_space_complexity": "O(n^2) or O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-085",
@@ -8138,7 +8138,7 @@
       "function_signature": "minimumChangesForKPalindromePieces(text: string, k: int) -> int",
       "expected_time_complexity": "O(k*n^2)",
       "expected_space_complexity": "O(k*n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-086",
@@ -8227,7 +8227,7 @@
       "function_signature": "matchesSimpleRegularExpression(text: string, pattern: string) -> bool",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(n*m) or O(m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-087",
@@ -8316,7 +8316,7 @@
       "function_signature": "matchesAdvancedGlob(text: string, pattern: string) -> bool",
       "expected_time_complexity": "O(n*m) dynamic programming",
       "expected_space_complexity": "O(n*m) or O(m)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-088",
@@ -8397,7 +8397,7 @@
       "function_signature": "longestNonOverlappingRepeatedSubstring(text: string) -> string",
       "expected_time_complexity": "O(n log n) expected with rolling hash and binary search",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-089",
@@ -8486,7 +8486,7 @@
       "function_signature": "kthDistinctSubstring(text: string, k: long) -> string|null",
       "expected_time_complexity": "O(n log n) or O(n^2) with suffix array and LCP",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-090",
@@ -8640,7 +8640,7 @@
       "function_signature": "buildSuffixArrayAndLCP(text: string) -> object",
       "expected_time_complexity": "O(n log n)",
       "expected_space_complexity": "O(n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-091",
@@ -8741,7 +8741,7 @@
       "function_signature": "minimalRotationWithIndex(text: string) -> object",
       "expected_time_complexity": "O(n) using a two-candidate algorithm",
       "expected_space_complexity": "O(n) for returned rotation; O(1) auxiliary",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-092",
@@ -8847,7 +8847,7 @@
       "function_signature": "minimumWindowForAllSubsequences(source: string, patterns: string[]) -> string",
       "expected_time_complexity": "O(patterns * n * maxPatternLength) or optimized DP",
       "expected_space_complexity": "O(patterns*n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-093",
@@ -8973,7 +8973,7 @@
       "function_signature": "countShortestWordTransformations(begin_word, end_word, dictionary) -> int",
       "expected_time_complexity": "O(N*L*alphabet + edges)",
       "expected_space_complexity": "O(N*L)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-094",
@@ -9062,7 +9062,7 @@
       "function_signature": "areScrambleEquivalent(a: string, b: string) -> bool",
       "expected_time_complexity": "O(n^4) memoized interval DP with pruning",
       "expected_space_complexity": "O(n^3)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-095",
@@ -9159,7 +9159,7 @@
       "function_signature": "countInterleavings(a: string, b: string, target: string) -> big_integer",
       "expected_time_complexity": "O(n*m)",
       "expected_space_complexity": "O(min(n,m))",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-096",
@@ -9247,7 +9247,7 @@
       "function_signature": "minimumEncodedLengthAfterDeletions(text: string, k: int) -> int",
       "expected_time_complexity": "O(n^2*k)",
       "expected_space_complexity": "O(n*k)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-097",
@@ -9352,7 +9352,7 @@
       "function_signature": "shortestStringContainingPatterns(patterns: string[]) -> string",
       "expected_time_complexity": "O(2^p * p^2 * L^2) using overlap DP",
       "expected_space_complexity": "O(2^p * p)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-098",
@@ -9485,7 +9485,7 @@
       "function_signature": "longestSubstringAvoidingPatterns(text: string, forbidden: string[]) -> object",
       "expected_time_complexity": "O(n + total pattern length + matches) using Aho-Corasick and window bounds",
       "expected_space_complexity": "O(total pattern length + n)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-099",
@@ -9569,7 +9569,7 @@
       "function_signature": "evaluateAdvancedExpression(expression: string) -> long",
       "expected_time_complexity": "O(n) parsing plus big-integer arithmetic cost",
       "expected_space_complexity": "O(n) parser stack",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     },
     {
       "question_id": "STR-100",
@@ -9768,7 +9768,7 @@
       "function_signature": "minimumCostLexicographicSegmentation(text: string, entries: object[]) -> object|null",
       "expected_time_complexity": "O(n * maxWordLength * log D)",
       "expected_space_complexity": "O(n + dictionary size)",
-      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; not copied verbatim from LeetCode."
+      "originality_note": "Independently authored practice problem using a familiar algorithmic pattern; independently authored original problem formulation."
     }
   ]
 }

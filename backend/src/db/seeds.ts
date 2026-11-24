@@ -12320,7 +12320,7 @@ export const initialProblems: Problem[] = [
         "explanation": "Insert 'b' and 'd' -> \"mbdadbm\"."
       },
       {
-        "input": "s = \"leetcode\"",
+        "input": "s = \"codebase\"",
         "output": "5",
         "explanation": "Requires 5 insertions."
       }
@@ -12343,7 +12343,7 @@ export const initialProblems: Problem[] = [
       },
       {
         "caseNumber": 2,
-        "input": "s = \"leetcode\"",
+        "input": "s = \"codebase\"",
         "expected": "5",
         "isHidden": false
       },
@@ -16313,9 +16313,9 @@ export const initialProblems: Problem[] = [
         "explanation": "Delete 's' from 'sea' and 't' from 'eat' to leave 'ea'."
       },
       {
-        "input": "word1 = 'leetcode', word2 = 'etco'",
+        "input": "word1 = 'codearena', word2 = 'arena'",
         "output": "4",
-        "explanation": "Delete 'l', 'e', 'd', 'e' from 'leetcode'."
+        "explanation": "Delete 'c', 'o', 'd', 'e' from 'codearena'."
       }
     ],
     "constraints": [
@@ -16337,7 +16337,7 @@ export const initialProblems: Problem[] = [
       },
       {
         "caseNumber": 2,
-        "input": "word1 = 'leetcode', word2 = 'etco'",
+        "input": "word1 = 'codearena', word2 = 'arena'",
         "expected": "4",
         "isHidden": false
       },

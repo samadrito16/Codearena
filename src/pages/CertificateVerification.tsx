@@ -294,7 +294,7 @@ export default function CertificateVerification() {
                 Ready to earn your own verified algorithmic certification?
               </h3>
               <p className="mt-1 text-xs text-muted max-w-xl">
-                Solve LeetCode-style algorithmic challenges with isolated container execution, automated subgoals, and verified credentials for your resume and LinkedIn.
+                Solve curated algorithmic and system design challenges with isolated container execution, automated subgoals, and verified credentials for your resume and LinkedIn.
               </p>
             </div>
 

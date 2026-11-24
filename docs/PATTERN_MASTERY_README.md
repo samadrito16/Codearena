@@ -1,4 +1,4 @@
-# Prism Code — Feature 1: Pattern Mastery (Core 25 Blueprints)
+# Prism Code — Feature 1: Pattern Mastery (100 Blueprints)
 
 > **Purpose of this file:** Drop this `PATTERN_MASTERY_README.md` and your `prism_code_first_25_problems.json` into your **Prism Code** repository, then follow the **Antigravity Execution Prompts** in Section 7 to build and polish Feature 1 inside VS Code.
 
@@ -6,7 +6,7 @@
 
 ## 1. Strict Product Boundary (Why This Is Separate From `/problems`)
 
-Prism Code already has ~300 standard LeetCode-style problems. **Do NOT mix these 25 problems into the existing `/problems` listing, database table, or problem solver UI.**
+Prism Code already has ~300 standard algorithmic practice problems. **Do NOT mix these 25 problems into the existing `/problems` listing, database table, or problem solver UI.**
 
 | Aspect | Normal Section (`/problems`) | New Pattern Mastery Section (`/mastery`) |
 | --- | --- | --- |
@@ -350,7 +350,7 @@ prism-code/
 
 ## 5. Feature 1 UI/UX Specification (What Makes It Feel Exclusive)
 
-Feature 1 does **not** require a code runner or backend AI yet. Its job is to make studying these 25 problems feel radically better than reading a flat LeetCode editorial.
+Feature 1 does **not** require a code runner or backend AI yet. Its job is to make studying these 100 problems feel radically better than reading a flat textbook editorial.
 
 ### Page A: `/mastery` — Pattern Mastery Hub
 1. **Hero Banner:** Clear positioning copy: *"Don't memorize 300 solutions. Master the 5 foundational blueprints through trigger diagnosis, subgoal architecture, and targeted line recall."*

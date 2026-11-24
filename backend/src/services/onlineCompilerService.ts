@@ -228,6 +228,9 @@ export async function runTestCases(
         hasFailed = true;
         finalVerdict = 'Wrong Answer';
         failingCaseNumber = tc.caseNumber;
+        if (options.earlyExit) {
+          break;
+        }
       }
     }
   } catch (err: unknown) {
