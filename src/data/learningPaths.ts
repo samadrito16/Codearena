@@ -207,7 +207,7 @@ export const learningPaths: LearningPath[] = [
     title: 'Trees and Graphs',
     subtitle: 'BFS, DFS & hierarchical traversals',
     description: 'Traverse trees level by level, reason recursively over subtrees, and navigate connected graphs.',
-    topics: ['Tree', 'Binary Tree', 'Breadth-First Search', 'Graph'],
+    topics: ['Tree', 'Binary Tree', 'BFS', 'Graph'],
     estimatedHours: '4–5 hrs',
     accent: 'a',
     modules: [
@@ -218,7 +218,7 @@ export const learningPaths: LearningPath[] = [
         summary: 'Process tree nodes layer by layer using a FIFO queue and snapshot level sizes.',
         concepts: ['BFS queue', 'Level batching', 'Tree height'],
         problemIds: ['binary-tree-level-order', 'binary-tree-right-side-view', 'binary-tree-zigzag-level-order'],
-        topicTags: ['Tree', 'Binary Tree', 'Breadth-First Search'],
+        topicTags: ['Tree', 'Binary Tree', 'BFS'],
       },
       {
         id: 'tg-dfs-graphs',
@@ -227,7 +227,7 @@ export const learningPaths: LearningPath[] = [
         summary: 'Explore subtrees, detect cycles, and track visited nodes across adjacency lists.',
         concepts: ['DFS recursion', 'Visited set', 'Topological sort'],
         problemIds: ['flood-fill', 'max-area-of-island', 'keys-and-rooms'],
-        topicTags: ['Graph', 'Depth-First Search'],
+        topicTags: ['Graph', 'DFS'],
       },
     ],
   },

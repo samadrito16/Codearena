@@ -195,24 +195,44 @@ function getTimedSolves(activityLog: ActivityEvent[], submissions: SubmissionRec
 const CANONICAL_TOPIC_ALIASES: Record<string, string> = {
   'hashing': 'Hash Table',
   'hash map': 'Hash Table',
+  'hash maps': 'Hash Table',
+  'hash table': 'Hash Table',
+  'hash tables': 'Hash Table',
   'frequency maps': 'Hash Table',
   'hash-based lookup': 'Hash Table',
   'frequency counting': 'Hash Table',
   'arrays & matrices': 'Array',
   'arrays': 'Array',
+  'array': 'Array',
   'array traversal': 'Array',
   'matrices': 'Matrix',
+  'matrix': 'Matrix',
   'matrix traversal': 'Matrix',
   'strings': 'String',
+  'string': 'String',
   'string traversal': 'String',
+  'graphs': 'Graph',
+  'graph': 'Graph',
+  'graph traversal': 'Graph',
+  'trees': 'Tree',
+  'tree': 'Tree',
+  'binary tree': 'Binary Tree',
+  'binary trees': 'Binary Tree',
+  'binary search tree': 'Binary Search Tree',
   'prefix sums': 'Prefix Sum',
-  'monotonic stack': 'Stack',
-  'monotonic deque': 'Stack',
-  'breadth-first search': 'Graph',
-  'depth-first search': 'Graph',
-  'binary tree': 'Tree',
+  'prefix sum': 'Prefix Sum',
+  'two pointers': 'Two Pointers',
+  'sliding window': 'Sliding Window',
+  'sliding windows': 'Sliding Window',
+  'monotonic stack': 'Monotonic Stack',
+  'monotonic deque': 'Monotonic Queue',
+  'breadth-first search': 'BFS',
+  'depth-first search': 'DFS',
+  'bfs': 'BFS',
+  'dfs': 'DFS',
   'dynamic': 'Dynamic Programming',
   'dp': 'Dynamic Programming',
+  'dynamic programming': 'Dynamic Programming',
 };
 
 const DISCARDED_TOPIC_FRAGMENTS = new Set([
@@ -261,14 +281,20 @@ export function buildTopicMastery(
     const masteryPct = total ? Math.round((solved / total) * 100) : 0;
     const nextUnsolved = topicProblems.find((problem) => !solvedSet.has(problem.id)) ?? null;
 
-    const attempts = submissions.filter((sub) => sub.topics.includes(topic)).length
+    const attempts = submissions.filter((sub) => (sub.topics || []).map((t) => normalizeTopic(t) || t).includes(topic)).length
       || activityLog.filter((event) => {
-        const topics = problemTopicLookup.get(event.problemId);
-        return topics ? topics.includes(topic) : event.topic === topic;
+        const rawTopics = problemTopicLookup.get(event.problemId);
+        const topics = rawTopics
+          ? rawTopics.map((t) => normalizeTopic(t) || t)
+          : (event.topic ? [normalizeTopic(event.topic) || event.topic] : []);
+        return topics.includes(topic);
       }).length;
 
     const matchingDurations = timedSolves
-      .filter((entry) => (problemTopicLookup.get(entry.problemId) ?? []).includes(topic))
+      .filter((entry) => {
+        const rawTopics = problemTopicLookup.get(entry.problemId) ?? [];
+        return rawTopics.map((t) => normalizeTopic(t) || t).includes(topic);
+      })
       .map((entry) => entry.durationSeconds);
 
     const avgSolveSeconds = matchingDurations.length

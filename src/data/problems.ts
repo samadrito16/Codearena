@@ -539,7 +539,7 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Tree",
       "Binary Tree",
-      "Breadth-First Search"
+      "BFS"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -13005,8 +13005,8 @@ export const initialProblems: Problem[] = [
     "title": "Find the Town Judge",
     "difficulty": "Easy",
     "topics": [
-      "Graphs",
-      "Arrays",
+      "Graph",
+      "Array",
       "Counting"
     ],
     "acceptance": "—",
@@ -13095,7 +13095,7 @@ export const initialProblems: Problem[] = [
     "title": "Check If Path Exists in Graph",
     "difficulty": "Easy",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "DFS",
       "Union Find"
@@ -13185,7 +13185,7 @@ export const initialProblems: Problem[] = [
     "title": "Valid Mountain Array",
     "difficulty": "Easy",
     "topics": [
-      "Arrays",
+      "Array",
       "Two Pointers"
     ],
     "acceptance": "—",
@@ -13274,7 +13274,7 @@ export const initialProblems: Problem[] = [
     "title": "Monotonic Array",
     "difficulty": "Easy",
     "topics": [
-      "Arrays"
+      "Array"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -13360,9 +13360,9 @@ export const initialProblems: Problem[] = [
     "title": "Open the Combination Lock",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
-      "Strings",
+      "String",
       "Hash Table"
     ],
     "acceptance": "—",
@@ -13452,9 +13452,9 @@ export const initialProblems: Problem[] = [
     "title": "Minimum Genetic Mutation",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
-      "Strings",
+      "String",
       "Hash Table"
     ],
     "acceptance": "—",
@@ -13544,8 +13544,8 @@ export const initialProblems: Problem[] = [
     "title": "Time Needed to Inform All Employees",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
-      "Graphs",
+      "Tree",
+      "Graph",
       "DFS",
       "BFS"
     ],
@@ -13636,7 +13636,7 @@ export const initialProblems: Problem[] = [
     "title": "Path With Minimum Effort",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Dijkstra",
       "Heap",
       "Matrix"
@@ -13726,7 +13726,7 @@ export const initialProblems: Problem[] = [
     "title": "Find the City With Smallest Neighbors at Threshold",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Shortest Path",
       "Dynamic Programming"
     ],
@@ -13816,10 +13816,10 @@ export const initialProblems: Problem[] = [
     "title": "Minimum Height Trees",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Topological Sort",
       "BFS",
-      "Trees"
+      "Tree"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -13908,7 +13908,7 @@ export const initialProblems: Problem[] = [
     "title": "Evaluate Division Ratios",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "BFS",
       "Union Find"
@@ -14000,7 +14000,7 @@ export const initialProblems: Problem[] = [
     "title": "Accounts Merge",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Union Find",
       "Hash Table",
       "Sorting"
@@ -14091,7 +14091,7 @@ export const initialProblems: Problem[] = [
     "title": "Critical Connections in a Network",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "Tarjan"
     ],
@@ -14181,7 +14181,7 @@ export const initialProblems: Problem[] = [
     "title": "Bus Routes Minimum Transfers",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Hash Table"
     ],
@@ -14273,7 +14273,7 @@ export const initialProblems: Problem[] = [
     "title": "Shortest Path Visiting All Nodes",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Bit Manipulation",
       "Dynamic Programming"
@@ -14363,7 +14363,7 @@ export const initialProblems: Problem[] = [
     "title": "Minimum Cost to Make at Least One Valid Path",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Shortest Path",
       "Matrix"
@@ -14454,7 +14454,7 @@ export const initialProblems: Problem[] = [
     "title": "Reconstruct Flight Itinerary",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "Eulerian Path",
       "Sorting"
@@ -14545,7 +14545,7 @@ export const initialProblems: Problem[] = [
     "title": "Making a Large Island",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "BFS",
       "Matrix",
@@ -14636,7 +14636,7 @@ export const initialProblems: Problem[] = [
     "title": "Parallel Courses III",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Topological Sort",
       "Dynamic Programming"
     ],
@@ -14726,7 +14726,7 @@ export const initialProblems: Problem[] = [
     "title": "Number of Ways to Arrive at Destination",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Dijkstra",
       "Dynamic Programming",
       "Heap"
@@ -14818,7 +14818,7 @@ export const initialProblems: Problem[] = [
     "title": "Range Sum of BST",
     "difficulty": "Easy",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ],
@@ -14909,7 +14909,7 @@ export const initialProblems: Problem[] = [
     "title": "Minimum Absolute Difference in BST",
     "difficulty": "Easy",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ],
@@ -15000,7 +15000,7 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Stack",
       "Simulation",
-      "Arrays"
+      "Array"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -15086,7 +15086,7 @@ export const initialProblems: Problem[] = [
     "title": "Remove Outermost Parentheses",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
+      "String",
       "Stack"
     ],
     "acceptance": "—",
@@ -15174,7 +15174,7 @@ export const initialProblems: Problem[] = [
     "title": "House Robber III",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Dynamic Programming",
       "DFS"
     ],
@@ -15264,7 +15264,7 @@ export const initialProblems: Problem[] = [
     "title": "Path Sum III",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "DFS",
       "Prefix Sum",
       "Hash Table"
@@ -15355,7 +15355,7 @@ export const initialProblems: Problem[] = [
     "title": "Delete Node in a BST",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree"
     ],
     "acceptance": "—",
@@ -15445,7 +15445,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Stack",
-      "Arrays",
+      "Array",
       "Simulation"
     ],
     "acceptance": "—",
@@ -15533,7 +15533,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ],
     "acceptance": "—",
@@ -15623,7 +15623,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ],
     "acceptance": "—",
@@ -15711,7 +15711,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Strings",
+      "String",
       "Dynamic Programming"
     ],
     "acceptance": "—",
@@ -15799,7 +15799,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Strings"
+      "String"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -15975,7 +15975,7 @@ export const initialProblems: Problem[] = [
     "title": "Binary Tree Cameras",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Greedy",
       "DFS",
       "Dynamic Programming"
@@ -16065,7 +16065,7 @@ export const initialProblems: Problem[] = [
     "title": "Vertical Order Traversal of a Binary Tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "BFS",
       "Sorting",
       "Hash Table"
@@ -16154,11 +16154,11 @@ export const initialProblems: Problem[] = [
     "title": "Serialize and Deserialize Binary Tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Design",
       "BFS",
       "DFS",
-      "Strings"
+      "String"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -16245,7 +16245,7 @@ export const initialProblems: Problem[] = [
     "title": "Recover Binary Search Tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ],
@@ -16336,7 +16336,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Hard",
     "topics": [
       "Backtracking",
-      "Strings",
+      "String",
       "Math"
     ],
     "acceptance": "—",
@@ -16516,7 +16516,7 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Binary Search",
       "Dynamic Programming",
-      "Arrays"
+      "Array"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -16865,7 +16865,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Easy",
     "topics": [
       "Hash Table",
-      "Arrays",
+      "Array",
       "Counting"
     ],
     "acceptance": "—",
@@ -16953,7 +16953,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Dynamic Programming",
-      "Graphs"
+      "Graph"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -17040,7 +17040,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -17304,7 +17304,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ],
     "acceptance": "—",
@@ -17391,7 +17391,7 @@ export const initialProblems: Problem[] = [
     "title": "Longest Mountain in Array",
     "difficulty": "Medium",
     "topics": [
-      "Arrays",
+      "Array",
       "Two Pointers",
       "Dynamic Programming"
     ],
@@ -17480,7 +17480,7 @@ export const initialProblems: Problem[] = [
     "title": "Snakes and Ladders",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Matrix"
     ],
@@ -17570,7 +17570,7 @@ export const initialProblems: Problem[] = [
     "title": "Convert Sorted Array to Binary Search Tree",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "Divide and Conquer"
     ],
@@ -17659,7 +17659,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -17747,7 +17747,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -17834,7 +17834,7 @@ export const initialProblems: Problem[] = [
     "topics": [
       "Dynamic Programming",
       "Hash Table",
-      "Arrays"
+      "Array"
     ],
     "acceptance": "—",
     "submissions": "0",
@@ -18100,7 +18100,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings",
+      "String",
       "Two Pointers"
     ],
     "acceptance": "—",
@@ -18189,7 +18189,7 @@ export const initialProblems: Problem[] = [
     "title": "Largest Component Size by Common Factor",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Union Find",
       "Math",
       "Number Theory"
@@ -18280,7 +18280,7 @@ export const initialProblems: Problem[] = [
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Arrays"
+      "Array"
     ],
     "acceptance": "—",
     "submissions": "0",

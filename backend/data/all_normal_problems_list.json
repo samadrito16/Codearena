@@ -60,7 +60,7 @@
     "topics": [
       "Tree",
       "Binary Tree",
-      "Breadth-First Search"
+      "BFS"
     ]
   },
   {
@@ -1569,8 +1569,8 @@
     "normalizedTitle": "find the town judge",
     "difficulty": "Easy",
     "topics": [
-      "Graphs",
-      "Arrays",
+      "Graph",
+      "Array",
       "Counting"
     ]
   },
@@ -1580,7 +1580,7 @@
     "normalizedTitle": "check if path exists in graph",
     "difficulty": "Easy",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "DFS",
       "Union Find"
@@ -1592,7 +1592,7 @@
     "normalizedTitle": "valid mountain array",
     "difficulty": "Easy",
     "topics": [
-      "Arrays",
+      "Array",
       "Two Pointers"
     ]
   },
@@ -1602,7 +1602,7 @@
     "normalizedTitle": "monotonic array",
     "difficulty": "Easy",
     "topics": [
-      "Arrays"
+      "Array"
     ]
   },
   {
@@ -1611,9 +1611,9 @@
     "normalizedTitle": "open the combination lock",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
-      "Strings",
+      "String",
       "Hash Table"
     ]
   },
@@ -1623,9 +1623,9 @@
     "normalizedTitle": "minimum genetic mutation",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
-      "Strings",
+      "String",
       "Hash Table"
     ]
   },
@@ -1635,8 +1635,8 @@
     "normalizedTitle": "time needed to inform all employees",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
-      "Graphs",
+      "Tree",
+      "Graph",
       "DFS",
       "BFS"
     ]
@@ -1647,7 +1647,7 @@
     "normalizedTitle": "path with minimum effort",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Dijkstra",
       "Heap",
       "Matrix"
@@ -1659,7 +1659,7 @@
     "normalizedTitle": "find the city with smallest neighbors at threshold",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Shortest Path",
       "Dynamic Programming"
     ]
@@ -1670,10 +1670,10 @@
     "normalizedTitle": "minimum height trees",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Topological Sort",
       "BFS",
-      "Trees"
+      "Tree"
     ]
   },
   {
@@ -1682,7 +1682,7 @@
     "normalizedTitle": "evaluate division ratios",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "BFS",
       "Union Find"
@@ -1694,7 +1694,7 @@
     "normalizedTitle": "accounts merge",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "Union Find",
       "Hash Table",
       "Sorting"
@@ -1706,7 +1706,7 @@
     "normalizedTitle": "critical connections in a network",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "Tarjan"
     ]
@@ -1717,7 +1717,7 @@
     "normalizedTitle": "bus routes minimum transfers",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Hash Table"
     ]
@@ -1728,7 +1728,7 @@
     "normalizedTitle": "shortest path visiting all nodes",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Bit Manipulation",
       "Dynamic Programming"
@@ -1740,7 +1740,7 @@
     "normalizedTitle": "minimum cost to make at least one valid path",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Shortest Path",
       "Matrix"
@@ -1752,7 +1752,7 @@
     "normalizedTitle": "reconstruct flight itinerary",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "Eulerian Path",
       "Sorting"
@@ -1764,7 +1764,7 @@
     "normalizedTitle": "making a large island",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "DFS",
       "BFS",
       "Matrix",
@@ -1777,7 +1777,7 @@
     "normalizedTitle": "parallel courses iii",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Topological Sort",
       "Dynamic Programming"
     ]
@@ -1788,7 +1788,7 @@
     "normalizedTitle": "number of ways to arrive at destination",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Dijkstra",
       "Dynamic Programming",
       "Heap"
@@ -1800,7 +1800,7 @@
     "normalizedTitle": "range sum of bst",
     "difficulty": "Easy",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ]
@@ -1811,7 +1811,7 @@
     "normalizedTitle": "minimum absolute difference in bst",
     "difficulty": "Easy",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ]
@@ -1824,7 +1824,7 @@
     "topics": [
       "Stack",
       "Simulation",
-      "Arrays"
+      "Array"
     ]
   },
   {
@@ -1833,7 +1833,7 @@
     "normalizedTitle": "remove outermost parentheses",
     "difficulty": "Easy",
     "topics": [
-      "Strings",
+      "String",
       "Stack"
     ]
   },
@@ -1843,7 +1843,7 @@
     "normalizedTitle": "house robber iii",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Dynamic Programming",
       "DFS"
     ]
@@ -1854,7 +1854,7 @@
     "normalizedTitle": "path sum iii",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "DFS",
       "Prefix Sum",
       "Hash Table"
@@ -1866,7 +1866,7 @@
     "normalizedTitle": "delete node in a bst",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree"
     ]
   },
@@ -1877,7 +1877,7 @@
     "difficulty": "Medium",
     "topics": [
       "Stack",
-      "Arrays",
+      "Array",
       "Simulation"
     ]
   },
@@ -1888,7 +1888,7 @@
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ]
   },
@@ -1899,7 +1899,7 @@
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ]
   },
@@ -1910,7 +1910,7 @@
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Strings",
+      "String",
       "Dynamic Programming"
     ]
   },
@@ -1921,7 +1921,7 @@
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Strings"
+      "String"
     ]
   },
   {
@@ -1941,7 +1941,7 @@
     "normalizedTitle": "binary tree cameras",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Greedy",
       "DFS",
       "Dynamic Programming"
@@ -1953,7 +1953,7 @@
     "normalizedTitle": "vertical order traversal of a binary tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "BFS",
       "Sorting",
       "Hash Table"
@@ -1965,11 +1965,11 @@
     "normalizedTitle": "serialize and deserialize binary tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Design",
       "BFS",
       "DFS",
-      "Strings"
+      "String"
     ]
   },
   {
@@ -1978,7 +1978,7 @@
     "normalizedTitle": "recover binary search tree",
     "difficulty": "Hard",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "DFS"
     ]
@@ -1990,7 +1990,7 @@
     "difficulty": "Hard",
     "topics": [
       "Backtracking",
-      "Strings",
+      "String",
       "Math"
     ]
   },
@@ -2014,7 +2014,7 @@
     "topics": [
       "Binary Search",
       "Dynamic Programming",
-      "Arrays"
+      "Array"
     ]
   },
   {
@@ -2054,7 +2054,7 @@
     "difficulty": "Easy",
     "topics": [
       "Hash Table",
-      "Arrays",
+      "Array",
       "Counting"
     ]
   },
@@ -2065,7 +2065,7 @@
     "difficulty": "Medium",
     "topics": [
       "Dynamic Programming",
-      "Graphs"
+      "Graph"
     ]
   },
   {
@@ -2075,7 +2075,7 @@
     "difficulty": "Medium",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ]
   },
   {
@@ -2107,7 +2107,7 @@
     "difficulty": "Medium",
     "topics": [
       "Backtracking",
-      "Arrays",
+      "Array",
       "Sorting"
     ]
   },
@@ -2117,7 +2117,7 @@
     "normalizedTitle": "longest mountain in array",
     "difficulty": "Medium",
     "topics": [
-      "Arrays",
+      "Array",
       "Two Pointers",
       "Dynamic Programming"
     ]
@@ -2128,7 +2128,7 @@
     "normalizedTitle": "snakes and ladders",
     "difficulty": "Medium",
     "topics": [
-      "Graphs",
+      "Graph",
       "BFS",
       "Matrix"
     ]
@@ -2139,7 +2139,7 @@
     "normalizedTitle": "convert sorted array to binary search tree",
     "difficulty": "Medium",
     "topics": [
-      "Trees",
+      "Tree",
       "Binary Search Tree",
       "Divide and Conquer"
     ]
@@ -2151,7 +2151,7 @@
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ]
   },
   {
@@ -2161,7 +2161,7 @@
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings"
+      "String"
     ]
   },
   {
@@ -2172,7 +2172,7 @@
     "topics": [
       "Dynamic Programming",
       "Hash Table",
-      "Arrays"
+      "Array"
     ]
   },
   {
@@ -2203,7 +2203,7 @@
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Strings",
+      "String",
       "Two Pointers"
     ]
   },
@@ -2213,7 +2213,7 @@
     "normalizedTitle": "largest component size by common factor",
     "difficulty": "Hard",
     "topics": [
-      "Graphs",
+      "Graph",
       "Union Find",
       "Math",
       "Number Theory"
@@ -2226,7 +2226,7 @@
     "difficulty": "Hard",
     "topics": [
       "Dynamic Programming",
-      "Arrays"
+      "Array"
     ]
   },
   {

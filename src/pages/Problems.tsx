@@ -26,6 +26,7 @@ import ProblemPreviewModal from '../components/ProblemPreviewModal';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import { useApp } from '../context/AppContext';
+import { normalizeTopic } from '../lib/analytics';
 import { useProblems } from '../hooks/useDataServices';
 import { useProblemStudyData } from '../hooks/useProblemStudyData';
 import {
@@ -96,7 +97,16 @@ export default function Problems() {
   }, [filters]);
 
   const topics = useMemo(
-    () => ['All topics', ...Array.from(new Set(problems.flatMap((problem) => problem.topics))).sort()],
+    () => [
+      'All topics',
+      ...Array.from(
+        new Set(
+          problems.flatMap((problem) =>
+            problem.topics.map((t) => normalizeTopic(t) || t)
+          )
+        )
+      ).sort(),
+    ],
     [problems],
   );
 
@@ -145,7 +155,13 @@ export default function Problems() {
       ].join(' ').toLowerCase();
       const matchesSearch = !normalizedQuery || searchable.includes(normalizedQuery);
       const matchesDifficulty = filters.difficulty === 'All' || problem.difficulty === filters.difficulty;
-      const matchesTopic = filters.topic === 'All topics' || problem.topics.includes(filters.topic);
+      const matchesTopic = filters.topic === 'All topics'
+        || problem.topics.some((t) => {
+          if (t === filters.topic) return true;
+          const normP = normalizeTopic(t) || t;
+          const normF = normalizeTopic(filters.topic) || filters.topic;
+          return normP.toLowerCase() === normF.toLowerCase();
+        });
       const matchesCollection = !activeCollection || activeCollection.problemIds.includes(problem.id);
       const matchesQuick = filters.quickFilter === 'all'
         || (filters.quickFilter === 'bookmarked' && bookmarkedIds.includes(problem.id))
