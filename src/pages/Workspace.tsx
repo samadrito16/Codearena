@@ -14,11 +14,13 @@ import {
   FlaskConical,
   Keyboard,
   LoaderCircle,
+  Maximize2,
   PanelLeftClose,
   PanelLeftOpen,
   Play,
   RotateCcw,
   Send,
+  ShieldAlert,
   Sparkles,
   Terminal,
   ThumbsUp,
@@ -31,6 +33,7 @@ import { useUi } from '../context/UiContext';
 import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import { getSlowThreshold, SPACED_INTERVALS_DAYS } from '../lib/spacedRepetition';
 import { themePalettes } from '../data/themes';
+import { contestService } from '../services/contestService';
 import { runCode, submitCode, type ExecutionResponse } from '../services/executionService';
 import { requestExecutionTrace } from '../services';
 import type { ExecutionTraceResult } from '../types/scrubber';
@@ -44,6 +47,12 @@ import TestCaseManager from '../components/TestCaseManager';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import EmptyState from '../components/ui/EmptyState';
 import ErrorAlert from '../components/ui/ErrorAlert';
+import {
+  isAppFullscreen,
+  requestAppFullscreen,
+  onFullscreenChange,
+  exitAppFullscreen,
+} from '../lib/fullscreen';
 import { CardSkeleton, EditorLoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { useActivePracticeTimer } from '../hooks/useActivePracticeTimer';
 import { useCodeDrafts } from '../hooks/useCodeDrafts';
@@ -167,6 +176,17 @@ function WorkspaceSession({
   currentIndex: number;
 }) {
   const [searchParams] = useSearchParams();
+  const contestId = searchParams.get('contestId') || searchParams.get('contest');
+  const isContestMode = Boolean(contestId);
+  const [isFullscreenActive, setIsFullscreenActive] = useState<boolean>(() => isAppFullscreen());
+  const [fullscreenExits, setFullscreenExits] = useState<number>(() => {
+    try {
+      const stored = sessionStorage.getItem(`prismcode_contest_fs_exits_${contestId}`);
+      return stored ? parseInt(stored, 10) : 0;
+    } catch {
+      return 0;
+    }
+  });
   const navigate = useNavigate();
   const { announce, registerNavigationGuard, requestNavigate } = useUi();
   const {
@@ -327,6 +347,69 @@ function WorkspaceSession({
     setActiveTracedLine(null);
   }, [problem.id]);
 
+  // In contest mode: force console tab and enforce fullscreen exit proctoring (3 strikes auto-submits)
+  useEffect(() => {
+    if (isContestMode) {
+      setConsoleTab('console');
+      if (activeTab === 'Solutions') {
+        setActiveTab('Description');
+      }
+    }
+  }, [isContestMode, activeTab]);
+
+  useEffect(() => {
+    if (!isContestMode || !contestId) return;
+
+    const unsubscribe = onFullscreenChange((isFs) => {
+      setIsFullscreenActive(isFs);
+
+      if (!isFs) {
+        setFullscreenExits((prev) => {
+          const nextCount = prev + 1;
+          try {
+            sessionStorage.setItem(`prismcode_contest_fs_exits_${contestId}`, String(nextCount));
+          } catch {}
+
+          if (nextCount >= 3) {
+            try {
+              localStorage.setItem(`prismcode_contest_finished_${contestId}`, 'true');
+              localStorage.setItem(
+                `prismcode_contest_finish_reason_${contestId}`,
+                'Auto-submitted: Exceeded maximum allowed fullscreen exits (3)'
+              );
+            } catch {}
+            announce('Auto-submitted: Exceeded maximum allowed fullscreen exits (3)');
+            navigate(`/contests/${contestId}`);
+            return nextCount;
+          }
+
+          return nextCount;
+        });
+      }
+    });
+
+    return unsubscribe;
+  }, [isContestMode, contestId, navigate, announce]);
+
+  const handleEnterContestFullscreen = async () => {
+    const ok = await requestAppFullscreen();
+    if (ok) {
+      setIsFullscreenActive(true);
+    }
+  };
+
+  const handleAbandonContest = () => {
+    try {
+      localStorage.setItem(`prismcode_contest_finished_${contestId}`, 'true');
+      localStorage.setItem(
+        `prismcode_contest_finish_reason_${contestId}`,
+        'Contest session abandoned & auto-submitted by candidate'
+      );
+    } catch {}
+    exitAppFullscreen().catch(() => {});
+    navigate(`/contests/${contestId}`);
+  };
+
   // Register an unsaved-changes guard whenever a draft is unsaved, still saving, or failed to save.
   useEffect(() => {
     if (!isUnsaved) {
@@ -394,6 +477,25 @@ function WorkspaceSession({
           toggleSolved(problem.id, practiceSecs, language);
         }
 
+        if (isContestMode && contestId) {
+          try {
+            const elapsedMinutes = Math.max(1, Math.ceil(estimatedPracticeSeconds / 60));
+            const storageKey = `prismcode_contest_solves_${contestId}`;
+            const prev = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            if (outcome === 'accepted') {
+              prev[problem.id] = { status: 'accepted', elapsedMinutes };
+              localStorage.setItem(storageKey, JSON.stringify(prev));
+              contestService.submitProblem(contestId, problem.id, true, elapsedMinutes).catch(() => {});
+            } else {
+              if (!prev[problem.id] || prev[problem.id].status !== 'accepted') {
+                prev[problem.id] = { status: 'wrong_answer', elapsedMinutes };
+                localStorage.setItem(storageKey, JSON.stringify(prev));
+              }
+              contestService.submitProblem(contestId, problem.id, false, elapsedMinutes).catch(() => {});
+            }
+          } catch {}
+        }
+
         announce(`Submission graded: ${res.verdict}. ${res.totalPassed} of ${res.totalTests} tests passed.`);
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
@@ -402,7 +504,7 @@ function WorkspaceSession({
         announce(`Submission error: ${msg}`);
       }
     }
-  }, [announce, code, language, problem.id, recordSubmission, selectedCase, solved, toggleSolved]);
+  }, [announce, code, contestId, estimatedPracticeSeconds, isContestMode, language, problem.id, recordSubmission, selectedCase, solved, toggleSolved]);
 
   // Synchronize Monaco Editor line highlight and execution gutter arrow
   useEffect(() => {
@@ -714,6 +816,83 @@ function WorkspaceSession({
   );
 
   return <div className="workspace-screen">
+    {/* Contest Mode Fullscreen Mandatory Lockdown Gate */}
+    {isContestMode && !isFullscreenActive && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in select-none">
+        <div
+          className="max-w-md w-full rounded-2xl border p-6 sm:p-7 space-y-5 text-center shadow-2xl"
+          style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
+        >
+          <div className="mx-auto w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/25 flex items-center justify-center text-rose-500 shadow-inner">
+            <ShieldAlert size={30} className="animate-pulse" />
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-black text-primary tracking-tight">
+              Fullscreen Lockdown Required
+            </h3>
+            <p className="text-xs text-muted leading-relaxed">
+              Contest challenges must be solved in <strong>Exclusive Fullscreen Mode</strong>. You cannot write code, test, or view problem details while windowed.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl border bg-amber-500/10 border-amber-500/25 text-left text-xs space-y-1.5">
+            <div className="flex items-center justify-between font-bold text-amber-700 dark:text-amber-400">
+              <span>Fullscreen Exit Strike Counter</span>
+              <span className="font-mono">{fullscreenExits} / 3 Strikes</span>
+            </div>
+            <p className="text-[11px] text-muted">
+              Exiting fullscreen mode 3 times will permanently lock and auto-submit your contest attempt.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2.5 pt-2">
+            <button
+              type="button"
+              onClick={handleEnterContestFullscreen}
+              className="w-full py-3 px-4 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg transition flex items-center justify-center gap-2"
+            >
+              <Maximize2 size={15} />
+              <span>Enter Fullscreen & Continue Solving</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleAbandonContest}
+              className="w-full py-2 px-4 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-500/10 transition"
+            >
+              Abandon & Auto-Submit Contest
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    {isContestMode && (
+      <div
+        className="flex items-center justify-between px-4 py-2 text-xs font-semibold border-b shrink-0 z-20"
+        style={{
+          background: 'var(--ca-surface)',
+          borderColor: 'var(--ca-border)',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 animate-pulse">
+            CONTEST ARENA MODE
+          </span>
+          <span className="text-primary font-bold">
+            Weekly Contest Session
+          </span>
+          <span className="text-muted text-[11px] hidden sm:inline">
+            &bull; Proctoring active &bull; Test cases, trace & solutions disabled
+          </span>
+        </div>
+        <Link
+          to={`/contests/${contestId}`}
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition"
+        >
+          <span>Return to Contest Arena</span>
+        </Link>
+      </div>
+    )}
     <div
       ref={splitContainerRef}
       style={splitStyle}
@@ -722,7 +901,7 @@ function WorkspaceSession({
       <section className={`workspace-pane workspace-description-pane ${descriptionCollapsed ? 'workspace-description-pane-collapsed' : ''}`}>
         <div className="workspace-tabs">
           <div className="flex min-w-0 items-center gap-0.5 overflow-x-auto" role="tablist" aria-label="Problem information">
-            {['Description', 'Notes', 'Submissions', 'Solutions'].map((tab) => (
+            {(isContestMode ? ['Description', 'Notes', 'Submissions'] : ['Description', 'Notes', 'Submissions', 'Solutions']).map((tab) => (
               <button
                 key={tab}
                 role="tab"
@@ -893,7 +1072,7 @@ function WorkspaceSession({
               ) : (
                 <SubmissionsEmptyState problemTitle={problem.title} markedSolvedLocally={solved}/>
               )
-            ) : (
+            ) : !isContestMode ? (
               <SolutionsPanel
                 problem={problem}
                 editorial={editorial}
@@ -902,7 +1081,7 @@ function WorkspaceSession({
                 onRetry={retryEditorial}
                 onBackToDescription={() => setActiveTab('Description')}
               />
-            )}
+            ) : null}
           </div>
         )}
       </section>
@@ -1048,20 +1227,22 @@ function WorkspaceSession({
                 onClick={() => setConsoleCollapsed(false)}
                 className="inline-flex items-center gap-2 text-xs font-semibold text-muted hover:text-primary transition py-0.5 group"
                 aria-expanded={false}
-                aria-label="Expand test cases and console drawer"
-                title="Expand test cases & console (Alt+J)"
+                aria-label={isContestMode ? 'Expand console drawer' : 'Expand test cases and console drawer'}
+                title={isContestMode ? 'Expand console (Alt+J)' : 'Expand test cases & console (Alt+J)'}
               >
                 <span className="flex h-5 w-5 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-muted group-hover:text-primary group-hover:border-indigo-500/40 transition">
                   <ChevronUp size={12} />
                 </span>
-                <span>Test Cases & Console</span>
-                <span className="rounded-full px-1.5 py-0.5 text-[10px] font-bold bg-slate-500/10 text-muted tabular-nums">
-                  {allCases.length}
-                </span>
+                <span>{isContestMode ? 'Console Drawer' : 'Test Cases & Console'}</span>
+                {!isContestMode && (
+                  <span className="rounded-full px-1.5 py-0.5 text-[10px] font-bold bg-slate-500/10 text-muted tabular-nums">
+                    {allCases.length}
+                  </span>
+                )}
               </button>
 
               <div className="flex items-center gap-2">
-                {language === 'python' && (
+                {!isContestMode && language === 'python' && (
                   <button
                     type="button"
                     onClick={() => handleRunTrace()}
@@ -1095,18 +1276,20 @@ function WorkspaceSession({
           ) : (
             <div className="workspace-console-header">
               <div className="flex min-w-0 items-center gap-1.5">
-                <div className="workspace-console-tabs" role="tablist" aria-label="Test cases and console">
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={consoleTab === 'testcases'}
-                    onClick={() => { setConsoleTab('testcases'); setConsoleCollapsed(false); }}
-                    className={`workspace-console-tab ${consoleTab === 'testcases' ? 'workspace-console-tab-active' : ''}`}
-                  >
-                    <FlaskConical size={13}/>
-                    <span>Testcases</span>
-                    <span className="workspace-console-count tabular-nums">{allCases.length}</span>
-                  </button>
+                <div className="workspace-console-tabs" role="tablist" aria-label="Console drawer">
+                  {!isContestMode && (
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={consoleTab === 'testcases'}
+                      onClick={() => { setConsoleTab('testcases'); setConsoleCollapsed(false); }}
+                      className={`workspace-console-tab ${consoleTab === 'testcases' ? 'workspace-console-tab-active' : ''}`}
+                    >
+                      <FlaskConical size={13}/>
+                      <span>Testcases</span>
+                      <span className="workspace-console-count tabular-nums">{allCases.length}</span>
+                    </button>
+                  )}
                   <button
                     type="button"
                     role="tab"
@@ -1118,33 +1301,35 @@ function WorkspaceSession({
                     <span>Console</span>
                     {runnerState === 'error' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
                   </button>
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={consoleTab === 'scrubber'}
-                    onClick={() => { setConsoleTab('scrubber'); setConsoleCollapsed(false); }}
-                    className={`workspace-console-tab ${consoleTab === 'scrubber' ? 'workspace-console-tab-active' : ''}`}
-                  >
-                    <Sparkles size={13} className="text-indigo-400" />
-                    <span>Visual Scrubber</span>
-                    {traceResult && traceResult.steps.length > 0 && (
-                      <span className="workspace-console-count tabular-nums">{traceResult.steps.length}</span>
-                    )}
-                  </button>
+                  {!isContestMode && (
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={consoleTab === 'scrubber'}
+                      onClick={() => { setConsoleTab('scrubber'); setConsoleCollapsed(false); }}
+                      className={`workspace-console-tab ${consoleTab === 'scrubber' ? 'workspace-console-tab-active' : ''}`}
+                    >
+                      <Sparkles size={13} className="text-indigo-400" />
+                      <span>Visual Scrubber</span>
+                      {traceResult && traceResult.steps.length > 0 && (
+                        <span className="workspace-console-count tabular-nums">{traceResult.steps.length}</span>
+                      )}
+                    </button>
+                  )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setConsoleCollapsed(true)}
                   className="workspace-icon-button h-7 w-7"
                   aria-expanded={true}
-                  aria-label="Collapse test cases and console"
+                  aria-label="Collapse console drawer"
                   title="Collapse drawer (Alt+J)"
                 >
                   <ChevronDown size={13}/>
                 </button>
               </div>
               <div className="flex items-center gap-2">
-                {language === 'python' && (
+                {!isContestMode && language === 'python' && (
                   <button
                     type="button"
                     onClick={() => handleRunTrace()}
@@ -1179,7 +1364,7 @@ function WorkspaceSession({
 
           {!consoleCollapsed && (
             <div className="workspace-console-body" aria-live="polite">
-              {consoleTab === 'testcases' ? (
+              {!isContestMode && consoleTab === 'testcases' ? (
                 <TestCaseManager
                   sampleCases={sampleCases}
                   customCases={customCases}
@@ -1190,7 +1375,7 @@ function WorkspaceSession({
                   onDeleteCustomCase={deleteCustomCase}
                   onCloneSample={cloneSampleToCustom}
                 />
-              ) : consoleTab === 'scrubber' ? (
+              ) : !isContestMode && consoleTab === 'scrubber' ? (
                 <TracePanel
                   traceResult={traceResult}
                   isLoading={isTracing}

@@ -29,6 +29,7 @@ const baseMobileItems = [
   ['/review', 'Code Review'],
   ['/projects', 'Projects (Coming Soon)'],
   ['/editor', 'Code editor'],
+  ['/contests', 'Weekly Contests'],
   ['/leaderboard', 'Leaderboard'],
   ['/settings', 'Settings'],
 ];
@@ -42,9 +43,10 @@ export default function Layout() {
   const isYearPlanner = location.pathname.startsWith('/year');
   const isEditor = location.pathname.startsWith('/editor');
   const isInterviewStudio = location.pathname.startsWith('/interview/') && location.pathname !== '/interview';
+  const isContestArena = location.pathname.startsWith('/contests/') && location.pathname !== '/contests';
   const isInterviewHub = location.pathname === '/interview';
-  const isFullWidthPage = isYearPlanner || isInterviewHub || isInterviewStudio;
-  const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio;
+  const isFullWidthPage = isYearPlanner || isInterviewHub || isInterviewStudio || isContestArena;
+  const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio || isContestArena;
 
   const isAuthRoute = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].some(
     (p) => location.pathname === p || location.pathname.startsWith(p + '/')
@@ -105,11 +107,11 @@ export default function Layout() {
           Skip to main content
         </a>
 
-        {/* Minimal Top Navigation Bar (Hidden during proctored mock interview to prevent internal navigation) */}
-        {!isInterviewStudio && <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />}
+        {/* Minimal Top Navigation Bar (Hidden during proctored mock interview & contest arena to prevent internal navigation) */}
+        {!isInterviewStudio && !isContestArena && <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />}
 
         {/* Mobile Navigation Drawer */}
-        {menuOpen && !isInterviewStudio && (
+        {menuOpen && !isInterviewStudio && !isContestArena && (
           <div
             className="fixed inset-0 z-50 md:hidden"
             role="dialog"
@@ -186,7 +188,7 @@ export default function Layout() {
             tabIndex={-1}
             className={
               isWorkspaceLike
-                ? `${isInterviewStudio ? 'h-screen' : 'h-[calc(100vh-52px)]'} workspace-route-main w-full overflow-hidden p-0 m-0`
+                ? `${isInterviewStudio || isContestArena ? 'h-screen' : 'h-[calc(100vh-52px)]'} ${isContestArena ? 'overflow-y-auto' : 'overflow-hidden'} workspace-route-main w-full p-0 m-0`
                 : isFullWidthPage
                 ? 'w-full max-w-none flex-1 px-4 sm:px-6 lg:px-8 pb-12 pt-4'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
@@ -203,8 +205,8 @@ export default function Layout() {
           {!isWorkspaceLike && <Footer />}
         </div>
 
-        {/* Command Palette (Disabled during proctored mock interview to prevent switching) */}
-        {!isInterviewStudio && <CommandPalette />}
+        {/* Command Palette (Disabled during proctored mock interview & contest arena to prevent switching) */}
+        {!isInterviewStudio && !isContestArena && <CommandPalette />}
         <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
           {announcement}
         </div>

@@ -7,6 +7,7 @@ import {
   Contrast,
   Flame,
   FolderGit2,
+  GraduationCap,
   Map,
   Menu,
   Search,
@@ -103,12 +104,16 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/daily-challenges') ||
     location.pathname.startsWith('/review') ||
     location.pathname.startsWith('/interview') ||
+    location.pathname.startsWith('/placement') ||
     location.pathname.startsWith('/workspace') ||
     location.pathname.startsWith('/projects') ||
     location.pathname.startsWith('/editor');
 
   const isYearPlanner = location.pathname.startsWith('/year');
-  const isFullWidthNav = isYearPlanner || location.pathname.startsWith('/interview');
+  const isFullWidthNav =
+    isYearPlanner ||
+    location.pathname.startsWith('/interview') ||
+    location.pathname.startsWith('/placement');
 
   return (
     <header className={`top-navbar-root ${isScrolled ? 'is-scrolled' : ''}`}>
@@ -305,6 +310,28 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                   </NavLink>
 
                   <NavLink
+                    to="/placement"
+                    onClick={() => setPracticeOpen(false)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 shadow-sm">
+                      <GraduationCap size={14} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-xs text-slate-900 dark:text-white">Placement Mocks</span>
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30">
+                          TCS·Infy
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Company OAs & Aptitude</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
                     to="/editor"
                     onClick={() => setPracticeOpen(false)}
                     className={({ isActive }) =>
@@ -354,6 +381,16 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
               }
             >
               Year
+            </NavLink>
+
+            {/* Contests */}
+            <NavLink
+              to="/contests"
+              className={({ isActive }) =>
+                `top-nav-box ${isActive || location.pathname.startsWith('/contests') ? 'top-nav-box-active' : ''}`
+              }
+            >
+              Contests
             </NavLink>
 
             {/* Leaderboard */}

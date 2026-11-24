@@ -15,6 +15,33 @@ export interface RoadmapCardData {
 
 export const platformRoadmapCards: RoadmapCardData[] = [
   {
+    id: 'placement-simulator',
+    badge: 'TCS · Infosys · Wipro',
+    title: 'Company Online Assessment Simulator',
+    description:
+      'Practice realistic multi-section online recruitment exams with countdown section timers, on-screen calculators, TCS iON question matrices, and national percentile scorecards.',
+    link: '/placement',
+    linkText: 'Launch Placement Mocks',
+    sections: [
+      {
+        title: 'Full Recruitment Elimination Rounds',
+        bullets: [
+          'Quantitative Aptitude, Logical Reasoning & Verbal Ability',
+          'CS Core Fundamentals: OOPs, DBMS ACID, OS Scheduling & CIDR Subnets',
+          'Technical Pseudocode Stack Tracing and Bitwise Hacks',
+        ],
+      },
+      {
+        title: 'Diagnostic Placement Scorecard',
+        bullets: [
+          'National percentile estimation based on 50,000+ candidates',
+          'Company qualifying verdicts: TCS Ninja/Digital, Infosys SP/DSE',
+          'Step-by-step mathematical solutions and code reference reviews',
+        ],
+      },
+    ],
+  },
+  {
     id: 'problem-arena',
     badge: 'Practice Arena',
     title: 'Curated Problem Arena',

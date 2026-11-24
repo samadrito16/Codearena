@@ -1,22 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ArrowRight,
-  Bot,
   CheckCircle2,
   Clock,
-  Cpu,
-  FileCode2,
-  Layers,
-  Lock,
-  Shield,
-  Sparkles,
-  Trophy,
-  Zap,
 } from 'lucide-react';
-import { ReviewScenario } from '../../types/review';
-import { CATEGORY_CONFIG } from '../../lib/review/catalog';
-import { ScenarioAttempt } from '../../types/review';
+import { ReviewScenario, ScenarioAttempt } from '../../types/review';
 
 interface ScenarioCardProps {
   scenario: ReviewScenario;
@@ -25,7 +13,6 @@ interface ScenarioCardProps {
 }
 
 export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCardProps) {
-  const cat = CATEGORY_CONFIG[scenario.category];
   const isCompleted = attempt?.score !== undefined;
   const hasStarted = Boolean(attempt && attempt.annotations.length > 0 && !isCompleted);
 
@@ -49,9 +36,6 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
         {/* Top Badges */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <span className={`px-2.5 py-0.5 rounded-md text-[11px] font-bold border ${cat.badgeBg}`}>
-              {cat.name}
-            </span>
             <span className={`px-2 py-0.5 rounded-md text-[11px] font-bold border ${diffColors}`}>
               {scenario.difficulty}
             </span>
@@ -77,7 +61,7 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
         </div>
 
         {/* Title */}
-        <h3 className="text-base sm:text-lg font-bold text-primary group-hover:text-indigo-500 transition-colors line-clamp-1">
+        <h3 className="text-sm font-semibold text-primary group-hover:text-indigo-500 transition-colors leading-snug line-clamp-2">
           {scenario.title}
         </h3>
 
@@ -102,25 +86,6 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
             ))}
           </div>
         )}
-      </div>
-
-      {/* Footer Info */}
-      <div className="mt-5 pt-4 border-t flex items-center justify-between text-xs" style={{ borderColor: 'var(--ca-border)' }}>
-        <div className="flex items-center gap-3 text-muted">
-          <span className="inline-flex items-center gap-1 font-mono text-[11px]">
-            <FileCode2 size={13} />
-            {scenario.files.length} {scenario.files.length === 1 ? 'file' : 'files'}
-          </span>
-          <span>&middot;</span>
-          <span className="inline-flex items-center gap-1 text-[11px] text-rose-500/80 font-medium">
-            {scenario.planted_bugs.length} {scenario.planted_bugs.length === 1 ? 'planted flaw' : 'planted flaws'}
-          </span>
-        </div>
-
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-500 group-hover:translate-x-1 transition-transform">
-          <span>{isCompleted ? 'Review Again' : 'Audit PR'}</span>
-          <ArrowRight size={13} />
-        </span>
       </div>
     </Link>
   );

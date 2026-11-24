@@ -1,4 +1,5 @@
 import type { LeaderboardEntry } from '../data/leaderboard';
+import type { CollegeLeaderboardEntry } from '../types/contest';
 import type { LearningPath } from '../data/learningPaths';
 import type { ProblemEditorial, Problem } from '../types';
 import type { StorageWriteResult } from '../lib/storage';
@@ -21,6 +22,8 @@ export interface ProblemsRepository {
 
 export interface LeaderboardRepository {
   list(signal?: AbortSignal): Promise<LeaderboardEntry[]>;
+  listColleges(signal?: AbortSignal): Promise<CollegeLeaderboardEntry[]>;
+  listCollegeStudents(college: string, signal?: AbortSignal): Promise<LeaderboardEntry[]>;
 }
 
 export interface LearningPathsRepository {

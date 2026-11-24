@@ -7,6 +7,7 @@ import {
   Code2,
   Compass,
   Flame,
+  GraduationCap,
   Layers,
   Sparkles,
   Terminal,
@@ -272,6 +273,8 @@ function AnimatedRoadmapCard({
 
 function getCardIcon(id: string) {
   switch (id) {
+    case 'placement-simulator':
+      return <GraduationCap size={14} />;
     case 'problem-arena':
       return <Code2 size={14} />;
     case 'pattern-mastery':

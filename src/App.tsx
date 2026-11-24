@@ -28,11 +28,15 @@ import ReviewHub from './pages/ReviewHub';
 import ReviewStudio from './pages/ReviewStudio';
 import InterviewHub from './pages/InterviewHub';
 import InterviewStudio from './pages/InterviewStudio';
+import PlacementHub from './pages/PlacementHub';
+import PlacementStudio from './pages/PlacementStudio';
 import YearPlanner from './pages/YearPlanner';
 import Projects from './pages/Projects';
 import StandaloneEditor from './pages/StandaloneEditor';
 import PublicProfile from './pages/PublicProfile';
 import CertificateVerification from './pages/CertificateVerification';
+import Contests from './pages/Contests';
+import ContestArena from './pages/ContestArena';
 
 const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'];
 
@@ -186,10 +190,13 @@ export default function App() {
           {/* Public Overview & Navigation Routes (Accessible without login) */}
           <Route index element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contests" element={<Contests />} />
+          <Route path="/contests/:contestId" element={<ContestArena />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/review" element={<ReviewHub />} />
           <Route path="/interview" element={<InterviewHub />} />
+          <Route path="/placement" element={<PlacementHub />} />
           <Route path="/u/:identifier" element={<PublicProfile />} />
           <Route path="/p/:identifier" element={<PublicProfile />} />
           <Route path="/verify/:certId" element={<CertificateVerification />} />
@@ -197,6 +204,7 @@ export default function App() {
           {/* Protected Application Routes (Requires login; intercepts and redirects to login) */}
           <Route element={<RequireAuth />}>
             <Route path="/interview/:roundId" element={<InterviewStudio />} />
+            <Route path="/placement/:assessmentId" element={<PlacementStudio />} />
             <Route path="/review/:slug" element={<ReviewStudio />} />
             <Route path="/mastery" element={<MasteryHub />} />
             <Route path="/mastery/:slug" element={<MasteryStudio />} />
