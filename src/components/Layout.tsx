@@ -34,6 +34,10 @@ export default function Layout() {
   const isWorkspace = location.pathname.startsWith('/workspace');
   const isYearPlanner = location.pathname.startsWith('/year');
   const isEditor = location.pathname.startsWith('/editor');
+  const isInterviewStudio = location.pathname.startsWith('/interview/') && location.pathname !== '/interview';
+  const isInterviewHub = location.pathname === '/interview';
+  const isFullWidthPage = isYearPlanner || isInterviewHub;
+  const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio;
 
   const isAuthRoute = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].some(
     (p) => location.pathname === p || location.pathname.startsWith(p + '/')
@@ -71,16 +75,16 @@ export default function Layout() {
 
   return (
     <SmoothScrollProvider>
-      <div className={`app-shell ${isWorkspace || isEditor ? 'app-shell-workspace' : ''} flex min-h-screen flex-col`}>
+      <div className={`app-shell ${isWorkspaceLike ? 'app-shell-workspace' : ''} flex min-h-screen flex-col`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
 
-        {/* Minimal Top Navigation Bar */}
-        <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />
+        {/* Minimal Top Navigation Bar (Hidden during proctored mock interview to prevent internal navigation) */}
+        {!isInterviewStudio && <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />}
 
         {/* Mobile Navigation Drawer */}
-        {menuOpen && (
+        {menuOpen && !isInterviewStudio && (
           <div
             className="fixed inset-0 z-50 md:hidden"
             role="dialog"
@@ -151,30 +155,31 @@ export default function Layout() {
         )}
 
         {/* Main Content Area */}
-        <div className={`flex flex-1 flex-col ${isWorkspace || isEditor ? 'workspace-app-main' : ''}`}>
+        <div className={`flex flex-1 flex-col ${isWorkspaceLike ? 'workspace-app-main' : ''}`}>
           <main
             id="main-content"
             tabIndex={-1}
             className={
-              isWorkspace || isEditor
-                ? 'workspace-route-main h-[calc(100vh-52px)] w-full overflow-hidden'
-                : isYearPlanner
-                ? 'w-full flex-1 px-3 sm:px-5 lg:px-7 pb-12 pt-3'
+              isWorkspaceLike
+                ? `${isInterviewStudio ? 'h-screen' : 'h-[calc(100vh-52px)]'} workspace-route-main w-full overflow-hidden p-0 m-0`
+                : isFullWidthPage
+                ? 'w-full max-w-none flex-1 px-4 sm:px-8 lg:px-12 pb-12 pt-4'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
             }
           >
-            {isWorkspace || isEditor ? (
+            {isWorkspaceLike ? (
               <Outlet />
             ) : (
-              <div key={currentRouteKey} className="page-enter">
+              <div key={currentRouteKey} className="page-enter w-full">
                 <Outlet />
               </div>
             )}
           </main>
-          {!isWorkspace && !isEditor && <Footer />}
+          {!isWorkspaceLike && <Footer />}
         </div>
 
-        <CommandPalette />
+        {/* Command Palette (Disabled during proctored mock interview to prevent switching) */}
+        {!isInterviewStudio && <CommandPalette />}
         <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
           {announcement}
         </div>

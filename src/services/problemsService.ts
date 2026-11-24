@@ -3,7 +3,7 @@ import { writeStorageSafe, type StorageWriteResult } from '../lib/storage';
 import type { Problem } from '../types';
 import type { ProblemsRepository } from './types';
 
-export const PROBLEMS_STORAGE_KEY = 'prismcode-problems-v3';
+export const PROBLEMS_STORAGE_KEY = 'prismcode-problems-v5';
 
 export function isProblemRecord(value: unknown): value is Problem {
   if (!value || typeof value !== 'object') return false;

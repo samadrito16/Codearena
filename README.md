@@ -22,7 +22,7 @@
 **PrismCode** is a high-performance algorithmic engineering ecosystem built to bridge the gap between abstract algorithmic practice and real-world senior software engineering. 
 
 While traditional platforms focus on isolated, single-function LeetCode-style snippets, PrismCode provides a multi-dimensional engineering suite:
-- **Cloud Monaco Workspace**: Full-bleed coding environment with multi-language execution, custom test suites, and sub-100ms telemetry.
+- **Cloud Monaco Workspace**: Full-bleed coding environment with multi-language execution, custom test suites, and sub-100ms telemetry across 400+ curated algorithmic challenges.
 - **Subgoal Pattern Mastery Studio**: Deconstructs algorithmic thinking into cognitive blueprints, brute-force bottleneck comparisons, active fill-in recall drills, and in-studio live execution.
 - **AI-Era Code Review Arena**: Audits multi-file broken repositories, concurrency race conditions, and flawed AI-generated PR code for senior engineering interviews.
 - **52-Week Year Planner**: GitHub-style activity heatmaps, weekly roadmap drawers, and momentum streak tracking.
@@ -145,7 +145,7 @@ Codearena/
 │   ├── data/
 │   │   ├── mastery/             # 25 Core Algorithmic Blueprints catalog
 │   │   ├── review/              # AI-era review scenario definitions
-│   │   ├── problems.ts          # Practice challenge library (canonical seed fixtures)
+│   │   ├── problems.ts          # Practice challenge library (100+ curated challenges with test cases)
 │   │   ├── editorials.ts        # Static editorial walkthroughs & hints
 │   │   └── platformRoadmap.ts   # Platform roadmap feature cards
 │   ├── lib/

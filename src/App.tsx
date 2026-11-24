@@ -26,6 +26,8 @@ import MasteryHub from './pages/MasteryHub';
 import MasteryStudio from './pages/MasteryStudio';
 import ReviewHub from './pages/ReviewHub';
 import ReviewStudio from './pages/ReviewStudio';
+import InterviewHub from './pages/InterviewHub';
+import InterviewStudio from './pages/InterviewStudio';
 import YearPlanner from './pages/YearPlanner';
 import Projects from './pages/Projects';
 import StandaloneEditor from './pages/StandaloneEditor';
@@ -185,9 +187,11 @@ export default function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/review" element={<ReviewHub />} />
+          <Route path="/interview" element={<InterviewHub />} />
 
           {/* Protected Application Routes (Requires login; intercepts and redirects to login) */}
           <Route element={<RequireAuth />}>
+            <Route path="/interview/:roundId" element={<InterviewStudio />} />
             <Route path="/review/:slug" element={<ReviewStudio />} />
             <Route path="/mastery" element={<MasteryHub />} />
             <Route path="/mastery/:slug" element={<MasteryStudio />} />

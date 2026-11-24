@@ -8,6 +8,22 @@ export interface TestCaseInput {
   isHidden?: boolean;
 }
 
+export interface ProblemEditorial {
+  problemId: string;
+  isStaticDemo: boolean;
+  summary: string;
+  hints: string[];
+  approachTitle: string;
+  approachSteps: string[];
+  timeComplexity: string;
+  spaceComplexity: string;
+  pitfalls: string[];
+  referenceCode?: {
+    language: string;
+    code: string;
+  };
+}
+
 export interface Problem {
   id: string;
   title: string;
@@ -21,6 +37,7 @@ export interface Problem {
   starterCode?: Partial<Record<CodeLanguage, string>>;
   testCases?: TestCaseInput[];
   orderInvariant?: boolean;
+  editorial?: ProblemEditorial;
 }
 
 export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error' | 'compilation_error';

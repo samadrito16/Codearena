@@ -13,6 +13,7 @@ import {
   Settings,
   ShieldCheck,
   Sparkles,
+  Timer,
 } from 'lucide-react';
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
@@ -101,17 +102,19 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/problems') ||
     location.pathname.startsWith('/daily-challenges') ||
     location.pathname.startsWith('/review') ||
+    location.pathname.startsWith('/interview') ||
     location.pathname.startsWith('/workspace') ||
     location.pathname.startsWith('/projects') ||
     location.pathname.startsWith('/editor');
 
   const isYearPlanner = location.pathname.startsWith('/year');
+  const isFullWidthNav = isYearPlanner || location.pathname.startsWith('/interview');
 
   return (
     <header className={`top-navbar-root ${isScrolled ? 'is-scrolled' : ''}`}>
       <div
         className={`mx-auto flex h-[52px] w-full ${
-          isYearPlanner ? 'max-w-none px-3 sm:px-5 lg:px-7' : 'max-w-[1560px] px-3 sm:px-5 lg:px-7'
+          isFullWidthNav ? 'max-w-none px-4 sm:px-8 lg:px-12' : 'max-w-[1560px] px-3 sm:px-5 lg:px-7'
         } items-center justify-between`}
       >
         {/* Left Side: Brand & Navigation */}
@@ -282,6 +285,22 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Review</div>
                       <div className="text-[10px] text-slate-500 dark:text-neutral-400">Audit multi-file repos & AI PRs</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
+                    to="/interview"
+                    onClick={() => setPracticeOpen(false)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
+                      <Timer size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Mock Interview</div>
                     </div>
                   </NavLink>
 
