@@ -14,6 +14,20 @@ import {
 import { getLocalDateKey, selectDailyChallenge } from '../lib/progress';
 import { readStorage, writeStorage } from '../lib/storage';
 import { problemsService, type ResourceStatus } from '../services';
+import {
+  applyReviewOutcome,
+  createSpacedRepetitionItem,
+  dismissReview,
+  isFailedOutcome,
+  isSlowSolve,
+  loadSpacedRepetitionStore,
+  saveSpacedRepetitionStore,
+  scanAndBackfillSpacedRepetition,
+  snoozeReview,
+  SPACED_INTERVALS_DAYS,
+  addDays,
+} from '../lib/spacedRepetition';
+import type { SpacedRepetitionItem } from '../types/spacedRepetition';
 import type { ActivityEvent, AdaptiveMasteryPlan, FontSize, LocalProfile, PaletteId, PrivacySettings, Problem, SubmissionOutcome, SubmissionRecord, ThemeMode } from '../types';
 
 export const DEFAULT_ADAPTIVE_MASTERY_PLAN: AdaptiveMasteryPlan = {
@@ -72,6 +86,15 @@ interface AppContextValue {
   ensureDailyChallenge: (dateKey: string, problemId: string) => void;
   dailyCompletions: Record<string, string>;
   completeDailyChallenge: (dateKey: string, problemId: string, durationSeconds?: number, language?: string) => void;
+  spacedRepetitionStore: Record<string, SpacedRepetitionItem>;
+  recordSpacedReviewOutcome: (
+    problemId: string,
+    outcome: 'passed' | 'failed' | 'slow',
+    durationSeconds?: number,
+    notes?: string,
+  ) => void;
+  snoozeSpacedReview: (problemId: string, days?: number) => void;
+  dismissSpacedReview: (problemId: string) => void;
 }
 
 const AppContext = createContext<AppContextValue | undefined>(undefined);
@@ -163,6 +186,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [submissions, setSubmissions] = useState<SubmissionRecord[]>(loadSubmissions);
   const [dailyChallengeByDate, setDailyChallengeByDate] = useState<Record<string, string>>(() => loadStringRecord('prismcode-daily-challenges'));
   const [dailyCompletions, setDailyCompletions] = useState<Record<string, string>>(() => loadStringRecord('prismcode-daily-completions'));
+  const [spacedRepetitionStore, setSpacedRepetitionStore] = useState<Record<string, SpacedRepetitionItem>>(() => loadSpacedRepetitionStore());
+
+  // Automatically scan and backfill from existing submissions and activity log on load or when problems change
+  useEffect(() => {
+    if (!problems.length) return;
+    const problemsMap = new Map(problems.map((p) => [p.id, p]));
+    setSpacedRepetitionStore((current) => {
+      return scanAndBackfillSpacedRepetition(submissions, activityLog, current, problemsMap);
+    });
+  }, [problems, submissions, activityLog]);
+
+  useEffect(() => {
+    saveSpacedRepetitionStore(spacedRepetitionStore);
+  }, [spacedRepetitionStore]);
 
   const retryProblems = useCallback(() => {
     problemsReloadRef.current?.abort();
@@ -237,6 +274,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ? Math.round(durationSeconds)
       : undefined;
     const timestamp = new Date().toISOString();
+
+    // Trigger spaced repetition if solved slowly
+    if (validDuration && isSlowSolve(validDuration, problem.difficulty)) {
+      setSpacedRepetitionStore((current) => {
+        const existing = current[id];
+        if (!existing) {
+          const newItem = createSpacedRepetitionItem({
+            problemId: id,
+            problemTitle: problem.title,
+            reason: 'solved_slowly',
+            triggerTimestamp: timestamp,
+            triggerDifficulty: problem.difficulty,
+            durationSeconds: validDuration,
+          });
+          return { ...current, [id]: newItem };
+        }
+        return current;
+      });
+    }
+
     const event: ActivityEvent = {
       id: `solved-${id}-${Date.now()}`,
       problemId: id,
@@ -341,6 +398,54 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setDailyCompletions((current) => ({ ...current, [today]: problemId }));
       }
     }
+
+    // Update Spaced Repetition queue
+    setSpacedRepetitionStore((current) => {
+      const existing = current[problemId];
+      const isFailed = isFailedOutcome(outcome);
+      const isSlow = isSlowSolve(validDuration, problem.difficulty);
+
+      if (isFailed || isSlow) {
+        const reason = isFailed && isSlow ? 'both' : isFailed ? 'failed' : 'solved_slowly';
+        if (!existing) {
+          const newItem = createSpacedRepetitionItem({
+            problemId,
+            problemTitle: problem.title,
+            reason,
+            triggerTimestamp: timestamp,
+            triggerDifficulty: problem.difficulty,
+            durationSeconds: validDuration,
+          });
+          return { ...current, [problemId]: newItem };
+        }
+        // If already tracked, reset back to Stage 1 (resurface in 3 days)
+        const nextDate = addDays(new Date(), SPACED_INTERVALS_DAYS[1]);
+        return {
+          ...current,
+          [problemId]: {
+            ...existing,
+            stage: 1,
+            status: 'pending',
+            nextReviewDate: nextDate,
+            failedSubmissionsCount: isFailed ? existing.failedSubmissionsCount + 1 : existing.failedSubmissionsCount,
+            slowestDurationSeconds: validDuration && (!existing.slowestDurationSeconds || validDuration > existing.slowestDurationSeconds)
+              ? validDuration
+              : existing.slowestDurationSeconds,
+            reason: (existing.reason === 'failed' && isSlow) || (existing.reason === 'solved_slowly' && isFailed) ? 'both' : existing.reason,
+            consecutiveSuccessfulReviews: 0,
+            dismissed: false,
+          },
+        };
+      }
+
+      // If accepted & quick on a problem currently in review queue, automatically advance stage
+      if (outcome === 'accepted' && existing && !existing.isGraduated && !isSlow) {
+        const updated = applyReviewOutcome(existing, 'passed', validDuration, undefined, new Date());
+        return { ...current, [problemId]: updated };
+      }
+
+      return current;
+    });
   }, [dailyChallengeByDate, problems, solvedIds]);
 
   const completeDailyChallenge = useCallback((
@@ -454,6 +559,38 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const recordSpacedReviewOutcome = useCallback((
+    problemId: string,
+    outcome: 'passed' | 'failed' | 'slow',
+    durationSeconds?: number,
+    notes?: string,
+  ) => {
+    setSpacedRepetitionStore((current) => {
+      const item = current[problemId];
+      if (!item) return current;
+      const updated = applyReviewOutcome(item, outcome, durationSeconds, notes, new Date());
+      return { ...current, [problemId]: updated };
+    });
+  }, []);
+
+  const snoozeSpacedReview = useCallback((problemId: string, days = 2) => {
+    setSpacedRepetitionStore((current) => {
+      const item = current[problemId];
+      if (!item) return current;
+      const updated = snoozeReview(item, days, new Date());
+      return { ...current, [problemId]: updated };
+    });
+  }, []);
+
+  const dismissSpacedReview = useCallback((problemId: string) => {
+    setSpacedRepetitionStore((current) => {
+      const item = current[problemId];
+      if (!item) return current;
+      const updated = dismissReview(item);
+      return { ...current, [problemId]: updated };
+    });
+  }, []);
+
   const value = useMemo<AppContextValue>(() => ({
     theme,
     setTheme,
@@ -487,7 +624,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     ensureDailyChallenge,
     dailyCompletions,
     completeDailyChallenge,
-  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, adaptiveMasteryPlan, updateAdaptiveMasteryPlan, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge]);
+    spacedRepetitionStore,
+    recordSpacedReviewOutcome,
+    snoozeSpacedReview,
+    dismissSpacedReview,
+  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, adaptiveMasteryPlan, updateAdaptiveMasteryPlan, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge, spacedRepetitionStore, recordSpacedReviewOutcome, snoozeSpacedReview, dismissSpacedReview]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

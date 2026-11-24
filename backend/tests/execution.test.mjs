@@ -354,7 +354,11 @@ INSERT INTO employees VALUES (1, 'Design'), (2, 'Design'), (3, 'Design'), (4, 'M
       },
     ];
 
-    const result = await runTestCases('sql', sqlCode, sqlCases, { orderInvariant: true });
+    let result = await runTestCases('sql', sqlCode, sqlCases, { orderInvariant: true });
+    if (!result.success && result.compilationError && result.compilationError.includes('429')) {
+      await new Promise((r) => setTimeout(r, 2000));
+      result = await runTestCases('sql', sqlCode, sqlCases, { orderInvariant: true });
+    }
     assert.strictEqual(result.success, true);
     assert.strictEqual(result.verdict, 'Accepted');
     assert.strictEqual(result.totalPassed, 2);

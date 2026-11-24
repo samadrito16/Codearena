@@ -27,6 +27,8 @@ import {
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useUi } from '../context/UiContext';
+import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
+import { getSlowThreshold, SPACED_INTERVALS_DAYS } from '../lib/spacedRepetition';
 import { themePalettes } from '../data/themes';
 import { runCode, submitCode, type ExecutionResponse } from '../services/executionService';
 import CollectionPicker from '../components/CollectionPicker';
@@ -175,6 +177,8 @@ function WorkspaceSession({
     dailyCompletions,
     completeDailyChallenge,
   } = useApp();
+  const { getItem: getSpacedItem, formatScheduleLabel } = useSpacedRepetition();
+  const spacedReviewItem = problem ? getSpacedItem(problem.id) : undefined;
   const editorThemeName = `prismcode-${palette}-${theme}`;
   const prevProblem = currentIndex > 0 ? problemList[currentIndex - 1] : null;
   const nextProblem = currentIndex < problemList.length - 1 ? problemList[currentIndex + 1] : null;
@@ -367,14 +371,15 @@ function WorkspaceSession({
           : res.verdict === 'Runtime Error' ? 'runtime_error'
           : 'wrong_answer';
 
-        recordSubmission(problem.id, outcome, undefined, language, {
+        const practiceSecs = estimatedPracticeSeconds > 0 ? estimatedPracticeSeconds : undefined;
+        recordSubmission(problem.id, outcome, practiceSecs, language, {
           runtimeMs: res.runtimeMs,
           memoryMb: res.memoryMb,
           source: 'onlinecompiler',
         });
 
         if (outcome === 'accepted' && !solved) {
-          toggleSolved(problem.id, undefined, language);
+          toggleSolved(problem.id, practiceSecs, language);
         }
 
         announce(`Submission graded: ${res.verdict}. ${res.totalPassed} of ${res.totalTests} tests passed.`);
@@ -695,6 +700,28 @@ function WorkspaceSession({
                   />
                 </div>
               </div>
+              {spacedReviewItem && !spacedReviewItem.isGraduated && !spacedReviewItem.dismissed && (
+                <div className="mb-4 rounded-xl border border-purple-500/30 bg-purple-500/10 p-3 sm:p-4 flex items-start justify-between gap-3 text-xs">
+                  <div className="flex items-start gap-2.5">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-purple-500/20 text-purple-400 font-bold text-[10px]">
+                      S{spacedReviewItem.stage}
+                    </span>
+                    <div className="space-y-1">
+                      <p className="font-bold text-primary flex items-center gap-2 flex-wrap">
+                        <span>Spaced Repetition Review · Stage {spacedReviewItem.stage} of 3 ({SPACED_INTERVALS_DAYS[spacedReviewItem.stage]}-Day Recall)</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-semibold bg-purple-500/20 text-purple-300">
+                          {formatScheduleLabel(spacedReviewItem.nextReviewDate).label}
+                        </span>
+                      </p>
+                      <p className="text-muted text-[11px] leading-relaxed">
+                        {spacedReviewItem.reason === 'both' ? 'Flagged from previous failed attempts and slow solve time.'
+                          : spacedReviewItem.reason === 'failed' ? 'Flagged from previous unaccepted submissions.'
+                          : 'Flagged from previous slow solve time.'} Aim to solve in under {Math.round(getSlowThreshold(problem.difficulty) / 60)} minutes to advance to the next interval.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
               <p className="workspace-eyebrow">PROBLEM STATEMENT</p>
               <h1 className="problem-title mt-1 text-2xl font-bold">{problem.title}</h1>
               <p className="mt-4 whitespace-pre-line text-sm leading-7 text-muted">{problem.description}</p>

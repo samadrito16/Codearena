@@ -16,8 +16,10 @@ import {
   SlidersHorizontal,
   StickyNote,
   X,
+  Brain,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import CollectionPicker from '../components/CollectionPicker';
 import ProblemNotesPanel from '../components/ProblemNotesPanel';
 import ProblemPreviewModal from '../components/ProblemPreviewModal';
@@ -61,6 +63,7 @@ function getSearchMatchHint(problem: Problem, noteText: string, query: string): 
 export default function Problems() {
   const { solvedIds, toggleSolved } = useApp();
   const { data: problems, status: problemsStatus, error: problemsError, retry: retryProblems } = useProblems();
+  const { isProblemDue, dueItems } = useSpacedRepetition();
   const {
     notes,
     collections,
@@ -74,6 +77,14 @@ export default function Problems() {
   } = useProblemStudyData();
 
   const [filters, setFilters] = useState<LibraryFilterPrefs>(loadLibraryFilters);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const filterParam = searchParams.get('filter');
+    if (filterParam === 'review_due') {
+      setFilters((current) => ({ ...current, quickFilter: 'review_due', page: 1 }));
+    }
+  }, [searchParams]);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [expandedNoteId, setExpandedNoteId] = useState<string | null>(null);
   const [previewProblemId, setPreviewProblemId] = useState<string | null>(null);
@@ -139,7 +150,8 @@ export default function Problems() {
       const matchesQuick = filters.quickFilter === 'all'
         || (filters.quickFilter === 'bookmarked' && bookmarkedIds.includes(problem.id))
         || (filters.quickFilter === 'noted' && Boolean(notes[problem.id]?.content.trim()))
-        || (filters.quickFilter === 'unsolved' && !solvedIds.includes(problem.id));
+        || (filters.quickFilter === 'unsolved' && !solvedIds.includes(problem.id))
+        || (filters.quickFilter === 'review_due' && isProblemDue(problem.id));
 
       return matchesSearch && matchesDifficulty && matchesTopic && matchesCollection && matchesQuick;
     });
@@ -311,6 +323,7 @@ export default function Problems() {
             ['bookmarked', `Bookmarked (${bookmarkedCount})`],
             ['noted', `With notes (${notedCount})`],
             ['unsolved', `Unsolved (${unsolvedCount})`],
+            ['review_due', `Review due (${dueItems.length})`],
           ] as [ProblemQuickFilter, string][]).map(([key, label]) => (
             <button
               key={key}
@@ -321,6 +334,7 @@ export default function Problems() {
             >
               {key === 'bookmarked' && <Bookmark size={11}/>}
               {key === 'noted' && <StickyNote size={11}/>}
+              {key === 'review_due' && <Brain size={11} className="text-purple-400" />}
               <span>{label}</span>
             </button>
           ))}
@@ -462,6 +476,11 @@ export default function Problems() {
                   <Link to={`/workspace/${problem.id}`} className="truncate text-sm font-bold text-slate-800 hover:text-indigo-600 dark:text-slate-100 dark:hover:text-indigo-300">
                     {problem.title}
                   </Link>
+                  {isProblemDue(problem.id) && (
+                    <span className="shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold bg-purple-500/15 text-purple-400 border border-purple-500/30">
+                      Review Due
+                    </span>
+                  )}
                   {matchHint && (
                     <span className="shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold" style={{ background: 'color-mix(in srgb, var(--ca-accent-solid) 13%, var(--ca-surface))', color: 'var(--ca-accent-solid)' }}>
                       {matchHint}

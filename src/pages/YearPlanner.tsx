@@ -26,9 +26,11 @@ import {
   Trophy,
   X,
   Zap,
+  Brain,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import { useMasteryProgress } from '../lib/mastery/progress';
 import { getAllMasteryProblems, PATTERN_CONFIG, type PatternId } from '../lib/mastery/catalog';
 import { readStorage, writeStorage } from '../lib/storage';
@@ -123,6 +125,7 @@ export function formatWeekDateRange(startDate: Date, endDate: Date): string {
 
 export default function YearPlanner() {
   const { activityLog, adaptiveMasteryPlan, updateAdaptiveMasteryPlan } = useApp();
+  const { dueItems } = useSpacedRepetition();
   const { getProblemProgress, getOverallStats, toggleCompleted } = useMasteryProgress();
   const today = useMemo(() => new Date(), []);
   const [selectedYear, setSelectedYear] = useState<number>(() => today.getFullYear());
@@ -475,6 +478,20 @@ export default function YearPlanner() {
             </div>
 
             <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+              {dueItems.length > 0 && (
+                <Link
+                  to="/problems?filter=review_due"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition text-purple-400 hover:border-purple-500/40"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
+                    borderColor: 'color-mix(in srgb, var(--ca-border) 80%, #8b5cf6 20%)',
+                  }}
+                  title="View problems due for spaced repetition"
+                >
+                  <Brain size={13} className="text-purple-400" />
+                  {dueItems.length} Review{dueItems.length === 1 ? '' : 's'} Due
+                </Link>
+              )}
               <Link
                 to="/mastery"
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition text-primary hover:border-indigo-500/40"

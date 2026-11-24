@@ -9,7 +9,7 @@ export type ProblemSortOption =
   | 'acceptance-desc'
   | 'acceptance-asc';
 
-export type ProblemQuickFilter = 'all' | 'bookmarked' | 'noted' | 'unsolved';
+export type ProblemQuickFilter = 'all' | 'bookmarked' | 'noted' | 'unsolved' | 'review_due';
 export type ProblemPageSize = 5 | 10 | 20 | 50;
 
 export interface LibraryFilterPrefs {
@@ -44,6 +44,7 @@ const VALID_QUICK_FILTERS: readonly ProblemQuickFilter[] = [
   'bookmarked',
   'noted',
   'unsolved',
+  'review_due',
 ];
 
 const VALID_PAGE_SIZES: readonly ProblemPageSize[] = [5, 10, 20, 50];

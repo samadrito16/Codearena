@@ -23,10 +23,13 @@ import {
   UserRound,
   X,
   Zap,
+  Brain,
+  Clock,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
+import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import {
   buildActivityHeatmap,
   buildDifficultyStats,
@@ -65,6 +68,7 @@ export default function Progress() {
   } = useApp();
   const { data: problems } = useProblems();
   const { data: learningPaths } = useLearningPaths();
+  const spacedRepetition = useSpacedRepetition();
 
   const [hoveredDay, setHoveredDay] = useState<HeatmapDay | null>(null);
   const [summaryPeriod, setSummaryPeriod] = useState<ActivityPeriod>('week');
@@ -705,6 +709,70 @@ export default function Progress() {
               });
             })()}
           </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Spaced Repetition & Retention Engine */}
+    <section className="panel-card p-5 sm:p-6 space-y-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <Brain size={18} className="text-purple-400" />
+            <h3 className="section-title">Spaced Repetition &amp; Memory Retention</h3>
+          </div>
+          <p className="mt-1 text-xs text-muted">
+            Automated 3-day, 7-day, and 21-day review intervals for failed submissions and slow solves.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link to="/problems?filter=review_due" className="btn-secondary py-1.5 px-3 text-xs font-semibold inline-flex items-center gap-1.5">
+            <Clock size={13} />
+            <span>View Due Problems ({spacedRepetition.dueItems.length})</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Leitner Box Stage Progression Meter */}
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+        {/* Stage 1: 3 Days */}
+        <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Stage 1 · 3 Days</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-400 font-bold">Short-Term</span>
+          </div>
+          <p className="mt-2 text-2xl font-black text-primary font-mono">{spacedRepetition.summary.byStage[1]}</p>
+          <p className="mt-0.5 text-[11px] text-muted">Initial recall review</p>
+        </div>
+
+        {/* Stage 2: 7 Days */}
+        <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Stage 2 · 7 Days</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400 font-bold">Consolidation</span>
+          </div>
+          <p className="mt-2 text-2xl font-black text-primary font-mono">{spacedRepetition.summary.byStage[2]}</p>
+          <p className="mt-0.5 text-[11px] text-muted">Medium-term retention</p>
+        </div>
+
+        {/* Stage 3: 21 Days */}
+        <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Stage 3 · 21 Days</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-bold">Long-Term</span>
+          </div>
+          <p className="mt-2 text-2xl font-black text-primary font-mono">{spacedRepetition.summary.byStage[3]}</p>
+          <p className="mt-0.5 text-[11px] text-muted">Final mastery validation</p>
+        </div>
+
+        {/* Graduated */}
+        <div className="p-4 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-muted">Mastered</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold">Graduated</span>
+          </div>
+          <p className="mt-2 text-2xl font-black text-emerald-400 font-mono">{spacedRepetition.summary.graduatedCount}</p>
+          <p className="mt-0.5 text-[11px] text-muted">{spacedRepetition.summary.retentionRatePct}% retention success</p>
         </div>
       </div>
     </section>

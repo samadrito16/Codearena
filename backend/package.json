@@ -9,7 +9,7 @@
     "build": "tsc",
     "mastery:build": "node scripts/mastery_generators/build_curated_25.mjs",
     "mastery:verify": "python scripts/verify_mastery_blueprints.py",
-    "test": "node tests/execution.test.mjs && node tests/certificates.test.mjs",
+    "test": "node tests/execution.test.mjs && node tests/certificates.test.mjs && tsx tests/spacedRepetition.test.ts",
     "start": "node dist/index.js"
   },
   "dependencies": {
