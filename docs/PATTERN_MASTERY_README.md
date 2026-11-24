@@ -1,4 +1,4 @@
-# Prism Code — Feature 1: Pattern Mastery (100 Blueprints)
+# Prism Code — Feature 1: Pattern Mastery (25 Curated Blueprints)
 
 > **Purpose of this file:** Drop this `PATTERN_MASTERY_README.md` and your `prism_code_first_25_problems.json` into your **Prism Code** repository, then follow the **Antigravity Execution Prompts** in Section 7 to build and polish Feature 1 inside VS Code.
 

@@ -75,7 +75,7 @@ export default function MasteryStudio() {
       <div className="mx-auto max-w-xl px-4 py-20 text-center space-y-4">
         <h2 className="text-2xl font-bold tracking-tight text-primary">Blueprint Not Found</h2>
         <p className="text-sm text-muted">
-          The requested pattern blueprint &ldquo;{slug}&rdquo; does not exist in the 100 Blueprints catalog.
+          The requested pattern blueprint &ldquo;{slug}&rdquo; does not exist in the 25 Blueprints catalog.
         </p>
         <Link to="/mastery" className="btn-primary inline-flex items-center gap-2 mt-4">
           <ArrowLeft size={16} /> Return to Pattern Mastery Hub

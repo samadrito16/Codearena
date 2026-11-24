@@ -43,7 +43,7 @@ export const platformRoadmapCards: RoadmapCardData[] = [
   },
   {
     id: 'pattern-mastery',
-    badge: '100 Blueprints',
+    badge: '25 Blueprints',
     title: 'Subgoal Pattern Mastery Studio',
     description:
       'Stop memorizing brute-force solutions. Decompose complex DSA problems into foundational mental models, critical boundaries, and optimal subgoal blueprints.',

@@ -470,7 +470,7 @@ export default function YearPlanner() {
                 <span>{adaptiveMasteryPlan.targetGoal || 'Campus Placements in 45 Days'}</span>
               </h1>
               <p className="text-xs sm:text-sm text-muted">
-                Target Deadline: <strong className="text-primary">{adaptiveMasteryPlan.targetDate}</strong> · Pace: <strong className="text-primary">{dynamicDailyPace} blueprints/day</strong> to conquer all 100 patterns.
+                Target Deadline: <strong className="text-primary">{adaptiveMasteryPlan.targetDate}</strong> · Pace: <strong className="text-primary">{dynamicDailyPace} blueprints/day</strong> to conquer all 25 patterns.
               </p>
             </div>
 
@@ -484,7 +484,7 @@ export default function YearPlanner() {
                 }}
               >
                 <Layers size={13} />
-                All 100 Blueprints
+                All 25 Blueprints
               </Link>
               <Link
                 to="/settings"
@@ -568,7 +568,7 @@ export default function YearPlanner() {
             {todaysMasterySet.length === 0 ? (
               <div className="p-6 rounded-2xl border text-center space-y-2 bg-emerald-500/5 border-emerald-500/20">
                 <Trophy size={28} className="mx-auto text-emerald-500" />
-                <h3 className="text-sm font-bold text-primary">All 100 Blueprints Mastered!</h3>
+                <h3 className="text-sm font-bold text-primary">All 25 Blueprints Mastered!</h3>
                 <p className="text-xs text-muted max-w-md mx-auto">
                   You have mastered every single algorithmic blueprint in the curriculum. Your placement algorithmic foundation is battle-ready!
                 </p>
@@ -731,7 +731,7 @@ export default function YearPlanner() {
                 Adaptive Placement Engine Available
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-semibold">
-                100 Blueprints
+                25 Blueprints
               </span>
             </div>
             <p className="text-xs text-muted max-w-2xl leading-relaxed">

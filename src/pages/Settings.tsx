@@ -470,7 +470,7 @@ export default function Settings() {
               </span>
             </div>
             <p className="mt-1 text-xs sm:text-sm text-muted leading-relaxed">
-              Connect your YearPlanner timeline with the 100 Mastery blueprints to turn your schedule into an adaptive curriculum like &ldquo;Placements in 45 days, here&apos;s today&apos;s set&rdquo;.
+              Connect your YearPlanner timeline with the 25 Mastery blueprints to turn your schedule into an adaptive curriculum like &ldquo;Placements in 45 days, here&apos;s today&apos;s set&rdquo;.
             </p>
           </div>
 
@@ -543,7 +543,7 @@ export default function Settings() {
                               targetGoal: preset,
                               targetDays: days,
                               targetDate,
-                              dailyPace: Math.max(1, Math.ceil(100 / days)),
+                              dailyPace: Math.max(1, Math.ceil(25 / days)),
                             });
                           }}
                           className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition ${
@@ -587,7 +587,7 @@ export default function Settings() {
                       updateAdaptiveMasteryPlan({
                         targetDays: days,
                         targetDate,
-                        dailyPace: Math.max(1, Math.ceil(100 / days)),
+                        dailyPace: Math.max(1, Math.ceil(25 / days)),
                       });
                     }}
                     className="w-full accent-indigo-600"
@@ -600,9 +600,9 @@ export default function Settings() {
                     <p className="text-[10px] font-bold uppercase text-muted">Daily Target Pace</p>
                     <p className="mt-1 text-base sm:text-lg font-extrabold text-primary flex items-center gap-1.5">
                       <Flame size={16} className="text-orange-500" />
-                      <span>{Math.max(1, Math.ceil(100 / adaptiveMasteryPlan.targetDays))} blueprints / day</span>
+                      <span>{Math.max(1, Math.ceil(25 / adaptiveMasteryPlan.targetDays))} blueprints / day</span>
                     </p>
-                    <p className="mt-0.5 text-[10px] text-muted">To conquer 100 blueprints</p>
+                    <p className="mt-0.5 text-[10px] text-muted">To conquer 25 blueprints</p>
                   </div>
 
                   <div className="p-3.5 rounded-xl border" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
@@ -618,7 +618,7 @@ export default function Settings() {
                     <p className="text-[10px] font-bold uppercase text-muted">Curriculum Scope</p>
                     <p className="mt-1 text-base sm:text-lg font-extrabold text-emerald-500 flex items-center gap-1.5">
                       <CheckCircle2 size={16} />
-                      <span>100 Blueprints</span>
+                      <span>25 Blueprints</span>
                     </p>
                     <p className="mt-0.5 text-[10px] text-muted">5 Core Algorithmic Patterns</p>
                   </div>
