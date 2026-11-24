@@ -27,6 +27,7 @@ const baseMobileItems = [
   ['/progress', 'Your progress'],
   ['/problems', 'Problems'],
   ['/review', 'Code Review'],
+  ['/placement', 'Placement Mocks'],
   ['/projects', 'Projects (Coming Soon)'],
   ['/editor', 'Code editor'],
   ['/contests', 'Weekly Contests'],
@@ -45,8 +46,10 @@ export default function Layout() {
   const isInterviewStudio = location.pathname.startsWith('/interview/') && location.pathname !== '/interview';
   const isContestArena = location.pathname.startsWith('/contests/') && location.pathname !== '/contests';
   const isInterviewHub = location.pathname === '/interview';
-  const isFullWidthPage = isYearPlanner || isInterviewHub || isInterviewStudio || isContestArena;
-  const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio || isContestArena;
+  const isPlacementStudio = location.pathname.startsWith('/placement/') && location.pathname !== '/placement';
+  const isPlacementHub = location.pathname === '/placement';
+  const isFullWidthPage = isYearPlanner || isInterviewHub || isInterviewStudio || isContestArena || isPlacementHub || isPlacementStudio;
+  const isWorkspaceLike = isWorkspace || isEditor || isInterviewStudio || isContestArena || isPlacementStudio;
 
   const isAuthRoute = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'].some(
     (p) => location.pathname === p || location.pathname.startsWith(p + '/')
@@ -107,11 +110,11 @@ export default function Layout() {
           Skip to main content
         </a>
 
-        {/* Minimal Top Navigation Bar (Hidden during proctored mock interview & contest arena to prevent internal navigation) */}
-        {!isInterviewStudio && !isContestArena && <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />}
+        {/* Minimal Top Navigation Bar (Hidden during proctored mock interview, placement studio & contest arena) */}
+        {!isInterviewStudio && !isContestArena && !isPlacementStudio && <TopNavbar onOpenMobileMenu={() => setMenuOpen(true)} />}
 
         {/* Mobile Navigation Drawer */}
-        {menuOpen && !isInterviewStudio && !isContestArena && (
+        {menuOpen && !isInterviewStudio && !isContestArena && !isPlacementStudio && (
           <div
             className="fixed inset-0 z-50 md:hidden"
             role="dialog"
@@ -188,7 +191,7 @@ export default function Layout() {
             tabIndex={-1}
             className={
               isWorkspaceLike
-                ? `${isInterviewStudio || isContestArena ? 'h-screen' : 'h-[calc(100vh-52px)]'} ${isContestArena ? 'overflow-y-auto' : 'overflow-hidden'} workspace-route-main w-full p-0 m-0`
+                ? `${isInterviewStudio || isContestArena || isPlacementStudio ? 'h-screen' : 'h-[calc(100vh-52px)]'} ${isContestArena || isPlacementStudio ? 'overflow-y-auto' : 'overflow-hidden'} workspace-route-main w-full p-0 m-0`
                 : isFullWidthPage
                 ? 'w-full max-w-none flex-1 px-4 sm:px-6 lg:px-8 pb-12 pt-4'
                 : 'mx-auto w-full max-w-[1560px] flex-1 px-4 pb-12 pt-5 sm:px-6 lg:px-8'
@@ -205,8 +208,8 @@ export default function Layout() {
           {!isWorkspaceLike && <Footer />}
         </div>
 
-        {/* Command Palette (Disabled during proctored mock interview & contest arena to prevent switching) */}
-        {!isInterviewStudio && !isContestArena && <CommandPalette />}
+        {/* Command Palette (Disabled during proctored mock interview, placement studio & contest arena) */}
+        {!isInterviewStudio && !isContestArena && !isPlacementStudio && <CommandPalette />}
         <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
           {announcement}
         </div>

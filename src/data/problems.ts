@@ -35375,6 +35375,74 @@ export const initialProblems: Problem[] = [
   }
 ];
 
+const CAMPUS_PLACEMENT_TAGS: Record<string, { companyTags: string[]; campusTags: string[] }> = {
+  'two-sum': {
+    companyTags: ['TCS NQT', 'Infosys', 'Cognizant'],
+    campusTags: ['Tier-2/3 Mass Drive', 'On-Campus'],
+  },
+  'valid-parentheses': {
+    companyTags: ['Accenture', 'Capgemini', 'Wipro'],
+    campusTags: ['Tier-2/3 Mass Drive', 'On-Campus'],
+  },
+  'longest-substring': {
+    companyTags: ['Infosys', 'Zoho', 'Persistent'],
+    campusTags: ['Tier-2/3 Mass Drive', 'Off-Campus Drive'],
+  },
+  'container-water': {
+    companyTags: ['TCS Digital', 'Persistent'],
+    campusTags: ['Off-Campus Drive'],
+  },
+  'reverse-linked-list': {
+    companyTags: ['Cognizant', 'Infosys', 'Zoho'],
+    campusTags: ['Tier-2/3 Mass Drive', 'On-Campus'],
+  },
+  'climbing-stairs': {
+    companyTags: ['TCS Digital', 'Accenture', 'Persistent'],
+    campusTags: ['On-Campus'],
+  },
+  'maximum-subarray': {
+    companyTags: ['TCS Digital', 'Wipro', 'Capgemini'],
+    campusTags: ['Tier-2/3 Mass Drive', 'On-Campus'],
+  },
+  'move-zeroes': {
+    companyTags: ['TCS NQT', 'Wipro', 'Cognizant'],
+    campusTags: ['Tier-2/3 Mass Drive', 'On-Campus'],
+  },
+  'spiral-matrix': {
+    companyTags: ['Zoho', 'Infosys'],
+    campusTags: ['Tier-2/3 Mass Drive'],
+  },
+  'rotate-image': {
+    companyTags: ['Zoho', 'Persistent'],
+    campusTags: ['On-Campus'],
+  },
+  'set-matrix-zeroes': {
+    companyTags: ['Zoho', 'Cognizant'],
+    campusTags: ['Tier-2/3 Mass Drive'],
+  },
+  'binary-tree-level-order': {
+    companyTags: ['Infosys', 'Persistent'],
+    campusTags: ['Off-Campus Drive'],
+  },
+  'find-disappeared-numbers': {
+    companyTags: ['TCS NQT', 'Wipro'],
+    campusTags: ['Tier-2/3 Mass Drive'],
+  },
+  'insert-interval': {
+    companyTags: ['TCS Digital', 'Capgemini'],
+    campusTags: ['On-Campus'],
+  },
+};
+
+// Enrich problems with company & campus placement tags
+for (const p of initialProblems) {
+  const tagged = CAMPUS_PLACEMENT_TAGS[p.id];
+  if (tagged) {
+    p.companyTags = tagged.companyTags;
+    p.campusTags = tagged.campusTags;
+  }
+}
+
 export const problems: Problem[] = initialProblems;
 
 export function getProblemById(id: string): Problem | undefined {

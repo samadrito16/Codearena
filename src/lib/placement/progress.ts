@@ -103,6 +103,28 @@ export function usePlacementSession(assessment: CompanyAssessment) {
   const [activeReport, setActiveReport] = useState<AssessmentReport | null>(null);
   const [tabWarning, setTabWarning] = useState<boolean>(false);
 
+  // Sync session state when assessment prop / URL route changes
+  useEffect(() => {
+    setSession((prev) => {
+      if (prev.assessmentId === assessment.id) return prev;
+      const existing = getStoredActiveSession();
+      if (existing && existing.assessmentId === assessment.id && !existing.isCompleted) {
+        return existing;
+      }
+      const fresh = createNewSession(assessment);
+      saveStoredActiveSession(fresh);
+      return fresh;
+    });
+    setActiveReport(null);
+  }, [assessment.id]);
+
+  const restartAssessment = useCallback(() => {
+    const fresh = createNewSession(assessment);
+    saveStoredActiveSession(fresh);
+    setSession(fresh);
+    setActiveReport(null);
+  }, [assessment]);
+
   // Sync to localStorage
   useEffect(() => {
     saveStoredActiveSession(session);
@@ -358,6 +380,7 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     nextQuestion,
     prevQuestion,
     submitAssessment,
+    restartAssessment,
     getQuestionStatus,
   };
 }

@@ -39,6 +39,8 @@ export interface Problem {
   testCases?: TestCaseInput[];
   orderInvariant?: boolean;
   editorial?: ProblemEditorial;
+  companyTags?: string[];
+  campusTags?: string[];
 }
 
 export type SubmissionOutcome = 'accepted' | 'wrong_answer' | 'tle' | 'runtime_error' | 'compilation_error';

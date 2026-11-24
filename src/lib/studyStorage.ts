@@ -16,6 +16,8 @@ export interface LibraryFilterPrefs {
   search: string;
   difficulty: string;
   topic: string;
+  companyTag?: string;
+  campusTag?: string;
   sort: ProblemSortOption;
   quickFilter: ProblemQuickFilter;
   collectionId: string;
@@ -53,6 +55,8 @@ export const DEFAULT_LIBRARY_FILTERS: LibraryFilterPrefs = {
   search: '',
   difficulty: 'All',
   topic: 'All topics',
+  companyTag: 'All companies',
+  campusTag: 'All drives',
   sort: 'default',
   quickFilter: 'all',
   collectionId: 'all',
@@ -149,6 +153,8 @@ export function loadLibraryFilters(): LibraryFilterPrefs {
     search: typeof candidate.search === 'string' ? candidate.search : DEFAULT_LIBRARY_FILTERS.search,
     difficulty: typeof candidate.difficulty === 'string' ? candidate.difficulty : DEFAULT_LIBRARY_FILTERS.difficulty,
     topic: typeof candidate.topic === 'string' ? candidate.topic : DEFAULT_LIBRARY_FILTERS.topic,
+    companyTag: typeof candidate.companyTag === 'string' ? candidate.companyTag : DEFAULT_LIBRARY_FILTERS.companyTag,
+    campusTag: typeof candidate.campusTag === 'string' ? candidate.campusTag : DEFAULT_LIBRARY_FILTERS.campusTag,
     sort: typeof candidate.sort === 'string' && (VALID_SORTS as readonly string[]).includes(candidate.sort)
       ? candidate.sort as ProblemSortOption
       : DEFAULT_LIBRARY_FILTERS.sort,

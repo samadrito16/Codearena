@@ -41,20 +41,39 @@ export default function QuestionViewer({
   };
 
   return (
-    <div className="flex flex-col h-full rounded-2xl border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/95 overflow-hidden">
+    <div
+      className="flex flex-col h-full rounded-2xl border shadow-sm overflow-hidden"
+      style={{
+        backgroundColor: 'var(--ca-surface)',
+        borderColor: 'var(--ca-border)',
+      }}
+    >
       {/* Question Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-5 py-3 dark:border-neutral-800 dark:bg-neutral-800/40">
+      <div
+        className="flex items-center justify-between border-b px-5 py-3"
+        style={{
+          backgroundColor: 'var(--ca-surface-muted)',
+          borderColor: 'var(--ca-border)',
+        }}
+      >
         <div className="flex items-center gap-2.5">
-          <span className="font-display text-sm font-bold text-slate-900 dark:text-white">
+          <span className="font-display text-sm font-bold text-primary">
             Question {questionNumber} of {totalQuestions}
           </span>
-          <span className="rounded-full bg-slate-200/70 px-2 py-0.5 text-[10px] font-semibold text-slate-700 dark:bg-neutral-700 dark:text-neutral-300">
+          <span
+            className="rounded-full px-2 py-0.5 text-[10px] font-semibold border"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface)',
+              color: 'var(--ca-text)',
+            }}
+          >
             {question.subtopic}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+          <span className="text-emerald-500 font-semibold">
             +{question.marks} {question.marks === 1 ? 'Mark' : 'Marks'}
           </span>
           {question.negativeMarks > 0 && (
@@ -68,15 +87,27 @@ export default function QuestionViewer({
       {/* Question Body */}
       <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5">
         {/* Question Statement */}
-        <div className="text-sm font-medium leading-relaxed text-slate-800 dark:text-neutral-200 whitespace-pre-line">
+        <div className="text-sm font-medium leading-relaxed text-primary whitespace-pre-line">
           {question.question}
         </div>
 
         {/* Code Snippet (if any) */}
         {question.codeSnippet && (
-          <div className="relative rounded-xl border border-slate-200 bg-slate-900 text-slate-100 dark:border-neutral-800 overflow-hidden">
-            <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/70 px-4 py-1.5 text-xs text-slate-400">
-              <span className="font-mono text-[11px] uppercase">{question.codeSnippet.language}</span>
+          <div
+            className="relative rounded-xl border overflow-hidden font-mono text-xs"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: '#0d1117',
+            }}
+          >
+            <div
+              className="flex items-center justify-between border-b px-4 py-1.5 text-xs text-muted"
+              style={{
+                borderColor: 'var(--ca-border)',
+                backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              }}
+            >
+              <span className="text-[11px] uppercase">{question.codeSnippet.language}</span>
               <button
                 type="button"
                 onClick={handleCopyCode}
@@ -86,7 +117,7 @@ export default function QuestionViewer({
                 <span>{copiedCode ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
-            <pre className="p-4 font-mono text-xs overflow-x-auto leading-relaxed text-slate-200">
+            <pre className="p-4 text-xs overflow-x-auto leading-relaxed text-slate-100">
               <code>{question.codeSnippet.code}</code>
             </pre>
           </div>
@@ -94,7 +125,7 @@ export default function QuestionViewer({
 
         {/* MCQ Options */}
         <div className="mt-4 space-y-2.5">
-          <div className="text-xs font-semibold text-slate-500 dark:text-neutral-400 uppercase tracking-wider">
+          <div className="text-xs font-semibold text-muted uppercase tracking-wider">
             Select an Option:
           </div>
           <div className="grid gap-2.5">
@@ -108,20 +139,35 @@ export default function QuestionViewer({
                   onClick={() => onSelectOption(option.id)}
                   className={`group flex items-start gap-3.5 rounded-xl border p-3.5 text-left text-xs transition-all ${
                     isSelected
-                      ? 'border-blue-500 bg-blue-50/70 text-blue-900 font-medium dark:border-blue-500/80 dark:bg-blue-950/40 dark:text-blue-100 shadow-xs'
-                      : 'border-slate-200/90 bg-white hover:border-slate-300 hover:bg-slate-50/80 text-slate-800 dark:border-neutral-800 dark:bg-neutral-800/40 dark:text-neutral-200 dark:hover:border-neutral-700'
+                      ? 'border-indigo-500 shadow-xs'
+                      : 'hover:border-indigo-500/40 text-primary'
                   }`}
+                  style={{
+                    backgroundColor: isSelected
+                      ? 'color-mix(in srgb, var(--ca-accent-solid) 12%, var(--ca-surface))'
+                      : 'var(--ca-surface)',
+                    borderColor: isSelected ? undefined : 'var(--ca-border)',
+                  }}
                 >
                   <span
                     className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors ${
-                      isSelected
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'border border-slate-300 bg-slate-100 text-slate-600 group-hover:bg-slate-200 dark:border-neutral-700 dark:bg-neutral-700 dark:text-neutral-300'
+                      isSelected ? 'bg-indigo-600 text-white shadow-xs' : 'border'
                     }`}
+                    style={
+                      isSelected
+                        ? undefined
+                        : {
+                            borderColor: 'var(--ca-border)',
+                            backgroundColor: 'var(--ca-surface-muted)',
+                            color: 'var(--ca-text)',
+                          }
+                    }
                   >
                     {option.id}
                   </span>
-                  <span className="flex-1 pt-0.5 leading-relaxed whitespace-pre-line">{option.text}</span>
+                  <span className="flex-1 pt-0.5 leading-relaxed whitespace-pre-line text-primary">
+                    {option.text}
+                  </span>
                 </button>
               );
             })}
@@ -130,16 +176,26 @@ export default function QuestionViewer({
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50/80 px-5 py-3 dark:border-neutral-800 dark:bg-neutral-800/50">
+      <div
+        className="flex flex-wrap items-center justify-between gap-2 border-t px-5 py-3"
+        style={{
+          backgroundColor: 'var(--ca-surface-muted)',
+          borderColor: 'var(--ca-border)',
+        }}
+      >
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={onToggleMarkForReview}
             className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all ${
               isMarkedForReview
-                ? 'border-purple-500 bg-purple-50 text-purple-700 dark:border-purple-500/80 dark:bg-purple-950/40 dark:text-purple-300'
-                : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
+                ? 'border-purple-500 bg-purple-500/15 text-purple-400'
+                : 'text-muted hover:text-primary'
             }`}
+            style={{
+              borderColor: isMarkedForReview ? undefined : 'var(--ca-border)',
+              backgroundColor: isMarkedForReview ? undefined : 'var(--ca-surface)',
+            }}
           >
             <Bookmark size={13} className={isMarkedForReview ? 'fill-current' : ''} />
             <span>{isMarkedForReview ? 'Marked for Review' : 'Mark for Review'}</span>
@@ -149,7 +205,11 @@ export default function QuestionViewer({
             <button
               type="button"
               onClick={onClearResponse}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-rose-400 dark:hover:bg-rose-950/30"
+              className="inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 transition-colors"
+              style={{
+                borderColor: 'var(--ca-border)',
+                backgroundColor: 'var(--ca-surface)',
+              }}
             >
               <RotateCcw size={12} />
               <span>Clear</span>
@@ -162,7 +222,11 @@ export default function QuestionViewer({
             type="button"
             disabled={isFirst}
             onClick={onPrev}
-            className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+            className="inline-flex items-center gap-1 rounded-xl border px-3.5 py-1.5 text-xs font-semibold text-muted hover:text-primary disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface)',
+            }}
           >
             <ChevronLeft size={14} />
             <span>Previous</span>
@@ -171,7 +235,7 @@ export default function QuestionViewer({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-1 rounded-xl bg-blue-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 text-xs font-bold text-white shadow-sm transition-colors"
           >
             <span>{isLast ? 'Save & Next Section' : 'Save & Next'}</span>
             <ChevronRight size={14} />

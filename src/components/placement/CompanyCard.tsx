@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Calculator, CheckCircle2, Clock, Sparkles, Tag, Users } from 'lucide-react';
+import { ArrowRight, Clock, Play, Sparkles, Tag } from 'lucide-react';
 import { CompanyAssessment } from '../../types/placement';
 import { PLACEMENT_COMPANIES } from '../../data/placement/companies';
 
@@ -7,13 +7,27 @@ interface CompanyCardProps {
   assessment: CompanyAssessment;
   onStart: (assessmentId: string) => void;
   bestAttemptPercentile?: number;
+  isActiveSession?: boolean;
 }
 
-export default function CompanyCard({ assessment, onStart, bestAttemptPercentile }: CompanyCardProps) {
+export default function CompanyCard({
+  assessment,
+  onStart,
+  bestAttemptPercentile,
+  isActiveSession,
+}: CompanyCardProps) {
   const company = PLACEMENT_COMPANIES[assessment.companyId];
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-md transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl dark:border-neutral-800/80 dark:bg-neutral-900/90 dark:hover:border-neutral-700">
+    <div
+      className="group relative flex flex-col justify-between rounded-2xl border p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+      style={{
+        backgroundColor: 'var(--ca-surface)',
+        borderColor: isActiveSession
+          ? 'color-mix(in srgb, var(--ca-accent-solid) 65%, transparent)'
+          : 'var(--ca-border)',
+      }}
+    >
       {/* Top Banner & Company Brand */}
       <div>
         <div className="flex items-center justify-between gap-3">
@@ -25,10 +39,10 @@ export default function CompanyCard({ assessment, onStart, bestAttemptPercentile
               {assessment.companyName.charAt(0)}
             </div>
             <div>
-              <h3 className="font-display text-base font-bold text-slate-900 dark:text-white">
+              <h3 className="font-display text-base font-bold text-primary">
                 {company?.shortName || assessment.companyName}
               </h3>
-              <p className="text-xs text-slate-500 dark:text-neutral-400 font-medium">
+              <p className="text-xs text-muted font-medium">
                 {assessment.track}
               </p>
             </div>
@@ -38,7 +52,7 @@ export default function CompanyCard({ assessment, onStart, bestAttemptPercentile
             className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold border ${
               company?.badgeBg || 'bg-blue-500/10'
             } ${company?.badgeBorder || 'border-blue-500/20'} ${
-              company?.badgeText || 'text-blue-600 dark:text-blue-400'
+              company?.badgeText || 'text-blue-500'
             }`}
           >
             <Sparkles size={11} />
@@ -48,32 +62,38 @@ export default function CompanyCard({ assessment, onStart, bestAttemptPercentile
 
         {/* Assessment Title & Description */}
         <div className="mt-4">
-          <h4 className="font-semibold text-sm text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+          <h4 className="font-bold text-sm text-primary group-hover:text-indigo-400 transition-colors">
             {assessment.title}
           </h4>
-          <p className="mt-1.5 text-xs text-slate-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+          <p className="mt-1.5 text-xs text-muted line-clamp-2 leading-relaxed">
             {assessment.description}
           </p>
         </div>
 
         {/* Meta badges: Duration, Marks, Sections */}
-        <div className="mt-4 grid grid-cols-3 gap-2 rounded-xl bg-slate-50/80 p-2.5 dark:bg-neutral-800/50 text-center">
+        <div
+          className="mt-4 grid grid-cols-3 gap-2 rounded-xl p-2.5 text-center border"
+          style={{
+            borderColor: 'var(--ca-border)',
+            backgroundColor: 'var(--ca-surface-muted)',
+          }}
+        >
           <div>
-            <div className="text-[10px] text-slate-500 dark:text-neutral-400">Duration</div>
-            <div className="mt-0.5 flex items-center justify-center gap-1 text-xs font-bold text-slate-800 dark:text-neutral-200">
-              <Clock size={12} className="text-primary-500" />
+            <div className="text-[10px] text-muted">Duration</div>
+            <div className="mt-0.5 flex items-center justify-center gap-1 text-xs font-bold text-primary">
+              <Clock size={12} className="text-indigo-400" />
               {assessment.totalDurationMinutes}m
             </div>
           </div>
           <div>
-            <div className="text-[10px] text-slate-500 dark:text-neutral-400">Total Marks</div>
-            <div className="mt-0.5 text-xs font-bold text-slate-800 dark:text-neutral-200">
+            <div className="text-[10px] text-muted">Total Marks</div>
+            <div className="mt-0.5 text-xs font-bold text-primary">
               {assessment.totalMarks} pts
             </div>
           </div>
           <div>
-            <div className="text-[10px] text-slate-500 dark:text-neutral-400">Sections</div>
-            <div className="mt-0.5 text-xs font-bold text-slate-800 dark:text-neutral-200">
+            <div className="text-[10px] text-muted">Sections</div>
+            <div className="mt-0.5 text-xs font-bold text-primary">
               {assessment.sections.length} Rounds
             </div>
           </div>
@@ -84,9 +104,14 @@ export default function CompanyCard({ assessment, onStart, bestAttemptPercentile
           {assessment.tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:bg-neutral-800 dark:text-neutral-400"
+              className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] font-medium border"
+              style={{
+                borderColor: 'var(--ca-border)',
+                backgroundColor: 'var(--ca-surface-muted)',
+                color: 'var(--ca-text)',
+              }}
             >
-              <Tag size={9} />
+              <Tag size={9} className="opacity-60" />
               {tag}
             </span>
           ))}
@@ -94,27 +119,48 @@ export default function CompanyCard({ assessment, onStart, bestAttemptPercentile
       </div>
 
       {/* Footer & CTA */}
-      <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between">
+      <div
+        className="mt-5 pt-3.5 border-t flex items-center justify-between"
+        style={{ borderColor: 'var(--ca-border)' }}
+      >
         <div>
           {bestAttemptPercentile !== undefined ? (
             <div className="flex items-center gap-1.5 text-xs">
-              <span className="text-[11px] text-slate-500 dark:text-neutral-400">Best:</span>
-              <span className="font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="text-[11px] text-muted">Best:</span>
+              <span className="font-bold text-emerald-500">
                 {bestAttemptPercentile}%ile
               </span>
             </div>
+          ) : isActiveSession ? (
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-500 animate-pulse">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              In Progress
+            </span>
           ) : (
-            <span className="text-[11px] text-slate-400 dark:text-neutral-500">Not Attempted</span>
+            <span className="text-[11px] text-muted opacity-70">Not Attempted</span>
           )}
         </div>
 
         <button
           type="button"
           onClick={() => onStart(assessment.id)}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-neutral-100"
+          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-all shadow-sm ${
+            isActiveSession
+              ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
+              : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+          }`}
         >
-          <span>Launch Mock</span>
-          <ArrowRight size={13} />
+          {isActiveSession ? (
+            <>
+              <Play size={13} />
+              <span>Resume Mock</span>
+            </>
+          ) : (
+            <>
+              <span>Launch Mock</span>
+              <ArrowRight size={13} />
+            </>
+          )}
         </button>
       </div>
     </div>

@@ -24,14 +24,22 @@ export default function AssessmentTimer({
     <div
       className={`flex items-center gap-2 rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold border transition-colors shadow-xs ${
         isCriticalTime
-          ? 'border-rose-500 bg-rose-500/15 text-rose-600 dark:text-rose-400 animate-pulse'
+          ? 'border-rose-500 bg-rose-500/15 text-rose-500 animate-pulse'
           : isLowTime
-          ? 'border-amber-500 bg-amber-500/15 text-amber-600 dark:text-amber-400'
-          : 'border-slate-200 bg-white text-slate-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200'
+          ? 'border-amber-500 bg-amber-500/15 text-amber-500'
+          : 'text-primary'
       }`}
+      style={
+        isLowTime || isCriticalTime
+          ? undefined
+          : {
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface)',
+            }
+      }
       title={sectionTitle ? `Section Time Remaining (${sectionTitle})` : 'Time Remaining'}
     >
-      <Clock size={14} className={isCriticalTime ? 'text-rose-500' : isLowTime ? 'text-amber-500' : 'text-blue-500'} />
+      <Clock size={14} className={isCriticalTime ? 'text-rose-500' : isLowTime ? 'text-amber-500' : 'text-indigo-400'} />
       <span className="tracking-wider">{formattedTime}</span>
       {isLowTime && <AlertCircle size={12} className="shrink-0" />}
     </div>

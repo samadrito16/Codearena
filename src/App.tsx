@@ -197,6 +197,7 @@ export default function App() {
           <Route path="/review" element={<ReviewHub />} />
           <Route path="/interview" element={<InterviewHub />} />
           <Route path="/placement" element={<PlacementHub />} />
+          <Route path="/placement/:assessmentId" element={<PlacementStudio />} />
           <Route path="/u/:identifier" element={<PublicProfile />} />
           <Route path="/p/:identifier" element={<PublicProfile />} />
           <Route path="/verify/:certId" element={<CertificateVerification />} />
@@ -204,7 +205,6 @@ export default function App() {
           {/* Protected Application Routes (Requires login; intercepts and redirects to login) */}
           <Route element={<RequireAuth />}>
             <Route path="/interview/:roundId" element={<InterviewStudio />} />
-            <Route path="/placement/:assessmentId" element={<PlacementStudio />} />
             <Route path="/review/:slug" element={<ReviewStudio />} />
             <Route path="/mastery" element={<MasteryHub />} />
             <Route path="/mastery/:slug" element={<MasteryStudio />} />

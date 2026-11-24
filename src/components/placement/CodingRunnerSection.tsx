@@ -161,59 +161,117 @@ export default function CodingRunnerSection({
   };
 
   return (
-    <div className="flex flex-col h-full rounded-2xl border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/95 overflow-hidden">
+    <div
+      className="flex flex-col h-full rounded-2xl border shadow-sm overflow-hidden"
+      style={{
+        backgroundColor: 'var(--ca-surface)',
+        borderColor: 'var(--ca-border)',
+      }}
+    >
       {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-5 py-3 dark:border-neutral-800 dark:bg-neutral-800/40">
+      <div
+        className="flex items-center justify-between border-b px-5 py-3"
+        style={{
+          backgroundColor: 'var(--ca-surface-muted)',
+          borderColor: 'var(--ca-border)',
+        }}
+      >
         <div className="flex items-center gap-2.5">
-          <span className="font-display text-sm font-bold text-slate-900 dark:text-white">
+          <span className="font-display text-sm font-bold text-primary">
             Question {questionNumber} of {totalQuestions}
           </span>
-          <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400 border border-blue-500/20">
+          <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 text-[10px] font-semibold text-indigo-400 border border-indigo-500/20">
             Hands-on Coding
           </span>
-          <span className="text-xs font-semibold text-slate-700 dark:text-neutral-300">
+          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500 border border-emerald-500/20">
+            Standard I/O (stdin/stdout)
+          </span>
+          <span className="text-xs font-semibold text-primary">
             {question.title}
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-500">
           +{question.marks} Marks
         </div>
       </div>
 
       {/* Main Split Body: Left Description, Right Monaco Editor */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-neutral-800 overflow-hidden">
+      <div
+        className="flex-1 grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x overflow-hidden"
+        style={{
+          borderColor: 'var(--ca-border)',
+        }}
+      >
         {/* Left: Problem Details */}
         <div className="flex flex-col h-full overflow-y-auto p-5 space-y-4">
           <div>
-            <h3 className="font-display text-base font-bold text-slate-900 dark:text-white">
+            <h3 className="font-display text-base font-bold text-primary">
               {question.title}
             </h3>
-            <p className="mt-2 text-xs leading-relaxed text-slate-700 dark:text-neutral-300 whitespace-pre-line">
+            <p className="mt-2 text-xs leading-relaxed text-muted whitespace-pre-line">
               {question.description}
             </p>
           </div>
 
+          {/* Standard I/O Notice */}
+          <div
+            className="rounded-xl border p-3 text-xs"
+            style={{
+              borderColor: 'color-mix(in srgb, var(--ca-accent-solid) 30%, var(--ca-border))',
+              backgroundColor: 'color-mix(in srgb, var(--ca-accent-solid) 6%, var(--ca-surface-muted))',
+            }}
+          >
+            <div className="font-bold text-primary flex items-center gap-1.5">
+              <Terminal size={13} className="text-indigo-400" />
+              <span>Standard I/O (stdin / stdout) Required</span>
+            </div>
+            <p className="mt-1 text-[11px] text-muted leading-relaxed">
+              Read all test input from standard input (<code className="text-primary font-mono">cin</code> / <code className="text-primary font-mono">Scanner</code> / <code className="text-primary font-mono">sys.stdin</code>). Print your final answers directly to standard output (<code className="text-primary font-mono">cout</code> / <code className="text-primary font-mono">System.out</code> / <code className="text-primary font-mono">print</code>).
+            </p>
+          </div>
+
+          {(question.inputFormat || question.outputFormat) && (
+            <div className="space-y-2 text-xs">
+              {question.inputFormat && (
+                <div>
+                  <span className="font-bold text-primary">Input Format: </span>
+                  <span className="text-muted">{question.inputFormat}</span>
+                </div>
+              )}
+              {question.outputFormat && (
+                <div>
+                  <span className="font-bold text-primary">Output Format: </span>
+                  <span className="text-muted">{question.outputFormat}</span>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Examples */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-muted">
               Examples
             </h4>
             {question.examples.map((ex, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-slate-200/90 bg-slate-50/70 p-3 text-xs dark:border-neutral-800 dark:bg-neutral-800/40 font-mono"
+                className="rounded-xl border p-3 text-xs font-mono"
+                style={{
+                  borderColor: 'var(--ca-border)',
+                  backgroundColor: 'var(--ca-surface-muted)',
+                }}
               >
                 <div>
-                  <span className="text-slate-500 dark:text-neutral-400">Input: </span>
-                  <span className="text-slate-900 dark:text-neutral-100 font-semibold">{ex.input}</span>
+                  <span className="text-muted">Input: </span>
+                  <span className="text-primary font-semibold">{ex.input}</span>
                 </div>
                 <div className="mt-1">
-                  <span className="text-slate-500 dark:text-neutral-400">Output: </span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{ex.output}</span>
+                  <span className="text-muted">Output: </span>
+                  <span className="text-emerald-500 font-bold">{ex.output}</span>
                 </div>
                 {ex.explanation && (
-                  <div className="mt-1.5 font-sans text-[11px] text-slate-600 dark:text-neutral-400">
+                  <div className="mt-1.5 font-sans text-[11px] text-muted">
                     {ex.explanation}
                   </div>
                 )}
@@ -223,10 +281,10 @@ export default function CodingRunnerSection({
 
           {/* Constraints */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-muted">
               Constraints
             </h4>
-            <ul className="mt-1.5 list-disc pl-4 text-xs text-slate-600 dark:text-neutral-400 space-y-1">
+            <ul className="mt-1.5 list-disc pl-4 text-xs text-muted space-y-1">
               {question.constraints.map((c, i) => (
                 <li key={i}>{c}</li>
               ))}
@@ -237,13 +295,24 @@ export default function CodingRunnerSection({
         {/* Right: Monaco Editor & Runner */}
         <div className="flex flex-col h-full overflow-hidden">
           {/* Editor Top Bar: Language Selector & Actions */}
-          <div className="flex items-center justify-between border-b border-slate-200 bg-slate-100/70 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-800/60">
+          <div
+            className="flex items-center justify-between border-b px-4 py-2"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface-muted)',
+            }}
+          >
             <div className="flex items-center gap-2">
-              <FileCode size={14} className="text-slate-500" />
+              <FileCode size={14} className="text-muted" />
               <select
                 value={language}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-800 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                className="rounded-lg border px-2.5 py-1 text-xs font-semibold focus:outline-none"
+                style={{
+                  borderColor: 'var(--ca-border)',
+                  backgroundColor: 'var(--ca-surface)',
+                  color: 'var(--ca-text)',
+                }}
               >
                 {SUPPORTED_LANGUAGES.map((lang) => (
                   <option key={lang.id} value={lang.id}>
@@ -256,7 +325,7 @@ export default function CodingRunnerSection({
             <button
               type="button"
               onClick={handleResetCode}
-              className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-neutral-400 dark:hover:bg-neutral-700 transition-colors"
+              className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-muted hover:text-primary transition-colors"
               title="Reset code template"
             >
               <RotateCcw size={12} />
@@ -284,7 +353,13 @@ export default function CodingRunnerSection({
           </div>
 
           {/* Test Case & Output Tabs */}
-          <div className="border-t border-slate-200 bg-slate-50/90 p-3 dark:border-neutral-800 dark:bg-neutral-900/90">
+          <div
+            className="border-t p-3"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface-muted)',
+            }}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 {question.testCases.map((tc, idx) => (
@@ -294,9 +369,17 @@ export default function CodingRunnerSection({
                     onClick={() => setSelectedTestCaseIdx(idx)}
                     className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
                       selectedTestCaseIdx === idx
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
+                        ? 'bg-indigo-600 text-white shadow-xs'
+                        : 'border text-muted hover:text-primary'
                     }`}
+                    style={
+                      selectedTestCaseIdx === idx
+                        ? undefined
+                        : {
+                            borderColor: 'var(--ca-border)',
+                            backgroundColor: 'var(--ca-surface)',
+                          }
+                    }
                   >
                     Case {idx + 1}
                   </button>
@@ -306,7 +389,7 @@ export default function CodingRunnerSection({
               {lastExecution && (
                 <div className="flex items-center gap-1.5 text-xs font-bold">
                   {lastExecution.verdict === 'Accepted' ? (
-                    <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                    <span className="flex items-center gap-1 text-emerald-500">
                       <CheckCircle2 size={13} />
                       Accepted ({lastExecution.passed}/{lastExecution.total})
                     </span>
@@ -322,12 +405,18 @@ export default function CodingRunnerSection({
 
             {/* Test Case Details */}
             {question.testCases[selectedTestCaseIdx] && (
-              <div className="mt-2.5 rounded-lg border border-slate-200 bg-white p-2.5 font-mono text-[11px] dark:border-neutral-800 dark:bg-neutral-950">
-                <div className="text-slate-500 dark:text-neutral-400">
-                  Input: <span className="text-slate-900 dark:text-neutral-200 font-semibold">{question.testCases[selectedTestCaseIdx].input}</span>
+              <div
+                className="mt-2.5 rounded-lg border p-2.5 font-mono text-[11px]"
+                style={{
+                  borderColor: 'var(--ca-border)',
+                  backgroundColor: 'var(--ca-surface)',
+                }}
+              >
+                <div className="text-muted">
+                  Input: <span className="text-primary font-semibold">{question.testCases[selectedTestCaseIdx].input}</span>
                 </div>
-                <div className="mt-1 text-slate-500 dark:text-neutral-400">
-                  Expected Output: <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{question.testCases[selectedTestCaseIdx].expected}</span>
+                <div className="mt-1 text-muted">
+                  Expected Output: <span className="text-emerald-500 font-semibold">{question.testCases[selectedTestCaseIdx].expected}</span>
                 </div>
               </div>
             )}
@@ -336,13 +425,19 @@ export default function CodingRunnerSection({
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50/80 px-5 py-3 dark:border-neutral-800 dark:bg-neutral-800/50">
+      <div
+        className="flex items-center justify-between border-t px-5 py-3"
+        style={{
+          borderColor: 'var(--ca-border)',
+          backgroundColor: 'var(--ca-surface-muted)',
+        }}
+      >
         <div className="flex items-center gap-2">
           <button
             type="button"
             disabled={isRunning}
             onClick={handleExecute}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 disabled:opacity-50 dark:bg-white dark:text-slate-900 dark:hover:bg-neutral-100 transition-all"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm disabled:opacity-50 transition-all"
           >
             <Play size={13} className={isRunning ? 'animate-spin' : ''} />
             <span>{isRunning ? 'Evaluating...' : 'Run Test Cases'}</span>
@@ -354,7 +449,11 @@ export default function CodingRunnerSection({
             type="button"
             disabled={isFirst}
             onClick={onPrev}
-            className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+            className="inline-flex items-center gap-1 rounded-xl border px-3.5 py-2 text-xs font-semibold text-muted hover:text-primary disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            style={{
+              borderColor: 'var(--ca-border)',
+              backgroundColor: 'var(--ca-surface)',
+            }}
           >
             <ChevronLeft size={14} />
             <span>Previous</span>
@@ -363,7 +462,7 @@ export default function CodingRunnerSection({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-1 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
           >
             <span>{isLast ? 'Complete Section' : 'Save & Next'}</span>
             <ChevronRight size={14} />

@@ -1,9 +1,10 @@
-import { PlacementCompanyId } from '../../types/placement';
+import { PlacementCompanyId, CompanyCategory } from '../../types/placement';
 
 export interface CompanyMeta {
   id: PlacementCompanyId;
   name: string;
   shortName: string;
+  category: CompanyCategory;
   tagline: string;
   description: string;
   brandColor: string;
@@ -29,6 +30,7 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
     id: 'tcs',
     name: 'Tata Consultancy Services',
     shortName: 'TCS NQT',
+    category: 'mass_recruiter',
     tagline: 'National Qualifier Test (Ninja & Digital Tracks)',
     description:
       'The largest campus hiring assessment in India. Evaluates foundation cognitive skills (Numerical, Reasoning, Verbal), Advanced CS Concepts (OOPs, DBMS, OS), and two multi-language coding questions.',
@@ -65,6 +67,7 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
     id: 'infosys',
     name: 'Infosys Limited',
     shortName: 'Infosys',
+    category: 'mass_recruiter',
     tagline: 'Specialist Programmer & Systems Engineer (InfyTQ / HackWithInfy)',
     description:
       'Rigorous elimination testing focusing heavily on deductive pseudocode tracing, advanced logical reasoning, mathematical puzzles, and complex algorithmic coding challenges.',
@@ -101,6 +104,7 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
     id: 'accenture',
     name: 'Accenture',
     shortName: 'Accenture',
+    category: 'mass_recruiter',
     tagline: 'Cognitive & Technical Assessment (ASE & FSE Tracks)',
     description:
       'Two-stage evaluation: Stage 1 tests Cognitive & Critical Thinking alongside Cloud Fundamentals, Networks, and MS Office concepts. Clearing Stage 1 unlocks the Hands-on Coding Round.',
@@ -132,6 +136,7 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
     id: 'wipro',
     name: 'Wipro Limited',
     shortName: 'Wipro Elite',
+    category: 'mass_recruiter',
     tagline: 'Elite National Talent Hunt (NTH)',
     description:
       'AMCAT-powered online assessment testing Quantitative Aptitude, Logical Reasoning, Computer Programming principles, and two coding problems in Wipro’s standard runtime environment.',
@@ -163,6 +168,7 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
     id: 'cognizant',
     name: 'Cognizant Technology Solutions',
     shortName: 'Cognizant GenC',
+    category: 'mass_recruiter',
     tagline: 'GenC & GenC Next Selection Drive',
     description:
       'Assesses quantitative acumen, analytical thinking, and core computer science fundamentals (DBMS, OS, and OOPs), concluding with hands-on coding problem solving.',
@@ -189,5 +195,101 @@ export const PLACEMENT_COMPANIES: Record<PlacementCompanyId, CompanyMeta> = {
       negativeMarking: false,
     },
     keyTopics: ['Number Properties', 'Analytical Puzzles', 'DBMS Joins', 'Deadlock Detection'],
+  },
+  zoho: {
+    id: 'zoho',
+    name: 'Zoho Corporation',
+    shortName: 'Zoho',
+    category: 'mid_size',
+    tagline: 'Software Developer (L1 & L2 Coding Drives)',
+    description:
+      'Tier 2 & 3 campus favorite. Known for elimination rounds focusing on C/C++/Java logic, string arithmetic, pattern printing, matrix transforms, and zero reliance on built-in libraries.',
+    brandColor: '#ef4444', // Red
+    badgeBg: 'bg-red-500/10 dark:bg-red-500/20',
+    badgeBorder: 'border-red-500/30',
+    badgeText: 'text-red-600 dark:text-red-400',
+    tracks: [
+      {
+        name: 'Software Developer (L1)',
+        ctcRange: '₹5.6 - ₹6.5 LPA',
+        description: 'Standard product developer role evaluating pure problem solving and stdin/stdout programs.',
+      },
+      {
+        name: 'Member Technical Staff (L2)',
+        ctcRange: '₹8.4 - ₹10.0 LPA',
+        description: 'Advanced track for candidates demonstrating exceptional mathematical algorithms and clean code.',
+      },
+    ],
+    patternSummary: {
+      sections: 'General Aptitude, C/Java Output Tracing, Standard I/O Hands-on Coding',
+      duration: '90 Minutes',
+      calculatorAllowed: false,
+      negativeMarking: false,
+    },
+    keyTopics: ['String Manipulation', 'Matrix Rotation', 'Custom Math', 'Pattern Generation', 'Pointers'],
+  },
+  persistent: {
+    id: 'persistent',
+    name: 'Persistent Systems',
+    shortName: 'Persistent',
+    category: 'mid_size',
+    tagline: 'Martian & Engineering Campus Hiring',
+    description:
+      'Comprehensive campus drive testing Quantitative Reasoning, Advanced CS Core (OS, DBMS, Networks, OOP), SQL queries, and hands-on coding under strict time constraints.',
+    brandColor: '#f97316', // Orange
+    badgeBg: 'bg-orange-500/10 dark:bg-orange-500/20',
+    badgeBorder: 'border-orange-500/30',
+    badgeText: 'text-orange-600 dark:text-orange-400',
+    tracks: [
+      {
+        name: 'Software Engineer',
+        ctcRange: '₹4.7 - ₹5.0 LPA',
+        description: 'Entry engineering track focusing on full-stack fundamentals and clean coding.',
+      },
+      {
+        name: 'Martian Track',
+        ctcRange: '₹7.5 - ₹9.0 LPA',
+        description: 'Premium upgrade track for top scorers in coding and advanced CS fundamentals.',
+      },
+    ],
+    patternSummary: {
+      sections: 'Aptitude, CS Core Fundamentals, SQL Queries, Hands-on Coding',
+      duration: '75 Minutes',
+      calculatorAllowed: false,
+      negativeMarking: false,
+    },
+    keyTopics: ['SQL Joins', 'Memory Management', 'Network Protocol Suite', 'Dynamic Programming'],
+  },
+  capgemini: {
+    id: 'capgemini',
+    name: 'Capgemini',
+    shortName: 'Capgemini Exceller',
+    category: 'mid_size',
+    tagline: 'Exceller Pooled Campus Drive',
+    description:
+      'Multi-stage evaluation evaluating English Communication, Game-based / Logical Aptitude, Technical Pseudocode Tracing, and two full stdin/stdout coding problems.',
+    brandColor: '#0ea5e9', // Sky
+    badgeBg: 'bg-sky-500/10 dark:bg-sky-500/20',
+    badgeBorder: 'border-sky-500/30',
+    badgeText: 'text-sky-600 dark:text-sky-400',
+    tracks: [
+      {
+        name: 'Analyst (A4)',
+        ctcRange: '₹4.25 LPA',
+        description: 'Core software engineering role across cloud and enterprise application development.',
+      },
+      {
+        name: 'Senior Analyst (A5)',
+        ctcRange: '₹5.75 - ₹7.5 LPA',
+        description: 'Advanced engineering role unlocked by passing both coding problems with optimal runtime.',
+      },
+    ],
+    patternSummary: {
+      sections: 'English Communication, Game/Logical Aptitude, Pseudocode, Hands-on Coding',
+      duration: '70 Minutes',
+      calculatorAllowed: false,
+      negativeMarking: false,
+    },
+    keyTopics: ['Bitwise Operators', 'Loop Invariants', 'String Compression', 'Critical Reasoning'],
   },
 };

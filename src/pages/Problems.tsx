@@ -17,6 +17,8 @@ import {
   StickyNote,
   X,
   Brain,
+  Briefcase,
+  GraduationCap,
 } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
@@ -110,6 +112,30 @@ export default function Problems() {
     [problems],
   );
 
+  const companyTagsList = useMemo(
+    () => [
+      'All companies',
+      ...Array.from(
+        new Set(
+          problems.flatMap((problem) => problem.companyTags || [])
+        )
+      ).sort(),
+    ],
+    [problems],
+  );
+
+  const campusTagsList = useMemo(
+    () => [
+      'All drives',
+      ...Array.from(
+        new Set(
+          problems.flatMap((problem) => problem.campusTags || [])
+        )
+      ).sort(),
+    ],
+    [problems],
+  );
+
   // Keep filter state coherent if stored topic or collection is no longer valid.
   useEffect(() => {
     if (filters.topic !== 'All topics' && !topics.includes(filters.topic)) {
@@ -149,6 +175,8 @@ export default function Problems() {
       const searchable = [
         problem.title,
         problem.topics.join(' '),
+        (problem.companyTags || []).join(' '),
+        (problem.campusTags || []).join(' '),
         problem.description,
         problem.constraints.join(' '),
         noteText,
@@ -162,6 +190,10 @@ export default function Problems() {
           const normF = normalizeTopic(filters.topic) || filters.topic;
           return normP.toLowerCase() === normF.toLowerCase();
         });
+      const matchesCompany = !filters.companyTag || filters.companyTag === 'All companies'
+        || Boolean(problem.companyTags?.includes(filters.companyTag));
+      const matchesCampus = !filters.campusTag || filters.campusTag === 'All drives'
+        || Boolean(problem.campusTags?.includes(filters.campusTag));
       const matchesCollection = !activeCollection || activeCollection.problemIds.includes(problem.id);
       const matchesQuick = filters.quickFilter === 'all'
         || (filters.quickFilter === 'bookmarked' && bookmarkedIds.includes(problem.id))
@@ -169,7 +201,7 @@ export default function Problems() {
         || (filters.quickFilter === 'unsolved' && !solvedIds.includes(problem.id))
         || (filters.quickFilter === 'review_due' && isProblemDue(problem.id));
 
-      return matchesSearch && matchesDifficulty && matchesTopic && matchesCollection && matchesQuick;
+      return matchesSearch && matchesDifficulty && matchesTopic && matchesCompany && matchesCampus && matchesCollection && matchesQuick;
     });
 
     if (filters.sort === 'default') return list;
@@ -316,6 +348,18 @@ export default function Problems() {
           <SlidersHorizontal size={15}/>
           <select value={filters.topic} onChange={(event) => updateFilter('topic', event.target.value)}>
             {topics.map((item) => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </label>
+        <label className="select-field" aria-label="Filter by company">
+          <Briefcase size={15}/>
+          <select value={filters.companyTag || 'All companies'} onChange={(event) => updateFilter('companyTag', event.target.value)}>
+            {companyTagsList.map((item) => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </label>
+        <label className="select-field" aria-label="Filter by campus drive">
+          <GraduationCap size={15}/>
+          <select value={filters.campusTag || 'All drives'} onChange={(event) => updateFilter('campusTag', event.target.value)}>
+            {campusTagsList.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
         <label className="select-field" aria-label="Sort problems">
@@ -505,6 +549,22 @@ export default function Problems() {
                 </div>
                 <div className="ml-6 mt-1.5 flex flex-wrap items-center gap-1.5">
                   {problem.topics.map((item) => <span key={item} className="tag-pill">{item}</span>)}
+                  {problem.companyTags?.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[9px] font-bold bg-blue-500/10 text-blue-500 border border-blue-500/20"
+                    >
+                      <Briefcase size={8} /> {tag}
+                    </span>
+                  ))}
+                  {problem.campusTags?.map((ctag) => (
+                    <span
+                      key={ctag}
+                      className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[9px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                    >
+                      <GraduationCap size={8} /> {ctag}
+                    </span>
+                  ))}
                   {problemCollections.map((col) => (
                     <span
                       key={col.id}

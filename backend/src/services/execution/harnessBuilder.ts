@@ -45,7 +45,10 @@ export function buildBatchExecutionSource(
 
   // 1. Python Batch Driver Harness
   if (lang === 'python' || lang === 'python_pandas') {
-    if (trimmed.includes('sys.stdin.read') && trimmed.includes('__main__')) {
+    if (
+      (trimmed.includes('sys.stdin') || trimmed.includes('input(')) &&
+      (trimmed.includes('__main__') || trimmed.includes('def main') || trimmed.includes('input('))
+    ) {
       return {
         code: userCode,
         stdin: cases.map((c) => c.input).join('\n'),
@@ -229,7 +232,11 @@ if __name__ == '__main__':
 
   // 2. JavaScript / TypeScript Batch Driver Harness
   if (lang === 'javascript' || lang === 'typescript' || lang === 'node') {
-    if (trimmed.includes('process.stdin') && trimmed.includes('readFileSync(0')) {
+    if (
+      trimmed.includes('readFileSync(0') ||
+      trimmed.includes('process.stdin') ||
+      (trimmed.includes('fs') && trimmed.includes('readFileSync'))
+    ) {
       return {
         code: userCode,
         stdin: cases.map((c) => c.input).join('\n'),

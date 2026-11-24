@@ -1,4 +1,14 @@
-export type PlacementCompanyId = 'tcs' | 'infosys' | 'wipro' | 'cognizant' | 'accenture';
+export type PlacementCompanyId =
+  | 'tcs'
+  | 'infosys'
+  | 'wipro'
+  | 'cognizant'
+  | 'accenture'
+  | 'zoho'
+  | 'persistent'
+  | 'capgemini';
+
+export type CompanyCategory = 'mass_recruiter' | 'mid_size';
 
 export type SectionType =
   | 'quantitative'
@@ -62,6 +72,9 @@ export interface CodingPlacementQuestion extends BasePlacementQuestion {
   problemId: string; // unique identifier, or mapped to problem list
   title: string;
   description: string;
+  isStdinStdout?: boolean; // Whether the question requires full stdin/stdout
+  inputFormat?: string;
+  outputFormat?: string;
   constraints: string[];
   examples: {
     input: string;
@@ -194,4 +207,51 @@ export interface AssessmentReport {
   sectionalReports: SectionScoreReport[];
   topicDiagnostics: TopicDiagnostics[];
   summaryFeedback: string[];
+}
+
+export interface SqlSchemaTable {
+  tableName: string;
+  columns: { name: string; type: string; isKey?: boolean }[];
+  rows: Record<string, string | number | null>[];
+}
+
+export interface SqlPracticeQuestion {
+  id: string;
+  title: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  companyTags: string[];
+  category: 'Aggregation' | 'Joins' | 'Window Functions' | 'Subqueries' | 'Filtering';
+  description: string;
+  schemaTables: SqlSchemaTable[];
+  expectedQuery: string;
+  expectedOutput: Record<string, string | number | null>[];
+  starterQuery: string;
+  explanation: string;
+}
+
+export interface HrQuestion {
+  id: string;
+  category: 'Introduction' | 'Behavioral' | 'Situational' | 'Company Fit' | 'Technical Transition';
+  question: string;
+  frequentlyAskedAt: string[];
+  whyInterviewersAsk: string;
+  starBreakdown: {
+    situation: string;
+    task: string;
+    action: string;
+    result: string;
+  };
+  sampleAnswer: string;
+  proTips: string[];
+  pitfallsToAvoid: string[];
+}
+
+export interface AtsResumeSection {
+  id: string;
+  title: string;
+  importance: 'Critical' | 'High' | 'Recommended';
+  summary: string;
+  dos: string[];
+  donts: string[];
+  sampleTemplate: string;
 }
