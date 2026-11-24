@@ -20,7 +20,6 @@ import {
   DailyChallengeCard,
   ContinueWhereYouLeftOff,
 } from '../components/OverviewSections';
-import SpacedRepetitionWidget from '../components/spacedRepetition/SpacedRepetitionWidget';
 
 export default function Dashboard() {
   const { data: problems } = useProblems();
@@ -93,11 +92,10 @@ export default function Dashboard() {
       <SlidingTopicsTicker />
 
       {/* ─────────────────────────────────────────────────────────────
-          3. OVERVIEW: DAILY CHALLENGE & RESUME & SPACED REPETITION
+          3. OVERVIEW: DAILY CHALLENGE & RESUME
       ────────────────────────────────────────────────────────────── */}
       <div className="space-y-10 sm:space-y-12">
         <DailyChallengeCard />
-        <SpacedRepetitionWidget />
         <ContinueWhereYouLeftOff />
       </div>
 

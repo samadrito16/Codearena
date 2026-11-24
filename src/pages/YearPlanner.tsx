@@ -732,62 +732,6 @@ export default function YearPlanner() {
             </div>
           </div>
         </div>
-
-        {/* Adaptive Placement Engine Activation Prompt */}
-        <div
-          className="relative rounded-2xl p-4 sm:p-5 border flex flex-col md:flex-row md:items-center justify-between gap-4"
-          style={{
-            backgroundColor: 'color-mix(in srgb, var(--ca-surface) 92%, #6366f1 8%)',
-            borderColor: 'color-mix(in srgb, var(--ca-border) 70%, #6366f1 30%)',
-          }}
-        >
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Sparkles size={14} className="text-indigo-400" />
-              <span className="text-xs font-bold text-primary">
-                Adaptive Placement Engine Available
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 font-semibold">
-                25 Blueprints
-              </span>
-            </div>
-            <p className="text-xs text-muted max-w-2xl leading-relaxed">
-              Connect YearPlanner to Mastery data to activate an adaptive roadmap (e.g. &ldquo;Campus Placements in 45 Days&rdquo;). Automatically schedules today&apos;s daily problem set calibrated to your target interview deadline.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => {
-                const targetDate = new Date();
-                targetDate.setDate(targetDate.getDate() + 45);
-                updateAdaptiveMasteryPlan({
-                  enabled: true,
-                  targetGoal: 'Campus Placements in 45 Days',
-                  targetDays: 45,
-                  targetDate: targetDate.toISOString().split('T')[0],
-                  dailyPace: 3,
-                });
-              }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition shadow-sm"
-            >
-              <Zap size={13} />
-              Activate 45-Day Plan
-            </button>
-            <Link
-              to="/settings"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border text-primary hover:border-indigo-500/40 transition"
-              style={{
-                backgroundColor: 'var(--ca-surface)',
-                borderColor: 'var(--ca-border)',
-              }}
-            >
-              <SlidersHorizontal size={13} />
-              Configure in Settings
-            </Link>
-          </div>
-        </div>
       </div>
     );
   };
