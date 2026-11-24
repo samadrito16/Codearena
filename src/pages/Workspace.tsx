@@ -19,6 +19,7 @@ import {
   Play,
   RotateCcw,
   Send,
+  Sparkles,
   Terminal,
   ThumbsUp,
   X,
@@ -31,6 +32,9 @@ import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import { getSlowThreshold, SPACED_INTERVALS_DAYS } from '../lib/spacedRepetition';
 import { themePalettes } from '../data/themes';
 import { runCode, submitCode, type ExecutionResponse } from '../services/executionService';
+import { requestExecutionTrace } from '../services';
+import type { ExecutionTraceResult } from '../types/scrubber';
+import { TracePanel } from '../components/scrubber/TracePanel';
 import CollectionPicker from '../components/CollectionPicker';
 import EditorSettingsPopover from '../components/EditorSettingsPopover';
 import ProblemNotesPanel from '../components/ProblemNotesPanel';
@@ -73,7 +77,7 @@ const languageLabels: Record<CodeLanguage, string> = {
 
 type RunnerAction = 'run' | 'submit';
 type RunnerState = 'idle' | 'running' | 'completed' | 'error';
-type ConsoleTab = 'testcases' | 'console';
+type ConsoleTab = 'testcases' | 'console' | 'scrubber';
 
 export default function Workspace() {
   const { problemId } = useParams();
@@ -239,6 +243,12 @@ function WorkspaceSession({
   const [executionResult, setExecutionResult] = useState<ExecutionResponse | null>(null);
   const [executionError, setExecutionError] = useState<string | null>(null);
   const [activeResultCaseIndex, setActiveResultCaseIndex] = useState<number>(0);
+  const [traceResult, setTraceResult] = useState<ExecutionTraceResult | null>(null);
+  const [isTracing, setIsTracing] = useState<boolean>(false);
+  const [activeTracedLine, setActiveTracedLine] = useState<number | null>(null);
+  const editorRef = useRef<any>(null);
+  const monacoRef = useRef<any>(null);
+  const decorationsRef = useRef<any>(null);
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [pendingLeavePath, setPendingLeavePath] = useState<string | null>(null);
@@ -313,6 +323,8 @@ function WorkspaceSession({
     setConfirmResetOpen(false);
     setPendingLeavePath(null);
     setRunnerState('idle');
+    setTraceResult(null);
+    setActiveTracedLine(null);
   }, [problem.id]);
 
   // Register an unsaved-changes guard whenever a draft is unsaved, still saving, or failed to save.
@@ -391,6 +403,77 @@ function WorkspaceSession({
       }
     }
   }, [announce, code, language, problem.id, recordSubmission, selectedCase, solved, toggleSolved]);
+
+  // Synchronize Monaco Editor line highlight and execution gutter arrow
+  useEffect(() => {
+    if (!editorRef.current || !monacoRef.current) return;
+    const editor = editorRef.current;
+    const monaco = monacoRef.current;
+
+    if (activeTracedLine && activeTracedLine > 0 && consoleTab === 'scrubber') {
+      const newDecorations = [
+        {
+          range: new monaco.Range(activeTracedLine, 1, activeTracedLine, 1),
+          options: {
+            isWholeLine: true,
+            className: 'active-traced-line-highlight',
+            glyphMarginClassName: 'active-traced-gutter-glyph',
+            overviewRuler: {
+              color: '#6366f1',
+              position: monaco.editor.OverviewRulerLane.Full,
+            },
+          },
+        },
+      ];
+
+      if (decorationsRef.current) {
+        decorationsRef.current.set(newDecorations);
+      } else {
+        decorationsRef.current = editor.createDecorationsCollection(newDecorations);
+      }
+
+      editor.revealLineInCenter(activeTracedLine);
+    } else {
+      if (decorationsRef.current) {
+        decorationsRef.current.clear();
+      }
+    }
+  }, [activeTracedLine, consoleTab]);
+
+  const handleRunTrace = useCallback(async (customInput?: string) => {
+    setIsTracing(true);
+    setConsoleTab('scrubber');
+    setConsoleCollapsed(false);
+    announce('Tracing Python execution step-by-step…');
+
+    try {
+      const inputToUse = (
+        customInput ||
+        (selectedCase ? selectedCase.input : problem.examples?.[0]?.input || '')
+      ).trim();
+
+      const res = await requestExecutionTrace({
+        problemId: problem.id,
+        code,
+        language,
+        input: inputToUse,
+        functionNameHint: (problem as any).functionName || problem.id.replace(/-/g, '_'),
+      });
+
+      setTraceResult(res);
+      if (res.steps && res.steps.length > 0) {
+        setActiveTracedLine(res.steps[0].line);
+        announce(`Trace recorded: ${res.steps.length} steps.`);
+      } else if (!res.success) {
+        announce(`Trace failed: ${res.error}`);
+      }
+    } catch (err: unknown) {
+      console.error('Trace error:', err);
+      announce('Failed to execute trace.');
+    } finally {
+      setIsTracing(false);
+    }
+  }, [announce, code, language, problem.examples, problem.id, selectedCase]);
 
   // Sensible workspace keyboard shortcuts (capture phase so Ctrl+S / Ctrl+Enter work inside Monaco).
   useEffect(() => {
@@ -927,9 +1010,14 @@ function WorkspaceSession({
               updateCode(value ?? '');
             }}
             beforeMount={registerEditorTheme}
+            onMount={(editor, monaco) => {
+              editorRef.current = editor;
+              monacoRef.current = monaco;
+            }}
             theme={editorThemeName}
             options={{
               minimap: { enabled: editorPrefs.minimap },
+              glyphMargin: true,
               fontSize: editorPrefs.fontSize,
               fontFamily: "'Geist Mono', ui-monospace, SFMono-Regular, monospace",
               fontLigatures: true,
@@ -973,6 +1061,17 @@ function WorkspaceSession({
               </button>
 
               <div className="flex items-center gap-2">
+                {language === 'python' && (
+                  <button
+                    type="button"
+                    onClick={() => handleRunTrace()}
+                    disabled={isTracing || runnerState === 'running'}
+                    className="btn-secondary h-7 px-3 text-[11px] font-semibold gap-1 text-indigo-400 hover:text-indigo-300"
+                    title="Step-through Python execution line-by-line"
+                  >
+                    <Sparkles size={11} className="text-indigo-400" /><span>Visual Trace</span>
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => requestExecution('run')}
@@ -1019,6 +1118,19 @@ function WorkspaceSession({
                     <span>Console</span>
                     {runnerState === 'error' && <span className="workspace-console-alert-dot" aria-hidden="true"/>}
                   </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={consoleTab === 'scrubber'}
+                    onClick={() => { setConsoleTab('scrubber'); setConsoleCollapsed(false); }}
+                    className={`workspace-console-tab ${consoleTab === 'scrubber' ? 'workspace-console-tab-active' : ''}`}
+                  >
+                    <Sparkles size={13} className="text-indigo-400" />
+                    <span>Visual Scrubber</span>
+                    {traceResult && traceResult.steps.length > 0 && (
+                      <span className="workspace-console-count tabular-nums">{traceResult.steps.length}</span>
+                    )}
+                  </button>
                 </div>
                 <button
                   type="button"
@@ -1032,6 +1144,18 @@ function WorkspaceSession({
                 </button>
               </div>
               <div className="flex items-center gap-2">
+                {language === 'python' && (
+                  <button
+                    type="button"
+                    onClick={() => handleRunTrace()}
+                    disabled={isTracing || runnerState === 'running'}
+                    className="btn-secondary workspace-run-button gap-1.5 text-indigo-400 hover:text-indigo-300"
+                    title="Step through Python code with exact runtime memory state"
+                  >
+                    <Sparkles size={13} className="text-indigo-400" />
+                    <span>Visual Trace</span>
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => requestExecution('run')}
@@ -1065,6 +1189,14 @@ function WorkspaceSession({
                   onUpdateCustomCase={updateCustomCase}
                   onDeleteCustomCase={deleteCustomCase}
                   onCloneSample={cloneSampleToCustom}
+                />
+              ) : consoleTab === 'scrubber' ? (
+                <TracePanel
+                  traceResult={traceResult}
+                  isLoading={isTracing}
+                  onRunTrace={handleRunTrace}
+                  defaultInput={selectedCase?.input || problem.examples?.[0]?.input || ''}
+                  onActiveLineChange={(line) => setActiveTracedLine(line)}
                 />
               ) : (
                 <>

@@ -89,6 +89,7 @@ app.use('/api/editorials', editorialRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/submissions', submissionRoutes);
+app.use('/api/execution', submissionRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/public', publicProfileRoutes);

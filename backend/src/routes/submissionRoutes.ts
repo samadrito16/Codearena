@@ -6,6 +6,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { executionLimiter, dailyExecutionQuotaLimiter } from '../middleware/rateLimiter.js';
 import type { SubmissionOutcome, SubmissionRecord } from '../types/index.js';
 import { runTestCases, type TestCaseInput } from '../services/onlineCompilerService.js';
+import { executeTrace } from '../services/execution/traceEngine.js';
 
 const router = Router();
 
@@ -45,6 +46,16 @@ const submitSchema = z.object({
     .optional(),
   title: z.string().max(150).optional(),
   difficulty: z.enum(['Easy', 'Medium', 'Hard']).optional(),
+});
+
+const traceSchema = z.object({
+  problemId: z.string().max(100).optional(),
+  code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
+  language: z.string().min(1).max(50).default('python'),
+  input: z.string().max(10240, 'Input exceeds maximum allowed size (10KB)').optional(),
+  customInput: z.string().max(10240).optional(),
+  functionNameHint: z.string().max(100).optional(),
+  maxSteps: z.number().min(10).max(500).optional(),
 });
 
 // GET /api/submissions (requires auth)
@@ -119,6 +130,46 @@ router.post('/run', executionLimiter, dailyExecutionQuotaLimiter, async (req: Re
       stdout: batchResult.stdout,
       stderr: batchResult.stderr,
       customInput: customInput ?? null,
+      quota: {
+        limit: quota.limit,
+        remaining: quota.remaining,
+        resetAt: quota.resetAt,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/submissions/trace or /api/execution/trace (visual step-through scrubber)
+router.post('/trace', executionLimiter, dailyExecutionQuotaLimiter, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { problemId, code, language, input, customInput, functionNameHint, maxSteps } = traceSchema.parse(req.body);
+
+    let inputToUse = (input || customInput || '').trim();
+    if (!inputToUse && problemId) {
+      const problem = db.getProblemForExecution(problemId);
+      if (problem && problem.examples && problem.examples.length > 0) {
+        inputToUse = problem.examples[0].input;
+      }
+    }
+
+    const traceResult = await executeTrace({
+      code,
+      language,
+      input: inputToUse,
+      functionNameHint,
+      problemId,
+      maxSteps,
+    });
+
+    const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+    const userId = req.user ? req.user.id : null;
+    await db.incrementExecutionUsage(userId, clientIp);
+    const quota = db.checkExecutionQuota(userId, clientIp, req.user?.role, req.user?.plan);
+
+    res.json({
+      ...traceResult,
       quota: {
         limit: quota.limit,
         remaining: quota.remaining,

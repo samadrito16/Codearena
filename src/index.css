@@ -2580,3 +2580,14 @@ html.dark .top-dropdown-item-active {
     min-height: 38px;
   }
 }
+
+/* Monaco Visual Scrubber Trace Decorations */
+.active-traced-line-highlight {
+  background-color: rgba(99, 102, 241, 0.22) !important;
+  border-left: 3px solid #6366f1 !important;
+}
+
+.active-traced-gutter-glyph {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'%3E%3Cpolygon points='5 3 19 12 5 21 5 3'/%3E%3C/svg%3E") no-repeat center center;
+  background-size: 11px 11px;
+}

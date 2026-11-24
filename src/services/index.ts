@@ -5,6 +5,7 @@ export { leaderboardService, type LeaderboardEntry } from './leaderboardService'
 export { learningPathsService, type LearningModule, type LearningPath } from './learningPathsService';
 export { editorialsService, type ProblemEditorial } from './editorialsService';
 export { runCode, submitCode, getExecutionQuota, type ExecutionResponse, type TestCaseResult, type QuotaResponse } from './executionService';
+export { requestExecutionTrace } from './traceService';
 export {
   fetchMyCertificates,
   claimCertificate,
