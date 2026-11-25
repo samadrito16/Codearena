@@ -286,69 +286,94 @@ export default function PlacementHub() {
 
             {/* Telemetry Stats Strip */}
             <div
-              className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t pt-6"
+              className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3.5 border-t pt-6"
               style={{ borderColor: 'var(--ca-border)' }}
             >
               <div
-                className="rounded-2xl border p-3.5 shadow-xs"
+                className="rounded-2xl border p-4 shadow-xs transition-all hover:border-indigo-500/30"
                 style={{
                   borderColor: 'var(--ca-border)',
                   backgroundColor: 'var(--ca-surface)',
                 }}
               >
-                <div className="text-[11px] font-medium text-muted">Company Mocks</div>
-                <div className="mt-1 font-display text-2xl font-bold text-primary">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-muted">Company Mocks</div>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    <GraduationCap size={14} />
+                  </div>
+                </div>
+                <div className="mt-2 font-display text-2xl font-extrabold text-primary">
                   {COMPANY_ASSESSMENTS.length}
                 </div>
-                <div className="mt-0.5 text-[10px] text-muted">Mass Recruiters + Mid-Size</div>
+                <div className="mt-0.5 text-[10px] text-muted font-medium">Mass Recruiters + Mid-Size</div>
               </div>
 
               <div
-                className="rounded-2xl border p-3.5 shadow-xs"
+                className="rounded-2xl border p-4 shadow-xs transition-all hover:border-blue-500/30"
                 style={{
                   borderColor: 'var(--ca-border)',
                   backgroundColor: 'var(--ca-surface)',
                 }}
               >
-                <div className="text-[11px] font-medium text-muted">Attempts Taken</div>
-                <div className="mt-1 font-display text-2xl font-bold text-primary">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-muted">Attempts Taken</div>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <CheckCircle2 size={14} />
+                  </div>
+                </div>
+                <div className="mt-2 font-display text-2xl font-extrabold text-primary">
                   {totalAttempts}
                 </div>
-                <div className="mt-0.5 text-[10px] text-muted">Saved in browser storage</div>
+                <div className="mt-0.5 text-[10px] text-muted font-medium">Saved in browser storage</div>
               </div>
 
               <div
-                className="rounded-2xl border p-3.5 shadow-xs"
+                className="rounded-2xl border p-4 shadow-xs transition-all hover:border-emerald-500/30"
                 style={{
                   borderColor: 'var(--ca-border)',
                   backgroundColor: 'var(--ca-surface)',
                 }}
               >
-                <div className="text-[11px] font-medium text-muted">Avg Percentile</div>
-                <div className="mt-1 font-display text-2xl font-bold text-emerald-500">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-muted">Avg Percentile</div>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <Trophy size={14} />
+                  </div>
+                </div>
+                <div className="mt-2 font-display text-2xl font-extrabold text-emerald-500">
                   {avgPercentile > 0 ? `${avgPercentile}%` : '—'}
                 </div>
-                <div className="mt-0.5 text-[10px] text-muted">National benchmark</div>
+                <div className="mt-0.5 text-[10px] text-muted font-medium">National benchmark</div>
               </div>
 
               <div
-                className="rounded-2xl border p-3.5 shadow-xs"
+                className="rounded-2xl border p-4 shadow-xs transition-all hover:border-purple-500/30"
                 style={{
                   borderColor: 'var(--ca-border)',
                   backgroundColor: 'var(--ca-surface)',
                 }}
               >
-                <div className="text-[11px] font-medium text-muted">Past Reports</div>
-                <button
-                  type="button"
-                  disabled={totalAttempts === 0}
-                  onClick={() => setIsHistoryOpen(true)}
-                  className="mt-1 flex items-center gap-1.5 font-display text-sm font-bold text-indigo-400 hover:text-indigo-300 disabled:opacity-40 transition-colors"
-                >
-                  <History size={16} />
-                  <span>View History ({totalAttempts})</span>
-                </button>
-                <div className="mt-0.5 text-[10px] text-muted">Scorecard archive</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-muted">Past Reports</div>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <History size={14} />
+                  </div>
+                </div>
+                <div className="mt-2 flex items-baseline justify-between">
+                  <span className="font-display text-2xl font-extrabold text-primary">
+                    {totalAttempts}
+                  </span>
+                  <button
+                    type="button"
+                    disabled={totalAttempts === 0}
+                    onClick={() => setIsHistoryOpen(true)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-indigo-400 hover:text-indigo-300 disabled:opacity-40 transition-colors"
+                  >
+                    <span>View All</span>
+                    <ArrowRight size={12} />
+                  </button>
+                </div>
+                <div className="mt-0.5 text-[10px] text-muted font-medium">Scorecard archive</div>
               </div>
             </div>
           </div>
@@ -555,34 +580,54 @@ export default function PlacementHub() {
               </button>
             </div>
 
-            <div className="mt-4 flex-1 overflow-y-auto space-y-3">
-              {history.map((h) => (
-                <div
-                  key={h.id}
-                  className="rounded-xl border p-3.5 flex items-center justify-between transition-colors"
-                  style={{
-                    borderColor: 'var(--ca-border)',
-                    backgroundColor: 'var(--ca-surface-muted)',
-                  }}
-                >
-                  <div>
-                    <div className="text-xs font-bold text-primary">
-                      {h.assessmentTitle}
-                    </div>
-                    <div className="text-[11px] text-muted">
-                      Score: {h.totalScore}/{h.maxScore} ({h.percentage}%) •{' '}
-                      {new Date(h.completedAt).toLocaleDateString()}
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="font-display text-base font-extrabold text-emerald-500">
-                      {h.projectedPercentile}%ile
-                    </span>
-                    <div className="text-[10px] text-muted">{h.verdictTier.trackName}</div>
-                  </div>
+            <div className="mt-4 flex-1 overflow-y-auto space-y-2.5">
+              {history.length === 0 ? (
+                <div className="text-center py-8 text-xs text-muted">
+                  No mock assessment attempts recorded yet. Take an assessment to see your scorecards here!
                 </div>
-              ))}
+              ) : (
+                history.map((h) => {
+                  const companyObj = Object.values(PLACEMENT_COMPANIES).find((c) =>
+                    h.assessmentTitle.toLowerCase().includes(c.shortName.toLowerCase()) ||
+                    h.assessmentTitle.toLowerCase().includes(c.name.toLowerCase())
+                  );
+                  return (
+                    <div
+                      key={h.id}
+                      className="rounded-xl border p-3.5 flex items-center justify-between gap-3 transition-colors hover:border-indigo-500/30"
+                      style={{
+                        borderColor: 'var(--ca-border)',
+                        backgroundColor: 'var(--ca-surface-muted)',
+                      }}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-display text-xs font-bold text-white shadow-xs"
+                          style={{ backgroundColor: companyObj?.brandColor || '#6366f1' }}
+                        >
+                          {companyObj?.shortName?.charAt(0) || h.assessmentTitle.charAt(0)}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-primary truncate">
+                            {h.assessmentTitle}
+                          </div>
+                          <div className="text-[11px] text-muted">
+                            Score: {h.totalScore}/{h.maxScore} ({h.percentage}%) •{' '}
+                            {new Date(h.completedAt).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="text-right shrink-0">
+                        <span className="font-display text-base font-extrabold text-emerald-500">
+                          {h.projectedPercentile}%ile
+                        </span>
+                        <div className="text-[10px] text-muted font-medium">{h.verdictTier.trackName}</div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

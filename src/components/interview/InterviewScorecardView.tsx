@@ -88,7 +88,7 @@ export default function InterviewScorecardView({
   const currentVerdictStyle = verdictStyles[scorecard.verdict] || verdictStyles['NO HIRE'];
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8 space-y-8 animate-in fade-in duration-300">
+    <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-8 animate-in fade-in duration-300">
       {/* Hero Verdict Banner */}
       <div
         className={`rounded-3xl p-6 sm:p-8 border shadow-xl relative overflow-hidden ${currentVerdictStyle.bg} ${currentVerdictStyle.border}`}

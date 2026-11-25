@@ -70,7 +70,7 @@ export default function InterviewHub() {
   };
 
   return (
-    <div className="w-full py-6 space-y-10 animate-in fade-in duration-300">
+    <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-10 animate-in fade-in duration-300">
       {/* Hero Header */}
       <div
         className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b"

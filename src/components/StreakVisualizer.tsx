@@ -80,67 +80,71 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
   return (
     <div
-      className="panel-card overflow-hidden p-5 sm:p-7 shadow-sm transition-all"
-      style={{ borderColor: 'var(--ca-border)' }}
+      className="rounded-3xl border overflow-hidden p-6 sm:p-7 shadow-sm transition-all"
+      style={{
+        borderColor: 'var(--ca-border)',
+        background: 'var(--ca-surface)',
+      }}
     >
       {/* ── Top Header & Stats Summary ── */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 ring-1 ring-orange-500/20">
-              <Flame size={19} className="fill-orange-500/20" />
-            </span>
-            <div>
-              <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-primary">
-                14-Day Streak Visualizer
-              </h3>
-              <p className="text-xs text-muted">
-                Daily completion indicators & continuous practice habits
-              </p>
-            </div>
+        <div className="flex items-center gap-3">
+          <span
+            className="flex h-10 w-10 items-center justify-center rounded-2xl border text-primary shadow-xs"
+            style={{ backgroundColor: 'var(--ca-surface-muted)', borderColor: 'var(--ca-border)' }}
+          >
+            <Flame size={20} className="fill-current" />
+          </span>
+          <div>
+            <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-primary">
+              14-Day Streak Visualizer
+            </h3>
+            <p className="text-xs text-muted">
+              Daily completion status and practice consistency
+            </p>
           </div>
         </div>
 
         {/* Quick Streak KPI Pills */}
         <div className="flex flex-wrap items-center gap-2.5">
           <div
-            className="flex items-center gap-2 rounded-xl border px-3.5 py-2"
+            className="flex items-center gap-2 rounded-2xl border px-3.5 py-2 shadow-xs"
             style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
           >
-            <Flame size={16} className="text-orange-500 fill-orange-500" />
+            <Flame size={15} className="text-primary" />
             <div className="leading-tight">
-              <span className="font-display text-sm font-bold text-primary tabular-nums">
+              <span className="font-display text-sm font-extrabold text-primary tabular-nums">
                 {currentStreak}
               </span>
-              <span className="ml-1 text-[11px] font-medium text-muted">
+              <span className="ml-1.5 text-[11px] font-medium text-muted">
                 {currentStreak === 1 ? 'day streak' : 'days streak'}
               </span>
             </div>
           </div>
 
           <div
-            className="flex items-center gap-2 rounded-xl border px-3.5 py-2"
+            className="flex items-center gap-2 rounded-2xl border px-3.5 py-2 shadow-xs"
             style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
           >
-            <Trophy size={15} className="text-amber-500" />
+            <Trophy size={15} className="text-primary" />
             <div className="leading-tight">
-              <span className="font-display text-sm font-bold text-primary tabular-nums">
+              <span className="font-display text-sm font-extrabold text-primary tabular-nums">
                 {bestStreak}
               </span>
-              <span className="ml-1 text-[11px] font-medium text-muted">best</span>
+              <span className="ml-1.5 text-[11px] font-medium text-muted">best</span>
             </div>
           </div>
 
           <div
-            className="flex items-center gap-2 rounded-xl border px-3.5 py-2"
+            className="flex items-center gap-2 rounded-2xl border px-3.5 py-2 shadow-xs"
             style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
           >
-            <Zap size={15} className="text-emerald-500" />
+            <Zap size={15} className="text-primary" />
             <div className="leading-tight">
-              <span className="font-display text-sm font-bold text-primary tabular-nums">
+              <span className="font-display text-sm font-extrabold text-primary tabular-nums">
                 {completedCount14}/14
               </span>
-              <span className="ml-1 text-[11px] font-medium text-muted">({completionPercentage}%)</span>
+              <span className="ml-1.5 text-[11px] font-medium text-muted">({completionPercentage}%)</span>
             </div>
           </div>
         </div>
@@ -148,20 +152,38 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
       {/* ── 14-Day Interactive Timeline ── */}
       <div className="mt-6">
-        <div className="flex items-center justify-between text-[11px] font-semibold text-muted mb-2">
-          <span>{days[0]?.monthLabel} {days[0]?.dayNumber}</span>
+        <div className="flex items-center justify-between text-[11px] font-semibold text-muted mb-3">
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" /> Completed
-            <span className="ml-2 h-2 w-2 rounded-full bg-orange-400" /> Today
-            <span className="ml-2 h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700" /> Rest
+            <Calendar size={13} className="text-muted" />
+            <span>{days[0]?.monthLabel} {days[0]?.dayNumber}</span>
           </span>
+          <div className="flex items-center gap-2">
+            <span
+              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold"
+              style={{ background: 'var(--ca-accent-solid)', color: 'var(--ca-accent-text)' }}
+            >
+              <CheckCircle2 size={11} /> Solved
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[10px] font-semibold text-primary"
+              style={{ borderColor: 'var(--ca-accent-solid)', background: 'var(--ca-surface-muted)' }}
+            >
+              <Target size={11} /> Today
+            </span>
+            <span
+              className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-[10px] font-medium text-muted"
+              style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-muted" /> Rest
+            </span>
+          </div>
           <span>Today ({days[13]?.monthLabel} {days[13]?.dayNumber})</span>
         </div>
 
         <div className="relative overflow-x-auto pb-2 pt-1">
-          {/* Subtle baseline track connector */}
+          {/* Baseline track connector */}
           <div
-            className="absolute left-6 right-6 top-[48px] h-0.5 -translate-y-1/2 z-0 hidden sm:block opacity-40"
+            className="absolute left-6 right-6 top-[50px] h-0.5 -translate-y-1/2 z-0 hidden sm:block opacity-40"
             style={{ background: 'var(--ca-border)' }}
           />
 
@@ -173,11 +195,15 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
                   key={day.dateKey}
                   type="button"
                   onClick={() => setSelectedDateKey(day.dateKey)}
-                  className={`group relative flex flex-1 flex-col items-center rounded-2xl p-2.5 transition-all duration-200 focus:outline-none ${
+                  className={`group relative flex flex-1 flex-col items-center rounded-2xl p-2.5 transition-all duration-200 focus:outline-none cursor-pointer ${
                     isSelected
-                      ? 'ring-2 ring-indigo-500 shadow-md bg-indigo-50/70 dark:bg-indigo-950/40'
-                      : 'hover:bg-slate-100/70 dark:hover:bg-slate-800/50'
+                      ? 'border shadow-md -translate-y-0.5'
+                      : 'hover:bg-[var(--ca-surface-muted)] hover:-translate-y-0.5'
                   }`}
+                  style={{
+                    borderColor: isSelected ? 'var(--ca-accent-solid)' : 'transparent',
+                    backgroundColor: isSelected ? 'var(--ca-surface-muted)' : undefined,
+                  }}
                   aria-label={`${day.monthLabel} ${day.dayNumber}: ${
                     day.isCompleted
                       ? `Completed, ${day.solvedCount} problems solved`
@@ -194,7 +220,7 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
                   {/* Calendar day number */}
                   <span
                     className={`mt-0.5 text-xs font-bold tabular-nums ${
-                      day.isToday ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' : 'text-primary'
+                      day.isToday ? 'font-extrabold text-primary' : 'text-primary'
                     }`}
                   >
                     {day.dayNumber}
@@ -202,26 +228,28 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
                   {/* Completion Indicator Icon/Circle */}
                   <div
-                    className={`mt-2 flex h-9 w-9 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${
-                      day.isCompleted
-                        ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25 ring-2 ring-emerald-400/30'
-                        : day.isToday
-                        ? 'border-2 border-dashed border-orange-500 bg-orange-500/15 text-orange-500 animate-pulse'
-                        : 'border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800/60 text-slate-400'
-                    }`}
+                    className="mt-2 flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-105 shadow-xs"
+                    style={{
+                      background: day.isCompleted ? 'var(--ca-accent-solid)' : 'var(--ca-surface)',
+                      color: day.isCompleted ? 'var(--ca-accent-text)' : 'var(--ca-text)',
+                      border: day.isToday && !day.isCompleted ? '2px dashed var(--ca-accent-solid)' : '1px solid var(--ca-border)',
+                    }}
                   >
                     {day.isCompleted ? (
-                      <Flame size={16} className="fill-current" />
+                      <CheckCircle2 size={16} />
                     ) : day.isToday ? (
                       <Play size={13} className="ml-0.5 fill-current" />
                     ) : (
-                      <span className="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-600" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-muted opacity-40" />
                     )}
                   </div>
 
                   {/* Today Badge */}
                   {day.isToday ? (
-                    <span className="mt-1.5 rounded-full bg-indigo-500/10 px-1.5 py-0.5 text-[8px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                    <span
+                      className="mt-1.5 rounded-full px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wider"
+                      style={{ background: 'var(--ca-accent-solid)', color: 'var(--ca-accent-text)' }}
+                    >
                       Today
                     </span>
                   ) : (
@@ -238,7 +266,7 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
       {/* ── Interactive Selected Day Inspection Card ── */}
       <div
-        className="mt-4 rounded-2xl border p-4 sm:p-5 transition-all"
+        className="mt-5 rounded-2xl border p-4 sm:p-5 transition-all"
         style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
       >
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -253,13 +281,12 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
               })}
             </h4>
             <span
-              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${
-                selectedDay.isCompleted
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                  : selectedDay.isToday
-                  ? 'bg-orange-500/10 text-orange-600 dark:text-orange-400'
-                  : 'bg-slate-200/70 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
-              }`}
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-bold border"
+              style={{
+                background: selectedDay.isCompleted ? 'var(--ca-accent-solid)' : 'var(--ca-surface)',
+                color: selectedDay.isCompleted ? 'var(--ca-accent-text)' : 'var(--ca-text)',
+                borderColor: selectedDay.isToday ? 'var(--ca-accent-solid)' : 'var(--ca-border)',
+              }}
             >
               {selectedDay.isCompleted ? (
                 <>
@@ -282,14 +309,15 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
           {selectedDay.isToday && !selectedDay.isCompleted && (
             <Link
               to="/daily-challenges"
-              className="btn-primary text-xs py-1.5 px-3.5 self-start sm:self-auto inline-flex items-center gap-1.5"
+              className="btn-primary py-2 px-4 text-xs font-bold inline-flex items-center gap-1.5 rounded-xl self-start sm:self-auto"
             >
-              Take Today's Daily Challenge <ArrowRight size={13} />
+              <span>Take Today's Daily Challenge</span>
+              <ArrowRight size={13} />
             </Link>
           )}
 
           {selectedDay.isToday && selectedDay.isCompleted && (
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
               <CheckCircle2 size={14} /> Streak maintained for today!
             </span>
           )}
@@ -297,39 +325,38 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
         {/* Selected Day Activity List */}
         {selectedDay.events.length > 0 ? (
-          <div className="mt-3.5 divide-y divide-slate-200/60 dark:divide-slate-800/60">
+          <div className="mt-3.5 space-y-2">
             {selectedDay.events.map((event) => {
               const isSolved = event.type === 'solved';
               return (
-                <div key={event.id} className="flex items-center justify-between py-2.5 text-xs">
+                <div
+                  key={event.id}
+                  className="flex items-center justify-between p-3 rounded-xl border text-xs transition-colors"
+                  style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
+                >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg ${
-                        isSolved
-                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                          : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
-                      }`}
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-primary"
+                      style={{ background: 'var(--ca-surface-muted)', borderColor: 'var(--ca-border)' }}
                     >
                       {isSolved ? <CheckCircle2 size={13} /> : <Play size={11} />}
                     </span>
                     <Link
                       to={`/workspace/${event.problemId}`}
-                      className="truncate font-semibold text-primary hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                      className="truncate font-semibold text-primary hover:text-muted transition-colors"
                     >
                       {event.title}
                     </Link>
                     <span
-                      className={`rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
-                        event.difficulty === 'Easy'
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                          : event.difficulty === 'Medium'
-                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      }`}
+                      className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border text-muted"
+                      style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
                     >
                       {event.difficulty}
                     </span>
-                    <span className="rounded bg-slate-200/60 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] text-muted">
+                    <span
+                      className="rounded px-1.5 py-0.5 text-[10px] text-muted border"
+                      style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
+                    >
                       {event.topic}
                     </span>
                   </div>
@@ -343,7 +370,7 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
             })}
           </div>
         ) : (
-          <p className="mt-2.5 text-xs text-muted">
+          <p className="mt-3 text-xs text-muted">
             {selectedDay.isToday
               ? 'No problems or daily challenges logged yet today. Practice now to keep your streak burning!'
               : 'No practice activity logged on this date.'}

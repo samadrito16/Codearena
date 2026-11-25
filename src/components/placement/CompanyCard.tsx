@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Clock, Play, Sparkles, Tag } from 'lucide-react';
+import { ArrowRight, Clock, Play } from 'lucide-react';
 import { CompanyAssessment } from '../../types/placement';
 import { PLACEMENT_COMPANIES } from '../../data/placement/companies';
 
@@ -47,22 +47,11 @@ export default function CompanyCard({
               </p>
             </div>
           </div>
-
-          <span
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold border ${
-              company?.badgeBg || 'bg-blue-500/10'
-            } ${company?.badgeBorder || 'border-blue-500/20'} ${
-              company?.badgeText || 'text-blue-500'
-            }`}
-          >
-            <Sparkles size={11} />
-            {assessment.tierLabel}
-          </span>
         </div>
 
         {/* Assessment Title & Description */}
         <div className="mt-4">
-          <h4 className="font-bold text-sm text-primary group-hover:text-indigo-400 transition-colors">
+          <h4 className="font-bold text-sm text-primary group-hover:text-primary transition-colors">
             {assessment.title}
           </h4>
           <p className="mt-1.5 text-xs text-muted line-clamp-2 leading-relaxed">
@@ -81,7 +70,7 @@ export default function CompanyCard({
           <div>
             <div className="text-[10px] text-muted">Duration</div>
             <div className="mt-0.5 flex items-center justify-center gap-1 text-xs font-bold text-primary">
-              <Clock size={12} className="text-indigo-400" />
+              <Clock size={12} className="text-muted" />
               {assessment.totalDurationMinutes}m
             </div>
           </div>
@@ -97,24 +86,6 @@ export default function CompanyCard({
               {assessment.sections.length} Rounds
             </div>
           </div>
-        </div>
-
-        {/* Tags */}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {assessment.tags.map((tag) => (
-            <span
-              key={tag}
-              className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] font-medium border"
-              style={{
-                borderColor: 'var(--ca-border)',
-                backgroundColor: 'var(--ca-surface-muted)',
-                color: 'var(--ca-text)',
-              }}
-            >
-              <Tag size={9} className="opacity-60" />
-              {tag}
-            </span>
-          ))}
         </div>
       </div>
 
@@ -147,7 +118,7 @@ export default function CompanyCard({
           className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-all shadow-sm ${
             isActiveSession
               ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+              : 'btn-primary'
           }`}
         >
           {isActiveSession ? (

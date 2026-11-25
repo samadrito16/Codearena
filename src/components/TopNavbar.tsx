@@ -8,6 +8,7 @@ import {
   Flame,
   FolderGit2,
   GraduationCap,
+  Layers,
   Map,
   Menu,
   Search,
@@ -97,7 +98,9 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   }, []);
 
   const isLearnActive =
-    location.pathname.startsWith('/mastery') || location.pathname.startsWith('/learning-paths');
+    location.pathname.startsWith('/mastery') ||
+    location.pathname.startsWith('/learning-paths') ||
+    location.pathname.startsWith('/editor');
 
   const isPracticeActive =
     location.pathname.startsWith('/problems') ||
@@ -105,9 +108,9 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/review') ||
     location.pathname.startsWith('/interview') ||
     location.pathname.startsWith('/placement') ||
+    location.pathname.startsWith('/role-specific') ||
     location.pathname.startsWith('/workspace') ||
-    location.pathname.startsWith('/projects') ||
-    location.pathname.startsWith('/editor');
+    location.pathname.startsWith('/projects');
 
   const isYearPlanner = location.pathname.startsWith('/year');
   const isFullWidthNav =
@@ -212,6 +215,23 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Learning Paths</div>
                       <div className="text-[10px] text-slate-500 dark:text-neutral-400">Step-by-step career tracks</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
+                    to="/editor"
+                    onClick={() => setLearnOpen(false)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
+                      <Compass size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Editor</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Personal coding workspace</div>
                     </div>
                   </NavLink>
                 </div>
@@ -332,19 +352,24 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                   </NavLink>
 
                   <NavLink
-                    to="/editor"
+                    to="/role-specific"
                     onClick={() => setPracticeOpen(false)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
-                      <Compass size={14} />
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/20 shadow-sm">
+                      <Layers size={14} />
                     </div>
                     <div>
-                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Editor</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Personal coding workspace</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-xs text-slate-900 dark:text-white">Role Specific</span>
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
+                          UI·API·SQL
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">GreatFrontEnd practical coding</div>
                     </div>
                   </NavLink>
 

@@ -37,6 +37,8 @@ import PublicProfile from './pages/PublicProfile';
 import CertificateVerification from './pages/CertificateVerification';
 import Contests from './pages/Contests';
 import ContestArena from './pages/ContestArena';
+import RoleSpecificHub from './pages/RoleSpecificHub';
+import RoleSpecificWorkspace from './pages/RoleSpecificWorkspace';
 
 const AUTH_ROUTES = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email'];
 
@@ -198,6 +200,8 @@ export default function App() {
           <Route path="/interview" element={<InterviewHub />} />
           <Route path="/placement" element={<PlacementHub />} />
           <Route path="/placement/:assessmentId" element={<PlacementStudio />} />
+          <Route path="/role-specific" element={<RoleSpecificHub />} />
+          <Route path="/role-specific/:challengeId" element={<RoleSpecificWorkspace />} />
           <Route path="/u/:identifier" element={<PublicProfile />} />
           <Route path="/p/:identifier" element={<PublicProfile />} />
           <Route path="/verify/:certId" element={<CertificateVerification />} />
