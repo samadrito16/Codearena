@@ -34,7 +34,7 @@ export const platformRoadmapCards: RoadmapCardData[] = [
       {
         title: 'Diagnostic Placement Scorecard',
         bullets: [
-          'National percentile estimation based on 50,000+ candidates',
+          'National percentile estimation modeled on standard Gaussian recruitment distribution',
           'Company qualifying verdicts: TCS Ninja/Digital, Infosys SP/DSE',
           'Step-by-step mathematical solutions and code reference reviews',
         ],

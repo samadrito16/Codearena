@@ -76,7 +76,7 @@ export default function ContestArena() {
     }
   });
 
-  const userCollege = (user as any)?.university || 'IIT Bombay';
+  const userCollege = (user as any)?.university || '';
   const isFinishedRef = useRef(isContestFinished);
   isFinishedRef.current = isContestFinished;
 
@@ -677,7 +677,14 @@ export default function ContestArena() {
                 </div>
               </div>
 
-              <div className="divide-y" style={{ borderColor: 'var(--ca-border)' }}>
+              {filteredStandings.length === 0 ? (
+                <div className="p-8 text-center text-muted text-xs">
+                  <Trophy size={28} className="mx-auto mb-2 text-muted opacity-50" />
+                  <p className="font-semibold text-primary">No submissions recorded yet for this contest.</p>
+                  <p className="mt-1">Solve the contest challenges to see your name on the live scoreboard!</p>
+                </div>
+              ) : (
+                <div className="divide-y" style={{ borderColor: 'var(--ca-border)' }}>
                 {filteredStandings.map((participant) => {
                   const isGold = participant.rank === 1;
                   const isSilver = participant.rank === 2;
@@ -750,8 +757,9 @@ export default function ContestArena() {
                   );
                 })}
               </div>
-            </div>
+            )}
           </div>
+        </div>
         )}
       </div>
 

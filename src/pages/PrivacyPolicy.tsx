@@ -185,9 +185,9 @@ export default function PrivacyPolicy() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Need Privacy Assistance?</p>
                 <p className="mt-1">Contact our Data Protection team at:</p>
-                <a href="mailto:privacy@prismcode.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:privacy@codearena.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  privacy@prismcode.dev
+                  privacy@codearena.com
                 </a>
               </div>
             </div>
@@ -473,7 +473,7 @@ export default function PrivacyPolicy() {
                   We retain user account data for as long as your account remains active. Code submission history is preserved to populate your skill mastery diagrams and progress logs.
                 </p>
                 <p>
-                  If you close your account or request data deletion via <a href="mailto:privacy@prismcode.dev" className="themed-link">privacy@prismcode.dev</a>,
+                  If you close your account or request data deletion via <a href="mailto:privacy@codearena.com" className="themed-link">privacy@codearena.com</a>,
                   we permanently scrub your personal identifiers, email, password hashes, and user records within 30 business days.
                 </p>
               </div>
@@ -550,9 +550,9 @@ export default function PrivacyPolicy() {
                   For any privacy inquiries, data deletion requests, or security disclosures, please reach out to our team:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">PrismCode Security & Privacy Operations</p>
-                  <p>Email: <a href="mailto:privacy@prismcode.dev" className="themed-link">privacy@prismcode.dev</a></p>
-                  <p>Support: <a href="mailto:support@prismcode.dev" className="themed-link">support@prismcode.dev</a></p>
+                  <p className="font-bold text-primary">CodeArena Security & Privacy Operations</p>
+                  <p>Email: <a href="mailto:privacy@codearena.com" className="themed-link">privacy@codearena.com</a></p>
+                  <p>Support: <a href="mailto:support@codearena.com" className="themed-link">support@codearena.com</a></p>
                 </div>
               </div>
             </section>

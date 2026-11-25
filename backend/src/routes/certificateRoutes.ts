@@ -1,6 +1,7 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import crypto from 'node:crypto';
 import { z } from 'zod';
+import { config } from '../config.js';
 import { db } from '../db/database.js';
 import { requireAuth } from '../middleware/auth.js';
 import type { IssuedCertificate } from '../types/index.js';
@@ -122,10 +123,10 @@ router.get('/verify/:certId', (req: Request, res: Response) => {
       handle,
       id: cert.userId,
     },
-    verificationUrl: `https://prismcode.dev/verify/${cert.id}`,
+    verificationUrl: `${config.frontendUrl}/verify/${cert.id}`,
     issuer: {
-      organization: 'PrismCode',
-      division: 'PrismCode Credential Authority',
+      organization: 'CodeArena',
+      division: 'CodeArena Credential Authority',
       verificationStandard: 'Verifiable credential with a unique ID',
     },
   });

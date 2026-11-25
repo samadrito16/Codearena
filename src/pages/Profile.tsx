@@ -947,7 +947,7 @@ export default function Profile() {
                             setUploadError(null);
                             setSavedNotice(null);
                           }}
-                          placeholder={draft.avatarImage.startsWith('data:image/') ? 'Local photo uploaded (paste URL to replace)' : 'https://example.com/avatar.png'}
+                          placeholder={draft.avatarImage.startsWith('data:image/') ? 'Local photo uploaded (paste URL to replace)' : 'https://your-avatar-url.png'}
                           className="form-input mt-1 py-2 text-xs"
                         />
                       </label>

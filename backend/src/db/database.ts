@@ -101,55 +101,24 @@ export class Database {
     if (!this.data.dailyExecutions) this.data.dailyExecutions = {};
     if (!this.data.certificates) this.data.certificates = [];
 
-    // Seed admin user if not present
-    const existingAdmin = this.findUserByEmail('admin@prismcode.com') || this.findUserByEmail('admin@codearena.com');
-    if (!existingAdmin) {
-      const adminPassword = config.adminSeedPassword || 'Admin123!';
-      const passwordHash = await bcrypt.hash(adminPassword, 10);
-      const adminUser: User = {
-        id: 'usr_admin_001',
-        name: 'PrismCode Admin',
-        email: 'admin@prismcode.com',
-        passwordHash,
-        role: 'admin',
-        emailVerified: true,
-        isActive: true,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      this.data.users.push(adminUser);
-    }
-
-    // Seed demo user if not present
-    const existingDemo = this.findUserByEmail('alex@example.com');
-    if (!existingDemo) {
-      const passwordHash = await bcrypt.hash('Alex123!', 10);
-      const demoUser: User = {
-        id: 'usr_demo_001',
-        name: 'Alex Morgan',
-        email: 'alex@example.com',
-        passwordHash,
-        role: 'user',
-        emailVerified: true,
-        isActive: true,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      this.data.users.push(demoUser);
-      // Seed default solved IDs for demo user
-      this.data.progress[demoUser.id] = {
-        solvedIds: ['two-sum', 'valid-parentheses'],
-        dailyCompletions: {},
-        profile: {
-          displayName: 'Alex Morgan',
-          bio: 'Building algorithmic intuition one data structure at a time.',
-          avatarMode: 'initials',
-          avatarColor: 'indigo',
-          avatarImage: '',
-          visibility: 'public',
+    // Seed admin user only if explicitly configured via environment variables
+    if (config.adminSeedEmail && config.adminSeedPassword) {
+      const existingAdmin = this.findUserByEmail(config.adminSeedEmail);
+      if (!existingAdmin) {
+        const passwordHash = await bcrypt.hash(config.adminSeedPassword, 10);
+        const adminUser: User = {
+          id: `usr_admin_${Date.now()}`,
+          name: 'Administrator',
+          email: config.adminSeedEmail,
+          passwordHash,
+          role: 'admin',
+          emailVerified: true,
+          isActive: true,
+          createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-        },
-      };
+        };
+        this.data.users.push(adminUser);
+      }
     }
 
     await this.save();
@@ -726,82 +695,7 @@ export class Database {
       };
     }>();
 
-    // 1. Seed prominent campus cohorts so the Campus Cup has an active baseline
-    const benchmarkColleges: Array<{
-      name: string;
-      points: number;
-      solved: number;
-      students: number;
-      topStudent: { name: string; handle: string; points: number; avatarColor: string };
-    }> = [
-      {
-        name: 'IIT Bombay',
-        points: 4850,
-        solved: 312,
-        students: 24,
-        topStudent: { name: 'Aarav Sharma', handle: 'aarav_iitb', points: 640, avatarColor: 'indigo' },
-      },
-      {
-        name: 'BITS Pilani',
-        points: 4320,
-        solved: 285,
-        students: 19,
-        topStudent: { name: 'Rohan Deshmukh', handle: 'rohan_bits', points: 590, avatarColor: 'emerald' },
-      },
-      {
-        name: 'Delhi Technological University (DTU)',
-        points: 3980,
-        solved: 254,
-        students: 18,
-        topStudent: { name: 'Priya Verma', handle: 'priya_dtu', points: 510, avatarColor: 'cyan' },
-      },
-      {
-        name: 'NIT Trichy',
-        points: 3410,
-        solved: 220,
-        students: 15,
-        topStudent: { name: 'Karthik Raja', handle: 'karthik_nitt', points: 480, avatarColor: 'amber' },
-      },
-      {
-        name: 'IIIT Hyderabad',
-        points: 3260,
-        solved: 215,
-        students: 12,
-        topStudent: { name: 'Aditya Sen', handle: 'aditya_iiith', points: 530, avatarColor: 'rose' },
-      },
-      {
-        name: 'Stanford University',
-        points: 2950,
-        solved: 192,
-        students: 10,
-        topStudent: { name: 'Maya Chen', handle: 'mayacodes', points: 580, avatarColor: 'violet' },
-      },
-      {
-        name: 'UC Berkeley',
-        points: 2740,
-        solved: 178,
-        students: 9,
-        topStudent: { name: 'Daniel Kim', handle: 'dan_cal', points: 460, avatarColor: 'indigo' },
-      },
-      {
-        name: 'Vellore Institute of Technology (VIT)',
-        points: 2490,
-        solved: 165,
-        students: 14,
-        topStudent: { name: 'Sneha Patel', handle: 'sneha_vit', points: 420, avatarColor: 'emerald' },
-      },
-    ];
-
-    for (const b of benchmarkColleges) {
-      collegeMap.set(b.name, {
-        totalPoints: b.points,
-        totalSolved: b.solved,
-        studentCount: b.students,
-        topStudent: b.topStudent,
-      });
-    }
-
-    // 2. Aggregate active registered users by university
+    // Aggregate active registered users by university (rankings computed exclusively from real user data)
     for (const user of this.data.users) {
       if (!user.isActive) continue;
       const progress = this.data.progress[user.id];
@@ -870,38 +764,9 @@ export class Database {
     const all = this.getLeaderboard();
     const matched = all.filter((entry) => entry.university && entry.university.trim().toLowerCase() === cleanCollege);
 
-    // If matched is empty, return empty list or sample campus peers
+    // If matched is empty, return empty list
     if (matched.length === 0) {
-      // Return simulated sample campus entries for this college so the campus view is populated
-      const samplePeers: LeaderboardEntry[] = [
-        {
-          rank: 1,
-          userId: `usr_${cleanCollege}_01`,
-          displayName: `Top ${collegeName} Coder`,
-          avatarColor: 'indigo',
-          solvedCount: 84,
-          easySolved: 32,
-          mediumSolved: 42,
-          hardSolved: 10,
-          points: 1460,
-          streak: 15,
-          university: collegeName,
-        },
-        {
-          rank: 2,
-          userId: `usr_${cleanCollege}_02`,
-          displayName: `Campus Contender`,
-          avatarColor: 'emerald',
-          solvedCount: 61,
-          easySolved: 28,
-          mediumSolved: 28,
-          hardSolved: 5,
-          points: 990,
-          streak: 8,
-          university: collegeName,
-        },
-      ];
-      return samplePeers;
+      return [];
     }
 
     matched.forEach((entry, idx) => {
@@ -949,128 +814,14 @@ export class Database {
   }
 
   public getContestStandings(contestId: string, collegeFilter?: string): ContestParticipantStanding[] {
-    // 1. Seed or retrieve contest participants
+    // 1. Retrieve contest participants
     if (!this.data.contestStandings) {
       this.data.contestStandings = {};
     }
 
     let standings = this.data.contestStandings[contestId];
-    if (!standings || standings.length === 0) {
-      // Generate realistic standings for the contest
-      standings = [
-        {
-          rank: 1,
-          userId: 'usr_c_01',
-          displayName: 'Aarav Sharma',
-          handle: 'aarav_iitb',
-          avatarColor: 'indigo',
-          university: 'IIT Bombay',
-          totalScore: 1800,
-          totalTimeMinutes: 44, // pure elapsed solve time (no penalty for rejected submissions)
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 6, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 14, wrongAttempts: 1 },
-            'q3': { status: 'accepted', solvedAtMinutes: 26, wrongAttempts: 2 },
-            'q4': { status: 'accepted', solvedAtMinutes: 44, wrongAttempts: 1 },
-          },
-        },
-        {
-          rank: 2,
-          userId: 'usr_c_02',
-          displayName: 'Rohan Deshmukh',
-          handle: 'rohan_bits',
-          avatarColor: 'emerald',
-          university: 'BITS Pilani',
-          totalScore: 1800,
-          totalTimeMinutes: 52,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 8, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 17, wrongAttempts: 0 },
-            'q3': { status: 'accepted', solvedAtMinutes: 31, wrongAttempts: 1 },
-            'q4': { status: 'accepted', solvedAtMinutes: 52, wrongAttempts: 3 },
-          },
-        },
-        {
-          rank: 3,
-          userId: 'usr_c_03',
-          displayName: 'Priya Verma',
-          handle: 'priya_dtu',
-          avatarColor: 'cyan',
-          university: 'Delhi Technological University (DTU)',
-          totalScore: 1200,
-          totalTimeMinutes: 38,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 9, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 21, wrongAttempts: 2 },
-            'q3': { status: 'accepted', solvedAtMinutes: 38, wrongAttempts: 0 },
-            'q4': { status: 'wrong_answer', wrongAttempts: 2 },
-          },
-        },
-        {
-          rank: 4,
-          userId: 'usr_c_04',
-          displayName: 'Karthik Raja',
-          handle: 'karthik_nitt',
-          avatarColor: 'amber',
-          university: 'NIT Trichy',
-          totalScore: 1200,
-          totalTimeMinutes: 49,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 7, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 24, wrongAttempts: 1 },
-            'q3': { status: 'accepted', solvedAtMinutes: 49, wrongAttempts: 0 },
-            'q4': { status: 'unattempted', wrongAttempts: 0 },
-          },
-        },
-        {
-          rank: 5,
-          userId: 'usr_c_05',
-          displayName: 'Maya Chen',
-          handle: 'mayacodes',
-          avatarColor: 'violet',
-          university: 'Stanford University',
-          totalScore: 700,
-          totalTimeMinutes: 22,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 5, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 22, wrongAttempts: 1 },
-            'q3': { status: 'wrong_answer', wrongAttempts: 3 },
-            'q4': { status: 'unattempted', wrongAttempts: 0 },
-          },
-        },
-        {
-          rank: 6,
-          userId: 'usr_c_06',
-          displayName: 'Daniel Kim',
-          handle: 'dan_cal',
-          avatarColor: 'indigo',
-          university: 'UC Berkeley',
-          totalScore: 700,
-          totalTimeMinutes: 29,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 10, wrongAttempts: 0 },
-            'q2': { status: 'accepted', solvedAtMinutes: 29, wrongAttempts: 0 },
-            'q3': { status: 'unattempted', wrongAttempts: 0 },
-            'q4': { status: 'unattempted', wrongAttempts: 0 },
-          },
-        },
-        {
-          rank: 7,
-          userId: 'usr_c_07',
-          displayName: 'Sneha Patel',
-          handle: 'sneha_vit',
-          avatarColor: 'emerald',
-          university: 'Vellore Institute of Technology (VIT)',
-          totalScore: 300,
-          totalTimeMinutes: 11,
-          problemResults: {
-            'q1': { status: 'accepted', solvedAtMinutes: 11, wrongAttempts: 2 },
-            'q2': { status: 'wrong_answer', wrongAttempts: 2 },
-            'q3': { status: 'unattempted', wrongAttempts: 0 },
-            'q4': { status: 'unattempted', wrongAttempts: 0 },
-          },
-        },
-      ];
+    if (!standings) {
+      standings = [];
       this.data.contestStandings[contestId] = standings;
     }
 
@@ -1329,7 +1080,7 @@ export class Database {
     const byId = this.data.users.find((u) => u.id.toLowerCase() === clean);
     if (byId) return byId;
 
-    // 2. Email username match (e.g. alex from alex@example.com)
+    // 2. Email username match (e.g. coder from coder@example.com)
     const byEmailPrefix = this.data.users.find((u) => u.email.split('@')[0].toLowerCase() === clean);
     if (byEmailPrefix) return byEmailPrefix;
 

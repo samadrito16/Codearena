@@ -277,5 +277,25 @@ export interface AdaptiveMasteryPlan {
   startDate: string;
 }
 
+export interface PeerSolution {
+  id: string;
+  problemId: string;
+  authorName: string;
+  authorHandle: string;
+  authorCollege?: string;
+  authorAvatarColor?: string;
+  title: string;
+  intuitionNote: string; // The mandatory "Explain it in your own words" note
+  timeComplexity: string;
+  spaceComplexity: string;
+  language: string;
+  code: string;
+  upvotes: number;
+  hasUpvoted?: boolean;
+  createdAt: string;
+  tags?: string[];
+}
+
+
 
 

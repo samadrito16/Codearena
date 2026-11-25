@@ -185,9 +185,9 @@ export default function TermsOfService() {
               <div className="mt-6 border-t pt-4 text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
                 <p className="font-semibold text-primary">Questions About Our Terms?</p>
                 <p className="mt-1">Contact our legal team at:</p>
-                <a href="mailto:legal@prismcode.dev" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
+                <a href="mailto:legal@codearena.com" className="mt-1 inline-flex items-center gap-1 themed-link font-mono text-[11px]">
                   <Mail size={12} />
-                  legal@prismcode.dev
+                  legal@codearena.com
                 </a>
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function TermsOfService() {
                 <ul className="list-disc pl-5 space-y-1.5">
                   <li><strong>Account Accuracy:</strong> You agree to provide accurate, current, and complete registration information and keep your email address updated.</li>
                   <li><strong>Credential Safeguarding:</strong> You are solely responsible for maintaining the confidentiality of your password and active session tokens. You agree not to share your account credentials with third parties.</li>
-                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify PrismCode immediately at <a href="mailto:security@prismcode.dev" className="themed-link">security@prismcode.dev</a>.</li>
+                  <li><strong>Notification of Breach:</strong> If you suspect unauthorized access or credential leakage, you must notify CodeArena immediately at <a href="mailto:security@codearena.com" className="themed-link">security@codearena.com</a>.</li>
                 </ul>
               </div>
             </section>
@@ -514,9 +514,9 @@ export default function TermsOfService() {
                   If you have questions, feedback, or legal notices concerning these Terms of Service, please contact:
                 </p>
                 <div className="rounded-xl border p-4 space-y-1.5 font-mono text-xs" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
-                  <p className="font-bold text-primary">PrismCode Legal Affairs</p>
-                  <p>Email: <a href="mailto:legal@prismcode.dev" className="themed-link">legal@prismcode.dev</a></p>
-                  <p>Security & DMCA: <a href="mailto:security@prismcode.dev" className="themed-link">security@prismcode.dev</a></p>
+                  <p className="font-bold text-primary">CodeArena Legal Affairs</p>
+                  <p>Email: <a href="mailto:legal@codearena.com" className="themed-link">legal@codearena.com</a></p>
+                  <p>Security & DMCA: <a href="mailto:security@codearena.com" className="themed-link">security@codearena.com</a></p>
                 </div>
               </div>
             </section>

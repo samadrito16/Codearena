@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
+  ArrowRight,
+  Bell,
+  CheckCircle2,
   Crown,
   Flame,
   Globe2,
@@ -8,9 +11,11 @@ import {
   RefreshCw,
   Search,
   Sparkles,
+  Swords,
   Trophy,
   Users,
   X,
+  Zap,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EmptyState from '../components/ui/EmptyState';
@@ -21,7 +26,7 @@ import { useAuth } from '../context/AuthContext';
 import { leaderboardService, type LeaderboardEntry, type CollegeLeaderboardEntry } from '../services';
 
 type TimeRange = 'all' | 'month' | 'week';
-type LeaderboardTab = 'global' | 'campus-cup' | 'college-students';
+type LeaderboardTab = 'global' | 'campus-cup' | 'college-students' | 'campus-clash' | 'study-groups';
 
 export default function Leaderboard() {
   const { data: entries, status, error, retry } = useLeaderboard();
@@ -31,10 +36,16 @@ export default function Leaderboard() {
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Coming Soon waitlist states
+  const [clashEmail, setClashEmail] = useState('');
+  const [clashSubscribed, setClashSubscribed] = useState(false);
+  const [groupEmail, setGroupEmail] = useState('');
+  const [groupSubscribed, setGroupSubscribed] = useState(false);
+
   // Campus Cup state
   const [colleges, setColleges] = useState<CollegeLeaderboardEntry[]>([]);
   const [collegesLoading, setCollegesLoading] = useState(false);
-  const [selectedCollege, setSelectedCollege] = useState<string>('IIT Bombay');
+  const [selectedCollege, setSelectedCollege] = useState<string>('');
   const [collegeStudents, setCollegeStudents] = useState<LeaderboardEntry[]>([]);
 
   const userCollege = (user as any)?.university || '';
@@ -211,6 +222,38 @@ export default function Leaderboard() {
           <GraduationCap size={14} />
           <span>College Coders (Campus Standings)</span>
         </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('campus-clash')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            activeTab === 'campus-clash'
+              ? 'bg-indigo-600 dark:bg-indigo-500 text-white shadow-md'
+              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200/80 dark:border-slate-700/80'
+          }`}
+        >
+          <Swords size={14} className="text-rose-400" />
+          <span>Campus Rivalry Clash</span>
+          <span className="rounded-full px-1.5 py-0.2 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/20">
+            Soon
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('study-groups')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            activeTab === 'study-groups'
+              ? 'bg-indigo-600 dark:bg-indigo-500 text-white shadow-md'
+              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200/80 dark:border-slate-700/80'
+          }`}
+        >
+          <Users size={14} className="text-cyan-400" />
+          <span>College Study Groups</span>
+          <span className="rounded-full px-1.5 py-0.2 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/20">
+            Soon
+          </span>
+        </button>
       </div>
 
       {/* ======================================================== */}
@@ -277,6 +320,17 @@ export default function Leaderboard() {
 
           {status === 'loading' ? (
             <CardSkeleton rows={3} />
+          ) : topThree.length === 0 && remaining.length === 0 ? (
+            <EmptyState
+              icon={<Trophy size={22} />}
+              title="No coders on the leaderboard yet"
+              description="Solve challenges in the Problem Arena to earn points and claim your ranking."
+              action={
+                <Link to="/problems" className="btn-primary text-xs">
+                  Browse Challenges
+                </Link>
+              }
+            />
           ) : (
             <div className="space-y-6">
               {/* Top 3 Podium */}
@@ -491,8 +545,21 @@ export default function Leaderboard() {
             </Link>
           </div>
 
-          {/* Top 3 Colleges Podium */}
-          {topThreeColleges.length > 0 && (
+          {/* Colleges Podium or Empty State */}
+          {topThreeColleges.length === 0 && remainingColleges.length === 0 ? (
+            <EmptyState
+              icon={<GraduationCap size={22} />}
+              title="No colleges on the leaderboard yet"
+              description="Set your college in your profile and solve challenges to represent your campus in the Campus Cup."
+              action={
+                <Link to="/profile" className="btn-primary text-xs">
+                  Set My College
+                </Link>
+              }
+            />
+          ) : (
+            <>
+              {topThreeColleges.length > 0 && (
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
               {topThreeColleges.map((college, idx) => {
                 const rankNum = idx + 1;
@@ -632,8 +699,10 @@ export default function Leaderboard() {
               </div>
             </div>
           )}
-        </div>
+        </>
       )}
+    </div>
+  )}
 
       {/* ======================================================== */}
       {/* TAB 3: COLLEGE CODERS (CAMPUS STANDINGS)                 */}
@@ -686,7 +755,7 @@ export default function Leaderboard() {
           {collegeStudents.length === 0 ? (
             <EmptyState
               icon={<GraduationCap size={22} />}
-              title={`No coders registered for ${selectedCollege} yet`}
+              title={selectedCollege ? `No coders registered for ${selectedCollege} yet` : 'No campus coders registered yet'}
               description="Be the first to represent your campus by setting your college in your Profile."
               action={
                 <Link to="/profile" className="btn-primary text-xs">
@@ -776,6 +845,194 @@ export default function Leaderboard() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* TAB 4: CAMPUS RIVALRY CLASH (COMING SOON)                */}
+      {/* ======================================================== */}
+      {activeTab === 'campus-clash' && (
+        <div className="relative min-h-[50vh] w-full max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center space-y-8 animate-in fade-in duration-300">
+          <div className="text-center space-y-3 max-w-xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm backdrop-blur-md">
+              <Sparkles size={13} className="animate-pulse" />
+              <span>Coming Soon · In Active Development</span>
+            </div>
+
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-primary leading-tight">
+              Inter-Campus <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-indigo-400">Rivalry Clashes</span>
+            </h2>
+
+            <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-lg mx-auto">
+              Live head-to-head campus battles. Pit your university against peer engineering colleges in 1-on-1 sprint duels, rally your campus classmates, and climb the national leaderboard together.
+            </p>
+          </div>
+
+          <div
+            className="w-full max-w-xl rounded-3xl p-6 sm:p-8 border shadow-xl text-center space-y-6"
+            style={{
+              backgroundColor: 'var(--ca-surface)',
+              borderColor: 'var(--ca-border)',
+            }}
+          >
+            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-500/15 text-rose-500 border border-rose-500/20 shadow-inner mx-auto">
+              <Swords size={28} />
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold text-primary">Head-to-Head Campus Matchups are Coming Soon!</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Features include real-time solve velocity meters, top coder duels, campus pride badges, and one-click viral rally invites for WhatsApp and Telegram.
+              </p>
+            </div>
+
+            {clashSubscribed ? (
+              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-sm">
+                <CheckCircle2 size={16} />
+                <span>You're on the early access list! We'll notify you when Campus Clashes go live.</span>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (clashEmail.trim().includes('@')) setClashSubscribed(true);
+                }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-md mx-auto"
+              >
+                <input
+                  type="email"
+                  required
+                  value={clashEmail}
+                  onChange={(e) => setClashEmail(e.target.value)}
+                  placeholder="Enter your college or personal email..."
+                  className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition"
+                  style={{
+                    backgroundColor: 'var(--ca-surface-muted)',
+                    borderColor: 'var(--ca-border)',
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition"
+                >
+                  <Bell size={13} />
+                  <span>Notify Me</span>
+                </button>
+              </form>
+            )}
+
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs">
+              <Link
+                to="/problems"
+                className="inline-flex items-center gap-1.5 font-semibold text-muted hover:text-primary transition"
+              >
+                <span>Practice Problems</span>
+                <ArrowRight size={12} />
+              </Link>
+              <span className="text-muted">&bull;</span>
+              <Link
+                to="/contests"
+                className="inline-flex items-center gap-1.5 font-semibold text-muted hover:text-primary transition"
+              >
+                <span>Weekly Contests</span>
+                <ArrowRight size={12} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* TAB 5: COLLEGE STUDY GROUPS (COMING SOON)                */}
+      {/* ======================================================== */}
+      {activeTab === 'study-groups' && (
+        <div className="relative min-h-[50vh] w-full max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center space-y-8 animate-in fade-in duration-300">
+          <div className="text-center space-y-3 max-w-xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm backdrop-blur-md">
+              <Sparkles size={13} className="animate-pulse" />
+              <span>Coming Soon · In Active Development</span>
+            </div>
+
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-primary leading-tight">
+              College <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400">Study Groups & Squads</span>
+            </h2>
+
+            <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-lg mx-auto">
+              Form dedicated algorithmic study circles with your college batchmates. Set weekly problem-solving goals, tackle shared problem-of-the-day challenges, and track peer velocity.
+            </p>
+          </div>
+
+          <div
+            className="w-full max-w-xl rounded-3xl p-6 sm:p-8 border shadow-xl text-center space-y-6"
+            style={{
+              backgroundColor: 'var(--ca-surface)',
+              borderColor: 'var(--ca-border)',
+            }}
+          >
+            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/15 text-cyan-500 border border-cyan-500/20 shadow-inner mx-auto">
+              <Users size={28} />
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold text-primary">Campus Study Circles are Coming Soon!</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                Features include weekly collective sprint targets (e.g. 50 DP problems), pinned daily challenge threads, member leaderboards, and instant batchmate invitation links.
+              </p>
+            </div>
+
+            {groupSubscribed ? (
+              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-sm">
+                <CheckCircle2 size={16} />
+                <span>You're on the early access list! We'll notify you as soon as Study Groups launch.</span>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (groupEmail.trim().includes('@')) setGroupSubscribed(true);
+                }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-2 max-w-md mx-auto"
+              >
+                <input
+                  type="email"
+                  required
+                  value={groupEmail}
+                  onChange={(e) => setGroupEmail(e.target.value)}
+                  placeholder="Enter your email for early group access..."
+                  className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition"
+                  style={{
+                    backgroundColor: 'var(--ca-surface-muted)',
+                    borderColor: 'var(--ca-border)',
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition"
+                >
+                  <Bell size={13} />
+                  <span>Notify Me</span>
+                </button>
+              </form>
+            )}
+
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3 text-xs">
+              <Link
+                to="/problems"
+                className="inline-flex items-center gap-1.5 font-semibold text-muted hover:text-primary transition"
+              >
+                <span>Browse Problems</span>
+                <ArrowRight size={12} />
+              </Link>
+              <span className="text-muted">&bull;</span>
+              <Link
+                to="/placement"
+                className="inline-flex items-center gap-1.5 font-semibold text-muted hover:text-primary transition"
+              >
+                <span>Placement Hub</span>
+                <ArrowRight size={12} />
+              </Link>
+            </div>
+          </div>
         </div>
       )}
     </div>

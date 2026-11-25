@@ -39,64 +39,7 @@ export const contestService = {
     } catch {
       // Fallback
     }
-    // Return sample standing
-    const sample: ContestParticipantStanding[] = [
-      {
-        rank: 1,
-        userId: 'usr_c_01',
-        displayName: 'Aarav Sharma',
-        handle: 'aarav_iitb',
-        avatarColor: 'indigo',
-        university: 'IIT Bombay',
-        totalScore: 1800,
-        totalTimeMinutes: 44, // pure elapsed solve time (no penalty for rejected submissions)
-        problemResults: {
-          'wc41-q1': { status: 'accepted', solvedAtMinutes: 6, wrongAttempts: 0 },
-          'wc41-q2': { status: 'accepted', solvedAtMinutes: 14, wrongAttempts: 1 },
-          'wc41-q3': { status: 'accepted', solvedAtMinutes: 26, wrongAttempts: 2 },
-          'wc41-q4': { status: 'accepted', solvedAtMinutes: 44, wrongAttempts: 1 },
-        },
-      },
-      {
-        rank: 2,
-        userId: 'usr_c_02',
-        displayName: 'Rohan Deshmukh',
-        handle: 'rohan_bits',
-        avatarColor: 'emerald',
-        university: 'BITS Pilani',
-        totalScore: 1800,
-        totalTimeMinutes: 52,
-        problemResults: {
-          'wc41-q1': { status: 'accepted', solvedAtMinutes: 8, wrongAttempts: 0 },
-          'wc41-q2': { status: 'accepted', solvedAtMinutes: 17, wrongAttempts: 0 },
-          'wc41-q3': { status: 'accepted', solvedAtMinutes: 31, wrongAttempts: 1 },
-          'wc41-q4': { status: 'accepted', solvedAtMinutes: 52, wrongAttempts: 3 },
-        },
-      },
-      {
-        rank: 3,
-        userId: 'usr_c_03',
-        displayName: 'Priya Verma',
-        handle: 'priya_dtu',
-        avatarColor: 'cyan',
-        university: 'Delhi Technological University (DTU)',
-        totalScore: 1200,
-        totalTimeMinutes: 38,
-        problemResults: {
-          'wc41-q1': { status: 'accepted', solvedAtMinutes: 9, wrongAttempts: 0 },
-          'wc41-q2': { status: 'accepted', solvedAtMinutes: 21, wrongAttempts: 2 },
-          'wc41-q3': { status: 'accepted', solvedAtMinutes: 38, wrongAttempts: 0 },
-          'wc41-q4': { status: 'wrong_answer', wrongAttempts: 2 },
-        },
-      },
-    ];
-
-    if (collegeFilter) {
-      const filtered = sample.filter((s) => s.university?.toLowerCase().includes(collegeFilter.toLowerCase()));
-      filtered.forEach((s, i) => { s.rank = i + 1; });
-      return Promise.resolve(filtered);
-    }
-    return Promise.resolve(sample);
+    return [];
   },
 
   async submitProblem(

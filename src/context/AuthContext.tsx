@@ -114,7 +114,7 @@ function ClerkAuthProviderImpl({ children }: { children: ReactNode }) {
     if (isSignedIn && clerkUser) {
       const email = clerkUser.primaryEmailAddress?.emailAddress || '';
       const metadataRole = clerkUser.publicMetadata?.role as UserRole | undefined;
-      const role: UserRole = metadataRole === 'admin' || email === 'admin@prismcode.com' || email === 'admin@codearena.com' ? 'admin' : 'user';
+      const role: UserRole = metadataRole === 'admin' ? 'admin' : 'user';
 
       return {
         id: clerkUser.id,

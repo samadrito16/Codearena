@@ -75,6 +75,6 @@ export const leaderboardService: LeaderboardRepository = {
       // Fallback
     }
     const filtered = sampleLeaderboard.filter((s) => s.university?.toLowerCase() === college.toLowerCase());
-    return Promise.resolve(filtered.length > 0 ? filtered : [...sampleLeaderboard.slice(0, 3)]);
+    return Promise.resolve(filtered);
   },
 };

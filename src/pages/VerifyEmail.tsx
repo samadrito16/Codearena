@@ -143,7 +143,7 @@ export default function VerifyEmail({ isModal = false, onClose }: VerifyEmailPro
                     required
                     value={resendEmail}
                     onChange={(e) => setResendEmail(e.target.value)}
-                    placeholder="alex@example.com"
+                    placeholder="you@example.com"
                     className="glass-auth-input w-full rounded-full pl-10 pr-4 py-2 text-xs sm:text-sm transition focus:outline-none"
                   />
                 </div>

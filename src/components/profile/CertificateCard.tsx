@@ -32,7 +32,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
     day: 'numeric',
   });
 
-  const appOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://prismcode.dev';
+  const appOrigin = typeof window !== 'undefined' ? window.location.origin : '';
   const verifyUrl = `${appOrigin}/verify/${certificate.id}`;
   const linkedInAddUrl = getLinkedInCertAddUrl(certificate, appOrigin);
   const linkedInShareUrl = getLinkedInSharePostUrl(verifyUrl);

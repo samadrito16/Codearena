@@ -27,6 +27,7 @@ export const config = {
   allowUnsafeLocalExecution: process.env.ALLOW_UNSAFE_LOCAL_EXECUTION === 'true',
   enableDevTokens: process.env.ENABLE_DEV_TOKENS === 'true',
   behindProxy: process.env.BEHIND_PROXY === 'true',
+  adminSeedEmail: process.env.ADMIN_SEED_EMAIL || '',
   adminSeedPassword: process.env.ADMIN_SEED_PASSWORD || '',
 
   // Email settings
@@ -37,7 +38,7 @@ export const config = {
     user: process.env.SMTP_USER || '',
     pass: process.env.SMTP_PASS || '',
   },
-  fromEmail: process.env.FROM_EMAIL || 'no-reply@prismcode.dev',
+  fromEmail: process.env.FROM_EMAIL || 'no-reply@codearena.com',
 
   // OnlineCompiler.io Code Execution Engine
   onlineCompilerApiKey: process.env.ONLINECOMPILER_API_KEY || '',

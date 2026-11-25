@@ -11,13 +11,13 @@ export function getLinkedInCertAddUrl(cert: IssuedCertificate, originUrl?: strin
   const issueYear = issueDate.getFullYear();
   const issueMonth = issueDate.getMonth() + 1;
 
-  const appOrigin = originUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://prismcode.dev');
+  const appOrigin = originUrl || (typeof window !== 'undefined' ? window.location.origin : '');
   const certUrl = `${appOrigin}/verify/${cert.id}`;
 
   const params = new URLSearchParams({
     startTask: 'CERTIFICATION_NAME',
     name: cert.title,
-    organizationName: 'PrismCode',
+    organizationName: 'CodeArena',
     issueYear: String(issueYear),
     issueMonth: String(issueMonth),
     certUrl,

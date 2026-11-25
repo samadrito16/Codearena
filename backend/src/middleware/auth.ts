@@ -73,7 +73,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
       let user = db.findUserById(clerkUserId);
       if (!user) {
         // Sync Clerk user details into local DB
-        let displayName = 'PrismCode Developer';
+        let displayName = 'Developer';
         let email = `${clerkUserId}@clerk.user`;
         let role: UserRole = 'user';
 
@@ -83,7 +83,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
             displayName = clerkUser.fullName || clerkUser.firstName || displayName;
             const primaryEmail = clerkUser.emailAddresses.find((e) => e.id === clerkUser.primaryEmailAddressId);
             if (primaryEmail) email = primaryEmail.emailAddress;
-            if (clerkUser.publicMetadata?.role === 'admin' || email === 'admin@prismcode.com' || email === 'admin@codearena.com') {
+            if (clerkUser.publicMetadata?.role === 'admin') {
               role = 'admin';
             }
           } catch (clerkErr) {

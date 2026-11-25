@@ -16,7 +16,7 @@ function normalCdf(z: number): number {
 
 // Compute national percentile using Gaussian bell-curve against national candidate pool
 export function calculateNationalPercentile(userPercentage: number): number {
-  // Empirical mean and std dev across 50,000+ Indian campus placement test takers
+  // Standard normalized recruitment exam distribution (mean: 46.0, stdDev: 15.5)
   const mean = 46.0;
   const stdDev = 15.5;
 

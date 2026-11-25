@@ -1080,6 +1080,8 @@ function WorkspaceSession({
                 error={editorialError}
                 onRetry={retryEditorial}
                 onBackToDescription={() => setActiveTab('Description')}
+                currentCode={code}
+                currentLanguage={language}
               />
             ) : null}
           </div>
