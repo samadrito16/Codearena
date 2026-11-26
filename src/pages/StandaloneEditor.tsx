@@ -14,14 +14,23 @@ import {
   Play,
   RotateCcw,
   Rows,
+  Server,
   Terminal,
   Trash2,
   X,
+  Zap,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themePalettes } from '../data/themes';
 import { readStorage, writeStorage } from '../lib/storage';
 import { runCode } from '../services/executionService';
+import {
+  executeEditorCode,
+  getEngineDetails,
+  prewarmLanguage,
+  subscribeEngineStatus,
+  type ClientEngineType,
+} from '../services/clientExecution';
 import EditorSettingsPopover from '../components/EditorSettingsPopover';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import { EditorLoadingSkeleton } from '../components/ui/LoadingSkeleton';
@@ -356,6 +365,29 @@ export default function StandaloneEditor() {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [activeConsoleTab, setActiveConsoleTab] = useState<'output' | 'input' | 'preview'>('output');
 
+  // Client execution engine state
+  const [engineStatus, setEngineStatus] = useState<string>('');
+  const [activeEngine, setActiveEngine] = useState<ClientEngineType>(() => getEngineDetails(language).type);
+  const currentEngineDetails = getEngineDetails(language);
+
+  // Pre-warm Pyodide when Python is active and listen to runtime status
+  useEffect(() => {
+    if (language === 'python') {
+      prewarmLanguage('python');
+    }
+    const unsubscribe = subscribeEngineStatus((status) => {
+      if (status === 'loading') {
+        setEngineStatus('Downloading Wasm…');
+      } else if (status === 'ready') {
+        setEngineStatus('Ready');
+        setTimeout(() => setEngineStatus(''), 2500);
+      } else if (status === 'error') {
+        setEngineStatus('Error');
+      }
+    });
+    return unsubscribe;
+  }, [language]);
+
   // Layout preference: 'bottom' (docked drawer like Workspace) vs 'side' (side-by-side)
   const [splitLayout, setSplitLayout] = useState<'bottom' | 'side'>(() => {
     return readStorage<'bottom' | 'side'>('prismcode-editor-layout-dock', 'bottom');
@@ -447,6 +479,8 @@ export default function StandaloneEditor() {
     const config = SUPPORTED_LANGUAGES.find((l) => l.id === newLang) || SUPPORTED_LANGUAGES[0];
     setLanguage(newLang);
     setFileName(config.defaultFile);
+    prewarmLanguage(newLang);
+    setActiveEngine(getEngineDetails(newLang).type);
 
     const savedCode = readStorage<string>(`prismcode-editor-code-${newLang}`, '');
     setCode(savedCode || config.defaultCode);
@@ -492,70 +526,6 @@ export default function StandaloneEditor() {
     URL.revokeObjectURL(url);
   };
 
-  // Safe Browser JavaScript Execution
-  const executeClientJS = useCallback((source: string) => {
-    const logs: string[] = [];
-    const originalLog = console.log;
-    const originalInfo = console.info;
-    const originalWarn = console.warn;
-    const originalError = console.error;
-    const originalTable = console.table;
-
-    console.log = (...args: any[]) => {
-      logs.push(args.map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a))).join(' '));
-      originalLog(...args);
-    };
-    console.info = (...args: any[]) => {
-      logs.push('[INFO] ' + args.map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a))).join(' '));
-      originalInfo(...args);
-    };
-    console.warn = (...args: any[]) => {
-      logs.push('[WARN] ' + args.map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a))).join(' '));
-      originalWarn(...args);
-    };
-    console.error = (...args: any[]) => {
-      logs.push('[ERROR] ' + args.map((a) => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a))).join(' '));
-      originalError(...args);
-    };
-    console.table = (data: any) => {
-      try {
-        logs.push('[TABLE]\n' + JSON.stringify(data, null, 2));
-      } catch {
-        logs.push('[TABLE] ' + String(data));
-      }
-      originalTable(data);
-    };
-
-    const startTime = performance.now();
-    try {
-      // Evaluate within sandbox
-      const fn = new Function(source);
-      const result = fn();
-      const elapsed = Math.round(performance.now() - startTime);
-      setExecutionTime(elapsed);
-
-      let finalOutput = logs.join('\n');
-      if (result !== undefined) {
-        finalOutput += (finalOutput ? '\n' : '') + `↳ Return Value: ${JSON.stringify(result, null, 2)}`;
-      }
-      if (!finalOutput) {
-        finalOutput = 'Code executed successfully (no stdout produced).';
-      }
-      setOutput(finalOutput);
-    } catch (err: any) {
-      const elapsed = Math.round(performance.now() - startTime);
-      setExecutionTime(elapsed);
-      setOutput((logs.length ? logs.join('\n') + '\n' : '') + `Runtime Error: ${err?.message || err}`);
-    } finally {
-      console.log = originalLog;
-      console.info = originalInfo;
-      console.warn = originalWarn;
-      console.error = originalError;
-      console.table = originalTable;
-      setIsRunning(false);
-    }
-  }, []);
-
   // Main code runner handler
   const handleRunCode = async () => {
     if (isRunning) return;
@@ -570,36 +540,28 @@ export default function StandaloneEditor() {
 
     setActiveConsoleTab('output');
 
-    // Client-side Execution for JS & TS
-    if (language === 'javascript' || language === 'typescript') {
-      let executable = code;
-      if (language === 'typescript') {
-        executable = code
-          .replace(/:\s*([A-Za-z0-9_<>\[\]|&\s]+)(?=[=;,)\{])/g, '')
-          .replace(/interface\s+[A-Za-z0-9_]+\s*\{[^}]*\}/g, '')
-          .replace(/type\s+[A-Za-z0-9_]+\s*=[^;]+;/g, '');
-      }
-      setTimeout(() => executeClientJS(executable), 60);
-      return;
-    }
-
-    // Backend Execution for Python, C++, Java, Rust, Go, SQL
-    const startTime = performance.now();
     try {
-      const res = await runCode({
-        problemId: 'scratchpad',
+      const res = await executeEditorCode({
         code,
         language,
-        customInput: stdin.trim() ? stdin.trim() : undefined,
+        stdin,
+        onStatus: (_status, msg) => {
+          if (msg) setEngineStatus(msg);
+        },
       });
 
-      const duration = res.runtimeMs || Math.round(performance.now() - startTime);
-      setExecutionTime(duration);
+      setExecutionTime(res.runtimeMs);
+      setActiveEngine(res.engine);
 
       const logs: string[] = [];
       if (res.stdout) logs.push(res.stdout);
-      if (res.stderr) logs.push(`[STDERR]\n${res.stderr}`);
-      if (!res.stdout && !res.stderr) {
+      if (res.returnValue !== undefined) {
+        logs.push(`↳ Return Value: ${res.returnValue}`);
+      }
+      if (res.stderr) {
+        logs.push(res.stderr.startsWith('[') ? res.stderr : `[STDERR / ERROR]\n${res.stderr}`);
+      }
+      if (!res.stdout && !res.stderr && res.returnValue === undefined) {
         if (res.verdict === 'Accepted') {
           logs.push(`Execution Verdict: ${res.verdict}\nProcess completed successfully.`);
         } else {
@@ -609,17 +571,7 @@ export default function StandaloneEditor() {
 
       setOutput(logs.join('\n'));
     } catch (err: any) {
-      const duration = Math.round(performance.now() - startTime);
-      setExecutionTime(duration);
-
-      // Graceful offline message with syntax check
-      setOutput(
-        `[Local Compiler Sandbox - Offline Mode]\n` +
-        `Execution initiated for ${currentLangConfig.name}.\n` +
-        `Note: Local compiler server is offline or unreachable.\n\n` +
-        `Your code was saved locally.\n` +
-        `Details: ${err?.message || 'Server connection refused'}`
-      );
+      setOutput(`[Execution Exception]\n${err?.message || err}`);
     } finally {
       setIsRunning(false);
     }
@@ -721,6 +673,24 @@ export default function StandaloneEditor() {
 
         {/* Right: Language Selector, Reset, Copy, Download, Shortcuts, Settings */}
         <div className="flex shrink-0 items-center gap-2">
+          {/* Execution Engine Indicator Pill */}
+          <div
+            className={`hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border transition-colors ${currentEngineDetails.badgeColor}`}
+            title={currentEngineDetails.description}
+          >
+            {currentEngineDetails.isClientSide ? (
+              <Zap size={11} className="fill-current text-amber-400 shrink-0" />
+            ) : (
+              <Server size={11} className="text-violet-400 shrink-0" />
+            )}
+            <span className="truncate max-w-[105px]">{currentEngineDetails.badgeLabel}</span>
+            {engineStatus && language === 'python' && (
+              <span className="text-[10px] text-sky-400 opacity-90 truncate max-w-[120px]">
+                • {engineStatus}
+              </span>
+            )}
+          </div>
+
           {/* Language Selector Dropdown matching workspace */}
           <label className="workspace-language-select" aria-label="Choose programming language">
             <span
@@ -867,7 +837,14 @@ export default function StandaloneEditor() {
                 </span>
                 <span>Console & Terminal</span>
                 {executionTime !== null && (
-                  <span className="workspace-console-count tabular-nums">{executionTime}ms</span>
+                  <span className="workspace-console-count tabular-nums inline-flex items-center gap-1">
+                    {activeEngine !== 'server' ? (
+                      <Zap size={10} className="text-amber-400 fill-current" />
+                    ) : (
+                      <Server size={10} className="text-violet-400" />
+                    )}
+                    {executionTime}ms
+                  </span>
                 )}
               </button>
 
@@ -912,7 +889,12 @@ export default function StandaloneEditor() {
                       <Terminal size={13} />
                       <span>Output</span>
                       {executionTime !== null && (
-                        <span className="workspace-console-count tabular-nums">
+                        <span className="workspace-console-count tabular-nums inline-flex items-center gap-1">
+                          {activeEngine !== 'server' ? (
+                            <Zap size={10} className="text-amber-400 fill-current" />
+                          ) : (
+                            <Server size={10} className="text-violet-400" />
+                          )}
                           {executionTime}ms
                         </span>
                       )}
