@@ -308,8 +308,8 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                       <Search size={14} />
                     </div>
                     <div>
-                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Review</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Audit multi-file repos & AI PRs</div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Debugging Arena</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Patch broken repos &amp; failing tests</div>
                     </div>
                   </NavLink>
 

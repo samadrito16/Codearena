@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  LineAnnotation,
   OverallReviewStats,
   ReviewProgressStore,
+  ReviewTestResult,
   ScenarioAttempt,
 } from '../../types/review';
 import { reviewCatalog } from './catalog';
 
-const STORAGE_KEY = 'prism_review_progress_v1';
+const STORAGE_KEY = 'prism_review_progress_v2';
 const EVENT_NAME = 'prism-review-progress-changed';
 
 const DEFAULT_ATTEMPT = (scenarioId: string): ScenarioAttempt => ({
   scenarioId,
-  annotations: [],
+  editedFiles: {},
   hintsUsed: {},
   startedAt: new Date().toISOString(),
 });
@@ -20,14 +20,33 @@ const DEFAULT_ATTEMPT = (scenarioId: string): ScenarioAttempt => ({
 function readStore(): ReviewProgressStore {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { version: '1.0.0', attempts: {} };
+    if (!raw) return { version: '2.0.0', attempts: {} };
     const parsed = JSON.parse(raw);
+    const attempts: Record<string, ScenarioAttempt> = {};
+    for (const [id, att] of Object.entries(parsed.attempts || {})) {
+      const a = att as Partial<ScenarioAttempt>;
+      attempts[id] = {
+        scenarioId: id,
+        editedFiles: a.editedFiles || {},
+        testResults: a.testResults,
+        testsPassedCount: a.testsPassedCount,
+        totalTestsCount: a.totalTestsCount,
+        verifiedFixed: Boolean(a.verifiedFixed),
+        score: a.score,
+        maxScore: a.maxScore,
+        referenceRevealed: Boolean(a.referenceRevealed),
+        hintsUsed: a.hintsUsed || {},
+        startedAt: a.startedAt || new Date().toISOString(),
+        completedAt: a.completedAt,
+        bestScore: a.bestScore,
+      };
+    }
     return {
-      version: parsed.version || '1.0.0',
-      attempts: parsed.attempts || {},
+      version: parsed.version || '2.0.0',
+      attempts,
     };
   } catch {
-    return { version: '1.0.0', attempts: {} };
+    return { version: '2.0.0', attempts: {} };
   }
 }
 
@@ -61,49 +80,49 @@ export function useReviewProgress() {
     (scenarioId: string): ScenarioAttempt => {
       return store.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
     },
-    [store]
+    [store],
   );
 
-  const addAnnotation = useCallback(
-    (scenarioId: string, annotation: LineAnnotation) => {
+  const saveEditedFile = useCallback(
+    (scenarioId: string, filename: string, content: string) => {
       const current = readStore();
       const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
       current.attempts[scenarioId] = {
         ...attempt,
-        annotations: [...attempt.annotations, annotation],
+        editedFiles: {
+          ...attempt.editedFiles,
+          [filename]: content,
+        },
       };
       writeStore(current);
     },
-    []
+    [],
   );
 
-  const removeAnnotation = useCallback(
-    (scenarioId: string, annotationId: string) => {
+  const saveEditedFilesBatch = useCallback(
+    (scenarioId: string, filesMap: Record<string, string>) => {
       const current = readStore();
       const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
       current.attempts[scenarioId] = {
         ...attempt,
-        annotations: attempt.annotations.filter((a) => a.id !== annotationId),
+        editedFiles: filesMap,
       };
       writeStore(current);
     },
-    []
+    [],
   );
 
-  const updateAnnotationComment = useCallback(
-    (scenarioId: string, annotationId: string, newComment: string) => {
-      const current = readStore();
-      const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
-      current.attempts[scenarioId] = {
-        ...attempt,
-        annotations: attempt.annotations.map((a) =>
-          a.id === annotationId ? { ...a, comment: newComment } : a
-        ),
-      };
-      writeStore(current);
-    },
-    []
-  );
+  const resetEditedFiles = useCallback((scenarioId: string) => {
+    const current = readStore();
+    const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
+    current.attempts[scenarioId] = {
+      ...attempt,
+      editedFiles: {},
+      testResults: undefined,
+      testsPassedCount: undefined,
+    };
+    writeStore(current);
+  }, []);
 
   const useHint = useCallback(
     (scenarioId: string, bugId: string, level: number) => {
@@ -121,46 +140,56 @@ export function useReviewProgress() {
         writeStore(current);
       }
     },
-    []
+    [],
   );
 
-  const recordGrade = useCallback(
-    (scenarioId: string, score: number, maxScore: number, matchedBugIds: string[]) => {
+  const recordTestRun = useCallback(
+    (scenarioId: string, results: ReviewTestResult[], maxScore: number) => {
       const current = readStore();
       const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
+      const passedCount = results.filter((r) => r.passed).length;
+      const totalCount = results.length;
+      const allPassed = totalCount > 0 && passedCount === totalCount;
+      const earnedScore = allPassed
+        ? maxScore
+        : totalCount > 0
+        ? Math.round((passedCount / totalCount) * maxScore * 0.5)
+        : 0;
+
       const prevBest = attempt.bestScore || 0;
+      const wasFixed = Boolean(attempt.verifiedFixed);
+
       current.attempts[scenarioId] = {
         ...attempt,
-        score,
+        testResults: results,
+        testsPassedCount: passedCount,
+        totalTestsCount: totalCount,
+        verifiedFixed: wasFixed || allPassed,
+        score: allPassed ? maxScore : attempt.score ?? earnedScore,
         maxScore,
-        matchedBugIds,
-        bestScore: Math.max(prevBest, score),
-        rubricRevealed: true,
-        completedAt: new Date().toISOString(),
+        bestScore: Math.max(prevBest, allPassed ? maxScore : earnedScore),
+        completedAt: allPassed ? attempt.completedAt || new Date().toISOString() : attempt.completedAt,
       };
       writeStore(current);
     },
-    []
+    [],
   );
 
-  const revealReference = useCallback(
-    (scenarioId: string) => {
-      const current = readStore();
-      const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
-      current.attempts[scenarioId] = {
-        ...attempt,
-        referenceRevealed: true,
-      };
-      writeStore(current);
-    },
-    []
-  );
+  const revealReference = useCallback((scenarioId: string) => {
+    const current = readStore();
+    const attempt = current.attempts[scenarioId] || DEFAULT_ATTEMPT(scenarioId);
+    current.attempts[scenarioId] = {
+      ...attempt,
+      referenceRevealed: true,
+    };
+    writeStore(current);
+  }, []);
 
   const getOverallStats = useCallback((): OverallReviewStats => {
     const scenarios = reviewCatalog.scenarios;
     let attempted = 0;
-    let reviewed = 0;
-    let bugsCaught = 0;
+    let fixed = 0;
+    let totalTestsPassing = 0;
     let pointsEarned = 0;
     let maxPoints = 0;
 
@@ -180,16 +209,19 @@ export function useReviewProgress() {
 
       const attempt = store.attempts[sc.id];
       if (attempt) {
-        if (attempt.annotations.length > 0 || attempt.score !== undefined) {
+        const hasEdits = Object.keys(attempt.editedFiles || {}).length > 0;
+        if (hasEdits || attempt.testResults !== undefined) {
           attempted += 1;
         }
-        if (attempt.score !== undefined) {
-          reviewed += 1;
-          pointsEarned += attempt.score;
-          bugsCaught += (attempt.matchedBugIds || []).length;
+        totalTestsPassing += attempt.testsPassedCount || 0;
+        if (attempt.verifiedFixed) {
+          fixed += 1;
+          pointsEarned += attempt.bestScore ?? sc.review_rubric.max_score;
           if (catStats[sc.category]) {
             catStats[sc.category].completed += 1;
           }
+        } else if (attempt.bestScore) {
+          pointsEarned += attempt.bestScore;
         }
       }
     }
@@ -197,8 +229,8 @@ export function useReviewProgress() {
     return {
       totalScenarios: scenarios.length,
       attemptedScenarios: attempted,
-      reviewedScenarios: reviewed,
-      totalBugsCaught: bugsCaught,
+      fixedScenarios: fixed,
+      totalTestsPassing,
       totalPointsEarned: pointsEarned,
       totalMaxPoints: maxPoints,
       categoryStats: catStats as OverallReviewStats['categoryStats'],
@@ -208,11 +240,11 @@ export function useReviewProgress() {
   return {
     store,
     getAttempt,
-    addAnnotation,
-    removeAnnotation,
-    updateAnnotationComment,
+    saveEditedFile,
+    saveEditedFilesBatch,
+    resetEditedFiles,
     useHint,
-    recordGrade,
+    recordTestRun,
     revealReference,
     getOverallStats,
   };

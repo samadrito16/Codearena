@@ -1,20 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
   ArrowRight,
   Bot,
   CheckCircle2,
   Clock,
-  ExternalLink,
-  FileCode2,
-  HelpCircle,
-  Layers,
   RotateCcw,
-  Shield,
-  Sparkles,
-  Trophy,
-  Zap,
 } from 'lucide-react';
 import {
   CATEGORY_CONFIG,
@@ -22,14 +14,14 @@ import {
   getReviewScenarioBySlug,
 } from '../lib/review/catalog';
 import { useReviewProgress } from '../lib/review/progress';
+import { runReviewScenarioTests } from '../lib/review/testRunner';
+import { ReviewTestResult } from '../types/review';
 import FileDiffViewer from '../components/review/FileDiffViewer';
-import AnnotationPanel from '../components/review/AnnotationPanel';
-import RubricGrader from '../components/review/RubricGrader';
+import ReviewTestPanel from '../components/review/ReviewTestPanel';
 import HintLadder from '../components/review/HintLadder';
 
 export default function ReviewStudio() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
 
   const scenario = useMemo(() => {
     return slug ? getReviewScenarioBySlug(slug) : undefined;
@@ -41,10 +33,11 @@ export default function ReviewStudio() {
 
   const {
     getAttempt,
-    addAnnotation,
-    removeAnnotation,
+    saveEditedFile,
+    saveEditedFilesBatch,
+    resetEditedFiles,
     useHint,
-    recordGrade,
+    recordTestRun,
     revealReference,
   } = useReviewProgress();
 
@@ -56,38 +49,138 @@ export default function ReviewStudio() {
     return primary ? primary.filename : scenario.files[0]?.filename || '';
   });
 
-  const [selectedLine, setSelectedLine] = useState<number | undefined>(undefined);
+  const [editedFiles, setEditedFiles] = useState<Record<string, string>>({});
+  const [testResults, setTestResults] = useState<ReviewTestResult[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
+  const [runError, setRunError] = useState<string | null>(null);
+  const autoRanSlugRef = useRef<string | null>(null);
 
-  // Sync active filename on slug change
+  // Sync local editor buffers when navigating between scenarios
   useEffect(() => {
-    if (scenario) {
-      const primary = scenario.files.find((f) => f.is_primary);
-      setActiveFilename(primary ? primary.filename : scenario.files[0]?.filename || '');
-      setSelectedLine(undefined);
+    if (!scenario) return;
+    const primary = scenario.files.find((f) => f.is_primary);
+    setActiveFilename(primary ? primary.filename : scenario.files[0]?.filename || '');
+
+    const storedAttempt = getAttempt(scenario.id);
+    const initialMap: Record<string, string> = {};
+    for (const f of scenario.files) {
+      initialMap[f.filename] = storedAttempt.editedFiles?.[f.filename] ?? f.content;
     }
-  }, [scenario]);
-
-  // Scroll to top on slug change
-  useEffect(() => {
+    setEditedFiles(initialMap);
+    setTestResults(storedAttempt.testResults || []);
+    setRunError(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [slug]);
+  }, [scenario?.id]);
+
+  const handleRunTests = useCallback(
+    async (overrideFiles?: Record<string, string>) => {
+      if (!scenario || isRunning) return;
+      const targetFiles = overrideFiles || editedFiles;
+      setIsRunning(true);
+      setRunError(null);
+
+      try {
+        const results = await runReviewScenarioTests(scenario, targetFiles);
+        setTestResults(results);
+        recordTestRun(scenario.id, results, scenario.review_rubric.max_score);
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setRunError(msg);
+      } finally {
+        setIsRunning(false);
+      }
+    },
+    [scenario, editedFiles, isRunning, recordTestRun],
+  );
+
+  // Auto-run fast in-browser JS/TS tests once on first open so failing tests appear immediately
+  useEffect(() => {
+    if (!scenario || !scenario.testSuite) return;
+    if (scenario.testSuite.executionMode !== 'client_js') return;
+    if (autoRanSlugRef.current === scenario.slug) return;
+    if (Object.keys(editedFiles).length === 0) return;
+
+    autoRanSlugRef.current = scenario.slug;
+    const stored = getAttempt(scenario.id);
+    if (!stored.testResults || stored.testResults.length === 0) {
+      handleRunTests(editedFiles);
+    }
+  }, [scenario, editedFiles, getAttempt, handleRunTests]);
+
+  // Global Ctrl+Enter / Cmd+Enter to run tests
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        handleRunTests();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [handleRunTests]);
+
+  const handleUpdateFile = useCallback(
+    (filename: string, nextContent: string) => {
+      if (!scenario) return;
+      setEditedFiles((prev) => ({ ...prev, [filename]: nextContent }));
+      saveEditedFile(scenario.id, filename, nextContent);
+    },
+    [scenario, saveEditedFile],
+  );
+
+  const handleResetSingleFile = useCallback(
+    (filename: string) => {
+      if (!scenario) return;
+      const starter = scenario.files.find((f) => f.filename === filename);
+      if (!starter) return;
+      setEditedFiles((prev) => ({ ...prev, [filename]: starter.content }));
+      saveEditedFile(scenario.id, filename, starter.content);
+    },
+    [scenario, saveEditedFile],
+  );
+
+  const handleResetAll = useCallback(() => {
+    if (!scenario) return;
+    if (!window.confirm('Reset all files back to the original buggy code?')) return;
+    const fresh: Record<string, string> = {};
+    for (const f of scenario.files) {
+      fresh[f.filename] = f.content;
+    }
+    setEditedFiles(fresh);
+    setTestResults([]);
+    setRunError(null);
+    resetEditedFiles(scenario.id);
+  }, [scenario, resetEditedFiles]);
+
+  const handleApplyReferenceFix = useCallback(() => {
+    if (!scenario?.testSuite?.solutionFiles) return;
+    if (!window.confirm('Apply the Staff Engineer reference fix to your editor?')) return;
+
+    const patched: Record<string, string> = { ...editedFiles };
+    for (const sol of scenario.testSuite.solutionFiles) {
+      patched[sol.filename] = sol.content;
+    }
+    setEditedFiles(patched);
+    saveEditedFilesBatch(scenario.id, patched);
+    handleRunTests(patched);
+  }, [scenario, editedFiles, saveEditedFilesBatch, handleRunTests]);
 
   if (!scenario || !attempt) {
     return (
       <div className="mx-auto max-w-xl px-4 py-20 text-center space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight text-primary">Review Scenario Not Found</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-primary">Scenario Not Found</h2>
         <p className="text-sm text-muted">
-          The requested code review challenge &ldquo;{slug}&rdquo; does not exist in the active catalog.
+          The requested debugging scenario &ldquo;{slug}&rdquo; does not exist in the active catalog.
         </p>
         <Link to="/review" className="btn-primary inline-flex items-center gap-2 mt-4">
-          <ArrowLeft size={16} /> Return to Review Arena
+          <ArrowLeft size={16} /> Return to Debugging Arena
         </Link>
       </div>
     );
   }
 
   const cat = CATEGORY_CONFIG[scenario.category];
-  const isCompleted = attempt.score !== undefined;
+  const isFixed = Boolean(attempt.verifiedFixed);
 
   return (
     <div className="mx-auto max-w-[1520px] px-4 py-6 sm:px-6 lg:px-8 space-y-6 animate-in fade-in">
@@ -100,10 +193,10 @@ export default function ReviewStudio() {
           <Link
             to="/review"
             className="btn-secondary h-9 px-3 text-xs font-semibold gap-1.5"
-            aria-label="Back to Review Arena"
+            aria-label="Back to Debugging Arena"
           >
             <ArrowLeft size={14} />
-            <span>Review Arena</span>
+            <span>Debugging Arena</span>
           </Link>
           <span className="text-muted text-sm">/</span>
           <span className="font-mono text-xs font-bold text-indigo-500 uppercase">
@@ -114,14 +207,24 @@ export default function ReviewStudio() {
           </span>
         </div>
 
-        {/* Status and Pagination */}
-        <div className="flex items-center gap-3">
-          {isCompleted && (
+        {/* Status, Reset & Pagination */}
+        <div className="flex items-center gap-2.5">
+          {isFixed && (
             <span className="inline-flex items-center gap-1 font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/30">
               <CheckCircle2 size={13} />
-              Score: {attempt.score}/{scenario.review_rubric.max_score} pts
+              Fixed &middot; {attempt.bestScore ?? scenario.review_rubric.max_score} pts
             </span>
           )}
+
+          <button
+            type="button"
+            onClick={handleResetAll}
+            className="btn-secondary h-9 px-3 text-xs font-semibold gap-1.5"
+            title="Reset all files to buggy starter"
+          >
+            <RotateCcw size={13} />
+            <span className="hidden sm:inline">Reset Buggy Code</span>
+          </button>
 
           {navNeighbors.prev && (
             <Link
@@ -147,7 +250,7 @@ export default function ReviewStudio() {
 
       {/* Main 2-Column Responsive Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (5 cols): Scenario Brief, Annotations, Rubric & Hints */}
+        {/* Left Column (5 cols): Incident Brief, Live Failing Tests, Hints */}
         <div className="lg:col-span-5 space-y-6">
           {/* Brief Card */}
           <section
@@ -161,7 +264,7 @@ export default function ReviewStudio() {
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] text-muted font-mono">
                   <Clock size={12} />
-                  {scenario.estimated_minutes} min audit
+                  {scenario.estimated_minutes} min fix
                 </span>
               </div>
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-primary">
@@ -177,7 +280,7 @@ export default function ReviewStudio() {
               <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-3.5 space-y-1">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-purple-400">
                   <Bot size={13} />
-                  <span>AI Generation Brief</span>
+                  <span>AI Generation Context</span>
                 </div>
                 <p className="text-[11px] text-muted leading-relaxed">
                   {scenario.ai_generation_context}
@@ -186,8 +289,13 @@ export default function ReviewStudio() {
             )}
 
             {scenario.company_tags.length > 0 && (
-              <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t text-[11px]" style={{ borderColor: 'var(--ca-border)' }}>
-                <span className="text-[10px] uppercase font-bold text-muted mr-1">Interview Context:</span>
+              <div
+                className="flex flex-wrap items-center gap-1.5 pt-2 border-t text-[11px]"
+                style={{ borderColor: 'var(--ca-border)' }}
+              >
+                <span className="text-[10px] uppercase font-bold text-muted mr-1">
+                  Interview Context:
+                </span>
                 {scenario.company_tags.map((tag) => (
                   <span
                     key={tag}
@@ -200,29 +308,16 @@ export default function ReviewStudio() {
             )}
           </section>
 
-          {/* Annotations List & Add Form */}
-          <AnnotationPanel
-            files={scenario.files}
-            activeFilename={activeFilename}
-            annotations={attempt.annotations}
-            selectedLine={selectedLine}
-            onAddAnnotation={(ann) => addAnnotation(scenario.id, ann)}
-            onRemoveAnnotation={(annId) => removeAnnotation(scenario.id, annId)}
-            onSelectLine={(fn, line) => {
-              setActiveFilename(fn);
-              setSelectedLine(line);
-            }}
-          />
-
-          {/* Rubric Grader & Scorecard */}
-          <RubricGrader
+          {/* End-to-End Test Runner & Verification */}
+          <ReviewTestPanel
             scenario={scenario}
-            annotations={attempt.annotations}
             attempt={attempt}
-            onGrade={(score, maxScore, matchedBugIds) =>
-              recordGrade(scenario.id, score, maxScore, matchedBugIds)
-            }
+            testResults={testResults}
+            isRunning={isRunning}
+            runError={runError}
+            onRunTests={() => handleRunTests()}
             onRevealReference={() => revealReference(scenario.id)}
+            onApplyReferenceFix={handleApplyReferenceFix}
           />
 
           {/* Progressive Hint Ladder */}
@@ -233,18 +328,15 @@ export default function ReviewStudio() {
           />
         </div>
 
-        {/* Right Column (7 cols): Monaco Multi-File Code Diff Viewer */}
+        {/* Right Column (7 cols): Editable Multi-File Code & Diff Viewer */}
         <div className="lg:col-span-7 sticky top-4 space-y-4">
           <FileDiffViewer
             files={scenario.files}
+            editedFiles={editedFiles}
             activeFilename={activeFilename}
-            onSelectFile={(fn) => {
-              setActiveFilename(fn);
-              setSelectedLine(undefined);
-            }}
-            annotations={attempt.annotations}
-            selectedLine={selectedLine}
-            onSelectLine={(line) => setSelectedLine(line)}
+            onSelectFile={(fn) => setActiveFilename(fn)}
+            onUpdateFile={handleUpdateFile}
+            onResetFile={handleResetSingleFile}
             plantedBugs={scenario.planted_bugs}
             showBugDecorations={Boolean(attempt.referenceRevealed)}
           />

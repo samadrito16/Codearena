@@ -19,6 +19,7 @@ import certificateRoutes from './routes/certificateRoutes.js';
 import publicProfileRoutes from './routes/publicProfileRoutes.js';
 import contestRoutes from './routes/contestRoutes.js';
 import peerSolutionRoutes from './routes/peerSolutionRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 
 const app = express();
 
@@ -96,6 +97,7 @@ app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/public', publicProfileRoutes);
 app.use('/api/contests', contestRoutes);
+app.use('/api/review', reviewRoutes);
 app.use('/api', peerSolutionRoutes);
 
 // 404 handler for unknown routes

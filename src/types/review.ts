@@ -9,7 +9,9 @@ export type ReviewDifficulty = 'Easy' | 'Medium' | 'Hard' | 'Expert';
 
 export type BugSeverity = 'critical' | 'major' | 'minor';
 
-export type AnnotationCategory = 'bug' | 'performance' | 'security' | 'style' | 'question';
+export type ReviewExecutionMode = 'client_js' | 'backend_container';
+
+export type ReviewRuntimeLanguage = 'javascript' | 'typescript' | 'python';
 
 export interface ReviewFile {
   filename: string;
@@ -44,6 +46,37 @@ export interface ReviewRubric {
   items: RubricItem[];
 }
 
+export interface ReviewTestCase {
+  id: string;
+  title: string;
+  description: string;
+  isRegressionCheck?: boolean;
+}
+
+export interface ReviewTestResult {
+  testId: string;
+  title: string;
+  passed: boolean;
+  error?: string;
+  expected?: string;
+  actual?: string;
+  durationMs?: number;
+}
+
+export interface ReviewSolutionFile {
+  filename: string;
+  content: string;
+}
+
+export interface ReviewTestSuite {
+  scenarioId: string;
+  executionMode: ReviewExecutionMode;
+  runtimeLanguage: ReviewRuntimeLanguage;
+  testCases: ReviewTestCase[];
+  harnessCode: string;
+  solutionFiles: ReviewSolutionFile[];
+}
+
 export interface ReviewScenario {
   id: string;
   slug: string;
@@ -59,6 +92,7 @@ export interface ReviewScenario {
   reference_review: string;
   ai_generation_context?: string;
   learning_tags: string[];
+  testSuite?: ReviewTestSuite;
 }
 
 export interface ReviewCatalog {
@@ -71,22 +105,15 @@ export interface ReviewCatalog {
   scenarios: ReviewScenario[];
 }
 
-export interface LineAnnotation {
-  id: string;
-  filename: string;
-  lineNumber: number;
-  comment: string;
-  category: AnnotationCategory;
-  timestamp: string;
-}
-
 export interface ScenarioAttempt {
   scenarioId: string;
-  annotations: LineAnnotation[];
+  editedFiles: Record<string, string>;
+  testResults?: ReviewTestResult[];
+  testsPassedCount?: number;
+  totalTestsCount?: number;
+  verifiedFixed?: boolean;
   score?: number;
   maxScore?: number;
-  matchedBugIds?: string[];
-  rubricRevealed?: boolean;
   referenceRevealed?: boolean;
   hintsUsed: Record<string, number>; // bug_id -> hint level (1, 2, or 3)
   startedAt: string;
@@ -102,8 +129,8 @@ export interface ReviewProgressStore {
 export interface OverallReviewStats {
   totalScenarios: number;
   attemptedScenarios: number;
-  reviewedScenarios: number;
-  totalBugsCaught: number;
+  fixedScenarios: number;
+  totalTestsPassing: number;
   totalPointsEarned: number;
   totalMaxPoints: number;
   categoryStats: Record<ReviewCategory, { total: number; completed: number }>;

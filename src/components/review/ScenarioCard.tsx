@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   CheckCircle2,
   Clock,
+  Wrench,
 } from 'lucide-react';
 import { ReviewScenario, ScenarioAttempt } from '../../types/review';
 
@@ -12,9 +13,15 @@ interface ScenarioCardProps {
   isLocked?: boolean;
 }
 
-export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCardProps) {
-  const isCompleted = attempt?.score !== undefined;
-  const hasStarted = Boolean(attempt && attempt.annotations.length > 0 && !isCompleted);
+export default function ScenarioCard({ scenario, attempt }: ScenarioCardProps) {
+  const isFixed = Boolean(attempt?.verifiedFixed);
+  const totalTests = scenario.testSuite?.testCases.length || attempt?.totalTestsCount || 0;
+  const passedTests = attempt?.testsPassedCount || 0;
+  const hasStarted = Boolean(
+    !isFixed &&
+      attempt &&
+      (Object.keys(attempt.editedFiles || {}).length > 0 || attempt.testResults !== undefined),
+  );
 
   const diffColors = {
     Easy: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
@@ -23,13 +30,15 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
     Expert: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
   }[scenario.difficulty];
 
+  const primaryLang = scenario.files[0]?.language || 'js';
+
   return (
     <Link
       to={`/review/${scenario.slug}`}
       className="group relative flex flex-col justify-between rounded-2xl border p-5 sm:p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
       style={{
         background: 'var(--ca-surface)',
-        borderColor: isCompleted ? 'rgba(16, 185, 129, 0.35)' : 'var(--ca-border)',
+        borderColor: isFixed ? 'rgba(16, 185, 129, 0.35)' : 'var(--ca-border)',
       }}
     >
       <div>
@@ -39,6 +48,9 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
             <span className={`px-2 py-0.5 rounded-md text-[11px] font-bold border ${diffColors}`}>
               {scenario.difficulty}
             </span>
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold uppercase bg-black/5 dark:bg-white/5 text-muted">
+              {primaryLang}
+            </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-muted">
@@ -46,15 +58,16 @@ export default function ScenarioCard({ scenario, attempt, isLocked }: ScenarioCa
               <Clock size={12} />
               {scenario.estimated_minutes}m
             </span>
-            {isCompleted && (
+            {isFixed && (
               <span className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
                 <CheckCircle2 size={12} />
-                {attempt?.score} / {scenario.review_rubric.max_score} pts
+                Fixed ({totalTests}/{totalTests})
               </span>
             )}
             {hasStarted && (
               <span className="inline-flex items-center gap-1 font-mono text-[11px] text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
-                In Review ({attempt?.annotations.length} comments)
+                <Wrench size={11} />
+                {attempt?.testResults ? `${passedTests}/${totalTests} passing` : 'Edited'}
               </span>
             )}
           </div>

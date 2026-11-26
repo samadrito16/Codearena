@@ -37,13 +37,13 @@
           "filename": "requestTracker.js",
           "language": "javascript",
           "is_primary": true,
-          "content": "const store = new Map();\n\nlet activeConcurrentRequests = 0;\n\nasync function trackRequest(clientId, maxConcurrent, nextHandler) {\n  if (activeConcurrentRequests >= maxConcurrent) {\n    const err = new Error('Rate limit exceeded');\n    err.statusCode = 429;\n    throw err;\n  }\n\n  // Non-atomic read followed by asynchronous tick\n  activeConcurrentRequests++;\n  store.set(clientId, (store.get(clientId) || 0) + 1);\n\n  try {\n    const result = await nextHandler();\n    return result;\n  } finally {\n    // Critical bug: activeConcurrentRequests can decrement on unhandled synchronously rejected handlers\n    activeConcurrentRequests--;\n  }\n}\n\nfunction getActiveCount() {\n  return activeConcurrentRequests;\n}\n\nmodule.exports = { trackRequest, getActiveCount };\n"
+          "content": "const store = new Map();\n\nlet activeConcurrentRequests = 0;\n\nasync function trackRequest(clientId, maxConcurrent, nextHandler) {\n  if (activeConcurrentRequests >= maxConcurrent) {\n    const err = new Error('Rate limit exceeded');\n    err.statusCode = 429;\n    throw err;\n  }\n\n\n  activeConcurrentRequests++;\n  store.set(clientId, (store.get(clientId) || 0) + 1);\n\n  try {\n    const result = await nextHandler();\n    return result;\n  } finally {\n\n    activeConcurrentRequests--;\n  }\n}\n\nfunction getActiveCount() {\n  return activeConcurrentRequests;\n}\n\nmodule.exports = { trackRequest, getActiveCount };\n"
         },
         {
           "filename": "middleware.js",
           "language": "javascript",
           "is_primary": false,
-          "content": "const { trackRequest } = require('./requestTracker');\n\nfunction rateLimitMiddleware(req, res, next) {\n  const clientId = req.headers['x-client-id'] || 'anonymous';\n  const maxConcurrent = parseInt(req.headers['x-max-concurrent'] || '10', 10);\n\n  // Bug: next() in Express is callback-based; wrapping in trackRequest without Promise bridging leaks finally decrement\n  trackRequest(clientId, maxConcurrent, () => next())\n    .catch((err) => {\n      res.status(err.statusCode || 500).json({ error: err.message });\n    });\n}\n\nmodule.exports = rateLimitMiddleware;\n"
+          "content": "const { trackRequest } = require('./requestTracker');\n\nfunction rateLimitMiddleware(req, res, next) {\n  const clientId = req.headers['x-client-id'] || 'anonymous';\n  const maxConcurrent = parseInt(req.headers['x-max-concurrent'] || '10', 10);\n\n\n  trackRequest(clientId, maxConcurrent, () => next())\n    .catch((err) => {\n      res.status(err.statusCode || 500).json({ error: err.message });\n    });\n}\n\nmodule.exports = rateLimitMiddleware;\n"
         }
       ],
       "planted_bugs": [
@@ -122,13 +122,13 @@
           "filename": "embedding_pipeline.py",
           "language": "python",
           "is_primary": true,
-          "content": "import asyncio\nimport aiohttp\n\nasync def fetch_chunk_embedding(session: aiohttp.ClientSession, url: str, text: str) -> dict:\n    async with session.post(url, json={\"text\": text}, timeout=aiohttp.ClientTimeout(total=5)) as resp:\n        if resp.status != 200:\n            raise RuntimeError(f\"Model endpoint failed with status {resp.status}\")\n        return await resp.json()\n\nasync def process_batch_embeddings(urls: list[str], documents: list[str]) -> list[dict]:\n    # Shared session initialized without connection limit\n    async with aiohttp.ClientSession() as session:\n        tasks = [\n            asyncio.create_task(fetch_chunk_embedding(session, url, doc))\n            for url, doc in zip(urls, documents)\n        ]\n\n        # Critical flaw: return_exceptions=True swallows errors, but orphan tasks are not cancelled\n        results = await asyncio.gather(*tasks, return_exceptions=True)\n\n        clean_results = []\n        for res in results:\n            if isinstance(res, Exception):\n                # Bug: Logged but other tasks continue running and session closes prematurely\n                print(f\"Warning: chunk failure: {res}\")\n            else:\n                clean_results.append(res)\n\n        return clean_results\n"
+          "content": "import asyncio\nimport aiohttp\n\nasync def fetch_chunk_embedding(session: aiohttp.ClientSession, url: str, text: str) -> dict:\n    async with session.post(url, json={\"text\": text}, timeout=aiohttp.ClientTimeout(total=5)) as resp:\n        if resp.status != 200:\n            raise RuntimeError(f\"Model endpoint failed with status {resp.status}\")\n        return await resp.json()\n\nasync def process_batch_embeddings(urls: list[str], documents: list[str]) -> list[dict]:\n    # Shared session initialized without connection limit\n    async with aiohttp.ClientSession() as session:\n        tasks = [\n            asyncio.create_task(fetch_chunk_embedding(session, url, doc))\n            for url, doc in zip(urls, documents)\n        ]\n\n\n        results = await asyncio.gather(*tasks, return_exceptions=True)\n\n        clean_results = []\n        for res in results:\n            if isinstance(res, Exception):\n\n                print(f\"Warning: chunk failure: {res}\")\n            else:\n                clean_results.append(res)\n\n        return clean_results\n"
         },
         {
           "filename": "orchestrator.py",
           "language": "python",
           "is_primary": false,
-          "content": "import asyncio\nfrom embedding_pipeline import process_batch_embeddings\n\nasync def run_pipeline(batch_data):\n    urls = batch_data['endpoints']\n    docs = batch_data['documents']\n    \n    # Timeout wrap at orchestrator level\n    try:\n        return await asyncio.wait_for(process_batch_embeddings(urls, docs), timeout=10.0)\n    except asyncio.TimeoutError:\n        # Bug: wait_for cancels process_batch_embeddings, but subtasks created via create_task linger\n        print(\"Orchestration timed out!\")\n        return []\n"
+          "content": "import asyncio\nfrom embedding_pipeline import process_batch_embeddings\n\nasync def run_pipeline(batch_data):\n    urls = batch_data['endpoints']\n    docs = batch_data['documents']\n\n    # Timeout wrap at orchestrator level\n    try:\n        return await asyncio.wait_for(process_batch_embeddings(urls, docs), timeout=10.0)\n    except asyncio.TimeoutError:\n\n        print(\"Orchestration timed out!\")\n        return []\n"
         }
       ],
       "planted_bugs": [
@@ -207,7 +207,7 @@
           "filename": "authService.js",
           "language": "javascript",
           "is_primary": true,
-          "content": "const jwt = require('jsonwebtoken');\nconst config = require('./config');\n\nfunction verifyUserToken(token) {\n  if (!token) {\n    throw new Error('Token missing');\n  }\n\n  // Bug: jsonwebtoken.decode without verify used to extract algorithm\n  const decodedHeader = jwt.decode(token, { complete: true });\n  if (!decodedHeader || !decodedHeader.header) {\n    throw new Error('Malformed token structure');\n  }\n\n  const alg = decodedHeader.header.alg;\n  \n  // Critical vulnerability: Algorithm confusion attack\n  // Allows attacker to sign token using HMAC with the RSA public key string as secret\n  let verificationKey = config.publicKey;\n  if (alg.startsWith('HS')) {\n    verificationKey = config.hmacSecret || config.publicKey;\n  }\n\n  // Bug: algorithms option not strictly pinned in verify call\n  return jwt.verify(token, verificationKey);\n}\n\nmodule.exports = { verifyUserToken };\n"
+          "content": "const jwt = require('jsonwebtoken');\nconst config = require('./config');\n\nfunction verifyUserToken(token) {\n  if (!token) {\n    throw new Error('Token missing');\n  }\n\n\n  const decodedHeader = jwt.decode(token, { complete: true });\n  if (!decodedHeader || !decodedHeader.header) {\n    throw new Error('Malformed token structure');\n  }\n\n  const alg = decodedHeader.header.alg;\n\n\n\n  let verificationKey = config.publicKey;\n  if (alg.startsWith('HS')) {\n    verificationKey = config.hmacSecret || config.publicKey;\n  }\n\n\n  return jwt.verify(token, verificationKey);\n}\n\nmodule.exports = { verifyUserToken };\n"
         },
         {
           "filename": "config.js",
@@ -292,7 +292,7 @@
           "filename": "chunker.py",
           "language": "python",
           "is_primary": true,
-          "content": "from typing import Generator, List, Any\n\ndef create_fixed_chunks(items: List[Any], batch_size: int) -> Generator[List[Any], None, None]:\n    \"\"\"Yield batches of fixed size.\"\"\"\n    total = len(items)\n    # Critical bug: integer division drops trailing remainder elements\n    num_full_batches = total // batch_size\n    \n    for i in range(num_full_batches):\n        start_idx = i * batch_size\n        end_idx = start_idx + batch_size\n        yield items[start_idx:end_idx]\n\ndef process_corpus(corpus: List[str], chunk_size: int = 32):\n    chunks_processed = 0\n    for batch in create_fixed_chunks(corpus, chunk_size):\n        # Send batch to vector database\n        chunks_processed += len(batch)\n    return chunks_processed\n"
+          "content": "from typing import Generator, List, Any\n\ndef create_fixed_chunks(items: List[Any], batch_size: int) -> Generator[List[Any], None, None]:\n    \"\"\"Yield batches of fixed size.\"\"\"\n    total = len(items)\n\n    num_full_batches = total // batch_size\n\n    for i in range(num_full_batches):\n        start_idx = i * batch_size\n        end_idx = start_idx + batch_size\n        yield items[start_idx:end_idx]\n\ndef process_corpus(corpus: List[str], chunk_size: int = 32):\n    chunks_processed = 0\n    for batch in create_fixed_chunks(corpus, chunk_size):\n        # Send batch to vector database\n        chunks_processed += len(batch)\n    return chunks_processed\n"
         }
       ],
       "planted_bugs": [
@@ -356,7 +356,7 @@
           "filename": "metrics.js",
           "language": "javascript",
           "is_primary": false,
-          "content": "const pool = require('./dbPool');\n\nfunction registerMetrics(poolRef) {\n  // Bug: Direct reliance on require('./dbPool') at module evaluation time when circular\n  console.log('Metrics initialized for pool connection:', pool.connectionString || 'pending');\n}\n\nfunction getHealth() {\n  return pool.query('SELECT 1');\n}\n\nmodule.exports = { registerMetrics, getHealth };\n"
+          "content": "const pool = require('./dbPool');\n\nfunction registerMetrics(poolRef) {\n\n  console.log('Metrics initialized for pool connection:', pool.connectionString || 'pending');\n}\n\nfunction getHealth() {\n  return pool.query('SELECT 1');\n}\n\nmodule.exports = { registerMetrics, getHealth };\n"
         },
         {
           "filename": "userModel.js",
@@ -420,13 +420,13 @@
           "filename": "event_bus.py",
           "language": "python",
           "is_primary": true,
-          "content": "from typing import Callable, Dict, List, Any\n\nclass EventBus:\n    def __init__(self):\n        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}\n\n    def subscribe(self, event_name: str, handler: Callable[[Dict[str, Any]], None]):\n        self._subscribers.setdefault(event_name, []).append(handler)\n\n    def publish(self, event_name: str, payload: Dict[str, Any]):\n        for handler in self._subscribers.get(event_name, []):\n            # Bug: Raw dictionary reference passed to all listeners sequentially\n            handler(payload)\n"
+          "content": "from typing import Callable, Dict, List, Any\n\nclass EventBus:\n    def __init__(self):\n        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}\n\n    def subscribe(self, event_name: str, handler: Callable[[Dict[str, Any]], None]):\n        self._subscribers.setdefault(event_name, []).append(handler)\n\n    def publish(self, event_name: str, payload: Dict[str, Any]):\n        for handler in self._subscribers.get(event_name, []):\n\n            handler(payload)\n"
         },
         {
           "filename": "discount_service.py",
           "language": "python",
           "is_primary": false,
-          "content": "def apply_tax_and_discounts(event_payload: dict):\n    items = event_payload.get('items', [])\n    for item in items:\n        # Critical bug: In-place mutation of price and addition of tax modifies original payload for subsequent subscribers\n        item['price'] = item['price'] * 0.90\n    event_payload['discount_applied'] = True\n"
+          "content": "def apply_tax_and_discounts(event_payload: dict):\n    items = event_payload.get('items', [])\n    for item in items:\n\n        item['price'] = item['price'] * 0.90\n    event_payload['discount_applied'] = True\n"
         },
         {
           "filename": "audit_service.py",
@@ -466,71 +466,6 @@
       "reference_review": "### Architecture & Data Integrity Finding\n\n1. **Unintentional In-Place State Mutation (`discount_service.py:3-7`)**:\nPython dictionaries are mutable references. Mutating `item['price']` directly inside an event subscriber pollutes the state observed by any listener registered after it (`audit_service.py`).\n\n2. **Best Practice**:\nEvent handlers must never mutate incoming payloads in-place. Use immutable data structures (e.g. frozen dataclasses) or perform a shallow/deep copy before dispatching in `EventBus.publish`: `handler(copy.deepcopy(payload))`."
     },
     {
-      "id": "rev-007",
-      "slug": "go-goroutine-mutex-defer-leak",
-      "title": "Go Worker Pool Starvation via Missing Defer Unlock",
-      "category": "async_concurrency",
-      "difficulty": "Hard",
-      "company_tags": [
-        "Google",
-        "Uber",
-        "HashiCorp"
-      ],
-      "estimated_minutes": 20,
-      "context": "A distributed metrics ingestion pipeline in Go experiences worker pool lockup under elevated error rates. After a downstream timeout occurs, subsequent metric tasks block indefinitely on mutex acquisition, halting metric ingestion across all nodes.",
-      "ai_generation_context": "The PR was scaffolded using an AI code generator with the prompt: 'Write a concurrent Go worker pool with mutex-protected aggregated counters and early error returns.'",
-      "learning_tags": [
-        "go",
-        "concurrency",
-        "mutex-deadlock",
-        "defer-lifecycle",
-        "worker-pool"
-      ],
-      "files": [
-        {
-          "filename": "aggregator.go",
-          "language": "go",
-          "is_primary": true,
-          "content": "package metrics\n\nimport (\n\t\"errors\"\n\t\"sync\"\n\t\"time\"\n)\n\ntype Aggregator struct {\n\tmu      sync.Mutex\n\tcounts  map[string]int64\n\tmaxCap  int\n\tflushed time.Time\n}\n\nfunc (a *Aggregator) Record(metric string, value int64) error {\n\ta.mu.Lock()\n\t// Bug: Early return on capacity validation without unlocking mutex causes permanent deadlock\n\tif len(a.counts) >= a.maxCap {\n\t\treturn errors.New(\"aggregator capacity exceeded\")\n\t}\n\n\ta.counts[metric] += value\n\ta.mu.Unlock()\n\treturn nil\n}\n\nfunc (a *Aggregator) Flush() map[string]int64 {\n\ta.mu.Lock()\n\tdefer a.mu.Unlock()\n\n\tout := make(map[string]int64, len(a.counts))\n\tfor k, v := range a.counts {\n\t\tout[k] = v\n\t}\n\ta.counts = make(map[string]int64)\n\ta.flushed = time.Now()\n\treturn out\n}\n"
-        },
-        {
-          "filename": "dispatcher.go",
-          "language": "go",
-          "is_primary": false,
-          "content": "package metrics\n\nimport \"context\"\n\ntype Dispatcher struct {\n\tagg   *Aggregator\n\tqueue chan MetricEvent\n}\n\ntype MetricEvent struct {\n\tName  string\n\tValue int64\n}\n\nfunc (d *Dispatcher) ProcessEvent(ctx context.Context, ev MetricEvent) error {\n\tselect {\n\tcase <-ctx.Done():\n\t\treturn ctx.Err()\n\tdefault:\n\t\treturn d.agg.Record(ev.Name, ev.Value)\n\t}\n}\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "concurrency",
-          "file": "aggregator.go",
-          "line_range": [
-            18,
-            22
-          ],
-          "title": "Missing mutex unlock on early error return",
-          "explanation": "In `Record()`, `a.mu.Lock()` is acquired, but when `len(a.counts) >= a.maxCap`, the function returns early without releasing the lock. Once triggered, all future callers to `Record()` and `Flush()` block forever.",
-          "severity": "critical",
-          "expected_comment": "Immediate deadlock: `a.mu.Lock()` is acquired without `defer a.mu.Unlock()`. The error return on capacity check leaves the mutex locked permanently.",
-          "hint_level_1": "Trace what happens to the mutex when `len(a.counts) >= a.maxCap` is true.",
-          "hint_level_2": "Notice `a.mu.Unlock()` is only reached at the end of the method, bypassing early returns.",
-          "hint_level_3": "Replace explicit unlocks with `defer a.mu.Unlock()` immediately following `a.mu.Lock()`."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Mutex Leak Causing Worker Deadlock\n\n1. **Deadlock in `aggregator.go:18-22`**:\nThe mutex is locked manually with `a.mu.Lock()`, but the early return branch (`len(a.counts) >= a.maxCap`) exits without unlocking. Any single capacity overflow locks the `Aggregator` permanently, deadlocking all dispatcher goroutines.\n\n**Remediation:**\n```go\nfunc (a *Aggregator) Record(metric string, value int64) error {\n\ta.mu.Lock()\n\tdefer a.mu.Unlock()\n\n\tif len(a.counts) >= a.maxCap {\n\t\treturn errors.New(\"aggregator capacity exceeded\")\n\t}\n\n\ta.counts[metric] += value\n\treturn nil\n}\n```"
-    },
-    {
       "id": "rev-008",
       "slug": "ts-promise-all-failfast-unhandled",
       "title": "Promise.all Fail-Fast Mutates State After Upstream Cancellation",
@@ -556,7 +491,7 @@
           "filename": "orderCoordinator.ts",
           "language": "typescript",
           "is_primary": true,
-          "content": "export interface CheckoutPayload {\n  orderId: string;\n  userId: string;\n  items: Array<{ sku: string; qty: number }>;\n}\n\nexport async function processCheckout(\n  payload: CheckoutPayload,\n  inventorySvc: { reserve: (id: string, items: any[]) => Promise<void>; release: (id: string) => Promise<void> },\n  paymentSvc: { charge: (id: string, user: string) => Promise<void> },\n  loyaltySvc: { deductPoints: (user: string, pts: number) => Promise<void> }\n): Promise<void> {\n  // Bug: Promise.all rejects immediately upon the first failure, but remaining in-flight promises\n  // continue running to completion without cancellation or rollback compensation.\n  await Promise.all([\n    inventorySvc.reserve(payload.orderId, payload.items),\n    paymentSvc.charge(payload.orderId, payload.userId),\n    loyaltySvc.deductPoints(payload.userId, 50),\n  ]);\n}\n"
+          "content": "export interface CheckoutPayload {\n  orderId: string;\n  userId: string;\n  items: Array<{ sku: string; qty: number }>;\n}\n\nexport async function processCheckout(\n  payload: CheckoutPayload,\n  inventorySvc: { reserve: (id: string, items: any[]) => Promise<void>; release: (id: string) => Promise<void> },\n  paymentSvc: { charge: (id: string, user: string) => Promise<void> },\n  loyaltySvc: { deductPoints: (user: string, pts: number) => Promise<void> }\n): Promise<void> {\n\n  // continue running to completion without cancellation or rollback compensation.\n  await Promise.all([\n    inventorySvc.reserve(payload.orderId, payload.items),\n    paymentSvc.charge(payload.orderId, payload.userId),\n    loyaltySvc.deductPoints(payload.userId, 50),\n  ]);\n}\n"
         }
       ],
       "planted_bugs": [
@@ -614,7 +549,7 @@
           "filename": "reporting_service.py",
           "language": "python",
           "is_primary": true,
-          "content": "import sqlite3\nfrom typing import List, Dict, Any\n\ndef get_tenant_activity(db_conn: sqlite3.Connection, tenant_id: str, status: str) -> List[Dict[str, Any]]:\n    cursor = db_conn.cursor()\n    # Bug: AI assistant used f-string string interpolation directly into SQL statement\n    query = f\"SELECT id, event_type, created_at FROM audit_logs WHERE tenant_id = '{tenant_id}' AND status = '{status}'\"\n    cursor.execute(query)\n    rows = cursor.fetchall()\n    return [{\"id\": r[0], \"event_type\": r[1], \"created_at\": r[2]} for r in rows]\n"
+          "content": "import sqlite3\nfrom typing import List, Dict, Any\n\ndef get_tenant_activity(db_conn: sqlite3.Connection, tenant_id: str, status: str) -> List[Dict[str, Any]]:\n    cursor = db_conn.cursor()\n\n    query = f\"SELECT id, event_type, created_at FROM audit_logs WHERE tenant_id = '{tenant_id}' AND status = '{status}'\"\n    cursor.execute(query)\n    rows = cursor.fetchall()\n    return [{\"id\": r[0], \"event_type\": r[1], \"created_at\": r[2]} for r in rows]\n"
         }
       ],
       "planted_bugs": [
@@ -672,7 +607,7 @@
           "filename": "cursorCodec.ts",
           "language": "typescript",
           "is_primary": true,
-          "content": "export function encodeCursor(id: number): string {\n  return Buffer.from(`item_${id}`).toString('base64');\n}\n\nexport function decodeCursor(cursorStr: string): number {\n  const decoded = Buffer.from(cursorStr, 'base64').toString('utf8');\n  const rawId = decoded.replace('item_', '');\n  \n  // Bug: AI used bitwise shift operator (| 0) for \"fast integer conversion\".\n  // In JavaScript, bitwise operators cast to signed 32-bit integer, wrapping values > 2^31-1 to negative!\n  return parseInt(rawId, 10) | 0;\n}\n"
+          "content": "export function encodeCursor(id: number): string {\n  return Buffer.from(`item_${id}`).toString('base64');\n}\n\nexport function decodeCursor(cursorStr: string): number {\n  const decoded = Buffer.from(cursorStr, 'base64').toString('utf8');\n  const rawId = decoded.replace('item_', '');\n\n\n\n  return parseInt(rawId, 10) | 0;\n}\n"
         }
       ],
       "planted_bugs": [
@@ -730,7 +665,7 @@
           "filename": "order_saga.py",
           "language": "python",
           "is_primary": true,
-          "content": "import logging\nfrom wallet_store import WalletStore\nfrom cache_store import CacheStore\n\nlogger = logging.getLogger(__name__)\n\nclass OrderSaga:\n    def __init__(self, wallet: WalletStore, cache: CacheStore):\n        self.wallet = wallet\n        self.cache = cache\n\n    def execute_order(self, user_id: str, order_id: str, amount_cents: int) -> bool:\n        # Step 1: Deduct from primary wallet\n        tx_id = self.wallet.deduct_balance(user_id, amount_cents)\n        \n        try:\n            # Step 2: Write reservation to cache\n            self.cache.store_reservation(order_id, user_id, amount_cents)\n            return True\n        except Exception as e:\n            logger.error(f\"Failed to reserve order in cache: {e}\")\n            # Bug: Exception caught and logged, but no compensation transaction called to refund the wallet!\n            return False\n"
+          "content": "import logging\nfrom wallet_store import WalletStore\nfrom cache_store import CacheStore\n\nlogger = logging.getLogger(__name__)\n\nclass OrderSaga:\n    def __init__(self, wallet: WalletStore, cache: CacheStore):\n        self.wallet = wallet\n        self.cache = cache\n\n    def execute_order(self, user_id: str, order_id: str, amount_cents: int) -> bool:\n        # Step 1: Deduct from primary wallet\n        tx_id = self.wallet.deduct_balance(user_id, amount_cents)\n\n        try:\n            # Step 2: Write reservation to cache\n            self.cache.store_reservation(order_id, user_id, amount_cents)\n            return True\n        except Exception as e:\n            logger.error(f\"Failed to reserve order in cache: {e}\")\n\n            return False\n"
         },
         {
           "filename": "wallet_store.py",
@@ -742,7 +677,7 @@
           "filename": "cache_store.py",
           "language": "python",
           "is_primary": false,
-          "content": "class CacheStore:\n    def store_reservation(self, order_id: str, user_id: str, amount: int) -> None:\n        # Intermittent network timeout can throw ConnectionError\n        pass\n"
+          "content": "class CacheStore:\n    def store_reservation(self, order_id: str, user_id: str, amount: int) -> None:\n\n        pass\n"
         }
       ],
       "planted_bugs": [
@@ -800,13 +735,13 @@
           "filename": "webhookHandler.js",
           "language": "javascript",
           "is_primary": true,
-          "content": "const { updateAccountStatus } = require('./accountService');\n\nasync function handleIncomingWebhook(req, res) {\n  const { accountId, newStatus, eventTimestamp } = req.body;\n\n  // Bug: Status is unconditionally applied based on arrival time rather than event monotonic timestamp\n  await updateAccountStatus(accountId, newStatus);\n  return res.status(200).json({ ok: true });\n}\n\nmodule.exports = { handleIncomingWebhook };\n"
+          "content": "const { updateAccountStatus } = require('./accountService');\n\nasync function handleIncomingWebhook(req, res) {\n  const { accountId, newStatus, eventTimestamp } = req.body;\n\n\n  await updateAccountStatus(accountId, newStatus);\n  return res.status(200).json({ ok: true });\n}\n\nmodule.exports = { handleIncomingWebhook };\n"
         },
         {
           "filename": "accountService.js",
           "language": "javascript",
           "is_primary": false,
-          "content": "const db = new Map();\n\nasync function updateAccountStatus(accountId, newStatus) {\n  const current = db.get(accountId) || { status: 'PENDING', lastUpdated: 0 };\n  current.status = newStatus;\n  current.lastUpdated = Date.now(); // Overwrites with arrival timestamp\n  db.set(accountId, current);\n}\n\nmodule.exports = { updateAccountStatus };\n"
+          "content": "const db = new Map();\n\nasync function updateAccountStatus(accountId, newStatus) {\n  const current = db.get(accountId) || { status: 'PENDING', lastUpdated: 0 };\n  current.status = newStatus;\n  current.lastUpdated = Date.now();\n  db.set(accountId, current);\n}\n\nfunction getAccountStatus(accountId) {\n  return db.get(accountId);\n}\n\nmodule.exports = { updateAccountStatus, getAccountStatus };\n"
         }
       ],
       "planted_bugs": [
@@ -865,13 +800,13 @@
           "filename": "dispatcher.py",
           "language": "python",
           "is_primary": true,
-          "content": "import requests\nfrom url_validator import is_safe_webhook_url\n\ndef dispatch_webhook(target_url: str, payload: dict) -> int:\n  # Check safety\n  if not is_safe_webhook_url(target_url):\n    raise ValueError(\"Target URL is not permitted\")\n\n  # Bug: requests.post resolves target_url again without pinning the validated IP address,\n  # and url_validator only checks scheme, missing loopback, AWS metadata, and private IP CIDRs!\n  response = requests.post(target_url, json=payload, timeout=5)\n  return response.status_code\n"
+          "content": "import requests\nfrom url_validator import is_safe_webhook_url\n\ndef dispatch_webhook(target_url: str, payload: dict) -> int:\n\n  if not is_safe_webhook_url(target_url):\n    raise ValueError(\"Target URL is not permitted\")\n\n\n\n  response = requests.post(target_url, json=payload, timeout=5)\n  return response.status_code\n"
         },
         {
           "filename": "url_validator.py",
           "language": "python",
           "is_primary": false,
-          "content": "from urllib.parse import urlparse\n\ndef is_safe_webhook_url(url: str) -> bool:\n  parsed = urlparse(url)\n  # Inadequate check: only checks scheme is https and hostname does not contain 'localhost'\n  if parsed.scheme != \"https\":\n    return False\n  if \"localhost\" in (parsed.hostname or \"\").lower():\n    return False\n  return True\n"
+          "content": "from urllib.parse import urlparse\n\ndef is_safe_webhook_url(url: str) -> bool:\n  parsed = urlparse(url)\n\n  if parsed.scheme != \"https\":\n    return False\n  if \"localhost\" in (parsed.hostname or \"\").lower():\n    return False\n  return True\n"
         }
       ],
       "planted_bugs": [
@@ -928,7 +863,7 @@
           "filename": "deepMerge.js",
           "language": "javascript",
           "is_primary": true,
-          "content": "function isObject(item) {\n  return item && typeof item === 'object' && !Array.isArray(item);\n}\n\nfunction deepMerge(target, source) {\n  for (const key of Object.keys(source)) {\n    // Bug: Merging keys without filtering '__proto__' or 'constructor'\n    // allows attackers to pollute Object.prototype!\n    if (isObject(source[key])) {\n      if (!target[key]) target[key] = {};\n      deepMerge(target[key], source[key]);\n    } else {\n      target[key] = source[key];\n    }\n  }\n  return target;\n}\n\nmodule.exports = { deepMerge };\n"
+          "content": "function isObject(item) {\n  return item && typeof item === 'object' && !Array.isArray(item);\n}\n\nfunction deepMerge(target, source) {\n  for (const key of Object.keys(source)) {\n\n\n    if (isObject(source[key])) {\n      if (!target[key]) target[key] = {};\n      deepMerge(target[key], source[key]);\n    } else {\n      target[key] = source[key];\n    }\n  }\n  return target;\n}\n\nmodule.exports = { deepMerge };\n"
         }
       ],
       "planted_bugs": [
@@ -962,64 +897,6 @@
       "reference_review": "### Critical Finding: Prototype Pollution in Object Merge\n\n1. **Unfiltered Object Keys in `deepMerge.js:7-13`**:\nIterating through `Object.keys(source)` without sanitization permits malicious keys (`__proto__`, `constructor`, `prototype`). When traversed, `target[key]` resolves to `Object.prototype`, enabling attackers to override core methods or default authentication flags.\n\n**Fix:**\n```javascript\nif (key === '__proto__' || key === 'constructor' || key === 'prototype') {\n  continue;\n}\n```"
     },
     {
-      "id": "rev-015",
-      "slug": "cpp-use-after-free-vector-realloc",
-      "title": "Pointer Invalidation via Vector Growth in In-Memory Session Cache",
-      "category": "security_audit",
-      "difficulty": "Expert",
-      "company_tags": [
-        "CrowdStrike",
-        "Google",
-        "Microsoft"
-      ],
-      "estimated_minutes": 25,
-      "context": "A low-latency in-memory session index in C++ caches pointers to Session objects stored in a `std::vector`. Under traffic spikes, memory corruption and segfaults occur due to dangling pointer dereferences.",
-      "learning_tags": [
-        "cpp",
-        "memory-safety",
-        "pointer-invalidation",
-        "use-after-free",
-        "vector-realloc"
-      ],
-      "files": [
-        {
-          "filename": "session_cache.cpp",
-          "language": "cpp",
-          "is_primary": true,
-          "content": "#include <vector>\n#include <string>\n#include <unordered_map>\n#include <iostream>\n\nstruct Session {\n    std::string token;\n    uint64_t userId;\n    bool active;\n};\n\nclass SessionCache {\nprivate:\n    std::vector<Session> sessions;\n    std::unordered_map<std::string, Session*> indexByToken;\n\npublic:\n    void addSession(const std::string& token, uint64_t userId) {\n        sessions.push_back({token, userId, true});\n        \n        // Bug: sessions.push_back() can reallocate the underlying memory buffer,\n        // invalidating all previously stored pointers in indexByToken!\n        indexByToken[token] = &sessions.back();\n    }\n\n    Session* getSession(const std::string& token) {\n        auto it = indexByToken.find(token);\n        if (it != indexByToken.end()) {\n            return it->second; // Potential Use-After-Free if vector grew!\n        }\n        return nullptr;\n    }\n};\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "memory_corruption",
-          "file": "session_cache.cpp",
-          "line_range": [
-            19,
-            25
-          ],
-          "title": "Vector reallocation causes dangling pointers in lookup index",
-          "explanation": "`std::vector::push_back` invalidates all existing element pointers when capacity is exceeded and reallocation occurs. Pointers stored in `indexByToken` point to deallocated heap memory, causing Use-After-Free.",
-          "severity": "critical",
-          "expected_comment": "Use-after-free / pointer invalidation: `sessions.push_back` reallocates buffer, invalidating all existing `Session*` pointers in `indexByToken`.",
-          "hint_level_1": "What does `std::vector` do when its internal capacity is exceeded?",
-          "hint_level_2": "A vector allocates a new, larger memory block and deletes the old one, invalidating all addresses of its elements.",
-          "hint_level_3": "Store `std::unique_ptr<Session>` or indices (`size_t`) rather than raw pointers into a resizing vector."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Pointer Invalidation and Use-After-Free\n\n1. **Dangling Pointers in `session_cache.cpp:19-25`**:\nStoring raw pointers (`Session*`) into a dynamically resizing `std::vector<Session>` is fundamentally unsafe. Whenever the vector exceeds its capacity, it allocates a new buffer and deletes the old buffer. Every pointer previously stored in `indexByToken` becomes dangling, causing undefined behavior or remote code execution.\n\n**Remediation:**\nStore `std::vector<std::unique_ptr<Session>>` so pointer identities remain stable across vector reallocations, or index by numeric vector offset (`size_t`)."
-    },
-    {
       "id": "rev-016",
       "slug": "py-orm-n-plus-one-query-explosion",
       "title": "N+1 Query Explosion in Nested API Serializer",
@@ -1044,7 +921,7 @@
           "filename": "views.py",
           "language": "python",
           "is_primary": true,
-          "content": "from models import Post\n\ndef get_trending_feed():\n    # Bug: Query fetches Posts, but does not select_related('author') or prefetch_related('author__badges').\n    posts = Post.objects.filter(is_published=True).order_by('-view_count')[:100]\n    \n    serialized = []\n    for post in posts:\n        # Each iteration triggers a separate SQL query to load author, and another to load badges!\n        serialized.append({\n            \"id\": post.id,\n            \"title\": post.title,\n            \"author_name\": post.author.display_name,\n            \"badges\": [b.name for b in post.author.badges.all()]\n        })\n    return serialized\n"
+          "content": "from models import Post\n\ndef get_trending_feed():\n\n    posts = Post.objects.filter(is_published=True).order_by('-view_count')[:100]\n\n    serialized = []\n    for post in posts:\n\n        serialized.append({\n            \"id\": post.id,\n            \"title\": post.title,\n            \"author_name\": post.author.display_name,\n            \"badges\": [b.name for b in post.author.badges.all()]\n        })\n    return serialized\n"
         }
       ],
       "planted_bugs": [
@@ -1102,7 +979,7 @@
           "filename": "useElementSize.ts",
           "language": "typescript",
           "is_primary": true,
-          "content": "import { useState, useEffect, RefObject } from 'react';\n\nexport function useElementSize(elementRef: RefObject<HTMLElement>) {\n  const [size, setSize] = useState({ width: 0, height: 0 });\n\n  useEffect(() => {\n    if (!elementRef.current) return;\n\n    // Bug: A new ResizeObserver is created on every hook effect, but no cleanup\n    // function is returned to disconnect the observer on component unmount!\n    const observer = new ResizeObserver((entries) => {\n      const entry = entries[0];\n      if (entry) {\n        setSize({\n          width: entry.contentRect.width,\n          height: entry.contentRect.height,\n        });\n      }\n    });\n\n    observer.observe(elementRef.current);\n    // Missing: return () => observer.disconnect();\n  }, [elementRef]);\n\n  return size;\n}\n"
+          "content": "import { useState, useEffect, RefObject } from 'react';\n\nexport function useElementSize(elementRef: RefObject<HTMLElement>) {\n  const [size, setSize] = useState({ width: 0, height: 0 });\n\n  useEffect(() => {\n    if (!elementRef.current) return;\n\n\n\n    const observer = new ResizeObserver((entries) => {\n      const entry = entries[0];\n      if (entry) {\n        setSize({\n          width: entry.contentRect.width,\n          height: entry.contentRect.height,\n        });\n      }\n    });\n\n    observer.observe(elementRef.current);\n\n  }, [elementRef]);\n\n  return size;\n}\n"
         }
       ],
       "planted_bugs": [
@@ -1134,70 +1011,6 @@
         ]
       },
       "reference_review": "### Major Finding: Memory Leak via Undisconnected Observer\n\n1. **Missing Cleanup in `useElementSize.ts:10-24`**:\nThe `useEffect` instantiates a native browser `ResizeObserver` and begins listening to DOM resize events, but omits a cleanup return. When table rows or views mount and unmount repeatedly, orphaned observer instances remain retained in memory, steadily increasing heap size until the tab crashes.\n\n**Fix:**\n```typescript\nuseEffect(() => {\n  if (!elementRef.current) return;\n  const observer = new ResizeObserver(...);\n  observer.observe(elementRef.current);\n  return () => observer.disconnect();\n}, [elementRef]);\n```"
-    },
-    {
-      "id": "rev-018",
-      "slug": "sql-unindexed-json-extraction-full-scan",
-      "title": "Sequential Full Scan on Unindexed JSON Extract in PostgreSQL",
-      "category": "performance_regression",
-      "difficulty": "Hard",
-      "company_tags": [
-        "GitHub",
-        "Stripe",
-        "GitLab"
-      ],
-      "estimated_minutes": 20,
-      "context": "A database query filtering orders by an asynchronous correlation ID in a JSONB payload (`payload->>'correlation_id'`) causes database CPU utilization to spike to 100% and blocks write connections on a 15-million row database.",
-      "learning_tags": [
-        "sql",
-        "postgresql",
-        "indexing",
-        "jsonb",
-        "query-optimization"
-      ],
-      "files": [
-        {
-          "filename": "orderQuery.sql",
-          "language": "sql",
-          "is_primary": true,
-          "content": "-- Query executed on every webhook receipt to match correlation token\nSELECT id, status, total_amount, created_at\nFROM customer_orders\n-- Bug: customer_orders has 15M rows. Using jsonb extraction operator (->>) without\n-- an expression index or GIN index forces PostgreSQL into an 8-second sequential table scan!\nWHERE payload->>'correlation_id' = 'corr_9f81a7b2'\nLIMIT 1;\n"
-        },
-        {
-          "filename": "schema.sql",
-          "language": "sql",
-          "is_primary": false,
-          "content": "CREATE TABLE customer_orders (\n    id BIGSERIAL PRIMARY KEY,\n    customer_id BIGINT NOT NULL,\n    total_amount NUMERIC(10, 2) NOT NULL,\n    status VARCHAR(50) NOT NULL,\n    payload JSONB NOT NULL,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()\n);\n\n-- Existing indexes\nCREATE INDEX idx_orders_customer_id ON customer_orders (customer_id);\nCREATE INDEX idx_orders_status ON customer_orders (status);\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "database_performance",
-          "file": "orderQuery.sql",
-          "line_range": [
-            5,
-            7
-          ],
-          "title": "Unindexed JSON expression forces full table scan over 15M rows",
-          "explanation": "Evaluating `payload->>'correlation_id'` on every row requires PostgreSQL to parse the JSONB binary tree for 15,000,000 records. Without an expression B-tree index `((payload->>'correlation_id'))` or a generated column index, the database consumes 100% CPU on full table scans.",
-          "severity": "critical",
-          "expected_comment": "Severe database bottleneck: `payload->>'correlation_id'` causes a sequential table scan across 15M rows. Add an expression index `CREATE INDEX idx_orders_correlation_id ON customer_orders ((payload->>'correlation_id'))`.",
-          "hint_level_1": "Inspect the WHERE clause in `orderQuery.sql` and compare against available indexes in `schema.sql`.",
-          "hint_level_2": "Is there an index covering the JSON expression `payload->>'correlation_id'`?",
-          "hint_level_3": "Add a B-tree functional expression index: `CREATE INDEX idx_orders_correlation_id ON customer_orders ((payload->>'correlation_id'));`"
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Full Table Scan on High-Volume Route\n\n1. **Unindexed JSONB Extraction in `orderQuery.sql:5-7`**:\nFiltering by `payload->>'correlation_id'` cannot use the existing B-tree indexes on `customer_id` or `status`. The database engine must execute a sequential scan and parse the JSON document on all 15 million rows, exhausting I/O and locking worker threads.\n\n**Fix:**\nCreate a functional expression index in migration:\n```sql\nCREATE INDEX CONCURRENTLY idx_customer_orders_correlation_id \nON customer_orders ((payload->>'correlation_id'));\n```"
     }
   ]
 }

@@ -1,52 +1,46 @@
-import React, { useRef, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
+import React, { useRef, useEffect, useState } from 'react';
+import Editor, { DiffEditor } from '@monaco-editor/react';
 import {
   FileCode2,
-  Maximize2,
-  Minimize2,
-  Sparkles,
-  MessageSquare,
+  GitCompare,
+  Pencil,
+  RotateCcw,
 } from 'lucide-react';
-import { LineAnnotation, PlantedBug, ReviewFile } from '../../types/review';
+import { PlantedBug, ReviewFile } from '../../types/review';
 import { useApp } from '../../context/AppContext';
 
 interface FileDiffViewerProps {
   files: ReviewFile[];
+  editedFiles: Record<string, string>;
   activeFilename: string;
   onSelectFile: (filename: string) => void;
-  annotations: LineAnnotation[];
-  selectedLine?: number;
-  onSelectLine: (lineNumber: number) => void;
+  onUpdateFile: (filename: string, nextContent: string) => void;
+  onResetFile: (filename: string) => void;
   plantedBugs?: PlantedBug[];
   showBugDecorations?: boolean;
 }
 
 export default function FileDiffViewer({
   files,
+  editedFiles,
   activeFilename,
   onSelectFile,
-  annotations,
-  selectedLine,
-  onSelectLine,
+  onUpdateFile,
+  onResetFile,
   plantedBugs = [],
   showBugDecorations = false,
 }: FileDiffViewerProps) {
   const { theme } = useApp();
+  const [viewMode, setViewMode] = useState<'edit' | 'diff'>('edit');
   const editorRef = useRef<any>(null);
   const decorationsRef = useRef<any[]>([]);
 
   const activeFile = files.find((f) => f.filename === activeFilename) || files[0];
+  const currentContent = editedFiles[activeFile.filename] ?? activeFile.content;
+  const isModified = currentContent !== activeFile.content;
 
   function handleEditorDidMount(editor: any, monaco: any) {
     editorRef.current = editor;
-
-    // Listen for mouse clicks in the editor to select line
-    editor.onMouseDown((e: any) => {
-      if (e.target && e.target.position) {
-        onSelectLine(e.target.position.lineNumber);
-      }
-    });
-
     updateDecorations(editor, monaco);
   }
 
@@ -55,32 +49,6 @@ export default function FileDiffViewer({
 
     const newDecorations: any[] = [];
 
-    // 1. User Annotations on this file
-    const fileAnnotations = annotations.filter((a) => a.filename === activeFile.filename);
-    for (const ann of fileAnnotations) {
-      newDecorations.push({
-        range: new monaco.Range(ann.lineNumber, 1, ann.lineNumber, 1),
-        options: {
-          isWholeLine: true,
-          className: 'bg-indigo-500/10 border-l-2 border-indigo-500',
-          glyphMarginClassName: 'myGlyphMarginClass',
-          hoverMessage: { value: `**[${ann.category.toUpperCase()}]** ${ann.comment}` },
-        },
-      });
-    }
-
-    // 2. Selected line highlight
-    if (selectedLine) {
-      newDecorations.push({
-        range: new monaco.Range(selectedLine, 1, selectedLine, 1),
-        options: {
-          isWholeLine: true,
-          className: 'bg-amber-500/10 border-l-2 border-amber-500',
-        },
-      });
-    }
-
-    // 3. Planted Bugs highlights (only when reference is revealed)
     if (showBugDecorations) {
       const fileBugs = plantedBugs.filter((b) => b.file === activeFile.filename);
       for (const bug of fileBugs) {
@@ -89,7 +57,7 @@ export default function FileDiffViewer({
           options: {
             isWholeLine: true,
             className: 'bg-rose-500/15 border-l-2 border-rose-500',
-            hoverMessage: { value: `**Planted Flaw: ${bug.title}**\n\n${bug.explanation}` },
+            hoverMessage: { value: `**Root Cause: ${bug.title}**\n\n${bug.explanation}` },
           },
         });
       }
@@ -98,36 +66,40 @@ export default function FileDiffViewer({
     decorationsRef.current = editor.deltaDecorations(decorationsRef.current, newDecorations);
   }
 
-  // Update decorations on state changes
   useEffect(() => {
     if (editorRef.current && (window as any).monaco) {
       updateDecorations(editorRef.current, (window as any).monaco);
     }
-  }, [annotations, selectedLine, activeFile, showBugDecorations]);
+  }, [activeFile, showBugDecorations]);
 
-  const monacoLanguage = activeFile.language === 'javascript' ? 'javascript' : 'python';
+  const monacoLanguage =
+    activeFile.language === 'typescript'
+      ? 'typescript'
+      : activeFile.language === 'javascript'
+      ? 'javascript'
+      : 'python';
 
   return (
     <div
       className="panel-card flex flex-col rounded-2xl border overflow-hidden shadow-sm"
       style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
     >
-      {/* File Tabs Top Bar */}
+      {/* File Tabs & Mode Toolbar */}
       <div
-        className="flex items-center justify-between border-b px-3 sm:px-4 py-2 bg-black/[0.02] dark:bg-white/[0.02] overflow-x-auto"
+        className="flex flex-wrap items-center justify-between gap-2 border-b px-3 sm:px-4 py-2 bg-black/[0.02] dark:bg-white/[0.02]"
         style={{ borderColor: 'var(--ca-border)' }}
       >
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="flex items-center gap-1.5 overflow-x-auto">
           {files.map((file) => {
             const isActive = file.filename === activeFile.filename;
-            const fileAnnCount = annotations.filter((a) => a.filename === file.filename).length;
+            const fileModified = (editedFiles[file.filename] ?? file.content) !== file.content;
 
             return (
               <button
                 key={file.filename}
                 type="button"
                 onClick={() => onSelectFile(file.filename)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition shrink-0 ${
                   isActive
                     ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm border border-black/10 dark:border-white/10'
                     : 'text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
@@ -140,48 +112,113 @@ export default function FileDiffViewer({
                     Primary
                   </span>
                 )}
-                {fileAnnCount > 0 && (
-                  <span className="h-4 w-4 rounded-full bg-indigo-500/20 text-indigo-500 text-[10px] flex items-center justify-center font-bold">
-                    {fileAnnCount}
-                  </span>
+                {fileModified && (
+                  <span
+                    className="h-2 w-2 rounded-full bg-amber-500"
+                    title="Modified from buggy starter"
+                  />
                 )}
               </button>
             );
           })}
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-muted shrink-0 pl-3">
-          <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-black/5 dark:bg-white/5">
-            {activeFile.language} (Read-only)
-          </span>
-          <span className="hidden sm:inline text-[11px]">Click any line to comment</span>
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Edit vs Diff vs Starter toggle */}
+          <div
+            className="flex items-center p-0.5 rounded-lg border bg-black/[0.03] dark:bg-white/[0.03]"
+            style={{ borderColor: 'var(--ca-border)' }}
+          >
+            <button
+              type="button"
+              onClick={() => setViewMode('edit')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
+                viewMode === 'edit'
+                  ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                  : 'text-muted hover:text-primary'
+              }`}
+            >
+              <Pencil size={11} />
+              <span>Edit</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('diff')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
+                viewMode === 'diff'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm'
+                  : 'text-muted hover:text-primary'
+              }`}
+            >
+              <GitCompare size={11} />
+              <span>Diff vs Buggy</span>
+            </button>
+          </div>
+
+          {isModified && (
+            <button
+              type="button"
+              onClick={() => onResetFile(activeFile.filename)}
+              title="Revert this file to original buggy code"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg border text-[11px] font-semibold text-muted hover:text-primary transition"
+              style={{ borderColor: 'var(--ca-border)' }}
+            >
+              <RotateCcw size={11} />
+              <span className="hidden sm:inline">Reset File</span>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Monaco Code Editor Canvas */}
-      <div className="relative h-[480px] sm:h-[540px] w-full">
-        <Editor
-          height="100%"
-          language={monacoLanguage}
-          value={activeFile.content}
-          theme={theme === 'dark' ? 'vs-dark' : 'light'}
-          options={{
-            readOnly: true,
-            domReadOnly: true,
-            fontSize: 13,
-            lineHeight: 22,
-            fontFamily: 'JetBrains Mono, Fira Code, monospace',
-            minimap: { enabled: false },
-            scrollBeyondLastLine: false,
-            folding: true,
-            renderLineHighlight: 'all',
-            cursorStyle: 'line',
-            lineNumbers: 'on',
-            lineDecorationsWidth: 10,
-            overviewRulerBorder: false,
-          }}
-          onMount={handleEditorDidMount}
-        />
+      {/* Editable Monaco Canvas or Diff View */}
+      <div className="relative h-[500px] sm:h-[560px] w-full">
+        {viewMode === 'edit' ? (
+          <Editor
+            key={activeFile.filename}
+            height="100%"
+            language={monacoLanguage}
+            value={currentContent}
+            theme={theme === 'dark' ? 'vs-dark' : 'light'}
+            onChange={(val) => onUpdateFile(activeFile.filename, val ?? '')}
+            options={{
+              readOnly: false,
+              domReadOnly: false,
+              fontSize: 13,
+              lineHeight: 22,
+              fontFamily: 'JetBrains Mono, Fira Code, monospace',
+              minimap: { enabled: false },
+              scrollBeyondLastLine: false,
+              folding: true,
+              renderLineHighlight: 'all',
+              cursorStyle: 'line',
+              lineNumbers: 'on',
+              lineDecorationsWidth: 10,
+              overviewRulerBorder: false,
+              tabSize: monacoLanguage === 'python' ? 4 : 2,
+              automaticLayout: true,
+            }}
+            onMount={handleEditorDidMount}
+          />
+        ) : (
+          <DiffEditor
+            key={`diff-${activeFile.filename}`}
+            height="100%"
+            language={monacoLanguage}
+            original={activeFile.content}
+            modified={currentContent}
+            theme={theme === 'dark' ? 'vs-dark' : 'light'}
+            options={{
+              readOnly: true,
+              renderSideBySide: true,
+              fontSize: 12,
+              lineHeight: 20,
+              fontFamily: 'JetBrains Mono, Fira Code, monospace',
+              minimap: { enabled: false },
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+            }}
+          />
+        )}
       </div>
 
       {/* Editor Bottom Status Bar */}
@@ -191,15 +228,17 @@ export default function FileDiffViewer({
       >
         <div className="flex items-center gap-3">
           <span>Active: {activeFile.filename}</span>
-          {selectedLine && (
-            <span className="text-amber-500 font-bold">
-              Selected: Line {selectedLine}
-            </span>
+          <span className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[10px]">
+            {activeFile.language}
+          </span>
+          {isModified ? (
+            <span className="text-amber-500 font-semibold">Modified</span>
+          ) : (
+            <span className="text-muted/70">Unmodified buggy starter</span>
           )}
         </div>
-        <div className="flex items-center gap-2 text-primary font-sans">
-          <MessageSquare size={12} className="text-indigo-500" />
-          <span>{annotations.filter((a) => a.filename === activeFile.filename).length} file comments</span>
+        <div className="text-[11px] font-sans text-muted">
+          Press <kbd className="px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10 font-mono text-[10px]">Ctrl+Enter</kbd> to verify fix
         </div>
       </div>
     </div>

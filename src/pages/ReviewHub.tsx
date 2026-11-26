@@ -49,7 +49,7 @@ export default function ReviewHub() {
   }, [allScenarios, selectedCategory, selectedDifficulty, searchQuery]);
 
   const completionPercent = Math.round(
-    stats.totalScenarios > 0 ? (stats.reviewedScenarios / stats.totalScenarios) * 100 : 0
+    stats.totalScenarios > 0 ? (stats.fixedScenarios / stats.totalScenarios) * 100 : 0
   );
 
   return (
@@ -66,10 +66,10 @@ export default function ReviewHub() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-primary">
-            Code Review & Debugging Arena
+            End-to-End Debugging &amp; Bug Fixing Arena
           </h1>
           <p className="text-sm text-muted leading-relaxed">
-            The critical interview dimension missed by traditional competitive platforms. Audit multi-file broken repositories, detect subtle concurrency race conditions, and catch flawed AI-generated code before production.
+            Reproduce real failing test suites in multi-file JavaScript, TypeScript, and Python repos, patch concurrency race conditions and flawed AI-generated PRs directly in the editor, and verify 100% pass rates.
           </p>
         </div>
 
@@ -80,9 +80,9 @@ export default function ReviewHub() {
               <Trophy size={16} />
             </div>
             <div>
-              <div className="text-[10px] uppercase font-sans font-bold text-muted">Audits Passed</div>
+              <div className="text-[10px] uppercase font-sans font-bold text-muted">Repos Fixed</div>
               <div className="text-sm font-bold text-primary">
-                {stats.reviewedScenarios} / {stats.totalScenarios}
+                {stats.fixedScenarios} / {stats.totalScenarios}
               </div>
             </div>
           </div>
@@ -92,9 +92,9 @@ export default function ReviewHub() {
               <CheckCircle2 size={16} />
             </div>
             <div>
-              <div className="text-[10px] uppercase font-sans font-bold text-muted">Flaws Caught</div>
+              <div className="text-[10px] uppercase font-sans font-bold text-muted">Tests Passing</div>
               <div className="text-sm font-bold text-emerald-500">
-                {stats.totalBugsCaught}
+                {stats.totalTestsPassing}
               </div>
             </div>
           </div>

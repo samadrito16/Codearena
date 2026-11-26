@@ -1,11 +1,20 @@
 import rawCatalog from '../../data/review/prism_review_scenarios.json';
+import { getReviewTestSuite } from '../../data/review/reviewTestSuites';
 import {
   ReviewCatalog,
   ReviewCategory,
   ReviewScenario,
 } from '../../types/review';
 
-export const reviewCatalog: ReviewCatalog = rawCatalog as unknown as ReviewCatalog;
+const parsedCatalog = rawCatalog as unknown as ReviewCatalog;
+
+export const reviewCatalog: ReviewCatalog = {
+  ...parsedCatalog,
+  scenarios: parsedCatalog.scenarios.map((s) => ({
+    ...s,
+    testSuite: getReviewTestSuite(s.id),
+  })),
+};
 
 export interface CategoryInfo {
   id: ReviewCategory;
