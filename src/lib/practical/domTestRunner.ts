@@ -3,15 +3,20 @@ import { PracticalChallenge, PracticalFile, TestAssertionResult } from '../../ty
 /**
  * Strips basic TypeScript annotations for client-side JS evaluation
  */
-function cleanTypeScriptForEvaluation(tsCode: string): string {
+export function cleanTypeScriptForEvaluation(tsCode: string): string {
   return tsCode
     .replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, '$1') // remove comments
     .replace(/export\s+(interface|type)\s+[\s\S]*?\{[\s\S]*?\}/g, '') // remove interfaces
     .replace(/export\s+(interface|type)\s+[\s\S]*?;/g, '') // remove type aliases
+    .replace(/(interface|type)\s+[A-Za-z0-9_<>,\s]+\{[\s\S]*?\}/g, '') // remove interfaces
+    .replace(/(interface|type)\s+[A-Za-z0-9_<>,\s]+=[\s\S]*?;/g, '') // remove type aliases
     .replace(/export\s+default\s+/g, '') // strip export default
     .replace(/export\s+/g, '') // strip export
     .replace(/(private|public|protected|readonly)\s+/g, '') // strip access modifiers
-    .replace(/:\s*(string|number|boolean|any|void|unknown|never|RateLimitResult|Map<[^>]+>|\[\]|{[^}]+})(\[\])?/g, '') // strip common types
+    .replace(/<[A-Za-z0-9_,\s=]+>/g, '') // strip generics
+    .replace(/\?\s*:/g, ':') // strip optional parameter ? before :
+    .replace(/:\s*Promise<[^>]+>/g, '') // strip Promise return types
+    .replace(/:\s*(string|number|boolean|any|void|unknown|never|Promise|RateLimitResult|TokenPair|VerifyResult|JobStatus|WebhookJob|DispatcherConfig|Map|Set|\[\])(\[\])?/g, '') // strip type names
     .replace(/as\s+[A-Za-z0-9_<>]+/g, ''); // strip 'as Type'
 }
 
@@ -76,7 +81,13 @@ export async function executeChallengeTests(
       // Create an evaluation context
       const evalWrapper = `
         ${cleanedCode}
-        return (${challenge.testRunnerScript})(typeof TokenBucketRateLimiter !== 'undefined' ? TokenBucketRateLimiter : null);
+        const __exports = {
+          TokenBucketRateLimiter: typeof TokenBucketRateLimiter !== 'undefined' ? TokenBucketRateLimiter : null,
+          JWTAuthService: typeof JWTAuthService !== 'undefined' ? JWTAuthService : null,
+          LRUCache: typeof LRUCache !== 'undefined' ? LRUCache : null,
+          WebhookDispatcher: typeof WebhookDispatcher !== 'undefined' ? WebhookDispatcher : null,
+        };
+        return (${challenge.testRunnerScript})(__exports);
       `;
 
       const runnerFn = new Function(evalWrapper);

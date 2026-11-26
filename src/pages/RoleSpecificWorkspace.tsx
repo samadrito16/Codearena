@@ -114,7 +114,20 @@ export default function RoleSpecificWorkspace() {
   const handleApplySolution = () => {
     if (!challenge) return;
     if (window.confirm('Replace your current code with the canonical reference solution?')) {
-      setFiles(challenge.solutionFiles.map((f) => ({ ...f })));
+      const solMap = new Map(challenge.solutionFiles.map((f) => [f.name, f]));
+      // Merge solution files over existing files, preserving non-overwritten template files (HTML/CSS)
+      const updated = challenge.files.map((orig) => {
+        const sol = solMap.get(orig.name);
+        return sol ? { ...sol } : { ...orig };
+      });
+      // Include any solution files not originally in files
+      challenge.solutionFiles.forEach((sol) => {
+        if (!updated.some((f) => f.name === sol.name)) {
+          updated.push({ ...sol });
+        }
+      });
+
+      setFiles(updated);
       setIframeKey((k) => k + 1);
       setActiveDeckTab('tests');
     }
