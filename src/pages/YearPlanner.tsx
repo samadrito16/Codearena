@@ -654,18 +654,18 @@ export default function YearPlanner() {
                           onClick={() => toggleCompleted(problem.id)}
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition ${
                             isDone
-                              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400'
-                              : 'border-neutral-700 text-muted hover:text-primary hover:border-neutral-500'
+                              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+                              : 'border-[color:var(--ca-border)] text-muted hover:text-primary hover:border-slate-400 dark:hover:border-neutral-500'
                           }`}
                           title={isDone ? 'Mark as uncompleted' : 'Mark as mastered'}
                         >
-                          <CheckCircle2 size={13} className={isDone ? 'text-emerald-400' : 'text-neutral-500'} />
+                          <CheckCircle2 size={13} className={isDone ? 'text-emerald-500 dark:text-emerald-400' : 'text-muted'} />
                           {isDone ? 'Mastered' : 'Mark Done'}
                         </button>
 
                         <Link
                           to={`/mastery/${problem.slug}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-sm"
                         >
                           Launch Studio
                           <ArrowUpRight size={13} />
@@ -711,7 +711,7 @@ export default function YearPlanner() {
                     setSelectedPlanDayKey(thisWeek.days[0].dateKey);
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-sm"
               >
                 Add your first plan <ArrowUpRight size={14} />
               </button>
@@ -798,7 +798,7 @@ export default function YearPlanner() {
           </span>
           <div className="flex-1 h-2 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden relative">
             <div
-              className="h-full rounded-full transition-all duration-700 bg-white dark:bg-neutral-200"
+              className="h-full rounded-full transition-all duration-700 bg-slate-800 dark:bg-neutral-200"
               style={{
                 width: `${progressStats.percentGone}%`,
               }}
@@ -1086,11 +1086,11 @@ export default function YearPlanner() {
                       }}
                       className={`group relative p-2 sm:p-2.5 rounded-xl border transition-all cursor-pointer ${
                         isCurrent
-                          ? 'border-neutral-300 dark:border-neutral-300 ring-1 ring-white/20'
+                          ? 'border-slate-400 dark:border-neutral-300 ring-1 ring-slate-900/10 dark:ring-white/20'
                           : 'border-[color:var(--ca-border)] hover:border-amber-500/30'
                       }`}
                       style={{
-                        backgroundColor: 'color-mix(in srgb, var(--ca-surface) 93%, black 7%)',
+                        backgroundColor: 'var(--ca-surface-muted)',
                       }}
                     >
                       <div className="flex items-center justify-between mb-0.5">
@@ -1098,9 +1098,9 @@ export default function YearPlanner() {
                         <span
                           className={`text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded-full ${
                             goal?.status === 'done'
-                              ? 'bg-neutral-800 text-neutral-300 dark:bg-neutral-800 dark:text-neutral-300'
+                              ? 'bg-slate-200 text-slate-700 dark:bg-neutral-800 dark:text-neutral-300'
                               : goal?.status === 'now'
-                              ? 'bg-white text-black font-extrabold'
+                              ? 'bg-slate-900 text-white dark:bg-white dark:text-black font-extrabold'
                               : 'bg-black/5 dark:bg-white/5 text-muted'
                           }`}
                         >
@@ -1140,7 +1140,7 @@ export default function YearPlanner() {
                       onClick={() => toggleHabitFilter(habit.id)}
                       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
                         isEnabled
-                          ? 'border-neutral-700 bg-neutral-900/90 text-primary shadow-sm hover:scale-105'
+                          ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-sm hover:scale-105'
                           : 'border-transparent bg-black/5 dark:bg-white/5 text-muted opacity-40 hover:opacity-75'
                       }`}
                     >
@@ -1272,7 +1272,7 @@ export default function YearPlanner() {
                   onClick={() => toggleHabitFilter(habit.id)}
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
                     isEnabled
-                      ? 'border-neutral-700 bg-neutral-900/90 text-primary shadow-sm hover:scale-105'
+                      ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-sm hover:scale-105'
                       : 'border-transparent bg-black/5 dark:bg-white/5 text-muted opacity-40 hover:opacity-75'
                   }`}
                 >
@@ -1594,7 +1594,7 @@ export default function YearPlanner() {
                       onClick={() => setQuarterEditStatus(st)}
                       className={`py-2 rounded-xl text-xs font-bold border transition ${
                         quarterEditStatus === st
-                          ? 'bg-white text-black border-white shadow-sm font-extrabold'
+                          ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-sm font-extrabold'
                           : 'border-[color:var(--ca-border)] text-muted hover:text-primary'
                       }`}
                     >
@@ -1753,7 +1753,7 @@ function DaysGridView({
             {Array.from({ length: 31 }, (_, i) => i + 1).map((dayNum) => (
               <div
                 key={dayNum}
-                className="text-center font-mono text-[10px] sm:text-[11px] font-semibold text-neutral-400 select-none"
+                className="text-center font-mono text-[10px] sm:text-[11px] font-semibold text-slate-500 dark:text-neutral-400 select-none"
               >
                 {dayNum}
               </div>
@@ -1768,7 +1768,7 @@ function DaysGridView({
           return (
             <div key={mName} className="flex items-center gap-2">
               {/* Month Label with vertical right border divider */}
-              <div className="w-10 sm:w-12 shrink-0 font-mono text-xs sm:text-sm font-bold text-primary border-r border-neutral-700/80 pr-2 flex items-center justify-between">
+              <div className="w-10 sm:w-12 shrink-0 font-mono text-xs sm:text-sm font-bold text-primary border-r border-slate-200 dark:border-neutral-700/80 pr-2 flex items-center justify-between">
                 <span>{mName}</span>
               </div>
 
@@ -1797,7 +1797,7 @@ function DaysGridView({
 
                   let cellStyle: React.CSSProperties = {};
                   let cellCls =
-                    'bg-black/20 dark:bg-neutral-900/60 border border-neutral-800/80 hover:bg-neutral-800 hover:border-neutral-600 text-neutral-400';
+                    'bg-slate-100 dark:bg-neutral-900/60 border border-slate-200 dark:border-neutral-800/80 hover:bg-slate-200 dark:hover:bg-neutral-800 hover:border-slate-400 dark:hover:border-neutral-600 text-slate-600 dark:text-neutral-400';
 
                   if (totalScore >= 3) {
                     cellStyle = { backgroundColor: primaryColor, opacity: 1 };
@@ -1843,9 +1843,11 @@ function DaysGridView({
                         style={cellStyle}
                         className={`h-full w-full rounded-md sm:rounded-lg font-mono text-[10px] sm:text-xs font-semibold flex items-center justify-center transition cursor-pointer relative ${cellCls} ${
                           isToday
-                            ? 'border-2 border-white ring-2 ring-white/40 text-white font-extrabold shadow-lg z-10 scale-105'
+                            ? `border-2 border-slate-900 dark:border-white ring-2 ring-slate-900/25 dark:ring-white/40 font-extrabold shadow-lg z-10 scale-105 ${
+                                totalScore === 0 ? 'text-slate-900 dark:text-white bg-slate-200/80 dark:bg-neutral-800' : 'text-white'
+                              }`
                             : isSelectedDate
-                            ? 'ring-1 ring-amber-400 border-amber-400 text-primary'
+                            ? 'ring-2 ring-amber-500 border-amber-500 text-primary'
                             : 'hover:scale-105'
                         }`}
                         aria-label={`${dKey}: ${totalScore} activities`}
@@ -1856,14 +1858,14 @@ function DaysGridView({
                       {/* Plan Dot Indicator */}
                       {hasPlans && (
                         <span
-                          className="absolute -top-0.5 right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-black pointer-events-none"
+                          className="absolute -top-0.5 right-0.5 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-black pointer-events-none"
                           style={{ backgroundColor: planDotColor }}
                         />
                       )}
 
                       {/* Floating '+' badge on hover as seen in user reference */}
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-20">
-                        <div className="h-3.5 w-3.5 rounded-full bg-white text-black shadow-md flex items-center justify-center font-bold text-[9px] leading-none">
+                        <div className="h-3.5 w-3.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-black shadow-md flex items-center justify-center font-bold text-[9px] leading-none">
                           +
                         </div>
                       </div>
@@ -1961,34 +1963,37 @@ function QuarterSection({
                     onClick={() => onSelectWeek(week)}
                     className={`relative rounded-xl p-2.5 sm:p-3 border transition-all cursor-pointer ${
                       isSelectedWeek
-                        ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-xl bg-neutral-900/95 scale-[1.02]'
+                        ? 'border-amber-500 ring-2 ring-amber-500/40 shadow-lg bg-amber-50/90 dark:bg-neutral-900/95 scale-[1.02]'
                         : isNowWeek
-                        ? 'border-white dark:border-white shadow-xl ring-1 ring-white/30 bg-neutral-900/90'
-                        : 'border-[color:var(--ca-border)] hover:border-amber-500/40 hover:bg-neutral-900/50'
+                        ? 'border-slate-800 dark:border-white shadow-lg ring-1 ring-slate-800/20 dark:ring-white/30 bg-slate-100 dark:bg-neutral-900/90'
+                        : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface-muted)] hover:border-amber-500/50 hover:bg-slate-200/70 dark:hover:bg-neutral-900/50'
                     }`}
-                    style={{
-                      backgroundColor: isSelectedWeek || isNowWeek
-                        ? undefined
-                        : 'color-mix(in srgb, var(--ca-surface) 92%, black 8%)',
-                    }}
                     title={weekFocus ? `Focus: ${weekFocus}` : `Week ${week.weekNumber}`}
                   >
                     {/* Week Header */}
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <span className="font-mono text-[11px] font-bold text-muted">
+                        <span
+                          className={`font-mono text-[11px] font-bold ${
+                            isSelectedWeek
+                              ? 'text-amber-800 dark:text-amber-300'
+                              : isNowWeek
+                              ? 'text-slate-900 dark:text-white'
+                              : 'text-muted'
+                          }`}
+                        >
                           W{week.weekNumber}
                         </span>
                         {weekFocus && (
                           <span
-                            className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"
+                            className="h-1.5 w-1.5 rounded-full bg-amber-500 dark:bg-amber-400 shrink-0"
                             title={`Focus: ${weekFocus}`}
                           />
                         )}
                       </div>
 
                       {isNowWeek && (
-                        <span className="px-1.5 py-0.2 rounded text-[8px] font-mono font-extrabold uppercase bg-white text-black">
+                        <span className="px-1.5 py-0.2 rounded text-[8px] font-mono font-extrabold uppercase bg-slate-900 text-white dark:bg-white dark:text-black">
                           NOW
                         </span>
                       )}
@@ -2011,7 +2016,7 @@ function QuarterSection({
                         const primaryColor = activeCompletedHabits[0]?.color || '#10b981';
 
                         let cellStyle: React.CSSProperties = {};
-                        let cellCls = 'bg-black/20 dark:bg-neutral-800/80';
+                        let cellCls = 'bg-slate-300/80 dark:bg-neutral-800/80';
 
                         if (totalScore >= 3) {
                           cellStyle = { backgroundColor: primaryColor, opacity: 1 };
@@ -2046,7 +2051,7 @@ function QuarterSection({
                               style={cellStyle}
                               className={`h-full w-full rounded-[2.5px] transition-all cursor-pointer relative ${cellCls} ${
                                 isToday
-                                  ? 'border border-white ring-1 ring-white/60 scale-105'
+                                  ? 'border border-slate-900 dark:border-white ring-1 ring-slate-900/40 dark:ring-white/60 scale-105'
                                   : 'hover:scale-105'
                               }`}
                               aria-label={`${day.dateKey}: ${totalScore} activities`}
@@ -2055,14 +2060,14 @@ function QuarterSection({
                             {/* Plan Dot Indicator */}
                             {hasPlans && (
                               <span
-                                className="absolute -top-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full ring-1 ring-black pointer-events-none"
+                                className="absolute -top-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full ring-1 ring-white dark:ring-black pointer-events-none"
                                 style={{ backgroundColor: planDotColor }}
                               />
                             )}
 
                             {/* Floating '+' badge on hover as seen in user reference */}
                             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 opacity-0 group-hover/day:opacity-100 pointer-events-none transition-opacity z-20">
-                              <div className="h-3.5 w-3.5 rounded-full bg-white text-black shadow-md flex items-center justify-center font-bold text-[9px] leading-none">
+                              <div className="h-3.5 w-3.5 rounded-full bg-slate-900 text-white dark:bg-white dark:text-black shadow-md flex items-center justify-center font-bold text-[9px] leading-none">
                                 +
                               </div>
                             </div>
@@ -2180,14 +2185,17 @@ function WeekDetailDrawer({
 
       {/* Slide-over Right Panel */}
       <aside
-        className="fixed top-0 right-0 h-screen w-full sm:w-[420px] 2xl:w-[460px] z-50 border-l shadow-2xl flex flex-col bg-[#121214] text-white animate-in slide-in-from-right duration-200"
+        className="fixed top-0 right-0 h-screen w-full sm:w-[420px] 2xl:w-[460px] z-50 border-l shadow-2xl flex flex-col bg-[color:var(--ca-surface)] text-primary animate-in slide-in-from-right duration-200"
         style={{ borderColor: 'var(--ca-border)' }}
       >
         {/* Top Header */}
-        <div className="flex items-start justify-between p-5 pb-3 border-b border-neutral-800 shrink-0">
+        <div
+          className="flex items-start justify-between p-5 pb-3 border-b shrink-0"
+          style={{ borderColor: 'var(--ca-border)' }}
+        >
           <div>
-            <span className="text-xs font-mono font-semibold text-neutral-400">Week {week.weekNumber}</span>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5">
+            <span className="text-xs font-mono font-semibold text-muted">Week {week.weekNumber}</span>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary mt-0.5">
               {formatWeekDateRange(week.startDate, week.endDate)}
             </h2>
           </div>
@@ -2196,7 +2204,7 @@ function WeekDetailDrawer({
               type="button"
               onClick={handlePrevWeek}
               disabled={currentIndex <= 0}
-              className="h-8 w-8 rounded-lg border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5 transition disabled:opacity-30 disabled:pointer-events-none"
+              className="h-8 w-8 rounded-lg border border-[color:var(--ca-border)] flex items-center justify-center text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition disabled:opacity-30 disabled:pointer-events-none"
               title="Previous week"
             >
               <ChevronLeft size={16} />
@@ -2205,7 +2213,7 @@ function WeekDetailDrawer({
               type="button"
               onClick={handleNextWeek}
               disabled={currentIndex >= allWeeks.length - 1}
-              className="h-8 w-8 rounded-lg border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5 transition disabled:opacity-30 disabled:pointer-events-none"
+              className="h-8 w-8 rounded-lg border border-[color:var(--ca-border)] flex items-center justify-center text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition disabled:opacity-30 disabled:pointer-events-none"
               title="Next week"
             >
               <ChevronRight size={16} />
@@ -2213,7 +2221,7 @@ function WeekDetailDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="h-8 w-8 rounded-lg border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-white/5 transition"
+              className="h-8 w-8 rounded-lg border border-[color:var(--ca-border)] flex items-center justify-center text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition"
               title="Close panel"
             >
               <X size={16} />
@@ -2225,7 +2233,7 @@ function WeekDetailDrawer({
         <div className="flex-1 overflow-y-auto p-5 space-y-6">
           {/* 1. Week focus */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-neutral-400 block">
+            <label className="text-xs font-medium text-muted block">
               Week focus · shows on the board
             </label>
             <input
@@ -2236,18 +2244,18 @@ function WeekDetailDrawer({
                 onUpdateWeekFocus(e.target.value);
               }}
               placeholder="What is this week about?"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/90 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-600 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface-muted)] text-sm text-primary placeholder:text-muted/70 focus:outline-none focus:border-slate-400 dark:focus:border-neutral-600 transition"
             />
           </div>
 
           {/* 2. Habits this week */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-neutral-400">Habits this week</span>
+              <span className="text-xs font-semibold text-muted">Habits this week</span>
             </div>
 
             {/* Grid Header: M T W T F S S */}
-            <div className="grid grid-cols-[1fr_repeat(7,26px)_36px] gap-1.5 items-center px-1 text-[11px] font-mono font-bold text-neutral-500">
+            <div className="grid grid-cols-[1fr_repeat(7,26px)_36px] gap-1.5 items-center px-1 text-[11px] font-mono font-bold text-muted">
               <span />
               <span className="text-center">M</span>
               <span className="text-center">T</span>
@@ -2268,7 +2276,7 @@ function WeekDetailDrawer({
                 return (
                   <div
                     key={habit.id}
-                    className="grid grid-cols-[1fr_repeat(7,26px)_36px] gap-1.5 items-center p-1.5 rounded-xl bg-neutral-900/50 border border-neutral-800/80 hover:border-neutral-700/80 transition"
+                    className="grid grid-cols-[1fr_repeat(7,26px)_36px] gap-1.5 items-center p-1.5 rounded-xl bg-[color:var(--ca-surface-muted)] border border-[color:var(--ca-border)] hover:border-slate-300 dark:hover:border-neutral-700/80 transition"
                   >
                     {/* Habit Name with color dot */}
                     <div className="flex items-center gap-2 min-w-0 pr-1">
@@ -2276,7 +2284,7 @@ function WeekDetailDrawer({
                         className="h-2 w-2 rounded-full shrink-0"
                         style={{ backgroundColor: habitColor }}
                       />
-                      <span className="text-xs font-medium text-neutral-200 truncate" title={habit.name}>
+                      <span className="text-xs font-medium text-primary truncate" title={habit.name}>
                         {habit.name}
                       </span>
                     </div>
@@ -2289,11 +2297,14 @@ function WeekDetailDrawer({
                           key={day.dateKey}
                           type="button"
                           onClick={() => onToggleHabit(habit.id, day.dateKey)}
-                          className="h-6.5 w-6.5 rounded-md flex items-center justify-center border transition cursor-pointer"
-                          style={{
-                            backgroundColor: isDone ? habitColor : 'rgba(255, 255, 255, 0.03)',
-                            borderColor: isDone ? habitColor : 'rgba(255, 255, 255, 0.15)',
-                          }}
+                          className={`h-6.5 w-6.5 rounded-md flex items-center justify-center border transition cursor-pointer ${
+                            isDone ? '' : 'bg-white dark:bg-white/[0.03] border-[color:var(--ca-border)]'
+                          }`}
+                          style={
+                            isDone
+                              ? { backgroundColor: habitColor, borderColor: habitColor }
+                              : undefined
+                          }
                           title={`${day.dateKey}: ${isDone ? 'Completed' : 'Click to complete'}`}
                         >
                           {isDone && <Check size={13} className="text-white stroke-[3]" />}
@@ -2302,7 +2313,7 @@ function WeekDetailDrawer({
                     })}
 
                     {/* Score (e.g. 0/7) */}
-                    <span className="text-right font-mono text-xs font-bold text-neutral-300">
+                    <span className="text-right font-mono text-xs font-bold text-primary">
                       {completedCount}/7
                     </span>
                   </div>
@@ -2312,8 +2323,8 @@ function WeekDetailDrawer({
           </div>
 
           {/* 3. Add a plan Card */}
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 space-y-3.5">
-            <span className="text-xs font-semibold text-neutral-400 block">Add a plan</span>
+          <div className="rounded-2xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface-muted)] p-4 space-y-3.5">
+            <span className="text-xs font-semibold text-muted block">Add a plan</span>
 
             <input
               type="text"
@@ -2323,15 +2334,15 @@ function WeekDetailDrawer({
                 if (e.key === 'Enter') handleAddPlanSubmit();
               }}
               placeholder="e.g. Dentist, Ship v2, Pune trip"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-700/80 bg-neutral-950/80 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-sm text-primary placeholder:text-muted/70 focus:outline-none focus:border-slate-400 dark:focus:border-neutral-500 transition"
             />
 
             {/* When row */}
             <div className="flex items-center justify-between text-xs pt-0.5">
-              <span className="text-neutral-400">
-                When: <strong className="text-white font-semibold">{activeDayLabel}</strong>
+              <span className="text-muted">
+                When: <strong className="text-primary font-semibold">{activeDayLabel}</strong>
               </span>
-              <span className="text-[10px] text-neutral-500 italic">Drag on the board for a range</span>
+              <span className="text-[10px] text-muted italic">Drag on the board for a range</span>
             </div>
 
             {/* Mon to Sun Pill Buttons */}
@@ -2346,8 +2357,8 @@ function WeekDetailDrawer({
                     onClick={() => onSelectPlanDayKey(day.dateKey)}
                     className={`py-1.5 rounded-lg text-xs font-semibold border transition ${
                       isSelected
-                        ? 'bg-white text-black border-white shadow-sm font-bold'
-                        : 'border-neutral-800 bg-neutral-900/80 text-neutral-400 hover:text-white'
+                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-sm font-bold'
+                        : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-muted hover:text-primary'
                     }`}
                   >
                     {dayName}
@@ -2367,8 +2378,8 @@ function WeekDetailDrawer({
                     onClick={() => setPlanCategory(cat.id)}
                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition ${
                       isSelected
-                        ? 'border-neutral-500 bg-neutral-800 text-white shadow-sm ring-1 ring-white/10'
-                        : 'border-neutral-800 bg-neutral-900/60 text-neutral-400 hover:text-white'
+                        ? 'border-slate-400 bg-white text-slate-900 dark:border-neutral-500 dark:bg-neutral-800 dark:text-white shadow-sm ring-1 ring-slate-900/10 dark:ring-white/10'
+                        : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-muted hover:text-primary'
                     }`}
                   >
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cat.color }} />
@@ -2383,7 +2394,7 @@ function WeekDetailDrawer({
               type="button"
               onClick={handleAddPlanSubmit}
               disabled={!planTitle.trim()}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-neutral-700 hover:bg-neutral-600 text-white transition disabled:opacity-40 disabled:pointer-events-none shadow-sm"
+              className="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-neutral-700 dark:hover:bg-neutral-600 transition disabled:opacity-40 disabled:pointer-events-none shadow-sm"
             >
               Add plan
             </button>
@@ -2403,26 +2414,26 @@ function WeekDetailDrawer({
                   onClick={() => onSelectPlanDayKey(day.dateKey)}
                   className={`flex items-start gap-3 p-2 rounded-xl transition cursor-pointer ${
                     isSelectedDay
-                      ? 'bg-neutral-900/80 ring-1 ring-neutral-700'
-                      : 'hover:bg-neutral-900/40'
+                      ? 'bg-[color:var(--ca-surface-muted)] ring-1 ring-slate-300 dark:ring-neutral-700'
+                      : 'hover:bg-black/[0.03] dark:hover:bg-neutral-900/40'
                   }`}
                 >
                   {/* Day Badge */}
                   <div
                     className={`w-11 h-12 rounded-xl flex flex-col items-center justify-center border font-mono shrink-0 transition ${
                       isToday
-                        ? 'border-amber-400/80 bg-amber-500/10 text-amber-400 shadow-sm'
-                        : 'border-neutral-800 bg-neutral-900/80 text-neutral-300'
+                        ? 'border-amber-500/80 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm'
+                        : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-primary'
                     }`}
                   >
-                    <span className="text-[10px] uppercase font-bold text-neutral-400">{dayName}</span>
+                    <span className="text-[10px] uppercase font-bold text-muted">{dayName}</span>
                     <span className="text-sm font-extrabold">{day.dayOfMonth}</span>
                   </div>
 
                   {/* Right side content */}
                   <div className="flex-1 min-w-0 pt-0.5">
                     {dayPlans.length === 0 ? (
-                      <div className="text-xs text-neutral-500 py-2.5">Nothing planned</div>
+                      <div className="text-xs text-muted py-2.5">Nothing planned</div>
                     ) : (
                       <div className="space-y-1.5">
                         {dayPlans.map((p) => {
@@ -2431,11 +2442,11 @@ function WeekDetailDrawer({
                           return (
                             <div
                               key={p.id}
-                              className="group flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg border border-neutral-800 bg-neutral-900/90 hover:border-neutral-700 transition"
+                              className="group flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg border border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] hover:border-slate-300 dark:hover:border-neutral-700 transition"
                             >
                               <div className="flex items-center gap-2 min-w-0">
                                 <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: catColor }} />
-                                <span className="text-xs font-medium text-white truncate">{p.title}</span>
+                                <span className="text-xs font-medium text-primary truncate">{p.title}</span>
                                 <span
                                   className="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold uppercase shrink-0"
                                   style={{ backgroundColor: `${catColor}20`, color: catColor }}
@@ -2449,7 +2460,7 @@ function WeekDetailDrawer({
                                   e.stopPropagation();
                                   onDeletePlan(p.id);
                                 }}
-                                className="opacity-0 group-hover:opacity-100 p-1 text-neutral-500 hover:text-rose-400 transition"
+                                className="opacity-0 group-hover:opacity-100 p-1 text-muted hover:text-rose-500 dark:hover:text-rose-400 transition"
                                 title="Delete plan"
                               >
                                 <Trash2 size={12} />
