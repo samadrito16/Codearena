@@ -79,7 +79,7 @@ function PillItem({ item }: { item: TopicItem }) {
   return (
     <Link
       to={item.link}
-      className="group inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium border border-slate-200/90 bg-white/70 text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:bg-white dark:border-neutral-800/90 dark:bg-neutral-900/60 dark:text-neutral-400 dark:hover:text-white dark:hover:border-neutral-700 dark:hover:bg-neutral-800/80 transition-all select-none shadow-sm shrink-0 whitespace-nowrap cursor-pointer"
+      className="group inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium border border-slate-200/90 bg-white/70 text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:bg-white dark:border-neutral-800/90 dark:bg-neutral-900/60 dark:text-neutral-400 dark:hover:text-white dark:hover:border-neutral-700 dark:hover:bg-neutral-800/80 transition-all select-none shadow-xs shrink-0 whitespace-nowrap cursor-pointer"
     >
       <Icon
         size={13}

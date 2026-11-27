@@ -239,7 +239,7 @@ export default function MasteryCodeRunner({
 
       {/* Main Code Runner Panel */}
       <div
-        className="panel-card overflow-hidden border rounded-2xl shadow-sm"
+        className="panel-card overflow-hidden border rounded-2xl shadow-xs"
         style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
       >
         {/* Editor Top Control Bar */}
@@ -254,7 +254,7 @@ export default function MasteryCodeRunner({
               <select
                 value={language}
                 onChange={(e) => handleLanguageChange(e.target.value as SupportedLanguage)}
-                className="font-sans text-xs font-bold px-2.5 py-1.5 rounded-lg border bg-white dark:bg-slate-900 text-primary border-black/10 dark:border-white/10 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="font-sans text-xs font-bold px-2.5 py-1.5 rounded-lg border bg-white dark:bg-slate-900 text-primary border-black/10 dark:border-white/10 focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
               >
                 {Object.entries(LANGUAGE_LABELS).map(([key, item]) => (
                   <option key={key} value={key}>
@@ -495,7 +495,7 @@ export default function MasteryCodeRunner({
                 <span>Execution Output</span>
                 {execResult && (
                   <span
-                    className={`ml-1 px-1.5 py-0.2 rounded text-[10px] font-bold ${
+                    className={`ml-1 px-1.5 py-0.2 rounded-sm text-[10px] font-bold ${
                       execResult.verdict === 'Accepted'
                         ? 'bg-emerald-500/20 text-emerald-500'
                         : 'bg-rose-500/20 text-rose-500'
@@ -538,7 +538,7 @@ export default function MasteryCodeRunner({
                     }}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition whitespace-nowrap ${
                       !isCustomActive && selectedCaseIdx === idx
-                        ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-sm'
+                        ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-xs'
                         : 'bg-black/5 dark:bg-white/5 text-muted hover:text-primary'
                     }`}
                   >
@@ -552,7 +552,7 @@ export default function MasteryCodeRunner({
                   onClick={() => setIsCustomActive(true)}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition whitespace-nowrap ${
                     isCustomActive
-                      ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-sm'
+                      ? 'bg-white dark:bg-slate-800 text-primary border border-black/15 dark:border-white/15 shadow-xs'
                       : 'bg-black/5 dark:bg-white/5 text-muted hover:text-primary'
                   }`}
                 >
@@ -614,7 +614,7 @@ export default function MasteryCodeRunner({
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     placeholder="e.g. nums = [1, 2, 4, 6, 10], target = 8"
-                    className="w-full font-mono text-xs p-2.5 rounded-lg border bg-white dark:bg-slate-900 text-primary border-black/10 dark:border-white/10 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full font-mono text-xs p-2.5 rounded-lg border bg-white dark:bg-slate-900 text-primary border-black/10 dark:border-white/10 focus:outline-hidden focus:ring-1 focus:ring-indigo-500"
                   />
                   <p className="text-[11px] text-muted">
                     Custom inputs will be evaluated when you click &ldquo;Run Tests&rdquo;.
@@ -751,7 +751,7 @@ export default function MasteryCodeRunner({
       {/* Blueprint Quick-Peek Drawer */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-xs animate-in fade-in"
           onClick={() => setIsDrawerOpen(false)}
         >
           <div

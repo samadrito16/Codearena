@@ -131,7 +131,7 @@ export default function CertificateVerification() {
         {/* High-Prestige Certificate Canvas (Printable / Shareable) */}
         <div
           id="certificate-frame"
-          className="relative overflow-hidden rounded-3xl border-4 border-amber-500/40 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 p-8 sm:p-14 shadow-2xl shadow-amber-500/10"
+          className="relative overflow-hidden rounded-3xl border-4 border-amber-500/40 bg-linear-to-b from-slate-900 via-slate-950 to-slate-900 p-8 sm:p-14 shadow-2xl shadow-amber-500/10"
         >
           {/* Decorative Corner Ornaments */}
           <div className="pointer-events-none absolute top-4 left-4 h-12 w-12 border-t-2 border-l-2 border-amber-500/60" />
@@ -146,7 +146,7 @@ export default function CertificateVerification() {
 
           <div className="relative z-10 text-center">
             {/* Seal & Logo */}
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-400/20 via-yellow-500/10 to-amber-600/30 text-amber-400 shadow-xl shadow-amber-500/20">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border-2 border-amber-500/50 bg-linear-to-br from-amber-400/20 via-yellow-500/10 to-amber-600/30 text-amber-400 shadow-xl shadow-amber-500/20">
               <GraduationCap size={40} />
             </div>
 
@@ -283,7 +283,7 @@ export default function CertificateVerification() {
         </div>
 
         {/* Free Marketing / Referral Conversion Banner for Visitors */}
-        <div className="mt-8 overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/10 via-purple-500/5 to-indigo-500/10 p-6 sm:p-8 backdrop-blur-md">
+        <div className="mt-8 overflow-hidden rounded-2xl border border-amber-500/20 bg-linear-to-r from-amber-500/10 via-purple-500/5 to-indigo-500/10 p-6 sm:p-8 backdrop-blur-md">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-3 py-0.5 text-xs font-bold text-amber-400 border border-amber-500/30">
@@ -300,7 +300,7 @@ export default function CertificateVerification() {
 
             <Link
               to="/register"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition-all"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition-all"
             >
               <span>Start Solving Free</span>
               <ArrowRight size={15} />

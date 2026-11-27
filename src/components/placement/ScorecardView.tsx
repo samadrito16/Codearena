@@ -77,14 +77,14 @@ export default function ScorecardView({
           backgroundColor: 'var(--ca-surface)',
           borderColor: 'var(--ca-border)',
         }}
-        className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 shadow-sm"
+        className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 shadow-xs"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           {/* Left: Company & Assessment Details */}
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
               <span
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-bold text-white shadow-sm"
+                className="flex h-10 w-10 items-center justify-center rounded-xl text-base font-bold text-white shadow-xs"
                 style={{ backgroundColor: company?.brandColor || '#3b82f6' }}
               >
                 {report.companyName.charAt(0)}
@@ -119,7 +119,7 @@ export default function ScorecardView({
               backgroundColor: 'var(--ca-surface-muted)',
               borderColor: 'var(--ca-border)',
             }}
-            className="flex items-center gap-4 sm:gap-6 rounded-2xl border p-4 shadow-sm"
+            className="flex items-center gap-4 sm:gap-6 rounded-2xl border p-4 shadow-xs"
           >
             {/* Score */}
             <div className="text-center px-2">

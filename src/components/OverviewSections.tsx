@@ -330,7 +330,7 @@ export function DailyChallengeCard() {
         <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0 sm:items-center md:items-end">
           <Link
             to={`/workspace/${challengeProblem.id}`}
-            className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm ${
+            className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-xs ${
               isCompleted
                 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/15'
                 : 'btn-primary'

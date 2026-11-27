@@ -65,7 +65,7 @@ function PrivacyToggle({
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${checked ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}`}
+        className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${checked ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}`}
       >
         <span
           className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${checked ? 'translate-x-4' : 'translate-x-0'}`}
@@ -149,7 +149,7 @@ export default function Settings() {
                 aria-checked={theme === 'dark'}
                 aria-label="Toggle dark mode"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                   theme === 'dark' ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'
                 }`}
               >
@@ -383,7 +383,7 @@ export default function Settings() {
                     profileVisibility: isPrivate ? 'public' : 'private',
                   })
                 }
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                   isPrivate ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'
                 }`}
               >
@@ -504,7 +504,7 @@ export default function Settings() {
                     enabled: !adaptiveMasteryPlan.enabled,
                   })
                 }
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
                   adaptiveMasteryPlan.enabled ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'
                 }`}
               >

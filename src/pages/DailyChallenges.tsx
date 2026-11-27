@@ -115,12 +115,12 @@ export default function DailyChallenges() {
           </>}
         </div>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
-          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-xs">
             <div className="flex items-center gap-2 text-indigo-100"><Trophy size={15}/><span className="text-[11px] font-semibold">Challenge reward</span></div>
             <p className="mt-2 font-display text-3xl font-bold text-white">{challengePoints} <span className="text-xs font-semibold text-indigo-200">pts</span></p>
             <p className="mt-1 text-[10px] text-indigo-100/65">Awarded when this problem is solved</p>
           </div>
-          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+          <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-xs">
             <div className="flex items-center gap-2 text-indigo-100"><Clock3 size={15}/><span className="text-[11px] font-semibold">Estimated practice time</span></div>
             <p className="mt-2 font-display text-3xl font-bold text-white">{formatDuration(practiceSeconds)}</p>
             <p className="mt-1 text-[10px] text-indigo-100/65">Active workspace time · pauses when idle or hidden</p>

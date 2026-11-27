@@ -164,7 +164,7 @@ export default function ResetPassword({ isModal = false, onClose }: ResetPasswor
                     setPassword(e.target.value);
                     if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
                   }}
-                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-none ${
+                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-hidden ${
                     fieldErrors.password ? 'border-rose-500' : ''
                   }`}
                   placeholder="••••••••"
@@ -193,7 +193,7 @@ export default function ResetPassword({ isModal = false, onClose }: ResetPasswor
                     setConfirmPassword(e.target.value);
                     if (fieldErrors.confirm) setFieldErrors((prev) => ({ ...prev, confirm: undefined }));
                   }}
-                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-none ${
+                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-hidden ${
                     fieldErrors.confirm ? 'border-rose-500' : ''
                   }`}
                   placeholder="••••••••"

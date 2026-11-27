@@ -20,7 +20,7 @@ export function PrismMark({ size = 32, className = '', alt = 'Prism Code logo' }
         srcSet="/brand/prismcode-mark-32.png 32w, /brand/prismcode-mark-64.png 64w, /brand/prismcode-mark-128.png 128w, /brand/prismcode-mark-512.png 512w"
         sizes={`${sizePx}`}
         alt={alt}
-        className="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-200 hover:scale-105"
+        className="w-full h-full object-contain filter drop-shadow-xs transition-transform duration-200 hover:scale-105"
         draggable={false}
       />
     </div>

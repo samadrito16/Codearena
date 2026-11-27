@@ -485,7 +485,7 @@ export default function Contests() {
                           {contest.problems.map((p, idx) => (
                             <span
                               key={p.id}
-                              className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5"
+                              className="px-2 py-0.5 rounded-sm text-[10px] font-mono font-bold bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5"
                               title={`${p.title} (${p.difficulty} - ${p.points} pts)`}
                             >
                               Q{idx + 1}
@@ -817,7 +817,7 @@ export default function Contests() {
                   <select
                     value={selectedCollege}
                     onChange={(e) => setSelectedCollege(e.target.value)}
-                    className="h-9 px-3 rounded-xl border text-xs bg-transparent text-primary outline-none"
+                    className="h-9 px-3 rounded-xl border text-xs bg-transparent text-primary outline-hidden"
                     style={{ borderColor: 'var(--ca-border)' }}
                   >
                     {colleges.map((c) => (
@@ -885,7 +885,7 @@ export default function Contests() {
 
                             <div className="flex items-center gap-3 min-w-0">
                               <div
-                                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${person.color} text-xs font-bold text-white`}
+                                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br ${person.color} text-xs font-bold text-white`}
                               >
                                 {person.initials}
                               </div>
@@ -929,13 +929,13 @@ export default function Contests() {
           {arenaSubTab === 'campus-clash' && (
             <div className="relative min-h-[50vh] w-full max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center space-y-8 animate-in fade-in duration-300">
               <div className="text-center space-y-3 max-w-xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm backdrop-blur-md">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-xs backdrop-blur-md">
                   <Sparkles size={13} className="animate-pulse" />
                   <span>Coming Soon · In Active Development</span>
                 </div>
 
                 <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-primary leading-tight">
-                  Campus <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-amber-500 to-indigo-500">Rivalry Clash</span>
+                  Campus <span className="text-transparent bg-clip-text bg-linear-to-r from-rose-500 via-amber-500 to-indigo-500">Rivalry Clash</span>
                 </h2>
 
                 <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-lg mx-auto">
@@ -962,7 +962,7 @@ export default function Contests() {
                 </div>
 
                 {clashSubscribed ? (
-                  <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-xs">
                     <CheckCircle2 size={16} />
                     <span>You're on the early access list! We'll notify you as soon as Campus Clash goes live.</span>
                   </div>
@@ -980,7 +980,7 @@ export default function Contests() {
                       value={clashEmail}
                       onChange={(e) => setClashEmail(e.target.value)}
                       placeholder="Enter your college email for early access..."
-                      className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition"
+                      className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition"
                       style={{
                         backgroundColor: 'var(--ca-surface-muted)',
                         borderColor: 'var(--ca-border)',
@@ -988,7 +988,7 @@ export default function Contests() {
                     />
                     <button
                       type="submit"
-                      className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition"
+                      className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition"
                     >
                       <Bell size={13} />
                       <span>Notify Me</span>
@@ -1021,13 +1021,13 @@ export default function Contests() {
           {arenaSubTab === 'study-groups' && (
             <div className="relative min-h-[50vh] w-full max-w-4xl mx-auto px-4 py-8 flex flex-col justify-center items-center space-y-8 animate-in fade-in duration-300">
               <div className="text-center space-y-3 max-w-xl mx-auto">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm backdrop-blur-md">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-xs backdrop-blur-md">
                   <Sparkles size={13} className="animate-pulse" />
                   <span>Coming Soon · In Active Development</span>
                 </div>
 
                 <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-primary leading-tight">
-                  College <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400">Study Groups & Squads</span>
+                  College <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 via-indigo-500 to-emerald-400">Study Groups & Squads</span>
                 </h2>
 
                 <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-lg mx-auto">
@@ -1054,7 +1054,7 @@ export default function Contests() {
                 </div>
 
                 {groupSubscribed ? (
-                  <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold shadow-xs">
                     <CheckCircle2 size={16} />
                     <span>You're on the early access list! We'll notify you as soon as Study Groups launch.</span>
                   </div>
@@ -1072,7 +1072,7 @@ export default function Contests() {
                       value={groupEmail}
                       onChange={(e) => setGroupEmail(e.target.value)}
                       placeholder="Enter your email for early group access..."
-                      className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition"
+                      className="w-full px-4 py-2.5 rounded-xl border text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition"
                       style={{
                         backgroundColor: 'var(--ca-surface-muted)',
                         borderColor: 'var(--ca-border)',
@@ -1080,7 +1080,7 @@ export default function Contests() {
                     />
                     <button
                       type="submit"
-                      className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm transition"
+                      className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition"
                     >
                       <Bell size={13} />
                       <span>Notify Me</span>

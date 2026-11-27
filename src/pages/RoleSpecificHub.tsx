@@ -75,7 +75,7 @@ export default function RoleSpecificHub() {
     <div className="mx-auto max-w-[1360px] px-4 py-8 sm:px-6 lg:px-8 space-y-8 animate-in fade-in">
       {/* Header Banner with Radiant Theme Gradient */}
       <div
-        className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 md:p-10 shadow-sm transition-all"
+        className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 md:p-10 shadow-xs transition-all"
         style={{
           borderColor: 'color-mix(in srgb, var(--ca-accent-solid) 25%, var(--ca-border))',
           background:
@@ -295,7 +295,7 @@ export default function RoleSpecificHub() {
           <select
             value={selectedDifficulty}
             onChange={(e) => setSelectedDifficulty(e.target.value as PracticalDifficulty | 'all')}
-            className="px-3.5 py-2 text-xs font-medium rounded-xl border text-primary outline-none focus:ring-2 focus:ring-[var(--ca-accent-solid)] transition-all cursor-pointer"
+            className="px-3.5 py-2 text-xs font-medium rounded-xl border text-primary outline-hidden focus:ring-2 focus:ring-[var(--ca-accent-solid)] transition-all cursor-pointer"
             style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
           >
             <option value="all">All Difficulties</option>
@@ -311,7 +311,7 @@ export default function RoleSpecificHub() {
               placeholder="Search challenges or roles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border text-primary placeholder:text-muted outline-none focus:ring-2 focus:ring-[var(--ca-accent-solid)] transition-all"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border text-primary placeholder:text-muted outline-hidden focus:ring-2 focus:ring-[var(--ca-accent-solid)] transition-all"
               style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
             />
           </div>
@@ -393,7 +393,7 @@ export default function RoleSpecificHub() {
 
               <Link
                 to={`/role-specific/${challenge.slug}`}
-                className="btn-primary py-2 px-3.5 text-xs font-bold inline-flex items-center gap-1.5 rounded-xl shadow-sm"
+                className="btn-primary py-2 px-3.5 text-xs font-bold inline-flex items-center gap-1.5 rounded-xl shadow-xs"
               >
                 <span>Open Challenge</span>
                 <ArrowRight size={13} />

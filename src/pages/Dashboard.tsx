@@ -125,7 +125,7 @@ export default function Dashboard() {
         <div className="text-center mb-14 sm:mb-20">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
             What you'll{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-400 to-amber-300">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-500 via-orange-400 to-amber-300">
               Master on PrismCode
             </span>
           </h2>

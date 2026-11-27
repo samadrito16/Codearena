@@ -890,7 +890,7 @@ export default function Profile() {
                           setDraft((prev) => ({ ...prev, avatarMode: mode }));
                           setSavedNotice(null);
                         }}
-                        className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${draft.avatarMode === mode ? 'bg-indigo-600 text-white shadow-sm' : 'text-muted hover:text-primary'}`}
+                        className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${draft.avatarMode === mode ? 'bg-indigo-600 text-white shadow-xs' : 'text-muted hover:text-primary'}`}
                       >
                         {label}
                       </button>
@@ -1163,7 +1163,7 @@ export default function Profile() {
                       setDraft((prev) => ({ ...prev, displayLocalTime: e.target.checked }));
                       setSavedNotice(null);
                     }}
-                    className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    className="rounded-sm border-slate-300 text-indigo-600 focus:ring-indigo-500"
                   />
                   <Clock size={13} />
                   <span>Display current local time</span>

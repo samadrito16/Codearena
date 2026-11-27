@@ -80,7 +80,7 @@ export default function ClerkSetupScreen() {
                   if (error) setError(null);
                 }}
                 placeholder="pk_test_..."
-                className="w-full rounded-xl border px-3.5 py-2.5 font-mono text-xs text-primary transition focus:outline-none"
+                className="w-full rounded-xl border px-3.5 py-2.5 font-mono text-xs text-primary transition focus:outline-hidden"
                 style={{
                   background: 'var(--ca-surface)',
                   borderColor: error ? '#f43f5e' : 'var(--ca-border)',

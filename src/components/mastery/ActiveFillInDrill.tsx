@@ -227,7 +227,7 @@ export default function ActiveFillInDrill({
     <div className="space-y-6 animate-in fade-in">
       {/* 1. DRILL HUD & CONTROL BAR */}
       <div
-        className="p-4 sm:p-5 rounded-2xl border flex flex-wrap items-center justify-between gap-4 shadow-sm"
+        className="p-4 sm:p-5 rounded-2xl border flex flex-wrap items-center justify-between gap-4 shadow-xs"
         style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
       >
         <div className="flex items-center gap-3">
@@ -317,7 +317,7 @@ export default function ActiveFillInDrill({
 
       {/* 2. IN-CONTEXT CODE CANVAS */}
       <div
-        className="panel-card overflow-hidden border rounded-2xl shadow-sm"
+        className="panel-card overflow-hidden border rounded-2xl shadow-xs"
         style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
       >
         <div
@@ -329,7 +329,7 @@ export default function ActiveFillInDrill({
             <span>Optimal Blueprint Canvas &middot; Python 3</span>
           </div>
           <div className="text-[11px] text-muted flex items-center gap-2">
-            <span>Press <kbd className="px-1.5 py-0.5 rounded bg-black/10 dark:bg-black/30 font-mono text-[10px]">Enter</kbd> to submit blank</span>
+            <span>Press <kbd className="px-1.5 py-0.5 rounded-sm bg-black/10 dark:bg-black/30 font-mono text-[10px]">Enter</kbd> to submit blank</span>
           </div>
         </div>
 
@@ -363,13 +363,13 @@ export default function ActiveFillInDrill({
                     ? 'border-emerald-500/40 bg-emerald-500/[0.06]'
                     : status === 'revealed'
                     ? 'border-indigo-500/30 bg-indigo-500/[0.04]'
-                    : 'border-amber-500/40 bg-amber-500/[0.04] shadow-sm'
+                    : 'border-amber-500/40 bg-amber-500/[0.04] shadow-xs'
                 }`}
               >
                 {/* Header Clue / Boundary Prompt */}
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2 pb-1.5 border-b border-black/5 dark:border-white/5 font-sans text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                    <span className="font-mono font-bold text-[10px] px-2 py-0.5 rounded-sm bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center gap-1">
                       <AlertTriangle size={11} /> Line {line.line_number} &middot; Critical Boundary
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
@@ -452,7 +452,7 @@ export default function ActiveFillInDrill({
                           }
                         }}
                         placeholder={`Type boundary logic (e.g. ${line.code.trim().slice(0, 10)}…)`}
-                        className="w-full font-mono text-xs px-3.5 py-2 rounded-xl border bg-slate-950/80 text-primary placeholder:text-muted/40 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition"
+                        className="w-full font-mono text-xs px-3.5 py-2 rounded-xl border bg-slate-950/80 text-primary placeholder:text-muted/40 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/40 transition"
                         autoCapitalize="off"
                         autoComplete="off"
                         spellCheck="false"

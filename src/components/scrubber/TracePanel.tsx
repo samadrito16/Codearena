@@ -43,7 +43,7 @@ export const TracePanel: React.FC<TracePanelProps> = ({
     <div className="space-y-4">
       {/* Header Bar with Action & Input Toggle */}
       <div
-        className="p-3 sm:p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm"
+        className="p-3 sm:p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
         style={{
           backgroundColor: 'var(--ca-surface)',
           borderColor: 'var(--ca-border)',
@@ -77,7 +77,7 @@ export const TracePanel: React.FC<TracePanelProps> = ({
             type="button"
             onClick={() => onRunTrace(customInput)}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-xs disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -118,7 +118,7 @@ export const TracePanel: React.FC<TracePanelProps> = ({
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
             placeholder="e.g. nums = [2, 7, 11, 15], target = 9"
-            className="w-full px-3 py-2 rounded-lg font-mono text-xs border bg-black/40 text-primary focus:outline-none focus:border-indigo-500"
+            className="w-full px-3 py-2 rounded-lg font-mono text-xs border bg-black/40 text-primary focus:outline-hidden focus:border-indigo-500"
             style={{ borderColor: 'var(--ca-border)' }}
           />
         </div>
@@ -180,7 +180,7 @@ export const TracePanel: React.FC<TracePanelProps> = ({
                   <Terminal size={12} className="text-indigo-400" />
                   <span>Program Output (stdout)</span>
                 </div>
-                <pre className="p-2 rounded bg-black/60 font-mono text-[11px] text-emerald-400 whitespace-pre-wrap overflow-x-auto max-h-32">
+                <pre className="p-2 rounded-sm bg-black/60 font-mono text-[11px] text-emerald-400 whitespace-pre-wrap overflow-x-auto max-h-32">
                   {scrubber.currentStep.stdout}
                 </pre>
               </div>

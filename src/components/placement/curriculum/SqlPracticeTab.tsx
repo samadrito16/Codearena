@@ -418,7 +418,7 @@ export default function SqlPracticeTab() {
               onChange={(e) => handleQueryChange(e.target.value)}
               rows={6}
               spellCheck={false}
-              className="w-full rounded-xl border p-3 font-mono text-xs text-primary focus:outline-none focus:border-indigo-500 transition-colors leading-relaxed"
+              className="w-full rounded-xl border p-3 font-mono text-xs text-primary focus:outline-hidden focus:border-indigo-500 transition-colors leading-relaxed"
               style={{
                 backgroundColor: 'var(--ca-canvas)',
                 borderColor: 'var(--ca-border)',

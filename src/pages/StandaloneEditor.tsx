@@ -657,7 +657,7 @@ export default function StandaloneEditor() {
             type="text"
             value={fileName}
             onChange={(e) => setFileName(e.target.value)}
-            className="bg-transparent border-none outline-none text-xs font-semibold text-primary truncate hover:bg-black/5 dark:hover:bg-white/5 rounded px-1 -mx-1 font-mono transition-colors"
+            className="bg-transparent border-none outline-hidden text-xs font-semibold text-primary truncate hover:bg-black/5 dark:hover:bg-white/5 rounded-sm px-1 -mx-1 font-mono transition-colors"
             title="Click to rename active file"
           />
 
@@ -1000,7 +1000,7 @@ export default function StandaloneEditor() {
                         <span>Run</span>
                       </>
                     )}
-                    <kbd className="hidden sm:inline-block px-1 py-0.2 rounded bg-white/20 text-[9px] font-mono font-semibold">
+                    <kbd className="hidden sm:inline-block px-1 py-0.2 rounded-sm bg-white/20 text-[9px] font-mono font-semibold">
                       Ctrl+↵
                     </kbd>
                   </button>
@@ -1061,7 +1061,7 @@ export default function StandaloneEditor() {
                       onChange={(e) => setStdin(e.target.value)}
                       placeholder="Enter standard input (stdin) to be read during execution (e.g. test numbers, lines of text)..."
                       rows={splitLayout === 'side' ? 12 : 5}
-                      className="w-full p-3 rounded-xl text-xs font-mono outline-none transition border resize-y focus:ring-1 focus:ring-indigo-500"
+                      className="w-full p-3 rounded-xl text-xs font-mono outline-hidden transition border resize-y focus:ring-1 focus:ring-indigo-500"
                       style={{
                         background: 'var(--ca-surface)',
                         borderColor: 'var(--ca-border)',
@@ -1074,7 +1074,7 @@ export default function StandaloneEditor() {
                 {/* 3. Live Preview Tab (HTML) */}
                 {activeConsoleTab === 'preview' && language === 'html' && (
                   <div
-                    className="w-full h-80 rounded-xl overflow-hidden border shadow-sm"
+                    className="w-full h-80 rounded-xl overflow-hidden border shadow-xs"
                     style={{ borderColor: 'var(--ca-border)' }}
                   >
                     <iframe

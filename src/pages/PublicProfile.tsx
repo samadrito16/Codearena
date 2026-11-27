@@ -130,7 +130,7 @@ export default function PublicProfile() {
     <div className="min-h-screen bg-slate-950 py-10 px-4 sm:px-6 lg:px-8 text-primary selection:bg-amber-500/30">
       <div className="mx-auto max-w-5xl space-y-8">
         {/* Profile Header Card */}
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900/90 via-slate-900/50 to-slate-950 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-linear-to-br from-slate-900/90 via-slate-900/50 to-slate-950 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
           {/* Background Ambient Glow */}
           <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
 
@@ -303,7 +303,7 @@ export default function PublicProfile() {
         </section>
 
         {/* Free Marketing / Referral Conversion Banner */}
-        <div className="overflow-hidden rounded-3xl border border-amber-500/20 bg-gradient-to-r from-amber-500/10 via-purple-500/5 to-indigo-500/10 p-8 backdrop-blur-md">
+        <div className="overflow-hidden rounded-3xl border border-amber-500/20 bg-linear-to-r from-amber-500/10 via-purple-500/5 to-indigo-500/10 p-8 backdrop-blur-md">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-3 py-0.5 text-xs font-bold text-amber-400 border border-amber-500/30">
@@ -320,7 +320,7 @@ export default function PublicProfile() {
 
             <Link
               to="/register"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition-all"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition-all"
             >
               <span>Start Free Today</span>
               <ArrowRight size={15} />

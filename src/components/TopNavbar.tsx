@@ -192,7 +192,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 shadow-xs">
                       <Sparkles size={14} />
                     </div>
                     <div>
@@ -209,7 +209,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-xs">
                       <Map size={14} />
                     </div>
                     <div>
@@ -226,7 +226,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-xs">
                       <Compass size={14} />
                     </div>
                     <div>
@@ -270,7 +270,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 shadow-xs">
                       <Code2 size={14} />
                     </div>
                     <div>
@@ -287,7 +287,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-500/10 text-rose-500 dark:text-rose-400 border border-rose-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-500/10 text-rose-500 dark:text-rose-400 border border-rose-500/20 shadow-xs">
                       <Flame size={14} />
                     </div>
                     <div>
@@ -304,7 +304,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 dark:text-purple-400 border border-purple-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-purple-500/10 text-purple-500 dark:text-purple-400 border border-purple-500/20 shadow-xs">
                       <Search size={14} />
                     </div>
                     <div>
@@ -321,7 +321,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-xs">
                       <Timer size={14} />
                     </div>
                     <div>
@@ -337,7 +337,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 shadow-xs">
                       <GraduationCap size={14} />
                     </div>
                     <div>
@@ -359,7 +359,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-500 dark:text-sky-400 border border-sky-500/20 shadow-xs">
                       <Layers size={14} />
                     </div>
                     <div>
@@ -381,7 +381,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     }
                     role="menuitem"
                   >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-sm">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 border border-cyan-500/20 shadow-xs">
                       <FolderGit2 size={14} />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -496,7 +496,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
             <NavLink
               to="/login"
               state={{ backgroundLocation: location }}
-              className="btn-primary h-7 px-3 text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-sm"
+              className="btn-primary h-7 px-3 text-xs font-semibold rounded-lg flex items-center gap-1.5 shadow-xs"
             >
               <span>Sign in</span>
             </NavLink>

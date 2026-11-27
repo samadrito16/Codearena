@@ -58,14 +58,14 @@ export default function HintLadder({
                 onClick={() => setExpandedBugId(isExpanded ? null : bug.bug_id)}
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5">
+                  <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded-sm bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5">
                     Flaw #{index + 1}
                   </span>
                   <span className="text-xs font-semibold text-primary">
                     {bug.file} &middot; {bug.type}
                   </span>
                   {currentLevel > 0 && (
-                    <span className="font-mono text-[10px] text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">
+                    <span className="font-mono text-[10px] text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-sm border border-amber-500/20">
                       Hint {currentLevel}/3
                     </span>
                   )}

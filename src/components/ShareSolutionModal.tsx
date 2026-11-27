@@ -169,7 +169,7 @@ export default function ShareSolutionModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Give your approach a clear, descriptive title..."
-              className="w-full rounded-xl border px-3.5 py-2 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full rounded-xl border px-3.5 py-2 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors"
               style={{
                 backgroundColor: 'var(--ca-surface-muted)',
                 borderColor: 'var(--ca-border)',
@@ -199,7 +199,7 @@ export default function ShareSolutionModal({
               value={intuition}
               onChange={(e) => setIntuition(e.target.value)}
               placeholder="Explain the intuition in plain words as if teaching a peer. What pattern did you notice? Why does this approach beat brute force? What edge cases did you handle?"
-              className="w-full rounded-xl border p-3 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors leading-relaxed"
+              className="w-full rounded-xl border p-3 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors leading-relaxed"
               style={{
                 backgroundColor: 'var(--ca-surface-muted)',
                 borderColor: isExplanationValid
@@ -226,7 +226,7 @@ export default function ShareSolutionModal({
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary bg-[var(--ca-surface-muted)] focus:outline-none focus:border-indigo-500"
+                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary bg-[var(--ca-surface-muted)] focus:outline-hidden focus:border-indigo-500"
                 style={{ borderColor: 'var(--ca-border)' }}
               >
                 <option value="python">Python</option>
@@ -245,7 +245,7 @@ export default function ShareSolutionModal({
                 value={timeComplexity}
                 onChange={(e) => setTimeComplexity(e.target.value)}
                 placeholder="O(N)"
-                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500"
+                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500"
                 style={{
                   backgroundColor: 'var(--ca-surface-muted)',
                   borderColor: 'var(--ca-border)',
@@ -260,7 +260,7 @@ export default function ShareSolutionModal({
                 value={spaceComplexity}
                 onChange={(e) => setSpaceComplexity(e.target.value)}
                 placeholder="O(1)"
-                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500"
+                className="w-full rounded-xl border px-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500"
                 style={{
                   backgroundColor: 'var(--ca-surface-muted)',
                   borderColor: 'var(--ca-border)',
@@ -280,7 +280,7 @@ export default function ShareSolutionModal({
               value={tagsInput}
               onChange={(e) => setTagsInput(e.target.value)}
               placeholder="Hash Table, Optimal, Clean Code"
-              className="w-full rounded-xl border px-3.5 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full rounded-xl border px-3.5 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors"
               style={{
                 backgroundColor: 'var(--ca-surface-muted)',
                 borderColor: 'var(--ca-border)',
@@ -299,7 +299,7 @@ export default function ShareSolutionModal({
               rows={8}
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="w-full font-mono rounded-xl border p-3 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors leading-relaxed"
+              className="w-full font-mono rounded-xl border p-3 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors leading-relaxed"
               style={{
                 backgroundColor: 'var(--ca-surface-muted)',
                 borderColor: 'var(--ca-border)',
@@ -337,7 +337,7 @@ export default function ShareSolutionModal({
               <button
                 type="submit"
                 disabled={!isFormValid || isSubmitting}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed px-5 py-2 text-xs font-bold text-white shadow-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed px-5 py-2 text-xs font-bold text-white shadow-xs transition-all"
               >
                 <Sparkles size={14} />
                 <span>{isSubmitting ? 'Publishing...' : 'Publish Solution'}</span>

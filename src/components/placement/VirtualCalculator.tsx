@@ -214,7 +214,7 @@ export default function VirtualCalculator({ isOpen, onClose }: VirtualCalculator
         <button
           type="button"
           onClick={onClose}
-          className="rounded p-0.5 text-muted hover:text-primary transition-colors"
+          className="rounded-sm p-0.5 text-muted hover:text-primary transition-colors"
         >
           <X size={14} />
         </button>

@@ -49,7 +49,7 @@ export default function ClaimCertificateModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
     >
@@ -129,16 +129,16 @@ export default function ClaimCertificateModal({
                     {/* Criteria requirement pills */}
                     <div className="mt-2.5 flex flex-wrap items-center gap-2 text-[11px] text-muted">
                       <span className="font-semibold text-primary">Requires:</span>
-                      <span className="rounded bg-slate-800/80 px-2 py-0.5 text-slate-300">
+                      <span className="rounded-sm bg-slate-800/80 px-2 py-0.5 text-slate-300">
                         {track.requiredSolved} Solved ({track.currentSolved} done)
                       </span>
                       {track.requiredMedium > 0 && (
-                        <span className="rounded bg-slate-800/80 px-2 py-0.5 text-slate-300">
+                        <span className="rounded-sm bg-slate-800/80 px-2 py-0.5 text-slate-300">
                           {track.requiredMedium} Mediums ({track.currentMedium} done)
                         </span>
                       )}
                       {track.requiredHard > 0 && (
-                        <span className="rounded bg-slate-800/80 px-2 py-0.5 text-slate-300">
+                        <span className="rounded-sm bg-slate-800/80 px-2 py-0.5 text-slate-300">
                           {track.requiredHard} Hards ({track.currentHard} done)
                         </span>
                       )}
@@ -157,7 +157,7 @@ export default function ClaimCertificateModal({
                         type="button"
                         onClick={() => handleClaim(track.id)}
                         disabled={isClaiming}
-                        className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-4 py-2 text-xs font-bold text-slate-950 shadow-md shadow-amber-500/20 transition-all disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-4 py-2 text-xs font-bold text-slate-950 shadow-md shadow-amber-500/20 transition-all disabled:opacity-50"
                       >
                         {isClaiming ? (
                           <span>Issuing...</span>

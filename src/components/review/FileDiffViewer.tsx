@@ -81,7 +81,7 @@ export default function FileDiffViewer({
 
   return (
     <div
-      className="panel-card flex flex-col rounded-2xl border overflow-hidden shadow-sm"
+      className="panel-card flex flex-col rounded-2xl border overflow-hidden shadow-xs"
       style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
     >
       {/* File Tabs & Mode Toolbar */}
@@ -101,14 +101,14 @@ export default function FileDiffViewer({
                 onClick={() => onSelectFile(file.filename)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition shrink-0 ${
                   isActive
-                    ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm border border-black/10 dark:border-white/10'
+                    ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-xs border border-black/10 dark:border-white/10'
                     : 'text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
                 }`}
               >
                 <FileCode2 size={13} className={isActive ? 'text-indigo-500' : 'text-muted'} />
                 <span>{file.filename}</span>
                 {file.is_primary && (
-                  <span className="text-[9px] uppercase px-1 py-0.2 rounded bg-indigo-500/10 text-indigo-500 font-bold font-sans">
+                  <span className="text-[9px] uppercase px-1 py-0.2 rounded-sm bg-indigo-500/10 text-indigo-500 font-bold font-sans">
                     Primary
                   </span>
                 )}
@@ -134,7 +134,7 @@ export default function FileDiffViewer({
               onClick={() => setViewMode('edit')}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
                 viewMode === 'edit'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-primary shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -146,7 +146,7 @@ export default function FileDiffViewer({
               onClick={() => setViewMode('diff')}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
                 viewMode === 'diff'
-                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -228,7 +228,7 @@ export default function FileDiffViewer({
       >
         <div className="flex items-center gap-3">
           <span>Active: {activeFile.filename}</span>
-          <span className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[10px]">
+          <span className="px-1.5 py-0.5 rounded-sm bg-black/5 dark:bg-white/5 text-[10px]">
             {activeFile.language}
           </span>
           {isModified ? (
@@ -238,7 +238,7 @@ export default function FileDiffViewer({
           )}
         </div>
         <div className="text-[11px] font-sans text-muted">
-          Press <kbd className="px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10 font-mono text-[10px]">Ctrl+Enter</kbd> to verify fix
+          Press <kbd className="px-1.5 py-0.5 rounded-sm bg-black/10 dark:bg-white/10 font-mono text-[10px]">Ctrl+Enter</kbd> to verify fix
         </div>
       </div>
     </div>

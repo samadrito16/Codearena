@@ -32,7 +32,7 @@ export default function QuestionPalette({
 
   return (
     <div
-      className="flex flex-col h-full rounded-2xl border p-4 shadow-sm"
+      className="flex flex-col h-full rounded-2xl border p-4 shadow-xs"
       style={{
         backgroundColor: 'var(--ca-surface)',
         borderColor: 'var(--ca-border)',
@@ -108,16 +108,16 @@ export default function QuestionPalette({
             };
 
             if (status === 'answered') {
-              statusClasses = 'bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-sm border-emerald-500';
+              statusClasses = 'bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-xs border-emerald-500';
               inlineStyle = {};
             } else if (status === 'not_answered') {
-              statusClasses = 'bg-rose-500 text-white font-bold hover:bg-rose-600 shadow-sm border-rose-500';
+              statusClasses = 'bg-rose-500 text-white font-bold hover:bg-rose-600 shadow-xs border-rose-500';
               inlineStyle = {};
             } else if (status === 'marked_for_review') {
-              statusClasses = 'bg-purple-600 text-white font-bold hover:bg-purple-700 shadow-sm border-purple-500';
+              statusClasses = 'bg-purple-600 text-white font-bold hover:bg-purple-700 shadow-xs border-purple-500';
               inlineStyle = {};
             } else if (status === 'answered_and_marked') {
-              statusClasses = 'bg-purple-600 text-white font-bold hover:bg-purple-700 ring-2 ring-emerald-400 shadow-sm border-purple-500';
+              statusClasses = 'bg-purple-600 text-white font-bold hover:bg-purple-700 ring-2 ring-emerald-400 shadow-xs border-purple-500';
               inlineStyle = {};
             }
 

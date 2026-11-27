@@ -81,7 +81,7 @@ export default function MistakeNoteBox({
           value={note}
           onChange={(e) => handleChange(e.target.value)}
           placeholder="What tripped you up or what boundary condition should you remember 48 hours from now? (e.g. 'Watch out for left < right vs left <= right; remember to advance left past all duplicates')."
-          className="w-full rounded-xl border p-3.5 text-xs leading-relaxed outline-none transition resize-y"
+          className="w-full rounded-xl border p-3.5 text-xs leading-relaxed outline-hidden transition resize-y"
           style={{
             borderColor: 'var(--ca-border)',
             background: 'var(--ca-surface-muted)',

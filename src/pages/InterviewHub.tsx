@@ -182,7 +182,7 @@ export default function InterviewHub() {
                       handleLaunchRound(preset.id);
                     }}
                     disabled={isGenerating}
-                    className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow hover:bg-indigo-500 active:scale-95 transition-all"
+                    className="flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-500 active:scale-95 transition-all"
                   >
                     <Play size={12} />
                     <span>Start Round</span>

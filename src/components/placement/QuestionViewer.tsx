@@ -42,7 +42,7 @@ export default function QuestionViewer({
 
   return (
     <div
-      className="flex flex-col h-full rounded-2xl border shadow-sm overflow-hidden"
+      className="flex flex-col h-full rounded-2xl border shadow-xs overflow-hidden"
       style={{
         backgroundColor: 'var(--ca-surface)',
         borderColor: 'var(--ca-border)',
@@ -235,7 +235,7 @@ export default function QuestionViewer({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 text-xs font-bold text-white shadow-sm transition-colors"
+            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors"
           >
             <span>{isLast ? 'Save & Next Section' : 'Save & Next'}</span>
             <ChevronRight size={14} />

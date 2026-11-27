@@ -596,7 +596,7 @@ export default function RoleSpecificWorkspace() {
                       <div className="space-y-1">
                         <h4 className="font-bold text-sm text-primary">No Tests Executed Yet</h4>
                         <p className="text-xs text-muted max-w-sm">
-                          Click "Run Tests" or press <kbd className="px-1.5 py-0.5 rounded border text-muted font-mono text-[11px]" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>Ctrl+Enter</kbd> to evaluate your implementation against the automated test suite.
+                          Click "Run Tests" or press <kbd className="px-1.5 py-0.5 rounded-sm border text-muted font-mono text-[11px]" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}>Ctrl+Enter</kbd> to evaluate your implementation against the automated test suite.
                         </p>
                       </div>
                       <button
@@ -658,7 +658,7 @@ export default function RoleSpecificWorkspace() {
                             </div>
 
                             {result.error && (
-                              <div className="mt-1 p-2 rounded bg-rose-500/10 border border-rose-500/20 text-[11px] font-mono text-rose-400">
+                              <div className="mt-1 p-2 rounded-sm bg-rose-500/10 border border-rose-500/20 text-[11px] font-mono text-rose-400">
                                 {result.error}
                               </div>
                             )}

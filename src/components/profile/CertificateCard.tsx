@@ -52,7 +52,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
 
   return (
     <>
-      <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-slate-900/60 to-purple-950/20 p-5 shadow-lg shadow-amber-500/5 backdrop-blur-md transition-all duration-300 hover:border-amber-500/50 hover:shadow-amber-500/10">
+      <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-linear-to-br from-amber-500/10 via-slate-900/60 to-purple-950/20 p-5 shadow-lg shadow-amber-500/5 backdrop-blur-md transition-all duration-300 hover:border-amber-500/50 hover:shadow-amber-500/10">
         {/* Holographic PrismCode Seal Watermark */}
         <div className="pointer-events-none absolute -right-6 -bottom-6 opacity-10 text-amber-400">
           <ShieldCheck size={160} />
@@ -132,7 +132,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
               href={linkedInAddUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#0A66C2] hover:bg-[#004182] px-3 py-1.5 text-xs font-bold text-white shadow-sm transition-all"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#0A66C2] hover:bg-[#004182] px-3 py-1.5 text-xs font-bold text-white shadow-xs transition-all"
               title="Add this verified certificate directly to your LinkedIn Licenses & Certifications"
             >
               <Linkedin size={14} className="fill-current" />
@@ -156,7 +156,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
       {/* Share Modal Dialog */}
       {isShareModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
         >
@@ -203,7 +203,7 @@ export default function CertificateCard({ certificate, isOwner = false }: Certif
                   readOnly
                   rows={4}
                   value={generateCertificateAnnouncement(certificate, verifyUrl)}
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 p-2.5 text-xs text-slate-300 font-mono resize-none focus:outline-none"
+                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 p-2.5 text-xs text-slate-300 font-mono resize-none focus:outline-hidden"
                 />
               </div>
 

@@ -208,7 +208,7 @@ export default function Progress() {
                   role="tab"
                   aria-selected={summaryPeriod === key}
                   onClick={() => setSummaryPeriod(key)}
-                  className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${summaryPeriod === key ? 'bg-indigo-600 text-white shadow-sm' : 'text-muted hover:text-primary'}`}
+                  className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${summaryPeriod === key ? 'bg-indigo-600 text-white shadow-xs' : 'text-muted hover:text-primary'}`}
                 >
                   {label}
                 </button>
@@ -566,7 +566,7 @@ export default function Progress() {
                 key={value}
                 type="button"
                 onClick={() => setTopicFilter(value)}
-                className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${topicFilter === value ? 'bg-white text-primary shadow-sm dark:bg-slate-800' : 'text-muted hover:text-primary'}`}
+                className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition ${topicFilter === value ? 'bg-white text-primary shadow-xs dark:bg-slate-800' : 'text-muted hover:text-primary'}`}
               >
                 {label}
               </button>
@@ -826,7 +826,7 @@ export default function Progress() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4 sm:p-6 backdrop-blur-sm ca-modal-backdrop"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4 sm:p-6 backdrop-blur-xs ca-modal-backdrop"
           onClick={() => setShowMilestonesModal(false)}
         >
           <div

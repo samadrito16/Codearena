@@ -71,10 +71,10 @@ export default function AccountMenu({
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
           aria-haspopup="menu"
-          className="group flex items-center gap-2 rounded-lg border border-slate-300/90 bg-slate-100/90 hover:bg-slate-200/90 hover:border-slate-400 text-slate-800 hover:text-slate-900 dark:border-neutral-700/80 dark:bg-neutral-900/70 dark:text-neutral-300 dark:hover:bg-neutral-800/90 dark:hover:border-neutral-500/80 dark:hover:text-white px-2.5 py-1 text-xs transition-all shadow-sm select-none"
+          className="group flex items-center gap-2 rounded-lg border border-slate-300/90 bg-slate-100/90 hover:bg-slate-200/90 hover:border-slate-400 text-slate-800 hover:text-slate-900 dark:border-neutral-700/80 dark:bg-neutral-900/70 dark:text-neutral-300 dark:hover:bg-neutral-800/90 dark:hover:border-neutral-500/80 dark:hover:text-white px-2.5 py-1 text-xs transition-all shadow-xs select-none"
         >
           {/* Avatar square */}
-          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-amber-100 text-[10px] font-bold text-amber-800 border border-amber-300/60 dark:bg-[#38332b] dark:text-amber-200/90 dark:border-transparent shadow-sm">
+          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-amber-100 text-[10px] font-bold text-amber-800 border border-amber-300/60 dark:bg-[#38332b] dark:text-amber-200/90 dark:border-transparent shadow-xs">
             {initials}
           </div>
           <span className="font-medium text-xs text-slate-800 group-hover:text-slate-900 dark:text-neutral-200 dark:group-hover:text-white max-w-[120px] sm:max-w-[150px] truncate">
@@ -98,7 +98,7 @@ export default function AccountMenu({
               <div className="flex items-center justify-between gap-1">
                 <p className="truncate text-xs font-bold text-slate-900 dark:text-white">{displayName}</p>
                 {user?.role === 'admin' && (
-                  <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <span className="inline-flex items-center gap-0.5 rounded-sm px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                     <ShieldCheck size={10} /> Admin
                   </span>
                 )}
@@ -205,7 +205,7 @@ export default function AccountMenu({
           <div className="flex items-center justify-between gap-1">
             <p className="truncate text-xs font-bold text-primary">{displayName}</p>
             {user?.role === 'admin' && (
-              <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-500">
+              <span className="inline-flex items-center gap-0.5 rounded-sm px-1.5 py-0.5 text-[9px] font-bold bg-amber-500/10 text-amber-500">
                 <ShieldCheck size={10} /> Admin
               </span>
             )}

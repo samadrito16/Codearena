@@ -41,7 +41,7 @@ export default function ProfileAvatar({
 
   return (
     <div
-      className={`relative flex shrink-0 items-center justify-center overflow-hidden font-display font-bold text-white shadow-sm select-none ${SIZE_CLASSES[size]} ${className}`}
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden font-display font-bold text-white shadow-xs select-none ${SIZE_CLASSES[size]} ${className}`}
       style={canShowImage ? undefined : { background: preset.gradient }}
       aria-label={`${displayName || 'User'} avatar`}
     >

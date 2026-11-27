@@ -102,7 +102,7 @@ function TypedRecallItem({
       {/* Header Prompt & Clue */}
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-2">
-          <span className="font-mono font-bold text-amber-500 flex items-center gap-1 text-[11px] bg-amber-500/15 px-2 py-0.5 rounded">
+          <span className="font-mono font-bold text-amber-500 flex items-center gap-1 text-[11px] bg-amber-500/15 px-2 py-0.5 rounded-sm">
             <AlertTriangle size={11} /> Critical Line #{line.line_number}
           </span>
           <span className="text-muted text-[11px] font-sans">
@@ -112,7 +112,7 @@ function TypedRecallItem({
 
         {recallStatus && (
           <span
-            className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded ${
+            className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-sm ${
               recallStatus === 'got_it'
                 ? 'bg-emerald-500/20 text-emerald-500'
                 : 'bg-rose-500/20 text-rose-500'
@@ -170,7 +170,7 @@ function TypedRecallItem({
                   }
                 }}
                 placeholder={`Type the boundary logic (e.g. ${cleanExpected.slice(0, 14)}…)`}
-                className={`w-full font-mono text-xs px-3 py-2 rounded-lg border bg-slate-950/80 text-primary placeholder:text-muted/40 focus:outline-none focus:ring-2 transition ${
+                className={`w-full font-mono text-xs px-3 py-2 rounded-lg border bg-slate-950/80 text-primary placeholder:text-muted/40 focus:outline-hidden focus:ring-2 transition ${
                   attemptFeedback === 'incorrect'
                     ? 'border-rose-500 focus:ring-rose-500/30'
                     : attemptFeedback === 'correct'
@@ -264,7 +264,7 @@ export default function SubgoalBlueprintViewer({
             onClick={() => setMode('blueprint')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               mode === 'blueprint'
-                ? 'bg-white dark:bg-slate-800 text-primary shadow-sm font-semibold'
+                ? 'bg-white dark:bg-slate-800 text-primary shadow-xs font-semibold'
                 : 'text-muted hover:text-primary'
             }`}
           >
@@ -277,7 +277,7 @@ export default function SubgoalBlueprintViewer({
             onClick={() => setMode('hardest_25')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               mode === 'hardest_25'
-                ? 'bg-white dark:bg-slate-800 text-amber-500 font-semibold shadow-sm'
+                ? 'bg-white dark:bg-slate-800 text-amber-500 font-semibold shadow-xs'
                 : 'text-muted hover:text-primary'
             }`}
           >
@@ -290,7 +290,7 @@ export default function SubgoalBlueprintViewer({
             onClick={() => setMode('recall')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               mode === 'recall'
-                ? 'bg-white dark:bg-slate-800 text-indigo-400 font-semibold shadow-sm'
+                ? 'bg-white dark:bg-slate-800 text-indigo-400 font-semibold shadow-xs'
                 : 'text-muted hover:text-primary'
             }`}
           >
@@ -309,7 +309,7 @@ export default function SubgoalBlueprintViewer({
               <strong>Hardest 25% Focus Mode:</strong> Highlighting {highRiskLines.length} of {optimal.code_lines.length} lines where candidates fail edge conditions.
             </span>
           </div>
-          <span className="font-mono font-bold text-[11px] bg-amber-500/20 px-2 py-0.5 rounded">
+          <span className="font-mono font-bold text-[11px] bg-amber-500/20 px-2 py-0.5 rounded-sm">
             {((highRiskLines.length / optimal.code_lines.length) * 100).toFixed(0)}% Line Coverage
           </span>
         </div>
@@ -324,7 +324,7 @@ export default function SubgoalBlueprintViewer({
               <strong>Active Typed Recall Drill:</strong> Test your algorithmic memory! Type each critical boundary line from memory and press Check.
             </span>
           </div>
-          <span className="font-mono text-[11px] font-bold bg-indigo-500/20 px-2 py-0.5 rounded">
+          <span className="font-mono text-[11px] font-bold bg-indigo-500/20 px-2 py-0.5 rounded-sm">
             {Object.values(recallResults).filter((r) => r === 'got_it').length} / {highRiskLines.length} Lines Mastered
           </span>
         </div>
@@ -444,7 +444,7 @@ export default function SubgoalBlueprintViewer({
 
                           {/* High risk badge indicator */}
                           {isHighRisk && (
-                            <span className="shrink-0 flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                            <span className="shrink-0 flex items-center gap-1 rounded-sm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                               <AlertTriangle size={10} />
                               Critical
                             </span>
@@ -485,7 +485,7 @@ export default function SubgoalBlueprintViewer({
                 Line #{selectedLine.line_number}
               </span>
               {selectedLine.is_high_risk ? (
-                <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px] font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30">
+                <span className="inline-flex items-center gap-1 rounded-sm px-2 py-0.5 text-[10px] font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30">
                   <AlertTriangle size={11} /> High Risk Line
                 </span>
               ) : (

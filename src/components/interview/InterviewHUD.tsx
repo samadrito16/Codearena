@@ -60,7 +60,7 @@ export default function InterviewHUD({
               onClick={() => onSwitchProblem(0)}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 round.currentProblemIndex === 0
-                  ? 'bg-indigo-500/15 text-indigo-500 border border-indigo-500/30 shadow-sm'
+                  ? 'bg-indigo-500/15 text-indigo-500 border border-indigo-500/30 shadow-xs'
                   : 'text-muted hover:bg-white/5 border border-transparent'
               }`}
             >
@@ -82,7 +82,7 @@ export default function InterviewHUD({
               onClick={() => onSwitchProblem(1)}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 round.currentProblemIndex === 1
-                  ? 'bg-indigo-500/15 text-indigo-500 border border-indigo-500/30 shadow-sm'
+                  ? 'bg-indigo-500/15 text-indigo-500 border border-indigo-500/30 shadow-xs'
                   : 'text-muted hover:bg-white/5 border border-transparent'
               }`}
             >
@@ -105,7 +105,7 @@ export default function InterviewHUD({
                 onClick={onToggleBriefCollapse}
                 className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-semibold transition-all ml-1 ${
                   isBriefCollapsed
-                    ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 shadow-sm'
+                    ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30 shadow-xs'
                     : 'text-muted hover:bg-white/5 border border-transparent hover:border-white/10'
                 }`}
                 title={isBriefCollapsed ? 'Show problem statement' : 'Collapse problem statement for full-width code editor'}
@@ -165,7 +165,7 @@ export default function InterviewHUD({
 
       {/* Confirmation Modal */}
       {showConfirmModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
           <div
             className="w-full max-w-md rounded-2xl p-6 shadow-2xl border space-y-5"
             style={{ backgroundColor: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
@@ -220,7 +220,7 @@ export default function InterviewHUD({
                   setShowConfirmModal(false);
                   onSubmitInterview();
                 }}
-                className="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow hover:bg-indigo-500 transition-all"
+                className="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-500 transition-all"
               >
                 Confirm & Grade
               </button>

@@ -722,7 +722,7 @@ export default function Admin() {
             onClick={() => fileRef.current?.click()}
             className="flex w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/70 px-5 py-8 text-center transition hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-700 dark:bg-slate-900/50 dark:hover:border-indigo-500/50 dark:hover:bg-indigo-500/5"
           >
-            <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-indigo-600 shadow-sm dark:bg-slate-800 dark:text-indigo-300"><FileJson size={21}/></span>
+            <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-indigo-600 shadow-xs dark:bg-slate-800 dark:text-indigo-300"><FileJson size={21}/></span>
             <span className="text-sm font-bold text-primary">Choose a JSON or JSONL file</span>
             <span className="mt-1 text-[11px] text-muted">Each row is validated individually for required fields, examples, and duplicate IDs.</span>
             <span className="mt-3 rounded-lg bg-indigo-600 px-3 py-1.5 text-[11px] font-bold text-white">Browse files</span>

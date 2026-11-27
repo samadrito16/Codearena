@@ -73,7 +73,7 @@ export default function BruteForceCompare({
               <span className="text-[11px] font-semibold uppercase tracking-wider text-muted">
                 Naive Brute Force
               </span>
-              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded border border-rose-500/20 text-rose-500 bg-rose-500/5">
+              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded-sm border border-rose-500/20 text-rose-500 bg-rose-500/5">
                 {bruteForce.time_complexity} Time
               </span>
             </div>
@@ -99,7 +99,7 @@ export default function BruteForceCompare({
               <span className="text-[11px] font-semibold uppercase tracking-wider text-muted">
                 Optimal Blueprint
               </span>
-              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded border border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
+              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded-sm border border-emerald-500/20 text-emerald-500 bg-emerald-500/5">
                 {optimalSolution.time_complexity} Time
               </span>
             </div>
@@ -142,7 +142,7 @@ export default function BruteForceCompare({
               type="button"
               onClick={handleRunBenchmark}
               disabled={benchmarkStatus === 'running'}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-sm disabled:opacity-50 shrink-0"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-neutral-200 transition shadow-xs disabled:opacity-50 shrink-0"
             >
               {benchmarkStatus === 'running' ? (
                 <>
