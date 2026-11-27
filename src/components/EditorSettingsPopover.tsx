@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Minus, Plus, SlidersHorizontal } from 'lucide-react';
+import Tooltip from './ui/Tooltip';
 import {
   MAX_FONT_SIZE,
   MIN_FONT_SIZE,
@@ -44,17 +45,18 @@ export default function EditorSettingsPopover({
 
   return (
     <div className="relative" ref={containerRef}>
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        aria-label="Editor settings"
-        title="Editor settings"
-        className={`workspace-icon-button ${open ? 'workspace-icon-button-active' : ''}`}
-      >
-        <SlidersHorizontal size={13}/>
-      </button>
+      <Tooltip content="Editor settings" align="end" disabled={open}>
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-expanded={open}
+          aria-haspopup="dialog"
+          aria-label="Editor settings"
+          className={`workspace-icon-button ${open ? 'workspace-icon-button-active' : ''}`}
+        >
+          <SlidersHorizontal size={13}/>
+        </button>
+      </Tooltip>
 
       {open && (
         <div className="workspace-settings-popover" role="dialog" aria-label="Editor settings">

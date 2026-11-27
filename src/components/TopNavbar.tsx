@@ -61,7 +61,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
         lenis.off('scroll', handleScroll);
       }
     };
-  }, []);
+  }, [location.pathname]);
 
   // Close dropdowns on route changes, and reset overview active state if leaving dashboard
   useEffect(() => {

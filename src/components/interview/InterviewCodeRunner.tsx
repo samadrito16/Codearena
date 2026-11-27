@@ -256,9 +256,11 @@ export default function InterviewCodeRunner({
             className="workspace-reset-button"
             title="Reset code to starter template"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={12} />
             <span>Reset</span>
           </button>
+
+          <span className="workspace-toolbar-divider" aria-hidden="true" />
 
           {/* Identical Editor Settings Popover */}
           <EditorSettingsPopover
@@ -295,7 +297,7 @@ export default function InterviewCodeRunner({
       </div>
 
       {/* 2. Monaco Editor Canvas (Matches Workspace.tsx 1:1) */}
-      <div className="workspace-editor-stage flex-1 relative min-h-0 overflow-hidden">
+      <div className="workspace-editor-stage flex-1 relative min-h-0 overflow-hidden" data-lenis-prevent>
         <Editor
           height="100%"
           path={`interview/${problem.id}/${currentLang}`}
@@ -312,6 +314,7 @@ export default function InterviewCodeRunner({
             fontLigatures: true,
             padding: { top: 16, bottom: 16 },
             scrollBeyondLastLine: false,
+            scrollbar: { alwaysConsumeMouseWheel: false },
             roundedSelection: false,
             automaticLayout: true,
             tabSize: editorPrefs.tabSize,

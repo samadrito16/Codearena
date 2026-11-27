@@ -21,6 +21,7 @@ export function initSmoothScroll(): Lenis {
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
+    allowNestedScroll: true,
     wheelMultiplier: 0.95,
     touchMultiplier: 1.5,
   });

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DifficultyBadge } from '../pages/Dashboard';
+import ProblemExamples from './ProblemExamples';
 import type { Problem, ProblemCollection, ProblemNote } from '../types';
 
 interface ProblemPreviewModalProps {
@@ -66,7 +67,7 @@ export default function ProblemPreviewModal({
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="problem-preview-drawer">
+      <div className="problem-preview-drawer" data-lenis-prevent>
         {/* Header */}
         <div className="flex items-start justify-between gap-3 border-b px-5 py-4" style={{ borderColor: 'var(--ca-border)' }}>
           <div className="min-w-0 flex-1">
@@ -149,28 +150,9 @@ export default function ProblemPreviewModal({
           )}
 
           {/* Examples */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             <p className="text-[10px] font-bold uppercase tracking-wider text-muted">Examples</p>
-            {problem.examples.map((item, idx) => (
-              <div key={idx} className="workspace-example-card">
-                <p className="mb-2 text-xs font-bold text-primary">Example {idx + 1}</p>
-                <div className="space-y-2 font-mono text-[11px] leading-5">
-                  <div>
-                    <span className="font-sans text-[10px] font-bold text-muted">Input</span>
-                    <span className="workspace-code-block">{item.input}</span>
-                  </div>
-                  <div>
-                    <span className="font-sans text-[10px] font-bold text-muted">Output</span>
-                    <span className="workspace-code-block">{item.output}</span>
-                  </div>
-                  {item.explanation && (
-                    <p className="font-sans text-xs text-muted">
-                      <strong className="text-primary">Explanation: </strong>{item.explanation}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
+            <ProblemExamples examples={problem.examples} headingTag="p" showSampleLabel={false}/>
           </div>
 
           {/* Constraints */}

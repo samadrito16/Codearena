@@ -1,5 +1,6 @@
 import { ThumbsUp } from 'lucide-react';
 import { DifficultyBadge } from '../pages/Dashboard';
+import ProblemExamples from './ProblemExamples';
 import type { Problem } from '../types';
 
 export default function AdminWorkspacePreview({ problem }: { problem: Problem }) {
@@ -38,31 +39,14 @@ export default function AdminWorkspacePreview({ problem }: { problem: Problem })
         </p>
 
         {problem.examples.length > 0 ? (
-          problem.examples.map((item, index) => (
-            <div key={index} className="workspace-example-card mt-5">
-              <div className="mb-2.5 flex items-center justify-between">
-                <h4 className="text-xs font-bold text-primary">Example {index + 1}</h4>
-                <span className="workspace-example-label">SAMPLE CASE</span>
-              </div>
-              <div className="space-y-2 font-mono text-[11px] leading-6">
-                <p>
-                  <span className="font-sans font-bold text-muted">Input</span>
-                  <span className="workspace-code-block">{item.input || '—'}</span>
-                </p>
-                <p>
-                  <span className="font-sans font-bold text-muted">Output</span>
-                  <span className="workspace-code-block">{item.output || '—'}</span>
-                </p>
-                {item.explanation && (
-                  <p className="pt-1 font-sans text-muted">
-                    <strong className="text-primary">Explanation: </strong>{item.explanation}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))
+          <ProblemExamples
+            examples={problem.examples}
+            className="mt-4"
+            headingTag="h4"
+            fallbackEmpty
+          />
         ) : (
-          <div className="mt-5 rounded-xl border border-dashed p-4 text-center text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
+          <div className="mt-4 rounded-xl border border-dashed p-4 text-center text-xs text-muted" style={{ borderColor: 'var(--ca-border)' }}>
             Add examples in the form to preview sample input/output cards here.
           </div>
         )}

@@ -32,6 +32,7 @@ import {
   type ClientEngineType,
 } from '../services/clientExecution';
 import EditorSettingsPopover from '../components/EditorSettingsPopover';
+import Tooltip from '../components/ui/Tooltip';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import { EditorLoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { useEditorPreferences } from '../hooks/useEditorPreferences';
@@ -717,42 +718,47 @@ export default function StandaloneEditor() {
             className="workspace-reset-button"
             title="Reset to starter template"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={12} />
             <span>Reset</span>
           </button>
 
+          <span className="workspace-toolbar-divider" aria-hidden="true" />
+
           {/* Copy Code */}
-          <button
-            type="button"
-            onClick={handleCopyCode}
-            className="workspace-icon-button"
-            title={copied ? 'Copied to clipboard!' : 'Copy code'}
-            aria-label="Copy code"
-          >
-            {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
-          </button>
+          <Tooltip content={copied ? 'Copied to clipboard!' : 'Copy code'}>
+            <button
+              type="button"
+              onClick={handleCopyCode}
+              className="workspace-icon-button"
+              aria-label="Copy code"
+            >
+              {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+            </button>
+          </Tooltip>
 
           {/* Download File */}
-          <button
-            type="button"
-            onClick={handleDownloadFile}
-            className="workspace-icon-button"
-            title="Download file"
-            aria-label="Download file"
-          >
-            <Download size={14} />
-          </button>
+          <Tooltip content="Download file">
+            <button
+              type="button"
+              onClick={handleDownloadFile}
+              className="workspace-icon-button"
+              aria-label="Download file"
+            >
+              <Download size={14} />
+            </button>
+          </Tooltip>
 
           {/* Keyboard Shortcuts */}
-          <button
-            type="button"
-            onClick={() => setShortcutsOpen(true)}
-            aria-label="View keyboard shortcuts"
-            title="Keyboard shortcuts (?)"
-            className="workspace-icon-button"
-          >
-            <Keyboard size={14} />
-          </button>
+          <Tooltip content="Keyboard shortcuts" shortcut="?" align="end">
+            <button
+              type="button"
+              onClick={() => setShortcutsOpen(true)}
+              aria-label="View keyboard shortcuts (?)"
+              className="workspace-icon-button"
+            >
+              <Keyboard size={14} />
+            </button>
+          </Tooltip>
 
           {/* Editor Settings Popover (font size, minimap, word wrap, tab size, line numbers) */}
           <EditorSettingsPopover
@@ -773,7 +779,7 @@ export default function StandaloneEditor() {
         }`}
       >
         {/* Monaco Editor Stage */}
-        <div className="workspace-editor-stage flex-1 relative min-h-0 overflow-hidden">
+        <div className="workspace-editor-stage flex-1 relative min-h-0 overflow-hidden" data-lenis-prevent>
           <Editor
             height="100%"
             path={`personal-workspace/${language}/${fileName}`}
@@ -791,6 +797,7 @@ export default function StandaloneEditor() {
               fontLigatures: true,
               padding: { top: 22, bottom: 18 },
               scrollBeyondLastLine: false,
+              scrollbar: { alwaysConsumeMouseWheel: false },
               roundedSelection: false,
               automaticLayout: true,
               tabSize: editorPrefs.tabSize,

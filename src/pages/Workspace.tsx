@@ -40,6 +40,7 @@ import type { ExecutionTraceResult } from '../types/scrubber';
 import { TracePanel } from '../components/scrubber/TracePanel';
 import CollectionPicker from '../components/CollectionPicker';
 import EditorSettingsPopover from '../components/EditorSettingsPopover';
+import ProblemExamples from '../components/ProblemExamples';
 import ProblemNotesPanel from '../components/ProblemNotesPanel';
 import SolutionsPanel from '../components/SolutionsPanel';
 import { SubmissionResultRow, SubmissionsEmptyState } from '../components/SubmissionResultRow';
@@ -47,6 +48,7 @@ import TestCaseManager from '../components/TestCaseManager';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import EmptyState from '../components/ui/EmptyState';
 import ErrorAlert from '../components/ui/ErrorAlert';
+import Tooltip from '../components/ui/Tooltip';
 import {
   isAppFullscreen,
   requestAppFullscreen,
@@ -937,7 +939,7 @@ function WorkspaceSession({
           </div>
         </div>
         {!descriptionCollapsed && (
-          <div className="workspace-description-scroll">
+          <div className="workspace-description-scroll" data-lenis-prevent>
             {activeTab === 'Description' ? <>
               <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                 <div className="flex flex-wrap gap-2">{problem.topics.map((tag) => <span key={tag} className="tag-pill">{tag}</span>)}</div>
@@ -987,8 +989,8 @@ function WorkspaceSession({
               <p className="workspace-eyebrow">PROBLEM STATEMENT</p>
               <h1 className="problem-title mt-1 text-2xl font-bold">{problem.title}</h1>
               <p className="mt-4 whitespace-pre-line text-sm leading-7 text-muted">{problem.description}</p>
-              {problem.examples.map((item, index) => <div key={index} className="workspace-example-card mt-6"><div className="mb-3 flex items-center justify-between"><h3 className="text-xs font-bold text-primary">Example {index + 1}</h3><span className="workspace-example-label">SAMPLE CASE</span></div><div className="space-y-2 font-mono text-[11px] leading-6"><p><span className="font-sans font-bold text-muted">Input</span><span className="workspace-code-block">{item.input}</span></p><p><span className="font-sans font-bold text-muted">Output</span><span className="workspace-code-block">{item.output}</span></p>{item.explanation && <p className="pt-1 font-sans text-muted"><strong>Explanation: </strong>{item.explanation}</p>}</div></div>)}
-              <div className="mt-6"><h3 className="mb-3 text-xs font-bold text-primary">Constraints</h3><ul className="list-disc space-y-1.5 pl-5 text-xs leading-6 text-muted">{problem.constraints.map((item) => <li key={item}>{item}</li>)}</ul></div>
+              <ProblemExamples examples={problem.examples} className="mt-4"/>
+              <div className="mt-5"><h3 className="mb-2.5 text-xs font-bold text-primary">Constraints</h3><ul className="list-disc space-y-1.5 pl-5 text-xs leading-6 text-muted">{problem.constraints.map((item) => <li key={item}>{item}</li>)}</ul></div>
               <div className="workspace-description-footer mt-8">
                 <div className="flex flex-wrap items-start gap-x-5 gap-y-2">
                   {problem.acceptance && problem.acceptance !== '—' && problem.acceptance !== '0%' && (
@@ -1129,7 +1131,7 @@ function WorkspaceSession({
               <span>{saveStatusLabel}</span>
             </span>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5">
             {descriptionCollapsed && <div className="workspace-expand-desktop-only">{problemPager}</div>}
             <label className="workspace-language-select" aria-label="Choose programming language">
               <span className={`h-2 w-2 shrink-0 rounded-full ${languageDots[language]}`}/>
@@ -1147,17 +1149,19 @@ function WorkspaceSession({
               className="workspace-reset-button"
               title={hasChanges ? 'Reset draft to starter code' : 'Reset starter code'}
             >
-              <RotateCcw size={13}/><span>Reset</span>
+              <RotateCcw size={12}/><span>Reset</span>
             </button>
-            <button
-              type="button"
-              onClick={() => setShortcutsOpen(true)}
-              aria-label="View keyboard shortcuts"
-              title="Keyboard shortcuts (?)"
-              className="workspace-icon-button"
-            >
-              <Keyboard size={14}/>
-            </button>
+            <span className="workspace-toolbar-divider" aria-hidden="true"/>
+            <Tooltip content="Keyboard shortcuts" shortcut="?" align="end">
+              <button
+                type="button"
+                onClick={() => setShortcutsOpen(true)}
+                aria-label="View keyboard shortcuts (?)"
+                className="workspace-icon-button"
+              >
+                <Keyboard size={14}/>
+              </button>
+            </Tooltip>
             <EditorSettingsPopover
               preferences={editorPrefs}
               updatePreference={updateEditorPref}
@@ -1179,7 +1183,7 @@ function WorkspaceSession({
             />
           </div>
         )}
-        <div className="workspace-editor-stage">
+        <div className="workspace-editor-stage" data-lenis-prevent>
           <Editor
             height="100%"
             path={`${problem.id}/${language}`}
@@ -1204,6 +1208,7 @@ function WorkspaceSession({
               fontLigatures: true,
               padding: { top: 22, bottom: 18 },
               scrollBeyondLastLine: false,
+              scrollbar: { alwaysConsumeMouseWheel: false },
               roundedSelection: false,
               automaticLayout: true,
               tabSize: editorPrefs.tabSize,
@@ -1365,7 +1370,7 @@ function WorkspaceSession({
           )}
 
           {!consoleCollapsed && (
-            <div className="workspace-console-body" aria-live="polite">
+            <div className="workspace-console-body" data-lenis-prevent aria-live="polite">
               {!isContestMode && consoleTab === 'testcases' ? (
                 <TestCaseManager
                   sampleCases={sampleCases}
