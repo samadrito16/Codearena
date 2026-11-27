@@ -5,6 +5,7 @@ import {
   Code2,
   Compass,
   Contrast,
+  Crown,
   Flame,
   FolderGit2,
   GraduationCap,
@@ -16,6 +17,7 @@ import {
   ShieldCheck,
   Sparkles,
   Timer,
+  Trophy,
 } from 'lucide-react';
 import { useUi } from '../context/UiContext';
 import { useAuth } from '../context/AuthContext';
@@ -23,6 +25,8 @@ import { useApp } from '../context/AppContext';
 import { getLenis } from '../lib/smoothScroll';
 import AccountMenu from './AccountMenu';
 import { PrismMark } from './PrismLogo';
+
+type NavDropdown = 'learn' | 'practice' | 'prep' | 'compete' | null;
 
 interface TopNavbarProps {
   onOpenMobileMenu?: () => void;
@@ -34,13 +38,19 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   const { user } = useAuth();
   const { theme, setTheme } = useApp();
 
-  const [learnOpen, setLearnOpen] = useState(false);
-  const [practiceOpen, setPracticeOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<NavDropdown>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [overviewActive, setOverviewActive] = useState(false);
 
   const learnRef = useRef<HTMLDivElement>(null);
   const practiceRef = useRef<HTMLDivElement>(null);
+  const prepRef = useRef<HTMLDivElement>(null);
+  const competeRef = useRef<HTMLDivElement>(null);
+
+  const learnOpen = openMenu === 'learn';
+  const practiceOpen = openMenu === 'practice';
+  const prepOpen = openMenu === 'prep';
+  const competeOpen = openMenu === 'compete';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,8 +75,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
   // Close dropdowns on route changes, and reset overview active state if leaving dashboard
   useEffect(() => {
-    setLearnOpen(false);
-    setPracticeOpen(false);
+    setOpenMenu(null);
     if (location.pathname !== '/dashboard' && location.pathname !== '/') {
       setOverviewActive(false);
     }
@@ -75,17 +84,16 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
   // Handle outside clicks and escape key
   useEffect(() => {
     function handleOutside(e: MouseEvent) {
-      if (learnRef.current && !learnRef.current.contains(e.target as Node)) {
-        setLearnOpen(false);
-      }
-      if (practiceRef.current && !practiceRef.current.contains(e.target as Node)) {
-        setPracticeOpen(false);
+      const target = e.target as Node;
+      const refs = [learnRef, practiceRef, prepRef, competeRef];
+      const clickedInside = refs.some((ref) => ref.current?.contains(target));
+      if (!clickedInside) {
+        setOpenMenu(null);
       }
     }
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        setLearnOpen(false);
-        setPracticeOpen(false);
+        setOpenMenu(null);
       }
     }
 
@@ -106,11 +114,17 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
     location.pathname.startsWith('/problems') ||
     location.pathname.startsWith('/daily-challenges') ||
     location.pathname.startsWith('/review') ||
-    location.pathname.startsWith('/interview') ||
-    location.pathname.startsWith('/placement') ||
     location.pathname.startsWith('/role-specific') ||
     location.pathname.startsWith('/workspace') ||
     location.pathname.startsWith('/projects');
+
+  const isPrepActive =
+    location.pathname.startsWith('/interview') ||
+    location.pathname.startsWith('/placement');
+
+  const isCompeteActive =
+    location.pathname.startsWith('/contests') ||
+    location.pathname.startsWith('/leaderboard');
 
   const isYearPlanner = location.pathname.startsWith('/year');
   const isFullWidthNav =
@@ -164,10 +178,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
             <div className="relative" ref={learnRef}>
               <button
                 type="button"
-                onClick={() => {
-                  setLearnOpen((prev) => !prev);
-                  setPracticeOpen(false);
-                }}
+                onClick={() => setOpenMenu((prev) => (prev === 'learn' ? null : 'learn'))}
                 aria-expanded={learnOpen}
                 aria-haspopup="menu"
                 className={`top-nav-box ${isLearnActive || learnOpen ? 'top-nav-box-active' : ''}`}
@@ -186,7 +197,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                 >
                   <NavLink
                     to="/mastery"
-                    onClick={() => setLearnOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -203,7 +214,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
                   <NavLink
                     to="/learning-paths"
-                    onClick={() => setLearnOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -220,7 +231,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
                   <NavLink
                     to="/editor"
-                    onClick={() => setLearnOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -242,10 +253,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
             <div className="relative" ref={practiceRef}>
               <button
                 type="button"
-                onClick={() => {
-                  setPracticeOpen((prev) => !prev);
-                  setLearnOpen(false);
-                }}
+                onClick={() => setOpenMenu((prev) => (prev === 'practice' ? null : 'practice'))}
                 aria-expanded={practiceOpen}
                 aria-haspopup="menu"
                 className={`top-nav-box ${isPracticeActive || practiceOpen ? 'top-nav-box-active' : ''}`}
@@ -264,7 +272,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                 >
                   <NavLink
                     to="/problems"
-                    onClick={() => setPracticeOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -281,7 +289,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
                   <NavLink
                     to="/daily-challenges"
-                    onClick={() => setPracticeOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -298,7 +306,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
                   <NavLink
                     to="/review"
-                    onClick={() => setPracticeOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -314,46 +322,8 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                   </NavLink>
 
                   <NavLink
-                    to="/interview"
-                    onClick={() => setPracticeOpen(false)}
-                    className={({ isActive }) =>
-                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
-                    }
-                    role="menuitem"
-                  >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-xs">
-                      <Timer size={14} />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Mock Interview</div>
-                    </div>
-                  </NavLink>
-
-                  <NavLink
-                    to="/placement"
-                    onClick={() => setPracticeOpen(false)}
-                    className={({ isActive }) =>
-                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
-                    }
-                    role="menuitem"
-                  >
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 shadow-xs">
-                      <GraduationCap size={14} />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-xs text-slate-900 dark:text-white">Placement Mocks</span>
-                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30">
-                          TCS·Infy
-                        </span>
-                      </div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Company OAs & Aptitude</div>
-                    </div>
-                  </NavLink>
-
-                  <NavLink
                     to="/role-specific"
-                    onClick={() => setPracticeOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -375,7 +345,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
 
                   <NavLink
                     to="/projects"
-                    onClick={() => setPracticeOpen(false)}
+                    onClick={() => setOpenMenu(null)}
                     className={({ isActive }) =>
                       `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
                     }
@@ -398,6 +368,69 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
               )}
             </div>
 
+            {/* Prep Dropdown */}
+            <div className="relative" ref={prepRef}>
+              <button
+                type="button"
+                onClick={() => setOpenMenu((prev) => (prev === 'prep' ? null : 'prep'))}
+                aria-expanded={prepOpen}
+                aria-haspopup="menu"
+                className={`top-nav-box ${isPrepActive || prepOpen ? 'top-nav-box-active' : ''}`}
+              >
+                <span>Prep</span>
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform duration-150 ${prepOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {prepOpen && (
+                <div
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-64 rounded-2xl p-1.5 shadow-2xl z-50"
+                  role="menu"
+                >
+                  <NavLink
+                    to="/interview"
+                    onClick={() => setOpenMenu(null)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20 shadow-xs">
+                      <Timer size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Mock Interview</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Timed proctored coding rounds</div>
+                    </div>
+                  </NavLink>
+
+                  <NavLink
+                    to="/placement"
+                    onClick={() => setOpenMenu(null)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 dark:text-orange-400 border border-orange-500/20 shadow-xs">
+                      <GraduationCap size={14} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-xs text-slate-900 dark:text-white">Placement Mocks</span>
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30">
+                          TCS·Infy
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Company OAs &amp; Aptitude</div>
+                    </div>
+                  </NavLink>
+                </div>
+              )}
+            </div>
+
             {/* Year Planner */}
             <NavLink
               to="/year"
@@ -408,35 +441,63 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
               Year
             </NavLink>
 
-            {/* Contests */}
-            <NavLink
-              to="/contests"
-              className={({ isActive }) =>
-                `top-nav-box ${isActive || location.pathname.startsWith('/contests') ? 'top-nav-box-active' : ''}`
-              }
-            >
-              Contests
-            </NavLink>
+            {/* Compete Dropdown */}
+            <div className="relative" ref={competeRef}>
+              <button
+                type="button"
+                onClick={() => setOpenMenu((prev) => (prev === 'compete' ? null : 'compete'))}
+                aria-expanded={competeOpen}
+                aria-haspopup="menu"
+                className={`top-nav-box ${isCompeteActive || competeOpen ? 'top-nav-box-active' : ''}`}
+              >
+                <span>Compete</span>
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform duration-150 ${competeOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
 
-            {/* Leaderboard */}
-            <NavLink
-              to="/leaderboard"
-              className={({ isActive }) =>
-                `top-nav-box ${isActive ? 'top-nav-box-active' : ''}`
-              }
-            >
-              Leaderboard
-            </NavLink>
+              {competeOpen && (
+                <div
+                  className="glass-dropdown-menu absolute left-0 top-full mt-2 w-60 rounded-2xl p-1.5 shadow-2xl z-50"
+                  role="menu"
+                >
+                  <NavLink
+                    to="/contests"
+                    onClick={() => setOpenMenu(null)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 shadow-xs">
+                      <Trophy size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Contests</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Weekly proctored campus rounds</div>
+                    </div>
+                  </NavLink>
 
-            {/* Progress */}
-            <NavLink
-              to="/progress"
-              className={({ isActive }) =>
-                `top-nav-box ${isActive ? 'top-nav-box-active' : ''}`
-              }
-            >
-              Progress
-            </NavLink>
+                  <NavLink
+                    to="/leaderboard"
+                    onClick={() => setOpenMenu(null)}
+                    className={({ isActive }) =>
+                      `top-dropdown-item ${isActive ? 'top-dropdown-item-active' : ''}`
+                    }
+                    role="menuitem"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 shadow-xs">
+                      <Crown size={14} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-xs text-slate-900 dark:text-white">Leaderboard</div>
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Global coder rankings &amp; streaks</div>
+                    </div>
+                  </NavLink>
+                </div>
+              )}
+            </div>
 
             {/* Admin (Only if Admin Role) */}
             {user?.role === 'admin' && (

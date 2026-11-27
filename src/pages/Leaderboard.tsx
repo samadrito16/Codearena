@@ -10,7 +10,11 @@ import type { LeaderboardEntry } from '../services';
 
 type TimeRange = 'all' | 'month' | 'week';
 
-export default function Leaderboard() {
+interface LeaderboardProps {
+  embedded?: boolean;
+}
+
+export default function Leaderboard({ embedded = false }: LeaderboardProps) {
   const { data: entries, status, error, retry } = useLeaderboard();
   const { user } = useAuth();
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
@@ -54,39 +58,41 @@ export default function Leaderboard() {
   const remaining = processedEntries.slice(3);
 
   return (
-    <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-8 animate-in fade-in">
+    <div className={embedded ? 'space-y-6' : 'mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-8 animate-in fade-in'}>
       {/* Page Header */}
-      <div
-        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b"
-        style={{ borderColor: 'var(--ca-border)' }}
-      >
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary">
-            Leaderboard
-          </h1>
-          <p className="text-xs sm:text-sm text-muted mt-1.5 leading-relaxed">
-            Celebrate consistency, problem-solving velocity, and pattern mastery.
-            {!user && (
-              <span className="block mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                Login to earn points.
-              </span>
-            )}
-          </p>
-        </div>
+      {!embedded && (
+        <div
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b"
+          style={{ borderColor: 'var(--ca-border)' }}
+        >
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary">
+              Leaderboard
+            </h1>
+            <p className="text-xs sm:text-sm text-muted mt-1.5 leading-relaxed">
+              Celebrate consistency, problem-solving velocity, and pattern mastery.
+              {!user && (
+                <span className="block mt-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                  Login to earn points.
+                </span>
+              )}
+            </p>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={retry}
-            disabled={status === 'loading'}
-            className="btn-secondary py-2 text-xs"
-            aria-label="Refresh leaderboard"
-          >
-            <RefreshCw size={13} className={status === 'loading' ? 'animate-spin' : ''} />
-            <span>{status === 'loading' ? 'Refreshing…' : 'Refresh'}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={retry}
+              disabled={status === 'loading'}
+              className="btn-secondary py-2 text-xs"
+              aria-label="Refresh leaderboard"
+            >
+              <RefreshCw size={13} className={status === 'loading' ? 'animate-spin' : ''} />
+              <span>{status === 'loading' ? 'Refreshing…' : 'Refresh'}</span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Login to earn points prompt banner for guest visitors */}
       {!user && (
@@ -151,31 +157,45 @@ export default function Leaderboard() {
           ))}
         </div>
 
-        {/* Live Search Input */}
-        <div className="relative w-full sm:w-64">
-          <Search
-            size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
-          />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search coders…"
-            className="w-full rounded-xl border py-1.5 pl-8 pr-8 text-xs text-primary placeholder:text-muted focus:outline-hidden transition"
-            style={{
-              borderColor: 'var(--ca-border)',
-              background: 'var(--ca-surface)',
-            }}
-          />
-          {searchQuery && (
+        {/* Live Search Input & Refresh (when embedded) */}
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="relative flex-1 sm:w-64">
+            <Search
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
+            />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search coders…"
+              className="w-full rounded-xl border py-1.5 pl-8 pr-8 text-xs text-primary placeholder:text-muted focus:outline-hidden transition"
+              style={{
+                borderColor: 'var(--ca-border)',
+                background: 'var(--ca-surface)',
+              }}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-primary p-0.5 rounded-md"
+                aria-label="Clear search"
+              >
+                <X size={12} />
+              </button>
+            )}
+          </div>
+          {embedded && (
             <button
               type="button"
-              onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-primary p-0.5 rounded-md"
-              aria-label="Clear search"
+              onClick={retry}
+              disabled={status === 'loading'}
+              className="btn-secondary py-1.5 px-3 text-xs shrink-0"
+              aria-label="Refresh leaderboard"
             >
-              <X size={12} />
+              <RefreshCw size={13} className={status === 'loading' ? 'animate-spin' : ''} />
+              <span className="hidden sm:inline">{status === 'loading' ? 'Refreshing…' : 'Refresh'}</span>
             </button>
           )}
         </div>

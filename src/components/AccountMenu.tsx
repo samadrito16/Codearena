@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronsUpDown, LoaderCircle, LogOut, Settings, ShieldCheck, UserRound } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown, LoaderCircle, LogOut, Settings, ShieldCheck, TrendingUp, UserRound } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 import { getProfileInitials } from '../lib/profileStorage';
@@ -125,6 +125,19 @@ export default function AccountMenu({
             </Link>
 
             <Link
+              to="/progress"
+              onClick={() => {
+                setOpen(false);
+                onAction?.();
+              }}
+              className="flex items-center gap-2 rounded-xl px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-neutral-300 dark:hover:bg-white/[0.08] dark:hover:text-white transition-all"
+              role="menuitem"
+            >
+              <TrendingUp size={14} className="text-slate-500 dark:text-neutral-400" />
+              <span>Progress</span>
+            </Link>
+
+            <Link
               to="/settings"
               onClick={() => {
                 setOpen(false);
@@ -225,6 +238,14 @@ export default function AccountMenu({
           className="dropdown-item"
         >
           <UserRound size={15} /> Profile
+        </Link>
+
+        <Link
+          to="/progress"
+          onClick={() => { setOpen(false); onAction?.(); }}
+          className="dropdown-item"
+        >
+          <TrendingUp size={15} /> Progress
         </Link>
 
         <Link

@@ -26,9 +26,16 @@ import type { Contest } from '../types/contest';
 import { useAuth } from '../context/AuthContext';
 import { requestAppFullscreen } from '../lib/fullscreen';
 import EmptyState from '../components/ui/EmptyState';
+import Leaderboard from './Leaderboard';
 
-type MainContestTab = 'college-contest' | 'campus-arena';
+type MainContestTab = 'college-contest' | 'campus-arena' | 'leaderboard';
 type CampusArenaSubTab = 'campus-cup' | 'college-students' | 'campus-clash' | 'study-groups';
+
+function resolveMainTab(tabParam: string | null): MainContestTab {
+  if (tabParam === 'campus-arena') return 'campus-arena';
+  if (tabParam === 'leaderboard') return 'leaderboard';
+  return 'college-contest';
+}
 
 export default function Contests() {
   const navigate = useNavigate();
@@ -36,10 +43,14 @@ export default function Contests() {
   const { user } = useAuth();
 
   // Tab State
-  const initialMainTab: MainContestTab =
-    searchParams.get('tab') === 'campus-arena' ? 'campus-arena' : 'college-contest';
-  const [activeMainTab, setActiveMainTab] = useState<MainContestTab>(initialMainTab);
+  const [activeMainTab, setActiveMainTab] = useState<MainContestTab>(() =>
+    resolveMainTab(searchParams.get('tab'))
+  );
   const [arenaSubTab, setArenaSubTab] = useState<CampusArenaSubTab>('campus-cup');
+
+  useEffect(() => {
+    setActiveMainTab(resolveMainTab(searchParams.get('tab')));
+  }, [searchParams]);
 
   // Weekly Contest State
   const [contests, setContests] = useState<Contest[]>([]);
@@ -221,17 +232,9 @@ export default function Contests() {
             Conduct weekly proctored rounds for your campus, represent your college, and climb the national leaderboards.
           </p>
         </div>
-
-        <Link
-          to="/leaderboard"
-          className="btn-secondary py-2 px-3 text-xs font-semibold shrink-0"
-        >
-          <Trophy size={13} className="text-amber-500" />
-          <span>Global Coders Leaderboard</span>
-        </Link>
       </div>
 
-      {/* 2-Way Primary Switcher: College Contest vs Campus Arena */}
+      {/* Primary Switcher: College Contest vs Campus Arena vs Leaderboard */}
       <div className="flex flex-wrap items-center gap-2 border-b pb-4" style={{ borderColor: 'var(--ca-border)' }}>
         <button
           type="button"
@@ -257,6 +260,19 @@ export default function Contests() {
         >
           <Trophy size={15} className="text-amber-400" />
           <span>Campus Arena</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => handleTabChange('leaderboard')}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-xs ${
+            activeMainTab === 'leaderboard'
+              ? 'bg-indigo-600 dark:bg-indigo-500 text-white shadow-md'
+              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700/80 border border-slate-200/80 dark:border-slate-700/80'
+          }`}
+        >
+          <Crown size={15} className={activeMainTab === 'leaderboard' ? 'text-amber-200' : 'text-amber-500'} />
+          <span>Leaderboard</span>
         </button>
       </div>
 
@@ -1110,6 +1126,11 @@ export default function Contests() {
           )}
         </div>
       )}
+
+      {/* ======================================================== */}
+      {/* SECTION 3: GLOBAL CODERS LEADERBOARD                     */}
+      {/* ======================================================== */}
+      {activeMainTab === 'leaderboard' && <Leaderboard embedded />}
     </div>
   );
 }
