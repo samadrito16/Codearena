@@ -162,7 +162,7 @@ export default function Leaderboard() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search coders…"
-            className="w-full rounded-xl border py-1.5 pl-8 pr-8 text-xs text-primary placeholder:text-muted focus:outline-none transition"
+            className="w-full rounded-xl border py-1.5 pl-8 pr-8 text-xs text-primary placeholder:text-muted focus:outline-hidden transition"
             style={{
               borderColor: 'var(--ca-border)',
               background: 'var(--ca-surface)',
@@ -281,7 +281,7 @@ export default function Leaderboard() {
                     key={person.handle}
                     className={`relative rounded-2xl border p-5 transition duration-200 ${
                       isGold
-                        ? 'border-indigo-500/30 bg-gradient-to-b from-indigo-500/[0.04] to-transparent shadow-xs'
+                        ? 'border-indigo-500/30 bg-linear-to-b from-indigo-500/[0.04] to-transparent shadow-xs'
                         : 'border-[var(--ca-border)] bg-[var(--ca-surface)]'
                     }`}
                   >
@@ -308,7 +308,7 @@ export default function Leaderboard() {
                     {/* Middle: User Identity */}
                     <div className="mt-4 flex items-center gap-3">
                       <div
-                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${person.color} text-sm font-extrabold text-white shadow-xs`}
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br ${person.color} text-sm font-extrabold text-white shadow-xs`}
                       >
                         {person.initials}
                       </div>
@@ -380,7 +380,7 @@ export default function Leaderboard() {
                         </span>
                         <div className="flex items-center gap-3 min-w-0">
                           <div
-                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${person.color} text-xs font-bold text-white`}
+                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br ${person.color} text-xs font-bold text-white`}
                           >
                             {person.initials}
                           </div>

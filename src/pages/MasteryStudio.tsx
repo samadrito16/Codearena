@@ -318,7 +318,7 @@ export default function MasteryStudio() {
               onClick={() => setStudioTab('study')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                 studioTab === 'study'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-primary shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -331,18 +331,18 @@ export default function MasteryStudio() {
               onClick={() => setStudioTab('drill')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                 studioTab === 'drill'
-                  ? 'bg-white dark:bg-slate-800 text-amber-500 shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-amber-500 shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
               <Zap size={13} className={studioTab === 'drill' ? 'text-amber-500' : 'text-amber-500/70'} />
               <span>Active Drill</span>
               {progress.bestDrillScore ? (
-                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 font-bold">
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-sm bg-amber-500/20 text-amber-500 font-bold">
                   {progress.bestDrillScore.recalled}/{progress.bestDrillScore.total}
                 </span>
               ) : highRiskCount > 0 ? (
-                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 font-medium">
+                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded-sm bg-amber-500/15 text-amber-600 dark:text-amber-400 font-medium">
                   {highRiskCount} blanks
                 </span>
               ) : null}
@@ -353,7 +353,7 @@ export default function MasteryStudio() {
               onClick={() => setStudioTab('code')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                 studioTab === 'code'
-                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >

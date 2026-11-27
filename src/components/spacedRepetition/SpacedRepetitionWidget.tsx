@@ -263,7 +263,7 @@ export default function SpacedRepetitionWidget() {
                       )}
                     </span>
 
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-semibold border border-purple-500/20">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-purple-500/10 text-purple-400 font-semibold border border-purple-500/20">
                       Stage {item.stage} ({intervalDays}d)
                     </span>
                   </div>
@@ -298,7 +298,7 @@ export default function SpacedRepetitionWidget() {
                 <div className="mt-4 pt-3 border-t border-[color:var(--ca-border)] flex items-center justify-between gap-2">
                   <Link
                     to={`/workspace/${item.problemId}?mode=review`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition shadow-sm"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition shadow-xs"
                   >
                     <Play size={11} className="fill-current" /> Review Now
                   </Link>
@@ -338,7 +338,7 @@ export default function SpacedRepetitionWidget() {
 
       {/* Quick Review Modal */}
       {reviewModalItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="w-full max-w-md rounded-2xl border p-6 space-y-5 animate-in zoom-in-95"
             style={{ backgroundColor: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}

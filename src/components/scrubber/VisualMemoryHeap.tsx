@@ -76,7 +76,7 @@ export const VisualMemoryHeap: React.FC<VisualMemoryHeapProps> = ({ currentStep 
             <CheckCircle2 size={16} className="shrink-0" />
             <span className="font-semibold text-emerald-300">Return Value:</span>
           </div>
-          <code className="font-mono text-sm px-2.5 py-1 rounded bg-black/40 border border-emerald-500/20 text-emerald-300">
+          <code className="font-mono text-sm px-2.5 py-1 rounded-sm bg-black/40 border border-emerald-500/20 text-emerald-300">
             {renderValueString(returnValue)}
           </code>
         </div>
@@ -145,7 +145,7 @@ export const VisualMemoryHeap: React.FC<VisualMemoryHeapProps> = ({ currentStep 
                                   return (
                                     <span
                                       key={ptrName}
-                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded text-[10px] font-mono font-bold border uppercase shadow-sm ${style.bg} ${style.text} ${style.border}`}
+                                      className={`inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-sm text-[10px] font-mono font-bold border uppercase shadow-xs ${style.bg} ${style.text} ${style.border}`}
                                     >
                                       {ptrName}
                                       <ArrowDown size={9} />
@@ -158,7 +158,7 @@ export const VisualMemoryHeap: React.FC<VisualMemoryHeapProps> = ({ currentStep 
                               <div
                                 className={`w-12 h-12 rounded-lg flex items-center justify-center font-mono text-sm font-bold border transition ${
                                   activePtrs.length > 0
-                                    ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-sm shadow-indigo-500/20'
+                                    ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300 shadow-xs shadow-indigo-500/20'
                                     : 'border-neutral-700 bg-neutral-900/60 text-primary'
                                 }`}
                               >
@@ -249,7 +249,7 @@ export const VisualMemoryHeap: React.FC<VisualMemoryHeapProps> = ({ currentStep 
             {primitiveVars.map(([varName, val]) => (
               <div
                 key={varName}
-                className="p-2.5 rounded-xl border flex flex-col gap-0.5 font-mono shadow-sm"
+                className="p-2.5 rounded-xl border flex flex-col gap-0.5 font-mono shadow-xs"
                 style={{
                   backgroundColor: 'color-mix(in srgb, var(--ca-surface) 92%, black 8%)',
                   borderColor: 'var(--ca-border)',

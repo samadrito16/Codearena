@@ -47,12 +47,12 @@ export default function TimeAllocationChart({
         <div className="h-4 w-full rounded-full bg-black/20 overflow-hidden flex p-0.5 border" style={{ borderColor: 'var(--ca-border)' }}>
           <div
             style={{ width: `${p1Percent}%` }}
-            className="h-full rounded-l-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500"
+            className="h-full rounded-l-full bg-linear-to-r from-amber-500 to-orange-500 transition-all duration-500"
             title={`Problem 1: ${p1Minutes}m (${p1Percent}%)`}
           />
           <div
             style={{ width: `${p2Percent}%` }}
-            className="h-full rounded-r-full bg-gradient-to-r from-indigo-500 to-cyan-500 transition-all duration-500"
+            className="h-full rounded-r-full bg-linear-to-r from-indigo-500 to-cyan-500 transition-all duration-500"
             title={`Problem 2: ${p2Minutes}m (${p2Percent}%)`}
           />
         </div>

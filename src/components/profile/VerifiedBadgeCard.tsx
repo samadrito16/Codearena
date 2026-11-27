@@ -83,7 +83,7 @@ export default function VerifiedBadgeCard({ badge, profileUrl, isOwner }: Verifi
               <button
                 type="button"
                 onClick={handleCopyHash}
-                className="p-1 rounded text-muted hover:text-primary hover:bg-slate-800/60 transition-colors"
+                className="p-1 rounded-sm text-muted hover:text-primary hover:bg-slate-800/60 transition-colors"
                 title="Copy verification code"
                 aria-label="Copy verification code"
               >
@@ -95,7 +95,7 @@ export default function VerifiedBadgeCard({ badge, profileUrl, isOwner }: Verifi
               <button
                 type="button"
                 onClick={handleShareLinkedIn}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-semibold text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 border border-blue-500/20 transition-all"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-sm text-[11px] font-semibold text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 border border-blue-500/20 transition-all"
                 title="Share this achievement on LinkedIn"
               >
                 <Share2 size={11} />
@@ -111,7 +111,7 @@ export default function VerifiedBadgeCard({ badge, profileUrl, isOwner }: Verifi
             </div>
             <div className="h-1.5 w-full bg-slate-800/80 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
+                className="h-full bg-linear-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.round((badge.progress / Math.max(1, badge.target)) * 100))}%` }}
               />
             </div>

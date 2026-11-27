@@ -139,7 +139,7 @@ export default function CsFundamentalsTab() {
             placeholder="Search topic or code snippet..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border pl-8 pr-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors"
+            className="w-full rounded-xl border pl-8 pr-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',

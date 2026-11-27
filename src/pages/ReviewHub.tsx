@@ -123,7 +123,7 @@ export default function ReviewHub() {
               onClick={() => setSelectedCategory('all')}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                 selectedCategory === 'all'
-                  ? 'bg-white dark:bg-slate-800 text-primary shadow-sm'
+                  ? 'bg-white dark:bg-slate-800 text-primary shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -138,7 +138,7 @@ export default function ReviewHub() {
                   onClick={() => setSelectedCategory(catKey)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                     selectedCategory === catKey
-                      ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-sm'
+                      ? 'bg-white dark:bg-slate-800 text-indigo-500 shadow-xs'
                       : 'text-muted hover:text-primary'
                   }`}
                 >
@@ -156,7 +156,7 @@ export default function ReviewHub() {
             <select
               value={selectedDifficulty}
               onChange={(e) => setSelectedDifficulty(e.target.value as any)}
-              className="h-9 px-3 rounded-xl border text-xs font-semibold bg-transparent text-primary outline-none focus:ring-1 focus:ring-indigo-500"
+              className="h-9 px-3 rounded-xl border text-xs font-semibold bg-transparent text-primary outline-hidden focus:ring-1 focus:ring-indigo-500"
               style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
             >
               <option value="all">All Difficulties</option>
@@ -172,7 +172,7 @@ export default function ReviewHub() {
                 placeholder="Search bugs, companies..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-9 pl-8 pr-3 rounded-xl border text-xs bg-transparent text-primary placeholder:text-muted/60 outline-none focus:ring-1 focus:ring-indigo-500 w-44 sm:w-56"
+                className="h-9 pl-8 pr-3 rounded-xl border text-xs bg-transparent text-primary placeholder:text-muted/60 outline-hidden focus:ring-1 focus:ring-indigo-500 w-44 sm:w-56"
                 style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface)' }}
               />
             </div>

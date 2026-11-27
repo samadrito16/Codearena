@@ -309,7 +309,7 @@ export default function PrivacyPolicy() {
                   <div className="rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-primary text-xs">OnlineCompiler.io</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-muted">Code Execution Engine</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-black/5 dark:bg-white/10 text-muted">Code Execution Engine</span>
                     </div>
                     <p className="mt-2 text-xs text-muted">
                       We transmit user code and test case inputs to OnlineCompiler.io via secured HTTPS endpoints to compile and evaluate solutions in isolated execution sandboxes.
@@ -320,7 +320,7 @@ export default function PrivacyPolicy() {
                   <div className="rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-primary text-xs">Clerk</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-muted">Authentication / SSO Provider</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-black/5 dark:bg-white/10 text-muted">Authentication / SSO Provider</span>
                     </div>
                     <p className="mt-2 text-xs text-muted">
                       When you choose to authenticate via Single Sign-On (Google or GitHub OAuth), Clerk processes the identity token verification.
@@ -331,7 +331,7 @@ export default function PrivacyPolicy() {
                   <div className="rounded-xl border p-4" style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-primary text-xs">Transactional Email Provider</span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-muted">Email Delivery</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-sm bg-black/5 dark:bg-white/10 text-muted">Email Delivery</span>
                     </div>
                     <p className="mt-2 text-xs text-muted">
                       Used strictly to dispatch transactional notifications such as verification tokens and password reset requests. No marketing emails or newsletters are sent without explicit opt-in.

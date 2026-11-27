@@ -356,7 +356,7 @@ export default function Auth({ mode: initialMode = 'login', isModal = false, onC
             onClick={() => switchMode('login')}
             className={`rounded-full py-1.5 text-xs font-semibold transition-all ${
               mode === 'login'
-                ? 'glass-auth-tab-active shadow-sm'
+                ? 'glass-auth-tab-active shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
@@ -370,7 +370,7 @@ export default function Auth({ mode: initialMode = 'login', isModal = false, onC
             onClick={() => switchMode('register')}
             className={`rounded-full py-1.5 text-xs font-semibold transition-all ${
               mode === 'register'
-                ? 'glass-auth-tab-active shadow-sm'
+                ? 'glass-auth-tab-active shadow-xs'
                 : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
@@ -384,7 +384,7 @@ export default function Auth({ mode: initialMode = 'login', isModal = false, onC
             type="button"
             disabled={isSubmitting || isOAuthSubmitting !== null}
             onClick={() => handleOAuth('oauth_google')}
-            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
+            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
             aria-label={mode === 'register' ? 'Sign up with Google' : 'Sign in with Google'}
           >
             {isOAuthSubmitting === 'oauth_google' ? (
@@ -399,7 +399,7 @@ export default function Auth({ mode: initialMode = 'login', isModal = false, onC
             type="button"
             disabled={isSubmitting || isOAuthSubmitting !== null}
             onClick={() => handleOAuth('oauth_github')}
-            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
+            className="glass-auth-btn-social flex items-center justify-center gap-2 rounded-full py-2 px-3 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 active:scale-[0.99] disabled:opacity-50"
             aria-label={mode === 'register' ? 'Sign up with GitHub' : 'Sign in with GitHub'}
           >
             {isOAuthSubmitting === 'oauth_github' ? (

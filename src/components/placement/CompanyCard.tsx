@@ -20,7 +20,7 @@ export default function CompanyCard({
 
   return (
     <div
-      className="group relative flex flex-col justify-between rounded-2xl border p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col justify-between rounded-2xl border p-5 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
       style={{
         backgroundColor: 'var(--ca-surface)',
         borderColor: isActiveSession
@@ -33,7 +33,7 @@ export default function CompanyCard({
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-display text-sm font-bold text-white shadow-sm"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-display text-sm font-bold text-white shadow-xs"
               style={{ backgroundColor: company?.brandColor || '#3b82f6' }}
             >
               {assessment.companyName.charAt(0)}
@@ -115,7 +115,7 @@ export default function CompanyCard({
         <button
           type="button"
           onClick={() => onStart(assessment.id)}
-          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-all shadow-sm ${
+          className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-all shadow-xs ${
             isActiveSession
               ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
               : 'btn-primary'

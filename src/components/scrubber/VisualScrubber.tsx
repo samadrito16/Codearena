@@ -83,7 +83,7 @@ export const VisualScrubber: React.FC<VisualScrubberProps> = ({
           </span>
           {currentStep && (
             <span
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border ${eventBadgeColor()}`}
+              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-mono font-bold uppercase border ${eventBadgeColor()}`}
             >
               {currentStep.event === 'line' ? `Line ${currentStep.line}` : currentStep.event}
             </span>
@@ -103,9 +103,9 @@ export const VisualScrubber: React.FC<VisualScrubberProps> = ({
               key={spd}
               type="button"
               onClick={() => onSetPlaybackSpeed(spd)}
-              className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold transition ${
+              className={`px-2 py-0.5 rounded-sm text-[10px] font-mono font-semibold transition ${
                 playbackSpeed === spd
-                  ? 'bg-indigo-500 text-white shadow-sm'
+                  ? 'bg-indigo-500 text-white shadow-xs'
                   : 'text-muted hover:text-primary hover:bg-black/10 dark:hover:bg-white/10'
               }`}
             >
@@ -124,7 +124,7 @@ export const VisualScrubber: React.FC<VisualScrubberProps> = ({
             max={Math.max(0, totalSteps - 1)}
             value={currentIndex}
             onChange={(e) => onSeek(parseInt(e.target.value, 10))}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-neutral-800 accent-indigo-500 focus:outline-none"
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-neutral-800 accent-indigo-500 focus:outline-hidden"
           />
         </div>
         <div className="flex justify-between text-[10px] font-mono text-muted px-0.5">
@@ -162,7 +162,7 @@ export const VisualScrubber: React.FC<VisualScrubberProps> = ({
         <button
           type="button"
           onClick={onTogglePlay}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold text-white transition shadow-sm bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold text-white transition shadow-xs bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
           title={isPlaying ? 'Pause auto-play (Space)' : 'Play continuous execution (Space)'}
         >
           {isPlaying ? <Pause size={14} /> : <Play size={14} />}

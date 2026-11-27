@@ -233,7 +233,7 @@ export default function SolutionsPanel({
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <div
-                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-linear-to-br ${
                           sol.authorAvatarColor || 'from-indigo-500 to-blue-500'
                         } text-xs font-bold text-white shadow-xs`}
                       >

@@ -889,7 +889,7 @@ function WorkspaceSession({
         </div>
         <Link
           to={`/contests/${contestId}`}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition"
         >
           <span>Return to Contest Arena</span>
         </Link>
@@ -1489,7 +1489,7 @@ function WorkspaceSession({
                             </span>
                           )}
                           {executionResult.rankingPercentile !== undefined && (
-                            <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                            <span className="rounded-sm bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
                               Beats {executionResult.rankingPercentile}%
                             </span>
                           )}

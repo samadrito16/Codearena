@@ -116,7 +116,7 @@ export default function PatternHubCard({
                 <div className="w-36 text-right flex items-center justify-end gap-2 shrink-0">
                   {prog?.codeAccepted && (
                     <span
-                      className="inline-flex items-center gap-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 text-[10px] font-semibold border border-emerald-500/20"
+                      className="inline-flex items-center gap-1 rounded-sm bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 text-[10px] font-semibold border border-emerald-500/20"
                       title="Code Runner: Verified against container test fixtures"
                     >
                       <Code2 size={11} strokeWidth={2.5} />

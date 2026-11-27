@@ -20,7 +20,7 @@ export default function RequireRole({ role }: RequireRoleProps) {
           Administrator Access Required
         </h2>
         <p className="text-sm text-muted mb-6 leading-relaxed">
-          The requested administrative view is restricted to accounts with the <code className="px-1.5 py-0.5 rounded bg-muted/20 font-mono text-xs">{role}</code> role.
+          The requested administrative view is restricted to accounts with the <code className="px-1.5 py-0.5 rounded-sm bg-muted/20 font-mono text-xs">{role}</code> role.
           Your current account is signed in as <span className="font-semibold text-primary">{user?.email}</span> ({user?.role}).
         </p>
         <a

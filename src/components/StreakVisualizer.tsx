@@ -80,7 +80,7 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
 
   return (
     <div
-      className="rounded-3xl border overflow-hidden p-6 sm:p-7 shadow-sm transition-all"
+      className="rounded-3xl border overflow-hidden p-6 sm:p-7 shadow-xs transition-all"
       style={{
         borderColor: 'var(--ca-border)',
         background: 'var(--ca-surface)',
@@ -195,7 +195,7 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
                   key={day.dateKey}
                   type="button"
                   onClick={() => setSelectedDateKey(day.dateKey)}
-                  className={`group relative flex flex-1 flex-col items-center rounded-2xl p-2.5 transition-all duration-200 focus:outline-none cursor-pointer ${
+                  className={`group relative flex flex-1 flex-col items-center rounded-2xl p-2.5 transition-all duration-200 focus:outline-hidden cursor-pointer ${
                     isSelected
                       ? 'border shadow-md -translate-y-0.5'
                       : 'hover:bg-[var(--ca-surface-muted)] hover:-translate-y-0.5'
@@ -348,13 +348,13 @@ export default function StreakVisualizer({ problems = [] }: { problems?: Problem
                       {event.title}
                     </Link>
                     <span
-                      className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border text-muted"
+                      className="rounded-sm px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider border text-muted"
                       style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
                     >
                       {event.difficulty}
                     </span>
                     <span
-                      className="rounded px-1.5 py-0.5 text-[10px] text-muted border"
+                      className="rounded-sm px-1.5 py-0.5 text-[10px] text-muted border"
                       style={{ borderColor: 'var(--ca-border)', background: 'var(--ca-surface-muted)' }}
                     >
                       {event.topic}

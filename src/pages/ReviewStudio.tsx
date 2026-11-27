@@ -259,7 +259,7 @@ export default function ReviewStudio() {
           >
             <div>
               <div className="flex items-center gap-2 flex-wrap mb-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold border border-black/10 dark:border-white/10 font-mono text-muted">
+                <span className="px-2 py-0.5 rounded-sm text-[10px] font-bold border border-black/10 dark:border-white/10 font-mono text-muted">
                   {scenario.difficulty}
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] text-muted font-mono">
@@ -299,7 +299,7 @@ export default function ReviewStudio() {
                 {scenario.company_tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 rounded font-mono text-[10px] font-semibold bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5"
+                    className="px-2 py-0.5 rounded-sm font-mono text-[10px] font-semibold bg-black/5 dark:bg-white/5 text-muted border border-black/5 dark:border-white/5"
                   >
                     {tag}
                   </span>

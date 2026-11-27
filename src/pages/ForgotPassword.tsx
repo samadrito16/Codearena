@@ -126,7 +126,7 @@ export default function ForgotPassword({ isModal = false, onClose }: ForgotPassw
                     if (fieldError) setFieldError(null);
                   }}
                   placeholder="you@example.com"
-                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-none ${
+                  className={`glass-auth-input w-full rounded-full px-4 py-2.5 pl-10 text-xs sm:text-sm transition focus:outline-hidden ${
                     fieldError ? 'border-rose-500' : ''
                   }`}
                 />

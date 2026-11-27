@@ -536,7 +536,7 @@ export default function YearPlanner() {
             </div>
             <div className="h-2 rounded-full bg-black/10 dark:bg-white/10 overflow-hidden relative">
               <div
-                className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-amber-500"
+                className="h-full rounded-full transition-all duration-500 bg-linear-to-r from-indigo-500 via-purple-500 to-amber-500"
                 style={{ width: `${masteryPercent}%` }}
               />
             </div>
@@ -601,7 +601,7 @@ export default function YearPlanner() {
                   return (
                     <div
                       key={problem.id}
-                      className="rounded-xl p-4 border flex flex-col justify-between gap-3 transition-all hover:border-indigo-500/40 hover:shadow-sm"
+                      className="rounded-xl p-4 border flex flex-col justify-between gap-3 transition-all hover:border-indigo-500/40 hover:shadow-xs"
                       style={{
                         backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
                         borderColor: isDone ? 'rgba(16, 185, 129, 0.4)' : 'var(--ca-border)',
@@ -610,13 +610,13 @@ export default function YearPlanner() {
                       <div className="space-y-2">
                         <div className="flex items-center justify-between gap-2">
                           <span
-                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white"
+                            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider text-white"
                             style={{ backgroundColor: patternBadgeColor }}
                           >
                             {patternConf?.name || problem.pattern}
                           </span>
                           <span
-                            className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${
+                            className={`text-[10px] font-bold px-1.5 py-0.5 rounded-sm uppercase ${
                               problem.difficulty === 'Easy'
                                 ? 'text-emerald-500 bg-emerald-500/10'
                                 : problem.difficulty === 'Medium'
@@ -665,7 +665,7 @@ export default function YearPlanner() {
 
                         <Link
                           to={`/mastery/${problem.slug}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-sm"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-xs"
                         >
                           Launch Studio
                           <ArrowUpRight size={13} />
@@ -685,7 +685,7 @@ export default function YearPlanner() {
     return (
       <div className="space-y-4 w-full">
         <div
-          className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 border shadow-sm overflow-hidden w-full"
+          className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-8 border shadow-xs overflow-hidden w-full"
           style={{
             backgroundColor: 'var(--ca-surface)',
             borderColor: 'var(--ca-border)',
@@ -711,7 +711,7 @@ export default function YearPlanner() {
                     setSelectedPlanDayKey(thisWeek.days[0].dateKey);
                   }
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition shadow-xs"
               >
                 Add your first plan <ArrowUpRight size={14} />
               </button>
@@ -721,7 +721,7 @@ export default function YearPlanner() {
                   setNewHabitColor('#10b981');
                   setIsAddingHabit(true);
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border text-primary hover:border-amber-500/40 transition shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border text-primary hover:border-amber-500/40 transition shadow-xs"
                 style={{
                   backgroundColor: 'color-mix(in srgb, var(--ca-surface) 90%, black 10%)',
                   borderColor: 'var(--ca-border)',
@@ -742,7 +742,7 @@ export default function YearPlanner() {
           1. HEADER BAR (YEAR SELECTOR, PROGRESS, VIEW MODE, ACTIONS)
       ────────────────────────────────────────────────────────────── */}
       <header
-        className="w-full rounded-2xl p-4 sm:p-5 border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
+        className="w-full rounded-2xl p-4 sm:p-5 border shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4"
         style={{
           backgroundColor: 'var(--ca-surface)',
           borderColor: 'var(--ca-border)',
@@ -751,7 +751,7 @@ export default function YearPlanner() {
         {/* Left: Year Navigator & This Week button */}
         <div className="flex items-center gap-2.5">
           <div
-            className="flex items-center rounded-xl p-1 border shadow-sm"
+            className="flex items-center rounded-xl p-1 border shadow-xs"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',
@@ -781,7 +781,7 @@ export default function YearPlanner() {
           <button
             type="button"
             onClick={handleScrollToThisWeek}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all text-primary hover:border-amber-500/40 shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all text-primary hover:border-amber-500/40 shadow-xs"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',
@@ -821,7 +821,7 @@ export default function YearPlanner() {
 
           {/* Weeks / Days Toggle Pill */}
           <div
-            className="inline-flex rounded-xl p-1 border shadow-sm"
+            className="inline-flex rounded-xl p-1 border shadow-xs"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',
@@ -832,7 +832,7 @@ export default function YearPlanner() {
               onClick={() => setViewMode('weeks')}
               className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                 viewMode === 'weeks'
-                  ? 'bg-neutral-800 text-white dark:bg-neutral-700 font-bold shadow-sm'
+                  ? 'bg-neutral-800 text-white dark:bg-neutral-700 font-bold shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -843,7 +843,7 @@ export default function YearPlanner() {
               onClick={() => setViewMode('days')}
               className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                 viewMode === 'days'
-                  ? 'bg-neutral-800 text-white dark:bg-neutral-700 font-bold shadow-sm'
+                  ? 'bg-neutral-800 text-white dark:bg-neutral-700 font-bold shadow-xs'
                   : 'text-muted hover:text-primary'
               }`}
             >
@@ -855,7 +855,7 @@ export default function YearPlanner() {
           <button
             type="button"
             onClick={handleShare}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all text-primary shadow-sm hover:border-amber-500/40"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all text-primary shadow-xs hover:border-amber-500/40"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',
@@ -884,7 +884,7 @@ export default function YearPlanner() {
           <aside className="w-full lg:w-[280px] xl:w-[320px] shrink-0 space-y-3.5">
             {/* Habits Card with Date and Main Active Habit */}
             <div
-              className="rounded-2xl p-3.5 sm:p-4 border space-y-3.5 shadow-sm"
+              className="rounded-2xl p-3.5 sm:p-4 border space-y-3.5 shadow-xs"
               style={{
                 backgroundColor: 'var(--ca-surface)',
                 borderColor: 'var(--ca-border)',
@@ -1001,7 +1001,7 @@ export default function YearPlanner() {
                         <button
                           type="button"
                           onClick={() => setEditingHabit(habit)}
-                          className="opacity-0 group-hover:opacity-100 p-1 rounded text-muted hover:text-primary transition"
+                          className="opacity-0 group-hover:opacity-100 p-1 rounded-sm text-muted hover:text-primary transition"
                           title="Edit habit"
                         >
                           <Edit2 size={12} />
@@ -1040,7 +1040,7 @@ export default function YearPlanner() {
 
             {/* Compact Perfect Weeks Counter */}
             <div
-              className="rounded-2xl p-3 sm:p-3.5 border space-y-1.5 shadow-sm"
+              className="rounded-2xl p-3 sm:p-3.5 border space-y-1.5 shadow-xs"
               style={{
                 backgroundColor: 'var(--ca-surface)',
                 borderColor: 'var(--ca-border)',
@@ -1061,7 +1061,7 @@ export default function YearPlanner() {
 
             {/* Compact Quarter Goals Section */}
             <div
-              className="rounded-2xl p-3 sm:p-3.5 border space-y-2.5 shadow-sm"
+              className="rounded-2xl p-3 sm:p-3.5 border space-y-2.5 shadow-xs"
               style={{
                 backgroundColor: 'var(--ca-surface)',
                 borderColor: 'var(--ca-border)',
@@ -1118,7 +1118,7 @@ export default function YearPlanner() {
 
             {/* Bottom-Left Habit Filter Section */}
             <div
-              className="rounded-2xl p-3 sm:p-3.5 border space-y-2 shadow-sm"
+              className="rounded-2xl p-3 sm:p-3.5 border space-y-2 shadow-xs"
               style={{
                 backgroundColor: 'var(--ca-surface)',
                 borderColor: 'var(--ca-border)',
@@ -1140,7 +1140,7 @@ export default function YearPlanner() {
                       onClick={() => toggleHabitFilter(habit.id)}
                       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
                         isEnabled
-                          ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-sm hover:scale-105'
+                          ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-xs hover:scale-105'
                           : 'border-transparent bg-black/5 dark:bg-white/5 text-muted opacity-40 hover:opacity-75'
                       }`}
                     >
@@ -1162,7 +1162,7 @@ export default function YearPlanner() {
 
             {/* 4-Quadrant Annual Week Grid (NO vertical center divider line) */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-5 sm:p-7 border shadow-sm space-y-8 overflow-x-auto w-full"
+              className="rounded-2xl sm:rounded-3xl p-5 sm:p-7 border shadow-xs space-y-8 overflow-x-auto w-full"
               style={{
                 backgroundColor: 'var(--ca-surface)',
                 borderColor: 'var(--ca-border)',
@@ -1272,7 +1272,7 @@ export default function YearPlanner() {
                   onClick={() => toggleHabitFilter(habit.id)}
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-all ${
                     isEnabled
-                      ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-sm hover:scale-105'
+                      ? 'border-slate-300 bg-white text-slate-900 dark:border-neutral-700 dark:bg-neutral-900/90 dark:text-white shadow-xs hover:scale-105'
                       : 'border-transparent bg-black/5 dark:bg-white/5 text-muted opacity-40 hover:opacity-75'
                   }`}
                 >
@@ -1358,7 +1358,7 @@ export default function YearPlanner() {
 
       {/* Add Habit Modal with Color Selection */}
       {isAddingHabit && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="w-full max-w-md rounded-2xl p-6 border shadow-2xl space-y-4"
             style={{
@@ -1451,7 +1451,7 @@ export default function YearPlanner() {
 
       {/* Edit Habit Modal with Color Selection */}
       {editingHabit && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="w-full max-w-md rounded-2xl p-6 border shadow-2xl space-y-4"
             style={{
@@ -1550,7 +1550,7 @@ export default function YearPlanner() {
 
       {/* Edit Quarter Goal Modal */}
       {editingQuarter && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="w-full max-w-md rounded-2xl p-6 border shadow-2xl space-y-4"
             style={{
@@ -1594,7 +1594,7 @@ export default function YearPlanner() {
                       onClick={() => setQuarterEditStatus(st)}
                       className={`py-2 rounded-xl text-xs font-bold border transition ${
                         quarterEditStatus === st
-                          ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-sm font-extrabold'
+                          ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-xs font-extrabold'
                           : 'border-[color:var(--ca-border)] text-muted hover:text-primary'
                       }`}
                     >
@@ -1636,7 +1636,7 @@ export default function YearPlanner() {
 
       {/* How it Works Modal */}
       {showHowItWorks && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="w-full max-w-lg rounded-2xl p-6 border shadow-2xl space-y-4"
             style={{
@@ -1733,7 +1733,7 @@ function DaysGridView({
 
   return (
     <div
-      className="rounded-2xl sm:rounded-3xl p-5 sm:p-7 border shadow-sm space-y-5 overflow-x-auto w-full"
+      className="rounded-2xl sm:rounded-3xl p-5 sm:p-7 border shadow-xs space-y-5 overflow-x-auto w-full"
       style={{
         backgroundColor: 'var(--ca-surface)',
         borderColor: 'var(--ca-border)',
@@ -1993,7 +1993,7 @@ function QuarterSection({
                       </div>
 
                       {isNowWeek && (
-                        <span className="px-1.5 py-0.2 rounded text-[8px] font-mono font-extrabold uppercase bg-slate-900 text-white dark:bg-white dark:text-black">
+                        <span className="px-1.5 py-0.2 rounded-sm text-[8px] font-mono font-extrabold uppercase bg-slate-900 text-white dark:bg-white dark:text-black">
                           NOW
                         </span>
                       )}
@@ -2244,7 +2244,7 @@ function WeekDetailDrawer({
                 onUpdateWeekFocus(e.target.value);
               }}
               placeholder="What is this week about?"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface-muted)] text-sm text-primary placeholder:text-muted/70 focus:outline-none focus:border-slate-400 dark:focus:border-neutral-600 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface-muted)] text-sm text-primary placeholder:text-muted/70 focus:outline-hidden focus:border-slate-400 dark:focus:border-neutral-600 transition"
             />
           </div>
 
@@ -2334,7 +2334,7 @@ function WeekDetailDrawer({
                 if (e.key === 'Enter') handleAddPlanSubmit();
               }}
               placeholder="e.g. Dentist, Ship v2, Pune trip"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-sm text-primary placeholder:text-muted/70 focus:outline-none focus:border-slate-400 dark:focus:border-neutral-500 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-sm text-primary placeholder:text-muted/70 focus:outline-hidden focus:border-slate-400 dark:focus:border-neutral-500 transition"
             />
 
             {/* When row */}
@@ -2357,7 +2357,7 @@ function WeekDetailDrawer({
                     onClick={() => onSelectPlanDayKey(day.dateKey)}
                     className={`py-1.5 rounded-lg text-xs font-semibold border transition ${
                       isSelected
-                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-sm font-bold'
+                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-black dark:border-white shadow-xs font-bold'
                         : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-muted hover:text-primary'
                     }`}
                   >
@@ -2378,7 +2378,7 @@ function WeekDetailDrawer({
                     onClick={() => setPlanCategory(cat.id)}
                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition ${
                       isSelected
-                        ? 'border-slate-400 bg-white text-slate-900 dark:border-neutral-500 dark:bg-neutral-800 dark:text-white shadow-sm ring-1 ring-slate-900/10 dark:ring-white/10'
+                        ? 'border-slate-400 bg-white text-slate-900 dark:border-neutral-500 dark:bg-neutral-800 dark:text-white shadow-xs ring-1 ring-slate-900/10 dark:ring-white/10'
                         : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-muted hover:text-primary'
                     }`}
                   >
@@ -2394,7 +2394,7 @@ function WeekDetailDrawer({
               type="button"
               onClick={handleAddPlanSubmit}
               disabled={!planTitle.trim()}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-neutral-700 dark:hover:bg-neutral-600 transition disabled:opacity-40 disabled:pointer-events-none shadow-sm"
+              className="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-neutral-700 dark:hover:bg-neutral-600 transition disabled:opacity-40 disabled:pointer-events-none shadow-xs"
             >
               Add plan
             </button>
@@ -2422,7 +2422,7 @@ function WeekDetailDrawer({
                   <div
                     className={`w-11 h-12 rounded-xl flex flex-col items-center justify-center border font-mono shrink-0 transition ${
                       isToday
-                        ? 'border-amber-500/80 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-sm'
+                        ? 'border-amber-500/80 bg-amber-500/10 text-amber-600 dark:text-amber-400 shadow-xs'
                         : 'border-[color:var(--ca-border)] bg-[color:var(--ca-surface)] text-primary'
                     }`}
                   >

@@ -222,7 +222,7 @@ export default function PlacementHub() {
               }}
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-xs">
                   <Play size={18} />
                 </div>
                 <div>
@@ -247,7 +247,7 @@ export default function PlacementHub() {
                 <button
                   type="button"
                   onClick={handleResumeActive}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors"
                 >
                   <span>Resume Test</span>
                   <ArrowRight size={14} />
@@ -258,7 +258,7 @@ export default function PlacementHub() {
 
           {/* Hero Showcase Banner */}
           <div
-            className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 md:p-10 shadow-sm"
+            className="relative overflow-hidden rounded-3xl border p-6 sm:p-8 md:p-10 shadow-xs"
             style={{
               borderColor: 'color-mix(in srgb, var(--ca-accent-solid) 30%, var(--ca-border))',
               background:
@@ -480,7 +480,7 @@ export default function PlacementHub() {
                   placeholder="Search company or track..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-xl border pl-8 pr-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full rounded-xl border pl-8 pr-3 py-1.5 text-xs text-primary placeholder:text-muted focus:outline-hidden focus:border-indigo-500 transition-colors"
                   style={{
                     backgroundColor: 'var(--ca-surface)',
                     borderColor: 'var(--ca-border)',
@@ -544,7 +544,7 @@ export default function PlacementHub() {
                   clearActiveSession();
                   navigate(`/placement/${targetId}`);
                 }}
-                className="rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 text-xs font-bold text-white shadow-sm transition-colors"
+                className="rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 text-xs font-bold text-white shadow-xs transition-colors"
               >
                 Switch to {switchModalAssessment.companyName}
               </button>

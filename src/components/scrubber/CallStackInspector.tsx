@@ -32,7 +32,7 @@ export const CallStackInspector: React.FC<CallStackInspectorProps> = ({
           return (
             <div
               key={`${frame.frameId}_${idx}`}
-              className={`p-2.5 rounded-xl border flex items-center justify-between gap-3 transition shadow-sm ${
+              className={`p-2.5 rounded-xl border flex items-center justify-between gap-3 transition shadow-xs ${
                 isTopFrame
                   ? 'bg-indigo-500/15 border-indigo-500/40 text-primary'
                   : 'text-muted border-neutral-800'
@@ -53,7 +53,7 @@ export const CallStackInspector: React.FC<CallStackInspectorProps> = ({
                   {frame.funcName}()
                 </span>
                 {isTopFrame && (
-                  <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300">
+                  <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded-sm bg-indigo-500/20 text-indigo-300">
                     Active Frame
                   </span>
                 )}

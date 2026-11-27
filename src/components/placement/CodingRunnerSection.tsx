@@ -162,7 +162,7 @@ export default function CodingRunnerSection({
 
   return (
     <div
-      className="flex flex-col h-full rounded-2xl border shadow-sm overflow-hidden"
+      className="flex flex-col h-full rounded-2xl border shadow-xs overflow-hidden"
       style={{
         backgroundColor: 'var(--ca-surface)',
         borderColor: 'var(--ca-border)',
@@ -307,7 +307,7 @@ export default function CodingRunnerSection({
               <select
                 value={language}
                 onChange={(e) => handleLanguageChange(e.target.value)}
-                className="rounded-lg border px-2.5 py-1 text-xs font-semibold focus:outline-none"
+                className="rounded-lg border px-2.5 py-1 text-xs font-semibold focus:outline-hidden"
                 style={{
                   borderColor: 'var(--ca-border)',
                   backgroundColor: 'var(--ca-surface)',
@@ -437,7 +437,7 @@ export default function CodingRunnerSection({
             type="button"
             disabled={isRunning}
             onClick={handleExecute}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm disabled:opacity-50 transition-all"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-all"
           >
             <Play size={13} className={isRunning ? 'animate-spin' : ''} />
             <span>{isRunning ? 'Evaluating...' : 'Run Test Cases'}</span>
@@ -462,7 +462,7 @@ export default function CodingRunnerSection({
           <button
             type="button"
             onClick={onNext}
-            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
+            className="inline-flex items-center gap-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors"
           >
             <span>{isLast ? 'Complete Section' : 'Save & Next'}</span>
             <ChevronRight size={14} />

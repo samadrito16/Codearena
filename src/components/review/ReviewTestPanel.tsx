@@ -190,7 +190,7 @@ export default function ReviewTestPanel({
                 </div>
 
                 <span
-                  className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded border shrink-0 ${
+                  className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-sm border shrink-0 ${
                     status === 'passed'
                       ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                       : status === 'failed'

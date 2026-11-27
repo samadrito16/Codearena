@@ -225,7 +225,7 @@ export default function InterviewCodeRunner({
             <button
               type="button"
               onClick={onToggleBriefCollapse}
-              className="flex items-center gap-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-0.5 text-xs font-bold text-indigo-400 hover:bg-indigo-500/20 active:scale-95 transition-all shadow-sm ml-1"
+              className="flex items-center gap-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-0.5 text-xs font-bold text-indigo-400 hover:bg-indigo-500/20 active:scale-95 transition-all shadow-xs ml-1"
               title="Expand problem statement"
             >
               <PanelLeftOpen size={13} />
@@ -287,7 +287,7 @@ export default function InterviewCodeRunner({
               type="button"
               onClick={handleSubmitCode}
               disabled={isRunning || isSubmitting}
-              className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1 text-xs font-bold text-white shadow-sm hover:bg-emerald-500 active:scale-95 disabled:opacity-50 transition-all"
+              className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1 text-xs font-bold text-white shadow-xs hover:bg-emerald-500 active:scale-95 disabled:opacity-50 transition-all"
             >
               <Send size={12} className={isSubmitting ? 'animate-pulse' : ''} />
               <span>{isSubmitting ? 'Submitting...' : 'Submit'}</span>

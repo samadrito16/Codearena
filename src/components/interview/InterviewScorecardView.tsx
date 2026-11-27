@@ -148,7 +148,7 @@ export default function InterviewScorecardView({
                   1
                 </span>
                 <span className="font-bold text-sm text-primary">{round.problem1.title}</span>
-                <span className="rounded bg-amber-500/10 px-1.5 py-0.2 text-[10px] font-bold text-amber-500">
+                <span className="rounded-sm bg-amber-500/10 px-1.5 py-0.2 text-[10px] font-bold text-amber-500">
                   Medium
                 </span>
               </div>
@@ -181,7 +181,7 @@ export default function InterviewScorecardView({
                   2
                 </span>
                 <span className="font-bold text-sm text-primary">{round.problem2.title}</span>
-                <span className={`rounded px-1.5 py-0.2 text-[10px] font-bold ${
+                <span className={`rounded-sm px-1.5 py-0.2 text-[10px] font-bold ${
                   round.problem2.difficulty === 'Hard' ? 'bg-rose-500/10 text-rose-500' : 'bg-amber-500/10 text-amber-500'
                 }`}>
                   {round.problem2.difficulty}
@@ -274,7 +274,7 @@ export default function InterviewScorecardView({
               onClick={() => setActiveEditorialTab(1)}
               className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 activeEditorialTab === 1
-                  ? 'bg-indigo-600 text-white shadow'
+                  ? 'bg-indigo-600 text-white shadow-sm'
                   : 'bg-white/5 text-muted hover:text-primary'
               }`}
             >
@@ -285,7 +285,7 @@ export default function InterviewScorecardView({
               onClick={() => setActiveEditorialTab(2)}
               className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 activeEditorialTab === 2
-                  ? 'bg-indigo-600 text-white shadow'
+                  ? 'bg-indigo-600 text-white shadow-sm'
                   : 'bg-white/5 text-muted hover:text-primary'
               }`}
             >
@@ -299,7 +299,7 @@ export default function InterviewScorecardView({
           <div className="space-y-4 text-xs">
             <div className="flex items-center gap-2 text-primary font-bold text-sm">
               <span>{ed1.approachTitle}</span>
-              <span className="rounded bg-indigo-500/10 px-2 py-0.5 text-[10px] text-indigo-500 font-mono">
+              <span className="rounded-sm bg-indigo-500/10 px-2 py-0.5 text-[10px] text-indigo-500 font-mono">
                 Time: {ed1.timeComplexity} | Space: {ed1.spaceComplexity}
               </span>
             </div>
@@ -344,7 +344,7 @@ export default function InterviewScorecardView({
           <div className="space-y-4 text-xs">
             <div className="flex items-center gap-2 text-primary font-bold text-sm">
               <span>{ed2.approachTitle}</span>
-              <span className="rounded bg-indigo-500/10 px-2 py-0.5 text-[10px] text-indigo-500 font-mono">
+              <span className="rounded-sm bg-indigo-500/10 px-2 py-0.5 text-[10px] text-indigo-500 font-mono">
                 Time: {ed2.timeComplexity} | Space: {ed2.spaceComplexity}
               </span>
             </div>

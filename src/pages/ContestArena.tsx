@@ -320,7 +320,7 @@ export default function ContestArena() {
           <button
             type="button"
             onClick={handleEnterFullscreen}
-            className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition shrink-0 ml-3 shadow-sm"
+            className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition shrink-0 ml-3 shadow-xs"
           >
             Re-enter Fullscreen ({3 - fullscreenExits} strikes remaining)
           </button>
@@ -346,7 +346,7 @@ export default function ContestArena() {
       <div className="mx-auto max-w-[1280px] w-full px-4 py-5 sm:px-6 lg:px-8 space-y-6 flex-1">
         {/* Sticky Top Proctored Header Bar */}
         <div
-          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border shadow-sm backdrop-blur-md"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border shadow-xs backdrop-blur-md"
           style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
         >
           <div className="flex items-center gap-3">
@@ -536,7 +536,7 @@ export default function ContestArena() {
                 return (
                   <div
                     key={prob.id}
-                    className="rounded-2xl border p-5 sm:p-6 transition flex flex-col justify-between shadow-sm"
+                    className="rounded-2xl border p-5 sm:p-6 transition flex flex-col justify-between shadow-xs"
                     style={{
                       background: 'var(--ca-surface)',
                       borderColor: isAccepted ? 'rgba(16, 185, 129, 0.4)' : 'var(--ca-border)',
@@ -548,11 +548,11 @@ export default function ContestArena() {
                           Problem 0{idx + 1}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className={`px-2 py-0.5 rounded text-[11px] font-bold border ${diffColors}`}>
+                          <span className={`px-2 py-0.5 rounded-sm text-[11px] font-bold border ${diffColors}`}>
                             {prob.difficulty}
                           </span>
                           <span
-                            className="font-mono text-xs font-bold text-primary px-2 py-0.5 rounded border"
+                            className="font-mono text-xs font-bold text-primary px-2 py-0.5 rounded-sm border"
                             style={{ background: 'var(--ca-surface-muted)', borderColor: 'var(--ca-border)' }}
                           >
                             {prob.points} pts
@@ -606,7 +606,7 @@ export default function ContestArena() {
           <div className="space-y-5">
             {/* College Filter Toolbar */}
             <div
-              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border shadow-sm"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border shadow-xs"
               style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
             >
               <div className="flex items-center gap-2">
@@ -620,7 +620,7 @@ export default function ContestArena() {
                   onClick={() => setCollegeFilter('all')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                     collegeFilter === 'all'
-                      ? 'bg-indigo-600 text-white shadow-sm'
+                      ? 'bg-indigo-600 text-white shadow-xs'
                       : 'text-muted hover:text-primary border'
                   }`}
                   style={collegeFilter === 'all' ? {} : { background: 'var(--ca-surface-muted)', borderColor: 'var(--ca-border)' }}
@@ -634,7 +634,7 @@ export default function ContestArena() {
                     onClick={() => setCollegeFilter(userCollege)}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                       collegeFilter.toLowerCase() === userCollege.toLowerCase()
-                        ? 'bg-indigo-600 text-white shadow-sm'
+                        ? 'bg-indigo-600 text-white shadow-xs'
                         : 'text-indigo-600 dark:text-indigo-300 bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20'
                     }`}
                   >
@@ -646,7 +646,7 @@ export default function ContestArena() {
                 <select
                   value={collegeFilter}
                   onChange={(e) => setCollegeFilter(e.target.value)}
-                  className="h-8 px-2.5 rounded-lg border text-xs text-primary outline-none focus:border-indigo-500"
+                  className="h-8 px-2.5 rounded-lg border text-xs text-primary outline-hidden focus:border-indigo-500"
                   style={{ background: 'var(--ca-surface-muted)', borderColor: 'var(--ca-border)' }}
                 >
                   <option value="all">Select Specific Campus...</option>
@@ -659,7 +659,7 @@ export default function ContestArena() {
 
             {/* Standings Table */}
             <div
-              className="rounded-2xl border overflow-hidden shadow-sm"
+              className="rounded-2xl border overflow-hidden shadow-xs"
               style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}
             >
               <div
@@ -730,7 +730,7 @@ export default function ContestArena() {
                           {Object.entries(participant.problemResults).map(([qid, res]) => (
                             <span
                               key={qid}
-                              className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                              className={`px-1.5 py-0.5 rounded-sm text-[10px] font-bold ${
                                 res.status === 'accepted'
                                   ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                                   : res.status === 'wrong_answer'
@@ -765,7 +765,7 @@ export default function ContestArena() {
 
       {/* Finish Contest Confirmation Modal */}
       {showFinishConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
           <div
             className="max-w-md w-full rounded-2xl border p-6 space-y-4 shadow-2xl"
             style={{ background: 'var(--ca-surface)', borderColor: 'var(--ca-border)' }}

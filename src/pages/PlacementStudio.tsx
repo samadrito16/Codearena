@@ -144,7 +144,7 @@ export default function PlacementStudio() {
 
           {/* Briefing Card */}
           <div
-            className="rounded-3xl border p-6 sm:p-8 shadow-sm space-y-6"
+            className="rounded-3xl border p-6 sm:p-8 shadow-xs space-y-6"
             style={{
               backgroundColor: 'var(--ca-surface)',
               borderColor: 'var(--ca-border)',
@@ -152,7 +152,7 @@ export default function PlacementStudio() {
           >
             <div className="flex items-center gap-3">
               <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold text-white shadow-sm shrink-0"
+                className="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold text-white shadow-xs shrink-0"
                 style={{ backgroundColor: company?.brandColor || '#3b82f6' }}
               >
                 {assessment.companyName.charAt(0)}
@@ -291,7 +291,7 @@ export default function PlacementStudio() {
           <button
             type="button"
             onClick={() => setTabWarning(false)}
-            className="ml-2 rounded bg-black/20 px-1.5 py-0.5 text-[10px] hover:bg-black/30"
+            className="ml-2 rounded-sm bg-black/20 px-1.5 py-0.5 text-[10px] hover:bg-black/30"
           >
             Dismiss
           </button>
@@ -533,7 +533,7 @@ export default function PlacementStudio() {
                   setIsSubmitModalOpen(false);
                   submitAssessment(false);
                 }}
-                className="rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-sm transition-colors"
+                className="rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors"
               >
                 Yes, Submit Now
               </button>

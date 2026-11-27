@@ -288,7 +288,7 @@ export default function CommandPalette() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Jump to a page, problem, learning path, or action…"
-            className="min-w-0 flex-1 bg-transparent text-sm text-primary placeholder:text-muted focus:outline-none"
+            className="min-w-0 flex-1 bg-transparent text-sm text-primary placeholder:text-muted focus:outline-hidden"
           />
           {query && (
             <button
