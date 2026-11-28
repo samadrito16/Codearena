@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
-  ArrowUpRight,
   BarChart2,
   Calendar,
   Code2,
@@ -15,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { platformRoadmapCards, type RoadmapCardData } from '../data/platformRoadmap';
-import { useLearningPaths, useProblems } from '../hooks/useDataServices';
+import DashboardHero from '../components/DashboardHero';
 import SlidingTopicsTicker from '../components/SlidingTopicsTicker';
 import {
   DailyChallengeCard,
@@ -23,69 +22,9 @@ import {
 } from '../components/OverviewSections';
 
 export default function Dashboard() {
-  const { data: problems } = useProblems();
-  const { data: learningPaths } = useLearningPaths();
-
   return (
     <div className="space-y-12 dashboard-page pb-20 animate-in fade-in">
-      {/* ─────────────────────────────────────────────────────────────
-          1. HERO PANEL (TOPMOST TILE PRESERVED AS REQUESTED)
-      ────────────────────────────────────────────────────────────── */}
-      <section className="hero-panel relative overflow-hidden rounded-[28px] px-6 py-7 sm:px-8 sm:py-9">
-        <div className="hero-orb hero-orb-one" />
-        <div className="hero-orb hero-orb-two" />
-        <div className="relative z-10 max-w-2xl">
-          <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-[38px]">
-            Ready to sharpen<br className="hidden sm:block" /> your{' '}
-            <span className="text-indigo-100">problem-solving</span> edge?
-          </h2>
-          <p className="mt-3 max-w-lg text-sm leading-6 text-white/90">
-            Every problem is a new opportunity to think deeper, write cleaner code, and become a better engineer.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/problems" className="btn-primary">
-              Explore problems <ArrowRight size={16} />
-            </Link>
-            <Link to="/daily-challenges" className="btn-ghost hero-ghost-button">
-              Daily challenges <ArrowUpRight size={15} />
-            </Link>
-          </div>
-          <div className="hero-quickfacts" aria-label="Prismcode practice library overview">
-            <div className="hero-quickfact">
-              <span className="hero-quickfact-value animate-count-in tabular-nums">
-                {problems.length || '100+'}
-              </span>
-              <span className="hero-quickfact-label">problems in the library</span>
-            </div>
-            <div className="hero-quickfact">
-              <span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.08s' }}>
-                {learningPaths.length || '7'}
-              </span>
-              <span className="hero-quickfact-label">guided learning paths</span>
-            </div>
-            <div className="hero-quickfact">
-              <span className="hero-quickfact-value animate-count-in tabular-nums" style={{ animationDelay: '.16s' }}>
-                05
-              </span>
-              <span className="hero-quickfact-label">supported languages</span>
-            </div>
-          </div>
-        </div>
-        <div className="hero-code-card hidden xl:block">
-          <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
-            <i className="h-2 w-2 rounded-full bg-rose-400" />
-            <i className="h-2 w-2 rounded-full bg-amber-300" />
-            <i className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span className="ml-2 text-[10px] text-indigo-100/50">solution.ts</span>
-          </div>
-          <pre className="px-5 py-4 text-xs leading-6 text-indigo-100">
-            <span className="text-fuchsia-300">function</span> <span className="text-emerald-200">levelUp</span>() {'{'}{`\n`}  <span className="text-fuchsia-300">while</span> (curious) {'{'}{`\n`}    practice();{`\n`}    learn();{`\n`}    <span className="text-fuchsia-300">return</span> growth;{`\n`}  {'}'}{`\n`}{'}'}
-          </pre>
-          <div className="mx-5 mb-4 rounded-lg border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 text-[10px] text-emerald-200">
-            ✓ Small steps add up · Keep going!
-          </div>
-        </div>
-      </section>
+      <DashboardHero />
 
       {/* ─────────────────────────────────────────────────────────────
           2. DUAL SLIDING TOPIC LINES (TICKER)
