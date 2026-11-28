@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { config } from './config.js';
 import { db } from './db/database.js';
 import { contentDatabase } from './db/prisma.js';
@@ -114,7 +115,10 @@ app.use('/api', peerSolutionRoutes);
 // In production, serve the Vite app from the same origin as the API. This keeps
 // staging simple: one Render web service can host both the UI and backend.
 if (config.isProduction) {
-  const frontendDist = path.resolve(process.cwd(), 'dist');
+  // The start command runs from backend/, while Vite writes the UI build to
+  // the repository-root dist/ directory. Resolve from this module so the path
+  // is stable regardless of the process working directory.
+  const frontendDist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../dist');
   app.use(express.static(frontendDist));
   app.get('*', (req, res, next) => {
     if (req.path === '/api' || req.path.startsWith('/api/')) return next();
