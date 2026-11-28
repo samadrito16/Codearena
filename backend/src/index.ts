@@ -65,13 +65,10 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) {
-        // In development, allow requests without Origin header (e.g. CLI tools / curl)
-        // In production, reject requests without valid Origin header to prevent CSRF / abuse
-        if (!config.isProduction) {
-          callback(null, true);
-        } else {
-          callback(new Error('Origin header required for API requests.'));
-        }
+        // Direct page navigation and non-browser clients may omit Origin.
+        // CORS only governs cross-origin browser reads; protected routes still
+        // enforce their own session and role checks.
+        callback(null, true);
       } else if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
