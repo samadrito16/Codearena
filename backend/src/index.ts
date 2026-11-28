@@ -36,6 +36,17 @@ app.use(
   })
 );
 
+// Keep the platform health check available for direct requests that have no
+// Origin header; it exposes no user data and must run before the CORS guard.
+app.get('/api/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'PrismCode Backend API',
+    uptimeSeconds: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Trust proxy for rate limiting only when behind a reverse proxy
 if (config.behindProxy || config.isProduction) {
   app.set('trust proxy', 1);
@@ -80,16 +91,6 @@ app.use(attachUser);
 
 // Apply rate limiting to all /api routes
 app.use('/api', apiLimiter);
-
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    service: 'PrismCode Backend API',
-    uptimeSeconds: Math.floor(process.uptime()),
-    timestamp: new Date().toISOString(),
-  });
-});
 
 // Mount modular API routers with clean /api path prefixes
 app.use('/api/auth', authRoutes);
