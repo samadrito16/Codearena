@@ -210,6 +210,7 @@ function InterviewSession({ roundId }: { roundId?: string }) {
             problem={currentProblem}
             code={currentState.code}
             language={currentState.language}
+            drafts={currentState.drafts}
             isSolved={currentState.isSolved}
             onCodeChange={(code, lang) => updateCode(code, lang)}
             onSubmissionResult={recordSubmission}

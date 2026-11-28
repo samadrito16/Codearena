@@ -18,6 +18,7 @@ export interface InterviewProblemState {
   problemId: string;
   language: string;
   code: string;
+  drafts?: Record<string, string>;
   isSolved: boolean;
   passedCount: number;
   totalCount: number;

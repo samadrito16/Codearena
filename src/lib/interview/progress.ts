@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { ActiveInterviewRound, InterviewScorecard } from '../../types/interview';
+import { ActiveInterviewRound, InterviewProblemState, InterviewScorecard } from '../../types/interview';
 import { isAppFullscreen, onFullscreenChange, exitAppFullscreen } from '../fullscreen';
 import { computeInterviewScorecard } from './scoring';
 
@@ -172,30 +172,28 @@ export function useInterviewSession(initialRound?: ActiveInterviewRound | null) 
     });
   }, []);
 
-  // Update current problem code
+  // Update current problem code (and preserve per-language drafts)
   const updateCode = useCallback((code: string, language?: string) => {
     setRound((prev) => {
       if (!prev || prev.isCompleted) return prev;
-      const idx = prev.currentProblemIndex;
-      if (idx === 0) {
+      const updateProblemDraft = (state: InterviewProblemState): InterviewProblemState => {
+        const nextLanguage = language || state.language;
         return {
-          ...prev,
-          problem1State: {
-            ...prev.problem1State,
-            code,
-            language: language || prev.problem1State.language,
+          ...state,
+          code,
+          language: nextLanguage,
+          drafts: {
+            ...(state.drafts || { [state.language]: state.code }),
+            [state.language]: state.code,
+            [nextLanguage]: code,
           },
         };
-      } else {
-        return {
-          ...prev,
-          problem2State: {
-            ...prev.problem2State,
-            code,
-            language: language || prev.problem2State.language,
-          },
-        };
+      };
+
+      if (prev.currentProblemIndex === 0) {
+        return { ...prev, problem1State: updateProblemDraft(prev.problem1State) };
       }
+      return { ...prev, problem2State: updateProblemDraft(prev.problem2State) };
     });
   }, []);
 

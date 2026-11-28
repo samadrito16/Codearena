@@ -123,7 +123,7 @@ async function executeWithOnlineCompiler(
         code,
         input,
         time_limit: 5,
-        memory_limit: 256,
+        memory_limit: 512,
       }),
       signal: controller.signal,
     });

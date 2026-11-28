@@ -109,9 +109,9 @@ console.log('Running Local Tab Autocomplete unit & lifecycle tests...');
 // 1. Curated snippet coverage and uniqueness
 assert.deepEqual(
   [...WORKSPACE_AUTOCOMPLETE_LANGUAGES],
-  ['javascript', 'python', 'java', 'cpp'],
+  ['javascript', 'python', 'typescript', 'java', 'cpp', 'c', 'go', 'rust'],
 );
-assert.equal(ALL_AUTOCOMPLETE_LANGUAGES.length, 9);
+assert.equal(ALL_AUTOCOMPLETE_LANGUAGES.length, 10);
 
 for (const lang of ALL_AUTOCOMPLETE_LANGUAGES) {
   const items = CURATED_SNIPPETS[lang];
@@ -123,7 +123,7 @@ for (const lang of ALL_AUTOCOMPLETE_LANGUAGES) {
     assert.ok(item.documentation.includes(item.detail), `Missing doc detail for ${lang}:${item.label}`);
   }
 }
-console.log('✓ All 9 supported languages have unique, documented local snippets');
+console.log('✓ All 10 supported languages have unique, documented local snippets');
 
 // 2. Prefix matching, ranking, and context guards
 const pyFor = matchLocalSnippets({ language: 'python', lineBeforeCursor: '    for' });
@@ -201,13 +201,13 @@ const unrelatedModelPy = createMockModel('python', ['fo']);
 const unrelatedEditor = createMockEditor(unrelatedModelPy);
 
 const cleanupWs = attachLocalAutocomplete(wsEditor, monaco, WORKSPACE_AUTOCOMPLETE_LANGUAGES);
-assert.equal(monaco.registerCalls, 4);
-assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 4);
+assert.equal(monaco.registerCalls, 8);
+assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 8);
 
 // Attaching StandaloneEditor reuses shared languages without duplicating providers
 const cleanupSa = attachLocalAutocomplete(saEditor, monaco, ALL_AUTOCOMPLETE_LANGUAGES);
-assert.equal(monaco.registerCalls, 9, 'Shared languages must not register duplicate providers');
-assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 9);
+assert.equal(monaco.registerCalls, 10, 'Shared languages must not register duplicate providers');
+assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 10);
 
 for (const lang of ALL_AUTOCOMPLETE_LANGUAGES) {
   assert.equal(monaco.providersByLanguage.get(lang)?.length, 1, `Expected 1 provider for ${lang}`);
@@ -230,22 +230,22 @@ const jsProvider = monaco.providersByLanguage.get('javascript')[0];
 const wsJsSuggestions = jsProvider.provideCompletionItems(wsModelJs, { lineNumber: 1, column: 3 }).suggestions;
 assert.ok(wsJsSuggestions.some((s) => s.label === 'afn'));
 
-// Unmounting Workspace keeps StandaloneEditor's 9 languages alive
+// Unmounting Workspace keeps StandaloneEditor's 10 languages alive
 cleanupWs();
 cleanupWs(); // Idempotent second call
 assert.equal(monaco.disposeCalls, 0);
-assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 9);
+assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 10);
 
-// Unmounting StandaloneEditor disposes all 9 providers cleanly
+// Unmounting StandaloneEditor disposes all 10 providers cleanly
 cleanupSa();
-assert.equal(monaco.disposeCalls, 9);
+assert.equal(monaco.disposeCalls, 10);
 assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 0);
 
 // Reopening Workspace registers cleanly again without duplicates
 const wsEditorReopened = createMockEditor(wsModelPy);
 const cleanupReopened = attachLocalAutocomplete(wsEditorReopened, monaco, WORKSPACE_AUTOCOMPLETE_LANGUAGES);
-assert.equal(monaco.registerCalls, 13);
-assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 4);
+assert.equal(monaco.registerCalls, 18);
+assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 8);
 wsEditorReopened.triggerDispose(); // Editor disposal cleans up automatically
 assert.equal(getRegisteredAutocompleteLanguageCount(monaco), 0);
 cleanupReopened(); // Safe after triggerDispose
@@ -260,7 +260,7 @@ brokenCleanup();
 const brokenMonacoPartial = createMockMonaco({ failLanguages: ['python'] });
 const partialEditor = createMockEditor(wsModelJs);
 const partialCleanup = attachLocalAutocomplete(partialEditor, brokenMonacoPartial, WORKSPACE_AUTOCOMPLETE_LANGUAGES);
-assert.equal(getRegisteredAutocompleteLanguageCount(brokenMonacoPartial), 3);
+assert.equal(getRegisteredAutocompleteLanguageCount(brokenMonacoPartial), 7);
 partialCleanup();
 assert.equal(getRegisteredAutocompleteLanguageCount(brokenMonacoPartial), 0);
 console.log('✓ Graceful fallback when snippet-provider registration fails verified');

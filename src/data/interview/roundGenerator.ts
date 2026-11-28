@@ -1,4 +1,5 @@
 import { apiRequest } from '../../lib/api';
+import { getStarterCode } from '../../lib/draftStorage';
 import type { Problem } from '../../types';
 import type { ActiveInterviewRound, InterviewPresetId } from '../../types/interview';
 import { getPresetById } from './presets';
@@ -24,16 +25,20 @@ export async function generateInterviewRound(presetId: InterviewPresetId): Promi
   } catch {
     // Storage may be unavailable.
   }
-  const initialState = (problem: Problem) => ({
-    problemId: problem.id,
-    language: 'python',
-    code: problem.starterCode?.python ?? '',
-    isSolved: false,
-    passedCount: 0,
-    totalCount: problem.testCount ?? 0,
-    attemptsCount: 0,
-    timeSpentSeconds: 0,
-  });
+  const initialState = (problem: Problem) => {
+    const pythonStarter = getStarterCode(problem, 'python');
+    return {
+      problemId: problem.id,
+      language: 'python',
+      code: pythonStarter,
+      drafts: { python: pythonStarter },
+      isSolved: false,
+      passedCount: 0,
+      totalCount: problem.testCount ?? 0,
+      attemptsCount: 0,
+      timeSpentSeconds: 0,
+    };
+  };
 
   return {
     id, presetId, startedAt, problem1, problem2,

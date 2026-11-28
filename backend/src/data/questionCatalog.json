@@ -32,7 +32,11 @@
           "python": "def move_zeroes(nums: list[int]) -> list[int]:\n    # Write your solution here\n    return nums\n",
           "javascript": "function moveZeroes(nums) {\n  // Write your solution here\n  return nums;\n}\n",
           "java": "class Solution {\n    public int[] moveZeroes(int[] nums) {\n        // Write your solution here\n        return nums;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> moveZeroes(vector<int>& nums) {\n        // Write your solution here\n        return nums;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> moveZeroes(vector<int>& nums) {\n        // Write your solution here\n        return nums;\n    }\n};\n",
+          "typescript": "function moveZeroes(nums: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* moveZeroes(int* nums, int numsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc moveZeroes(nums []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn moveZeroes(nums: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -134,7 +138,11 @@
           "python": "def spiral_order(matrix: list[list[int]]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function spiralOrder(matrix) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function spiralOrder(matrix: number[][]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* spiralOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc spiralOrder(matrix [][]int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn spiralOrder(matrix: Vec<Vec<i32>>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -224,7 +232,11 @@
           "python": "def rotate_image(matrix: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    return matrix\n",
           "javascript": "function rotateImage(matrix) {\n  // Write your solution here\n  return matrix;\n}\n",
           "java": "class Solution {\n    public int[][] rotateImage(int[][] matrix) {\n        // Write your solution here\n        return matrix;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> rotateImage(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return matrix;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> rotateImage(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return matrix;\n    }\n};\n",
+          "typescript": "function rotateImage(matrix: number[][]): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** rotateImage(int** matrix, int matrixSize, int* matrixColSize, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc rotateImage(matrix [][]int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn rotateImage(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -314,7 +326,11 @@
           "python": "def set_zeroes(matrix: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    return matrix\n",
           "javascript": "function setZeroes(matrix) {\n  // Write your solution here\n  return matrix;\n}\n",
           "java": "class Solution {\n    public int[][] setZeroes(int[][] matrix) {\n        // Write your solution here\n        return matrix;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> setZeroes(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return matrix;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> setZeroes(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return matrix;\n    }\n};\n",
+          "typescript": "function setZeroes(matrix: number[][]): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** setZeroes(int** matrix, int matrixSize, int* matrixColSize, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc setZeroes(matrix [][]int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn setZeroes(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -404,7 +420,11 @@
           "python": "def insert_interval(intervals: list[list[int]], new_interval: list[int]) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function insertInterval(intervals, newInterval) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[][] insertInterval(int[][] intervals, int[] newInterval) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> insertInterval(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> insertInterval(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function insertInterval(intervals: number[][], newInterval: number[]): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** insertInterval(int** intervals, int intervalsSize, int* intervalsColSize, int* newInterval, int newIntervalSize, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc insertInterval(intervals [][]int, newInterval []int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn insertInterval(intervals: Vec<Vec<i32>>, newInterval: Vec<i32>) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -494,7 +514,11 @@
           "python": "def erase_overlap_intervals(intervals: list[list[int]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function eraseOverlapIntervals(intervals) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int eraseOverlapIntervals(vector<vector<int>>& intervals) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int eraseOverlapIntervals(vector<vector<int>>& intervals) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function eraseOverlapIntervals(intervals: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint eraseOverlapIntervals(int** intervals, int intervalsSize, int* intervalsColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc eraseOverlapIntervals(intervals [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn eraseOverlapIntervals(intervals: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -584,7 +608,11 @@
           "python": "def min_meeting_rooms(intervals: list[list[int]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minMeetingRooms(intervals) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minMeetingRooms(int[][] intervals) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minMeetingRooms(vector<vector<int>>& intervals) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minMeetingRooms(vector<vector<int>>& intervals) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minMeetingRooms(intervals: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minMeetingRooms(int** intervals, int intervalsSize, int* intervalsColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minMeetingRooms(intervals [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minMeetingRooms(intervals: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -675,7 +703,11 @@
           "python": "def find_max_length(nums: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function findMaxLength(nums) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int findMaxLength(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findMaxLength(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findMaxLength(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function findMaxLength(nums: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findMaxLength(int* nums, int numsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findMaxLength(nums []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findMaxLength(nums: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -771,7 +803,11 @@
           "python": "def four_sum(nums: list[int], target: int) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function fourSum(nums, target) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<List<Integer>> fourSum(int[] nums, int target) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> fourSum(vector<int>& nums, int target) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> fourSum(vector<int>& nums, int target) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function fourSum(nums: number[], target: number): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** fourSum(int* nums, int numsSize, int target, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc fourSum(nums []int, target int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn fourSum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -860,7 +896,11 @@
           "python": "def next_permutation(nums: list[int]) -> list[int]:\n    # Write your solution here\n    return nums\n",
           "javascript": "function nextPermutation(nums) {\n  // Write your solution here\n  return nums;\n}\n",
           "java": "class Solution {\n    public int[] nextPermutation(int[] nums) {\n        // Write your solution here\n        return nums;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextPermutation(vector<int>& nums) {\n        // Write your solution here\n        return nums;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextPermutation(vector<int>& nums) {\n        // Write your solution here\n        return nums;\n    }\n};\n",
+          "typescript": "function nextPermutation(nums: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* nextPermutation(int* nums, int numsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc nextPermutation(nums []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn nextPermutation(nums: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -948,7 +988,11 @@
           "python": "def generate_pascal(num_rows: int) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function generatePascal(numRows) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<List<Integer>> generatePascal(int numRows) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> generatePascal(int numRows) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> generatePascal(int numRows) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function generatePascal(numRows: number): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** generatePascal(int numRows, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc generatePascal(numRows int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn generatePascal(numRows: i32) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -1038,7 +1082,11 @@
           "python": "def merge_sorted_array(nums1: list[int], m: int, nums2: list[int], n: int) -> list[int]:\n    # Write your solution here\n    return nums1\n",
           "javascript": "function mergeSortedArray(nums1, m, nums2, n) {\n  // Write your solution here\n  return nums1;\n}\n",
           "java": "class Solution {\n    public int[] mergeSortedArray(int[] nums1, int m, int[] nums2, int n) {\n        // Write your solution here\n        return nums1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> mergeSortedArray(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        // Write your solution here\n        return nums1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> mergeSortedArray(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        // Write your solution here\n        return nums1;\n    }\n};\n",
+          "typescript": "function mergeSortedArray(nums1: number[], m: number, nums2: number[], n: number): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* mergeSortedArray(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc mergeSortedArray(nums1 []int, m int, nums2 []int, n int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn mergeSortedArray(nums1: Vec<i32>, m: i32, nums2: Vec<i32>, n: i32) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -1127,7 +1175,11 @@
           "python": "def intersect_arrays(nums1: list[int], nums2: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function intersectArrays(nums1, nums2) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] intersectArrays(int[] nums1, int[] nums2) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> intersectArrays(vector<int>& nums1, vector<int>& nums2) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> intersectArrays(vector<int>& nums1, vector<int>& nums2) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function intersectArrays(nums1: number[], nums2: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* intersectArrays(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc intersectArrays(nums1 []int, nums2 []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn intersectArrays(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -1216,7 +1268,11 @@
           "python": "def word_pattern(pattern: str, s: str) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function wordPattern(pattern, s) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean wordPattern(String pattern, String s) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool wordPattern(string pattern, string s) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool wordPattern(string pattern, string s) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function wordPattern(pattern: string, s: string): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool wordPattern(char* pattern, char* s) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc wordPattern(pattern string, s string) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn wordPattern(pattern: String, s: String) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -1306,7 +1362,11 @@
           "python": "def can_construct(ransom_note: str, magazine: str) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canConstruct(ransomNote, magazine) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canConstruct(String ransomNote, String magazine) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canConstruct(string ransomNote, string magazine) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canConstruct(string ransomNote, string magazine) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canConstruct(ransomNote: string, magazine: string): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canConstruct(char* ransomNote, char* magazine) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canConstruct(ransomNote string, magazine string) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canConstruct(ransomNote: String, magazine: String) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -1396,7 +1456,11 @@
           "python": "def find_anagrams(s: str, p: str) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function findAnagrams(s, p) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<Integer> findAnagrams(String s, String p) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function findAnagrams(s: string, p: string): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* findAnagrams(char* s, char* p, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc findAnagrams(s string, p string) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn findAnagrams(s: String, p: String) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -1486,7 +1550,11 @@
           "python": "def total_fruit(fruits: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function totalFruit(fruits) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int totalFruit(int[] fruits) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int totalFruit(vector<int>& fruits) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int totalFruit(vector<int>& fruits) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function totalFruit(fruits: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint totalFruit(int* fruits, int fruitsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc totalFruit(fruits []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn totalFruit(fruits: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -1577,7 +1645,11 @@
           "python": "def num_rescue_boats(people: list[int], limit: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function numRescueBoats(people, limit) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numRescueBoats(vector<int>& people, int limit) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numRescueBoats(vector<int>& people, int limit) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function numRescueBoats(people: number[], limit: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint numRescueBoats(int* people, int peopleSize, int limit) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc numRescueBoats(people []int, limit int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn numRescueBoats(people: Vec<i32>, limit: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -1667,7 +1739,11 @@
           "python": "def backspace_compare(s: str, t: str) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function backspaceCompare(s, t) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean backspaceCompare(String s, String t) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool backspaceCompare(string s, string t) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool backspaceCompare(string s, string t) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function backspaceCompare(s: string, t: string): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool backspaceCompare(char* s, char* t) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc backspaceCompare(s string, t string) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn backspaceCompare(s: String, t: String) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -1756,7 +1832,11 @@
           "python": "def roman_to_int(s: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function romanToInt(s) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int romanToInt(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int romanToInt(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int romanToInt(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function romanToInt(s: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint romanToInt(char* s) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc romanToInt(s string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn romanToInt(s: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -1844,7 +1924,11 @@
           "python": "def int_to_roman(num: int) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function intToRoman(num) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String intToRoman(int num) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string intToRoman(int num) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string intToRoman(int num) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function intToRoman(num: number): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* intToRoman(int num) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc intToRoman(num int) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn intToRoman(num: i32) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -1934,7 +2018,11 @@
           "python": "def multiply_strings(num1: str, num2: str) -> str:\n    # Write your solution here\n    return \"0\"\n",
           "javascript": "function multiplyStrings(num1, num2) {\n  // Write your solution here\n  return \"0\";\n}\n",
           "java": "class Solution {\n    public String multiplyStrings(String num1, String num2) {\n        // Write your solution here\n        return \"0\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string multiplyStrings(string num1, string num2) {\n        // Write your solution here\n        return \"0\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string multiplyStrings(string num1, string num2) {\n        // Write your solution here\n        return \"0\";\n    }\n};\n",
+          "typescript": "function multiplyStrings(num1: string, num2: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* multiplyStrings(char* num1, char* num2) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc multiplyStrings(num1 string, num2 string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn multiplyStrings(num1: String, num2: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -2025,7 +2113,11 @@
           "python": "def add_binary(a: str, b: str) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function addBinary(a, b) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String addBinary(String a, String b) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string addBinary(string a, string b) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string addBinary(string a, string b) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function addBinary(a: string, b: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* addBinary(char* a, char* b) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc addBinary(a string, b string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn addBinary(a: String, b: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -2114,7 +2206,11 @@
           "python": "def compress_chars(chars: list[str]) -> list[str]:\n    # Write your solution here\n    return []\n",
           "javascript": "function compressChars(chars) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public char[] compressChars(char[] chars) {\n        // Write your solution here\n        return new char[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<char> compressChars(vector<char>& chars) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<char> compressChars(vector<char>& chars) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function compressChars(chars: string[]): string[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* compressChars(char* chars, int charsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc compressChars(chars []byte) []byte {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn compressChars(chars: Vec<char>) -> Vec<char> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -2206,7 +2302,11 @@
           "python": "def remove_k_digits(num: str, k: int) -> str:\n    # Write your solution here\n    return \"0\"\n",
           "javascript": "function removeKDigits(num, k) {\n  // Write your solution here\n  return \"0\";\n}\n",
           "java": "class Solution {\n    public String removeKDigits(String num, int k) {\n        // Write your solution here\n        return \"0\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeKDigits(string num, int k) {\n        // Write your solution here\n        return \"0\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeKDigits(string num, int k) {\n        // Write your solution here\n        return \"0\";\n    }\n};\n",
+          "typescript": "function removeKDigits(num: string, k: number): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* removeKDigits(char* num, int k) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc removeKDigits(num string, k int) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn removeKDigits(num: String, k: i32) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -2297,7 +2397,11 @@
           "python": "def sum_subarray_mins(arr: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function sumSubarrayMins(arr) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int sumSubarrayMins(int[] arr) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sumSubarrayMins(vector<int>& arr) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sumSubarrayMins(vector<int>& arr) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function sumSubarrayMins(arr: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint sumSubarrayMins(int* arr, int arrSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc sumSubarrayMins(arr []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn sumSubarrayMins(arr: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -2389,7 +2493,11 @@
           "python": "def maximal_rectangle(matrix: list[list[str]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function maximalRectangle(matrix) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int maximalRectangle(char[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximalRectangle(vector<vector<char>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximalRectangle(vector<vector<char>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function maximalRectangle(matrix: string[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint maximalRectangle(char** matrix, int matrixSize, int* matrixColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc maximalRectangle(matrix [][]byte) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn maximalRectangle(matrix: Vec<Vec<char>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -2479,7 +2587,11 @@
           "python": "def calculate_expr(s: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function calculateExpr(s) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int calculateExpr(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int calculateExpr(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int calculateExpr(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function calculateExpr(s: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint calculateExpr(char* s) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc calculateExpr(s string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn calculateExpr(s: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -2568,7 +2680,11 @@
           "python": "def remove_duplicates_str(s: str) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function removeDuplicatesStr(s) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String removeDuplicatesStr(String s) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeDuplicatesStr(string s) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeDuplicatesStr(string s) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function removeDuplicatesStr(s: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* removeDuplicatesStr(char* s) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc removeDuplicatesStr(s string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn removeDuplicatesStr(s: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -2657,7 +2773,11 @@
           "python": "def min_remove_to_make_valid(s: str) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function minRemoveToMakeValid(s) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String minRemoveToMakeValid(String s) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minRemoveToMakeValid(string s) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minRemoveToMakeValid(string s) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function minRemoveToMakeValid(s: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* minRemoveToMakeValid(char* s) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc minRemoveToMakeValid(s string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn minRemoveToMakeValid(s: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -2746,7 +2866,11 @@
           "python": "def score_of_parentheses(s: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function scoreOfParentheses(s) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int scoreOfParentheses(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int scoreOfParentheses(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int scoreOfParentheses(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function scoreOfParentheses(s: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint scoreOfParentheses(char* s) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc scoreOfParentheses(s string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn scoreOfParentheses(s: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -2835,7 +2959,11 @@
           "python": "def is_palindrome_list(values: list[int]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function isPalindromeList(values) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean isPalindromeList(int[] values) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isPalindromeList(vector<int>& values) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isPalindromeList(vector<int>& values) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function isPalindromeList(values: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool isPalindromeList(int* values, int valuesSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isPalindromeList(values []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isPalindromeList(values: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -2923,7 +3051,11 @@
           "python": "def search_insert(nums: list[int], target: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function searchInsert(nums, target) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function searchInsert(nums: number[], target: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint searchInsert(int* nums, int numsSize, int target) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc searchInsert(nums []int, target int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn searchInsert(nums: Vec<i32>, target: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3011,7 +3143,11 @@
           "python": "def my_sqrt(x: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function mySqrt(x) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int mySqrt(int x) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int mySqrt(int x) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function mySqrt(x: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint mySqrt(int x) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc mySqrt(x int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn mySqrt(x: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3101,7 +3237,11 @@
           "python": "def find_peak_element(nums: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function findPeakElement(nums) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int findPeakElement(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findPeakElement(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findPeakElement(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function findPeakElement(nums: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findPeakElement(int* nums, int numsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findPeakElement(nums []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findPeakElement(nums: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3191,7 +3331,11 @@
           "python": "def ship_within_days(weights: list[int], days: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function shipWithinDays(weights, days) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int shipWithinDays(int[] weights, int days) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int shipWithinDays(vector<int>& weights, int days) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int shipWithinDays(vector<int>& weights, int days) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function shipWithinDays(weights: number[], days: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint shipWithinDays(int* weights, int weightsSize, int days) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc shipWithinDays(weights []int, days int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn shipWithinDays(weights: Vec<i32>, days: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3282,7 +3426,11 @@
           "python": "def split_array(nums: list[int], k: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function splitArray(nums, k) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int splitArray(int[] nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int splitArray(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int splitArray(vector<int>& nums, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function splitArray(nums: number[], k: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint splitArray(int* nums, int numsSize, int k) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc splitArray(nums []int, k int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn splitArray(nums: Vec<i32>, k: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3371,7 +3519,11 @@
           "python": "def single_non_duplicate(nums: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function singleNonDuplicate(nums) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int singleNonDuplicate(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int singleNonDuplicate(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int singleNonDuplicate(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function singleNonDuplicate(nums: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint singleNonDuplicate(int* nums, int numsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc singleNonDuplicate(nums []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn singleNonDuplicate(nums: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3462,7 +3614,11 @@
           "python": "def search_matrix_ii(matrix: list[list[int]], target: int) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function searchMatrixII(matrix, target) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean searchMatrixII(int[][] matrix, int target) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool searchMatrixII(vector<vector<int>>& matrix, int target) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool searchMatrixII(vector<vector<int>>& matrix, int target) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function searchMatrixII(matrix: number[][], target: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool searchMatrixII(int** matrix, int matrixSize, int* matrixColSize, int target) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc searchMatrixII(matrix [][]int, target int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn searchMatrixII(matrix: Vec<Vec<i32>>, target: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -3551,7 +3707,11 @@
           "python": "def h_index_sorted(citations: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function hIndexSorted(citations) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int hIndexSorted(int[] citations) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int hIndexSorted(vector<int>& citations) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int hIndexSorted(vector<int>& citations) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function hIndexSorted(citations: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint hIndexSorted(int* citations, int citationsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc hIndexSorted(citations []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn hIndexSorted(citations: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3641,7 +3801,11 @@
           "python": "def largest_number(nums: list[int]) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function largestNumber(nums) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String largestNumber(int[] nums) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string largestNumber(vector<int>& nums) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string largestNumber(vector<int>& nums) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function largestNumber(nums: number[]): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* largestNumber(int* nums, int numsSize) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc largestNumber(nums []int) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn largestNumber(nums: Vec<i32>) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -3730,7 +3894,11 @@
           "python": "def is_same_tree(p: list, q: list) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function isSameTree(p, q) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean isSameTree(List<Integer> p, List<Integer> q) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isSameTree(vector<optional<int>>& p, vector<optional<int>>& q) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isSameTree(vector<optional<int>>& p, vector<optional<int>>& q) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function isSameTree(p: (number | null)[], q: (number | null)[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nbool isSameTree(OptionalInt* p, int pSize, OptionalInt* q, int qSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isSameTree(p []*int, q []*int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isSameTree(p: Vec<Option<i32>>, q: Vec<Option<i32>>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -3818,7 +3986,11 @@
           "python": "def has_path_sum(tree: list, target_sum: int) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function hasPathSum(tree, targetSum) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean hasPathSum(List<Integer> tree, int targetSum) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool hasPathSum(vector<optional<int>>& tree, int targetSum) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool hasPathSum(vector<optional<int>>& tree, int targetSum) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function hasPathSum(tree: (number | null)[], targetSum: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nbool hasPathSum(OptionalInt* tree, int treeSize, int targetSum) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc hasPathSum(tree []*int, targetSum int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn hasPathSum(tree: Vec<Option<i32>>, targetSum: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -3906,7 +4078,11 @@
           "python": "def good_nodes(tree: list) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function goodNodes(tree) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int goodNodes(List<Integer> tree) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int goodNodes(vector<optional<int>>& tree) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int goodNodes(vector<optional<int>>& tree) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function goodNodes(tree: (number | null)[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint goodNodes(OptionalInt* tree, int treeSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc goodNodes(tree []*int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn goodNodes(tree: Vec<Option<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -3995,7 +4171,11 @@
           "python": "def lca_binary_tree(tree: list, p: int, q: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function lcaBinaryTree(tree, p, q) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int lcaBinaryTree(List<Integer> tree, int p, int q) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lcaBinaryTree(vector<optional<int>>& tree, int p, int q) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lcaBinaryTree(vector<optional<int>>& tree, int p, int q) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function lcaBinaryTree(tree: (number | null)[], p: number, q: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint lcaBinaryTree(OptionalInt* tree, int treeSize, int p, int q) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc lcaBinaryTree(tree []*int, p int, q int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn lcaBinaryTree(tree: Vec<Option<i32>>, p: i32, q: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4085,7 +4265,11 @@
           "python": "def flood_fill(image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:\n    # Write your solution here\n    return image\n",
           "javascript": "function floodFill(image, sr, sc, color) {\n  // Write your solution here\n  return image;\n}\n",
           "java": "class Solution {\n    public int[][] floodFill(int[][] image, int sr, int sc, int color) {\n        // Write your solution here\n        return image;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {\n        // Write your solution here\n        return image;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {\n        // Write your solution here\n        return image;\n    }\n};\n",
+          "typescript": "function floodFill(image: number[][], sr: number, sc: number, color: number): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** floodFill(int** image, int imageSize, int* imageColSize, int sr, int sc, int color, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc floodFill(image [][]int, sr int, sc int, color int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn floodFill(image: Vec<Vec<i32>>, sr: i32, sc: i32, color: i32) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -4175,7 +4359,11 @@
           "python": "def max_area_of_island(grid: list[list[int]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function maxAreaOfIsland(grid) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function maxAreaOfIsland(grid: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint maxAreaOfIsland(int** grid, int gridSize, int* gridColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc maxAreaOfIsland(grid [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn maxAreaOfIsland(grid: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4264,7 +4452,11 @@
           "python": "def pacific_atlantic(heights: list[list[int]]) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function pacificAtlantic(heights) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<List<Integer>> pacificAtlantic(int[][] heights) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function pacificAtlantic(heights: number[][]): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** pacificAtlantic(int** heights, int heightsSize, int* heightsColSize, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc pacificAtlantic(heights [][]int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn pacificAtlantic(heights: Vec<Vec<i32>>) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -4354,7 +4546,11 @@
           "python": "def can_visit_all_rooms(rooms: list[list[int]]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canVisitAllRooms(rooms) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canVisitAllRooms(List<List<Integer>> rooms) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canVisitAllRooms(vector<vector<int>>& rooms) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canVisitAllRooms(vector<vector<int>>& rooms) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canVisitAllRooms(rooms: number[][]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canVisitAllRooms(int** rooms, int roomsSize, int* roomsColSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canVisitAllRooms(rooms [][]int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canVisitAllRooms(rooms: Vec<Vec<i32>>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -4443,7 +4639,11 @@
           "python": "def num_decodings(s: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function numDecodings(s) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int numDecodings(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numDecodings(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numDecodings(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function numDecodings(s: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint numDecodings(char* s) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc numDecodings(s string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn numDecodings(s: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4532,7 +4732,11 @@
           "python": "def change_ways(amount: int, coins: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function changeWays(amount, coins) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int changeWays(int amount, int[] coins) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int changeWays(int amount, vector<int>& coins) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int changeWays(int amount, vector<int>& coins) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function changeWays(amount: number, coins: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint changeWays(int amount, int* coins, int coinsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc changeWays(amount int, coins []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn changeWays(amount: i32, coins: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4622,7 +4826,11 @@
           "python": "def find_target_sum_ways(nums: list[int], target: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function findTargetSumWays(nums, target) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findTargetSumWays(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findTargetSumWays(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function findTargetSumWays(nums: number[], target: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findTargetSumWays(int* nums, int numsSize, int target) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findTargetSumWays(nums []int, target int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findTargetSumWays(nums: Vec<i32>, target: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4711,7 +4919,11 @@
           "python": "def minimum_total(triangle: list[list[int]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minimumTotal(triangle) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minimumTotal(List<List<Integer>> triangle) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minimumTotal(triangle: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minimumTotal(int** triangle, int triangleSize, int* triangleColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minimumTotal(triangle [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minimumTotal(triangle: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4800,7 +5012,11 @@
           "python": "def longest_palindrome_subseq(s: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function longestPalindromeSubseq(s) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int longestPalindromeSubseq(String s) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestPalindromeSubseq(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestPalindromeSubseq(string s) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function longestPalindromeSubseq(s: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint longestPalindromeSubseq(char* s) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc longestPalindromeSubseq(s string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn longestPalindromeSubseq(s: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -4888,7 +5104,11 @@
           "python": "def is_interleave(s1: str, s2: str, s3: str) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function isInterleave(s1, s2, s3) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function isInterleave(s1: string, s2: string, s3: string): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool isInterleave(char* s1, char* s2, char* s3) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isInterleave(s1 string, s2 string, s3 string) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isInterleave(s1: String, s2: String, s3: String) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -4980,7 +5200,11 @@
           "python": "def is_regex_match(s: str, p: str) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function isRegexMatch(s, p) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean isRegexMatch(String s, String p) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isRegexMatch(string s, string p) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isRegexMatch(string s, string p) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function isRegexMatch(s: string, p: string): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool isRegexMatch(char* s, char* p) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isRegexMatch(s string, p string) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isRegexMatch(s: String, p: String) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -5070,7 +5294,11 @@
           "python": "def min_candies(ratings: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minCandies(ratings) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minCandies(int[] ratings) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minCandies(vector<int>& ratings) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minCandies(vector<int>& ratings) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minCandies(ratings: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minCandies(int* ratings, int ratingsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minCandies(ratings []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minCandies(ratings: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -5161,7 +5389,11 @@
           "python": "def partition_labels(s: str) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function partitionLabels(s) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<Integer> partitionLabels(String s) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function partitionLabels(s: string): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* partitionLabels(char* s, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc partitionLabels(s string) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn partitionLabels(s: String) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -5250,7 +5482,11 @@
           "python": "def permute(nums: list[int]) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function permute(nums) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<List<Integer>> permute(int[] nums) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function permute(nums: number[]): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc permute(nums []int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -5339,7 +5575,11 @@
           "python": "def letter_combinations(digits: str) -> list[str]:\n    # Write your solution here\n    return []\n",
           "javascript": "function letterCombinations(digits) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<String> letterCombinations(String digits) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function letterCombinations(digits: string): string[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar** letterCombinations(char* digits, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc letterCombinations(digits string) []string {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn letterCombinations(digits: String) -> Vec<String> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -5428,7 +5668,11 @@
           "python": "def generate_parenthesis(n: int) -> list[str]:\n    # Write your solution here\n    return []\n",
           "javascript": "function generateParenthesis(n) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<String> generateParenthesis(int n) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function generateParenthesis(n: number): string[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar** generateParenthesis(int n, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc generateParenthesis(n int) []string {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn generateParenthesis(n: i32) -> Vec<String> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -5519,7 +5763,11 @@
           "python": "def missing_number(nums: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function missingNumber(nums) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int missingNumber(int[] nums) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function missingNumber(nums: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint missingNumber(int* nums, int numsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc missingNumber(nums []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn missingNumber(nums: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -5606,7 +5854,11 @@
           "python": "def sorted_squares(nums: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function sortedSquares(nums) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] sortedSquares(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function sortedSquares(nums: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* sortedSquares(int* nums, int numsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc sortedSquares(nums []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn sortedSquares(nums: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -5693,7 +5945,11 @@
           "python": "def lemonade_change(bills: list[int]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function lemonadeChange(bills) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean lemonadeChange(int[] bills) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function lemonadeChange(bills: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool lemonadeChange(int* bills, int billsSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc lemonadeChange(bills []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn lemonadeChange(bills: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -5780,7 +6036,11 @@
           "python": "def can_place_flowers(bed: list[int], n: int) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canPlaceFlowers(bed, n) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canPlaceFlowers(int[] bed, int n) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& bed, int n) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& bed, int n) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canPlaceFlowers(bed: number[], n: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canPlaceFlowers(int* bed, int bedSize, int n) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canPlaceFlowers(bed []int, n int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canPlaceFlowers(bed: Vec<i32>, n: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -5867,7 +6127,11 @@
           "python": "def three_sum_closest(nums: list[int], target: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function threeSumClosest(nums, target) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int threeSumClosest(int[] nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function threeSumClosest(nums: number[], target: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint threeSumClosest(int* nums, int numsSize, int target) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc threeSumClosest(nums []int, target int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn threeSumClosest(nums: Vec<i32>, target: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -5954,7 +6218,11 @@
           "python": "def min_operations_x(nums: list[int], x: int) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function minOperationsX(nums, x) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int minOperationsX(int[] nums, int x) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minOperationsX(vector<int>& nums, int x) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minOperationsX(vector<int>& nums, int x) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function minOperationsX(nums: number[], x: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minOperationsX(int* nums, int numsSize, int x) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minOperationsX(nums []int, x int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minOperationsX(nums: Vec<i32>, x: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6041,7 +6309,11 @@
           "python": "def next_greater_circular(nums: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function nextGreaterCircular(nums) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] nextGreaterCircular(int[] nums) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextGreaterCircular(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextGreaterCircular(vector<int>& nums) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function nextGreaterCircular(nums: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* nextGreaterCircular(int* nums, int numsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc nextGreaterCircular(nums []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn nextGreaterCircular(nums: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -6128,7 +6400,11 @@
           "python": "def k_closest_points(points: list[list[int]], k: int) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function kClosestPoints(points, k) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[][] kClosestPoints(int[][] points, int k) {\n        // Write your solution here\n        return new int[][]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> kClosestPoints(vector<vector<int>>& points, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> kClosestPoints(vector<vector<int>>& points, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function kClosestPoints(points: number[][], k: number): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** kClosestPoints(int** points, int pointsSize, int* pointsColSize, int k, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc kClosestPoints(points [][]int, k int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn kClosestPoints(points: Vec<Vec<i32>>, k: i32) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -6215,7 +6491,11 @@
           "python": "def num_squares(n: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function numSquares(n) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int numSquares(int n) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numSquares(int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numSquares(int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function numSquares(n: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint numSquares(int n) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc numSquares(n int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn numSquares(n: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6303,7 +6583,11 @@
           "python": "def find_max_form(strs: list[str], m: int, n: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function findMaxForm(strs, m, n) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int findMaxForm(String[] strs, int m, int n) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findMaxForm(vector<string>& strs, int m, int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findMaxForm(vector<string>& strs, int m, int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function findMaxForm(strs: string[], m: number, n: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findMaxForm(char** strs, int strsSize, int m, int n) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findMaxForm(strs []string, m int, n int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findMaxForm(strs: Vec<String>, m: i32, n: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6394,7 +6678,11 @@
           "javascript": "function reverseList(head) {\n  // Write your solution here\n  return [];\n}\n",
           "python": "def reverse_list(head: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "java": "class Solution {\n    public int[] reverseList(int[] head) {\n        // Write your solution here\n        return new int[0];\n    }\n}\n",
-          "cpp": "#include <vector>\n\nclass Solution {\npublic:\n    std::vector<int> reverseList(std::vector<int>& head) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <vector>\n\nclass Solution {\npublic:\n    std::vector<int> reverseList(std::vector<int>& head) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function reverseList(head: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* reverseList(int* head, int headSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc reverseList(head []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn reverseList(head: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -6499,7 +6787,11 @@
           "python": "def combination_sum4(nums: list[int], target: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function combinationSum4(nums, target) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int combinationSum4(int[] nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int combinationSum4(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int combinationSum4(vector<int>& nums, int target) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function combinationSum4(nums: number[], target: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint combinationSum4(int* nums, int numsSize, int target) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc combinationSum4(nums []int, target int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn combinationSum4(nums: Vec<i32>, target: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6585,7 +6877,11 @@
           "python": "def maximal_square(matrix: list[list[str]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function maximalSquare(matrix) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int maximalSquare(char[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximalSquare(vector<vector<char>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximalSquare(vector<vector<char>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function maximalSquare(matrix: string[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint maximalSquare(char** matrix, int matrixSize, int* matrixColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc maximalSquare(matrix [][]byte) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn maximalSquare(matrix: Vec<Vec<char>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6673,7 +6969,11 @@
           "python": "def longest_str_chain(words: list[str]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function longestStrChain(words) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int longestStrChain(String[] words) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestStrChain(vector<string>& words) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestStrChain(vector<string>& words) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function longestStrChain(words: string[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint longestStrChain(char** words, int wordsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc longestStrChain(words []string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn longestStrChain(words: Vec<String>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6759,7 +7059,11 @@
           "python": "def predict_winner(nums: list[int]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function predictWinner(nums) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean predictWinner(int[] nums) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool predictWinner(vector<int>& nums) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool predictWinner(vector<int>& nums) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function predictWinner(nums: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool predictWinner(int* nums, int numsSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc predictWinner(nums []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn predictWinner(nums: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -6846,7 +7150,11 @@
           "python": "def min_falling_path(matrix: list[list[int]]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minFallingPath(matrix) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minFallingPath(int[][] matrix) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minFallingPath(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minFallingPath(vector<vector<int>>& matrix) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minFallingPath(matrix: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minFallingPath(int** matrix, int matrixSize, int* matrixColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minFallingPath(matrix [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minFallingPath(matrix: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -6936,7 +7244,11 @@
           "python": "def findJudge(n: int, trust: list[list[int]]) -> int:\n    pass\n",
           "javascript": "function findJudge(n, trust) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int findJudge(int n, int[][] trust) {\n        return -1;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findJudge(int n, vector<vector<int>>& trust) {\n        return -1;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findJudge(int n, vector<vector<int>>& trust) {\n        return -1;\n    }\n};\n",
+          "typescript": "function findJudge(n: number, trust: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findJudge(int n, int** trust, int trustSize, int* trustColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findJudge(n int, trust [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findJudge(n: i32, trust: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -7028,7 +7340,11 @@
           "python": "def validPath(n: int, edges: list[list[int]], source: int, destination: int) -> bool:\n    pass\n",
           "javascript": "function validPath(n, edges, source, destination) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public boolean validPath(int n, int[][] edges, int source, int destination) {\n        return false;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {\n        return false;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {\n        return false;\n    }\n};\n",
+          "typescript": "function validPath(n: number, edges: number[][], source: number, destination: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool validPath(int n, int** edges, int edgesSize, int* edgesColSize, int source, int destination) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc validPath(n int, edges [][]int, source int, destination int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn validPath(n: i32, edges: Vec<Vec<i32>>, source: i32, destination: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -7117,7 +7433,11 @@
           "python": "def validMountainArray(arr: list[int]) -> bool:\n    pass\n",
           "javascript": "function validMountainArray(arr) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public boolean validMountainArray(int[] arr) {\n        return false;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validMountainArray(vector<int>& arr) {\n        return false;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validMountainArray(vector<int>& arr) {\n        return false;\n    }\n};\n",
+          "typescript": "function validMountainArray(arr: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool validMountainArray(int* arr, int arrSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc validMountainArray(arr []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn validMountainArray(arr: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -7211,7 +7531,11 @@
           "python": "def rangeSumBST(root: list[int | None], low: int, high: int) -> int:\n    pass\n",
           "javascript": "function rangeSumBST(root, low, high) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int rangeSumBST(Integer[] root, int low, int high) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\n#include <optional>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rangeSumBST(vector<optional<int>>& root, int low, int high) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\n#include <optional>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rangeSumBST(vector<optional<int>>& root, int low, int high) {\n        return 0;\n    }\n};\n",
+          "typescript": "function rangeSumBST(root: (number | null)[], low: number, high: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint rangeSumBST(OptionalInt* root, int rootSize, int low, int high) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc rangeSumBST(root []*int, low int, high int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn rangeSumBST(root: Vec<Option<i32>>, low: i32, high: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -7302,7 +7626,11 @@
           "python": "def getMinimumDifference(root: list[int | None]) -> int:\n    pass\n",
           "javascript": "function getMinimumDifference(root) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int getMinimumDifference(Integer[] root) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\n#include <optional>\nusing namespace std;\n\nclass Solution {\npublic:\n    int getMinimumDifference(vector<optional<int>>& root) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\n#include <optional>\nusing namespace std;\n\nclass Solution {\npublic:\n    int getMinimumDifference(vector<optional<int>>& root) {\n        return 0;\n    }\n};\n",
+          "typescript": "function getMinimumDifference(root: (number | null)[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint getMinimumDifference(OptionalInt* root, int rootSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc getMinimumDifference(root []*int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn getMinimumDifference(root: Vec<Option<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -7393,7 +7721,11 @@
           "python": "def calPoints(operations: list[str]) -> int:\n    pass\n",
           "javascript": "function calPoints(operations) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int calPoints(String[] operations) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    int calPoints(vector<string>& operations) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    int calPoints(vector<string>& operations) {\n        return 0;\n    }\n};\n",
+          "typescript": "function calPoints(operations: string[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint calPoints(char** operations, int operationsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc calPoints(operations []string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn calPoints(operations: Vec<String>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -7482,7 +7814,11 @@
           "python": "def removeOuterParentheses(s: str) -> str:\n    pass\n",
           "javascript": "function removeOuterParentheses(s) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public String removeOuterParentheses(String s) {\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeOuterParentheses(string s) {\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    string removeOuterParentheses(string s) {\n        return \"\";\n    }\n};\n",
+          "typescript": "function removeOuterParentheses(s: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* removeOuterParentheses(char* s) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc removeOuterParentheses(s string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn removeOuterParentheses(s: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -7573,7 +7909,11 @@
           "python": "def validateStackSequences(pushed: list[int], popped: list[int]) -> bool:\n    pass\n",
           "javascript": "function validateStackSequences(pushed, popped) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public boolean validateStackSequences(int[] pushed, int[] popped) {\n        return false;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {\n        return false;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {\n        return false;\n    }\n};\n",
+          "typescript": "function validateStackSequences(pushed: number[], popped: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool validateStackSequences(int* pushed, int pushedSize, int* popped, int poppedSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc validateStackSequences(pushed []int, popped []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn validateStackSequences(pushed: Vec<i32>, popped: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -7662,7 +8002,11 @@
           "python": "def restoreIpAddresses(s: str) -> list[str]:\n    pass\n",
           "javascript": "function restoreIpAddresses(s) {\n  // Write your code here\n}\n",
           "java": "import java.util.*;\n\nclass Solution {\n    public List<String> restoreIpAddresses(String s) {\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> restoreIpAddresses(string s) {\n        return {};\n    }\n};\n"
+          "cpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> restoreIpAddresses(string s) {\n        return {};\n    }\n};\n",
+          "typescript": "function restoreIpAddresses(s: string): string[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar** restoreIpAddresses(char* s, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc restoreIpAddresses(s string) []string {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn restoreIpAddresses(s: String) -> Vec<String> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -7750,7 +8094,11 @@
           "python": "def isUgly(n: int) -> bool:\n    pass\n",
           "javascript": "function isUgly(n) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public boolean isUgly(int n) {\n        return false;\n    }\n}\n",
-          "cpp": "class Solution {\npublic:\n    bool isUgly(int n) {\n        return false;\n    }\n};\n"
+          "cpp": "class Solution {\npublic:\n    bool isUgly(int n) {\n        return false;\n    }\n};\n",
+          "typescript": "function isUgly(n: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool isUgly(int n) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isUgly(n int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isUgly(n: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -7841,7 +8189,11 @@
           "python": "def findContentChildren(g: list[int], s: list[int]) -> int:\n    pass\n",
           "javascript": "function findContentChildren(g, s) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int findContentChildren(int[] g, int[] s) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findContentChildren(vector<int>& g, vector<int>& s) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findContentChildren(vector<int>& g, vector<int>& s) {\n        return 0;\n    }\n};\n",
+          "typescript": "function findContentChildren(g: number[], s: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findContentChildren(int* g, int gSize, int* s, int sSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findContentChildren(g []int, s []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findContentChildren(g: Vec<i32>, s: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -7930,7 +8282,11 @@
           "python": "def fib(n: int) -> int:\n    pass\n",
           "javascript": "function fib(n) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int fib(int n) {\n        return 0;\n    }\n}\n",
-          "cpp": "class Solution {\npublic:\n    int fib(int n) {\n        return 0;\n    }\n};\n"
+          "cpp": "class Solution {\npublic:\n    int fib(int n) {\n        return 0;\n    }\n};\n",
+          "typescript": "function fib(n: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint fib(int n) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc fib(n int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn fib(n: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8020,7 +8376,11 @@
           "python": "def findLHS(nums: list[int]) -> int:\n    pass\n",
           "javascript": "function findLHS(nums) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int findLHS(int[] nums) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findLHS(vector<int>& nums) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findLHS(vector<int>& nums) {\n        return 0;\n    }\n};\n",
+          "typescript": "function findLHS(nums: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findLHS(int* nums, int numsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findLHS(nums []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findLHS(nums: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8109,7 +8469,11 @@
           "python": "def find_sig_offset(payload: str, sig: str) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function findSigOffset(payload, sig) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int findSigOffset(String payload, String sig) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findSigOffset(string payload, string sig) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findSigOffset(string payload, string sig) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function findSigOffset(payload: string, sig: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findSigOffset(char* payload, char* sig) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findSigOffset(payload string, sig string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findSigOffset(payload: String, sig: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8195,7 +8559,11 @@
           "python": "def reverse_command_tokens(line: str) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function reverseCommandTokens(line) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String reverseCommandTokens(String line) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string reverseCommandTokens(string line) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string reverseCommandTokens(string line) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function reverseCommandTokens(line: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* reverseCommandTokens(char* line) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc reverseCommandTokens(line string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn reverseCommandTokens(line: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -8282,7 +8650,11 @@
           "python": "def next_higher_metrics(queries: list[int], series: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function nextHigherMetrics(queries, series) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] nextHigherMetrics(int[] queries, int[] series) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextHigherMetrics(vector<int>& queries, vector<int>& series) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> nextHigherMetrics(vector<int>& queries, vector<int>& series) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function nextHigherMetrics(queries: number[], series: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* nextHigherMetrics(int* queries, int queriesSize, int* series, int seriesSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc nextHigherMetrics(queries []int, series []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn nextHigherMetrics(queries: Vec<i32>, series: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -8368,7 +8740,11 @@
           "python": "def quorum_leader(ballots: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function quorumLeader(ballots) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int quorumLeader(int[] ballots) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int quorumLeader(vector<int>& ballots) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int quorumLeader(vector<int>& ballots) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function quorumLeader(ballots: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint quorumLeader(int* ballots, int ballotsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc quorumLeader(ballots []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn quorumLeader(ballots: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8455,7 +8831,11 @@
           "python": "def find_balance_pivot(loads: list[int]) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function findBalancePivot(loads) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int findBalancePivot(int[] loads) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findBalancePivot(vector<int>& loads) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findBalancePivot(vector<int>& loads) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function findBalancePivot(loads: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findBalancePivot(int* loads, int loadsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findBalancePivot(loads []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findBalancePivot(loads: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8544,7 +8924,11 @@
           "python": "def max_contract_spread(quotes: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function maxContractSpread(quotes) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int maxContractSpread(int[] quotes) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxContractSpread(vector<int>& quotes) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxContractSpread(vector<int>& quotes) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function maxContractSpread(quotes: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint maxContractSpread(int* quotes, int quotesSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc maxContractSpread(quotes []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn maxContractSpread(quotes: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8631,7 +9015,11 @@
           "python": "def shared_host_prefix(hosts: list[str]) -> str:\n    # Write your solution here\n    return \"\"\n",
           "javascript": "function sharedHostPrefix(hosts) {\n  // Write your solution here\n  return \"\";\n}\n",
           "java": "class Solution {\n    public String sharedHostPrefix(String[] hosts) {\n        // Write your solution here\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string sharedHostPrefix(vector<string>& hosts) {\n        // Write your solution here\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string sharedHostPrefix(vector<string>& hosts) {\n        // Write your solution here\n        return \"\";\n    }\n};\n",
+          "typescript": "function sharedHostPrefix(hosts: string[]): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* sharedHostPrefix(char** hosts, int hostsSize) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc sharedHostPrefix(hosts []string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn sharedHostPrefix(hosts: Vec<String>) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -8718,7 +9106,11 @@
           "python": "def count_active_beats(beats: list[int], span_ms: int) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function countActiveBeats(beats, spanMs) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] countActiveBeats(int[] beats, int spanMs) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> countActiveBeats(vector<int>& beats, int spanMs) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> countActiveBeats(vector<int>& beats, int spanMs) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function countActiveBeats(beats: number[], spanMs: number): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* countActiveBeats(int* beats, int beatsSize, int spanMs, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc countActiveBeats(beats []int, spanMs int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn countActiveBeats(beats: Vec<i32>, spanMs: i32) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -8805,7 +9197,11 @@
           "python": "def lookup_epoch(epochs: list[int], query_epoch: int) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function lookupEpoch(epochs, queryEpoch) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int lookupEpoch(int[] epochs, int queryEpoch) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lookupEpoch(vector<int>& epochs, int queryEpoch) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lookupEpoch(vector<int>& epochs, int queryEpoch) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function lookupEpoch(epochs: number[], queryEpoch: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint lookupEpoch(int* epochs, int epochsSize, int queryEpoch) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc lookupEpoch(epochs []int, queryEpoch int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn lookupEpoch(epochs: Vec<i32>, queryEpoch: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8892,7 +9288,11 @@
           "python": "def find_unacked_packet(log_ids: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function findUnackedPacket(logIds) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int findUnackedPacket(int[] logIds) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findUnackedPacket(vector<int>& logIds) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findUnackedPacket(vector<int>& logIds) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function findUnackedPacket(logIds: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint findUnackedPacket(int* logIds, int logIdsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc findUnackedPacket(logIds []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn findUnackedPacket(logIds: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -8978,7 +9378,11 @@
           "python": "def is_valid_page_size(block_bytes: int) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function isValidPageSize(blockBytes) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean isValidPageSize(int blockBytes) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValidPageSize(int blockBytes) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValidPageSize(int blockBytes) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function isValidPageSize(blockBytes: number): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool isValidPageSize(int blockBytes) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc isValidPageSize(blockBytes int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn isValidPageSize(blockBytes: i32) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -9069,7 +9473,11 @@
           "python": "def incident_windows(readings: list[int], limit: int) -> list[list[int]]:\n    # Write your solution here\n    return []\n",
           "javascript": "function incidentWindows(readings, limit) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[][] incidentWindows(int[] readings, int limit) {\n        // Write your solution here\n        return new int[0][];\n    }\n}\n",
-          "cpp": "#include <vector>\n\nclass Solution {\npublic:\n    std::vector<std::vector<int>> incidentWindows(const std::vector<int>& readings, int limit) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <vector>\n\nclass Solution {\npublic:\n    std::vector<std::vector<int>> incidentWindows(const std::vector<int>& readings, int limit) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function incidentWindows(readings: number[], limit: number): number[][] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint** incidentWindows(int* readings, int readingsSize, int limit, int* returnSize, int** returnColumnSizes) {\n    // Write your solution here\n    *returnSize = 0;\n    *returnColumnSizes = NULL;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc incidentWindows(readings []int, limit int) [][]int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn incidentWindows(readings: Vec<i32>, limit: i32) -> Vec<Vec<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "editorial": {
           "problemId": "warehouse-temperature-excursions",
@@ -9172,7 +9580,11 @@
           "python": "def count_safe_gain_chains(gains: list[int], ceiling: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function countSafeGainChains(gains, ceiling) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int countSafeGainChains(int[] gains, int ceiling) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSafeGainChains(vector<int>& gains, int ceiling) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countSafeGainChains(vector<int>& gains, int ceiling) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function countSafeGainChains(gains: number[], ceiling: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint countSafeGainChains(int* gains, int gainsSize, int ceiling) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc countSafeGainChains(gains []int, ceiling int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn countSafeGainChains(gains: Vec<i32>, ceiling: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -9260,7 +9672,11 @@
           "python": "def surviving_drones(drones: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function survivingDrones(drones) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] survivingDrones(int[] drones) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> survivingDrones(vector<int>& drones) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> survivingDrones(vector<int>& drones) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function survivingDrones(drones: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* survivingDrones(int* drones, int dronesSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc survivingDrones(drones []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn survivingDrones(drones: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -9348,7 +9764,11 @@
           "python": "def wire_roundtrip(packets: list[str]) -> list[str]:\n    # Write your solution here\n    return []\n",
           "javascript": "function wireRoundtrip(packets) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<String> wireRoundtrip(List<String> packets) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> wireRoundtrip(vector<string>& packets) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> wireRoundtrip(vector<string>& packets) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function wireRoundtrip(packets: string[]): string[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar** wireRoundtrip(char** packets, int packetsSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc wireRoundtrip(packets []string) []string {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn wireRoundtrip(packets: Vec<String>) -> Vec<String> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -9436,7 +9856,11 @@
           "python": "def normalize_mount_path(raw_path: str) -> str:\n    # Write your solution here\n    return \"/\"\n",
           "javascript": "function normalizeMountPath(rawPath) {\n  // Write your solution here\n  return \"/\";\n}\n",
           "java": "class Solution {\n    public String normalizeMountPath(String rawPath) {\n        // Write your solution here\n        return \"/\";\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string normalizeMountPath(string rawPath) {\n        // Write your solution here\n        return \"/\";\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    string normalizeMountPath(string rawPath) {\n        // Write your solution here\n        return \"/\";\n    }\n};\n",
+          "typescript": "function normalizeMountPath(rawPath: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* normalizeMountPath(char* rawPath) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc normalizeMountPath(rawPath string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn normalizeMountPath(rawPath: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -9523,7 +9947,11 @@
           "python": "def kth_lowest_score(tree: list, k: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function kthLowestScore(tree, k) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int kthLowestScore(List<Integer> tree, int k) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int kthLowestScore(vector<optional<int>>& tree, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int kthLowestScore(vector<optional<int>>& tree, int k) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function kthLowestScore(tree: (number | null)[], k: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint kthLowestScore(OptionalInt* tree, int treeSize, int k) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc kthLowestScore(tree []*int, k int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn kthLowestScore(tree: Vec<Option<i32>>, k: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -9611,7 +10039,11 @@
           "python": "def can_build_all(num_pkgs: int, deps: list[list[int]]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canBuildAll(numPkgs, deps) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canBuildAll(int numPkgs, int[][] deps) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canBuildAll(int numPkgs, vector<vector<int>>& deps) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canBuildAll(int numPkgs, vector<vector<int>>& deps) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canBuildAll(numPkgs: number, deps: number[][]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canBuildAll(int numPkgs, int** deps, int depsSize, int* depsColSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canBuildAll(numPkgs int, deps [][]int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canBuildAll(numPkgs: i32, deps: Vec<Vec<i32>>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -9697,7 +10129,11 @@
           "python": "def find_redundant_cable(cables: list[list[int]]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function findRedundantCable(cables) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] findRedundantCable(int[][] cables) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> findRedundantCable(vector<vector<int>>& cables) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> findRedundantCable(vector<vector<int>>& cables) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function findRedundantCable(cables: number[][]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* findRedundantCable(int** cables, int cablesSize, int* cablesColSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc findRedundantCable(cables [][]int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn findRedundantCable(cables: Vec<Vec<i32>>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -9783,7 +10219,11 @@
           "python": "def can_split_shifts(conflicts: list[list[int]]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canSplitShifts(conflicts) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canSplitShifts(int[][] conflicts) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canSplitShifts(vector<vector<int>>& conflicts) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canSplitShifts(vector<vector<int>>& conflicts) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canSplitShifts(conflicts: number[][]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canSplitShifts(int** conflicts, int conflictsSize, int* conflictsColSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canSplitShifts(conflicts [][]int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canSplitShifts(conflicts: Vec<Vec<i32>>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -9870,7 +10310,11 @@
           "python": "def can_balance_pods(crates: list[int]) -> bool:\n    # Write your solution here\n    return False\n",
           "javascript": "function canBalancePods(crates) {\n  // Write your solution here\n  return false;\n}\n",
           "java": "class Solution {\n    public boolean canBalancePods(int[] crates) {\n        // Write your solution here\n        return false;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canBalancePods(vector<int>& crates) {\n        // Write your solution here\n        return false;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canBalancePods(vector<int>& crates) {\n        // Write your solution here\n        return false;\n    }\n};\n",
+          "typescript": "function canBalancePods(crates: number[]): boolean {\n  // Write your solution here\n  return false;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nbool canBalancePods(int* crates, int cratesSize) {\n    // Write your solution here\n    return false;\n}\n",
+          "go": "package main\n\nfunc canBalancePods(crates []int) bool {\n\t// Write your solution here\n\treturn false\n}\n",
+          "rust": "fn canBalancePods(crates: Vec<i32>) -> bool {\n    // Write your solution here\n    false\n}\n"
         },
         "testCases": [
           {
@@ -9957,7 +10401,11 @@
           "python": "def min_gpu_cycles(kernels: list[str], cooldown: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minGpuCycles(kernels, cooldown) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minGpuCycles(char[] kernels, int cooldown) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minGpuCycles(vector<char>& kernels, int cooldown) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minGpuCycles(vector<char>& kernels, int cooldown) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minGpuCycles(kernels: string[], cooldown: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minGpuCycles(char* kernels, int kernelsSize, int cooldown) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minGpuCycles(kernels []byte, cooldown int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minGpuCycles(kernels: Vec<char>, cooldown: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10045,7 +10493,11 @@
           "python": "def broadcast_convergence(links: list[list[int]], n: int, origin: int) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function broadcastConvergence(links, n, origin) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int broadcastConvergence(int[][] links, int n, int origin) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int broadcastConvergence(vector<vector<int>>& links, int n, int origin) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int broadcastConvergence(vector<vector<int>>& links, int n, int origin) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function broadcastConvergence(links: number[][], n: number, origin: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint broadcastConvergence(int** links, int linksSize, int* linksColSize, int n, int origin) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc broadcastConvergence(links [][]int, n int, origin int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn broadcastConvergence(links: Vec<Vec<i32>>, n: i32, origin: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10131,7 +10583,11 @@
           "python": "def min_keystroke_edits(typed: str, target: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minKeystrokeEdits(typed, target) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minKeystrokeEdits(String typed, String target) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minKeystrokeEdits(string typed, string target) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minKeystrokeEdits(string typed, string target) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minKeystrokeEdits(typed: string, target: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minKeystrokeEdits(char* typed, char* target) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minKeystrokeEdits(typed string, target string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minKeystrokeEdits(typed: String, target: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10219,7 +10675,11 @@
           "python": "def top_k_errors(codes: list[int], k: int) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function topKErrors(codes, k) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] topKErrors(int[] codes, int k) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> topKErrors(vector<int>& codes, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> topKErrors(vector<int>& codes, int k) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function topKErrors(codes: number[], k: number): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* topKErrors(int* codes, int codesSize, int k, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc topKErrors(codes []int, k int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn topKErrors(codes: Vec<i32>, k: i32) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -10318,7 +10778,11 @@
           "python": "def add_ledger_tapes(tape_a: list[int], tape_b: list[int]) -> list[int]:\n    # Write your solution here\n    return []\n",
           "javascript": "function addLedgerTapes(tapeA, tapeB) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public int[] addLedgerTapes(int[] tapeA, int[] tapeB) {\n        // Write your solution here\n        return new int[]{};\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> addLedgerTapes(vector<int>& tapeA, vector<int>& tapeB) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> addLedgerTapes(vector<int>& tapeA, vector<int>& tapeB) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function addLedgerTapes(tapeA: number[], tapeB: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* addLedgerTapes(int* tapeA, int tapeASize, int* tapeB, int tapeBSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc addLedgerTapes(tapeA []int, tapeB []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn addLedgerTapes(tapeA: Vec<i32>, tapeB: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -10405,7 +10869,11 @@
           "python": "def max_clearance_score(vals: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function maxClearanceScore(vals) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int maxClearanceScore(int[] vals) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxClearanceScore(vector<int>& vals) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxClearanceScore(vector<int>& vals) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function maxClearanceScore(vals: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint maxClearanceScore(int* vals, int valsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc maxClearanceScore(vals []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn maxClearanceScore(vals: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10492,7 +10960,11 @@
           "python": "def min_cut_cost(n: int, cuts: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function minCutCost(n, cuts) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int minCutCost(int n, int[] cuts) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minCutCost(int n, vector<int>& cuts) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minCutCost(int n, vector<int>& cuts) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function minCutCost(n: number, cuts: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint minCutCost(int n, int* cuts, int cutsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc minCutCost(n int, cuts []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn minCutCost(n: i32, cuts: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10581,7 +11053,11 @@
           "python": "def countRangeSum(nums: list[int], lower: int, upper: int) -> int:\n    pass\n",
           "javascript": "function countRangeSum(nums, lower, upper) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int countRangeSum(int[] nums, int lower, int upper) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countRangeSum(vector<int>& nums, int lower, int upper) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countRangeSum(vector<int>& nums, int lower, int upper) {\n        return 0;\n    }\n};\n",
+          "typescript": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint countRangeSum(int* nums, int numsSize, int lower, int upper) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc countRangeSum(nums []int, lower int, upper int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn countRangeSum(nums: Vec<i32>, lower: i32, upper: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10673,7 +11149,11 @@
           "python": "def minWindowSubsequence(s1: str, s2: str) -> str:\n    pass\n",
           "javascript": "function minWindowSubsequence(s1, s2) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public String minWindowSubsequence(String s1, String s2) {\n        return \"\";\n    }\n}\n",
-          "cpp": "#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minWindowSubsequence(string s1, string s2) {\n        return \"\";\n    }\n};\n"
+          "cpp": "#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    string minWindowSubsequence(string s1, string s2) {\n        return \"\";\n    }\n};\n",
+          "typescript": "function minWindowSubsequence(s1: string, s2: string): string {\n  // Write your solution here\n  return '';\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nchar* minWindowSubsequence(char* s1, char* s2) {\n    // Write your solution here\n    return \"\";\n}\n",
+          "go": "package main\n\nfunc minWindowSubsequence(s1 string, s2 string) string {\n\t// Write your solution here\n\treturn \"\"\n}\n",
+          "rust": "fn minWindowSubsequence(s1: String, s2: String) -> String {\n    // Write your solution here\n    String::new()\n}\n"
         },
         "testCases": [
           {
@@ -10763,7 +11243,11 @@
           "python": "def cherryPickup(grid: list[list[int]]) -> int:\n    pass\n",
           "javascript": "function cherryPickup(grid) {\n  // Write your code here\n}\n",
           "java": "class Solution {\n    public int cherryPickup(int[][] grid) {\n        return 0;\n    }\n}\n",
-          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int cherryPickup(vector<vector<int>>& grid) {\n        return 0;\n    }\n};\n"
+          "cpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int cherryPickup(vector<vector<int>>& grid) {\n        return 0;\n    }\n};\n",
+          "typescript": "function cherryPickup(grid: number[][]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint cherryPickup(int** grid, int gridSize, int* gridColSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc cherryPickup(grid [][]int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn cherryPickup(grid: Vec<Vec<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10854,7 +11338,11 @@
           "python": "def peak_margin_path(tree: list) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function peakMarginPath(tree) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int peakMarginPath(List<Integer> tree) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int peakMarginPath(vector<optional<int>>& tree) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int peakMarginPath(vector<optional<int>>& tree) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function peakMarginPath(tree: (number | null)[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nint peakMarginPath(OptionalInt* tree, int treeSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc peakMarginPath(tree []*int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn peakMarginPath(tree: Vec<Option<i32>>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -10942,7 +11430,11 @@
           "python": "def mirror_org_chart(chart: list) -> list:\n    # Write your solution here\n    return []\n",
           "javascript": "function mirrorOrgChart(chart) {\n  // Write your solution here\n  return [];\n}\n",
           "java": "class Solution {\n    public List<Integer> mirrorOrgChart(List<Integer> chart) {\n        // Write your solution here\n        return new ArrayList<>();\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<optional<int>> mirrorOrgChart(vector<optional<int>>& chart) {\n        // Write your solution here\n        return {};\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<optional<int>> mirrorOrgChart(vector<optional<int>>& chart) {\n        // Write your solution here\n        return {};\n    }\n};\n",
+          "typescript": "function mirrorOrgChart(chart: (number | null)[]): (number | null)[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\n#ifndef OPTIONAL_INT_DEFINED\n#define OPTIONAL_INT_DEFINED\ntypedef struct {\n    bool hasValue;\n    int value;\n} OptionalInt;\n#endif\n\nOptionalInt* mirrorOrgChart(OptionalInt* chart, int chartSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc mirrorOrgChart(chart []*int) []*int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn mirrorOrgChart(chart: Vec<Option<i32>>) -> Vec<Option<i32>> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -11029,7 +11521,11 @@
           "python": "def count_convoys(port_mile: int, starts: list[int], speeds: list[int]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function countConvoys(portMile, starts, speeds) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int countConvoys(int portMile, int[] starts, int[] speeds) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countConvoys(int portMile, vector<int>& starts, vector<int>& speeds) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countConvoys(int portMile, vector<int>& starts, vector<int>& speeds) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function countConvoys(portMile: number, starts: number[], speeds: number[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint countConvoys(int portMile, int* starts, int startsSize, int* speeds, int speedsSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc countConvoys(portMile int, starts []int, speeds []int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn countConvoys(portMile: i32, starts: Vec<i32>, speeds: Vec<i32>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -11118,7 +11614,11 @@
           "python": "def cheapest_charter(n: int, legs: list[list[int]], src: int, dst: int, max_layovers: int) -> int:\n    # Write your solution here\n    return -1\n",
           "javascript": "function cheapestCharter(n, legs, src, dst, maxLayovers) {\n  // Write your solution here\n  return -1;\n}\n",
           "java": "class Solution {\n    public int cheapestCharter(int n, int[][] legs, int src, int dst, int maxLayovers) {\n        // Write your solution here\n        return -1;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int cheapestCharter(int n, vector<vector<int>>& legs, int src, int dst, int maxLayovers) {\n        // Write your solution here\n        return -1;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int cheapestCharter(int n, vector<vector<int>>& legs, int src, int dst, int maxLayovers) {\n        // Write your solution here\n        return -1;\n    }\n};\n",
+          "typescript": "function cheapestCharter(n: number, legs: number[][], src: number, dst: number, maxLayovers: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint cheapestCharter(int n, int** legs, int legsSize, int* legsColSize, int src, int dst, int maxLayovers) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc cheapestCharter(n int, legs [][]int, src int, dst int, maxLayovers int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn cheapestCharter(n: i32, legs: Vec<Vec<i32>>, src: i32, dst: i32, maxLayovers: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -11204,7 +11704,11 @@
           "python": "def count_scanner_layouts(n: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function countScannerLayouts(n) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int countScannerLayouts(int n) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countScannerLayouts(int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countScannerLayouts(int n) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function countScannerLayouts(n: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint countScannerLayouts(int n) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc countScannerLayouts(n int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn countScannerLayouts(n: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -11291,7 +11795,11 @@
           "python": "def count_active_flags(mask: int) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function countActiveFlags(mask) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int countActiveFlags(int mask) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countActiveFlags(int mask) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countActiveFlags(int mask) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function countActiveFlags(mask: number): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint countActiveFlags(int mask) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc countActiveFlags(mask int) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn countActiveFlags(mask: i32) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -11397,7 +11905,11 @@
           "python": "def eval_formula(formula: list[str]) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function evalFormula(formula) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int evalFormula(String[] formula) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int evalFormula(vector<string>& formula) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int evalFormula(vector<string>& formula) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function evalFormula(formula: string[]): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint evalFormula(char** formula, int formulaSize) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc evalFormula(formula []string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn evalFormula(formula: Vec<String>) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {
@@ -11503,7 +12015,11 @@
           "python": "def partition_qos_tiers(tiers: list[int]) -> list[int]:\n    # Write your solution here\n    return tiers\n",
           "javascript": "function partitionQosTiers(tiers) {\n  // Write your solution here\n  return tiers;\n}\n",
           "java": "class Solution {\n    public int[] partitionQosTiers(int[] tiers) {\n        // Write your solution here\n        return tiers;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> partitionQosTiers(vector<int>& tiers) {\n        // Write your solution here\n        return tiers;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> partitionQosTiers(vector<int>& tiers) {\n        // Write your solution here\n        return tiers;\n    }\n};\n",
+          "typescript": "function partitionQosTiers(tiers: number[]): number[] {\n  // Write your solution here\n  return [];\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint* partitionQosTiers(int* tiers, int tiersSize, int* returnSize) {\n    // Write your solution here\n    *returnSize = 0;\n    return NULL;\n}\n",
+          "go": "package main\n\nfunc partitionQosTiers(tiers []int) []int {\n\t// Write your solution here\n\treturn nil\n}\n",
+          "rust": "fn partitionQosTiers(tiers: Vec<i32>) -> Vec<i32> {\n    // Write your solution here\n    Vec::new()\n}\n"
         },
         "testCases": [
           {
@@ -11608,7 +12124,11 @@
           "python": "def shared_backbone_len(strand_a: str, strand_b: str) -> int:\n    # Write your solution here\n    return 0\n",
           "javascript": "function sharedBackboneLen(strandA, strandB) {\n  // Write your solution here\n  return 0;\n}\n",
           "java": "class Solution {\n    public int sharedBackboneLen(String strandA, String strandB) {\n        // Write your solution here\n        return 0;\n    }\n}\n",
-          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sharedBackboneLen(string strandA, string strandB) {\n        // Write your solution here\n        return 0;\n    }\n};\n"
+          "cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int sharedBackboneLen(string strandA, string strandB) {\n        // Write your solution here\n        return 0;\n    }\n};\n",
+          "typescript": "function sharedBackboneLen(strandA: string, strandB: string): number {\n  // Write your solution here\n  return 0;\n}\n",
+          "c": "#include <stdbool.h>\n#include <stdlib.h>\n\nint sharedBackboneLen(char* strandA, char* strandB) {\n    // Write your solution here\n    return 0;\n}\n",
+          "go": "package main\n\nfunc sharedBackboneLen(strandA string, strandB string) int {\n\t// Write your solution here\n\treturn 0\n}\n",
+          "rust": "fn sharedBackboneLen(strandA: String, strandB: String) -> i32 {\n    // Write your solution here\n    0\n}\n"
         },
         "testCases": [
           {

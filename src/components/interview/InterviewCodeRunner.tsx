@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import {
   CheckCircle2,
   ChevronDown,
-  ChevronUp,
   FileCode2,
   PanelLeftOpen,
   Play,
   RotateCcw,
   Send,
   Terminal,
-  X,
   XCircle,
 } from 'lucide-react';
 import { CodeLanguage, Problem } from '../../types';
+import { CODE_LANGUAGES, CODE_LANGUAGE_META, isCodeLanguage } from '../../lib/codeLanguages';
+import { getStarterCode } from '../../lib/draftStorage';
 import { useApp } from '../../context/AppContext';
 import { themePalettes, type ThemePalette } from '../../data/themes';
 import { useEditorPreferences } from '../../hooks/useEditorPreferences';
@@ -26,6 +26,7 @@ interface InterviewCodeRunnerProps {
   problem: Problem;
   code: string;
   language: string;
+  drafts?: Record<string, string>;
   isSolved: boolean;
   onCodeChange: (code: string, language?: string) => void;
   onSubmissionResult: (results: {
@@ -39,25 +40,12 @@ interface InterviewCodeRunnerProps {
   onToggleBriefCollapse?: () => void;
 }
 
-const languageDots: Record<CodeLanguage, string> = {
-  javascript: 'bg-amber-400',
-  python: 'bg-blue-400',
-  java: 'bg-orange-500',
-  cpp: 'bg-sky-500',
-};
-
-const fileExtensions: Record<CodeLanguage, string> = {
-  javascript: 'js',
-  python: 'py',
-  java: 'java',
-  cpp: 'cpp',
-};
-
 export default function InterviewCodeRunner({
   roundId,
   problem,
   code,
   language,
+  drafts,
   isSolved,
   onCodeChange,
   onSubmissionResult,
@@ -72,9 +60,10 @@ export default function InterviewCodeRunner({
     isDefault: isDefaultEditorPrefs,
   } = useEditorPreferences();
 
-  const [currentLang, setCurrentLang] = useState<CodeLanguage>(
-    (language as CodeLanguage) || 'python'
+  const [currentLang, setCurrentLang] = useState<CodeLanguage>(() =>
+    isCodeLanguage(language) ? language : 'python'
   );
+  const localDraftsRef = useRef<Record<string, string>>({});
   const [isRunning, setIsRunning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -83,6 +72,18 @@ export default function InterviewCodeRunner({
   const [activeTab, setActiveTab] = useState<'cases' | 'console'>('cases');
   const [selectedCaseIdx, setSelectedCaseIdx] = useState(0);
   const [runResult, setRunResult] = useState<ExecutionResponse | null>(null);
+
+  useEffect(() => {
+    const normalized: CodeLanguage = isCodeLanguage(language) ? language : 'python';
+    setCurrentLang(normalized);
+  }, [problem.id, language]);
+
+  useEffect(() => {
+    setShowDrawer(false);
+    setRunResult(null);
+    setSelectedCaseIdx(0);
+    setActiveTab('cases');
+  }, [problem.id]);
 
   const editorThemeName = `prismcode-${palette}-${theme}`;
 
@@ -121,14 +122,22 @@ export default function InterviewCodeRunner({
     });
   };
 
-  const handleLanguageChange = (newLang: CodeLanguage) => {
+  const handleLanguageChange = (nextRaw: string) => {
+    if (!isCodeLanguage(nextRaw)) return;
+    const newLang = nextRaw;
+    localDraftsRef.current[`${problem.id}:${currentLang}`] = code;
     setCurrentLang(newLang);
-    const starter = problem.starterCode?.[newLang] || '';
-    onCodeChange(starter, newLang);
+    const nextCode =
+      drafts?.[newLang] ??
+      localDraftsRef.current[`${problem.id}:${newLang}`] ??
+      getStarterCode(problem, newLang);
+    localDraftsRef.current[`${problem.id}:${newLang}`] = nextCode;
+    onCodeChange(nextCode, newLang);
   };
 
   const handleResetCode = () => {
-    const starter = problem.starterCode?.[currentLang] || '';
+    const starter = getStarterCode(problem, currentLang);
+    localDraftsRef.current[`${problem.id}:${currentLang}`] = starter;
     onCodeChange(starter, currentLang);
   };
 
@@ -136,6 +145,7 @@ export default function InterviewCodeRunner({
   const handleRunCode = async () => {
     setIsRunning(true);
     setShowDrawer(true);
+    setSelectedCaseIdx(0);
     setActiveTab('cases');
     try {
       const cases = (problem.testCases || []).filter(test => !test.isHidden).map((c, i) => ({
@@ -153,6 +163,9 @@ export default function InterviewCodeRunner({
       });
 
       setRunResult(res);
+      if ((!res.cases || res.cases.length === 0) && res.stderr) {
+        setActiveTab('console');
+      }
     } catch (e: any) {
       setRunResult({
         success: false,
@@ -164,6 +177,7 @@ export default function InterviewCodeRunner({
         cases: [],
         stderr: e.message || 'Execution failed',
       });
+      setActiveTab('console');
     } finally {
       setIsRunning(false);
     }
@@ -173,6 +187,7 @@ export default function InterviewCodeRunner({
   const handleSubmitCode = async () => {
     setIsSubmitting(true);
     setShowDrawer(true);
+    setSelectedCaseIdx(0);
     setActiveTab('cases');
     try {
       const res = await submitCode({
@@ -183,6 +198,9 @@ export default function InterviewCodeRunner({
       });
 
       setRunResult(res);
+      if ((!res.cases || res.cases.length === 0) && res.stderr) {
+        setActiveTab('console');
+      }
       const passed = res.verdict === 'Accepted';
       onSubmissionResult({
         passed,
@@ -202,10 +220,13 @@ export default function InterviewCodeRunner({
         cases: [],
         stderr: e.message || 'Submission failed',
       });
+      setActiveTab('console');
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const langMeta = CODE_LANGUAGE_META[currentLang];
 
   return (
     <section className="workspace-editor-pane h-full w-full flex flex-col select-none overflow-hidden">
@@ -219,7 +240,7 @@ export default function InterviewCodeRunner({
             <FileCode2 size={14} />
           </span>
           <span className="truncate text-xs font-semibold text-primary">
-            solution.{fileExtensions[currentLang]}
+            solution.{langMeta.extension}
           </span>
 
           {/* Show Problem button when brief is collapsed */}
@@ -239,15 +260,16 @@ export default function InterviewCodeRunner({
         <div className="flex shrink-0 items-center gap-2">
           {/* Language Selector */}
           <label className="workspace-language-select" aria-label="Choose programming language">
-            <span className={`h-2 w-2 shrink-0 rounded-full ${languageDots[currentLang]}`} />
+            <span className={`h-2 w-2 shrink-0 rounded-full ${langMeta.dotClass}`} />
             <select
               value={currentLang}
-              onChange={(e) => handleLanguageChange(e.target.value as CodeLanguage)}
+              onChange={(e) => handleLanguageChange(e.target.value)}
             >
-              <option value="javascript">JavaScript</option>
-              <option value="python">Python 3</option>
-              <option value="java">Java</option>
-              <option value="cpp">C++</option>
+              {CODE_LANGUAGES.map((lang) => (
+                <option key={lang.id} value={lang.id}>
+                  {lang.label}
+                </option>
+              ))}
             </select>
           </label>
 
@@ -303,10 +325,14 @@ export default function InterviewCodeRunner({
         <Editor
           height="100%"
           path={`interview/${problem.id}/${currentLang}`}
-          language={currentLang}
+          language={langMeta.monacoLanguage}
           value={code}
           loading={<EditorLoadingSkeleton />}
-          onChange={(val) => onCodeChange(val ?? '')}
+          onChange={(val) => {
+            const nextVal = val ?? '';
+            localDraftsRef.current[`${problem.id}:${currentLang}`] = nextVal;
+            onCodeChange(nextVal, currentLang);
+          }}
           beforeMount={registerEditorTheme}
           theme={editorThemeName}
           options={{

@@ -27,7 +27,7 @@ const tasks = new Set();
 const titles = new Set();
 const prompts = new Set();
 const fingerprint = value => value.normalize('NFKC').toLowerCase().replace(/[^a-z0-9]/g, '');
-const languages = ['python', 'javascript', 'java', 'cpp'];
+const languages = ['python', 'javascript', 'typescript', 'java', 'cpp', 'c', 'go', 'rust'];
 
 function claim(id, taskKey) {
   assert.ok(id && !IDs.has(id), `Repeated question ID: ${id}`);

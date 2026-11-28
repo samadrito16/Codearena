@@ -52,7 +52,15 @@ export interface EmailVerificationToken {
 }
 
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
-export type CodeLanguage = 'javascript' | 'python' | 'java' | 'cpp';
+export type CodeLanguage =
+  | 'javascript'
+  | 'python'
+  | 'typescript'
+  | 'java'
+  | 'cpp'
+  | 'c'
+  | 'go'
+  | 'rust';
 
 export interface TestCaseInput {
   caseNumber: number;

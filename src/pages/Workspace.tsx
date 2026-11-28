@@ -64,9 +64,10 @@ import { useEditorPreferences } from '../hooks/useEditorPreferences';
 import { useProblemStudyData } from '../hooks/useProblemStudyData';
 import { useProblemTestCases } from '../hooks/useProblemTestCases';
 import { MAX_SPLIT_PERCENT, MIN_SPLIT_PERCENT, useWorkspaceLayout } from '../hooks/useWorkspaceLayout';
+import { CODE_LANGUAGES, CODE_LANGUAGE_META, isCodeLanguage } from '../lib/codeLanguages';
 import { WORKSPACE_AUTOCOMPLETE_LANGUAGES } from '../lib/editorSnippets';
 import { attachLocalAutocomplete, LOCAL_AUTOCOMPLETE_EDITOR_OPTIONS } from '../lib/localAutocomplete';
-import { isCodeLanguage, type CodeLanguage } from '../lib/draftStorage';
+import type { CodeLanguage } from '../lib/draftStorage';
 import {
   MIN_PRACTICE_SESSION_SECONDS,
   PRACTICE_IDLE_THRESHOLD_MINUTES,
@@ -74,20 +75,6 @@ import {
 } from '../lib/practiceTimer';
 import { getLocalDateKey, isDailyChallengeCompleted } from '../lib/progress';
 import type { Problem } from '../types';
-
-const languageDots: Record<CodeLanguage, string> = {
-  javascript: 'bg-amber-400',
-  python: 'bg-sky-400',
-  java: 'bg-orange-400',
-  cpp: 'bg-violet-400',
-};
-
-const languageLabels: Record<CodeLanguage, string> = {
-  javascript: 'JavaScript',
-  python: 'Python 3',
-  java: 'Java',
-  cpp: 'C++',
-};
 
 type RunnerAction = 'run' | 'submit';
 type RunnerState = 'idle' | 'running' | 'completed' | 'error';
@@ -453,7 +440,7 @@ function WorkspaceSession({
     setActiveResultCaseIndex(0);
 
     if (action === 'run') {
-      announce(`Running ${languageLabels[language]} solution…`);
+      announce(`Running ${CODE_LANGUAGE_META[language].label} solution…`);
       try {
         const customInput = selectedCase && selectedCase.source === 'custom' ? selectedCase.input : undefined;
         const res = await runCode({
@@ -473,7 +460,7 @@ function WorkspaceSession({
         announce(`Execution error: ${msg}`);
       }
     } else {
-      announce(`Submitting ${languageLabels[language]} solution…`);
+      announce(`Submitting ${CODE_LANGUAGE_META[language].label} solution…`);
       try {
         const res = await submitCode({
           problemId: problem.id,
@@ -687,7 +674,7 @@ function WorkspaceSession({
     switchDraftLanguage(next);
     setConfirmResetOpen(false);
     setRunnerState('idle');
-    announce(`Switched editor language to ${languageLabels[next]}`);
+    announce(`Switched editor language to ${CODE_LANGUAGE_META[next].label}`);
   }
 
   function handleResetClick() {
@@ -704,7 +691,7 @@ function WorkspaceSession({
     const ok = resetDraft();
     setConfirmResetOpen(false);
     setRunnerState('idle');
-    announce(ok ? `Reset ${languageLabels[language]} draft to starter code` : 'Could not reset draft');
+    announce(ok ? `Reset ${CODE_LANGUAGE_META[language].label} draft to starter code` : 'Could not reset draft');
   }
 
   function handleSaveAndLeave() {
@@ -1122,7 +1109,7 @@ function WorkspaceSession({
             )}
             <div className="workspace-window-dots"><i/><i/><i/></div>
             <span className="workspace-file-icon"><FileCode2 size={14}/></span>
-            <span className="truncate text-xs font-semibold text-primary">solution.{language === 'javascript' ? 'js' : language === 'python' ? 'py' : language === 'java' ? 'java' : 'cpp'}</span>
+            <span className="truncate text-xs font-semibold text-primary">solution.{CODE_LANGUAGE_META[language].extension}</span>
             <span className={`workspace-save-status workspace-save-status-${saveStatus}`} title={saveStatusTitle} role="status" aria-live="polite">
               <i className="workspace-save-dot"/>
               <span>{saveStatusLabel}</span>
@@ -1131,12 +1118,13 @@ function WorkspaceSession({
           <div className="flex shrink-0 items-center gap-1.5">
             {descriptionCollapsed && <div className="workspace-expand-desktop-only">{problemPager}</div>}
             <label className="workspace-language-select" aria-label="Choose programming language">
-              <span className={`h-2 w-2 shrink-0 rounded-full ${languageDots[language]}`}/>
+              <span className={`h-2 w-2 shrink-0 rounded-full ${CODE_LANGUAGE_META[language].dotClass}`}/>
               <select value={language} onChange={(event) => handleLanguageChange(event.target.value)}>
-                <option value="javascript">JavaScript</option>
-                <option value="python">Python 3</option>
-                <option value="java">Java</option>
-                <option value="cpp">C++</option>
+                {CODE_LANGUAGES.map((lang) => (
+                  <option key={lang.id} value={lang.id}>
+                    {lang.label}
+                  </option>
+                ))}
               </select>
             </label>
             <button
@@ -1184,7 +1172,7 @@ function WorkspaceSession({
           <Editor
             height="100%"
             path={`${problem.id}/${language}`}
-            language={language}
+            language={CODE_LANGUAGE_META[language].monacoLanguage}
             value={code}
             loading={<EditorLoadingSkeleton/>}
             onChange={(value) => {
@@ -1416,7 +1404,7 @@ function WorkspaceSession({
                           {runnerAction === 'run' ? 'Executing solution…' : 'Submitting solution to OnlineCompiler…'}
                         </p>
                         <p className="mt-0.5 text-[10px] text-muted">
-                          Running with {languageLabels[language]} · OnlineCompiler.io
+                          Running with {CODE_LANGUAGE_META[language].label} · OnlineCompiler.io
                         </p>
                       </div>
                     </div>
@@ -1584,8 +1572,8 @@ function WorkspaceSession({
     <ConfirmDialog
       open={confirmResetOpen}
       tone="danger"
-      title={`Reset ${languageLabels[language]} draft?`}
-      description={`This replaces your local ${languageLabels[language]} code for "${problem.title}" with the starter template. Drafts for other languages stay saved.`}
+      title={`Reset ${CODE_LANGUAGE_META[language].label} draft?`}
+      description={`This replaces your local ${CODE_LANGUAGE_META[language].label} code for "${problem.title}" with the starter template. Drafts for other languages stay saved.`}
       confirmLabel="Reset code"
       cancelLabel="Keep draft"
       onConfirm={confirmReset}

@@ -8,7 +8,7 @@ export interface CatalogProblem extends Omit<Problem, 'acceptance' | 'submission
   taskKey: string;
   version: number;
   status: 'published';
-  references?: Partial<Record<'python' | 'javascript' | 'java' | 'cpp', string>>;
+  references?: Partial<Record<'python' | 'javascript' | 'typescript' | 'java' | 'cpp' | 'c' | 'go' | 'rust', string>>;
 }
 
 export const catalogVersion = rawCatalog.version;
@@ -46,9 +46,19 @@ export function publicQuestion(problem: CatalogProblem) {
 }
 
 export function getEntryPoint(problem: CatalogProblem, language: string): string | undefined {
-  const code = problem.starterCode?.[language as keyof NonNullable<Problem['starterCode']>];
-  if (!code) return;
-  if (language === 'python') return [...code.matchAll(/^def\s+(\w+)\(/gm)].at(-1)?.[1];
-  if (language === 'javascript') return [...code.matchAll(/^function\s+(\w+)\(/gm)].at(-1)?.[1];
-  return code.match(/^\s*(?:public\s+)?[\w<>[\]: ]+\s+(\w+)\([^\n]*\)\s*\{/m)?.[1];
+  const norm = language.toLowerCase().trim();
+  const jsCode = problem.starterCode?.javascript;
+  const jsEntry = jsCode ? [...jsCode.matchAll(/^function\s+(\w+)\(/gm)].at(-1)?.[1] : undefined;
+
+  if (norm === 'javascript' || norm === 'typescript' || norm === 'c' || norm === 'go' || norm === 'rust') {
+    if (jsEntry) return jsEntry;
+  }
+
+  const code = problem.starterCode?.[norm as keyof NonNullable<Problem['starterCode']>];
+  if (!code) return jsEntry;
+  if (norm === 'python') return [...code.matchAll(/^def\s+(\w+)\(/gm)].at(-1)?.[1];
+  if (norm === 'javascript' || norm === 'typescript') return [...code.matchAll(/^function\s+(\w+)\(/gm)].at(-1)?.[1];
+  if (norm === 'go') return code.match(/^\s*func\s+(\w+)\s*\(/m)?.[1];
+  if (norm === 'rust') return code.match(/^\s*(?:pub\s+)?fn\s+(\w+)\s*(?:<[^>]*>)?\s*\(/m)?.[1];
+  return code.match(/^\s*(?:public\s+)?[\w<>[\]:* ]+?\s+(\w+)\s*\([^\n]*\)\s*\{/m)?.[1];
 }

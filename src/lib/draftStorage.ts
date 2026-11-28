@@ -1,8 +1,9 @@
 import { starterCodeByProblemId } from '../data/starterTemplates';
+import { isCodeLanguage } from './codeLanguages';
 import { readStorage, writeStorage, writeStorageSafe, type StorageWriteResult } from './storage';
 import type { CodeLanguage, Problem } from '../types';
 
-export type { CodeLanguage };
+export { isCodeLanguage, type CodeLanguage };
 
 export interface DraftEntry {
   code: string;
@@ -11,10 +12,19 @@ export interface DraftEntry {
 
 const DRAFTS_STORAGE_KEY = 'prismcode-code-drafts';
 const LANGUAGES_STORAGE_KEY = 'prismcode-problem-languages';
-const VALID_LANGUAGES: readonly CodeLanguage[] = ['javascript', 'python', 'java', 'cpp'];
 
-export function isCodeLanguage(value: unknown): value is CodeLanguage {
-  return typeof value === 'string' && (VALID_LANGUAGES as readonly string[]).includes(value);
+function extractJsSignature(problem: Problem): { name: string; params: string[] } {
+  const jsCode = problem.starterCode?.javascript ?? starterCodeByProblemId[problem.id]?.javascript ?? '';
+  const matches = [...jsCode.matchAll(/^function\s+([A-Za-z_$][\w$]*)\(([^)]*)\)/gm)];
+  const match = matches.length > 0 ? matches[matches.length - 1] : undefined;
+  if (!match) {
+    return { name: 'solution', params: ['input'] };
+  }
+  const params = match[2]
+    .split(',')
+    .map((p: string) => p.trim())
+    .filter(Boolean);
+  return { name: match[1], params: params.length ? params : ['input'] };
 }
 
 export function getStarterCode(problem: Problem, language: CodeLanguage): string {
@@ -25,15 +35,25 @@ export function getStarterCode(problem: Problem, language: CodeLanguage): string
   if (fromFixture) return fromFixture;
 
   const titleComment = problem.title.replace(/[\r\n]+/g, ' ').trim();
+  const { name, params } = extractJsSignature(problem);
+
   switch (language) {
     case 'javascript':
-      return `// ${titleComment}\nfunction solution(input) {\n  // Write your solution here\n  return null;\n}\n`;
+      return `// ${titleComment}\nfunction ${name}(${params.join(', ')}) {\n  // Write your solution here\n  return null;\n}\n`;
     case 'python':
-      return `# ${titleComment}\ndef solution(data):\n    # Write your solution here\n    return None\n`;
+      return `# ${titleComment}\ndef ${name}(${params.join(', ')}):\n    # Write your solution here\n    return None\n`;
+    case 'typescript':
+      return `// ${titleComment}\nfunction ${name}(${params.map((p) => `${p}: unknown`).join(', ')}): unknown {\n  // Write your solution here\n  return null;\n}\n`;
     case 'java':
-      return `// ${titleComment}\nclass Solution {\n    public Object solution(Object input) {\n        // Write your solution here\n        return null;\n    }\n}\n`;
+      return `// ${titleComment}\nclass Solution {\n    public Object ${name}(${params.map((p) => `Object ${p}`).join(', ')}) {\n        // Write your solution here\n        return null;\n    }\n}\n`;
     case 'cpp':
-      return `// ${titleComment}\n#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    void solve() {\n        // Write your solution here\n    }\n};\n`;
+      return `// ${titleComment}\n#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    void ${name}() {\n        // Write your solution here\n    }\n};\n`;
+    case 'c':
+      return `// ${titleComment}\n#include <stdbool.h>\n#include <stdlib.h>\n\nint ${name}(${params.map((p) => `int ${p}`).join(', ')}) {\n    // Write your solution here\n    return 0;\n}\n`;
+    case 'go':
+      return `// ${titleComment}\npackage main\n\nfunc ${name}(${params.map((p) => `${p} int`).join(', ')}) int {\n\t// Write your solution here\n\treturn 0\n}\n`;
+    case 'rust':
+      return `// ${titleComment}\nfn ${name}(${params.map((p) => `${p}: i32`).join(', ')}) -> i32 {\n    // Write your solution here\n    0\n}\n`;
   }
 }
 

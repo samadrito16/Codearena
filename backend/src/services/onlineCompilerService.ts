@@ -114,6 +114,9 @@ export async function runTestCases(
       if (
         cleanedErr.includes('SyntaxError') ||
         cleanedErr.includes('error: ') ||
+        cleanedErr.includes('error[E') ||
+        cleanedErr.includes('# command-line-arguments') ||
+        cleanedErr.includes("The module's source code could not be parsed") ||
         cleanedErr.includes('compilation error') ||
         cleanedErr.includes('javac') ||
         (res.exitCode !== 0 && parsedCases.size === 0)

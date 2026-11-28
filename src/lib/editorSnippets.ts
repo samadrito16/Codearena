@@ -3,6 +3,7 @@ export type LocalSnippetLanguage =
   | 'javascript'
   | 'typescript'
   | 'cpp'
+  | 'c'
   | 'java'
   | 'rust'
   | 'go'
@@ -12,8 +13,12 @@ export type LocalSnippetLanguage =
 export const WORKSPACE_AUTOCOMPLETE_LANGUAGES: readonly LocalSnippetLanguage[] = [
   'javascript',
   'python',
+  'typescript',
   'java',
   'cpp',
+  'c',
+  'go',
+  'rust',
 ];
 
 export const ALL_AUTOCOMPLETE_LANGUAGES: readonly LocalSnippetLanguage[] = [
@@ -21,6 +26,7 @@ export const ALL_AUTOCOMPLETE_LANGUAGES: readonly LocalSnippetLanguage[] = [
   'javascript',
   'typescript',
   'cpp',
+  'c',
   'java',
   'rust',
   'go',
@@ -172,6 +178,20 @@ export const CURATED_SNIPPETS: Record<LocalSnippetLanguage, readonly LocalSnippe
     createSnippet('cpp', 'cout', 'Print to std::cout', "std::cout << ${1:value} << '\\n';$0"),
     createSnippet('cpp', 'fastio', 'Fast C++ stdin/stdout setup', 'std::ios::sync_with_stdio(false);\nstd::cin.tie(nullptr);$0'),
     createSnippet('cpp', 'main', 'Main function', 'int main() {\n\t${0}\n\treturn 0;\n}'),
+  ],
+
+  c: [
+    createSnippet('c', 'for', 'Index for loop', 'for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {\n\t${0}\n}'),
+    createSnippet('c', 'while', 'While loop', 'while (${1:condition}) {\n\t${0}\n}'),
+    createSnippet('c', 'if', 'If statement', 'if (${1:condition}) {\n\t${0}\n}'),
+    createSnippet('c', 'ifelse', 'If / else block', 'if (${1:condition}) {\n\t${2}\n} else {\n\t${0}\n}'),
+    createSnippet('c', 'fn', 'Function definition', '${1:int} ${2:solve}(${3:int n}) {\n\t${0}\n}'),
+    createSnippet('c', 'struct', 'Typedef struct', 'typedef struct {\n\t${1:int val;}\n} ${2:Node};$0'),
+    createSnippet('c', 'malloc', 'Allocate heap array', '${1:int}* ${2:arr} = (${1:int}*)malloc((${3:n}) * sizeof(${1:int}));$0'),
+    createSnippet('c', 'calloc', 'Zero-initialized heap array', '${1:int}* ${2:arr} = (${1:int}*)calloc(${3:n}, sizeof(${1:int}));$0'),
+    createSnippet('c', 'printf', 'Print formatted output', 'printf("${1:%d}\\n", ${2:value});$0'),
+    createSnippet('c', 'scanf', 'Read formatted stdin', 'scanf("${1:%d}", &${2:n});$0'),
+    createSnippet('c', 'main', 'Main function', 'int main(void) {\n\t${0}\n\treturn 0;\n}'),
   ],
 
   java: [
