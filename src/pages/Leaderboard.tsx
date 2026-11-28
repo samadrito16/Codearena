@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Crown, Flame, Medal, RefreshCw, Search, Trophy, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import EmptyState from '../components/ui/EmptyState';
 import ErrorAlert from '../components/ui/ErrorAlert';
 import { CardSkeleton, SkeletonLine } from '../components/ui/LoadingSkeleton';
@@ -14,11 +14,16 @@ interface LeaderboardProps {
   embedded?: boolean;
 }
 
-export default function Leaderboard({ embedded = false }: LeaderboardProps) {
+function Leaderboard({ embedded = false }: LeaderboardProps) {
   const { data: entries, status, error, retry } = useLeaderboard();
   const { user } = useAuth();
+  const location = useLocation();
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const loginReturnLocation = embedded
+    ? { pathname: location.pathname, search: location.search, hash: location.hash }
+    : { pathname: '/leaderboard' };
 
   // Period multiplier to simulate dynamic score adjustments for Month/Week
   const processedEntries = useMemo(() => {
@@ -120,7 +125,7 @@ export default function Leaderboard({ embedded = false }: LeaderboardProps) {
           </div>
           <Link
             to="/login"
-            state={{ from: { pathname: '/leaderboard' }, backgroundLocation: { pathname: '/leaderboard' } }}
+            state={{ from: loginReturnLocation, backgroundLocation: loginReturnLocation }}
             className="btn-primary py-2 px-4 text-xs font-semibold shrink-0 sm:self-center"
           >
             Sign in
@@ -451,3 +456,5 @@ export default function Leaderboard({ embedded = false }: LeaderboardProps) {
     </div>
   );
 }
+
+export default memo(Leaderboard);

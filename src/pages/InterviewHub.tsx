@@ -26,18 +26,19 @@ export default function InterviewHub() {
   const navigate = useNavigate();
 
   const [selectedPreset, setSelectedPreset] = useState<InterviewPresetId>('faang_standard');
+  const [launchError, setLaunchError] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
 
   // Auto-submit any unfinished round if candidate is on Hub (since they are out of full-screen)
   useEffect(() => {
     const existing = getStoredActiveRound();
-    if (existing && !existing.isCompleted) {
+    if (existing?.hasStarted && !existing.isCompleted) {
       const finished: ActiveInterviewRound = {
         ...existing,
         isCompleted: true,
         submittedAt: Date.now(),
-        autoSubmitReason: 'Auto-submitted: Exited full-screen mode',
+        autoSubmitReason: 'Auto-submitted: Left the interview',
       };
       const scorecard = computeInterviewScorecard(finished);
       saveInterviewHistoryItem(scorecard);
@@ -54,8 +55,9 @@ export default function InterviewHub() {
   ).length;
   const passRate = totalRounds > 0 ? Math.round((passedRounds / totalRounds) * 100) : 0;
 
-  const handleLaunchRound = (presetId?: InterviewPresetId) => {
+  const handleLaunchRound = async (presetId?: InterviewPresetId) => {
     setIsGenerating(true);
+    setLaunchError('');
     const pid = presetId || selectedPreset;
 
     // Request fullscreen on user gesture
@@ -63,15 +65,21 @@ export default function InterviewHub() {
       document.documentElement.requestFullscreen().catch(() => {});
     }
 
-    const round = generateInterviewRound(pid);
-    saveStoredActiveRound(round);
-
-    navigate(`/interview/${round.id}`);
+    try {
+      const round = await generateInterviewRound(pid);
+      saveStoredActiveRound(round);
+      navigate(`/interview/${round.id}`);
+    } catch (error) {
+      void document.exitFullscreen?.().catch(() => {});
+      setLaunchError(error instanceof Error ? error.message : 'Could not start this round.');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
     <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-6 lg:px-9 space-y-10 animate-in fade-in duration-300">
-      {/* Hero Header */}
+      {launchError && <p role="alert" className="text-sm text-rose-500">{launchError}</p>}
       <div
         className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b"
         style={{ borderColor: 'var(--ca-border)' }}

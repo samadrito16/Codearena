@@ -7,7 +7,10 @@ import AppErrorBoundary from './components/AppErrorBoundary';
 import { AuthProvider } from './context/AuthContext';
 import { AppProvider } from './context/AppContext';
 import { UiProvider } from './context/UiContext';
+import { resetLegacyCatalogProgress } from './lib/catalogMigration';
 import './index.css';
+
+resetLegacyCatalogProgress();
 
 const CLERK_PUBLISHABLE_KEY =
   import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||

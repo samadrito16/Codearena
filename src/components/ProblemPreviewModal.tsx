@@ -24,7 +24,6 @@ interface ProblemPreviewModalProps {
   totalCount: number;
   onPrev: (() => void) | null;
   onNext: (() => void) | null;
-  onToggleSolved: () => void;
   onToggleBookmark: () => void;
   onClose: () => void;
 }
@@ -39,7 +38,6 @@ export default function ProblemPreviewModal({
   totalCount,
   onPrev,
   onNext,
-  onToggleSolved,
   onToggleBookmark,
   onClose,
 }: ProblemPreviewModalProps) {
@@ -177,14 +175,6 @@ export default function ProblemPreviewModal({
             >
               <Bookmark size={14} fill={bookmarked ? 'currentColor' : 'none'}/>
               <span>{bookmarked ? 'Bookmarked' : 'Bookmark'}</span>
-            </button>
-            <button
-              type="button"
-              onClick={onToggleSolved}
-              className={`inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-[11px] font-bold ${solved ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' : 'border bg-white text-slate-600 dark:bg-slate-900 dark:text-slate-300'}`}
-              style={!solved ? { borderColor: 'var(--ca-border)' } : undefined}
-            >
-              {solved ? <><Check size={13}/> Solved</> : 'Mark solved'}
             </button>
           </div>
           <Link to={`/workspace/${problem.id}`} onClick={onClose} className="btn-primary py-2 text-xs">

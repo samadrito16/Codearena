@@ -3,7 +3,8 @@ import path from 'path';
 import crypto from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import { config } from '../config.js';
-import { initialProblems } from './seeds.js';
+import contestCatalog from '../data/contests.json' with { type: 'json' };
+import { catalogVersion, findCatalogProblem, getPool, publicQuestion } from '../data/questionCatalog.js';
 import type {
   ActivityEvent,
   AuditLog,
@@ -26,12 +27,22 @@ import type {
   PublicProfileData,
 } from '../types/index.js';
 
+interface InterviewRoundAssignment {
+  userId: string;
+  questions: { id: string; version: number }[];
+  expiresAt: number;
+}
+
 interface DatabaseSchema {
   users: User[];
   sessions: Session[];
   passwordResetTokens: PasswordResetToken[];
   emailVerificationTokens: EmailVerificationToken[];
   problems: Problem[];
+  catalogVersion?: number;
+  dailyAssignments?: Record<string, Record<string, string>>;
+  interviewRounds?: Record<string, InterviewRoundAssignment>;
+
   submissions: SubmissionRecord[];
   activity: ActivityEvent[];
   auditLogs: AuditLog[];
@@ -84,10 +95,19 @@ export class Database {
       }
     }
 
-    // Seed default problems if empty or library expanded
-    if (!this.data.problems || this.data.problems.length < initialProblems.length) {
-      this.data.problems = [...initialProblems];
+    if (this.data.catalogVersion === undefined) {
+      this.data.problems = [];
+      this.data.submissions = [];
+      this.data.activity = [];
+      this.data.contests = [];
+      this.data.contestStandings = {};
+      this.data.dailyAssignments = {};
+      for (const progress of Object.values(this.data.progress ?? {})) {
+        progress.solvedIds = [];
+        progress.dailyCompletions = {};
+      }
     }
+    this.data.catalogVersion = catalogVersion;
 
     // Ensure users array exists
     if (!this.data.users) this.data.users = [];
@@ -126,7 +146,7 @@ export class Database {
     setInterval(() => {
       this.cleanupStaleRecords().catch(() => {});
     }, 60 * 60 * 1000).unref();
-    console.log(`[Database] Initialized with ${this.data.users.length} users and ${this.data.problems.length} problems at ${this.filePath}`);
+    console.log(`[Database] Initialized with ${this.data.users.length} users and ${getPool('practice').length} published practice questions at ${this.filePath}`);
   }
 
   private async save(): Promise<void> {
@@ -358,22 +378,55 @@ export class Database {
 
   // --- Problems ---
   public listProblems(): Problem[] {
-    return this.data.problems.map((p) => this.toPublicProblem(p));
+    return getPool('practice').map(problem => this.publicPracticeQuestion(problem));
   }
 
   public findProblemById(id: string): Problem | undefined {
-    const p = this.data.problems.find((item) => item.id === id);
-    return p ? this.toPublicProblem(p) : undefined;
+    const problem = findCatalogProblem(id);
+    return problem?.owner === 'practice' ? this.publicPracticeQuestion(problem) : undefined;
   }
 
-  public getProblemForExecution(id: string): Problem | undefined {
-    return this.data.problems.find((item) => item.id === id);
+  private publicPracticeQuestion(problem: NonNullable<ReturnType<typeof findCatalogProblem>>) {
+    const submissions = this.data.submissions.filter(submission => submission.problemId === problem.id);
+    const solved = submissions.filter(submission => submission.outcome === 'accepted').length;
+    return {
+      ...publicQuestion(problem),
+      acceptance: submissions.length ? Math.round(solved * 1000 / submissions.length) / 10 + '%' : '—',
+      submissions: String(submissions.length),
+    };
   }
 
-  private toPublicProblem(p: Problem): Problem {
-    // Strip hidden testCases from public API responses to prevent cheating
-    const { testCases, ...publicProblem } = p;
-    return publicProblem;
+  public getProblemForExecution(id: string) {
+    return findCatalogProblem(id);
+  }
+
+  public getDraftProblems(): Problem[] {
+    return this.data.problems;
+  }
+
+  public async saveInterviewRound(id: string, assignment: InterviewRoundAssignment): Promise<void> {
+    const rounds = (this.data.interviewRounds ??= {});
+    for (const [key, round] of Object.entries(rounds)) {
+      if (round.expiresAt < Date.now()) delete rounds[key];
+    }
+    rounds[id] = assignment;
+    await this.save();
+  }
+
+  public getInterviewRound(id: string): InterviewRoundAssignment | undefined {
+    return this.data.interviewRounds?.[id];
+  }
+
+  public getDailyAssignments(userId: string): Readonly<Record<string, string>> {
+    return this.data.dailyAssignments?.[userId] ?? {};
+  }
+
+  public async assignDailyProblem(userId: string, day: string, id: string): Promise<string> {
+    const days = ((this.data.dailyAssignments ??= {})[userId] ??= {});
+    if (days[day]) return days[day];
+    days[day] = id;
+    await this.save();
+    return id;
   }
 
   public calculatePercentile(problemId: string, runtimeMs: number): number | undefined {
@@ -429,6 +482,7 @@ export class Database {
         updatedCount++;
       } else {
         this.data.problems.unshift(prob);
+        for (const [id, index] of existingMap) existingMap.set(id, index + 1);
         existingMap.set(prob.id, 0);
         importedCount++;
       }
@@ -619,6 +673,14 @@ export class Database {
     return this.data.progress[userId].solvedIds;
   }
 
+  public async recordDailyCompletion(userId: string, day: string, problemId: string): Promise<void> {
+    const progress = (this.data.progress[userId] ??= { solvedIds: [], dailyCompletions: {} });
+    if (this.getDailyAssignments(userId)[day] === problemId && progress.dailyCompletions[day] !== problemId) {
+      progress.dailyCompletions[day] = problemId;
+      await this.save();
+    }
+  }
+
   public async updateUserProfile(userId: string, patch: Partial<UserProfileData>): Promise<UserProfileData> {
     if (!this.data.progress[userId]) {
       this.data.progress[userId] = { solvedIds: [], dailyCompletions: {} };
@@ -650,7 +712,7 @@ export class Database {
       if (!user.isActive) continue;
       const progress = this.data.progress[user.id] || { solvedIds: [], dailyCompletions: {} };
       const solvedIds = progress.solvedIds || [];
-      const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+      const solvedProblems = getPool('practice').filter((p) => solvedIds.includes(p.id));
 
       const easySolved = solvedProblems.filter((p) => p.difficulty === 'Easy').length;
       const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
@@ -703,7 +765,7 @@ export class Database {
       if (!university) continue;
 
       const solvedIds = progress?.solvedIds || [];
-      const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+      const solvedProblems = getPool('practice').filter((p) => solvedIds.includes(p.id));
       const easySolved = solvedProblems.filter((p) => p.difficulty === 'Easy').length;
       const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
       const hardSolved = solvedProblems.filter((p) => p.difficulty === 'Hard').length;
@@ -777,22 +839,8 @@ export class Database {
 
   // --- Weekly Contests Engine ---
   public getContests(): Contest[] {
-    try {
-      const root = process.cwd().endsWith('backend') ? process.cwd() : path.resolve(process.cwd(), 'backend');
-      const contestsJsonPath = path.resolve(root, 'src', 'data', 'contests.json');
-      if (fs.existsSync(contestsJsonPath)) {
-        this.data.contests = JSON.parse(fs.readFileSync(contestsJsonPath, 'utf-8'));
-      }
-    } catch {
-      // Keep existing
-    }
-
-    if (!this.data.contests) {
-      this.data.contests = [];
-    }
-
     const now = new Date().toISOString();
-    return (this.data.contests || []).map((c) => {
+    return (contestCatalog as Contest[]).map((c) => {
       let status: 'upcoming' | 'active' | 'completed' = c.status;
       if (now < c.startTime) {
         status = 'upcoming';
@@ -841,16 +889,18 @@ export class Database {
     return result;
   }
 
-  public recordContestSubmission(
+  public async recordContestSubmission(
     contestId: string,
     userId: string,
     problemId: string,
     isAccepted: boolean,
     elapsedMinutes: number
-  ): ContestParticipantStanding {
+  ): Promise<ContestParticipantStanding> {
     if (!this.data.contestStandings) {
       this.data.contestStandings = {};
     }
+    const contestProblem = this.getContestById(contestId)?.problems.find(problem => problem.problemId === problemId);
+    if (!contestProblem) throw new Error('Question does not belong to the contest.');
     const standings = this.getContestStandings(contestId);
     let participant = standings.find((s) => s.userId === userId);
 
@@ -886,10 +936,7 @@ export class Database {
         currentResult.solvedAtMinutes = elapsedMinutes;
         // Total time is max solve time among accepted problems (pure elapsed solve time)
         participant.totalTimeMinutes = Math.max(participant.totalTimeMinutes, elapsedMinutes);
-        // Add problem points (e.g., 300, 400, 500, 600 based on problem)
-        const contest = this.getContestById(contestId);
-        const probSummary = contest?.problems.find((p) => p.problemId === problemId || p.id === problemId);
-        participant.totalScore += probSummary ? probSummary.points : 300;
+        participant.totalScore += contestProblem.points;
       }
     } else {
       if (currentResult.status !== 'accepted') {
@@ -900,6 +947,7 @@ export class Database {
     }
 
     this.data.contestStandings[contestId] = standings;
+    await this.save();
     return participant;
   }
 
@@ -935,7 +983,7 @@ export class Database {
   public computeUserBadges(userId: string): PublicProfileBadge[] {
     const progress = this.data.progress[userId] || { solvedIds: [], dailyCompletions: {} };
     const solvedIds = progress.solvedIds || [];
-    const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+    const solvedProblems = getPool('practice').filter((p) => solvedIds.includes(p.id));
 
     const totalSolved = solvedProblems.length;
     const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
@@ -1120,7 +1168,7 @@ export class Database {
     };
 
     const solvedIds = progress.solvedIds || [];
-    const solvedProblems = this.data.problems.filter((p) => solvedIds.includes(p.id));
+    const solvedProblems = getPool('practice').filter((p) => solvedIds.includes(p.id));
     const easySolved = solvedProblems.filter((p) => p.difficulty === 'Easy').length;
     const mediumSolved = solvedProblems.filter((p) => p.difficulty === 'Medium').length;
     const hardSolved = solvedProblems.filter((p) => p.difficulty === 'Hard').length;

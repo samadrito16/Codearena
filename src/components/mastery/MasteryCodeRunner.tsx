@@ -58,7 +58,7 @@ function getLanguageStarterTemplate(problem: MasteryProblem, lang: SupportedLang
     const match = problem.starter_code.match(/def\s+([a-zA-Z0-9_]+)\s*\((.*?)\)/);
     if (match) {
       const fnName = match[1].replace(/_([a-z])/g, (_, g) => g.toUpperCase());
-      const params = match[2];
+      const params = match[2].split(',').map(parameter => parameter.trim().split(':')[0]).join(', ');
       return `function ${fnName}(${params}) {\n  // Write your ${problem.title} solution here\n  \n}\n`;
     }
     return `function solution() {\n  // Write your solution here\n}\n`;
@@ -136,7 +136,7 @@ export default function MasteryCodeRunner({
       isScaleTest: false,
     }));
 
-    if (problem.scale_benchmark) {
+    if (problem.scale_benchmark?.input) {
       list.push({
         caseNumber: list.length + 1,
         name: `Scale Stress (N = ${problem.scale_benchmark.n_size.toLocaleString()})`,
@@ -186,19 +186,10 @@ export default function MasteryCodeRunner({
     setActiveTab('console');
 
     try {
-      const casesPayload = testCases.map((tc) => ({
-        caseNumber: tc.caseNumber,
-        input: tc.input,
-        expected: tc.expected,
-      }));
-
       const res = await submitCode({
         problemId: problem.id,
         code,
         language,
-        cases: casesPayload,
-        title: problem.title,
-        difficulty: problem.difficulty,
       });
 
       setExecResult(res);

@@ -11,28 +11,34 @@ import {
   ShieldAlert,
   Sparkles,
 } from 'lucide-react';
-import { COMPANY_ASSESSMENTS } from '../data/placement/assessments';
+import { usePlacementAssessments } from '../data/placement/assessments';
 import { PLACEMENT_COMPANIES } from '../data/placement/companies';
 import { getStoredActiveSession, usePlacementSession } from '../lib/placement/progress';
-import { computeAssessmentReport } from '../data/placement/scoring';
 import QuestionViewer from '../components/placement/QuestionViewer';
 import CodingRunnerSection from '../components/placement/CodingRunnerSection';
 import QuestionPalette from '../components/placement/QuestionPalette';
 import AssessmentTimer from '../components/placement/AssessmentTimer';
 import VirtualCalculator from '../components/placement/VirtualCalculator';
 import ScorecardView from '../components/placement/ScorecardView';
-import { McqPlacementQuestion, CodingPlacementQuestion } from '../types/placement';
+import { McqPlacementQuestion, CodingPlacementQuestion, CompanyAssessment } from '../types/placement';
 
 export default function PlacementStudio() {
   const { assessmentId } = useParams<{ assessmentId: string }>();
   const navigate = useNavigate();
+  const { data, status, error, retry } = usePlacementAssessments();
+  const assessment = data.find(item => item.id === assessmentId);
+  if (!assessment) return (
+    <div className="p-8 text-sm" role="status">
+      {status === 'loading' ? 'Loading assessment…' : error ?? 'This assessment is unavailable.'}
+      {error && <button className="btn-secondary ms-4" onClick={retry}>Retry</button>}
+      <button className="btn-secondary ms-4" onClick={() => navigate('/placement')}>Back to Placement</button>
+    </div>
+  );
+  return <PlacementSession key={assessment.id} assessment={assessment} />;
+}
 
-  const assessment = useMemo(() => {
-    return (
-      COMPANY_ASSESSMENTS.find((a) => a.id === assessmentId) ||
-      COMPANY_ASSESSMENTS[0]
-    );
-  }, [assessmentId]);
+function PlacementSession({ assessment }: { assessment: CompanyAssessment }) {
+  const navigate = useNavigate();
 
   const company = PLACEMENT_COMPANIES[assessment.companyId];
 
@@ -41,6 +47,9 @@ export default function PlacementStudio() {
     currentSection,
     currentQuestion,
     activeReport,
+    gradedAssessment,
+    gradeError,
+    retryGrade,
     tabWarning,
     setTabWarning,
     selectAnswer,
@@ -52,35 +61,12 @@ export default function PlacementStudio() {
     nextQuestion,
     prevQuestion,
     submitAssessment,
+    startAssessment,
     restartAssessment,
     getQuestionStatus,
   } = usePlacementSession(assessment);
 
-  const [hasStarted, setHasStarted] = useState<boolean>(() => {
-    const existing = getStoredActiveSession();
-    if (existing && existing.assessmentId === assessment.id) {
-      return (
-        existing.isCompleted ||
-        Object.keys(existing.answers).length > 0 ||
-        Object.keys(existing.codingSubmissions).length > 0
-      );
-    }
-    return false;
-  });
-
-  // Keep hasStarted synced when switching between mocks via URL parameter
-  useEffect(() => {
-    const existing = getStoredActiveSession();
-    if (existing && existing.assessmentId === assessment.id) {
-      setHasStarted(
-        existing.isCompleted ||
-        Object.keys(existing.answers).length > 0 ||
-        Object.keys(existing.codingSubmissions).length > 0
-      );
-    } else {
-      setHasStarted(false);
-    }
-  }, [assessment.id]);
+  const hasStarted = session.startedAt > 0;
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
@@ -103,21 +89,24 @@ export default function PlacementStudio() {
   }, [assessment, getQuestionStatus]);
 
   // If assessment is completed, render scorecard directly
-  if (session.isCompleted || activeReport) {
-    const reportToRender =
-      activeReport || computeAssessmentReport(assessment, session);
+  if (session.isCompleted && (!activeReport || !gradedAssessment)) {
+    return <div className="p-8 text-sm" role="status">
+      {gradeError || 'Grading your assessment…'}
+      {gradeError && <button className="btn-secondary ms-4" onClick={retryGrade}>Retry grading</button>}
+    </div>;
+  }
 
+  if (activeReport && gradedAssessment) {
     return (
       <div
         className="min-h-screen px-3 sm:px-6 py-6"
         style={{ backgroundColor: 'var(--ca-canvas)' }}
       >
         <ScorecardView
-          report={reportToRender}
-          assessment={assessment}
+          report={activeReport}
+          assessment={gradedAssessment}
           onRetake={() => {
             restartAssessment();
-            setHasStarted(true);
           }}
           onBackToHub={() => navigate('/placement')}
         />
@@ -260,7 +249,7 @@ export default function PlacementStudio() {
             <div className="pt-2 flex justify-end">
               <button
                 type="button"
-                onClick={() => setHasStarted(true)}
+                onClick={startAssessment}
                 className="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:scale-[1.02]"
               >
                 <Play size={16} />
@@ -432,6 +421,7 @@ export default function PlacementStudio() {
             />
           ) : (
             <CodingRunnerSection
+              key={currentQuestion.id}
               question={currentQuestion as CodingPlacementQuestion}
               questionNumber={session.currentQuestionIndex + 1}
               totalQuestions={currentSection.questions.length}

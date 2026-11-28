@@ -1,0 +1,92 @@
+{
+  "mastery": [
+    {
+      "id": "tp-001",
+      "taskKey": "sorted-pair-with-fixed-difference"
+    },
+    {
+      "id": "tp-002",
+      "taskKey": "partition-by-sign"
+    },
+    {
+      "id": "sw-001",
+      "taskKey": "max-average-fixed-window"
+    },
+    {
+      "id": "sw-002",
+      "taskKey": "longest-unique-substream"
+    },
+    {
+      "id": "sw-003",
+      "taskKey": "shortest-positive-sum-window"
+    },
+    {
+      "id": "sw-004",
+      "taskKey": "longest-binary-window-with-k-flips"
+    },
+    {
+      "id": "hm-001",
+      "taskKey": "two-sum"
+    },
+    {
+      "id": "dp-001",
+      "taskKey": "weighted-multi-step-climb"
+    },
+    {
+      "id": "dp-002",
+      "taskKey": "maximum-non-adjacent-sum"
+    },
+    {
+      "id": "bfs-005",
+      "taskKey": "shortest-word-transformation"
+    }
+  ],
+  "review": [
+    {
+      "id": "rev-006",
+      "taskKey": "py-service-state-mutation"
+    },
+    {
+      "id": "rev-004",
+      "taskKey": "llm-batch-sliding-window"
+    },
+    {
+      "id": "rev-005",
+      "taskKey": "node-circular-singleton-export"
+    },
+    {
+      "id": "rev-011",
+      "taskKey": "py-transaction-rollback-partial-commit"
+    },
+    {
+      "id": "rev-017",
+      "taskKey": "ts-event-listener-memory-leak-spa"
+    }
+  ],
+  "practical": [
+    {
+      "id": "star-rating",
+      "taskKey": "star-rating"
+    },
+    {
+      "id": "modal-dialog-focus-trap",
+      "taskKey": "modal-dialog-focus-trap"
+    },
+    {
+      "id": "rate-limiter-middleware",
+      "taskKey": "rate-limiter-middleware"
+    },
+    {
+      "id": "webhook-retry-backoff",
+      "taskKey": "webhook-retry-backoff"
+    },
+    {
+      "id": "customer-churn-sql",
+      "taskKey": "customer-churn-sql"
+    },
+    {
+      "id": "user-sessionization-sql",
+      "taskKey": "user-sessionization-sql"
+    }
+  ]
+}

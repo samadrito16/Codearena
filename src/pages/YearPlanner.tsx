@@ -501,7 +501,7 @@ export default function YearPlanner() {
                 }}
               >
                 <Layers size={13} />
-                All 25 Blueprints
+                View all Blueprints
               </Link>
               <Link
                 to="/settings"
@@ -585,7 +585,7 @@ export default function YearPlanner() {
             {todaysMasterySet.length === 0 ? (
               <div className="p-6 rounded-2xl border text-center space-y-2 bg-emerald-500/5 border-emerald-500/20">
                 <Trophy size={28} className="mx-auto text-emerald-500" />
-                <h3 className="text-sm font-bold text-primary">All 25 Blueprints Mastered!</h3>
+                <h3 className="text-sm font-bold text-primary">All Blueprints Mastered!</h3>
                 <p className="text-xs text-muted max-w-md mx-auto">
                   You have mastered every single algorithmic blueprint in the curriculum. Your placement algorithmic foundation is battle-ready!
                 </p>

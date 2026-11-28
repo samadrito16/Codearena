@@ -99,7 +99,7 @@ export default function CompanyCard({
             <div className="flex items-center gap-1.5 text-xs">
               <span className="text-[11px] text-muted">Best:</span>
               <span className="font-bold text-emerald-500">
-                {bestAttemptPercentile}%ile
+                {bestAttemptPercentile}%
               </span>
             </div>
           ) : isActiveSession ? (

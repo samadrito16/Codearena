@@ -64,7 +64,7 @@ function getSearchMatchHint(problem: Problem, noteText: string, query: string): 
 }
 
 export default function Problems() {
-  const { solvedIds, toggleSolved } = useApp();
+  const { solvedIds } = useApp();
   const { data: problems, status: problemsStatus, error: problemsError, retry: retryProblems } = useProblems();
   const { isProblemDue, dueItems } = useSpacedRepetition();
   const {
@@ -604,13 +604,7 @@ export default function Problems() {
 
               <div>
                 <span className="mb-1 block text-[10px] text-slate-400 md:hidden">Status</span>
-                <button
-                  type="button"
-                  onClick={() => toggleSolved(problem.id)}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold ${solved ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'}`}
-                >
-                  {solved ? <><Check size={12}/> Solved</> : 'Mark solved'}
-                </button>
+<span className="text-xs font-semibold text-muted">{solved ? 'Solved' : 'Unsolved'}</span>
               </div>
 
               <div className="flex items-center justify-start gap-1.5 md:justify-end">
@@ -675,12 +669,14 @@ export default function Problems() {
             )}
           </div>
         );
-      }) : (
+      }) : problemsStatus === 'ready' && (
         <div className="px-6 py-16 text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 dark:bg-slate-800"><Search size={20}/></div>
-          <p className="mt-3 text-sm font-bold text-slate-700 dark:text-slate-200">No problems match your filters</p>
+          <p className="mt-3 text-sm font-bold text-slate-700 dark:text-slate-200">
+            {problems.length ? 'No problems match your filters' : 'No practice problems are available yet'}
+          </p>
           <p className="mt-1 text-xs text-slate-400">
-            {activeCollection
+            {!problems.length ? 'Check back after the next catalog update.' : activeCollection
               ? `No matching problems in "${activeCollection.name}". Add problems to this collection or clear filters.`
               : 'Try another search term, collection, or filter.'}
           </p>
@@ -754,7 +750,6 @@ export default function Problems() {
         totalCount={filtered.length}
         onPrev={previewIndex > 0 ? () => setPreviewProblemId(filtered[previewIndex - 1].id) : null}
         onNext={previewIndex < filtered.length - 1 ? () => setPreviewProblemId(filtered[previewIndex + 1].id) : null}
-        onToggleSolved={() => toggleSolved(previewProblem.id)}
         onToggleBookmark={() => toggleBookmark(previewProblem.id)}
         onClose={() => setPreviewProblemId(null)}
       />

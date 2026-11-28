@@ -1,3 +1,4 @@
+import { cppValueCodec, javaValueCodec } from './valueCodecs.js';
 import {
   SENTINEL_START,
   SENTINEL_END,
@@ -60,13 +61,13 @@ export function buildBatchExecutionSource(
       cases: cases.map((c) => ({
         caseNumber: c.caseNumber,
         input: c.input,
-        expected: c.expected,
+        expected: options.earlyExit ? c.expected : undefined,
       })),
     });
 
     const pythonHarness = `
 # -*- coding: utf-8 -*-
-import sys, json, re, inspect, io, time
+import sys, json, re, inspect, io, time, ast
 
 ${trimmed}
 
@@ -95,10 +96,10 @@ def _parse_py_input(raw):
                 try:
                     scope[k] = json.loads(v_str)
                 except Exception:
-                    if v_str == 'true': scope[k] = True
-                    elif v_str == 'false': scope[k] = False
-                    elif v_str == 'null': scope[k] = None
-                    else: scope[k] = v_str
+                    try:
+                        scope[k] = ast.literal_eval(v_str)
+                    except (ValueError, SyntaxError):
+                        scope[k] = v_str
         return [], scope
 
     return [raw], {}
@@ -248,7 +249,7 @@ if __name__ == '__main__':
       cases: cases.map((c) => ({
         caseNumber: c.caseNumber,
         input: c.input,
-        expected: c.expected,
+        expected: options.earlyExit ? c.expected : undefined,
       })),
     });
 
@@ -428,76 +429,7 @@ import java.lang.reflect.*;
 ${trimmed}
 
 public class Main {
-    private static Object parseToken(String s, Class<?> targetType) {
-        s = s.trim();
-        if (targetType == int.class || targetType == Integer.class) {
-            return Integer.parseInt(s);
-        }
-        if (targetType == long.class || targetType == Long.class) {
-            return Long.parseLong(s);
-        }
-        if (targetType == double.class || targetType == Double.class) {
-            return Double.parseDouble(s);
-        }
-        if (targetType == boolean.class || targetType == Boolean.class) {
-            return Boolean.parseBoolean(s);
-        }
-        if (targetType == String.class) {
-            if (s.startsWith("\\\"") && s.endsWith("\\\"") && s.length() >= 2) {
-                return s.substring(1, s.length() - 1);
-            }
-            return s;
-        }
-        if (targetType == int[].class) {
-            if (s.startsWith("[") && s.endsWith("]")) {
-                s = s.substring(1, s.length() - 1).trim();
-            }
-            if (s.isEmpty()) return new int[0];
-            String[] tokens = s.split(",");
-            int[] arr = new int[tokens.length];
-            for (int i = 0; i < tokens.length; i++) {
-                arr[i] = Integer.parseInt(tokens[i].trim());
-            }
-            return arr;
-        }
-        if (targetType == String[].class) {
-            if (s.startsWith("[") && s.endsWith("]")) {
-                s = s.substring(1, s.length() - 1).trim();
-            }
-            if (s.isEmpty()) return new String[0];
-            String[] tokens = s.split(",");
-            String[] arr = new String[tokens.length];
-            for (int i = 0; i < tokens.length; i++) {
-                String t = tokens[i].trim();
-                if (t.startsWith("\\\"") && t.endsWith("\\\"") && t.length() >= 2) {
-                    t = t.substring(1, t.length() - 1);
-                }
-                arr[i] = t;
-            }
-            return arr;
-        }
-        return s;
-    }
-
-    private static String serializeResult(Object obj) {
-        if (obj == null) return "null";
-        if (obj instanceof int[]) {
-            return Arrays.toString((int[]) obj);
-        }
-        if (obj instanceof boolean[]) {
-            return Arrays.toString((boolean[]) obj);
-        }
-        if (obj instanceof Object[]) {
-            return Arrays.deepToString((Object[]) obj);
-        }
-        if (obj instanceof Boolean) {
-            return (Boolean) obj ? "true" : "false";
-        }
-        if (obj instanceof String) {
-            return "\\\"" + obj.toString() + "\\\"";
-        }
-        return obj.toString();
-    }
+    ${javaValueCodec}
 
     private static boolean executeCase(Method target, int caseNum, String raw) {
         ByteArrayOutputStream userLogStream = new ByteArrayOutputStream();
@@ -510,34 +442,18 @@ public class Main {
 
         try {
             Solution sol = new Solution();
-            Class<?>[] paramTypes = target.getParameterTypes();
+            Type[] paramTypes = target.getGenericParameterTypes();
             Object[] callArgs = new Object[paramTypes.length];
 
-            List<String> rawTokens = new ArrayList<>();
-            if (raw.contains("=")) {
-                String[] parts = raw.split(",\\\\s*(?=[a-zA-Z_]\\\\w*\\\\s*=)");
-                for (String p : parts) {
-                    int eq = p.indexOf('=');
-                    if (eq != -1) rawTokens.add(p.substring(eq + 1).trim());
-                    else rawTokens.add(p.trim());
+            List<String> rawTokens = splitTokens(raw);
+            for (int i = 0; i < rawTokens.size(); i++) {
+                String token = rawTokens.get(i);
+                int equals = token.indexOf('=');
+                if (equals >= 0 && token.substring(0, equals).trim().matches("[a-zA-Z_][a-zA-Z_0-9]*")) {
+                    rawTokens.set(i, token.substring(equals + 1).trim());
                 }
-            } else {
-                int depth = 0;
-                StringBuilder cur = new StringBuilder();
-                for (int i = 0; i < raw.length(); i++) {
-                    char c = raw.charAt(i);
-                    if (c == '[' || c == '{') depth++;
-                    else if (c == ']' || c == '}') depth--;
-                    else if (c == ',' && depth == 0) {
-                        rawTokens.add(cur.toString().trim());
-                        cur = new StringBuilder();
-                        continue;
-                    }
-                    cur.append(c);
-                }
-                if (cur.length() > 0) rawTokens.add(cur.toString().trim());
             }
-
+            if (rawTokens.size() != paramTypes.length) throw new IllegalArgumentException("Wrong number of arguments");
             for (int i = 0; i < paramTypes.length; i++) {
                 String t = i < rawTokens.size() ? rawTokens.get(i) : "";
                 callArgs[i] = parseToken(t, paramTypes[i]);
@@ -582,13 +498,14 @@ public class Main {
             Solution sol = new Solution();
             Method[] methods = Solution.class.getDeclaredMethods();
             Method target = null;
+            String hint = ${JSON.stringify(options.functionNameHint || '')};
             for (Method m : methods) {
-                if (Modifier.isPublic(m.getModifiers()) && !Modifier.isStatic(m.getModifiers())) {
+                if ((hint.isEmpty() || m.getName().equals(hint)) && Modifier.isPublic(m.getModifiers()) && !Modifier.isStatic(m.getModifiers())) {
                     target = m;
                     break;
                 }
             }
-            if (target == null && methods.length > 0) target = methods[0];
+            if (hint.isEmpty() && target == null && methods.length > 0) target = methods[0];
             if (target == null) throw new RuntimeException("No callable method found on class Solution.");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -636,45 +553,10 @@ public class Main {
 
     const stdinPayload = formatDelimitedCasesStdin(cases);
 
-    const hasTwoSum = trimmed.includes('twoSum') || options.functionNameHint === 'twoSum';
-    const hasIsValid = trimmed.includes('isValid') || options.functionNameHint === 'isValid';
-    const hasLengthOfLongestSubstring = trimmed.includes('lengthOfLongestSubstring') || options.functionNameHint === 'lengthOfLongestSubstring';
-
-    let cppDispatchBody = '';
-    if (hasTwoSum) {
-      cppDispatchBody = `
-            if (tokens.size() >= 2) {
-                auto arr = CodeArenaHelper::parseIntArray(tokens[0]);
-                int target = 0;
-                try { target = std::stoi(tokens[1]); } catch (...) {}
-                auto ans = sol.twoSum(arr, target);
-                std::cout << "[";
-                for (size_t i = 0; i < ans.size(); i++) {
-                    if (i > 0) std::cout << ",";
-                    std::cout << ans[i];
-                }
-                std::cout << "]\\n";
-            } else {
-                std::cout << "[]\\n";
-            }
-      `;
-    } else if (hasIsValid) {
-      cppDispatchBody = `
-            std::string s = CodeArenaHelper::parseString(tokens[0]);
-            bool b = sol.isValid(s);
-            std::cout << (b ? "true" : "false") << "\\n";
-      `;
-    } else if (hasLengthOfLongestSubstring) {
-      cppDispatchBody = `
-            std::string s = CodeArenaHelper::parseString(tokens[0]);
-            int len = sol.lengthOfLongestSubstring(s);
-            std::cout << len << "\\n";
-      `;
-    } else {
-      cppDispatchBody = `
-            std::cout << "null\\n";
-      `;
-    }
+    const method = options.functionNameHint || trimmed.match(/^\s*[\w:<>&* ]+\s+(\w+)\([^\n]*\)\s*\{/m)?.[1];
+    const cppDispatchBody = method && /^[a-zA-Z_]\w*$/.test(method)
+      ? 'CodeArenaHelper::invoke(sol, &Solution::' + method + ', tokens);'
+      : 'throw std::invalid_argument("No Solution entry point found");';
 
     const cppHarness = `
 #include <iostream>
@@ -685,6 +567,10 @@ public class Main {
 #include <map>
 #include <set>
 #include <cctype>
+#include <iomanip>
+#include <optional>
+#include <tuple>
+#include <type_traits>
 
 ${trimmed}
 
@@ -696,29 +582,7 @@ namespace CodeArenaHelper {
         return str.substr(first, (last - first + 1));
     }
 
-    static std::vector<int> parseIntArray(std::string s) {
-        s = trim(s);
-        if (!s.empty() && s.front() == '[') s = s.substr(1);
-        if (!s.empty() && s.back() == ']') s.pop_back();
-        std::vector<int> res;
-        std::stringstream ss(s);
-        std::string token;
-        while (std::getline(ss, token, ',')) {
-            token = trim(token);
-            if (!token.empty()) {
-                try { res.push_back(std::stoi(token)); } catch (...) {}
-            }
-        }
-        return res;
-    }
-
-    static std::string parseString(std::string s) {
-        s = trim(s);
-        if (s.size() >= 2 && s.front() == '"' && s.back() == '"') {
-            return s.substr(1, s.size() - 2);
-        }
-        return s;
-    }
+    ${cppValueCodec}
 }
 
 int main() {
@@ -730,27 +594,12 @@ int main() {
 
     auto runCase = [](int caseNum, const std::string& raw) -> bool {
         std::string rawInput = CodeArenaHelper::trim(raw);
-        std::vector<std::string> tokens;
-        int depth = 0;
-        std::string current = "";
-        for (size_t i = 0; i < rawInput.size(); i++) {
-            char c = rawInput[i];
-            if (c == '[' || c == '{' || c == '(') depth++;
-            else if (c == ']' || c == '}' || c == ')') depth--;
-
-            if (depth == 0 && c == ',') {
-                size_t eq = current.find('=');
-                if (eq != std::string::npos) tokens.push_back(CodeArenaHelper::trim(current.substr(eq + 1)));
-                else tokens.push_back(CodeArenaHelper::trim(current));
-                current = "";
-            } else {
-                current += c;
+        auto tokens = CodeArenaHelper::split(rawInput);
+        for (auto& token : tokens) {
+            size_t eq = token.find('=');
+            if (eq != std::string::npos && token.find('"') > eq && token.find('[') > eq) {
+                token = CodeArenaHelper::trim(token.substr(eq + 1));
             }
-        }
-        if (!current.empty()) {
-            size_t eq = current.find('=');
-            if (eq != std::string::npos) tokens.push_back(CodeArenaHelper::trim(current.substr(eq + 1)));
-            else tokens.push_back(CodeArenaHelper::trim(current));
         }
 
         std::cout << "${SENTINEL_CASE_START} " << caseNum << "\\n";

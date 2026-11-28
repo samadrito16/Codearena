@@ -22,6 +22,7 @@ import { EditorLoadingSkeleton } from '../ui/LoadingSkeleton';
 import { runCode, submitCode, type ExecutionResponse } from '../../services/executionService';
 
 interface InterviewCodeRunnerProps {
+  roundId: string;
   problem: Problem;
   code: string;
   language: string;
@@ -53,6 +54,7 @@ const fileExtensions: Record<CodeLanguage, string> = {
 };
 
 export default function InterviewCodeRunner({
+  roundId,
   problem,
   code,
   language,
@@ -136,7 +138,7 @@ export default function InterviewCodeRunner({
     setShowDrawer(true);
     setActiveTab('cases');
     try {
-      const cases = (problem.testCases || []).slice(0, 3).map((c, i) => ({
+      const cases = (problem.testCases || []).filter(test => !test.isHidden).map((c, i) => ({
         caseNumber: i + 1,
         input: c.input,
         expected: c.expected,
@@ -144,6 +146,7 @@ export default function InterviewCodeRunner({
 
       const res = await runCode({
         problemId: problem.id,
+        roundId,
         code,
         language: currentLang,
         cases,
@@ -157,7 +160,7 @@ export default function InterviewCodeRunner({
         runtimeMs: 0,
         memoryMb: 0,
         totalPassed: 0,
-        totalTests: (problem.testCases || []).slice(0, 3).length,
+        totalTests: (problem.testCases || []).filter(test => !test.isHidden).length,
         cases: [],
         stderr: e.message || 'Execution failed',
       });
@@ -174,10 +177,9 @@ export default function InterviewCodeRunner({
     try {
       const res = await submitCode({
         problemId: problem.id,
+        roundId,
         code,
         language: currentLang,
-        title: problem.title,
-        difficulty: problem.difficulty,
       });
 
       setRunResult(res);
@@ -196,7 +198,7 @@ export default function InterviewCodeRunner({
         runtimeMs: 0,
         memoryMb: 0,
         totalPassed: 0,
-        totalTests: problem.testCases?.length || 1,
+        totalTests: problem.testCount ?? 0,
         cases: [],
         stderr: e.message || 'Submission failed',
       });

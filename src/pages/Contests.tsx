@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Fragment, useEffect, useState, useMemo } from 'react';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowRight,
   Bell,
@@ -37,8 +37,52 @@ function resolveMainTab(tabParam: string | null): MainContestTab {
   return 'college-contest';
 }
 
+function ContestCountdown({ startTime }: { startTime: string }) {
+  const [now, setNow] = useState<number>(() => Date.now());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const target = new Date(startTime).getTime();
+  const diff = Math.max(0, target - now);
+  const segments = [
+    { value: Math.floor(diff / (1000 * 60 * 60 * 24)), label: 'Days', accent: false },
+    { value: Math.floor((diff / (1000 * 60 * 60)) % 24), label: 'Hours', accent: false },
+    { value: Math.floor((diff / (1000 * 60)) % 60), label: 'Mins', accent: false },
+    { value: Math.floor((diff / 1000) % 60), label: 'Secs', accent: true },
+  ];
+
+  return (
+    <div className="flex items-center gap-2 sm:gap-3">
+      {segments.map(({ value, label, accent }, index) => (
+        <Fragment key={label}>
+          {index > 0 && <span className="font-mono text-xl font-bold text-muted">:</span>}
+          <div
+            className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border bg-black/5 dark:bg-white/5 min-w-[64px] sm:min-w-[72px]"
+            style={{ borderColor: 'var(--ca-border)' }}
+          >
+            <span
+              className={`font-mono text-xl sm:text-3xl font-black tabular-nums ${
+                accent ? 'text-amber-500' : 'text-primary'
+              }`}
+            >
+              {String(value).padStart(2, '0')}
+            </span>
+            <span className="text-[10px] font-bold text-muted uppercase mt-0.5">{label}</span>
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
 export default function Contests() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
 
@@ -49,14 +93,15 @@ export default function Contests() {
   const [arenaSubTab, setArenaSubTab] = useState<CampusArenaSubTab>('campus-cup');
 
   useEffect(() => {
-    setActiveMainTab(resolveMainTab(searchParams.get('tab')));
-  }, [searchParams]);
+    if (location.pathname.startsWith('/contests')) {
+      setActiveMainTab(resolveMainTab(searchParams.get('tab')));
+    }
+  }, [location.pathname, searchParams]);
 
   // Weekly Contest State
   const [contests, setContests] = useState<Contest[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'completed'>('all');
-  const [now, setNow] = useState<number>(Date.now());
   const [registeredMap, setRegisteredMap] = useState<Record<string, boolean>>(() => {
     try {
       const stored = localStorage.getItem('prismcode_registered_contests');
@@ -102,13 +147,8 @@ export default function Contests() {
     };
     fetchContests();
 
-    const timer = setInterval(() => {
-      setNow(Date.now());
-    }, 1000);
-
     return () => {
       mounted = false;
-      clearInterval(timer);
     };
   }, []);
 
@@ -178,19 +218,6 @@ export default function Contests() {
   const nextUpcoming = useMemo(() => {
     return contests.find((c) => c.status === 'upcoming' || c.status === 'active') || contests[0];
   }, [contests]);
-
-  const timeRemaining = useMemo(() => {
-    if (!nextUpcoming) return null;
-    const target = new Date(nextUpcoming.startTime).getTime();
-    const diff = Math.max(0, target - now);
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    return { days, hours, minutes, seconds, isLive: diff === 0 && nextUpcoming.status === 'active' };
-  }, [nextUpcoming, now]);
 
   const filteredContests = useMemo(() => {
     return contests.filter((c) => {
@@ -336,37 +363,7 @@ export default function Contests() {
 
                 {/* Live Countdown Clock */}
                 <div className="w-full lg:w-auto flex flex-col items-center sm:items-end gap-4 shrink-0">
-                  {timeRemaining && (
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border bg-black/5 dark:bg-white/5 min-w-[64px] sm:min-w-[72px]" style={{ borderColor: 'var(--ca-border)' }}>
-                        <span className="font-mono text-xl sm:text-3xl font-black text-primary tabular-nums">
-                          {String(timeRemaining.days).padStart(2, '0')}
-                        </span>
-                        <span className="text-[10px] font-bold text-muted uppercase mt-0.5">Days</span>
-                      </div>
-                      <span className="font-mono text-xl font-bold text-muted">:</span>
-                      <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border bg-black/5 dark:bg-white/5 min-w-[64px] sm:min-w-[72px]" style={{ borderColor: 'var(--ca-border)' }}>
-                        <span className="font-mono text-xl sm:text-3xl font-black text-primary tabular-nums">
-                          {String(timeRemaining.hours).padStart(2, '0')}
-                        </span>
-                        <span className="text-[10px] font-bold text-muted uppercase mt-0.5">Hours</span>
-                      </div>
-                      <span className="font-mono text-xl font-bold text-muted">:</span>
-                      <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border bg-black/5 dark:bg-white/5 min-w-[64px] sm:min-w-[72px]" style={{ borderColor: 'var(--ca-border)' }}>
-                        <span className="font-mono text-xl sm:text-3xl font-black text-primary tabular-nums">
-                          {String(timeRemaining.minutes).padStart(2, '0')}
-                        </span>
-                        <span className="text-[10px] font-bold text-muted uppercase mt-0.5">Mins</span>
-                      </div>
-                      <span className="font-mono text-xl font-bold text-muted">:</span>
-                      <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border bg-black/5 dark:bg-white/5 min-w-[64px] sm:min-w-[72px]" style={{ borderColor: 'var(--ca-border)' }}>
-                        <span className="font-mono text-xl sm:text-3xl font-black text-amber-500 tabular-nums">
-                          {String(timeRemaining.seconds).padStart(2, '0')}
-                        </span>
-                        <span className="text-[10px] font-bold text-muted uppercase mt-0.5">Secs</span>
-                      </div>
-                    </div>
-                  )}
+                  <ContestCountdown startTime={nextUpcoming.startTime} />
 
                   <div className="flex items-center gap-3 w-full sm:w-auto">
                     {nextUpcoming.status === 'active' ? (

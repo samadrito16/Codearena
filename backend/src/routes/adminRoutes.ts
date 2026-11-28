@@ -10,6 +10,10 @@ const router = Router();
 router.use(requireRole('admin'));
 
 // GET /api/admin/stats
+router.get('/problems/drafts', (_req, res) => {
+  res.json(db.getDraftProblems());
+});
+
 router.get('/stats', (req: Request, res: Response) => {
   const stats = db.getAdminStats();
   res.json(stats);
@@ -33,8 +37,8 @@ const problemSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   difficulty: z.enum(['Easy', 'Medium', 'Hard']),
   topics: z.array(z.string()).min(1, 'At least one topic is required'),
-  acceptance: z.string().default('50.0%'),
-  submissions: z.string().default('1K'),
+  acceptance: z.string().default('—'),
+  submissions: z.string().default('0'),
   description: z.string().min(1, 'Description is required'),
   examples: z.array(
     z.object({
@@ -55,8 +59,8 @@ const importItemSchema = z.object({
   difficulty: z.enum(['Easy', 'Medium', 'Hard']).or(z.string()).default('Medium'),
   topics: z.array(z.string()).or(z.string()).optional(),
   tags: z.array(z.string()).or(z.string()).optional(),
-  acceptance: z.string().optional().default('50.0%'),
-  submissions: z.string().optional().default('1K'),
+  acceptance: z.string().optional().default('—'),
+  submissions: z.string().optional().default('0'),
   description: z.string().optional(),
   statement: z.string().optional(),
   examples: z.array(
@@ -162,8 +166,8 @@ router.post('/problems/import', async (req: Request, res: Response, next: NextFu
           title: resolvedTitle,
           difficulty: diff,
           topics: topics.length ? topics : ['Algorithms'],
-          acceptance: parsed.acceptance || '50.0%',
-          submissions: parsed.submissions || '1K',
+          acceptance: parsed.acceptance || '—',
+          submissions: parsed.submissions || '0',
           description: resolvedDescription,
           examples: parsed.examples.length ? parsed.examples : [{ input: '', output: '', explanation: '' }],
           constraints: parsed.constraints || [],
@@ -182,8 +186,9 @@ router.post('/problems/import', async (req: Request, res: Response, next: NextFu
     let importedCount = 0;
     let updatedCount = 0;
 
-    if (accepted.length > 0) {
-      const result = await db.importProblems(accepted);
+    const unique = new Map(accepted.map(problem => [problem.id, problem]));
+    if (unique.size > 0) {
+      const result = await db.importProblems([...unique.values()]);
       importedCount = result.importedCount;
       updatedCount = result.updatedCount;
 

@@ -13,156 +13,61 @@
   ],
   "scenarios": [
     {
-      "id": "rev-001",
-      "slug": "node-eventloop-race",
-      "title": "Async Rate-Limiter Token Drift",
-      "category": "async_concurrency",
+      "id": "rev-006",
+      "slug": "py-service-state-mutation",
+      "title": "Cross-Service Shared State In-Place Mutation",
+      "category": "multi_file_logic",
       "difficulty": "Medium",
       "company_tags": [
-        "Stripe",
-        "OpenAI",
-        "Vercel"
+        "DoorDash",
+        "Shopify",
+        "Roblox"
       ],
       "estimated_minutes": 15,
-      "context": "A senior engineer authored a pull request to optimize an in-memory rate-limiting middleware for high-concurrency microservices. Under burst benchmarks, test requests occasionally bypass the limiter or the active request count drifts permanently negative.",
-      "ai_generation_context": "The PR was drafted using an AI coding assistant from the prompt: 'Implement an in-memory token bucket and async request counter middleware for Express with error fallback'.",
-      "learning_tags": [
-        "node-event-loop",
-        "microtasks",
-        "race-conditions",
-        "atomicity"
-      ],
-      "files": [
-        {
-          "filename": "requestTracker.js",
-          "language": "javascript",
-          "is_primary": true,
-          "content": "const store = new Map();\n\nlet activeConcurrentRequests = 0;\n\nasync function trackRequest(clientId, maxConcurrent, nextHandler) {\n  if (activeConcurrentRequests >= maxConcurrent) {\n    const err = new Error('Rate limit exceeded');\n    err.statusCode = 429;\n    throw err;\n  }\n\n\n  activeConcurrentRequests++;\n  store.set(clientId, (store.get(clientId) || 0) + 1);\n\n  try {\n    const result = await nextHandler();\n    return result;\n  } finally {\n\n    activeConcurrentRequests--;\n  }\n}\n\nfunction getActiveCount() {\n  return activeConcurrentRequests;\n}\n\nmodule.exports = { trackRequest, getActiveCount };\n"
-        },
-        {
-          "filename": "middleware.js",
-          "language": "javascript",
-          "is_primary": false,
-          "content": "const { trackRequest } = require('./requestTracker');\n\nfunction rateLimitMiddleware(req, res, next) {\n  const clientId = req.headers['x-client-id'] || 'anonymous';\n  const maxConcurrent = parseInt(req.headers['x-max-concurrent'] || '10', 10);\n\n\n  trackRequest(clientId, maxConcurrent, () => next())\n    .catch((err) => {\n      res.status(err.statusCode || 500).json({ error: err.message });\n    });\n}\n\nmodule.exports = rateLimitMiddleware;\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "concurrency",
-          "file": "requestTracker.js",
-          "line_range": [
-            6,
-            14
-          ],
-          "title": "Check-then-act race condition across microtask boundaries",
-          "explanation": "If multiple concurrent requests hit the check `if (activeConcurrentRequests >= maxConcurrent)` during the same event loop phase before any can increment or await, multiple requests pass the threshold, violating rate limits.",
-          "severity": "critical",
-          "expected_comment": "Check-then-act race condition: activeConcurrentRequests is checked and incremented without atomic isolation or mutex before async operations resume.",
-          "hint_level_1": "What happens if 20 requests arrive in the exact same event loop tick?",
-          "hint_level_2": "Look closely at the check on line 6 and the increment on line 14. Are they atomically guarded?",
-          "hint_level_3": "Because Node processes microtasks in batches, multiple incoming callers can evaluate `activeConcurrentRequests < maxConcurrent` before any increment takes effect."
-        },
-        {
-          "bug_id": "B2",
-          "type": "error_handling",
-          "file": "middleware.js",
-          "line_range": [
-            8,
-            12
-          ],
-          "title": "Express callback next() invoked inside async wrapper without Promise resolution",
-          "explanation": "Express's `next()` function does not return a Promise. Invoking `() => next()` inside `trackRequest` causes `await nextHandler()` to resolve immediately while the downstream route is still executing, decrementing activeConcurrentRequests prematurely.",
-          "severity": "critical",
-          "expected_comment": "Express next() does not return a Promise; trackRequest finishes immediately and decrements activeConcurrentRequests before downstream middleware finishes.",
-          "hint_level_1": "Does Express's next() function return a Promise?",
-          "hint_level_2": "Inspect what `await nextHandler()` actually resolves to on line 17 of requestTracker.js.",
-          "hint_level_3": "Since `next()` returns undefined, `await next()` resolves immediately, causing the `finally` block to decrement while the HTTP request is still in flight."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 50,
-            "required": true
-          },
-          {
-            "bug_id": "B2",
-            "points": 50,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Issues Identified\n\n1. **Premature Decrement Due to Express Callback Lifecycle (`middleware.js:8-12`)**:\nExpress's `next()` callback returns `undefined`, not a Promise. When `await nextHandler()` executes, it immediately fulfills with `undefined` and runs the `finally { activeConcurrentRequests--; }` block while the actual route handler is still streaming response data. This renders active concurrency tracking completely inaccurate.\n\n2. **Check-Then-Act Race (`requestTracker.js:6-14`)**:\nUnder concurrent load, multiple incoming requests inspect `activeConcurrentRequests >= maxConcurrent` in the same tick before any microtasks update shared state. Use an atomic semaphore or wrap connection acquisition in an explicit queue.\n\n3. **Recommendation**:\nBridge Express with `res.on('finish', ...)` and `res.on('close', ...)` to decrement counters upon response completion, rather than awaiting `next()`."
-    },
-    {
-      "id": "rev-002",
-      "slug": "py-asyncio-gather-leak",
-      "title": "Asyncio Task Leak & Silent Exception Swallowing",
-      "category": "async_concurrency",
-      "difficulty": "Hard",
-      "company_tags": [
-        "Scale AI",
-        "Databricks",
-        "Anthropic"
-      ],
-      "estimated_minutes": 20,
-      "context": "A Python backend pipeline fetches embeddings from multiple model endpoints concurrently using `asyncio.gather`. On intermittent HTTP 504 errors, worker memory spikes, and subsequent batch operations hang indefinitely.",
-      "ai_generation_context": "Generated by an LLM to replace sequential requests with 'fast async concurrency using asyncio.gather(..., return_exceptions=True)'.",
+      "context": "An event-driven notification dispatch pipeline processes incoming order payloads through validation, enrichment, and SMS formatting. In production, billing audits revealed that discount vouchers are intermittently calculated against transformed prices rather than original order totals.",
+      "ai_generation_context": "Created by an AI refactoring tool to optimize throughput by 'passing order contexts by reference across listeners'.",
       "learning_tags": [
         "python",
-        "asyncio",
-        "task-cancellation",
-        "memory-leaks"
+        "mutability",
+        "event-driven",
+        "side-effects"
       ],
       "files": [
         {
-          "filename": "embedding_pipeline.py",
+          "filename": "event_bus.py",
           "language": "python",
           "is_primary": true,
-          "content": "import asyncio\nimport aiohttp\n\nasync def fetch_chunk_embedding(session: aiohttp.ClientSession, url: str, text: str) -> dict:\n    async with session.post(url, json={\"text\": text}, timeout=aiohttp.ClientTimeout(total=5)) as resp:\n        if resp.status != 200:\n            raise RuntimeError(f\"Model endpoint failed with status {resp.status}\")\n        return await resp.json()\n\nasync def process_batch_embeddings(urls: list[str], documents: list[str]) -> list[dict]:\n    # Shared session initialized without connection limit\n    async with aiohttp.ClientSession() as session:\n        tasks = [\n            asyncio.create_task(fetch_chunk_embedding(session, url, doc))\n            for url, doc in zip(urls, documents)\n        ]\n\n\n        results = await asyncio.gather(*tasks, return_exceptions=True)\n\n        clean_results = []\n        for res in results:\n            if isinstance(res, Exception):\n\n                print(f\"Warning: chunk failure: {res}\")\n            else:\n                clean_results.append(res)\n\n        return clean_results\n"
+          "content": "from typing import Callable, Dict, List, Any\n\nclass EventBus:\n    def __init__(self):\n        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}\n\n    def subscribe(self, event_name: str, handler: Callable[[Dict[str, Any]], None]):\n        self._subscribers.setdefault(event_name, []).append(handler)\n\n    def publish(self, event_name: str, payload: Dict[str, Any]):\n        for handler in self._subscribers.get(event_name, []):\n\n            handler(payload)\n"
         },
         {
-          "filename": "orchestrator.py",
+          "filename": "discount_service.py",
           "language": "python",
           "is_primary": false,
-          "content": "import asyncio\nfrom embedding_pipeline import process_batch_embeddings\n\nasync def run_pipeline(batch_data):\n    urls = batch_data['endpoints']\n    docs = batch_data['documents']\n\n    # Timeout wrap at orchestrator level\n    try:\n        return await asyncio.wait_for(process_batch_embeddings(urls, docs), timeout=10.0)\n    except asyncio.TimeoutError:\n\n        print(\"Orchestration timed out!\")\n        return []\n"
+          "content": "def apply_tax_and_discounts(event_payload: dict):\n    items = event_payload.get('items', [])\n    for item in items:\n\n        item['price'] = item['price'] * 0.90\n    event_payload['discount_applied'] = True\n"
+        },
+        {
+          "filename": "audit_service.py",
+          "language": "python",
+          "is_primary": false,
+          "content": "def audit_order_total(event_payload: dict):\n    # Runs after discount_service in subscriber list\n    original_total = sum(item['price'] for item in event_payload.get('items', []))\n    if original_total > 1000:\n        print(\"Flagging high value transaction for review:\", original_total)\n"
         }
       ],
       "planted_bugs": [
         {
           "bug_id": "B1",
-          "type": "concurrency",
-          "file": "orchestrator.py",
+          "type": "mutation",
+          "file": "discount_service.py",
           "line_range": [
-            10,
-            15
+            3,
+            7
           ],
-          "title": "asyncio.wait_for cancellation does not propagate to unshielded background create_task tasks",
-          "explanation": "When asyncio.wait_for times out, it cancels the outer coroutine `process_batch_embeddings`, but subtasks created via `asyncio.create_task` continue executing in the background if not explicitly cancelled in a finally block or TaskGroup.",
+          "title": "In-place mutation of shared dictionary payload corrupts downstream event handlers",
+          "explanation": "`apply_tax_and_discounts` directly mutates `item['price']` in the shared `event_payload`. Because `EventBus.publish` passes the identical dictionary reference to all subscribers, subsequent handlers like `audit_order_total` observe altered prices.",
           "severity": "critical",
-          "expected_comment": "asyncio.wait_for timeout cancels process_batch_embeddings, but background tasks created via create_task remain running, leaking network sockets and memory.",
-          "hint_level_1": "What happens to tasks created via asyncio.create_task when the outer coroutine is cancelled by wait_for?",
-          "hint_level_2": "Look at Python 3.11+ TaskGroup semantics vs asyncio.create_task.",
-          "hint_level_3": "In Python, `create_task` schedules a task on the event loop independently. If the parent coroutine is cancelled, child tasks keep running unless explicitly gathered and cancelled."
-        },
-        {
-          "bug_id": "B2",
-          "type": "resource_leak",
-          "file": "embedding_pipeline.py",
-          "line_range": [
-            11,
-            17
-          ],
-          "title": "ClientSession closed while in-flight tasks may still hold open socket references",
-          "explanation": "If any task fails or timeout occurs, exiting the `async with aiohttp.ClientSession()` context manager closes the connector while uncompleted tasks attempt to read sockets, raising 'Session is closed' errors.",
-          "severity": "major",
-          "expected_comment": "Exiting async with aiohttp.ClientSession closes underlying connections while lingering tasks are still in-flight.",
-          "hint_level_1": "What happens to tasks when the `async with session` context exits?",
-          "hint_level_2": "If one task fails or times out, can other tasks still be running when session.__aexit__ executes?",
-          "hint_level_3": "Always cancel remaining tasks before closing the aiohttp ClientSession to prevent 'Cannot write to closing transport' runtime errors."
+          "expected_comment": "In-place mutation of shared event payload modifies price for all subsequent event handlers. Treat event payloads as immutable or pass deep copies.",
+          "hint_level_1": "What happens to the `payload` object when `apply_tax_and_discounts` runs?",
+          "hint_level_2": "In Python, are dictionaries passed by value or by reference?",
+          "hint_level_3": "`item['price'] = item['price'] * 0.90` alters the caller's dictionary. The `audit_service` then calculates totals on already-discounted prices."
         }
       ],
       "review_rubric": {
@@ -170,102 +75,12 @@
         "items": [
           {
             "bug_id": "B1",
-            "points": 60,
+            "points": 100,
             "required": true
-          },
-          {
-            "bug_id": "B2",
-            "points": 40,
-            "required": false
           }
         ]
       },
-      "reference_review": "### Senior Review Summary\n\n1. **Uncancelled Task Leakage (`orchestrator.py:10-15`)**:\nUsing `asyncio.create_task` inside `process_batch_embeddings` detaches task lifecycle from parent cancellation. When `asyncio.wait_for` triggers a timeout, only `process_batch_embeddings` is cancelled; the HTTP child tasks continue pumping requests in the background.\n\n2. **Use Modern Python 3.11+ `asyncio.TaskGroup`**:\nRefactor to `async with asyncio.TaskGroup() as tg:` so that any exception or cancellation automatically cancels all sibling tasks cleanly before the session context manager exits."
-    },
-    {
-      "id": "rev-003",
-      "slug": "copilot-jwt-auth-bypass",
-      "title": "Flawed AI JWT Token Verification",
-      "category": "ai_gen_audit",
-      "difficulty": "Hard",
-      "company_tags": [
-        "Cloudflare",
-        "Palantir",
-        "Ramp"
-      ],
-      "estimated_minutes": 20,
-      "context": "An AI assistant generated an authentication service module to verify bearer tokens and inject user claims. During a security audit, penetration testers bypassed authorization entirely by manipulating token headers.",
-      "ai_generation_context": "Generated by GitHub Copilot with the prompt: 'Node.js JWT verification function that handles both RSA public keys and fallback symmetric HMAC keys safely'.",
-      "learning_tags": [
-        "security",
-        "jwt",
-        "crypto-algorithm-confusion",
-        "ai-pitfalls"
-      ],
-      "files": [
-        {
-          "filename": "authService.js",
-          "language": "javascript",
-          "is_primary": true,
-          "content": "const jwt = require('jsonwebtoken');\nconst config = require('./config');\n\nfunction verifyUserToken(token) {\n  if (!token) {\n    throw new Error('Token missing');\n  }\n\n\n  const decodedHeader = jwt.decode(token, { complete: true });\n  if (!decodedHeader || !decodedHeader.header) {\n    throw new Error('Malformed token structure');\n  }\n\n  const alg = decodedHeader.header.alg;\n\n\n\n  let verificationKey = config.publicKey;\n  if (alg.startsWith('HS')) {\n    verificationKey = config.hmacSecret || config.publicKey;\n  }\n\n\n  return jwt.verify(token, verificationKey);\n}\n\nmodule.exports = { verifyUserToken };\n"
-        },
-        {
-          "filename": "config.js",
-          "language": "javascript",
-          "is_primary": false,
-          "content": "module.exports = {\n  publicKey: process.env.JWT_PUBLIC_KEY || '-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8...\\n-----END PUBLIC KEY-----',\n  hmacSecret: process.env.JWT_HMAC_SECRET || '',\n};\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "security",
-          "file": "authService.js",
-          "line_range": [
-            17,
-            24
-          ],
-          "title": "Algorithm confusion vulnerability (RSA to HMAC substitution)",
-          "explanation": "If `config.hmacSecret` is empty, fallback evaluates to `config.publicKey`. An attacker can forge an HMAC-SHA256 signature using the known public key as the symmetric secret, completely bypassing signature authentication.",
-          "severity": "critical",
-          "expected_comment": "Algorithm confusion vulnerability: Attacker can sign with HS256 using the public key as HMAC secret when hmacSecret is unset. Explicitly pin algorithms: ['RS256'].",
-          "hint_level_1": "What happens if an attacker sends an algorithm header with 'HS256'?",
-          "hint_level_2": "Inspect what `verificationKey` becomes on line 20 if `config.hmacSecret` is empty or undefined.",
-          "hint_level_3": "Never allow the untrusted token header to dictate the cryptographic verification algorithm. Pin `algorithms: ['RS256']` in `jwt.verify` options."
-        },
-        {
-          "bug_id": "B2",
-          "type": "security",
-          "file": "authService.js",
-          "line_range": [
-            9,
-            13
-          ],
-          "title": "Unverified token header inspection allows 'none' algorithm or header tampering",
-          "explanation": "Decoding the complete token without verifying signature first to branch logic based on `alg` is an anti-pattern. If an attacker passes `alg: 'none'`, downstream verification logic can be tricked.",
-          "severity": "major",
-          "expected_comment": "Decoding header before verification to choose verification keys allows header tampering. Enforce a single deterministic algorithm.",
-          "hint_level_1": "Why is inspecting `decodedHeader.header.alg` prior to verification risky?",
-          "hint_level_2": "Can an attacker control whatever header payload is decoded?",
-          "hint_level_3": "The header is attacker-controlled. Branching key selection based on untrusted header claims allows algorithm switching."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 70,
-            "required": true
-          },
-          {
-            "bug_id": "B2",
-            "points": 30,
-            "required": false
-          }
-        ]
-      },
-      "reference_review": "### Security Audit Findings\n\n1. **Severe Algorithm Confusion Attack (`authService.js:17-24`)**:\nThis is a classic textbook cryptographic flaw often generated by AI models when asked to support multiple key formats. If an attacker signs a payload with `alg: 'HS256'` using the server's public RSA key as the symmetric secret, `verificationKey` falls back to `config.publicKey` and `jwt.verify` validates successfully!\n\n2. **Remediation**:\nHardcode the allowed algorithm whitelist:\n```javascript\njwt.verify(token, config.publicKey, { algorithms: ['RS256'] });\n```\nNever inspect the token's header to decide whether to treat keys as symmetric or asymmetric."
+      "reference_review": "### Architecture & Data Integrity Finding\n\n1. **Unintentional In-Place State Mutation (`discount_service.py:3-7`)**:\nPython dictionaries are mutable references. Mutating `item['price']` directly inside an event subscriber pollutes the state observed by any listener registered after it (`audit_service.py`).\n\n2. **Best Practice**:\nEvent handlers must never mutate incoming payloads in-place. Use immutable data structures (e.g. frozen dataclasses) or perform a shallow/deep copy before dispatching in `EventBus.publish`: `handler(copy.deepcopy(payload))`."
     },
     {
       "id": "rev-004",
@@ -396,251 +211,6 @@
       "reference_review": "### Architecture Review\n\n1. **CommonJS Circular Dependency (`dbPool.js` &harr; `metrics.js`)**:\nOn line 1 of `dbPool.js`, `require('./metrics')` is called. While executing `metrics.js`, it immediately calls `require('./dbPool')`. Because `dbPool.js` has not yet assigned `module.exports = poolInstance`, Node.js returns an empty object `{}`. When `metrics.js` attempts to read `pool.connectionString` or calls `pool.query`, it crashes.\n\n2. **Resolution**:\nInvert dependency injection. Pass the pool instance directly to `registerMetrics(pool)` or move metric registration to a dedicated application lifecycle bootstrapper."
     },
     {
-      "id": "rev-006",
-      "slug": "py-service-state-mutation",
-      "title": "Cross-Service Shared State In-Place Mutation",
-      "category": "multi_file_logic",
-      "difficulty": "Medium",
-      "company_tags": [
-        "DoorDash",
-        "Shopify",
-        "Roblox"
-      ],
-      "estimated_minutes": 15,
-      "context": "An event-driven notification dispatch pipeline processes incoming order payloads through validation, enrichment, and SMS formatting. In production, billing audits revealed that discount vouchers are intermittently calculated against transformed prices rather than original order totals.",
-      "ai_generation_context": "Created by an AI refactoring tool to optimize throughput by 'passing order contexts by reference across listeners'.",
-      "learning_tags": [
-        "python",
-        "mutability",
-        "event-driven",
-        "side-effects"
-      ],
-      "files": [
-        {
-          "filename": "event_bus.py",
-          "language": "python",
-          "is_primary": true,
-          "content": "from typing import Callable, Dict, List, Any\n\nclass EventBus:\n    def __init__(self):\n        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}\n\n    def subscribe(self, event_name: str, handler: Callable[[Dict[str, Any]], None]):\n        self._subscribers.setdefault(event_name, []).append(handler)\n\n    def publish(self, event_name: str, payload: Dict[str, Any]):\n        for handler in self._subscribers.get(event_name, []):\n\n            handler(payload)\n"
-        },
-        {
-          "filename": "discount_service.py",
-          "language": "python",
-          "is_primary": false,
-          "content": "def apply_tax_and_discounts(event_payload: dict):\n    items = event_payload.get('items', [])\n    for item in items:\n\n        item['price'] = item['price'] * 0.90\n    event_payload['discount_applied'] = True\n"
-        },
-        {
-          "filename": "audit_service.py",
-          "language": "python",
-          "is_primary": false,
-          "content": "def audit_order_total(event_payload: dict):\n    # Runs after discount_service in subscriber list\n    original_total = sum(item['price'] for item in event_payload.get('items', []))\n    if original_total > 1000:\n        print(\"Flagging high value transaction for review:\", original_total)\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "mutation",
-          "file": "discount_service.py",
-          "line_range": [
-            3,
-            7
-          ],
-          "title": "In-place mutation of shared dictionary payload corrupts downstream event handlers",
-          "explanation": "`apply_tax_and_discounts` directly mutates `item['price']` in the shared `event_payload`. Because `EventBus.publish` passes the identical dictionary reference to all subscribers, subsequent handlers like `audit_order_total` observe altered prices.",
-          "severity": "critical",
-          "expected_comment": "In-place mutation of shared event payload modifies price for all subsequent event handlers. Treat event payloads as immutable or pass deep copies.",
-          "hint_level_1": "What happens to the `payload` object when `apply_tax_and_discounts` runs?",
-          "hint_level_2": "In Python, are dictionaries passed by value or by reference?",
-          "hint_level_3": "`item['price'] = item['price'] * 0.90` alters the caller's dictionary. The `audit_service` then calculates totals on already-discounted prices."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Architecture & Data Integrity Finding\n\n1. **Unintentional In-Place State Mutation (`discount_service.py:3-7`)**:\nPython dictionaries are mutable references. Mutating `item['price']` directly inside an event subscriber pollutes the state observed by any listener registered after it (`audit_service.py`).\n\n2. **Best Practice**:\nEvent handlers must never mutate incoming payloads in-place. Use immutable data structures (e.g. frozen dataclasses) or perform a shallow/deep copy before dispatching in `EventBus.publish`: `handler(copy.deepcopy(payload))`."
-    },
-    {
-      "id": "rev-008",
-      "slug": "ts-promise-all-failfast-unhandled",
-      "title": "Promise.all Fail-Fast Mutates State After Upstream Cancellation",
-      "category": "async_concurrency",
-      "difficulty": "Medium",
-      "company_tags": [
-        "DoorDash",
-        "Airbnb",
-        "Shopify"
-      ],
-      "estimated_minutes": 15,
-      "context": "A checkout coordination service executes warehouse inventory reservations, payment authorizations, and loyalty point deductions concurrently. When one step fails, the request returns 500, but warehouse reservations remain permanently locked in the database.",
-      "ai_generation_context": "Generated with AI prompt: 'Parallelize order checkout sub-actions with Promise.all and reject immediately on any failure.'",
-      "learning_tags": [
-        "typescript",
-        "async-await",
-        "promise-all",
-        "saga",
-        "side-effects"
-      ],
-      "files": [
-        {
-          "filename": "orderCoordinator.ts",
-          "language": "typescript",
-          "is_primary": true,
-          "content": "export interface CheckoutPayload {\n  orderId: string;\n  userId: string;\n  items: Array<{ sku: string; qty: number }>;\n}\n\nexport async function processCheckout(\n  payload: CheckoutPayload,\n  inventorySvc: { reserve: (id: string, items: any[]) => Promise<void>; release: (id: string) => Promise<void> },\n  paymentSvc: { charge: (id: string, user: string) => Promise<void> },\n  loyaltySvc: { deductPoints: (user: string, pts: number) => Promise<void> }\n): Promise<void> {\n\n  // continue running to completion without cancellation or rollback compensation.\n  await Promise.all([\n    inventorySvc.reserve(payload.orderId, payload.items),\n    paymentSvc.charge(payload.orderId, payload.userId),\n    loyaltySvc.deductPoints(payload.userId, 50),\n  ]);\n}\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "concurrency",
-          "file": "orderCoordinator.ts",
-          "line_range": [
-            15,
-            20
-          ],
-          "title": "Uncoordinated Promise.all causes orphaned distributed side-effects",
-          "explanation": "`Promise.all` fails fast: if `paymentSvc.charge()` rejects immediately (e.g. card declined), `inventorySvc.reserve()` is still running asynchronously and will commit the inventory hold without any compensation or release handler.",
-          "severity": "critical",
-          "expected_comment": "Promise.all fail-fast leaves lingering async tasks running. If payment fails, inventory reservation is not cancelled or rolled back.",
-          "hint_level_1": "What happens to the inventory reservation if the payment card is declined after 50ms while inventory takes 200ms?",
-          "hint_level_2": "Promise.all does NOT abort or cancel sibling promises when one rejects.",
-          "hint_level_3": "Use Promise.allSettled with explicit rollback compensation or a sequential saga pattern with rollback hooks."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Phantom State Mutation on Rejection\n\n1. **Orphaned Async Operations in `orderCoordinator.ts:15-20`**:\n`Promise.all` implements fail-fast rejection, meaning control returns to the caller as soon as the first promise rejects. Sibling promises already scheduled on the microtask/I/O queue are neither cancelled nor rolled back. If payment fails, the warehouse inventory remains reserved permanently.\n\n**Recommendation:**\nUse `Promise.allSettled` or structured saga orchestration that issues compensating transactions (e.g. `inventorySvc.release`) if any individual task fails."
-    },
-    {
-      "id": "rev-009",
-      "slug": "ai-sql-raw-template-injection",
-      "title": "AI-Generated SQL Query String Interpolation",
-      "category": "ai_gen_audit",
-      "difficulty": "Easy",
-      "company_tags": [
-        "Palantir",
-        "Cloudflare",
-        "GitHub"
-      ],
-      "estimated_minutes": 10,
-      "context": "A data reporting endpoint was generated by an AI assistant to filter multi-tenant analytics logs by tenant ID and date status. An internal security audit flagged SQL syntax vulnerabilities during fuzzing.",
-      "ai_generation_context": "Drafted by Copilot from prompt: 'Write a Python function to query tenant logs filtered by tenant_id, date, and status using raw sqlite3 cursor.'",
-      "learning_tags": [
-        "python",
-        "sql-injection",
-        "security",
-        "parameterized-queries"
-      ],
-      "files": [
-        {
-          "filename": "reporting_service.py",
-          "language": "python",
-          "is_primary": true,
-          "content": "import sqlite3\nfrom typing import List, Dict, Any\n\ndef get_tenant_activity(db_conn: sqlite3.Connection, tenant_id: str, status: str) -> List[Dict[str, Any]]:\n    cursor = db_conn.cursor()\n\n    query = f\"SELECT id, event_type, created_at FROM audit_logs WHERE tenant_id = '{tenant_id}' AND status = '{status}'\"\n    cursor.execute(query)\n    rows = cursor.fetchall()\n    return [{\"id\": r[0], \"event_type\": r[1], \"created_at\": r[2]} for r in rows]\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "security",
-          "file": "reporting_service.py",
-          "line_range": [
-            7,
-            9
-          ],
-          "title": "SQL injection via raw f-string formatting in SQL query",
-          "explanation": "String formatting with `f\"... {tenant_id} ...\"` bypasses SQL parameter binding, enabling arbitrary SQL injection and data exfiltration across tenant boundaries.",
-          "severity": "critical",
-          "expected_comment": "Critical SQL injection: raw f-string interpolation used for SQL query. Use parameterized query `cursor.execute('... WHERE tenant_id = ? AND status = ?', (tenant_id, status))`.",
-          "hint_level_1": "Inspect how `tenant_id` and `status` are passed into the SQL engine.",
-          "hint_level_2": "Notice the `f\"...\"` prefix on line 7 creating a formatted string rather than parameterized query placeholders.",
-          "hint_level_3": "Use DB-API parameter substitution `?` tuples to allow SQLite driver to safely escape parameters."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: SQL Injection Vulnerability\n\n1. **Unparameterized SQL in `reporting_service.py:7-9`**:\nThe AI generated code interpolates user-controlled parameters `tenant_id` and `status` directly into the query string via Python f-strings. An attacker can supply `' OR '1'='1` to dump all tenant audit records across the entire database.\n\n**Fix:**\n```python\nquery = \"SELECT id, event_type, created_at FROM audit_logs WHERE tenant_id = ? AND status = ?\"\ncursor.execute(query, (tenant_id, status))\n```"
-    },
-    {
-      "id": "rev-010",
-      "slug": "ai-pagination-cursor-integer-overflow",
-      "title": "AI Cursor Pagination 32-Bit Bitwise Inversion Bug",
-      "category": "ai_gen_audit",
-      "difficulty": "Medium",
-      "company_tags": [
-        "Meta",
-        "Twitter",
-        "Reddit"
-      ],
-      "estimated_minutes": 15,
-      "context": "A social feed pagination endpoint was refactored by an LLM to use opaque base64 cursors. Users scrolling past high ID records (> 2,147,483,647) suddenly experience infinite feed loops as the cursor decodes to negative numbers.",
-      "ai_generation_context": "Prompt: 'Create a TypeScript helper to encode and decode numeric cursors using base64 with fast bitwise parsing.'",
-      "learning_tags": [
-        "typescript",
-        "bitwise-operators",
-        "integer-overflow",
-        "pagination"
-      ],
-      "files": [
-        {
-          "filename": "cursorCodec.ts",
-          "language": "typescript",
-          "is_primary": true,
-          "content": "export function encodeCursor(id: number): string {\n  return Buffer.from(`item_${id}`).toString('base64');\n}\n\nexport function decodeCursor(cursorStr: string): number {\n  const decoded = Buffer.from(cursorStr, 'base64').toString('utf8');\n  const rawId = decoded.replace('item_', '');\n\n\n\n  return parseInt(rawId, 10) | 0;\n}\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "logic",
-          "file": "cursorCodec.ts",
-          "line_range": [
-            9,
-            13
-          ],
-          "title": "32-bit signed integer truncation via bitwise OR operator",
-          "explanation": "JavaScript bitwise operators (such as `| 0`) truncate numbers to 32-bit signed integers. When a database ID exceeds `2,147,483,647` (common with distributed Snowflake or auto-increment 64-bit IDs), the cursor truncates to a negative integer.",
-          "severity": "major",
-          "expected_comment": "Bitwise `| 0` forces 32-bit signed integer truncation. Database IDs above 2^31-1 wrap to negative values, corrupting pagination cursors.",
-          "hint_level_1": "What does JavaScript do to the number type when applying bitwise operators like `| 0`?",
-          "hint_level_2": "JavaScript standard specifies bitwise operators cast double-precision numbers to 32-bit signed integers.",
-          "hint_level_3": "Remove `| 0` and return `Number(rawId)` or `BigInt(rawId)` for 64-bit IDs."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Major Finding: Cursor Truncation Under High IDs\n\n1. **32-Bit Truncation in `cursorCodec.ts:13`**:\nThe AI assistant introduced an unnecessary optimization `| 0` after `parseInt(rawId, 10)`. In JavaScript, all bitwise operators evaluate their operands as 32-bit signed integers, which caps numbers at `2,147,483,647`. Distributed IDs (e.g. Snowflake 64-bit IDs) immediately wrap into negative numbers, breaking pagination.\n\n**Remediation:**\n```typescript\nexport function decodeCursor(cursorStr: string): number {\n  const decoded = Buffer.from(cursorStr, 'base64').toString('utf8');\n  const rawId = decoded.replace('item_', '');\n  const parsed = Number(rawId);\n  if (Number.isNaN(parsed)) throw new Error('Invalid cursor');\n  return parsed;\n}\n```"
-    },
-    {
       "id": "rev-011",
       "slug": "py-transaction-rollback-partial-commit",
       "title": "Distributed Saga Multi-Store Partial Commit Leak",
@@ -709,250 +279,6 @@
         ]
       },
       "reference_review": "### Critical Finding: Financial State Inconsistency on Failure\n\n1. **Uncompensated State Mutation in `order_saga.py:20-24`**:\nThe order flow performs an irreversible debit operation in Step 1 (`wallet.deduct_balance`). When Step 2 fails due to a Redis exception, the error handler logs and exits, leaving the user with a deducted balance and zero order fulfillment.\n\n**Fix:**\nCall the compensating refund transaction before returning `False`:\n```python\nexcept Exception as e:\n    logger.error(f\"Failed to reserve order in cache: {e}\")\n    self.wallet.refund_balance(user_id, amount_cents, tx_id)\n    return False\n```"
-    },
-    {
-      "id": "rev-012",
-      "slug": "node-microservice-event-ordering",
-      "title": "Out-of-Order Webhook Timestamp Clashing in Account Processor",
-      "category": "multi_file_logic",
-      "difficulty": "Medium",
-      "company_tags": [
-        "Twilio",
-        "Square",
-        "Adyen"
-      ],
-      "estimated_minutes": 20,
-      "context": "A payment gateway webhooks consumer receives async account status events ('ACCOUNT_VERIFIED', 'ACCOUNT_SUSPENDED'). During high load or network retry bursts, events arrive out of order, occasionally reverting an account suspension back to verified.",
-      "learning_tags": [
-        "javascript",
-        "webhooks",
-        "idempotency",
-        "event-ordering",
-        "state-machine"
-      ],
-      "files": [
-        {
-          "filename": "webhookHandler.js",
-          "language": "javascript",
-          "is_primary": true,
-          "content": "const { updateAccountStatus } = require('./accountService');\n\nasync function handleIncomingWebhook(req, res) {\n  const { accountId, newStatus, eventTimestamp } = req.body;\n\n\n  await updateAccountStatus(accountId, newStatus);\n  return res.status(200).json({ ok: true });\n}\n\nmodule.exports = { handleIncomingWebhook };\n"
-        },
-        {
-          "filename": "accountService.js",
-          "language": "javascript",
-          "is_primary": false,
-          "content": "const db = new Map();\n\nasync function updateAccountStatus(accountId, newStatus) {\n  const current = db.get(accountId) || { status: 'PENDING', lastUpdated: 0 };\n  current.status = newStatus;\n  current.lastUpdated = Date.now();\n  db.set(accountId, current);\n}\n\nfunction getAccountStatus(accountId) {\n  return db.get(accountId);\n}\n\nmodule.exports = { updateAccountStatus, getAccountStatus };\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "event_ordering",
-          "file": "webhookHandler.js",
-          "line_range": [
-            6,
-            8
-          ],
-          "title": "Missing event timestamp/version check causes out-of-order state overwrites",
-          "explanation": "`handleIncomingWebhook` discards `eventTimestamp` and applies the update unconditionally. If network delays cause an older `ACCOUNT_VERIFIED` event to arrive after a newer `ACCOUNT_SUSPENDED` event, the account state reverts incorrectly.",
-          "severity": "major",
-          "expected_comment": "Out-of-order webhook hazard: `eventTimestamp` from the payload is ignored. An earlier event delayed by network retries will overwrite newer state.",
-          "hint_level_1": "What happens if a webhook sent at 10:00 AM arrives AFTER a webhook sent at 10:05 AM?",
-          "hint_level_2": "Notice `eventTimestamp` in req.body is extracted but never passed to `updateAccountStatus`.",
-          "hint_level_3": "Pass `eventTimestamp` to the account service and only apply updates if `eventTimestamp > current.lastEventTimestamp`."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Major Finding: Race Condition on Out-of-Order Webhooks\n\n1. **Unversioned State Update in `webhookHandler.js:6-8`**:\nNetwork latency and automatic webhook retries frequently cause payloads to arrive out of chronological order. The handler extracts `eventTimestamp` but fails to pass or compare it, allowing stale payloads to overwrite fresher account status."
-    },
-    {
-      "id": "rev-013",
-      "slug": "py-ssrf-webhook-internal-metadata",
-      "title": "SSRF via Incomplete URL Validation in Webhook Dispatcher",
-      "category": "security_audit",
-      "difficulty": "Hard",
-      "company_tags": [
-        "Palantir",
-        "Cloudflare",
-        "GitHub",
-        "AWS"
-      ],
-      "estimated_minutes": 20,
-      "context": "A custom webhook dispatch service allows enterprise users to configure target URLs for alert delivery. Security researchers reported that internal AWS instance metadata endpoints (169.254.169.254) can be reached despite an internal URL validator check.",
-      "learning_tags": [
-        "python",
-        "ssrf",
-        "dns-rebinding",
-        "cloud-security",
-        "ip-validation"
-      ],
-      "files": [
-        {
-          "filename": "dispatcher.py",
-          "language": "python",
-          "is_primary": true,
-          "content": "import requests\nfrom url_validator import is_safe_webhook_url\n\ndef dispatch_webhook(target_url: str, payload: dict) -> int:\n\n  if not is_safe_webhook_url(target_url):\n    raise ValueError(\"Target URL is not permitted\")\n\n\n\n  response = requests.post(target_url, json=payload, timeout=5)\n  return response.status_code\n"
-        },
-        {
-          "filename": "url_validator.py",
-          "language": "python",
-          "is_primary": false,
-          "content": "from urllib.parse import urlparse\n\ndef is_safe_webhook_url(url: str) -> bool:\n  parsed = urlparse(url)\n\n  if parsed.scheme != \"https\":\n    return False\n  if \"localhost\" in (parsed.hostname or \"\").lower():\n    return False\n  return True\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "security_vulnerability",
-          "file": "url_validator.py",
-          "line_range": [
-            5,
-            10
-          ],
-          "title": "Incomplete SSRF validation allows cloud metadata and private IP access",
-          "explanation": "`is_safe_webhook_url` only checks that scheme is `https` and hostname does not contain `'localhost'`. It completely fails to check for AWS metadata IP (`169.254.169.254`), private RFC1918 subnets (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), or resolve DNS before validation.",
-          "severity": "critical",
-          "expected_comment": "Critical SSRF: Validation only checks for 'localhost'. Attackers can target internal cloud metadata (169.254.169.254) or private networks (10.0.0.0/8, 192.168.0.0/16).",
-          "hint_level_1": "Can an attacker pass `https://169.254.169.254` or internal microservice IPs?",
-          "hint_level_2": "Checking if 'localhost' is in hostname is trivial to bypass using alternative representations or private IPs.",
-          "hint_level_3": "Resolve the hostname to an IP address with `socket.getaddrinfo` and verify `ipaddress.ip_address(ip).is_private` and `is_loopback`."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Server-Side Request Forgery (SSRF)\n\n1. **Inadequate Host Validation in `url_validator.py:5-10`**:\nFiltering for the word `\"localhost\"` fails to defend against SSRF. Attackers can provide `https://169.254.169.254/latest/meta-data/iam/security-credentials/` to steal AWS container role tokens, or target internal VPC services on `10.0.0.0/8`.\n\n**Remediation:**\nResolve the domain to an IP using DNS, then ensure the resolved address is not in `is_private`, `is_loopback`, or link-local ranges."
-    },
-    {
-      "id": "rev-014",
-      "slug": "node-prototype-pollution-merge",
-      "title": "Prototype Pollution via Recursive Object Merge",
-      "category": "security_audit",
-      "difficulty": "Medium",
-      "company_tags": [
-        "Netflix",
-        "Datadog",
-        "Snyk"
-      ],
-      "estimated_minutes": 15,
-      "context": "A multi-tenant configuration loader merges user-supplied JSON override profiles onto default tenant settings. Security scanning revealed that passing a crafted `__proto__` payload pollutes object prototypes across the Node.js process.",
-      "learning_tags": [
-        "javascript",
-        "prototype-pollution",
-        "appsec",
-        "object-freeze"
-      ],
-      "files": [
-        {
-          "filename": "deepMerge.js",
-          "language": "javascript",
-          "is_primary": true,
-          "content": "function isObject(item) {\n  return item && typeof item === 'object' && !Array.isArray(item);\n}\n\nfunction deepMerge(target, source) {\n  for (const key of Object.keys(source)) {\n\n\n    if (isObject(source[key])) {\n      if (!target[key]) target[key] = {};\n      deepMerge(target[key], source[key]);\n    } else {\n      target[key] = source[key];\n    }\n  }\n  return target;\n}\n\nmodule.exports = { deepMerge };\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "prototype_pollution",
-          "file": "deepMerge.js",
-          "line_range": [
-            7,
-            13
-          ],
-          "title": "Unsanitized key recursion leads to Object prototype pollution",
-          "explanation": "When `key` is `'__proto__'` or `'constructor'`, `target[key]` references `Object.prototype`. Merging properties onto it modifies the base prototype of all JavaScript objects in the runtime, leading to privilege escalation or DoS.",
-          "severity": "critical",
-          "expected_comment": "Prototype pollution: `deepMerge` does not sanitize dangerous keys (`__proto__`, `constructor`, `prototype`).",
-          "hint_level_1": "What happens if `source` contains a property named `__proto__`?",
-          "hint_level_2": "Accessing `target['__proto__']` reaches `Object.prototype`, allowing attackers to inject arbitrary properties into all objects.",
-          "hint_level_3": "Add a guard: `if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;`."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Critical Finding: Prototype Pollution in Object Merge\n\n1. **Unfiltered Object Keys in `deepMerge.js:7-13`**:\nIterating through `Object.keys(source)` without sanitization permits malicious keys (`__proto__`, `constructor`, `prototype`). When traversed, `target[key]` resolves to `Object.prototype`, enabling attackers to override core methods or default authentication flags.\n\n**Fix:**\n```javascript\nif (key === '__proto__' || key === 'constructor' || key === 'prototype') {\n  continue;\n}\n```"
-    },
-    {
-      "id": "rev-016",
-      "slug": "py-orm-n-plus-one-query-explosion",
-      "title": "N+1 Query Explosion in Nested API Serializer",
-      "category": "performance_regression",
-      "difficulty": "Medium",
-      "company_tags": [
-        "Pinterest",
-        "Instagram",
-        "Reddit"
-      ],
-      "estimated_minutes": 15,
-      "context": "A public API endpoint serving the top 100 trending blog posts saw p99 response latency jump from 35ms to 2,800ms after a feature was added to display author membership badges and avatar details.",
-      "learning_tags": [
-        "python",
-        "django-orm",
-        "n-plus-one",
-        "database-performance",
-        "prefetch"
-      ],
-      "files": [
-        {
-          "filename": "views.py",
-          "language": "python",
-          "is_primary": true,
-          "content": "from models import Post\n\ndef get_trending_feed():\n\n    posts = Post.objects.filter(is_published=True).order_by('-view_count')[:100]\n\n    serialized = []\n    for post in posts:\n\n        serialized.append({\n            \"id\": post.id,\n            \"title\": post.title,\n            \"author_name\": post.author.display_name,\n            \"badges\": [b.name for b in post.author.badges.all()]\n        })\n    return serialized\n"
-        }
-      ],
-      "planted_bugs": [
-        {
-          "bug_id": "B1",
-          "type": "performance",
-          "file": "views.py",
-          "line_range": [
-            5,
-            15
-          ],
-          "title": "N+1 query cascade from lazy relationship traversal",
-          "explanation": "Iterating through 100 `Post` records without `select_related('author')` and `prefetch_related('author__badges')` generates 1 query for posts + 100 queries for authors + 100 queries for badges = 201 database roundtrips.",
-          "severity": "major",
-          "expected_comment": "Severe N+1 query problem: accessing `post.author` and `post.author.badges.all()` in a loop triggers 200+ individual database queries. Add `select_related('author').prefetch_related('author__badges')`.",
-          "hint_level_1": "Count how many SQL queries are fired when 100 posts are returned.",
-          "hint_level_2": "Notice `post.author.display_name` and `post.author.badges.all()` are loaded lazily on every iteration.",
-          "hint_level_3": "Use `.select_related('author').prefetch_related('author__badges')` on the initial queryset."
-        }
-      ],
-      "review_rubric": {
-        "max_score": 100,
-        "items": [
-          {
-            "bug_id": "B1",
-            "points": 100,
-            "required": true
-          }
-        ]
-      },
-      "reference_review": "### Major Finding: Severe N+1 Database Query Cascade\n\n1. **Lazy Relationship Lookups in `views.py:5-15`**:\nThe queryset `Post.objects.filter(...)` only fetches post rows. When the loop accesses `post.author` and `post.author.badges.all()`, the ORM executes 2 additional synchronous database queries per item. For a 100-item page, this executes 201 SQL roundtrips, degrading latency by 100x.\n\n**Fix:**\n```python\nposts = (\n    Post.objects.filter(is_published=True)\n    .select_related('author')\n    .prefetch_related('author__badges')\n    .order_by('-view_count')[:100]\n)\n```"
     },
     {
       "id": "rev-017",

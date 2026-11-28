@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Maximize2, ShieldAlert } from 'lucide-react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { Maximize2 } from 'lucide-react';
 import { generateInterviewRound } from '../data/interview/roundGenerator';
+import { requestAppFullscreen } from '../lib/fullscreen';
 import { computeInterviewScorecard } from '../lib/interview/scoring';
 import {
   exitFullscreenSafe,
@@ -19,31 +20,33 @@ import InterviewScorecardView from '../components/interview/InterviewScorecardVi
 
 export default function InterviewStudio() {
   const { roundId } = useParams<{ roundId: string }>();
+  return <InterviewSession key={roundId} roundId={roundId} />;
+}
+
+function InterviewSession({ roundId }: { roundId?: string }) {
   const navigate = useNavigate();
 
-  const [isFullscreenActive, setIsFullscreenActive] = useState<boolean>(() => {
-    return typeof document !== 'undefined' ? Boolean(document.fullscreenElement) : false;
-  });
+  const { pathname } = useLocation();
+  const [fullscreenError, setFullscreenError] = useState('');
+  const [launchError, setLaunchError] = useState('');
   const [isBriefCollapsed, setIsBriefCollapsed] = useState(false);
 
-  // Load existing round or create new
+  // Resume only the round assigned to this URL.
   const initialRound = useMemo(() => {
     const existing = getStoredActiveRound();
     if (existing && existing.id === roundId) {
       return existing;
     }
-    const fresh = generateInterviewRound('faang_standard');
-    saveStoredActiveRound(fresh);
-    return fresh;
+    return null;
   }, [roundId]);
 
   const {
     round,
     activeScorecard,
     tabSwitchAlert,
-    fullscreenExitAlert,
+    isFullscreenActive,
+    syncFullscreen,
     dismissTabSwitchAlert,
-    dismissFullscreenExitAlert,
     switchProblem,
     updateCode,
     recordSubmission,
@@ -69,53 +72,31 @@ export default function InterviewStudio() {
     return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, []);
 
-  // Lockdown: if candidate unmounts/navigates away internally while round is still active, auto-submit
   useEffect(() => {
+    const mountedPath = window.location.pathname;
     return () => {
+      // React Strict Mode also runs cleanup while this route is still open.
+      if (window.location.pathname === mountedPath) return;
       const current = roundRef.current;
-      if (current && !current.isCompleted) {
-        exitFullscreenSafe();
-        const finished: ActiveInterviewRound = {
-          ...current,
-          isCompleted: true,
-          submittedAt: Date.now(),
-          autoSubmitReason: 'Auto-submitted: Attempted navigation away from interview',
-        };
-        const scorecard = computeInterviewScorecard(finished);
-        saveInterviewHistoryItem(scorecard);
-        saveStoredActiveRound(null);
-      }
+      if (!current?.hasStarted || current.isCompleted) return;
+      const finished: ActiveInterviewRound = {
+        ...current,
+        isCompleted: true,
+        submittedAt: Date.now(),
+        autoSubmitReason: 'Auto-submitted: Left the interview',
+      };
+      saveInterviewHistoryItem(computeInterviewScorecard(finished));
+      if (getStoredActiveRound()?.id === current.id) saveStoredActiveRound(null);
+      exitFullscreenSafe();
     };
-  }, []);
+  }, [pathname]);
 
-  // Monitor fullscreen element state
-  useEffect(() => {
-    const handleFsChange = () => {
-      setIsFullscreenActive(Boolean(document.fullscreenElement));
-    };
-
-    document.addEventListener('fullscreenchange', handleFsChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFsChange);
-    };
-  }, []);
-
-  // Request fullscreen on start/mount
-  useEffect(() => {
-    if (typeof document !== 'undefined' && !document.fullscreenElement && !round?.isCompleted) {
-      document.documentElement.requestFullscreen().catch(() => {
-        // Will show fallback overlay if browser requires user gesture
-        setIsFullscreenActive(false);
-      });
-    }
-  }, [round?.id, round?.isCompleted]);
-
-  const handleEnterFullscreen = () => {
-    if (typeof document !== 'undefined' && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().then(() => {
-        setIsFullscreenActive(true);
-        dismissFullscreenExitAlert();
-      }).catch(() => {});
+  const handleEnterFullscreen = async () => {
+    setFullscreenError('');
+    if (await requestAppFullscreen()) {
+      syncFullscreen(true);
+    } else {
+      setFullscreenError('Fullscreen could not start. Try again or return to the Interview hub.');
     }
   };
 
@@ -123,14 +104,21 @@ export default function InterviewStudio() {
   if (activeScorecard && round) {
     return (
       <div className="w-full">
+        {launchError && <p role="alert" className="text-sm text-rose-500">{launchError}</p>}
         <InterviewScorecardView
           scorecard={activeScorecard}
           round={round}
-          onRetake={() => {
-            const fresh = generateInterviewRound(round.presetId);
-            saveStoredActiveRound(fresh);
-            handleEnterFullscreen();
-            navigate(`/interview/${fresh.id}`);
+          onRetake={async () => {
+            setLaunchError('');
+            void requestAppFullscreen();
+            try {
+              const fresh = await generateInterviewRound(round.presetId);
+              saveStoredActiveRound(fresh);
+              navigate(`/interview/${fresh.id}`);
+            } catch (error) {
+              exitFullscreenSafe();
+              setLaunchError(error instanceof Error ? error.message : 'Could not start another round.');
+            }
           }}
           onBackToHub={() => navigate('/interview')}
         />
@@ -141,7 +129,7 @@ export default function InterviewStudio() {
   if (!round) {
     return (
       <div className="flex h-[70vh] items-center justify-center text-muted text-sm">
-        Initializing mock interview round...
+        <button type="button" className="btn-secondary" onClick={() => navigate('/interview')}>Start a round from the Interview hub</button>
       </div>
     );
   }
@@ -153,7 +141,7 @@ export default function InterviewStudio() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
       {/* Fallback Entry Prompt if browser blocked auto-fullscreen without gesture */}
-      {!isFullscreenActive && !round.isCompleted && (round.fullscreenExits || 0) === 0 && (
+      {!isFullscreenActive && !round.isCompleted && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in select-none">
           <div
             className="w-full max-w-md rounded-3xl p-7 shadow-2xl border space-y-5 text-center"
@@ -168,6 +156,7 @@ export default function InterviewStudio() {
                 Mock technical interviews run in distraction-free full-screen mode to accurately simulate live coding conditions.
               </p>
             </div>
+            {fullscreenError && <p role="alert" className="text-sm text-rose-500">{fullscreenError}</p>}
             <button
               type="button"
               onClick={handleEnterFullscreen}
@@ -176,6 +165,7 @@ export default function InterviewStudio() {
               <Maximize2 size={15} />
               <span>Enter Fullscreen & Begin</span>
             </button>
+            <button type="button" className="btn-secondary mt-3" onClick={() => navigate('/interview')}>Back to Interview hub</button>
           </div>
         </div>
       )}
@@ -184,10 +174,7 @@ export default function InterviewStudio() {
       <InterviewHUD
         round={round}
         onSwitchProblem={switchProblem}
-        onSubmitInterview={() => {
-          exitFullscreenSafe();
-          submitInterview();
-        }}
+        onSubmitInterview={() => submitInterview()}
         isBriefCollapsed={isBriefCollapsed}
         onToggleBriefCollapse={() => setIsBriefCollapsed((prev) => !prev)}
       />
@@ -219,6 +206,7 @@ export default function InterviewStudio() {
         {/* Right Column: Identical Monaco Code Runner (Expands to 100% full-width when collapsed) */}
         <div className="flex-1 h-full overflow-hidden w-full">
           <InterviewCodeRunner
+            roundId={round.id}
             problem={currentProblem}
             code={currentState.code}
             language={currentState.language}

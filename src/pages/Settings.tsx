@@ -618,7 +618,7 @@ export default function Settings() {
                     <p className="text-[10px] font-bold uppercase text-muted">Curriculum Scope</p>
                     <p className="mt-1 text-base sm:text-lg font-extrabold text-emerald-500 flex items-center gap-1.5">
                       <CheckCircle2 size={16} />
-                      <span>25 Blueprints</span>
+                      <span>Curated Blueprints</span>
                     </p>
                     <p className="mt-0.5 text-[10px] text-muted">5 Core Algorithmic Patterns</p>
                   </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { ActiveInterviewRound, InterviewScorecard } from '../../types/interview';
+import { isAppFullscreen, onFullscreenChange, exitAppFullscreen } from '../fullscreen';
 import { computeInterviewScorecard } from './scoring';
 
 const ACTIVE_ROUND_STORAGE_KEY = 'prismcode-mock-interview-active-v1';
@@ -54,190 +55,114 @@ export function saveInterviewHistoryItem(scorecard: InterviewScorecard) {
 }
 
 export function exitFullscreenSafe() {
-  if (typeof document !== 'undefined' && document.fullscreenElement) {
-    document.exitFullscreen().catch(() => {});
-  }
+  void exitAppFullscreen();
 }
 
 export function useInterviewSession(initialRound?: ActiveInterviewRound | null) {
   const [round, setRound] = useState<ActiveInterviewRound | null>(() => {
-    return initialRound || getStoredActiveRound();
+    return initialRound === undefined ? getStoredActiveRound() : initialRound;
   });
 
   const [activeScorecard, setActiveScorecard] = useState<InterviewScorecard | null>(null);
   const [tabSwitchAlert, setTabSwitchAlert] = useState<number | null>(null);
-  const [fullscreenExitAlert, setFullscreenExitAlert] = useState<number | null>(null);
+  const [isFullscreenActive, setIsFullscreenActive] = useState(isAppFullscreen);
+  const wasFullscreen = useRef(isFullscreenActive);
 
   const roundRef = useRef<ActiveInterviewRound | null>(round);
   roundRef.current = round;
 
-  // Sync to local storage
   useEffect(() => {
-    saveStoredActiveRound(round);
+    if (round) saveStoredActiveRound(round);
   }, [round]);
 
-  // Handle focus guard (tab switching / blur)
+  const finishRound = useCallback((reason?: string, changes: Partial<ActiveInterviewRound> = {}) => {
+    const current = roundRef.current;
+    if (!current?.hasStarted || current.isCompleted) return;
+    const finished = { ...current, ...changes, isCompleted: true, submittedAt: Date.now(), autoSubmitReason: reason };
+    roundRef.current = finished;
+    setRound(finished);
+    const scorecard = computeInterviewScorecard(finished);
+    saveInterviewHistoryItem(scorecard);
+    setActiveScorecard(scorecard);
+    if (getStoredActiveRound()?.id === finished.id) saveStoredActiveRound(null);
+    exitFullscreenSafe();
+  }, []);
+
+  const syncFullscreen = useCallback((fullscreen: boolean) => {
+    const exitedFullscreen = wasFullscreen.current && !fullscreen;
+    wasFullscreen.current = fullscreen;
+    setIsFullscreenActive(fullscreen);
+    const current = roundRef.current;
+    if (!current || current.isCompleted) return;
+
+    if (fullscreen && !current.hasStarted) {
+      const started = { ...current, hasStarted: true };
+      roundRef.current = started;
+      setRound(started);
+    } else if (exitedFullscreen && current.hasStarted) {
+      finishRound('Auto-submitted: Exited full-screen mode', { fullscreenExits: current.fullscreenExits + 1 });
+    }
+  }, [finishRound]);
+
   useEffect(() => {
     if (!round || round.isCompleted) return;
+    const unsubscribe = onFullscreenChange(syncFullscreen);
+    if (isAppFullscreen()) syncFullscreen(true);
+    return unsubscribe;
+  }, [round?.id, round?.isCompleted, syncFullscreen]);
 
-    let blurTimestamp = 0;
-
+  useEffect(() => {
+    if (!round?.hasStarted || round.isCompleted) return;
+    let hiddenAt: number | null = document.hidden ? Date.now() : null;
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        blurTimestamp = Date.now();
-      } else {
-        const current = roundRef.current;
-        if (!current || current.isCompleted) return;
-
-        const focusLossSec = blurTimestamp > 0 ? Math.round((Date.now() - blurTimestamp) / 1000) : 0;
-        const newCount = current.tabSwitches + 1;
-
-        // Auto-submit if user switches tabs 4 times
-        if (newCount >= 4) {
-          exitFullscreenSafe();
-          const finishedRound: ActiveInterviewRound = {
-            ...current,
-            tabSwitches: newCount,
-            focusLossSeconds: current.focusLossSeconds + focusLossSec,
-            isCompleted: true,
-            submittedAt: Date.now(),
-            autoSubmitReason: 'Auto-submitted: Exceeded maximum allowed tab switches (4)',
-          };
-          const scorecard = computeInterviewScorecard(finishedRound);
-          saveInterviewHistoryItem(scorecard);
-          setActiveScorecard(scorecard);
-          saveStoredActiveRound(null);
-          setRound(finishedRound);
-          return;
-        }
-
-        setRound((prev) => {
-          if (!prev) return null;
-          return {
-            ...prev,
-            tabSwitches: newCount,
-            focusLossSeconds: prev.focusLossSeconds + focusLossSec,
-          };
-        });
-
-        setTabSwitchAlert(newCount);
+        hiddenAt ??= Date.now();
+        return;
       }
+      if (hiddenAt === null) return;
+      const current = roundRef.current;
+      const focusLossSeconds = Math.round((Date.now() - hiddenAt) / 1000);
+      hiddenAt = null;
+      if (!current || current.isCompleted) return;
+      const changes = {
+        tabSwitches: current.tabSwitches + 1,
+        focusLossSeconds: current.focusLossSeconds + focusLossSeconds,
+      };
+      if (changes.tabSwitches >= 4) {
+        finishRound('Auto-submitted: Exceeded maximum allowed tab switches (4)', changes);
+        return;
+      }
+      setRound(previous => previous && !previous.isCompleted ? { ...previous, ...changes } : previous);
+      setTabSwitchAlert(changes.tabSwitches);
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [round?.id, round?.isCompleted]);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [round?.id, round?.hasStarted, round?.isCompleted, finishRound]);
 
-  // Handle fullscreen exit detection: Auto-submit immediately once out of full-screen
   useEffect(() => {
-    if (!round || round.isCompleted) return;
-
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
-        const current = roundRef.current;
-        if (!current || current.isCompleted) return;
-
-        // Auto-submit IMMEDIATELY once out of full-screen
-        exitFullscreenSafe();
-        const finishedRound: ActiveInterviewRound = {
-          ...current,
-          fullscreenExits: (current.fullscreenExits || 0) + 1,
-          isCompleted: true,
-          submittedAt: Date.now(),
-          autoSubmitReason: 'Auto-submitted: Exited full-screen mode',
-        };
-        const scorecard = computeInterviewScorecard(finishedRound);
-        saveInterviewHistoryItem(scorecard);
-        setActiveScorecard(scorecard);
-        saveStoredActiveRound(null);
-        setRound(finishedRound);
-      }
-    };
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, [round?.id, round?.isCompleted]);
-
-  // Handle going back (popstate): Auto-submit immediately so candidate cannot resume after leaving
-  useEffect(() => {
-    if (!round || round.isCompleted) return;
-
-    const handlePopState = () => {
-      const current = roundRef.current;
-      if (current && !current.isCompleted) {
-        exitFullscreenSafe();
-        const finishedRound: ActiveInterviewRound = {
-          ...current,
-          isCompleted: true,
-          submittedAt: Date.now(),
-          autoSubmitReason: 'Auto-submitted: Candidate navigated back from the interview',
-        };
-        const scorecard = computeInterviewScorecard(finishedRound);
-        saveInterviewHistoryItem(scorecard);
-        saveStoredActiveRound(null);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, [round?.id, round?.isCompleted]);
-
-  // Timer interval: decrements remainingSeconds and increments timeSpentSeconds for current active problem
-  useEffect(() => {
-    if (!round || round.isCompleted) return;
-
+    if (!round?.hasStarted || round.isCompleted) return;
     const interval = setInterval(() => {
-      setRound((prev) => {
-        if (!prev || prev.isCompleted) return prev;
-
-        const nextRemaining = prev.remainingSeconds - 1;
-        const currentIdx = prev.currentProblemIndex;
-
-        let nextProblem1 = { ...prev.problem1State };
-        let nextProblem2 = { ...prev.problem2State };
-
-        if (currentIdx === 0) {
-          nextProblem1.timeSpentSeconds += 1;
-        } else {
-          nextProblem2.timeSpentSeconds += 1;
-        }
-
-        // Time up: Auto-submit
-        if (nextRemaining <= 0) {
-          exitFullscreenSafe();
-          const finishedRound: ActiveInterviewRound = {
-            ...prev,
-            remainingSeconds: 0,
-            problem1State: nextProblem1,
-            problem2State: nextProblem2,
-            isCompleted: true,
-            submittedAt: Date.now(),
-            autoSubmitReason: 'Time expired (45-minute limit reached)',
-          };
-          const scorecard = computeInterviewScorecard(finishedRound);
-          saveInterviewHistoryItem(scorecard);
-          setActiveScorecard(scorecard);
-          saveStoredActiveRound(null);
-          return finishedRound;
-        }
-
-        return {
-          ...prev,
-          remainingSeconds: nextRemaining,
-          problem1State: nextProblem1,
-          problem2State: nextProblem2,
-        };
-      });
+      const current = roundRef.current;
+      if (!current || current.isCompleted) return;
+      const remainingSeconds = Math.max(0, current.remainingSeconds - 1);
+      const activeKey = current.currentProblemIndex === 0 ? 'problem1State' : 'problem2State';
+      const changes = {
+        remainingSeconds,
+        [activeKey]: { ...current[activeKey], timeSpentSeconds: current[activeKey].timeSpentSeconds + 1 },
+      };
+      if (remainingSeconds === 0) {
+        finishRound(`Time expired (${current.durationMinutes}-minute limit reached)`, changes);
+      } else {
+        setRound(previous => previous && !previous.isCompleted ? {
+          ...previous,
+          remainingSeconds,
+          [activeKey]: { ...previous[activeKey], timeSpentSeconds: previous[activeKey].timeSpentSeconds + 1 },
+        } : previous);
+      }
     }, 1000);
-
     return () => clearInterval(interval);
-  }, [round?.id, round?.isCompleted]);
+  }, [round?.id, round?.hasStarted, round?.isCompleted, finishRound]);
 
   // Switch between problem 0 and problem 1
   const switchProblem = useCallback((index: 0 | 1) => {
@@ -315,45 +240,20 @@ export function useInterviewSession(initialRound?: ActiveInterviewRound | null) 
     []
   );
 
-  // Submit interview round
-  const submitInterview = useCallback((reason?: string) => {
-    exitFullscreenSafe();
-    setRound((prev) => {
-      if (!prev) return null;
-      const finished: ActiveInterviewRound = {
-        ...prev,
-        isCompleted: true,
-        submittedAt: Date.now(),
-        autoSubmitReason: reason,
-      };
-      const scorecard = computeInterviewScorecard(finished);
-      saveInterviewHistoryItem(scorecard);
-      setActiveScorecard(scorecard);
-      saveStoredActiveRound(null);
-      return finished;
-    });
-  }, []);
-
   const dismissTabSwitchAlert = useCallback(() => {
     setTabSwitchAlert(null);
   }, []);
 
-  const dismissFullscreenExitAlert = useCallback(() => {
-    setFullscreenExitAlert(null);
-  }, []);
-
   return {
     round,
-    setRound,
     activeScorecard,
-    setActiveScorecard,
     tabSwitchAlert,
-    fullscreenExitAlert,
+    isFullscreenActive,
+    syncFullscreen,
     dismissTabSwitchAlert,
-    dismissFullscreenExitAlert,
     switchProblem,
     updateCode,
     recordSubmission,
-    submitInterview,
+    submitInterview: finishRound,
   };
 }

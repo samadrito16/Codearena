@@ -26,6 +26,9 @@ export interface ProblemEditorial {
 }
 
 export interface Problem {
+  owner?: 'practice' | 'daily' | 'interview' | 'placement' | 'contest';
+  version?: number;
+  testCount?: number;
   id: string;
   title: string;
   difficulty: Difficulty;

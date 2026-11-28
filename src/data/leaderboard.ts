@@ -1,4 +1,4 @@
-import type { CollegeLeaderboardEntry, Contest } from '../types/contest';
+import type { CollegeLeaderboardEntry } from '../types/contest';
 
 export interface LeaderboardEntry {
   name: string;
@@ -20,57 +20,3 @@ export const sampleLeaderboard: LeaderboardEntry[] = [];
  * Campus Cup (Inter-College Rankings) fixture.
  */
 export const sampleCollegeLeaderboard: CollegeLeaderboardEntry[] = [];
-
-/**
- * Static fallback contests fixture.
- */
-export const sampleContests: Contest[] = [
-  {
-    id: 'weekly-contest-42',
-    slug: 'weekly-contest-42',
-    title: 'Weekly Contest 42',
-    description: 'Weekly 2-day competition open every Saturday and Sunday. 4 graded challenges under live proctored conditions.',
-    startTime: '2026-11-28T00:00:00.000Z',
-    endTime: '2026-11-29T23:59:59.000Z',
-    durationMinutes: 2880,
-    status: 'upcoming',
-    problems: [
-      { id: 'wc42-q1', problemId: 'two-sum', title: 'Two Sum', difficulty: 'Easy', points: 300, solvedCount: 0 },
-      { id: 'wc42-q2', problemId: 'longest-substring', title: 'Longest Substring Without Repeating Characters', difficulty: 'Medium', points: 400, solvedCount: 0 },
-      { id: 'wc42-q3', problemId: 'container-water', title: 'Container With Most Water', difficulty: 'Medium', points: 500, solvedCount: 0 },
-      { id: 'wc42-q4', problemId: 'median-arrays', title: 'Median of Two Sorted Arrays', difficulty: 'Hard', points: 600, solvedCount: 0 },
-    ],
-  },
-  {
-    id: 'weekly-contest-41',
-    slug: 'weekly-contest-41',
-    title: 'Weekly Contest 41',
-    description: 'Weekly 2-day competition held Saturday and Sunday featuring balanced string parsing, tree traversal, and dynamic programming.',
-    startTime: '2026-11-21T00:00:00.000Z',
-    endTime: '2026-11-22T23:59:59.000Z',
-    durationMinutes: 2880,
-    status: 'completed',
-    problems: [
-      { id: 'wc41-q1', problemId: 'valid-parentheses', title: 'Valid Parentheses', difficulty: 'Easy', points: 300, solvedCount: 0 },
-      { id: 'wc41-q2', problemId: 'binary-tree-level-order', title: 'Binary Tree Level Order Traversal', difficulty: 'Medium', points: 400, solvedCount: 0 },
-      { id: 'wc41-q3', problemId: 'climbing-stairs', title: 'Climbing Stairs', difficulty: 'Easy', points: 400, solvedCount: 0 },
-      { id: 'wc41-q4', problemId: 'median-arrays', title: 'Median of Two Sorted Arrays', difficulty: 'Hard', points: 600, solvedCount: 0 },
-    ],
-  },
-  {
-    id: 'weekly-contest-40',
-    slug: 'weekly-contest-40',
-    title: 'Weekly Contest 40',
-    description: 'Weekly 2-day competition held Saturday and Sunday celebrating 40 weeks of continuous campus competition and high-velocity problem solving.',
-    startTime: '2026-11-14T00:00:00.000Z',
-    endTime: '2026-11-15T23:59:59.000Z',
-    durationMinutes: 2880,
-    status: 'completed',
-    problems: [
-      { id: 'wc40-q1', problemId: 'reverse-linked-list', title: 'Reverse Linked List', difficulty: 'Easy', points: 300, solvedCount: 0 },
-      { id: 'wc40-q2', problemId: 'two-sum', title: 'Two Sum', difficulty: 'Easy', points: 300, solvedCount: 0 },
-      { id: 'wc40-q3', problemId: 'longest-substring', title: 'Longest Substring Without Repeating Characters', difficulty: 'Medium', points: 500, solvedCount: 0 },
-      { id: 'wc40-q4', problemId: 'container-water', title: 'Container With Most Water', difficulty: 'Medium', points: 600, solvedCount: 0 },
-    ],
-  },
-];

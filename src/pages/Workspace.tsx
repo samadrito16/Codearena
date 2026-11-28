@@ -33,7 +33,8 @@ import { useUi } from '../context/UiContext';
 import { useSpacedRepetition } from '../hooks/useSpacedRepetition';
 import { getSlowThreshold, SPACED_INTERVALS_DAYS } from '../lib/spacedRepetition';
 import { themePalettes } from '../data/themes';
-import { contestService } from '../services/contestService';
+import { apiRequest } from '../lib/api';
+import { useAsyncResource } from '../hooks/useAsyncResource';
 import { runCode, submitCode, type ExecutionResponse } from '../services/executionService';
 import { requestExecutionTrace } from '../services';
 import type { ExecutionTraceResult } from '../types/scrubber';
@@ -69,7 +70,7 @@ import {
   PRACTICE_IDLE_THRESHOLD_MINUTES,
   formatPracticeClock,
 } from '../lib/practiceTimer';
-import { getLocalDateKey, isDailyChallengeCompleted, selectDailyChallenge } from '../lib/progress';
+import { getLocalDateKey, isDailyChallengeCompleted } from '../lib/progress';
 import type { Problem } from '../types';
 
 const languageDots: Record<CodeLanguage, string> = {
@@ -92,7 +93,20 @@ type ConsoleTab = 'testcases' | 'console' | 'scrubber';
 
 export default function Workspace() {
   const { problemId } = useParams();
-  const { data: problems, status: problemsStatus, error: problemsError, retry: retryProblems } = useProblems();
+  const practice = useProblems();
+  const [params] = useSearchParams();
+  const contestId = params.get('contestId') || params.get('contest');
+  const daily = params.has('daily');
+  const sectionQuestion = useAsyncResource<Problem | null>(signal => {
+    if (!problemId) return Promise.resolve(null);
+    const id = encodeURIComponent(problemId);
+    if (contestId) return apiRequest(`/catalog/contests/${encodeURIComponent(contestId)}/questions/${id}`, { signal });
+    if (daily) return apiRequest(`/catalog/daily/questions/${id}`, { signal });
+    return Promise.resolve(null);
+  }, null, [problemId, contestId, daily]);
+  const scoped = Boolean(contestId || daily);
+  const { status: problemsStatus, error: problemsError, retry: retryProblems } = scoped ? sectionQuestion : practice;
+  const problems = scoped ? sectionQuestion.data && sectionQuestion.data.id === problemId ? [sectionQuestion.data] : [] : practice.data;
 
   if (problemsStatus === 'loading') {
     return (
@@ -123,9 +137,8 @@ export default function Workspace() {
         <EmptyState
           className="w-full"
           icon={<FileCode2 size={22}/>}
-          title="No problems in your local library"
-          description="Your local problem bank is currently empty. Add or import problems in the Admin dashboard before opening the workspace."
-          action={<Link to="/admin" className="btn-primary text-xs">Open Admin dashboard</Link>}
+          title="No question available"
+          description="This question could not be loaded. Browse Practice to find an available question."
           secondaryAction={<Link to="/problems" className="btn-secondary text-xs">View problem library</Link>}
         />
       </div>
@@ -161,6 +174,7 @@ export default function Workspace() {
 
   return (
     <WorkspaceSession
+      key={matchedProblem.id}
       problem={matchedProblem}
       problemList={problems}
       currentIndex={currentIndex}
@@ -195,13 +209,11 @@ function WorkspaceSession({
     theme,
     palette,
     solvedIds,
-    toggleSolved,
     recordPracticeSession,
     submissions,
     recordSubmission,
     dailyChallengeByDate,
     dailyCompletions,
-    completeDailyChallenge,
   } = useApp();
   const { getItem: getSpacedItem, formatScheduleLabel } = useSpacedRepetition();
   const spacedReviewItem = problem ? getSpacedItem(problem.id) : undefined;
@@ -279,7 +291,6 @@ function WorkspaceSession({
   const {
     activeSeconds: estimatedPracticeSeconds,
     status: practiceTimerStatus,
-    consumeUnloggedSeconds,
     markActivity,
   } = useActivePracticeTimer({
     sessionKey: problem.id,
@@ -288,8 +299,6 @@ function WorkspaceSession({
   const solved = solvedIds.includes(problem.id);
   const todayKey = getLocalDateKey();
   const dailyParam = searchParams.get('daily');
-  const assignedTodayDailyId = dailyChallengeByDate[todayKey] ?? selectDailyChallenge(problemList, new Date(), solvedIds)?.id;
-  const isTodayDaily = assignedTodayDailyId === problem.id;
   const completedTodayDaily = isDailyChallengeCompleted(dailyCompletions, todayKey, problem.id);
   const isPastDailyView = Boolean(dailyParam && dailyParam < todayKey && dailyChallengeByDate[dailyParam] === problem.id);
   const completedPastDaily = isPastDailyView && dailyParam
@@ -439,6 +448,7 @@ function WorkspaceSession({
         const customInput = selectedCase && selectedCase.source === 'custom' ? selectedCase.input : undefined;
         const res = await runCode({
           problemId: problem.id,
+          contestId: contestId ?? undefined,
           code,
           language,
           customInput,
@@ -457,8 +467,11 @@ function WorkspaceSession({
       try {
         const res = await submitCode({
           problemId: problem.id,
+          contestId: contestId ?? undefined,
           code,
           language,
+          durationSeconds: estimatedPracticeSeconds,
+          dailyDate: problem.owner === 'daily' && dailyParam === todayKey ? todayKey : undefined,
         });
         setExecutionResult(res);
         setRunnerState('completed');
@@ -469,15 +482,13 @@ function WorkspaceSession({
           : 'wrong_answer';
 
         const practiceSecs = estimatedPracticeSeconds > 0 ? estimatedPracticeSeconds : undefined;
-        recordSubmission(problem.id, outcome, practiceSecs, language, {
+        if (!isContestMode) recordSubmission(problem.id, outcome, practiceSecs, language, {
           runtimeMs: res.runtimeMs,
           memoryMb: res.memoryMb,
           source: 'onlinecompiler',
+          question: problem,
         });
 
-        if (outcome === 'accepted' && !solved) {
-          toggleSolved(problem.id, practiceSecs, language);
-        }
 
         if (isContestMode && contestId) {
           try {
@@ -487,13 +498,11 @@ function WorkspaceSession({
             if (outcome === 'accepted') {
               prev[problem.id] = { status: 'accepted', elapsedMinutes };
               localStorage.setItem(storageKey, JSON.stringify(prev));
-              contestService.submitProblem(contestId, problem.id, true, elapsedMinutes).catch(() => {});
             } else {
               if (!prev[problem.id] || prev[problem.id].status !== 'accepted') {
                 prev[problem.id] = { status: 'wrong_answer', elapsedMinutes };
                 localStorage.setItem(storageKey, JSON.stringify(prev));
               }
-              contestService.submitProblem(contestId, problem.id, false, elapsedMinutes).catch(() => {});
             }
           } catch {}
         }
@@ -506,7 +515,7 @@ function WorkspaceSession({
         announce(`Submission error: ${msg}`);
       }
     }
-  }, [announce, code, contestId, estimatedPracticeSeconds, isContestMode, language, problem.id, recordSubmission, selectedCase, solved, toggleSolved]);
+  }, [announce, code, contestId, estimatedPracticeSeconds, isContestMode, language, problem.id, recordSubmission, selectedCase, problem, dailyParam, todayKey]);
 
   // Synchronize Monaco Editor line highlight and execution gutter arrow
   useEffect(() => {
@@ -1022,32 +1031,10 @@ function WorkspaceSession({
                     </p>
                   )}
                 </div>
-                {isTodayDaily && !completedTodayDaily ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const elapsedSeconds = Math.max(1, consumeUnloggedSeconds());
-                      completeDailyChallenge(todayKey, problem.id, elapsedSeconds, language);
-                    }}
-                    className="workspace-solve-button"
-                  >
-                    <ThumbsUp size={14}/> {solved ? 'Complete today’s daily' : 'Mark as solved'}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!solved) {
-                        const elapsedSeconds = Math.max(1, consumeUnloggedSeconds());
-                        toggleSolved(problem.id, elapsedSeconds, language);
-                      }
-                    }}
-                    disabled={solved}
-                    aria-pressed={solved}
-                    className={`workspace-solve-button ${solved ? 'workspace-solve-button-done' : ''}`}
-                  >
-                    {solved ? <CheckCircle2 size={14}/> : <ThumbsUp size={14}/>} {isTodayDaily && completedTodayDaily ? 'Completed today' : solved ? 'Completed' : 'Mark as solved'}
-                  </button>
+                {problem.owner === 'daily' ? (
+                  <p className="text-xs text-muted">{completedTodayDaily ? 'Completed today' : 'Submit a passing solution to complete the challenge.'}</p>
+                ) : isContestMode ? null : (
+                  <p className="text-xs text-muted">{solved ? 'Solved' : 'Submit a passing solution to mark this problem solved.'}</p>
                 )}
               </div>
             </> : activeTab === 'Notes' ? (

@@ -1,17 +1,22 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import crypto from 'node:crypto';
 import { z } from 'zod';
+import { getEntryPoint } from '../data/questionCatalog.js';
 import { db } from '../db/database.js';
 import { requireAuth } from '../middleware/auth.js';
 import { executionLimiter, dailyExecutionQuotaLimiter } from '../middleware/rateLimiter.js';
 import type { SubmissionOutcome, SubmissionRecord } from '../types/index.js';
 import { runTestCases, type TestCaseInput } from '../services/onlineCompilerService.js';
+import { signPlacementGrade } from './placementRoutes.js';
+import { canUseInterviewQuestion, getCatalogUser } from './catalogRoutes.js';
 import { executeTrace } from '../services/execution/traceEngine.js';
 
 const router = Router();
 
 const runSchema = z.object({
   problemId: z.string().min(1).max(100),
+  roundId: z.string().max(100).optional(),
+  contestId: z.string().max(100).optional(),
   code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
   language: z.string().min(1).max(50).default('javascript'),
   customInput: z.string().max(524288, 'Custom input exceeds maximum allowed size (512KB)').optional(),
@@ -30,22 +35,12 @@ const runSchema = z.object({
 
 const submitSchema = z.object({
   problemId: z.string().min(1).max(100),
+  roundId: z.string().max(100).optional(),
+  contestId: z.string().max(100).optional(),
   code: z.string().min(1, 'Code cannot be empty').max(65536, 'Code submission exceeds maximum allowed size (64KB)'),
   language: z.string().min(1).max(50).default('javascript'),
   durationSeconds: z.number().min(0).max(86400).optional(),
-  cases: z
-    .array(
-      z.object({
-        caseNumber: z.number().optional(),
-        input: z.string().max(524288),
-        expected: z.string().max(524288).optional(),
-        expectedOutput: z.string().max(524288).optional(),
-      })
-    )
-    .max(50)
-    .optional(),
-  title: z.string().max(150).optional(),
-  difficulty: z.enum(['Easy', 'Medium', 'Hard']).optional(),
+  dailyDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 });
 
 const traceSchema = z.object({
@@ -57,6 +52,28 @@ const traceSchema = z.object({
   functionNameHint: z.string().max(100).optional(),
   maxSteps: z.number().min(10).max(500).optional(),
 });
+
+function canUseCatalogQuestion(
+  problem: NonNullable<ReturnType<typeof db.getProblemForExecution>>,
+  req: Request,
+  res: Response,
+  roundId?: string,
+  contestId?: string,
+  submit = false,
+): boolean {
+  if (problem.owner === 'interview') {
+    return canUseInterviewQuestion(roundId, problem.id, getCatalogUser(req, res));
+  }
+  if (problem.owner === 'daily') {
+    return Object.values(db.getDailyAssignments(getCatalogUser(req, res))).includes(problem.id);
+  }
+  if (problem.owner === 'contest') {
+    const contest = contestId ? db.getContestById(contestId) : undefined;
+    return Boolean(contest && (submit ? req.user && contest.status === 'active' : contest.status !== 'upcoming')
+      && contest.problems.some(entry => entry.problemId === problem.id));
+  }
+  return true;
+}
 
 // GET /api/submissions (requires auth)
 router.get('/', requireAuth, (req: Request, res: Response) => {
@@ -85,9 +102,13 @@ router.get('/quota', (req: Request, res: Response) => {
 // POST /api/submissions/run (public / guest supported, strictly rate-limited)
 router.post('/run', executionLimiter, dailyExecutionQuotaLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { problemId, code, language, customInput, cases } = runSchema.parse(req.body);
+    const { problemId, code, language, customInput, cases, roundId, contestId } = runSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
-    if (!problem && (!cases || cases.length === 0)) {
+    if (problem && !canUseCatalogQuestion(problem, req, res, roundId, contestId)) {
+      res.status(404).json({ error: { message: 'Question is unavailable in this session.' } });
+      return;
+    }
+    if (!problem && (!cases || cases.length === 0) && !customInput) {
       res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
       return;
     }
@@ -112,7 +133,12 @@ router.post('/run', executionLimiter, dailyExecutionQuotaLimiter, async (req: Re
     const batchResult = await runTestCases(language, code, testCases, {
       earlyExit: false,
       orderInvariant: Boolean(problem?.orderInvariant),
+      functionNameHint: problem ? getEntryPoint(problem, language) : undefined,
     });
+    if (batchResult.executionUnavailable) {
+      res.status(503).json({ error: { message: 'The judge is unavailable. Try again in a moment.' } });
+      return;
+    }
 
     const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
     const userId = req.user ? req.user.id : null;
@@ -184,36 +210,24 @@ router.post('/trace', executionLimiter, dailyExecutionQuotaLimiter, async (req: 
 // POST /api/submissions/submit (supports both authenticated and guest submissions, strictly rate-limited)
 router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { problemId, code, language, durationSeconds, cases, title, difficulty } = submitSchema.parse(req.body);
+    const { problemId, code, language, durationSeconds, roundId, contestId, dailyDate } = submitSchema.parse(req.body);
     const problem = db.getProblemForExecution(problemId);
-    if (!problem && (!cases || cases.length === 0)) {
-      res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Problem not found' } });
+    if (!problem?.testCases?.length || !canUseCatalogQuestion(problem, req, res, roundId, contestId, true)) {
+      res.status(404).json({ error: { code: 'NOT_FOUND', message: 'No official test suite for this session.' } });
       return;
     }
+    const testCases = problem.testCases;
 
-    // Server-authoritative test suite execution: Always run against server's full test suite (including hidden cases)
-    let testCases: TestCaseInput[] = [];
-    if (problem?.testCases && problem.testCases.length > 0) {
-      testCases = problem.testCases;
-    } else if (cases && cases.length > 0) {
-      testCases = cases.map((c, i) => ({
-        caseNumber: c.caseNumber ?? (i + 1),
-        input: c.input,
-        expected: c.expected ?? c.expectedOutput ?? '',
-      }));
-    } else if (problem) {
-      testCases = problem.examples.map((ex, idx) => ({
-        caseNumber: idx + 1,
-        input: ex.input,
-        expected: ex.output,
-      }));
-    }
-
-    // Sequential execution with Early Exit on first failure
     const batchResult = await runTestCases(language, code, testCases, {
-      earlyExit: true,
+      earlyExit: false,
       orderInvariant: Boolean(problem?.orderInvariant),
+      functionNameHint: problem ? getEntryPoint(problem, language) : undefined,
     });
+
+    if (batchResult.executionUnavailable) {
+      res.status(503).json({ error: { message: 'The judge is unavailable. Your submission was not graded.' } });
+      return;
+    }
 
     let outcome: SubmissionOutcome = 'wrong_answer';
     if (batchResult.verdict === 'Accepted') {
@@ -228,9 +242,9 @@ router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req:
 
     const timestamp = new Date().toISOString();
     const userId = req.user ? req.user.id : 'guest';
-    const problemTitle = problem?.title || title || problemId;
-    const problemDifficulty = problem?.difficulty || difficulty || 'Medium';
-    const problemTopics = problem?.topics || ['Pattern Mastery'];
+    const problemTitle = problem.title;
+    const problemDifficulty = problem.difficulty;
+    const problemTopics = problem.topics;
 
     const submission: SubmissionRecord = {
       id: `sub_${crypto.randomUUID()}`,
@@ -249,10 +263,19 @@ router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req:
       source: 'onlinecompiler',
     };
 
-    if (req.user) {
+    if (contestId && problem.owner === 'contest' && req.user) {
+      const contest = db.getContestById(contestId)!;
+      const elapsedMinutes = Math.max(0, Math.ceil((Date.now() - Date.parse(contest.startTime)) / 60_000));
+      await db.recordContestSubmission(contest.id, userId, problemId, outcome === 'accepted', elapsedMinutes);
+    }
+
+    if (req.user && (problem.owner === 'practice' || problem.owner === 'daily')) {
       await db.createSubmission(submission);
       if (outcome === 'accepted') {
-        await db.recordProblemSolved(userId, problemId);
+        if (problem.owner === 'practice') await db.recordProblemSolved(userId, problemId);
+        if (problem.owner === 'daily' && dailyDate && Math.abs(Date.now() - Date.parse(dailyDate)) < 2 * 86_400_000) {
+          await db.recordDailyCompletion(userId, dailyDate, problemId);
+        }
         await db.createActivity({
           id: `act_${crypto.randomUUID()}`,
           userId,
@@ -287,6 +310,10 @@ router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req:
       }
       return c;
     });
+    if (batchResult.executionUnavailable) {
+      res.status(503).json({ error: { message: 'The judge is unavailable. Try again in a moment.' } });
+      return;
+    }
 
     const clientIp = (req.ip || req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
     await db.incrementExecutionUsage(req.user ? req.user.id : null, clientIp);
@@ -300,6 +327,11 @@ router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req:
     res.status(201).json({
       success: batchResult.success,
       submission,
+      gradeReceipt: problem.owner === 'placement' ? signPlacementGrade({
+        userId: getCatalogUser(req, res), problemId, version: problem.version,
+        passedCases: batchResult.totalPassed, totalCases: batchResult.totalTests,
+        verdict: batchResult.verdict, timestamp: Date.now(),
+      }) : undefined,
       verdict: batchResult.verdict,
       runtimeMs: batchResult.runtimeMs,
       memoryMb: batchResult.memoryMb,
@@ -307,8 +339,6 @@ router.post('/submit', executionLimiter, dailyExecutionQuotaLimiter, async (req:
       totalPassed: batchResult.totalPassed,
       totalTests: batchResult.totalTests,
       cases: sanitizedCases,
-      stdout: batchResult.stdout,
-      stderr: batchResult.stderr,
       quota: {
         limit: quota.limit,
         remaining: quota.remaining,

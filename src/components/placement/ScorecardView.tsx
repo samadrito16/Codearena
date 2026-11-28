@@ -140,16 +140,7 @@ export default function ScorecardView({
               className="h-10 w-px"
             />
 
-            {/* Percentile */}
-            <div className="text-center px-2">
-              <div className="text-[11px] font-medium text-muted">Predicted Percentile</div>
-              <div className="mt-0.5 font-display text-2xl sm:text-3xl font-extrabold text-emerald-500">
-                {report.projectedPercentile}%
-              </div>
-              <div className="mt-0.5 text-[10px] font-medium text-muted">
-                vs 50k+ Test Takers
-              </div>
-            </div>
+
           </div>
         </div>
 

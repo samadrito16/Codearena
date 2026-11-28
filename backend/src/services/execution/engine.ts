@@ -209,7 +209,7 @@ export async function executeCode(
 
   // Local fallback for JavaScript / TypeScript (ONLY if ALLOW_UNSAFE_LOCAL_EXECUTION=true and NOT production)
   if (lang === 'javascript' || lang === 'typescript' || compilerId.startsWith('node')) {
-    return runProcessWithStdin('node', ['-e', code], input, 4000);
+    return runProcessWithStdin('node', ['--input-type=commonjs', '-e', code], input, 4000);
   }
 
   // Local fallback for Python (ONLY if ALLOW_UNSAFE_LOCAL_EXECUTION=true and NOT production)

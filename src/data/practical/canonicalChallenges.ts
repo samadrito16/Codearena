@@ -1,17 +1,12 @@
 import { frontendChallenges } from './frontendChallenges';
 import { backendChallenges } from './backendChallenges';
 import { sqlChallenges } from './sqlChallenges';
+import sections from '../../../backend/src/data/questionSections.json';
 import { PracticalChallenge } from '../../types/practicalCoding';
 
-/**
- * Aggregated Canonical Role-Specific Practical Challenges
- * Total: 15 Challenges
- * - Frontend UI / DOM (7 challenges)
- * - Backend APIs & Middlewares (4 challenges)
- * - SQL & Data Pipelines (4 challenges)
- */
+// Only challenges in the published manifest are available in the workspace.
 export const PRACTICAL_CHALLENGES: PracticalChallenge[] = [
   ...frontendChallenges,
   ...backendChallenges,
   ...sqlChallenges,
-];
+].filter(challenge => sections.practical.some(entry => entry.id === challenge.id));

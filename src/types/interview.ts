@@ -34,6 +34,7 @@ export interface ActiveInterviewRound {
   patternTheme: string;
   durationMinutes: number;
   startedAt: number;
+  hasStarted?: boolean;
   problem1: Problem;
   problem2: Problem;
   currentProblemIndex: 0 | 1;

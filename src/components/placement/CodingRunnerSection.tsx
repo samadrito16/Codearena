@@ -14,7 +14,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import { CodingPlacementQuestion, CodingSubmissionResult } from '../../types/placement';
-import { runCode, ExecutionResponse } from '../../services/executionService';
+import { submitCode } from '../../services/executionService';
 import { useApp } from '../../context/AppContext';
 
 interface CodingRunnerSectionProps {
@@ -55,6 +55,7 @@ export default function CodingRunnerSection({
   const [code, setCode] = useState<string>(
     savedSubmission?.code || question.starterCode[language] || question.starterCode['python'] || ''
   );
+  const [executionError, setExecutionError] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [selectedTestCaseIdx, setSelectedTestCaseIdx] = useState(0);
   const [lastExecution, setLastExecution] = useState<{
@@ -92,69 +93,19 @@ export default function CodingRunnerSection({
 
   const handleExecute = async () => {
     setIsRunning(true);
+    setExecutionError('');
     try {
-      // Execute via prismcode execution service
-      const res = await runCode({
-        problemId: question.problemId,
-        code,
-        language,
-        cases: question.testCases.map((tc, idx) => ({
-          caseNumber: idx + 1,
-          input: tc.input,
-          expected: tc.expected,
-        })),
+      const res = await submitCode({ problemId: question.problemId, code, language });
+      if (!res.gradeReceipt) throw new Error('No verified grade was returned.');
+      setLastExecution({
+        verdict: res.verdict, passed: res.totalPassed, total: res.totalTests, runtimeMs: res.runtimeMs,
       });
-
-      const total = question.testCases.length;
-      const passed = res.totalPassed !== undefined ? res.totalPassed : res.success ? total : 0;
-      const verdict =
-        res.verdict || (passed === total ? 'Accepted' : 'Wrong Answer');
-
-      const resultObj = {
-        verdict,
-        passed,
-        total,
-        runtimeMs: res.runtimeMs,
-        stdout: res.stdout,
-        stderr: res.stderr,
-      };
-
-      setLastExecution(resultObj);
-
-      // Save submission record
       onSaveSubmission({
-        code,
-        language,
-        passedCases: passed,
-        totalCases: total,
-        verdict: verdict as any,
-        runtimeMs: res.runtimeMs,
+        code, language, passedCases: res.totalPassed, totalCases: res.totalTests,
+        verdict: res.verdict, runtimeMs: res.runtimeMs, gradeReceipt: res.gradeReceipt,
       });
-    } catch (err: any) {
-      // Local fallback simulation if backend service isn't active
-      const total = question.testCases.length;
-      // Heuristic test: check if code includes solution logic or non-empty return
-      const isImplemented = code.trim().length > 60 && !code.includes('return []') && !code.includes('return 0');
-      const passed = isImplemented ? total : 1;
-      const verdict = passed === total ? 'Accepted' : 'Wrong Answer';
-
-      const resultObj = {
-        verdict,
-        passed,
-        total,
-        runtimeMs: 42,
-        stdout: isImplemented ? 'All test cases passed successfully.' : 'Standard test case comparison completed.',
-      };
-
-      setLastExecution(resultObj);
-      onSaveSubmission({
-        code,
-        language,
-        passedCases: passed,
-        totalCases: total,
-        verdict: verdict as any,
-        runtimeMs: 42,
-      });
+    } catch (error) {
+      setExecutionError(error instanceof Error ? error.message : 'Could not grade your code.');
     } finally {
       setIsRunning(false);
     }
@@ -184,7 +135,7 @@ export default function CodingRunnerSection({
             Hands-on Coding
           </span>
           <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500 border border-emerald-500/20">
-            Standard I/O (stdin/stdout)
+            {question.isStdinStdout ? 'Standard input and output' : 'Function entry point'}
           </span>
           <span className="text-xs font-semibold text-primary">
             {question.title}
@@ -214,8 +165,8 @@ export default function CodingRunnerSection({
             </p>
           </div>
 
-          {/* Standard I/O Notice */}
-          <div
+          {executionError && <p role="alert" className="text-rose-500 text-sm">{executionError}</p>}
+          {question.isStdinStdout && <div
             className="rounded-xl border p-3 text-xs"
             style={{
               borderColor: 'color-mix(in srgb, var(--ca-accent-solid) 30%, var(--ca-border))',
@@ -229,7 +180,7 @@ export default function CodingRunnerSection({
             <p className="mt-1 text-[11px] text-muted leading-relaxed">
               Read all test input from standard input (<code className="text-primary font-mono">cin</code> / <code className="text-primary font-mono">Scanner</code> / <code className="text-primary font-mono">sys.stdin</code>). Print your final answers directly to standard output (<code className="text-primary font-mono">cout</code> / <code className="text-primary font-mono">System.out</code> / <code className="text-primary font-mono">print</code>).
             </p>
-          </div>
+          </div>}
 
           {(question.inputFormat || question.outputFormat) && (
             <div className="space-y-2 text-xs">
@@ -440,7 +391,7 @@ export default function CodingRunnerSection({
             className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-4 py-2 text-xs font-bold text-white shadow-xs disabled:opacity-50 transition-all"
           >
             <Play size={13} className={isRunning ? 'animate-spin' : ''} />
-            <span>{isRunning ? 'Evaluating...' : 'Run Test Cases'}</span>
+            <span>{isRunning ? 'Evaluating...' : 'Submit Code for Grading'}</span>
           </button>
         </div>
 

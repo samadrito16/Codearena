@@ -155,10 +155,6 @@ export function evaluateLearningPath(
   const solvedSet = new Set(solvedIds);
   const problemById = new Map(problems.map((problem) => [problem.id, problem]));
 
-  // Keep track of problem IDs explicitly assigned to modules in this path so topic-tag
-  // fallbacks do not duplicate explicitly assigned problems across sibling modules.
-  const explicitIds = new Set(path.modules.flatMap((mod) => mod.problemIds));
-
   let previousAvailableComplete = true;
   const evaluatedModules: EvaluatedModule[] = [];
 
@@ -174,15 +170,6 @@ export function evaluateLearningPath(
       }
     }
 
-    // Also include newly imported/custom problems matching this module's topic tags
-    // when not explicitly bound to another module in this same path.
-    for (const problem of problems) {
-      if (seenInModule.has(problem.id) || explicitIds.has(problem.id)) continue;
-      if (problem.topics.some((topic) => mod.topicTags.includes(topic))) {
-        matchedProblems.push(problem);
-        seenInModule.add(problem.id);
-      }
-    }
 
     const totalCount = matchedProblems.length;
     const solvedCount = matchedProblems.filter((problem) => solvedSet.has(problem.id)).length;

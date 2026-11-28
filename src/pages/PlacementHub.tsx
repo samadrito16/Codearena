@@ -20,7 +20,7 @@ import {
   UserCheck,
   X,
 } from 'lucide-react';
-import { COMPANY_ASSESSMENTS } from '../data/placement/assessments';
+import { usePlacementAssessments } from '../data/placement/assessments';
 import { PLACEMENT_COMPANIES } from '../data/placement/companies';
 import { CompanyAssessment, CompanyCategory } from '../types/placement';
 import { clearActiveSession, getPlacementHistory, getStoredActiveSession } from '../lib/placement/progress';
@@ -32,6 +32,7 @@ import ResumeHrPrepTab from '../components/placement/curriculum/ResumeHrPrepTab'
 
 export default function PlacementHub() {
   const navigate = useNavigate();
+  const { data: assessments, error: catalogError } = usePlacementAssessments();
 
   const [currentHubTab, setCurrentHubTab] = useState<'oa_mocks' | 'aptitude' | 'cs_core' | 'sql_arena' | 'resume_hr'>('oa_mocks');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<'all' | CompanyCategory>('all');
@@ -49,11 +50,11 @@ export default function PlacementHub() {
   const history = useMemo(() => getPlacementHistory(), []);
 
   // Compute best percentile per assessment from history
-  const bestPercentiles = useMemo(() => {
+  const bestScores = useMemo(() => {
     const map: Record<string, number> = {};
     for (const h of history) {
-      if (!map[h.assessmentId] || h.projectedPercentile > map[h.assessmentId]) {
-        map[h.assessmentId] = h.projectedPercentile;
+      if (!map[h.assessmentId] || h.percentage > map[h.assessmentId]) {
+        map[h.assessmentId] = h.percentage;
       }
     }
     return map;
@@ -61,10 +62,10 @@ export default function PlacementHub() {
 
   // Telemetry summary
   const totalAttempts = history.length;
-  const avgPercentile =
+  const avgScore =
     totalAttempts > 0
       ? Math.round(
-          history.reduce((acc, curr) => acc + curr.projectedPercentile, 0) / totalAttempts
+          history.reduce((acc, curr) => acc + curr.percentage, 0) / totalAttempts
         )
       : 0;
 
@@ -87,7 +88,7 @@ export default function PlacementHub() {
 
   // Filter assessments
   const filteredAssessments = useMemo(() => {
-    return COMPANY_ASSESSMENTS.filter((a) => {
+    return assessments.filter((a) => {
       const compCategory = PLACEMENT_COMPANIES[a.companyId]?.category;
       if (selectedCategoryFilter !== 'all' && compCategory !== selectedCategoryFilter) {
         return false;
@@ -105,17 +106,17 @@ export default function PlacementHub() {
       }
       return true;
     });
-  }, [selectedCategoryFilter, selectedCompanyFilter, searchQuery]);
+  }, [assessments, selectedCategoryFilter, selectedCompanyFilter, searchQuery]);
 
   const activeAssessmentObj = useMemo(() => {
     if (!activeSession) return null;
-    return COMPANY_ASSESSMENTS.find((a) => a.id === activeSession.assessmentId) || null;
-  }, [activeSession]);
+    return assessments.find((a) => a.id === activeSession.assessmentId) || null;
+  }, [activeSession, assessments]);
 
   const handleLaunch = (assessmentId: string) => {
     // If an assessment is currently ongoing and user clicked a DIFFERENT mock, confirm switch
-    if (activeSession && !activeSession.isCompleted && activeSession.assessmentId !== assessmentId) {
-      const target = COMPANY_ASSESSMENTS.find((a) => a.id === assessmentId);
+    if (activeSession && activeSession.startedAt > 0 && !activeSession.isCompleted && activeSession.assessmentId !== assessmentId) {
+      const target = assessments.find((a) => a.id === assessmentId);
       if (target) {
         setSwitchModalAssessment(target);
         return;
@@ -147,7 +148,7 @@ export default function PlacementHub() {
             id: 'oa_mocks' as const,
             label: 'Company OA Simulations',
             icon: GraduationCap,
-            badge: `${COMPANY_ASSESSMENTS.length} Full Mocks`,
+            badge: `${assessments.length} Full Mocks`,
           },
           {
             id: 'aptitude' as const,
@@ -303,7 +304,7 @@ export default function PlacementHub() {
                   </div>
                 </div>
                 <div className="mt-2 font-display text-2xl font-extrabold text-primary">
-                  {COMPANY_ASSESSMENTS.length}
+                  {assessments.length}
                 </div>
                 <div className="mt-0.5 text-[10px] text-muted font-medium">Mass Recruiters + Mid-Size</div>
               </div>
@@ -335,13 +336,13 @@ export default function PlacementHub() {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <div className="text-[11px] font-semibold text-muted">Avg Percentile</div>
+                  <div className="text-[11px] font-semibold text-muted">Avg Score</div>
                   <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                     <Trophy size={14} />
                   </div>
                 </div>
                 <div className="mt-2 font-display text-2xl font-extrabold text-emerald-500">
-                  {avgPercentile > 0 ? `${avgPercentile}%` : '—'}
+                  {avgScore > 0 ? `${avgScore}%` : '—'}
                 </div>
                 <div className="mt-0.5 text-[10px] text-muted font-medium">National benchmark</div>
               </div>
@@ -395,7 +396,7 @@ export default function PlacementHub() {
                   borderColor: selectedCategoryFilter === 'all' ? undefined : 'var(--ca-border)',
                 }}
               >
-                All Companies ({COMPANY_ASSESSMENTS.length})
+                All Companies ({assessments.length})
               </button>
               <button
                 type="button"
@@ -492,13 +493,14 @@ export default function PlacementHub() {
 
           {/* Assessment Cards Grid */}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {catalogError && <p role="alert" className="text-rose-500">{catalogError}</p>}
             {filteredAssessments.map((assessment) => (
               <CompanyCard
                 key={assessment.id}
                 assessment={assessment}
                 onStart={handleLaunch}
-                bestAttemptPercentile={bestPercentiles[assessment.id]}
-                isActiveSession={activeSession?.assessmentId === assessment.id && !activeSession.isCompleted}
+                bestAttemptPercentile={bestScores[assessment.id]}
+                isActiveSession={activeSession?.assessmentId === assessment.id && activeSession.startedAt > 0 && !activeSession.isCompleted}
               />
             ))}
           </div>
@@ -620,7 +622,7 @@ export default function PlacementHub() {
 
                       <div className="text-right shrink-0">
                         <span className="font-display text-base font-extrabold text-emerald-500">
-                          {h.projectedPercentile}%ile
+                          {h.percentage}%
                         </span>
                         <div className="text-[10px] text-muted font-medium">{h.verdictTier.trackName}</div>
                       </div>

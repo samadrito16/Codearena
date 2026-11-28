@@ -1,9 +1,13 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Activity, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, Clock3, Flame, Sparkles, Target, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import StreakVisualizer from '../components/StreakVisualizer';
 import { useApp } from '../context/AppContext';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
+import { useDailyAssignment } from '../hooks/useDailyAssignment';
+import { useAsyncResource } from '../hooks/useAsyncResource';
+import { apiRequest } from '../lib/api';
+import type { Problem } from '../types';
 import {
   evaluateAllLearningPaths,
   formatDuration,
@@ -11,7 +15,6 @@ import {
   getCurrentStreak,
   getLocalDateKey,
   isDailyChallengeCompleted,
-  selectDailyChallenge,
 } from '../lib/progress';
 
 export default function DailyChallenges() {
@@ -19,21 +22,18 @@ export default function DailyChallenges() {
     solvedIds,
     activityLog,
     dailyChallengeByDate,
-    ensureDailyChallenge,
     dailyCompletions,
   } = useApp();
-  const { data: problems } = useProblems();
+  const { data: practice } = useProblems();
   const { data: learningPaths } = useLearningPaths();
 
   const today = new Date();
   const todayKey = getLocalDateKey(today);
-  const suggestedDaily = selectDailyChallenge(problems, today, solvedIds);
-  const dailyId = dailyChallengeByDate[todayKey] ?? suggestedDaily?.id;
-  const daily = problems.find((problem) => problem.id === dailyId) ?? suggestedDaily;
+  const assignment = useDailyAssignment();
+  const history = useAsyncResource<Problem[]>(signal => apiRequest('/catalog/daily/history', { signal }), [], [todayKey, assignment.data.problem?.id]);
+  const problems = history.data;
+  const daily = assignment.data.problem;
 
-  useEffect(() => {
-    if (daily?.id) ensureDailyChallenge(todayKey, daily.id);
-  }, [daily?.id, ensureDailyChallenge, todayKey]);
 
   // Daily completion is strictly tied to today's date key + today's assigned challenge ID,
   // independent of whether the problem was solved on an earlier day.
@@ -41,9 +41,9 @@ export default function DailyChallenges() {
   const solvedPreviously = Boolean(daily && !dailyDone && solvedIds.includes(daily.id));
   const dailyPath = useMemo(() => {
     if (!daily) return null;
-    const evaluated = evaluateAllLearningPaths(learningPaths, problems, solvedIds);
-    return evaluated.find((item) => item.modules.some((mod) => mod.problems.some((p) => p.id === daily.id))) ?? null;
-  }, [daily, learningPaths, problems, solvedIds]);
+    const evaluated = evaluateAllLearningPaths(learningPaths, practice, solvedIds);
+    return evaluated.find((item) => item.modules.some((mod) => mod.module.topicTags.some(topic => daily.topics.includes(topic)))) ?? null;
+  }, [daily, learningPaths, practice, solvedIds]);
   const currentStreak = getCurrentStreak(activityLog);
   const bestStreak = getBestStreak(activityLog);
   const practiceSeconds = activityLog.reduce((total, event) => total + (event.durationSeconds ?? 0), 0);
@@ -98,6 +98,7 @@ export default function DailyChallenges() {
               {daily.topics.slice(0, 3).map((topic) => <span key={topic} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-indigo-100">{topic}</span>)}
             </div>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-indigo-100/85">{daily.description}</p>
+            {assignment.data.primer && <p className="mt-2 text-sm text-indigo-100">{assignment.data.primer}</p>}
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link to={`/workspace/${daily.id}?daily=${todayKey}`} className="btn-primary">{dailyDone ? 'Review challenge' : 'Start today’s challenge'} <ArrowUpRight size={16}/></Link>
               {dailyPath && (
@@ -110,7 +111,7 @@ export default function DailyChallenges() {
             </div>
           </> : <>
             <h3 className="font-display text-2xl font-bold text-white">Your next challenge is waiting</h3>
-            <p className="mt-2 max-w-lg text-sm leading-6 text-indigo-100/80">Add a problem to your library to start a daily challenge.</p>
+            <p className="mt-2 max-w-lg text-sm leading-6 text-indigo-100/80">{assignment.status === 'loading' ? 'Finding a challenge for today…' : assignment.error ?? 'You can revisit earlier challenges or study a topic in Practice.'}</p>
             <Link to="/problems" className="btn-primary mt-5">Explore problems <ArrowRight size={15}/></Link>
           </>}
         </div>
@@ -155,8 +156,8 @@ export default function DailyChallenges() {
       <div className="panel-card p-5 sm:p-6">
         <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-300"><Sparkles size={19}/></span><div><p className="section-kicker">HOW IT WORKS</p><h3 className="section-title mt-1">Make every day count</h3></div></div>
         <div className="mt-5 space-y-4">
-          <div className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">1</span><div><p className="text-xs font-bold text-slate-800 dark:text-slate-100">Take on one daily pick</p><p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">A new problem is selected automatically each day from your library.</p></div></div>
-          <div className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">2</span><div><p className="text-xs font-bold text-slate-800 dark:text-slate-100">Solve it in the workspace</p><p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">Mark the problem solved when you finish to record your achievement.</p></div></div>
+          <div className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">1</span><div><p className="text-xs font-bold text-slate-800 dark:text-slate-100">Take on one daily pick</p><p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">Your challenge is chosen from a separate pool using topics you have studied.</p></div></div>
+          <div className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">2</span><div><p className="text-xs font-bold text-slate-800 dark:text-slate-100">Solve it in the workspace</p><p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">Submit a passing solution to record your achievement.</p></div></div>
           <div className="flex gap-3"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">3</span><div><p className="text-xs font-bold text-slate-800 dark:text-slate-100">Build your streak</p><p className="mt-1 text-[11px] leading-5 text-slate-500 dark:text-slate-400">Keep practicing on different days to grow your activity streak and arena points.</p></div></div>
         </div>
         <Link to="/progress" className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-300">View your progress <ArrowRight size={14}/></Link>

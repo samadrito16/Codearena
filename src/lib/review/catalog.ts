@@ -1,3 +1,4 @@
+import sections from '../../../backend/src/data/questionSections.json';
 import rawCatalog from '../../data/review/prism_review_scenarios.json';
 import { getReviewTestSuite } from '../../data/review/reviewTestSuites';
 import {
@@ -10,7 +11,7 @@ const parsedCatalog = rawCatalog as unknown as ReviewCatalog;
 
 export const reviewCatalog: ReviewCatalog = {
   ...parsedCatalog,
-  scenarios: parsedCatalog.scenarios.map((s) => ({
+  scenarios: parsedCatalog.scenarios.filter(s => sections.review.some(entry => entry.id === s.id)).map((s) => ({
     ...s,
     testSuite: getReviewTestSuite(s.id),
   })),

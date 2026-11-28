@@ -46,6 +46,7 @@ export type ExecutionVerdict =
   | 'Compilation Error';
 
 export interface BatchExecutionResult {
+  executionUnavailable?: boolean;
   success: boolean;
   verdict: ExecutionVerdict;
   runtimeMs: number;

@@ -145,7 +145,6 @@ Codearena/
 │   ├── data/
 │   │   ├── mastery/             # 25 Core Algorithmic Blueprints catalog
 │   │   ├── review/              # AI-era review scenario definitions
-│   │   ├── problems.ts          # Practice challenge library (100+ curated challenges with test cases)
 │   │   ├── editorials.ts        # Static editorial walkthroughs & hints
 │   │   └── platformRoadmap.ts   # Platform roadmap feature cards
 │   ├── lib/
@@ -273,3 +272,19 @@ PrismCode is open-source software licensed under the [MIT License](LICENSE).
 <p align="center">
   <sub>Designed & Engineered with care for <strong>PrismCode</strong> developers.</sub>
 </p>
+
+## Question publication
+
+Publish Practice, Daily, Interview, Placement coding, and Contest questions through the backend question catalog. Give each question one owner and a stable task key. Reuse that key in duplicate reviews when two prompts test the same underlying task. A language variant belongs to the original question.
+
+Placement mocks and contest schedules refer to the canonical coding IDs. Learning Paths link to Practice IDs. Mastery, Review, and role specific items are listed in the section manifest. Keep official tests on the server and use the public examples for in-editor runs.
+
+Run the catalog and HTTP tests before publishing. Run the reference check with Python installed and set `PRISMCODE_PYTHON` if your Python executable is not on PATH.
+
+```sh
+npm --prefix backend run test:catalog
+npm --prefix backend run test:catalog:references
+npm --prefix backend run test:catalog:review
+```
+
+The first launch against an existing database resets progress associated with the retired catalog. Verify the migration on a copy of the database before releasing it. The Admin dashboard stages drafts for repository review.

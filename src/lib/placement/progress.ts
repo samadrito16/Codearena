@@ -6,7 +6,7 @@ import {
   CompanyAssessment,
   QuestionStatus,
 } from '../../types/placement';
-import { computeAssessmentReport } from '../../data/placement/scoring';
+import { apiRequest } from '../api';
 
 const SESSION_STORAGE_KEY = 'prismcode-placement-session-v1';
 const HISTORY_STORAGE_KEY = 'prismcode-placement-history-v1';
@@ -76,7 +76,7 @@ export function createNewSession(assessment: CompanyAssessment): ActiveAssessmen
 
   return {
     assessmentId: assessment.id,
-    startedAt: Date.now(),
+    startedAt: 0,
     currentSectionIndex: 0,
     currentQuestionIndex: 0,
     sectionRemainingSeconds,
@@ -92,7 +92,7 @@ export function createNewSession(assessment: CompanyAssessment): ActiveAssessmen
 export function usePlacementSession(assessment: CompanyAssessment) {
   const [session, setSession] = useState<ActiveAssessmentSession>(() => {
     const existing = getStoredActiveSession();
-    if (existing && existing.assessmentId === assessment.id && !existing.isCompleted) {
+    if (existing && existing.assessmentId === assessment.id) {
       return existing;
     }
     const fresh = createNewSession(assessment);
@@ -101,6 +101,9 @@ export function usePlacementSession(assessment: CompanyAssessment) {
   });
 
   const [activeReport, setActiveReport] = useState<AssessmentReport | null>(null);
+  const [gradedAssessment, setGradedAssessment] = useState<CompanyAssessment | null>(null);
+  const [gradeError, setGradeError] = useState('');
+  const [gradeAttempt, setGradeAttempt] = useState(0);
   const [tabWarning, setTabWarning] = useState<boolean>(false);
 
   // Sync session state when assessment prop / URL route changes
@@ -108,7 +111,7 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     setSession((prev) => {
       if (prev.assessmentId === assessment.id) return prev;
       const existing = getStoredActiveSession();
-      if (existing && existing.assessmentId === assessment.id && !existing.isCompleted) {
+      if (existing && existing.assessmentId === assessment.id) {
         return existing;
       }
       const fresh = createNewSession(assessment);
@@ -116,10 +119,16 @@ export function usePlacementSession(assessment: CompanyAssessment) {
       return fresh;
     });
     setActiveReport(null);
+    setGradedAssessment(null);
+    setGradeError('');
   }, [assessment.id]);
 
+  const startAssessment = useCallback(() => {
+    setSession(current => current.startedAt ? current : { ...current, startedAt: Date.now() });
+  }, []);
+
   const restartAssessment = useCallback(() => {
-    const fresh = createNewSession(assessment);
+    const fresh = { ...createNewSession(assessment), startedAt: Date.now() };
     saveStoredActiveSession(fresh);
     setSession(fresh);
     setActiveReport(null);
@@ -135,7 +144,7 @@ export function usePlacementSession(assessment: CompanyAssessment) {
 
   // Timer countdown hook (section countdown)
   useEffect(() => {
-    if (session.isCompleted) return;
+    if (!session.startedAt || session.isCompleted) return;
 
     const interval = setInterval(() => {
       setSession((prev) => {
@@ -190,11 +199,11 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [assessment, session.isCompleted]);
+  }, [assessment, session.startedAt, session.isCompleted]);
 
   // Tab switch / anti-cheat listener
   useEffect(() => {
-    if (session.isCompleted) return;
+    if (!session.startedAt || session.isCompleted) return;
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
@@ -211,7 +220,7 @@ export function usePlacementSession(assessment: CompanyAssessment) {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [session.isCompleted]);
+  }, [session.startedAt, session.isCompleted]);
 
   // Actions
   const selectAnswer = useCallback((questionId: string, optionId: string) => {
@@ -327,24 +336,41 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     }
   }, [assessment, session.currentQuestionIndex, session.currentSectionIndex, goToQuestion]);
 
-  const submitAssessment = useCallback(
-    (isAuto = false) => {
-      setSession((prev) => {
-        const submitted: ActiveAssessmentSession = {
-          ...prev,
-          isCompleted: true,
-          submittedAt: Date.now(),
-          autoSubmitted: isAuto,
-        };
-        const report = computeAssessmentReport(assessment, submitted);
-        savePlacementHistoryItem(report);
-        saveStoredActiveSession(null);
-        setActiveReport(report);
-        return submitted;
-      });
-    },
-    [assessment]
-  );
+  const submitAssessment = useCallback((autoSubmitted = false) => {
+    setSession(previous => ({ ...previous, isCompleted: true, submittedAt: Date.now(), autoSubmitted }));
+  }, []);
+
+  useEffect(() => {
+    if (!session.isCompleted || activeReport) return;
+    const controller = new AbortController();
+    const receipts = Object.fromEntries(Object.entries(session.codingSubmissions).flatMap(([id, submission]) =>
+      submission.gradeReceipt ? [[id, submission.gradeReceipt]] : [],
+    ));
+    void apiRequest<{ report: AssessmentReport; assessment: CompanyAssessment }>(
+      `/placement/${encodeURIComponent(assessment.id)}/grade`,
+      {
+        method: 'POST', signal: controller.signal,
+        body: JSON.stringify({
+          answers: session.answers, receipts, startedAt: session.startedAt,
+          autoSubmitted: session.autoSubmitted, tabSwitchCount: session.tabSwitchCount,
+        }),
+      },
+    ).then(result => {
+      if (controller.signal.aborted) return;
+      setActiveReport(result.report);
+      setGradedAssessment(result.assessment);
+      savePlacementHistoryItem(result.report);
+      saveStoredActiveSession(null);
+    }).catch(error => {
+      if (!controller.signal.aborted) setGradeError(error instanceof Error ? error.message : 'Could not grade the assessment.');
+    });
+    return () => controller.abort();
+  }, [assessment.id, session, activeReport, gradeAttempt]);
+
+  const retryGrade = () => {
+    setGradeError('');
+    setGradeAttempt(attempt => attempt + 1);
+  };
 
   // Status helper for question palette
   const getQuestionStatus = useCallback(
@@ -369,6 +395,9 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     currentSection,
     currentQuestion,
     activeReport,
+    gradedAssessment,
+    gradeError,
+    retryGrade,
     tabWarning,
     setTabWarning,
     selectAnswer,
@@ -380,6 +409,7 @@ export function usePlacementSession(assessment: CompanyAssessment) {
     nextQuestion,
     prevQuestion,
     submitAssessment,
+    startAssessment,
     restartAssessment,
     getQuestionStatus,
   };

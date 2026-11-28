@@ -11,7 +11,7 @@ import {
   saveLocalProfile,
   savePrivacySettings,
 } from '../lib/profileStorage';
-import { getLocalDateKey, selectDailyChallenge } from '../lib/progress';
+import { getLocalDateKey } from '../lib/progress';
 import { readStorage, writeStorage } from '../lib/storage';
 import { problemsService, type ResourceStatus } from '../services';
 import {
@@ -67,11 +67,7 @@ interface AppContextValue {
   problemsStatus: ResourceStatus;
   problemsError: string | null;
   retryProblems: () => void;
-  addProblem: (problem: Problem) => void;
-  updateProblem: (previousId: string, updated: Problem) => void;
-  deleteProblem: (id: string) => void;
   solvedIds: string[];
-  toggleSolved: (id: string, durationSeconds?: number, language?: string) => void;
   activityLog: ActivityEvent[];
   recordPracticeSession: (problemId: string, durationSeconds: number) => void;
   submissions: SubmissionRecord[];
@@ -80,12 +76,11 @@ interface AppContextValue {
     outcome: SubmissionOutcome,
     durationSeconds?: number,
     language?: string,
-    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge' },
+    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge'; question?: Problem },
   ) => void;
   dailyChallengeByDate: Record<string, string>;
   ensureDailyChallenge: (dateKey: string, problemId: string) => void;
   dailyCompletions: Record<string, string>;
-  completeDailyChallenge: (dateKey: string, problemId: string, durationSeconds?: number, language?: string) => void;
   spacedRepetitionStore: Record<string, SpacedRepetitionItem>;
   recordSpacedReviewOutcome: (
     problemId: string,
@@ -100,7 +95,7 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | undefined>(undefined);
 
 function loadSolvedIds(): string[] {
-  const stored = readStorage<unknown>('prismcode-solved', ['two-sum', 'valid-parentheses']);
+  const stored = readStorage<unknown>('prismcode-solved', []);
   return Array.isArray(stored) ? stored.filter((item): item is string => typeof item === 'string') : ['two-sum', 'valid-parentheses'];
 }
 
@@ -177,8 +172,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [adaptiveMasteryPlan, setAdaptiveMasteryPlan] = useState<AdaptiveMasteryPlan>(() => {
     return readStorage<AdaptiveMasteryPlan>('prismcode-adaptive-mastery-plan', DEFAULT_ADAPTIVE_MASTERY_PLAN);
   });
-  const [problems, setProblems] = useState<Problem[]>(() => problemsService.listSync());
-  const [problemsStatus, setProblemsStatus] = useState<ResourceStatus>('ready');
+  const [problems, setProblems] = useState<Problem[]>([]);
+  const [problemsStatus, setProblemsStatus] = useState<ResourceStatus>('loading');
   const [problemsError, setProblemsError] = useState<string | null>(null);
   const problemsReloadRef = useRef<AbortController | null>(null);
   const [solvedIds, setSolvedIds] = useState<string[]>(loadSolvedIds);
@@ -220,9 +215,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       });
   }, []);
 
-  useEffect(() => () => {
-    problemsReloadRef.current?.abort();
-  }, []);
+  useEffect(() => {
+    retryProblems();
+    return () => problemsReloadRef.current?.abort();
+  }, [retryProblems]);
 
   useLayoutEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -253,80 +249,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     savePrivacySettings(privacySettings);
   }, [privacySettings]);
-  useEffect(() => {
-    void problemsService.saveAll(problems);
-  }, [problems]);
   useEffect(() => writeStorage('prismcode-solved', solvedIds), [solvedIds]);
   useEffect(() => writeStorage('prismcode-activity', activityLog), [activityLog]);
   useEffect(() => writeStorage('prismcode-submissions', submissions), [submissions]);
   useEffect(() => writeStorage('prismcode-daily-challenges', dailyChallengeByDate), [dailyChallengeByDate]);
   useEffect(() => writeStorage('prismcode-daily-completions', dailyCompletions), [dailyCompletions]);
-
-  const toggleSolved = useCallback((id: string, durationSeconds?: number, language = 'javascript') => {
-    const isAlreadySolved = solvedIds.includes(id);
-    setSolvedIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
-
-    if (isAlreadySolved) return;
-    const problem = problems.find((item) => item.id === id);
-    if (!problem) return;
-
-    const validDuration = typeof durationSeconds === 'number' && Number.isFinite(durationSeconds) && durationSeconds > 0
-      ? Math.round(durationSeconds)
-      : undefined;
-    const timestamp = new Date().toISOString();
-
-    // Trigger spaced repetition if solved slowly
-    if (validDuration && isSlowSolve(validDuration, problem.difficulty)) {
-      setSpacedRepetitionStore((current) => {
-        const existing = current[id];
-        if (!existing) {
-          const newItem = createSpacedRepetitionItem({
-            problemId: id,
-            problemTitle: problem.title,
-            reason: 'solved_slowly',
-            triggerTimestamp: timestamp,
-            triggerDifficulty: problem.difficulty,
-            durationSeconds: validDuration,
-          });
-          return { ...current, [id]: newItem };
-        }
-        return current;
-      });
-    }
-
-    const event: ActivityEvent = {
-      id: `solved-${id}-${Date.now()}`,
-      problemId: id,
-      title: problem.title,
-      difficulty: problem.difficulty,
-      topic: problem.topics[0] ?? 'Problem solving',
-      type: 'solved',
-      timestamp,
-      ...(validDuration !== undefined ? { durationSeconds: validDuration } : {}),
-    };
-    setActivityLog((current) => [event, ...current].slice(0, 500));
-
-    const submission: SubmissionRecord = {
-      id: `sub-${id}-${Date.now()}`,
-      problemId: id,
-      title: problem.title,
-      difficulty: problem.difficulty,
-      topics: problem.topics,
-      outcome: 'accepted',
-      language,
-      timestamp,
-      source: 'local',
-      ...(validDuration !== undefined ? { durationSeconds: validDuration } : {}),
-    };
-    setSubmissions((current) => [submission, ...current].slice(0, 500));
-
-    const today = getLocalDateKey();
-    const currentDailyId = dailyChallengeByDate[today] ?? selectDailyChallenge(problems, new Date(), solvedIds)?.id;
-    if (currentDailyId === id) {
-      setDailyChallengeByDate((current) => current[today] ? current : { ...current, [today]: id });
-      setDailyCompletions((current) => ({ ...current, [today]: id }));
-    }
-  }, [dailyChallengeByDate, problems, solvedIds]);
 
   const recordPracticeSession = useCallback((problemId: string, durationSeconds: number) => {
     // Documented minimum threshold: ignore brief visits under 30s of active workspace time.
@@ -352,9 +279,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     outcome: SubmissionOutcome,
     durationSeconds?: number,
     language = 'javascript',
-    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge' },
+    metadata?: { runtimeMs?: number; memoryMb?: number; source?: 'local' | 'onlinecompiler' | 'judge'; question?: Problem },
   ) => {
-    const problem = problems.find((item) => item.id === problemId);
+    const problem = metadata?.question ?? problems.find((item) => item.id === problemId);
     if (!problem) return;
 
     const validDuration = typeof durationSeconds === 'number' && Number.isFinite(durationSeconds) && durationSeconds > 0
@@ -390,14 +317,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setActivityLog((current) => [event, ...current].slice(0, 500));
 
     if (outcome === 'accepted') {
-      setSolvedIds((current) => current.includes(problemId) ? current : [...current, problemId]);
+      if (problem.owner !== 'daily') setSolvedIds((current) => current.includes(problemId) ? current : [...current, problemId]);
       const today = getLocalDateKey();
-      const currentDailyId = dailyChallengeByDate[today] ?? selectDailyChallenge(problems, new Date(), solvedIds)?.id;
+      const currentDailyId = dailyChallengeByDate[today];
       if (currentDailyId === problemId) {
         setDailyChallengeByDate((current) => current[today] ? current : { ...current, [today]: problemId });
         setDailyCompletions((current) => ({ ...current, [today]: problemId }));
       }
     }
+
+    if (problem.owner === 'daily') return;
 
     // Update Spaced Repetition queue
     setSpacedRepetitionStore((current) => {
@@ -448,85 +377,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, [dailyChallengeByDate, problems, solvedIds]);
 
-  const completeDailyChallenge = useCallback((
-    dateKey: string,
-    problemId: string,
-    durationSeconds?: number,
-    language = 'javascript',
-  ) => {
-    const today = getLocalDateKey();
-    // Only today's assigned daily challenge can be completed for today's date key.
-    if (dateKey !== today) return;
-    const assignedDailyId = dailyChallengeByDate[today] ?? selectDailyChallenge(problems, new Date(), solvedIds)?.id;
-    if (assignedDailyId !== problemId) return;
-
-    const problem = problems.find((item) => item.id === problemId);
-    if (!problem) return;
-
-    setDailyChallengeByDate((current) => current[today] ? current : { ...current, [today]: problemId });
-    setDailyCompletions((current) => ({ ...current, [today]: problemId }));
-    setSolvedIds((current) => current.includes(problemId) ? current : [...current, problemId]);
-
-    const validDuration = typeof durationSeconds === 'number' && Number.isFinite(durationSeconds) && durationSeconds > 0
-      ? Math.round(durationSeconds)
-      : undefined;
-    const timestamp = new Date().toISOString();
-
-    const event: ActivityEvent = {
-      id: `solved-${problemId}-${Date.now()}`,
-      problemId,
-      title: problem.title,
-      difficulty: problem.difficulty,
-      topic: problem.topics[0] ?? 'Problem solving',
-      type: 'solved',
-      timestamp,
-      ...(validDuration !== undefined ? { durationSeconds: validDuration } : {}),
-    };
-    setActivityLog((current) => [event, ...current].slice(0, 500));
-
-    const submission: SubmissionRecord = {
-      id: `sub-${problemId}-${Date.now()}`,
-      problemId,
-      title: problem.title,
-      difficulty: problem.difficulty,
-      topics: problem.topics,
-      outcome: 'accepted',
-      language,
-      timestamp,
-      source: 'local',
-      ...(validDuration !== undefined ? { durationSeconds: validDuration } : {}),
-    };
-    setSubmissions((current) => [submission, ...current].slice(0, 500));
-  }, [dailyChallengeByDate, problems, solvedIds]);
-
   const ensureDailyChallenge = useCallback((dateKey: string, problemId: string) => {
     setDailyChallengeByDate((current) => current[dateKey] ? current : { ...current, [dateKey]: problemId });
-  }, []);
-
-  const addProblem = useCallback((problem: Problem) => {
-    setProblems((current) => [problem, ...current.filter((item) => item.id !== problem.id)]);
-  }, []);
-
-  const updateProblem = useCallback((previousId: string, updated: Problem) => {
-    setProblems((current) => {
-      const exists = current.some((item) => item.id === previousId);
-      if (!exists) return [updated, ...current];
-      return current
-        .filter((item) => item.id === previousId || item.id !== updated.id)
-        .map((item) => (item.id === previousId ? updated : item));
-    });
-    if (previousId !== updated.id) {
-      setSolvedIds((current) => (
-        current.includes(previousId)
-          ? Array.from(new Set(current.map((id) => (id === previousId ? updated.id : id))))
-          : current
-      ));
-    }
-  }, []);
-
-  const deleteProblem = useCallback((id: string) => {
-    setProblems((current) => current.filter((item) => item.id !== id));
-    setSolvedIds((current) => current.filter((item) => item !== id));
   }, []);
 
   const updateProfile = useCallback((patch: Partial<Omit<LocalProfile, 'updatedAt'>>) => {
@@ -611,11 +463,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     problemsStatus,
     problemsError,
     retryProblems,
-    addProblem,
-    updateProblem,
-    deleteProblem,
     solvedIds,
-    toggleSolved,
     activityLog,
     recordPracticeSession,
     submissions,
@@ -623,12 +471,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dailyChallengeByDate,
     ensureDailyChallenge,
     dailyCompletions,
-    completeDailyChallenge,
     spacedRepetitionStore,
     recordSpacedReviewOutcome,
     snoozeSpacedReview,
     dismissSpacedReview,
-  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, adaptiveMasteryPlan, updateAdaptiveMasteryPlan, problems, problemsStatus, problemsError, retryProblems, addProblem, updateProblem, deleteProblem, solvedIds, toggleSolved, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, completeDailyChallenge, spacedRepetitionStore, recordSpacedReviewOutcome, snoozeSpacedReview, dismissSpacedReview]);
+  }), [theme, palette, fontFamily, setFontFamily, fontSize, setFontSize, profile, updateProfile, resetProfile, privacySettings, updatePrivacySettings, adaptiveMasteryPlan, updateAdaptiveMasteryPlan, problems, problemsStatus, problemsError, retryProblems, solvedIds, activityLog, recordPracticeSession, submissions, recordSubmission, dailyChallengeByDate, ensureDailyChallenge, dailyCompletions, spacedRepetitionStore, recordSpacedReviewOutcome, snoozeSpacedReview, dismissSpacedReview]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

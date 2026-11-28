@@ -5,10 +5,7 @@ console.log(`PRISMCODE PRACTICAL CHALLENGES VERIFICATION`);
 console.log(`========================================\n`);
 
 console.log(`Total challenges loaded: ${PRACTICAL_CHALLENGES.length}`);
-if (PRACTICAL_CHALLENGES.length !== 15) {
-  console.error(`FAIL: Expected 15 challenges, found ${PRACTICAL_CHALLENGES.length}`);
-  process.exit(1);
-}
+if (PRACTICAL_CHALLENGES.length === 0) throw new Error('No published practical challenges');
 
 const seenIds = new Set();
 const seenSlugs = new Set();
@@ -58,13 +55,13 @@ for (const ch of PRACTICAL_CHALLENGES) {
 }
 
 console.log('\nTrack Distribution:');
-console.log(`- Frontend UI: ${trackCounts.frontend_ui} (Expected 7)`);
-console.log(`- Backend APIs: ${trackCounts.backend_api} (Expected 4)`);
-console.log(`- SQL & Pipelines: ${trackCounts.sql_pipeline} (Expected 4)`);
+console.log(`- Frontend UI: ${trackCounts.frontend_ui}`);
+console.log(`- Backend APIs: ${trackCounts.backend_api}`);
+console.log(`- SQL & Pipelines: ${trackCounts.sql_pipeline}`);
 
-if (trackCounts.frontend_ui !== 7 || trackCounts.backend_api !== 4 || trackCounts.sql_pipeline !== 4) {
+if (Object.values(trackCounts).some(count => count < 1)) {
   console.error('FAIL: Track distribution mismatch');
   process.exit(1);
 }
 
-console.log('\nALL 15 PRACTICAL CHALLENGES VERIFIED SUCCESSFULLY!\n');
+console.log('\nALL PUBLISHED PRACTICAL CHALLENGES VERIFIED SUCCESSFULLY!\n');

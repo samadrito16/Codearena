@@ -67,6 +67,12 @@ router.post('/progress/solve', async (req: Request, res: Response) => {
     return;
   }
 
+  const verified = db.findProblemById(problemId) &&
+    db.listSubmissions(userId).some(submission => submission.problemId === problemId && submission.outcome === 'accepted');
+  if (!verified) {
+    res.status(409).json({ error: { message: 'Submit a passing solution to record this solve.' } });
+    return;
+  }
   const solvedIds = await db.recordProblemSolved(userId, problemId);
   res.json({ solvedIds });
 });

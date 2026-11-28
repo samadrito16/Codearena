@@ -1,3 +1,4 @@
+import sections from '../data/questionSections.json' with { type: 'json' };
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import { z } from 'zod';
 import { executionLimiter, dailyExecutionQuotaLimiter } from '../middleware/rateLimiter.js';
@@ -42,7 +43,7 @@ router.post(
     try {
       const { scenarioId, files } = runReviewSchema.parse(req.body);
 
-      if (!isSupportedPythonReviewScenario(scenarioId)) {
+      if (!sections.review.some(entry => entry.id === scenarioId) || !isSupportedPythonReviewScenario(scenarioId)) {
         res.status(404).json({
           error: {
             code: 'UNSUPPORTED_SCENARIO',

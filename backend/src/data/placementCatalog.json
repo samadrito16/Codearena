@@ -1,0 +1,556 @@
+[
+  {
+    "id": "tcs-campus-operations-v1",
+    "companyId": "tcs",
+    "companyName": "Tata Consultancy Services",
+    "title": "Campus Operations Mock",
+    "track": "Campus assessment",
+    "tierLabel": "Practice simulation",
+    "description": "Interpret operational data, reason about incidents, and implement two tools.",
+    "difficulty": "Intermediate",
+    "sections": [
+      {
+        "id": "tcs-campus-operations-v1-quantitative",
+        "title": "Quantitative reasoning",
+        "type": "quantitative",
+        "durationMinutes": 12,
+        "questions": [
+          {
+            "id": "oa-campus-capacity",
+            "type": "mcq",
+            "section": "quantitative",
+            "subject": "quant_arithmetic",
+            "subtopic": "Capacity",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A service desk resolves 18 tickets per hour. It has 45 tickets open and receives 6 new tickets per hour. How long until it catches up?",
+            "options": [
+              {
+                "id": "A",
+                "text": "2.5 hours"
+              },
+              {
+                "id": "B",
+                "text": "3.75 hours"
+              },
+              {
+                "id": "C",
+                "text": "5 hours"
+              },
+              {
+                "id": "D",
+                "text": "7.5 hours"
+              }
+            ],
+            "correctOptionId": "B",
+            "explanation": {
+              "summary": "The queue shrinks by 18 − 6 = 12 tickets per hour. Clearing 45 takes 45 ÷ 12 = 3.75 hours.",
+              "steps": [
+                "The queue shrinks by 18 − 6 = 12 tickets per hour. Clearing 45 takes 45 ÷ 12 = 3.75 hours."
+              ]
+            }
+          },
+          {
+            "id": "oa-campus-refund",
+            "type": "mcq",
+            "section": "quantitative",
+            "subject": "quant_arithmetic",
+            "subtopic": "Percentages",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A club cuts a ₹500 fee by 20%, then raises the discounted fee by 20%. What is the final fee?",
+            "options": [
+              {
+                "id": "A",
+                "text": "₹400"
+              },
+              {
+                "id": "B",
+                "text": "₹500"
+              },
+              {
+                "id": "C",
+                "text": "₹520"
+              },
+              {
+                "id": "D",
+                "text": "₹480"
+              }
+            ],
+            "correctOptionId": "D",
+            "explanation": {
+              "summary": "The first change gives ₹400. Multiplying ₹400 by 1.2 gives ₹480.",
+              "steps": [
+                "The first change gives ₹400. Multiplying ₹400 by 1.2 gives ₹480."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "tcs-campus-operations-v1-reasoning",
+        "title": "Logical reasoning",
+        "type": "reasoning",
+        "durationMinutes": 8,
+        "questions": [
+          {
+            "id": "oa-campus-release",
+            "type": "mcq",
+            "section": "reasoning",
+            "subject": "reasoning_deductive",
+            "subtopic": "Dependency order",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A deployment can start only after review and tests. Tests can start only after the build. Which event must precede deployment even though it is not listed as a direct requirement?",
+            "options": [
+              {
+                "id": "A",
+                "text": "The build"
+              },
+              {
+                "id": "B",
+                "text": "The rollback"
+              },
+              {
+                "id": "C",
+                "text": "The notification"
+              },
+              {
+                "id": "D",
+                "text": "The release notes"
+              }
+            ],
+            "correctOptionId": "A",
+            "explanation": {
+              "summary": "The build must come before tests, and tests must come before deployment.",
+              "steps": [
+                "The build must come before tests, and tests must come before deployment."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "tcs-campus-operations-v1-cs_fundamentals",
+        "title": "Technical fundamentals",
+        "type": "cs_fundamentals",
+        "durationMinutes": 12,
+        "questions": [
+          {
+            "id": "oa-campus-lock",
+            "type": "mcq",
+            "section": "cs_fundamentals",
+            "subject": "cs_dbms",
+            "subtopic": "Transactions",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "Two clerks both read a stock count of 12 and each writes 11 after selling one item. Which issue explains why one sale disappeared from the count?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Dirty read"
+              },
+              {
+                "id": "B",
+                "text": "Phantom read"
+              },
+              {
+                "id": "C",
+                "text": "Lost update"
+              },
+              {
+                "id": "D",
+                "text": "Foreign key violation"
+              }
+            ],
+            "correctOptionId": "C",
+            "explanation": {
+              "summary": "Both clerks compute from the same old value, so the second write overwrites the first update.",
+              "steps": [
+                "Both clerks compute from the same old value, so the second write overwrites the first update."
+              ]
+            }
+          },
+          {
+            "id": "oa-campus-cache",
+            "type": "mcq",
+            "section": "cs_fundamentals",
+            "subject": "cs_networks",
+            "subtopic": "Caching",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A browser keeps showing an old icon after the server changes it. The server logs show no request for the icon on reload. What should the team check first?",
+            "options": [
+              {
+                "id": "A",
+                "text": "The server database index"
+              },
+              {
+                "id": "B",
+                "text": "The browser cache policy"
+              },
+              {
+                "id": "C",
+                "text": "The page font size"
+              },
+              {
+                "id": "D",
+                "text": "The database transaction order"
+              }
+            ],
+            "correctOptionId": "B",
+            "explanation": {
+              "summary": "A cached response can satisfy the browser without a new server request.",
+              "steps": [
+                "A cached response can satisfy the browser without a new server request."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "tcs-campus-operations-v1-coding",
+        "title": "Coding case studies",
+        "type": "coding",
+        "durationMinutes": 35,
+        "questions": [
+          {
+            "id": "hamming-active-flags-count",
+            "type": "coding",
+            "section": "coding",
+            "subject": "cs_pseudocode",
+            "subtopic": "Bit Manipulation",
+            "difficulty": "Easy",
+            "marks": 15,
+            "negativeMarks": 0,
+            "problemId": "hamming-active-flags-count",
+            "isStdinStdout": false
+          },
+          {
+            "id": "spreadsheet-postfix-formula-engine",
+            "type": "coding",
+            "section": "coding",
+            "subject": "cs_pseudocode",
+            "subtopic": "Stack",
+            "difficulty": "Medium",
+            "marks": 15,
+            "negativeMarks": 0,
+            "problemId": "spreadsheet-postfix-formula-engine",
+            "isStdinStdout": false
+          }
+        ]
+      }
+    ],
+    "totalDurationMinutes": 67,
+    "totalMarks": 40,
+    "enforceSectionLock": true,
+    "allowBacktrackingWithinSection": true,
+    "tags": [
+      "Case studies",
+      "Coding",
+      "Technical fundamentals"
+    ],
+    "cutoffTiers": [
+      {
+        "trackName": "Strong mock result",
+        "minOverallPercentage": 75,
+        "badgeColor": "text-emerald-500",
+        "description": "You met the top target for this mock."
+      },
+      {
+        "trackName": "Building proficiency",
+        "minOverallPercentage": 50,
+        "badgeColor": "text-blue-500",
+        "description": "Review your weakest section before a retake."
+      },
+      {
+        "trackName": "Needs practice",
+        "minOverallPercentage": 0,
+        "badgeColor": "text-amber-500",
+        "description": "Use the topic breakdown to choose what to practice."
+      }
+    ]
+  },
+  {
+    "id": "infosys-service-analytics-v1",
+    "companyId": "infosys",
+    "companyName": "Infosys Limited",
+    "title": "Service Analytics Mock",
+    "track": "Technical assessment",
+    "tierLabel": "Practice simulation",
+    "description": "Make decisions from service measurements and work through two programming tasks.",
+    "difficulty": "Intermediate",
+    "sections": [
+      {
+        "id": "infosys-service-analytics-v1-quantitative",
+        "title": "Quantitative reasoning",
+        "type": "quantitative",
+        "durationMinutes": 12,
+        "questions": [
+          {
+            "id": "oa-service-uptime",
+            "type": "mcq",
+            "section": "quantitative",
+            "subject": "quant_arithmetic",
+            "subtopic": "Measurement",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A check runs every minute for one hour. Four checks fail and two produce no measurement. What fraction of checks with measurements succeeded?",
+            "options": [
+              {
+                "id": "A",
+                "text": "54/60"
+              },
+              {
+                "id": "B",
+                "text": "56/60"
+              },
+              {
+                "id": "C",
+                "text": "54/58"
+              },
+              {
+                "id": "D",
+                "text": "58/60"
+              }
+            ],
+            "correctOptionId": "C",
+            "explanation": {
+              "summary": "There are 58 measured checks, of which 54 succeed.",
+              "steps": [
+                "There are 58 measured checks, of which 54 succeed."
+              ]
+            }
+          },
+          {
+            "id": "oa-service-sampling",
+            "type": "mcq",
+            "section": "quantitative",
+            "subject": "quant_pnc_prob",
+            "subtopic": "Probability",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A box contains two red and three blue test badges. Two badges are chosen without replacement. What is the probability both are red?",
+            "options": [
+              {
+                "id": "A",
+                "text": "1/10"
+              },
+              {
+                "id": "B",
+                "text": "4/25"
+              },
+              {
+                "id": "C",
+                "text": "2/5"
+              },
+              {
+                "id": "D",
+                "text": "1/5"
+              }
+            ],
+            "correctOptionId": "A",
+            "explanation": {
+              "summary": "The first red has probability 2/5. The next red has probability 1/4. Multiplying gives 1/10.",
+              "steps": [
+                "The first red has probability 2/5. The next red has probability 1/4. Multiplying gives 1/10."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "infosys-service-analytics-v1-verbal",
+        "title": "Reading comprehension",
+        "type": "verbal",
+        "durationMinutes": 8,
+        "questions": [
+          {
+            "id": "oa-service-message",
+            "type": "mcq",
+            "section": "verbal",
+            "subject": "verbal_comprehension",
+            "subtopic": "Reading evidence",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "An incident note says: “Checkout was slow in the east region. Over the same period, west region measurements remained normal.” Which claim is supported?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Checkout failed in both regions"
+              },
+              {
+                "id": "B",
+                "text": "All east requests failed"
+              },
+              {
+                "id": "C",
+                "text": "Checkout was slow worldwide"
+              },
+              {
+                "id": "D",
+                "text": "The reported slowdown was limited to east measurements"
+              }
+            ],
+            "correctOptionId": "D",
+            "explanation": {
+              "summary": "The note reports slow checkout in the east and normal measurements in the west.",
+              "steps": [
+                "The note reports slow checkout in the east and normal measurements in the west."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "infosys-service-analytics-v1-cs_fundamentals",
+        "title": "Technical fundamentals",
+        "type": "cs_fundamentals",
+        "durationMinutes": 12,
+        "questions": [
+          {
+            "id": "oa-service-job",
+            "type": "mcq",
+            "section": "cs_fundamentals",
+            "subject": "cs_os",
+            "subtopic": "Scheduling",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A new high-priority job arrives while a lower priority job is running. Which scheduling behavior lets the new job run immediately?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Spooling"
+              },
+              {
+                "id": "B",
+                "text": "Preemption"
+              },
+              {
+                "id": "C",
+                "text": "Swapping"
+              },
+              {
+                "id": "D",
+                "text": "Batching"
+              }
+            ],
+            "correctOptionId": "B",
+            "explanation": {
+              "summary": "Preemption interrupts the running job so the scheduler can run the higher-priority job.",
+              "steps": [
+                "Preemption interrupts the running job so the scheduler can run the higher-priority job."
+              ]
+            }
+          },
+          {
+            "id": "oa-service-wrapper",
+            "type": "mcq",
+            "section": "cs_fundamentals",
+            "subject": "cs_oops",
+            "subtopic": "Interfaces",
+            "difficulty": "Medium",
+            "marks": 2,
+            "negativeMarks": 0,
+            "question": "A report exporter supports CSV and JSON today. What lets callers use a new XML exporter without knowing its concrete class?",
+            "options": [
+              {
+                "id": "A",
+                "text": "A shared exporter interface"
+              },
+              {
+                "id": "B",
+                "text": "A longer method name"
+              },
+              {
+                "id": "C",
+                "text": "One global output string"
+              },
+              {
+                "id": "D",
+                "text": "A private file extension"
+              }
+            ],
+            "correctOptionId": "A",
+            "explanation": {
+              "summary": "Each exporter implements the same interface, so callers can request an export through that contract.",
+              "steps": [
+                "Each exporter implements the same interface, so callers can request an export through that contract."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "infosys-service-analytics-v1-coding",
+        "title": "Coding case studies",
+        "type": "coding",
+        "durationMinutes": 35,
+        "questions": [
+          {
+            "id": "priority-lane-three-tier-sort",
+            "type": "coding",
+            "section": "coding",
+            "subject": "cs_pseudocode",
+            "subtopic": "Sorting",
+            "difficulty": "Medium",
+            "marks": 15,
+            "negativeMarks": 0,
+            "problemId": "priority-lane-three-tier-sort",
+            "isStdinStdout": false
+          },
+          {
+            "id": "dna-primer-shared-backbone",
+            "type": "coding",
+            "section": "coding",
+            "subject": "cs_pseudocode",
+            "subtopic": "Dynamic Programming",
+            "difficulty": "Medium",
+            "marks": 15,
+            "negativeMarks": 0,
+            "problemId": "dna-primer-shared-backbone",
+            "isStdinStdout": false
+          }
+        ]
+      }
+    ],
+    "totalDurationMinutes": 67,
+    "totalMarks": 40,
+    "enforceSectionLock": true,
+    "allowBacktrackingWithinSection": true,
+    "tags": [
+      "Case studies",
+      "Coding",
+      "Technical fundamentals"
+    ],
+    "cutoffTiers": [
+      {
+        "trackName": "Strong mock result",
+        "minOverallPercentage": 75,
+        "badgeColor": "text-emerald-500",
+        "description": "You met the top target for this mock."
+      },
+      {
+        "trackName": "Building proficiency",
+        "minOverallPercentage": 50,
+        "badgeColor": "text-blue-500",
+        "description": "Review your weakest section before a retake."
+      },
+      {
+        "trackName": "Needs practice",
+        "minOverallPercentage": 0,
+        "badgeColor": "text-amber-500",
+        "description": "Use the topic breakdown to choose what to practice."
+      }
+    ]
+  }
+]

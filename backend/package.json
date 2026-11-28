@@ -9,8 +9,11 @@
     "build": "tsc",
     "mastery:build": "node scripts/mastery_generators/build_curated_25.mjs",
     "mastery:verify": "python scripts/verify_mastery_blueprints.py",
-    "test": "node tests/execution.test.mjs && node tests/certificates.test.mjs && tsx tests/spacedRepetition.test.ts && tsx tests/tracer.test.ts && tsx tests/scaleBenchmarks.test.ts && tsx tests/editorialsQuality.test.ts && tsx tests/topicConsistency.test.ts && tsx tests/contests.test.ts",
-    "start": "node dist/index.js"
+    "test": "npm run test:catalog && node tests/execution.test.mjs && node tests/certificates.test.mjs && tsx tests/spacedRepetition.test.ts && tsx tests/tracer.test.ts && tsx tests/scaleBenchmarks.test.ts && tsx tests/editorialsQuality.test.ts && tsx tests/topicConsistency.test.ts && tsx tests/contests.test.ts",
+    "start": "node dist/index.js",
+    "test:catalog": "npm run build && node tests/questionCatalog.test.mjs && node tests/catalogIntegration.test.mjs",
+    "test:catalog:references": "npm run build && node tests/questionCatalog.test.mjs --references",
+    "test:catalog:review": "tsx tests/reviewCatalogQuality.test.ts"
   },
   "dependencies": {
     "@clerk/express": "^2.1.93",

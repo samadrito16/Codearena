@@ -1,3 +1,4 @@
+import { useDailyAssignment } from '../hooks/useDailyAssignment';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ArrowRight,
@@ -24,7 +25,6 @@ import {
   getCurrentStreak,
   getLocalDateKey,
   isDailyChallengeCompleted,
-  selectDailyChallenge,
 } from '../lib/progress';
 import { DifficultyBadge } from '../pages/Dashboard';
 import type { ActivityEvent, Problem, SubmissionRecord } from '../types';
@@ -208,30 +208,16 @@ export function QuickStatsRow() {
  * ─────────────────────────────────────────────────────────────
  */
 export function DailyChallengeCard() {
-  const { problems, solvedIds, dailyChallengeByDate, dailyCompletions } = useApp();
+  const { dailyCompletions } = useApp();
+  const assignment = useDailyAssignment();
 
-  const today = useMemo(() => new Date(), []);
-  const todayKey = useMemo(() => getLocalDateKey(today), [today]);
+  const today = new Date();
+  const todayKey = getLocalDateKey(today);
 
-  const challengeProblem = useMemo(() => {
-    if (!problems.length) return undefined;
-    const assignedId = dailyChallengeByDate[todayKey];
-    if (assignedId) {
-      const match = problems.find((p) => p.id === assignedId);
-      if (match) return match;
-    }
-    return selectDailyChallenge(problems, today, solvedIds);
-  }, [problems, dailyChallengeByDate, todayKey, today, solvedIds]);
+  const challengeProblem = assignment.data.problem;
+  const isCompleted = isDailyChallengeCompleted(dailyCompletions, todayKey, challengeProblem?.id);
 
-  const isCompleted = useMemo(() => {
-    if (!challengeProblem) return false;
-    return (
-      isDailyChallengeCompleted(dailyCompletions, todayKey, challengeProblem.id) ||
-      solvedIds.includes(challengeProblem.id)
-    );
-  }, [challengeProblem, dailyCompletions, todayKey, solvedIds]);
-
-  if (!challengeProblem) return null;
+  if (!challengeProblem) return <Link to="/daily-challenges" className="btn-secondary">Daily Challenges</Link>;
 
   return (
     <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border p-5 sm:p-7 transition-all duration-300"
@@ -290,7 +276,7 @@ export function DailyChallengeCard() {
 
           <div>
             <Link
-              to={`/workspace/${challengeProblem.id}`}
+              to={`/workspace/${challengeProblem.id}?daily=${todayKey}`}
               className="group inline-flex items-center gap-2"
             >
               <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-primary group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
@@ -329,7 +315,7 @@ export function DailyChallengeCard() {
         {/* Right Column: CTA Buttons */}
         <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 shrink-0 sm:items-center md:items-end">
           <Link
-            to={`/workspace/${challengeProblem.id}`}
+            to={`/workspace/${challengeProblem.id}?daily=${todayKey}`}
             className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-xs ${
               isCompleted
                 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/15'

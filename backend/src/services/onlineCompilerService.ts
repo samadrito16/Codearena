@@ -39,8 +39,8 @@ export async function runTestCases(
 ): Promise<BatchExecutionResult> {
   if (!testCases || testCases.length === 0) {
     return {
-      success: true,
-      verdict: 'Accepted',
+      success: false,
+      verdict: 'Runtime Error',
       runtimeMs: 0,
       memoryMb: 0,
       totalPassed: 0,
@@ -67,6 +67,7 @@ export async function runTestCases(
   let overallStdout = '';
   let finalVerdict: ExecutionVerdict = 'Accepted';
   let hasFailed = false;
+  let executionUnavailable = false;
   let failingCaseNumber: number | undefined = undefined;
 
   const evaluations: TestCaseEvaluation[] = [];
@@ -78,6 +79,10 @@ export async function runTestCases(
     maxMemory = res.memoryMb;
 
     const isTle = res.exitCode === 124;
+    if (res.exitCode !== 0) {
+      hasFailed = true;
+      finalVerdict = isTle ? 'Time Limit Exceeded' : 'Runtime Error';
+    }
     const cleanedErr = cleanErrorMessage(res.stderr);
     if (cleanedErr) {
       overallStderr = cleanedErr;
@@ -131,7 +136,7 @@ export async function runTestCases(
           runtimeMs: 0,
           stderr: cleanedErr,
         });
-        if (!hasFailed) {
+        if (finalVerdict !== 'Compilation Error') {
           hasFailed = true;
           finalVerdict = 'Compilation Error';
           failingCaseNumber = tc.caseNumber;
@@ -234,6 +239,7 @@ export async function runTestCases(
       }
     }
   } catch (err: unknown) {
+    executionUnavailable = true;
     hasFailed = true;
     finalVerdict = 'Runtime Error';
     const errMsg = err instanceof Error ? err.message : String(err);
@@ -263,6 +269,7 @@ export async function runTestCases(
   }
 
   return {
+    executionUnavailable,
     success: finalVerdict === 'Accepted',
     verdict: finalVerdict,
     runtimeMs: maxRuntime,

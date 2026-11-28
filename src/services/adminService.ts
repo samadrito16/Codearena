@@ -2,6 +2,7 @@ import { apiRequest } from '../lib/api';
 import type { AdminImportResponse, AdminStats, AuditLog, Problem } from '../types';
 
 export const adminService = {
+  listDrafts: (signal?: AbortSignal) => apiRequest<Problem[]>('/admin/problems/drafts', { signal }),
   /**
    * Fetch system overview stats for administrative dashboard.
    */

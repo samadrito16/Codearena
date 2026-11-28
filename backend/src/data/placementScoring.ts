@@ -6,26 +6,7 @@ import {
   QuestionSubject,
   SectionScoreReport,
   TopicDiagnostics,
-} from '../../types/placement';
-
-// Mathematical approximation of Normal Cumulative Distribution Function (CDF)
-function normalCdf(z: number): number {
-  // Using accurate logistic approximation for standard normal CDF
-  return 1 / (1 + Math.exp(-1.702 * z));
-}
-
-// Compute national percentile using Gaussian bell-curve against national candidate pool
-export function calculateNationalPercentile(userPercentage: number): number {
-  // Standard normalized recruitment exam distribution (mean: 46.0, stdDev: 15.5)
-  const mean = 46.0;
-  const stdDev = 15.5;
-
-  const zScore = (userPercentage - mean) / stdDev;
-  const percentile = normalCdf(zScore) * 100;
-
-  // Clamped between 2.0% and 99.8%
-  return Math.min(99.8, Math.max(2.0, Math.round(percentile * 10) / 10));
-}
+} from '../types/placement.js';
 
 const SUBJECT_TITLES: Record<QuestionSubject, string> = {
   quant_arithmetic: 'Arithmetic & Commercial Math',
@@ -129,7 +110,6 @@ export function computeAssessmentReport(
   }
 
   const overallPercentage = maxScore > 0 ? Math.round((totalScore / maxScore) * 100) : 0;
-  const projectedPercentile = calculateNationalPercentile(overallPercentage);
 
   // Determine Qualifying Verdict Tier
   const sortedTiers = [...assessment.cutoffTiers].sort(
@@ -167,18 +147,15 @@ export function computeAssessmentReport(
   const summaryFeedback: string[] = [];
   if (overallPercentage >= 78) {
     summaryFeedback.push(
-      `Outstanding performance! Your score puts you in the top ${Math.max(
-        1,
-        100 - Math.round(projectedPercentile)
-      )}% nationally, securing candidate shortlisting for premium roles.`
+      "Strong mock result. Review your missed questions before your next attempt."
     );
   } else if (overallPercentage >= 60) {
     summaryFeedback.push(
-      `Solid score qualifying for standard track interviews. Strengthening advanced sections will elevate you to high-package tiers.`
+      `You met the practice target. Use the section breakdown to choose what to study next.`
     );
   } else {
     summaryFeedback.push(
-      `Score is currently below national placement cutoff. Targeted review of CS core topics and timed aptitude drills will bridge the gap.`
+      `Your score is below the target for this mock. Targeted review of CS core topics and timed aptitude drills will bridge the gap.`
     );
   }
 
@@ -220,7 +197,6 @@ export function computeAssessmentReport(
     totalScore,
     maxScore,
     percentage: overallPercentage,
-    projectedPercentile,
     verdictTier,
     allTiers: assessment.cutoffTiers,
     sectionalReports,

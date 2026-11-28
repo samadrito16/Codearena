@@ -12,6 +12,7 @@ export interface TestCaseResult {
 }
 
 export interface ExecutionResponse {
+  gradeReceipt?: string;
   success: boolean;
   verdict: 'Accepted' | 'Wrong Answer' | 'Time Limit Exceeded' | 'Runtime Error' | 'Compilation Error';
   runtimeMs: number;
@@ -37,6 +38,8 @@ export interface ExecutionResponse {
 
 export async function runCode(options: {
   problemId: string;
+  roundId?: string;
+  contestId?: string;
   code: string;
   language: string;
   customInput?: string;
@@ -50,12 +53,12 @@ export async function runCode(options: {
 
 export async function submitCode(options: {
   problemId: string;
+  roundId?: string;
+  contestId?: string;
   code: string;
   language: string;
   durationSeconds?: number;
-  cases?: { caseNumber?: number; input: string; expected?: string }[];
-  title?: string;
-  difficulty?: string;
+  dailyDate?: string;
 }): Promise<ExecutionResponse> {
   return apiRequest<ExecutionResponse>('/submissions/submit', {
     method: 'POST',

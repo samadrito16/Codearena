@@ -1,8 +1,13 @@
+import sections from '../../../backend/src/data/questionSections.json';
 import rawCatalog from '../../../data/mastery/prism_code_mastery_catalog.json';
 import { MasteryCatalog, MasteryProblem, PatternId } from '../../types/mastery';
 
 export type { PatternId };
-export const masteryCatalog: MasteryCatalog = rawCatalog as unknown as MasteryCatalog;
+const source = rawCatalog as unknown as MasteryCatalog;
+export const masteryCatalog: MasteryCatalog = {
+  ...source,
+  problems: source.problems.filter(problem => sections.mastery.some(entry => entry.id === problem.id)),
+};
 
 export interface PatternInfo {
   id: PatternId;

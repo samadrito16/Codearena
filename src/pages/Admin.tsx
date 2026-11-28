@@ -27,7 +27,6 @@ import {
 import AdminWorkspacePreview from '../components/AdminWorkspacePreview';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import ErrorAlert from '../components/ui/ErrorAlert';
-import { useApp } from '../context/AppContext';
 import {
   createEmptyDraft,
   draftFromProblem,
@@ -44,7 +43,15 @@ import type { AdminStats, AuditLog, Difficulty, Problem } from '../types';
 type EditorViewMode = 'split' | 'form' | 'preview';
 
 export default function Admin() {
-  const { problems, addProblem, updateProblem, deleteProblem } = useApp();
+  const [problems, setProblems] = useState<Problem[]>([]);
+  const addProblem = (problem: Problem) => setProblems(current => [problem, ...current.filter(item => item.id !== problem.id)]);
+  const updateProblem = (id: string, problem: Problem) => setProblems(current => current.map(item => item.id === id ? problem : item));
+  const deleteProblem = (id: string) => setProblems(current => current.filter(item => item.id !== id));
+  useEffect(() => {
+    const controller = new AbortController();
+    void adminService.listDrafts(controller.signal).then(setProblems).catch(() => {});
+    return () => controller.abort();
+  }, []);
   const fileRef = useRef<HTMLInputElement>(null);
   const editorSectionRef = useRef<HTMLElement>(null);
 
@@ -385,7 +392,7 @@ export default function Admin() {
       <div className="min-w-0">
         <p className="text-xs font-bold text-primary">Authorized Administrator Console</p>
         <p className="mt-0.5 text-[11px] leading-5 text-muted">
-          All problem creations, updates, deletions, and batch imports are verified through authorized server APIs and persisted to the backend database with administrative audit logging.
+          Create, preview, and import drafts. Publish reviewed questions through the repository catalog.
         </p>
       </div>
     </section>
@@ -438,7 +445,7 @@ export default function Admin() {
             </h3>
             <p className="mt-0.5 text-[11px] text-muted">
               {editingId
-                ? 'Editing an existing local question. Changes update the library immediately on save.'
+                ? 'Editing an existing local question. Save drafts here and review catalog changes in the repository.'
                 : 'Author a complete problem with examples, constraints, and live workspace preview.'}
             </p>
           </div>
@@ -800,7 +807,7 @@ export default function Admin() {
     <section className="panel-card overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-4" style={{ borderColor: 'var(--ca-border)' }}>
         <div>
-          <h3 className="section-title">Local question bank ({problems.length})</h3>
+          <h3 className="section-title">Question drafts ({problems.length})</h3>
           <p className="mt-0.5 text-[11px] text-muted">Preview, edit, or delete any question stored in this browser’s demo library.</p>
         </div>
         <div className="search-field h-9 w-full sm:w-64">

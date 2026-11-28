@@ -27,7 +27,6 @@ import {
 import { useApp } from '../context/AppContext';
 import { useUi } from '../context/UiContext';
 import { useLearningPaths, useProblems } from '../hooks/useDataServices';
-import { getLocalDateKey, selectDailyChallenge } from '../lib/progress';
 import EmptyState from './ui/EmptyState';
 
 type CommandGroup = 'Quick actions' | 'Navigation' | 'Problems' | 'Learning paths';
@@ -75,9 +74,6 @@ export default function CommandPalette() {
   }, [commandPaletteOpen]);
 
   const allItems = useMemo<CommandItem[]>(() => {
-    const today = new Date();
-    const todayKey = getLocalDateKey(today);
-    const dailyId = dailyChallengeByDate[todayKey] ?? selectDailyChallenge(problems, today, solvedIds)?.id;
     const nextUnsolved = problems.find((item) => !solvedIds.includes(item.id)) ?? problems[0];
 
     const quickActions: CommandItem[] = [
@@ -97,7 +93,7 @@ export default function CommandPalette() {
           closeCommandPalette();
         },
       },
-      ...(dailyId ? [{
+      {
         id: 'action-today-daily',
         group: 'Quick actions' as const,
         title: 'Open today’s daily challenge',
@@ -108,9 +104,9 @@ export default function CommandPalette() {
         badgeTone: 'neutral' as const,
         onSelect: () => {
           closeCommandPalette();
-          requestNavigate(`/workspace/${dailyId}?daily=${todayKey}`);
+          requestNavigate('/daily-challenges');
         },
-      }] : []),
+      },
       ...(nextUnsolved ? [{
         id: 'action-next-unsolved',
         group: 'Quick actions' as const,
@@ -129,7 +125,7 @@ export default function CommandPalette() {
 
     const navItems: CommandItem[] = [
       { path: '/dashboard', title: 'Overview', subtitle: 'Dashboard, recommendations, and recent sessions', keywords: 'home dashboard overview', icon: <LayoutDashboard size={15}/> },
-      { path: '/mastery', title: 'Pattern Mastery', subtitle: 'Master the 5 core patterns through active blueprint recall', keywords: 'pattern mastery blueprints triggers subgoals recall two pointers sliding window', icon: <Sparkles size={15}/>, badge: '25 Blueprints' },
+      { path: '/mastery', title: 'Pattern Mastery', subtitle: 'Master the 5 core patterns through active blueprint recall', keywords: 'pattern mastery blueprints triggers subgoals recall two pointers sliding window', icon: <Sparkles size={15}/>, badge: 'Curated Blueprints' },
       { path: '/learning-paths', title: 'Learning paths', subtitle: '8 structured DSA roadmaps', keywords: 'roadmap curriculum modules paths', icon: <Map size={15}/> },
       { path: '/editor', title: 'Code Editor', subtitle: 'Personal multi-language scratchpad and playground', keywords: 'editor scratchpad personal playground code editor', icon: <Compass size={15}/> },
       { path: '/problems?filter=review_due', title: 'Spaced Repetition Reviews', subtitle: 'Review problems scheduled at 3, 7, and 21 day intervals', keywords: 'spaced repetition review failed slow retention leitner', icon: <Brain size={15}/> },
@@ -194,7 +190,7 @@ export default function CommandPalette() {
     }));
 
     return [...quickActions, ...navItems, ...problemItems, ...pathItems];
-  }, [announce, closeCommandPalette, dailyChallengeByDate, learningPaths, problems, requestNavigate, setTheme, solvedIds, theme]);
+  }, [announce, closeCommandPalette, learningPaths, problems, requestNavigate, setTheme, solvedIds, theme]);
 
   const filteredItems = useMemo(() => {
     const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
