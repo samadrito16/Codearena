@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { config } from './config.js';
 import { db } from './db/database.js';
+import { contentDatabase } from './db/prisma.js';
 import { attachUser } from './middleware/auth.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
@@ -22,6 +23,7 @@ import peerSolutionRoutes from './routes/peerSolutionRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import { placementRouter } from './routes/placementRoutes.js';
 import { catalogRouter } from './routes/catalogRoutes.js';
+import { adminLearningPathRouter, learningPathRouter } from './routes/learningPathRoutes.js';
 
 const app = express();
 
@@ -91,6 +93,8 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/problems', problemRoutes);
 app.use('/api/editorials', editorialRoutes);
+app.use('/api/learning-paths', learningPathRouter);
+app.use('/api/admin/learning-paths', adminLearningPathRouter);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/submissions', submissionRoutes);
@@ -120,6 +124,14 @@ app.use(errorHandler);
 // Start server after initializing database
 async function bootstrap() {
   try {
+    const database = contentDatabase();
+    if (database) {
+      try {
+        await database.contentEntry.count();
+      } catch {
+        throw new Error('PostgreSQL content is unavailable. Check DATABASE_URL and apply the Prisma migrations.');
+      }
+    }
     await db.init();
     app.listen(config.port, () => {
       console.log(`[PrismCode Backend] Server listening on http://localhost:${config.port}`);

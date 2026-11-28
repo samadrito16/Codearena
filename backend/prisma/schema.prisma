@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model ContentEntry {
+  id                String            @id @default(uuid())
+  kind              String
+  slug              String
+  version           Int               @default(1)
+  revision          Int
+  publishedRevision Int?
+  order             Int?
+  revisions         ContentRevision[]
+  events            ContentEvent[]
+
+  @@unique([kind, slug])
+  @@index([kind, order])
+}
+
+model ContentRevision {
+  entryId   String
+  number    Int
+  body      Json
+  actor     String?
+  createdAt DateTime     @default(now())
+  entry     ContentEntry @relation(fields: [entryId], references: [id], onDelete: Restrict)
+
+  @@id([entryId, number])
+}
+
+model ContentEvent {
+  id        String       @id @default(uuid())
+  entryId   String
+  action    String
+  revision  Int
+  actor     String
+  createdAt DateTime     @default(now())
+  entry     ContentEntry @relation(fields: [entryId], references: [id], onDelete: Restrict)
+
+  @@index([entryId, createdAt])
+}

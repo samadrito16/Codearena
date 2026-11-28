@@ -5,8 +5,11 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed:learning-paths": "tsx scripts/seedLearningPaths.ts",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "mastery:build": "node scripts/mastery_generators/build_curated_25.mjs",
     "mastery:verify": "python scripts/verify_mastery_blueprints.py",
     "test": "npm run test:catalog && node tests/execution.test.mjs && node tests/certificates.test.mjs && tsx tests/spacedRepetition.test.ts && tsx tests/tracer.test.ts && tsx tests/scaleBenchmarks.test.ts && tsx tests/editorialsQuality.test.ts && tsx tests/topicConsistency.test.ts && tsx tests/contests.test.ts",
@@ -17,6 +20,7 @@
   },
   "dependencies": {
     "@clerk/express": "^2.1.93",
+    "@prisma/client": "6.19.3",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -32,6 +36,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.2",
+    "prisma": "6.19.3",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

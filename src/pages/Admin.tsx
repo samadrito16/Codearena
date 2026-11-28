@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
+import LearningPathAdmin from '../components/LearningPathAdmin';
 import {
   Activity,
   AlertCircle,
@@ -431,6 +432,8 @@ export default function Admin() {
         </div>
       )
     )}
+
+    <LearningPathAdmin />
 
     {/* Question Editor + Live Workspace Preview */}
     <section ref={editorSectionRef} className="panel-card p-5 sm:p-6">

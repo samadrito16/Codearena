@@ -45,25 +45,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
           clerkUserId = verified.sub;
         }
       } catch {
-        // Fallback to token payload below
-      }
-    }
-
-    // B. Fallback / seamless Clerk token payload decoding
-    if (!clerkUserId) {
-      try {
-        const parts = bearerToken.split('.');
-        if (parts.length === 3) {
-          const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
-          if (payload && typeof payload.sub === 'string' && payload.sub.startsWith('user_')) {
-            const isNotExpired = !payload.exp || (payload.exp * 1000 > Date.now());
-            if (isNotExpired) {
-              clerkUserId = payload.sub;
-            }
-          }
-        }
-      } catch {
-        // Not a decodable JWT
+        // The bearer token may still be a PrismCode session token.
       }
     }
 
@@ -105,7 +87,7 @@ export async function attachUser(req: Request, res: Response, next: NextFunction
         await db.createUser(user);
       }
 
-      req.user = db.toPublicUser(user);
+      if (user.isActive) req.user = db.toPublicUser(user);
       next();
       return;
     }

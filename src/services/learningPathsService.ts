@@ -1,26 +1,26 @@
 import { learningPaths, type LearningModule, type LearningPath } from '../data/learningPaths';
+import { ApiError, apiRequest } from '../lib/api';
 import type { LearningPathsRepository } from './types';
 
 export type { LearningModule, LearningPath };
 
-function throwIfAborted(signal?: AbortSignal): void {
-  if (signal?.aborted) {
-    throw new DOMException('Request aborted', 'AbortError');
+async function list(signal?: AbortSignal): Promise<LearningPath[]> {
+  try {
+    return await apiRequest<LearningPath[]>('/learning-paths', { signal, silent: true });
+  } catch (error) {
+    signal?.throwIfAborted();
+    if (error instanceof ApiError &&
+      (error.code === 'CONTENT_UNCONFIGURED' || (import.meta.env.DEV && error.status === 0))) {
+      return [...learningPaths];
+    }
+    throw error;
   }
 }
 
-/**
- * Static learning paths repository adapter.
- * Swap this implementation for a curriculum API without modifying page components.
- */
 export const learningPathsService: LearningPathsRepository = {
-  async list(signal?: AbortSignal): Promise<LearningPath[]> {
-    throwIfAborted(signal);
-    return Promise.resolve([...learningPaths]);
-  },
+  list,
 
   async getById(id: string, signal?: AbortSignal): Promise<LearningPath | null> {
-    throwIfAborted(signal);
-    return Promise.resolve(learningPaths.find((item) => item.id === id) ?? null);
+    return (await list(signal)).find(item => item.id === id) ?? null;
   },
 };

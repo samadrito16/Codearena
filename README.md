@@ -40,6 +40,7 @@ git clone https://github.com/samadrito16/PrismCode.git
 cd PrismCode
 npm install
 npm --prefix backend install
+npm --prefix backend run db:generate
 ```
 
 Create the backend environment file from the example.
@@ -86,6 +87,26 @@ npm run dev
 ```
 
 Open the local address printed by Vite, usually `http://localhost:5173`. The backend health endpoint is available at `http://localhost:8000/api/health`.
+
+## Cloud PostgreSQL
+
+Learning paths are the first content type supported by PostgreSQL. Use a separate cloud test database while reviewing this migration. Other content and user records still use their existing storage.
+
+1. Create an empty Neon project for testing and copy the pooled and direct PostgreSQL URLs into `backend/.env` as `DATABASE_URL` and `DIRECT_DATABASE_URL`, respectively. Keep both URLs private.
+2. From the repository root, install the backend dependencies and prepare the database.
+
+   ```bash
+   npm --prefix backend ci
+   npm --prefix backend run db:generate
+   npm --prefix backend run db:migrate
+   npm --prefix backend run db:seed:learning-paths
+   ```
+
+3. Start PrismCode and sign in as an administrator. In **Admin → Learning paths**, create or edit a path, save the draft, then publish it. Archiving hides a path from learners and keeps its revision history. Restore an earlier revision as a draft and publish it to bring that version back.
+
+The seed command inserts missing bundled paths and preserves existing drafts, published revisions, and archived entries. Run it with `-- --check` to validate the source content without a database.
+
+Published learning path edits take effect through the API without a website rebuild. GitHub Actions runs builds and PostgreSQL publishing checks on pushes and pull requests. Once the remaining persistence moves to PostgreSQL, the cloud web service can deploy from `main` after checks pass.
 
 ## Useful commands
 
