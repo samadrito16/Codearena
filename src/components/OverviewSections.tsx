@@ -217,7 +217,7 @@ export function DailyChallengeCard() {
   const challengeProblem = assignment.data.problem;
   const isCompleted = isDailyChallengeCompleted(dailyCompletions, todayKey, challengeProblem?.id);
 
-  if (!challengeProblem) return <Link to="/daily-challenges" className="btn-secondary">Daily Challenges</Link>;
+  if (!challengeProblem) return null;
 
   return (
     <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border p-5 sm:p-7 transition-all duration-300"

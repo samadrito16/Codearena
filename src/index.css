@@ -1253,12 +1253,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   animation: glassDropdownEnter 0.16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.88) 0%,
-    rgba(255, 255, 255, 0.65) 100%
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(255, 255, 255, 0.68) 100%
   ) !important;
-  background-color: rgba(255, 255, 255, 0.72) !important;
-  backdrop-filter: blur(20px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+  backdrop-filter: blur(20px) saturate(200%) brightness(115%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(115%) !important;
   border: 1px solid rgba(226, 232, 240, 0.85) !important;
   box-shadow: 
     0 20px 45px -12px rgba(15, 23, 42, 0.14),
@@ -1276,8 +1275,6 @@ html.dark .glass-dropdown-menu,
     rgba(14, 18, 28, 0.55) 100%
   ) !important;
   background-color: rgba(14, 18, 28, 0.48) !important;
-  backdrop-filter: blur(20px) saturate(200%) brightness(115%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(115%) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
   box-shadow: 
     0 24px 50px -12px rgba(0, 0, 0, 0.75),

@@ -208,7 +208,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Pattern Mastery</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Algorithmic mental models</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Algorithmic mental models</div>
                     </div>
                   </NavLink>
 
@@ -225,7 +225,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Learning Paths</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Step-by-step career tracks</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Step-by-step career tracks</div>
                     </div>
                   </NavLink>
 
@@ -242,7 +242,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Code Editor</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Personal coding workspace</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Personal coding workspace</div>
                     </div>
                   </NavLink>
                 </div>
@@ -283,7 +283,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Problems</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">All practice problems</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">All practice problems</div>
                     </div>
                   </NavLink>
 
@@ -300,7 +300,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Daily Challenges</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Daily curated exercises</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Daily curated exercises</div>
                     </div>
                   </NavLink>
 
@@ -317,7 +317,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Debugging Arena</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Patch broken repos &amp; failing tests</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Patch broken repos &amp; failing tests</div>
                     </div>
                   </NavLink>
 
@@ -339,7 +339,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                           UI·API·SQL
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">GreatFrontEnd practical coding</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">GreatFrontEnd practical coding</div>
                     </div>
                   </NavLink>
 
@@ -361,7 +361,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                           Soon
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Guided real-world builds</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Guided real-world builds</div>
                     </div>
                   </NavLink>
                 </div>
@@ -402,7 +402,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Mock Interview</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Timed proctored coding rounds</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Timed proctored coding rounds</div>
                     </div>
                   </NavLink>
 
@@ -424,7 +424,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                           TCS·Infy
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Company OAs &amp; Aptitude</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Company OAs &amp; Aptitude</div>
                     </div>
                   </NavLink>
                 </div>
@@ -475,7 +475,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Contests</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Weekly proctored campus rounds</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Weekly proctored campus rounds</div>
                     </div>
                   </NavLink>
 
@@ -492,7 +492,7 @@ export default function TopNavbar({ onOpenMobileMenu }: TopNavbarProps) {
                     </div>
                     <div>
                       <div className="font-semibold text-xs text-slate-900 dark:text-white">Leaderboard</div>
-                      <div className="text-[10px] text-slate-500 dark:text-neutral-400">Global coder rankings &amp; streaks</div>
+                      <div className="text-[10px] text-slate-700 dark:text-neutral-400">Global coder rankings &amp; streaks</div>
                     </div>
                   </NavLink>
                 </div>

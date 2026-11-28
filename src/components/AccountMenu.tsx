@@ -103,7 +103,7 @@ export default function AccountMenu({
                   </span>
                 )}
               </div>
-              <p className="truncate text-[10px] text-slate-500 dark:text-neutral-400">{user?.email ?? 'Guest user'}</p>
+              <p className="truncate text-[10px] text-slate-700 dark:text-neutral-400">{user?.email ?? 'Guest user'}</p>
             </div>
 
             {logoutError && (
