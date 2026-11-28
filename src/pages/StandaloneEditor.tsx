@@ -36,6 +36,7 @@ import Tooltip from '../components/ui/Tooltip';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import { EditorLoadingSkeleton } from '../components/ui/LoadingSkeleton';
 import { useEditorPreferences } from '../hooks/useEditorPreferences';
+import { attachLocalAutocomplete, LOCAL_AUTOCOMPLETE_EDITOR_OPTIONS } from '../lib/localAutocomplete';
 
 export type EditorLanguage =
   | 'python'
@@ -330,6 +331,8 @@ ORDER BY solved_count DESC;
   },
 ];
 
+const STANDALONE_AUTOCOMPLETE_LANGUAGES = SUPPORTED_LANGUAGES.map((lang) => lang.monacoLang);
+
 export default function StandaloneEditor() {
   const { palette, theme } = useApp();
   const {
@@ -404,6 +407,14 @@ export default function StandaloneEditor() {
 
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<any>(null);
+  const autocompleteCleanupRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    return () => {
+      autocompleteCleanupRef.current?.();
+      autocompleteCleanupRef.current = null;
+    };
+  }, []);
 
   // Monaco theme registration matching Workspace.tsx
   const editorThemeName = `prismcode-${palette}-${theme}`;
@@ -623,6 +634,12 @@ export default function StandaloneEditor() {
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
+    autocompleteCleanupRef.current?.();
+    autocompleteCleanupRef.current = attachLocalAutocomplete(
+      editor,
+      monaco,
+      STANDALONE_AUTOCOMPLETE_LANGUAGES,
+    );
   };
 
   const saveStatusTitle =
@@ -791,6 +808,7 @@ export default function StandaloneEditor() {
             beforeMount={registerEditorTheme}
             theme={editorThemeName}
             options={{
+              ...LOCAL_AUTOCOMPLETE_EDITOR_OPTIONS,
               minimap: { enabled: editorPrefs.minimap },
               fontSize: editorPrefs.fontSize,
               fontFamily: "'Geist Mono', ui-monospace, SFMono-Regular, monospace",

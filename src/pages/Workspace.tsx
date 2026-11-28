@@ -64,6 +64,8 @@ import { useEditorPreferences } from '../hooks/useEditorPreferences';
 import { useProblemStudyData } from '../hooks/useProblemStudyData';
 import { useProblemTestCases } from '../hooks/useProblemTestCases';
 import { MAX_SPLIT_PERCENT, MIN_SPLIT_PERCENT, useWorkspaceLayout } from '../hooks/useWorkspaceLayout';
+import { WORKSPACE_AUTOCOMPLETE_LANGUAGES } from '../lib/editorSnippets';
+import { attachLocalAutocomplete, LOCAL_AUTOCOMPLETE_EDITOR_OPTIONS } from '../lib/localAutocomplete';
 import { isCodeLanguage, type CodeLanguage } from '../lib/draftStorage';
 import {
   MIN_PRACTICE_SESSION_SECONDS,
@@ -282,7 +284,15 @@ function WorkspaceSession({
   const [activeTracedLine, setActiveTracedLine] = useState<number | null>(null);
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<any>(null);
+  const autocompleteCleanupRef = useRef<(() => void) | null>(null);
   const decorationsRef = useRef<any>(null);
+
+  useEffect(() => {
+    return () => {
+      autocompleteCleanupRef.current?.();
+      autocompleteCleanupRef.current = null;
+    };
+  }, []);
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [pendingLeavePath, setPendingLeavePath] = useState<string | null>(null);
@@ -1185,9 +1195,16 @@ function WorkspaceSession({
             onMount={(editor, monaco) => {
               editorRef.current = editor;
               monacoRef.current = monaco;
+              autocompleteCleanupRef.current?.();
+              autocompleteCleanupRef.current = attachLocalAutocomplete(
+                editor,
+                monaco,
+                WORKSPACE_AUTOCOMPLETE_LANGUAGES,
+              );
             }}
             theme={editorThemeName}
             options={{
+              ...LOCAL_AUTOCOMPLETE_EDITOR_OPTIONS,
               minimap: { enabled: editorPrefs.minimap },
               glyphMargin: true,
               fontSize: editorPrefs.fontSize,
