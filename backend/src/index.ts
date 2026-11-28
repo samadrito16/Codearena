@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import path from 'node:path';
 import { config } from './config.js';
 import { db } from './db/database.js';
 import { contentDatabase } from './db/prisma.js';
@@ -43,6 +44,7 @@ if (config.behindProxy || config.isProduction) {
 // Configure CORS for exact frontend origin with credentials
 const allowedOrigins = [
   config.frontendUrl,
+  process.env.RENDER_EXTERNAL_URL,
   'http://localhost:5173',
   'http://127.0.0.1:5173',
 ];
@@ -107,6 +109,19 @@ app.use('/api/review', reviewRoutes);
 app.use('/api/catalog', catalogRouter);
 app.use('/api/placement', placementRouter);
 app.use('/api', peerSolutionRoutes);
+
+// In production, serve the Vite app from the same origin as the API. This keeps
+// staging simple: one Render web service can host both the UI and backend.
+if (config.isProduction) {
+  const frontendDist = path.resolve(process.cwd(), 'dist');
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path === '/api' || req.path.startsWith('/api/')) return next();
+    res.sendFile(path.join(frontendDist, 'index.html'), (error) => {
+      if (error) next(error);
+    });
+  });
+}
 
 // 404 handler for unknown routes
 app.use((req, res) => {
