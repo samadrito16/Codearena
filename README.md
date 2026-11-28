@@ -1,290 +1,126 @@
 # PrismCode
 
-<p align="center">
-  <strong>Next-Generation Algorithmic Arena, Subgoal Mastery Studio & AI Code Review Platform</strong><br>
-  <em>Engineered for software engineers, competitive coders, and senior technical interviewees.</em>
+PrismCode is a coding practice and interview preparation platform. It brings algorithm practice, guided learning, timed assessments, and code review exercises together with an in-browser editor.
+
+<p>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=20232A" alt="React 18" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript 5" />
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white" alt="Vite 5" />
+  <img src="https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white" alt="Express 4" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
-  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 5" />
-  <img src="https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Monaco_Editor-0.46-1E1E1E?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Monaco Editor" />
-  <img src="https://img.shields.io/badge/Node.js-Express_4-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js Express" />
-  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License" />
-</p>
+## Features
 
----
+- **Coding practice** with a searchable problem library, editorials, daily challenges, and saved progress.
+- **In-browser workspace** with Monaco Editor and support for JavaScript, TypeScript, Python, Java, C++, C, Go, and Rust.
+- **Guided study** with learning paths and algorithm pattern lessons, quizzes, drills, and coding practice.
+- **Interview and placement preparation** with timed assessments, question review, and scorecards.
+- **Code review practice** with multi-file scenarios, inline annotations, hints, and review feedback.
+- **Progress tracking** with activity history, a yearly planner, contests, leaderboard, profiles, and certificates.
+- **Personalized interface** with light and dark modes and selectable color themes.
 
-## ✦ Platform Overview
+## Technology
 
-**PrismCode** is a high-performance algorithmic engineering ecosystem built to bridge the gap between abstract algorithmic practice and real-world senior software engineering. 
+- Frontend: React, TypeScript, Vite, Tailwind CSS, React Router, and Monaco Editor.
+- Backend: Node.js, TypeScript, and Express.
+- Local persistence: a JSON database stored at `backend/data/db.json`.
+- Code execution: JavaScript and TypeScript run in browser workers, Python runs with Pyodide, and compiled languages use the backend execution service.
 
-While traditional platforms focus on isolated, single-function coding snippets, PrismCode provides a multi-dimensional engineering suite:
-- **Cloud Monaco Workspace**: Full-bleed coding environment with multi-language execution, custom test suites, and sub-100ms telemetry across 400+ curated algorithmic challenges.
-- **Subgoal Pattern Mastery Studio**: Deconstructs algorithmic thinking into cognitive blueprints, brute-force bottleneck comparisons, active fill-in recall drills, and in-studio live execution.
-- **AI-Era Code Review Arena**: Audits multi-file broken repositories, concurrency race conditions, and flawed AI-generated PR code for senior engineering interviews.
-- **52-Week Year Planner**: GitHub-style activity heatmaps, weekly roadmap drawers, and momentum streak tracking.
-- **Pure Glassmorphism UX**: Authentic frosted glass modal layers with non-refreshing route persistence, custom typographic scales, and 7 atmospheric themes.
+## Getting started
 
----
+### Requirements
 
-## ⚡ Core Feature Systems
+- Node.js 20 or newer
+- npm
 
-### 1. 🖥️ Full-Bleed Cloud Workspace (`/workspace/:id`)
-- **Monaco Engine**: Powered by the VS Code editor with full syntax highlighting, IntelliSense, auto-indentation, and customizable font hierarchies (JetBrains Mono, Fira Code, Geist, Berkeley Mono).
-- **Multi-Language Runtime Support**: Live code evaluation across **Python 3, JavaScript (Node.js), TypeScript, C++ (G++), and Java (OpenJDK)** with container sandbox integration and local fallback adapters.
-- **Custom Test Case Manager**: Build, edit, and benchmark custom input/output fixtures alongside official test suites with order-invariant diffing.
-- **Sub-100ms Telemetry**: Real-time feedback reporting runtime duration (ms), memory consumption (MB), test case verdicts, and stdout/stderr streams.
-- **Active Practice Timer**: Tracks true engagement duration by filtering out tab inactivity and idle time.
+### Install dependencies
 
----
-
-### 2. 🧠 Subgoal Pattern Mastery Studio (`/mastery`)
-Stop memorizing solutions line-by-line. The **Pattern Mastery Studio** teaches structural algorithmic mental models across 5 foundational paradigms:
-
-```mermaid
-flowchart LR
-    A["Stage 1: Diagnosis & Blueprint\n(Clue Quiz · Bottlenecks · Subgoals)"] --> B["Stage 2: Active Speed Drill\n(3-Min Timed Fill-in of Hardest 25%)"]
-    B --> C["Stage 3: In-Studio Runner\n(Monaco, Live Fixtures, Docked Tray)"]
-    C --> D["Mastery Verified\n(Local Progress & Telemetry)"]
-```
-
-- **5 Core Algorithmic Paradigms**:
-  - `Two Pointers` — Converging and fast/slow traversal over ordered sequences.
-  - `Sliding Window` — Dynamic range expansion, contraction, and contiguous state tracking.
-  - `Hash Maps & Sets` — Amortized O(1) complements, frequency grouping, and prefix sums.
-  - `Dynamic Programming` — Optimal substructure recurrence and state memoization.
-  - `Breadth-First Search` — Level-order state trees and shortest path discovery.
-- **Pattern Diagnosis Gate**: Diagnose problem invariants from trigger clues before unlocking the solution blueprint.
-- **Brute Force vs Optimal Comparison**: Side-by-side complexity benchmarks dissecting why naive approaches fail.
-- **Active Fill-In Speed Drills**: 3-minute timed recall drills testing critical boundary lines (`is_high_risk: true`) with forgiving code normalization and auto-focus progression.
-- **In-Studio Code Runner**: Integrated coding environment with live test fixture injection and docked inline Blueprint Reference trays (Subgoals, Hints, Reference Solutions).
-
----
-
-### 3. 🔍 AI-Era Code Review & Debugging Arena (`/review`)
-The interview format modern AI-native companies (OpenAI, Stripe, Scale AI, Databricks, Anthropic) test most: **auditing pull requests, reviewing AI-generated code, and catching multi-file concurrency bugs.**
-
-- **Multi-File Broken Repositories**: Navigate complex cross-module dependencies, CommonJS/ESM circular exports, and event-bus state mutations.
-- **Concurrency & Event-Loop Audits**: Identify check-then-act hazards in Node.js microtask queues and orphan task socket leaks in Python `asyncio`.
-- **AI-Generation Pitfall Audits**: Spot subtle flaws in Copilot/LLM code (cryptographic algorithm confusion, remainder item drops, silent error swallowing).
-- **Interactive Line Annotation**: Leave code review comments directly on line gutters categorized by `🐛 Bug`, `⚡ Performance`, `🔒 Security`, `🎨 Style`, or `❓ Inquiry`.
-- **Senior Rubric Grader**: Automated evaluation matching annotations against planted defects with keyword/proximity algorithms, percentage scores, and optional Staff Reference Review reveals.
-- **Progressive Hint Ladder**: 3-tier guided hints (Conceptual Scent &rarr; Scope & Boundary &rarr; Root Cause Invariant).
-
----
-
-### 4. 📅 52-Week Year Planner & Activity Heatmap (`/year`, `/progress`)
-- **Full-Year Matrix**: Interactive 52-week calendar grid visualizing daily problem-solving volume.
-- **Interactive Week Drawer**: Inspect weekly focus topics, completed challenges, and problem logs.
-- **Momentum Streak Tracker**: Rolling consistency tracking, velocity scoring, and personal best records.
-
----
-
-### 5. 💎 Pure Glassmorphism Theme Engine & Non-Refreshing Auth
-- **Authentic Frosted Glass UI**: Floating centered modal layers with dual-layer diffusion blur (`backdrop-filter: blur(28px) saturate(180%)`), subtle specular borders, and pill-shaped interactive inputs.
-- **Zero-Flicker Background Location**: Route changes to `/login`, `/register`, or `/forgot-password` preserve the underlying dashboard or problem view with no remounting, scroll resets, or layout shifts.
-- **7 Contrast-Certified Themes**:
-  - `Carbon Pulse` *(Default)* — Sleek graphite with vibrant indigo accents
-  - `Obsidian Onyx` — Velvet obsidian and pure titanium contrast
-  - `Crimson Ember` — Nocturnal ruby with volcanic red contrasts
-  - `Molten Bronze` — Deep slate with burnished amber glow
-  - `Glacial Mist` — High-clarity Arctic blue with cool slate
-  - `Royal Cobalt` — Deep sapphire with vibrant electric blue highlights
-  - `Sandstone Dunes` — Earthy ochre with warm desert highlights
-- **Universal WCAG AA Compliance**: Dynamic CSS variable bindings across Dark and Light modes.
-
----
-
-## 🏗️ Technical Architecture
-
-```
-PrismCode Platform
-├── Frontend (prismcode-frontend)
-│   ├── React 18.3 & TypeScript 5.7
-│   ├── Vite 5.4 (High-speed HMR & Rollup bundling)
-│   ├── Tailwind CSS 3.4 (Design tokens & atmospheric CSS variables)
-│   ├── @monaco-editor/react (VS Code editor engine)
-│   ├── Lucide React (Streamlined SVG iconography)
-│   ├── GSAP (Hardware-accelerated layout transitions)
-│   └── React Router DOM 6.28 (Background location overlay routing)
-│
-└── Backend API (prismcode-backend)
-    ├── Express 4.21 & TypeScript 5.7 (tsx runtime engine)
-    ├── Atomic Database Storage (backend/data/db.json)
-    ├── OnlineCompiler.io Execution Adapter & Local Fallback
-    ├── BcryptJS & Secure Session Cookies
-    ├── Express Rate Limit & Security Middleware
-    └── Zod 3.24 (Type-safe schema validation)
-```
-
----
-
-## 📁 Repository Directory Structure
-
-```
-Codearena/
-├── index.html                   # HTML entry point with theme bootstrap script
-├── package.json                 # Frontend dependencies & scripts
-├── vite.config.ts               # Vite bundler configuration
-├── tailwind.config.js           # Design system tokens & animations
-├── start-prismcode.bat          # One-click Windows launch script
-│
-├── src/
-│   ├── components/
-│   │   ├── auth/                # RequireAuth, RequireRole, ExpiredSessionModal
-│   │   ├── mastery/             # SubgoalBlueprintViewer, ActiveFillInDrill, MasteryCodeRunner, PatternClueQuiz
-│   │   ├── review/              # FileDiffViewer, AnnotationPanel, RubricGrader, HintLadder, ScenarioCard
-│   │   ├── ui/                  # Accessible modals, empty states, loading skeletons
-│   │   ├── Layout.tsx           # Global app shell with responsive drawer
-│   │   ├── TopNavbar.tsx        # Top navigation with Learn & Practice dropdowns
-│   │   └── SolutionsPanel.tsx   # Workspace progressive hints & editorials
-│   ├── context/                 # AppContext (theme, palette), AuthContext, UiContext
-│   ├── data/
-│   │   ├── mastery/             # 25 Core Algorithmic Blueprints catalog
-│   │   ├── review/              # AI-era review scenario definitions
-│   │   ├── editorials.ts        # Static editorial walkthroughs & hints
-│   │   └── platformRoadmap.ts   # Platform roadmap feature cards
-│   ├── lib/
-│   │   ├── mastery/             # Mastery catalog helpers & localStorage progress store
-│   │   ├── review/              # Review catalog helpers & localStorage progress store
-│   │   ├── api.ts               # Authenticated API fetch client
-│   │   └── storage.ts           # Safe localStorage accessors
-│   ├── pages/
-│   │   ├── Dashboard.tsx        # Public Overview with roadmap cards & stats
-│   │   ├── MasteryHub.tsx       # 5 Pattern tracks overview
-│   │   ├── MasteryStudio.tsx    # 3-Stage Mastery Studio (Study · Drill · Code)
-│   │   ├── ReviewHub.tsx        # Code Review Arena catalog & filters
-│   │   ├── ReviewStudio.tsx     # Code Review 2-pane workspace & diff viewer
-│   │   ├── Workspace.tsx        # Monaco IDE coding environment
-│   │   ├── Problems.tsx         # Filterable practice problem table
-│   │   ├── DailyChallenges.tsx  # Daily pacing challenges
-│   │   ├── YearPlanner.tsx      # 52-Week calendar matrix
-│   │   ├── Leaderboard.tsx      # Global rankings & percentiles
-│   │   ├── Settings.tsx         # Appearance, fonts & privacy settings
-│   │   └── Auth.tsx             # Pure frosted glass authentication modal
-│   └── services/                # Execution service, problem cache, editorials API
-│
-└── backend/
-    ├── package.json             # Backend dependencies & scripts
-    ├── .env.example             # Environment variable template
-    ├── data/db.json             # Atomic local database storage
-    └── src/
-        ├── index.ts             # Express server bootstrap
-        ├── routes/              # Modular API controllers (auth, submissions, problems, admin)
-        └── services/            # Code execution engine & email dispatchers
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- **Node.js**: v18.0.0 or later (v20+ recommended)
-- **npm**: v9.0.0 or later
-
-### Quick Start (Windows One-Click)
-Double-click:
-```bat
-start-prismcode.bat
-```
-*Automatically verifies environment dependencies, installs missing packages, and launches both frontend and backend.*
-
----
-
-### Manual Setup
-
-#### 1. Clone & Install Dependencies
 ```bash
-# Clone the repository
 git clone https://github.com/samadrito16/PrismCode.git
 cd PrismCode
-
-# Install Frontend Dependencies
 npm install
-
-# Install Backend Dependencies
-cd backend
-npm install
-cd ..
+npm --prefix backend install
 ```
 
-#### 2. Configure Environment Variables
+Create the backend environment file from the example.
+
 ```bash
-cd backend
-copy .env.example .env
+# macOS or Linux
+cp backend/.env.example backend/.env
+
+# Windows PowerShell
+Copy-Item backend/.env.example backend/.env
 ```
 
-| Variable | Description | Default |
-| :--- | :--- | :--- |
-| `PORT` | Backend server port | `8000` |
-| `FRONTEND_URL` | Allowed CORS origin | `http://localhost:5173` |
-| `SESSION_SECRET` | Cookie signing secret | `prismcode_default_session_secret` |
-| `ONLINECOMPILER_API_KEY` | *(Optional)* Remote compiler API key | `""` *(Uses local sandbox)* |
-| `CLERK_PUBLISHABLE_KEY` | *(Optional)* Clerk publishable key | `""` |
-| `CLERK_SECRET_KEY` | *(Optional)* Clerk secret key | `""` |
+### Configure the backend
 
-#### 3. Run Development Servers
-In Terminal 1 (Backend API):
+The backend reads settings from `backend/.env`. Defaults start the API at `http://localhost:8000` and allow the Vite app at `http://localhost:5173`.
+
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | Backend port. Defaults to `8000`. |
+| `FRONTEND_URL` | Frontend origin allowed by the API. Defaults to `http://localhost:5173`. |
+| `SESSION_SECRET` | Session signing secret. Use a unique secret of at least 32 characters for production. |
+| `ONLINECOMPILER_API_KEY` | Enables isolated backend execution for compiled languages. |
+| `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` | Enable Clerk authentication. |
+| `RESEND_API_KEY` | Enables verification and password reset emails through Resend. Without it, links are not emailed. |
+
+The frontend uses `VITE_API_BASE_URL` from a root `.env` file if you need to change the API URL. Its default is `http://localhost:8000/api`. When using Clerk, also set `VITE_CLERK_PUBLISHABLE_KEY` in the root `.env` and use the matching Clerk keys in `backend/.env`.
+
+Backend execution uses an isolated OnlineCompiler service when `ONLINECOMPILER_API_KEY` is configured. Local execution of submitted code on the backend is disabled by default. JavaScript and TypeScript browser execution runs in workers, while Python uses Pyodide in WebAssembly.
+
+Keep `.env` files and API keys private. The example file contains development placeholders and should not be used as a production configuration.
+
+### Start the app
+
+Run the backend and frontend in separate terminals from the project root.
+
 ```bash
-cd backend
+# Terminal 1
+npm --prefix backend run dev
+```
+
+```bash
+# Terminal 2
 npm run dev
 ```
-*API running at `http://localhost:8000`.*
 
-In Terminal 2 (Frontend Client):
-```bash
-npm run dev
-```
-*Frontend running at `http://localhost:5173`.*
+Open the local address printed by Vite, usually `http://localhost:5173`. The backend health endpoint is available at `http://localhost:8000/api/health`.
 
----
+## Useful commands
 
-## 🔑 Default Accounts
+Run these commands from the project root.
 
-| Role | Email | Password | Permissions |
-| :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@prismcode.com` | `Admin123!` | Full admin dashboard, problem CRUD, audit logs |
-| **Developer User** | `alex@example.com` | `Alex123!` | Personal practice workspace, progress telemetry |
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server. |
+| `npm run build` | Type-check and build the frontend. |
+| `npm run preview` | Preview the built frontend locally. |
+| `npm --prefix backend run dev` | Start the API in watch mode. |
+| `npm --prefix backend run build` | Compile the backend TypeScript. |
+| `npm --prefix backend test` | Run the backend test suite. |
+| `npm --prefix backend run test:catalog` | Build the backend and run question catalog tests. |
 
----
+## Project layout
 
-## 🧪 Verification & Build
-
-```bash
-# Verify TypeScript types and compile frontend:
-npm run build
-
-# Verify Backend builds:
-cd backend
-npm run build
-cd ..
-```
-
----
-
-## 📄 License & Ownership
-
-PrismCode is open-source software licensed under the [MIT License](LICENSE).
-
-<p align="center">
-  <sub>Designed & Engineered with care for <strong>PrismCode</strong> developers.</sub>
-</p>
-
-## Question publication
-
-Publish Practice, Daily, Interview, Placement coding, and Contest questions through the backend question catalog. Give each question one owner and a stable task key. Reuse that key in duplicate reviews when two prompts test the same underlying task. A language variant belongs to the original question.
-
-Placement mocks and contest schedules refer to the canonical coding IDs. Learning Paths link to Practice IDs. Mastery, Review, and role specific items are listed in the section manifest. Keep official tests on the server and use the public examples for in-editor runs.
-
-Run the catalog and HTTP tests before publishing. Run the reference check with Python installed and set `PRISMCODE_PYTHON` if your Python executable is not on PATH.
-
-```sh
-npm --prefix backend run test:catalog
-npm --prefix backend run test:catalog:references
-npm --prefix backend run test:catalog:review
+```text
+.
+├── src/
+│   ├── components/   # Shared UI and feature components
+│   ├── context/      # Authentication, UI, and app state
+│   ├── data/         # Problem, learning, interview, and review content
+│   ├── pages/        # Route-level screens
+│   ├── services/     # Frontend API and code execution clients
+│   └── lib/          # Shared application utilities
+└── backend/
+    ├── src/
+    │   ├── routes/   # API endpoints
+    │   ├── services/ # Authentication, email, and execution services
+    │   └── db/       # JSON database implementation
+    ├── data/         # Local database and catalog data
+    └── tests/        # Backend test suite
 ```
 
-The first launch against an existing database resets progress associated with the retired catalog. Verify the migration on a copy of the database before releasing it. The Admin dashboard stages drafts for repository review.
+## Contributing
+
+Bug reports and pull requests are welcome. For larger changes, open an issue first so the scope can be discussed. Please avoid committing environment files, API keys, or local database data.
